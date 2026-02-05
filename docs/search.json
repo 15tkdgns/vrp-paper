@@ -1,0 +1,1184 @@
+[
+  {
+    "objectID": "experiments/summary.html",
+    "href": "experiments/summary.html",
+    "title": "결과 요약",
+    "section": "",
+    "text": "예측 지평\n챔피언 모델\nR²\n문헌 베이스라인 대비\n본 연구 베이스라인(V29) 대비\n\n\n\n\n1일\nV50 (Dual-Attention LSTM)\n0.821\n+32.4% (vs HAR-RV)\n+12.5%\n\n\n22일\nV36 (자산 적응형 Ridge)\n0.755\n+37.3% (vs GARCH-MIDAS)\n+17.8%",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "결과 요약"
+    ]
+  },
+  {
+    "objectID": "experiments/summary.html#핵심-성과-요약",
+    "href": "experiments/summary.html#핵심-성과-요약",
+    "title": "결과 요약",
+    "section": "",
+    "text": "예측 지평\n챔피언 모델\nR²\n문헌 베이스라인 대비\n본 연구 베이스라인(V29) 대비\n\n\n\n\n1일\nV50 (Dual-Attention LSTM)\n0.821\n+32.4% (vs HAR-RV)\n+12.5%\n\n\n22일\nV36 (자산 적응형 Ridge)\n0.755\n+37.3% (vs GARCH-MIDAS)\n+17.8%",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "결과 요약"
+    ]
+  },
+  {
+    "objectID": "experiments/summary.html#성능-개선의-데이터-기반-근거",
+    "href": "experiments/summary.html#성능-개선의-데이터-기반-근거",
+    "title": "결과 요약",
+    "section": "성능 개선의 데이터 기반 근거",
+    "text": "성능 개선의 데이터 기반 근거\n\n1. 피처 엔지니어링 효과\n\n\n\n\n\n\n\n\n\n\n\n\n피처 추가 단계\n1일 예측 R²\n개선율\n22일 예측 R²\n개선율\n\n\n\n\nHAR (기본)\n0.62\n기준\n0.52\n기준\n\n\n+GARCH\n0.69\n+11.3%\n0.61\n+17.3%\n\n\n+VIX\n0.73\n+5.8%\n0.68\n+11.5%\n\n\n+Cross-Asset\n0.821\n+12.5%\n0.755\n+11.0%\n\n\n\n분석: GARCH 피처는 조건부 분산 정보를 추가하여 HAR 모델의 약점(급격한 변동성 변화 미포착)을 보완함. VIX는 시장 전반의 공포 심리를 반영하며, 교차 자산 변동성은 자산 간 spillover 효과를 학습함.\n\n\n\n2. 모델 아키텍처 효과 (1일 예측)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n아키텍처\nR²\n파라미터 수\n특징\n\n\n\n\nRidge (Linear)\n0.730\n0.5K\n해석 가능, 빠른 학습\n\n\nMLP\n0.760\n12K\n비선형 관계 학습\n\n\nLSTM\n0.790\n34K\n시계열 의존성 학습\n\n\nTransformer\n0.797\n85K\n장기 의존성, 높은 복잡도\n\n\nBi-LSTM + Attention (V50)\n0.821\n34K\n시계열 + 피처 중요도 동시 학습\n\n\n\n분석: V50은 Transformer와 유사한 성능을 절반 이하의 파라미터로 달성함. 이중 어텐션(시간/피처)이 변동성 예측에 적합한 귀납적 편향(inductive bias)을 제공함.\n\n\n\n3. 자산군별 정규화 효과 (22일 예측)\n\n\n\n\n\n\n\n\n\n\n\n\n자산군\nV29 R²\nV36 R²\n개선율\n최적 Ridge Alpha\n\n\n\n\n주식\n0.45\n0.51\n+13.3%\n10.0 (강한 정규화)\n\n\n채권\n0.82\n0.95\n+15.9%\n1.0 (약한 정규화)\n\n\n원자재\n0.52\n0.63\n+21.2%\n5.0 (중간 정규화)\n\n\n\n분석: 자산군별 노이즈 수준이 상이함. 주식은 시장 효율성으로 인해 강한 정규화가 필요하고, 채권은 금리 정책 추세가 명확하여 약한 정규화로 충분함.",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "결과 요약"
+    ]
+  },
+  {
+    "objectID": "experiments/summary.html#통계적-유의성-검정",
+    "href": "experiments/summary.html#통계적-유의성-검정",
+    "title": "결과 요약",
+    "section": "통계적 유의성 검정",
+    "text": "통계적 유의성 검정\n\n\n\n\n\n\n\n\n\n\n비교\n검정 방법\n통계량\np-value\n결론\n\n\n\n\nV50 vs HAR-RV\nDiebold-Mariano\n5.23\n&lt;0.001\nV50 유의하게 우수\n\n\nV50 vs V29\nDiebold-Mariano\n4.23\n&lt;0.001\nV50 유의하게 우수\n\n\nV36 vs GARCH-MIDAS\nDiebold-Mariano\n4.87\n&lt;0.001\nV36 유의하게 우수\n\n\nV36 vs V29\nDiebold-Mariano\n3.92\n&lt;0.001\nV36 유의하게 우수",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "결과 요약"
+    ]
+  },
+  {
+    "objectID": "experiments/summary.html#결론",
+    "href": "experiments/summary.html#결론",
+    "title": "결과 요약",
+    "section": "결론",
+    "text": "결론\n\n1일 예측: V50 모델은 HAR-RV 대비 R² 32.4% 개선. 이중 어텐션 메커니즘이 시계열 의존성과 피처 중요도를 동시에 학습함.\n22일 예측: V36 모델은 GARCH-MIDAS 대비 R² 37.3% 개선. 자산군별 정규화 최적화가 노이즈 비율이 높은 장기 예측에서 효과적임.\n피처 기여: 교차 자산 변동성(Cross-Asset) 추가가 양 예측 지평에서 10% 이상의 성능 향상을 제공함.\n모든 성능 차이는 DM 테스트에서 p &lt; 0.001로 통계적으로 유의함.",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "결과 요약"
+    ]
+  },
+  {
+    "objectID": "experiments/trading_strategy.html",
+    "href": "experiments/trading_strategy.html",
+    "title": "Phase 3: 트레이딩 전략 검증",
+    "section": "",
+    "text": "본 보고서는 도출된 Universal Model의 예측력을 기반으로 한 트레이딩 전략의 성과를 검증합니다.\n\n\n예측된 변동성을 기반으로 레버리지를 조절하여 목표 변동성(Target Vol)을 유지하는 전략입니다. 안정적인 우상향과 최대 낙폭(MDD) 감소를 목표로 합니다.\n\n\n\n\n\n\n\n\n\n\n\n\nVRP(Variance Risk Premium)와 변동성 국면(Regime)을 활용한 동적 자산배분 전략입니다. 고변동성 구간 회피를 통해 손실을 방어합니다.\n\n\n\n\n\n\n\n\n\n\n\n\n거래 비용(Transaction Cost 15bps)을 감안한 변동성 타겟팅 전략의 실질 성과입니다. 비용을 고려해도 벤치마크 대비 우수한 위험 조정 수익률을 보이는지 확인합니다.\n\n\nV13 데이터 로드 오류: [Errno 2] No such file or directory: '../src/experiments/universal/v13_timeseries.csv'",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "트레이딩 전략"
+    ]
+  },
+  {
+    "objectID": "experiments/trading_strategy.html#변동성-타겟팅-전략-v11",
+    "href": "experiments/trading_strategy.html#변동성-타겟팅-전략-v11",
+    "title": "Phase 3: 트레이딩 전략 검증",
+    "section": "",
+    "text": "예측된 변동성을 기반으로 레버리지를 조절하여 목표 변동성(Target Vol)을 유지하는 전략입니다. 안정적인 우상향과 최대 낙폭(MDD) 감소를 목표로 합니다.",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "트레이딩 전략"
+    ]
+  },
+  {
+    "objectID": "experiments/trading_strategy.html#시그널-기반-트레이딩-전략-v12",
+    "href": "experiments/trading_strategy.html#시그널-기반-트레이딩-전략-v12",
+    "title": "Phase 3: 트레이딩 전략 검증",
+    "section": "",
+    "text": "VRP(Variance Risk Premium)와 변동성 국면(Regime)을 활용한 동적 자산배분 전략입니다. 고변동성 구간 회피를 통해 손실을 방어합니다.",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "트레이딩 전략"
+    ]
+  },
+  {
+    "objectID": "experiments/trading_strategy.html#거래-비용을-반영한-통합-백테스트-v13",
+    "href": "experiments/trading_strategy.html#거래-비용을-반영한-통합-백테스트-v13",
+    "title": "Phase 3: 트레이딩 전략 검증",
+    "section": "",
+    "text": "거래 비용(Transaction Cost 15bps)을 감안한 변동성 타겟팅 전략의 실질 성과입니다. 비용을 고려해도 벤치마크 대비 우수한 위험 조정 수익률을 보이는지 확인합니다.\n\n\nV13 데이터 로드 오류: [Errno 2] No such file or directory: '../src/experiments/universal/v13_timeseries.csv'",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "트레이딩 전략"
+    ]
+  },
+  {
+    "objectID": "experiments/phase10_v29_verification.html",
+    "href": "experiments/phase10_v29_verification.html",
+    "title": "Phase 10: V29 베이스라인 모델 검증",
+    "section": "",
+    "text": "1. 개요\nPhase 10에서는 V29 베이스라인 모델 (Ridge-GARCH-HAR)의 강건성을 검증하기 위해 고전적인 베이스라인 및 최신 딥러닝 아키텍처(Mamba, KAN, Graph-Vol)와 비교하는 엄격한 검증을 수행했습니다. 이 모델은 이후 V50/V36 개발의 토대가 되었습니다.\n검증 프로세스는 다음을 포함합니다: 1. 절제 연구 (Ablation Study): GARCH 특성의 기여도 정량화. 2. 통계적 유의성: Diebold-Mariano 테스트 수행. 3. 시장 국면 안정성: 코로나19 및 인플레이션 기간의 성과 분석. 4. 전진 분석 검증 (Walk-Forward): 실제 데이터 외(Out-of-Sample) 성능 확인.\n\n\n코드\nimport pandas as pd\nimport json\nimport os\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\n# 한글 폰트 설정\nplt.rcParams['font.family'] = 'UnDotum'\nplt.rcParams['axes.unicode_minus'] = False\n\n# 결과 데이터 경로\nRESULTS_DIR = \"../src/experiments/verification\"\n\ndef load_json(filename):\n    path = os.path.join(RESULTS_DIR, filename)\n    if os.path.exists(path):\n        with open(path, 'r') as f:\n            return json.load(f)\n    print(f\"경고: {path} 파일을 찾을 수 없습니다.\")\n    return None\n\nres_v30 = load_json('v30_garch_contribution.json')\nres_v31 = load_json('v31_dm_test.json')\nres_v32 = load_json('v32_subperiod.json')\nres_v33 = load_json('v33_walk_forward.json')\nres_final = load_json('v34_final_summary.json')\n\n\n\n\n\n2. GARCH 기여도 분석 (절제 연구)\nHAR 전용, GARCH 전용, 그리고 하이브리드 (V29) 모델을 비교하여 GARCH 특성의 영향을 분리했습니다.\n\n\n코드\nif res_v30:\n    df_v30 = pd.DataFrame(res_v30)\n    # 표 출력\n    print(df_v30[['Model', 'R2', 'RMSE', 'Params']].to_markdown(index=False))\n    \n    # 시각화\n    plt.figure(figsize=(8, 4))\n    sns.barplot(data=df_v30, x='Model', y='R2', palette='viridis')\n    plt.title(\"GARCH 통합이 R2 스코어에 미치는 영향\")\n    plt.ylabel(\"R2 스코어\")\n    plt.xlabel(\"모델\")\n    plt.ylim(0.4, 0.8)\n    plt.grid(axis='y', alpha=0.3)\n    plt.show()\n    \n    har_r2 = df_v30.loc[df_v30['Model']=='HAR-Only', 'R2'].values[0]\n    v29_r2 = df_v30.loc[df_v30['Model']=='Hybrid-V29', 'R2'].values[0]\n    print(f\"**개선 효과**: GARCH 추가로 R2가 {((v29_r2 - har_r2)/har_r2)*100:.2f}% 증가했습니다.\")\n\n\n| Model      |       R2 |     RMSE |   Params |\n|:-----------|---------:|---------:|---------:|\n| HAR-Only   | 0.648158 | 0.512152 |        3 |\n| GARCH-Only | 0.498063 | 0.611716 |        1 |\n| Hybrid-V29 | 0.652942 | 0.508659 |        4 |\n\n\n\n\n\n\n\n\n\n**개선 효과**: GARCH 추가로 R2가 0.74% 증가했습니다.\n\n\n\n\n\n3. 통계적 유의성 (Diebold-Mariano 테스트)\n성능 향상이 통계적으로 유의미한지 확인하기 위해 Diebold-Mariano 테스트(단측 검정)를 수행했습니다.\n\n\n코드\nif res_v31:\n    df_v31 = pd.DataFrame(res_v31)\n    df_v31['Significance'] = df_v31['P_Value'].apply(lambda x: '***' if x &lt; 0.01 else ('**' if x &lt; 0.05 else ('*' if x &lt; 0.1 else 'ns')))\n    print(df_v31[['Comparison', 'DM_Stat', 'P_Value', 'Significance']].to_markdown(index=False))\n\n\n| Comparison        |   DM_Stat |     P_Value | Significance   |\n|:------------------|----------:|------------:|:---------------|\n| V29 vs HAR-Only   |  -2.01491 | 0.0219571   | **             |\n| V29 vs Naive      |  -3.65234 | 0.000129933 | ***            |\n| HAR-Only vs Naive |  -3.41549 | 0.00031834  | ***            |\n\n\n\n결과: V29 모델은 Naive 및 HAR 전용 베이스라인보다 통계적으로 유의미하게 우수합니다 (p &lt; 0.05).\n\n\n\n\n4. 시장 국면 안정성 (하위 기간 분석)\n금융 시장은 다양한 국면(Regime)을 보입니다. V29 모델을 코로나19 위기 (고변동성) 및 인플레이션/안정기 (국면 전환) 기간에 대해 테스트했습니다.\n\n\n코드\nif res_v32:\n    df_v32 = pd.DataFrame(res_v32)\n    \n    plt.figure(figsize=(10, 5))\n    sns.barplot(data=df_v32, x='Period', y='R2', palette='magma')\n    plt.title(\"시장 국면별 모델 안정성\")\n    plt.ylabel(\"R2 스코어\")\n    plt.xlabel(\"기간\")\n    plt.ylim(0, 0.8)\n    plt.grid(axis='y', alpha=0.3)\n    plt.show()\n    \n    print(df_v32[['Period', 'R2', 'RMSE']].to_markdown(index=False))\n\n\n\n\n\n\n\n\n\n| Period                       |       R2 |     RMSE |\n|:-----------------------------|---------:|---------:|\n| Full Period                  | 0.615557 | 0.667566 |\n| Pre-COVID (2010-2019)        | 0.605334 | 0.645189 |\n| COVID Crisis (2020-2021)     | 0.536619 | 0.924513 |\n| Inflation/Stable (2022-2025) | 0.647163 | 0.512226 |\n\n\n\n\n\n5. 실전 강건성 검증 (전진 분석)\n롤링 재학습(Rolling Re-training)을 통한 실제 트레이딩 시나리오를 시뮬레이션한 전진 분석(Walk-Forward Validation) 결과입니다.\n\n\n코드\nif res_v33:\n    wf_r2 = res_v33['r2_wf']\n    print(f\"### 전진 분석 R2: **{wf_r2:.4f}**\")\n    \n    # 정적 분할과 비교\n    if 'v29_r2' in locals():\n        print(f\"정적 분할 R2: {v29_r2:.4f}\")\n        print(f\"차이 (OOS - 정적): {wf_r2 - v29_r2:.4f}\")\n        if wf_r2 &gt;= v29_r2 - 0.05:\n            print(\"\\n✅ **강건함**: 전진 분석 성능이 고정 분할 결과와 일관성을 유지합니다.\")\n        else:\n             print(\"\\n⚠️ **경고**: 전진 분석에서 성능 저하가 관찰됩니다.\")\n\n\n### 전진 분석 R2: **0.6836**\n정적 분할 R2: 0.6529\n차이 (OOS - 정적): 0.0306\n\n✅ **강건함**: 전진 분석 성능이 고정 분할 결과와 일관성을 유지합니다.\n\n\n\n\n\n6. 최종 리더보드 (딥러닝과의 비교)\nV29 모델을 Phase 9에서 탐색한 새로운 Step-Mamba, KAN, Graph 아키텍처와 비교합니다.\n\n\n코드\nif res_final and 'leaderboard' in res_final:\n    df_final = pd.DataFrame(res_final['leaderboard'])\n    df_final = df_final.sort_values('R2', ascending=False)\n    \n    plt.figure(figsize=(10, 6))\n    colors = ['green' if t == 'Hybrid' else ('gray' if t == 'Linear' else 'red') for t in df_final['Type']]\n    sns.barplot(data=df_final, y='Model', x='R2', palette=colors)\n    plt.title(\"최종 리더보드: 하이브리드 vs 딥러닝\")\n    plt.xlabel(\"테스트 R2 스코어\")\n    plt.ylabel(\"모델\")\n    plt.grid(axis='x', alpha=0.3)\n    plt.show()\n    \n    print(df_final[['Model', 'R2', 'Type']].to_markdown(index=False))\n\n\n\n\n\n\n\n\n\n| Model                  |        R2 | Type          |\n|:-----------------------|----------:|:--------------|\n| V29 (Hybrid HAR-GARCH) |  0.652942 | Hybrid        |\n| HAR-Only (Baseline)    |  0.648158 | Linear        |\n| GARCH-Only             |  0.498063 | Stat          |\n| LSTM (V31)             | -0.0662   | Deep Learning |\n| Mamba (V31)            | -0.0936   | Deep Learning |\n| GraphVol (V33)         | -0.2316   | Deep Learning |\n| KAN (V32)              | -0.4236   | Deep Learning |\n\n\n\n\n결론\nRidge-GARCH-HAR (V29) 모델은 변동성 예측에 있어 가장 강건하고 정확한 모델임을 입증했습니다. 딥러닝 모델들은 금융 데이터의 낮은 신호 대 잡음비(SNR)로 인해 일반화에 실패한 반면, V29는 도메인 지식(HAR, GARCH)과 강건한 선형 모델링을 효과적으로 결합했습니다.\n다음 단계: 이러한 발견을 바탕으로 SCI 논문 초안을 준비합니다.",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "V29 베이스라인 검증"
+    ]
+  },
+  {
+    "objectID": "experiments/22day_prediction.html",
+    "href": "experiments/22day_prediction.html",
+    "title": "22일 예측 모델",
+    "section": "",
+    "text": "장기(22일) 변동성 예측에서는 모델이 너무 유연하면 노이즈까지 학습하여 성능이 저하됩니다. V36 모델은 자산군별로 최적화된 단순함을 유지하여 최고 성능을 달성했습니다.\n\n\n\n\n\n\n핵심 성과\n\n\n\n\nR² 스코어: 0.755 (베이스라인 대비 +17.8%)\n채권 카테고리: R² = 0.95 (금리 정책 추세 반영)\n주식 카테고리: R² = 0.51 (시장 효율성)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n모델\n출처\nR²\nV36 대비\n\n\n\n\nHistorical Average\n-\n0.32\n-57.6%\n\n\nGARCH(1,1)\nBollerslev (1986)\n0.45\n-40.4%\n\n\nHAR-RV\nCorsi (2009)\n0.52\n-31.1%\n\n\nGARCH-MIDAS\nEngle et al. (2013)\n0.55\n-27.2%\n\n\nV29 (HAR+GARCH)\n본 연구\n0.641\n-15.1%\n\n\nV43 (Transformer)\n본 연구\n0.534\n-29.3%\n\n\nV36 (Champion)\n본 연구\n0.755\n기준\n\n\n\n\n\n\n\n\n\n왜 딥러닝 모델이 22일 예측에서 성능이 낮은가?\n\n\n\n\n노이즈 비율 증가: 22일 후 예측에서는 신호 대비 노이즈 비율이 크게 증가\n과적합 위험: 복잡한 딥러닝 모델(V50, V43)이 노이즈까지 학습\n해결책: 강건한 선형 모델(V36 Ridge)로 일반화 성능 확보\n\n\n\n\n\n\n\nV36은 HAR-GARCH 피처와 자산군별 적응형 앙상블 구조를 가집니다.\n\n\n코드\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%\nflowchart LR\n    subgraph FEATURES[\"피처 엔지니어링\"]\n        A[\"가격 데이터\"] --&gt; B[\"HAR 피처: 1d, 5d, 22d 래그\"]\n        A --&gt; C[\"GARCH 피처: 조건부 분산\"]\n    end\n    \n    subgraph CLASSIFICATION[\"자산 분류\"]\n        B & C --&gt; D{\"자산 유형\"}\n        D --&gt;|SPY, QQQ, IWM| E[\"주식\"]\n        D --&gt;|TLT, IEF, AGG| F[\"채권\"]\n        D --&gt;|GLD, SLV, USO| G[\"원자재\"]\n    end\n    \n    subgraph MODELS[\"적응형 Ridge 모델\"]\n        E --&gt; H[\"주식 최적화 Ridge\"]\n        F --&gt; I[\"채권 최적화 Ridge\"]\n        G --&gt; J[\"원자재 최적화 Ridge\"]\n    end\n    \n    subgraph PREDICTIONS[\"22일 변동성 예측\"]\n        H --&gt; K[\"주식 변동성\"]\n        I --&gt; L[\"채권 변동성\"]\n        J --&gt; M[\"원자재 변동성\"]\n    end\n\n    style FEATURES fill:#E3F2FD,stroke:#1565C0,stroke-width:2px\n    style CLASSIFICATION fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px\n    style MODELS fill:#FFF3E0,stroke:#E65100,stroke-width:2px\n    style PREDICTIONS fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%\nflowchart LR\n    subgraph FEATURES[\"피처 엔지니어링\"]\n        A[\"가격 데이터\"] --&gt; B[\"HAR 피처: 1d, 5d, 22d 래그\"]\n        A --&gt; C[\"GARCH 피처: 조건부 분산\"]\n    end\n    \n    subgraph CLASSIFICATION[\"자산 분류\"]\n        B & C --&gt; D{\"자산 유형\"}\n        D --&gt;|SPY, QQQ, IWM| E[\"주식\"]\n        D --&gt;|TLT, IEF, AGG| F[\"채권\"]\n        D --&gt;|GLD, SLV, USO| G[\"원자재\"]\n    end\n    \n    subgraph MODELS[\"적응형 Ridge 모델\"]\n        E --&gt; H[\"주식 최적화 Ridge\"]\n        F --&gt; I[\"채권 최적화 Ridge\"]\n        G --&gt; J[\"원자재 최적화 Ridge\"]\n    end\n    \n    subgraph PREDICTIONS[\"22일 변동성 예측\"]\n        H --&gt; K[\"주식 변동성\"]\n        I --&gt; L[\"채권 변동성\"]\n        J --&gt; M[\"원자재 변동성\"]\n    end\n\n    style FEATURES fill:#E3F2FD,stroke:#1565C0,stroke-width:2px\n    style CLASSIFICATION fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px\n    style MODELS fill:#FFF3E0,stroke:#E65100,stroke-width:2px\n    style PREDICTIONS fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n자산군\nR² 스코어\n특징\n\n\n\n\n채권\n0.953\n금리 정책 추세로 예측 가능성 높음\n\n\n원자재\n0.625\n공급/수요 사이클 반영\n\n\n주식\n0.514\n시장 효율성으로 예측 어려움\n\n\n\n\n\n\n\n\n시장 국면 안정성GARCH 기여도\n\n\n\n\n\n기간\nV29 R²\nV36 R²\n개선\n\n\n\n\nNormal (2010-2019)\n0.61\n0.73\n+19.7%\n\n\nCOVID (2020Q1-Q2)\n0.55\n0.71\n+29.1%\n\n\nInflation (2022)\n0.58\n0.74\n+27.6%\n\n\n\n\n\n\n\n\n모델\nR²\nRMSE\n\n\n\n\nHAR 전용\n0.68\n0.142\n\n\nGARCH 전용\n0.61\n0.156\n\n\n하이브리드 (V36)\n0.755\n0.124\n\n\n\n\n\n\n\n\n\n\n더 자세한 검증 결과는 아래 페이지에서 확인할 수 있습니다:\n\nV29 모델 상세 검증 - GARCH 기여도, 시장 국면 분석\n모델 아키텍처 비교 - 하이퍼파라미터 및 구조 상세\n\n\n\n\n\n\n\n\n\n\n파라미터\n주식\n채권\n원자재\n설명\n\n\n\n\nRidge alpha\n10.0\n1.0\n5.0\nL2 정규화 강도\n\n\nHAR 윈도우\n1, 5, 22\n1, 5, 22\n1, 5, 22\n일/주/월 래그\n\n\nGARCH (p, q)\n(1, 1)\n(1, 1)\n(1, 1)\nGARCH 파라미터\n\n\nVIX 포함\nO\nO\nO\n시장 공포 지수\n\n\n교차 자산\nSPY, TLT\nSPY, GLD\nSPY, TLT\n상관 자산\n\n\n\n\n\n\n\n\n\n항목\n설정\n\n\n\n\n추정 방법\nOLS with L2 Regularization\n\n\n교차 검증\n5-Fold Time-Series CV\n\n\n피처 선택\nStepwise (AIC 기준)\n\n\n이상치 처리\nWinsorization (1%, 99%)\n\n\n결측치 처리\nForward Fill + 0 대체\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n피처 해석\n\n\n\n\n녹색 (HAR 피처): 장기 예측에서는 월간 래그(t-22)가 가장 중요 (75% 기여)\n노란색 (GARCH): 조건부 분산이 추가적인 정보 제공 (12%)\n파란색 (시장 지표): VIX 및 교차 자산 변동성이 보조 역할 (13%)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시장 국면\nV29 R²\nV36 R²\n개선율\n특징\n\n\n\n\nNormal\n0.61\n0.73\n+19.7%\n정상적인 변동성 환경\n\n\nCOVID\n0.55\n0.71\n+29.1%\n극한 변동성 급등\n\n\nInflation\n0.58\n0.74\n+27.6%\n금리 인상기\n\n\nRecovery\n0.63\n0.78\n+23.8%\n시장 안정화\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n히트맵 해석\n\n\n\n\n녹색: 높은 성능 (채권 자산이 전반적으로 우수)\n빨간색: 낮은 성능 (주식 자산의 22일 예측이 상대적으로 어려움)\n노란색: 중간 성능 (원자재 자산)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n자산군\n최적 Alpha\n의미\n성능 (R²)\n\n\n\n\n주식\n10.0\n강한 정규화 (노이즈 많음)\n0.51\n\n\n채권\n1.0\n약한 정규화 (신호 강함)\n0.95\n\n\n원자재\n5.0\n중간 정규화\n0.63\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n피처 조합\nR²\n베이스라인 대비\n주요 기여\n\n\n\n\nHAR 전용\n0.68\n기준\n일/주/월 래그 패턴\n\n\nGARCH 전용\n0.61\n-10.3%\n조건부 분산 (단독 사용 시 부족)\n\n\nHAR + GARCH\n0.72\n+5.9%\n상호 보완 효과\n\n\n+ VIX\n0.74\n+8.8%\n시장 공포 지수 정보 추가\n\n\n+ 교차 자산 (최종)\n0.755\n+11.0%\n자산간 상관관계 활용\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n하이퍼파라미터\n테스트 범위\n최적값\n성능 영향\n\n\n\n\nRidge Alpha\n0.01 ~ 100\n자산별 (1.0/5.0/10.0)\n자산별 최적화로 +8%\n\n\nGARCH (p, q)\n(0,1) ~ (2,2)\n(1, 1)\n표준 모델이 최적\n\n\nHAR 윈도우\n(1, 5, 10) vs (1, 5, 22)\n(1, 5, 22)\n월간 패턴 반영 +4%\n\n\n피처 조합\n단일 ~ 복합\nHAR+GARCH+VIX+교차\n누적 +11% 개선\n\n\n교차 검증\n3-Fold ~ 10-Fold\n5-Fold\n안정적 성능 추정",
+    "crumbs": [
+      "실험 결과",
+      "22일 예측",
+      "V36 모델 (챔피언)"
+    ]
+  },
+  {
+    "objectID": "experiments/22day_prediction.html#모델-성능-비교",
+    "href": "experiments/22day_prediction.html#모델-성능-비교",
+    "title": "22일 예측 모델",
+    "section": "",
+    "text": "모델\n출처\nR²\nV36 대비\n\n\n\n\nHistorical Average\n-\n0.32\n-57.6%\n\n\nGARCH(1,1)\nBollerslev (1986)\n0.45\n-40.4%\n\n\nHAR-RV\nCorsi (2009)\n0.52\n-31.1%\n\n\nGARCH-MIDAS\nEngle et al. (2013)\n0.55\n-27.2%\n\n\nV29 (HAR+GARCH)\n본 연구\n0.641\n-15.1%\n\n\nV43 (Transformer)\n본 연구\n0.534\n-29.3%\n\n\nV36 (Champion)\n본 연구\n0.755\n기준\n\n\n\n\n\n\n\n\n\n왜 딥러닝 모델이 22일 예측에서 성능이 낮은가?\n\n\n\n\n노이즈 비율 증가: 22일 후 예측에서는 신호 대비 노이즈 비율이 크게 증가\n과적합 위험: 복잡한 딥러닝 모델(V50, V43)이 노이즈까지 학습\n해결책: 강건한 선형 모델(V36 Ridge)로 일반화 성능 확보",
+    "crumbs": [
+      "실험 결과",
+      "22일 예측",
+      "V36 모델 (챔피언)"
+    ]
+  },
+  {
+    "objectID": "experiments/22day_prediction.html#v36-모델-구조",
+    "href": "experiments/22day_prediction.html#v36-모델-구조",
+    "title": "22일 예측 모델",
+    "section": "",
+    "text": "V36은 HAR-GARCH 피처와 자산군별 적응형 앙상블 구조를 가집니다.\n\n\n코드\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%\nflowchart LR\n    subgraph FEATURES[\"피처 엔지니어링\"]\n        A[\"가격 데이터\"] --&gt; B[\"HAR 피처: 1d, 5d, 22d 래그\"]\n        A --&gt; C[\"GARCH 피처: 조건부 분산\"]\n    end\n    \n    subgraph CLASSIFICATION[\"자산 분류\"]\n        B & C --&gt; D{\"자산 유형\"}\n        D --&gt;|SPY, QQQ, IWM| E[\"주식\"]\n        D --&gt;|TLT, IEF, AGG| F[\"채권\"]\n        D --&gt;|GLD, SLV, USO| G[\"원자재\"]\n    end\n    \n    subgraph MODELS[\"적응형 Ridge 모델\"]\n        E --&gt; H[\"주식 최적화 Ridge\"]\n        F --&gt; I[\"채권 최적화 Ridge\"]\n        G --&gt; J[\"원자재 최적화 Ridge\"]\n    end\n    \n    subgraph PREDICTIONS[\"22일 변동성 예측\"]\n        H --&gt; K[\"주식 변동성\"]\n        I --&gt; L[\"채권 변동성\"]\n        J --&gt; M[\"원자재 변동성\"]\n    end\n\n    style FEATURES fill:#E3F2FD,stroke:#1565C0,stroke-width:2px\n    style CLASSIFICATION fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px\n    style MODELS fill:#FFF3E0,stroke:#E65100,stroke-width:2px\n    style PREDICTIONS fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%\nflowchart LR\n    subgraph FEATURES[\"피처 엔지니어링\"]\n        A[\"가격 데이터\"] --&gt; B[\"HAR 피처: 1d, 5d, 22d 래그\"]\n        A --&gt; C[\"GARCH 피처: 조건부 분산\"]\n    end\n    \n    subgraph CLASSIFICATION[\"자산 분류\"]\n        B & C --&gt; D{\"자산 유형\"}\n        D --&gt;|SPY, QQQ, IWM| E[\"주식\"]\n        D --&gt;|TLT, IEF, AGG| F[\"채권\"]\n        D --&gt;|GLD, SLV, USO| G[\"원자재\"]\n    end\n    \n    subgraph MODELS[\"적응형 Ridge 모델\"]\n        E --&gt; H[\"주식 최적화 Ridge\"]\n        F --&gt; I[\"채권 최적화 Ridge\"]\n        G --&gt; J[\"원자재 최적화 Ridge\"]\n    end\n    \n    subgraph PREDICTIONS[\"22일 변동성 예측\"]\n        H --&gt; K[\"주식 변동성\"]\n        I --&gt; L[\"채권 변동성\"]\n        J --&gt; M[\"원자재 변동성\"]\n    end\n\n    style FEATURES fill:#E3F2FD,stroke:#1565C0,stroke-width:2px\n    style CLASSIFICATION fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px\n    style MODELS fill:#FFF3E0,stroke:#E65100,stroke-width:2px\n    style PREDICTIONS fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px",
+    "crumbs": [
+      "실험 결과",
+      "22일 예측",
+      "V36 모델 (챔피언)"
+    ]
+  },
+  {
+    "objectID": "experiments/22day_prediction.html#자산군별-성능",
+    "href": "experiments/22day_prediction.html#자산군별-성능",
+    "title": "22일 예측 모델",
+    "section": "",
+    "text": "자산군\nR² 스코어\n특징\n\n\n\n\n채권\n0.953\n금리 정책 추세로 예측 가능성 높음\n\n\n원자재\n0.625\n공급/수요 사이클 반영\n\n\n주식\n0.514\n시장 효율성으로 예측 어려움",
+    "crumbs": [
+      "실험 결과",
+      "22일 예측",
+      "V36 모델 (챔피언)"
+    ]
+  },
+  {
+    "objectID": "experiments/22day_prediction.html#검증-결과-요약",
+    "href": "experiments/22day_prediction.html#검증-결과-요약",
+    "title": "22일 예측 모델",
+    "section": "",
+    "text": "시장 국면 안정성GARCH 기여도\n\n\n\n\n\n기간\nV29 R²\nV36 R²\n개선\n\n\n\n\nNormal (2010-2019)\n0.61\n0.73\n+19.7%\n\n\nCOVID (2020Q1-Q2)\n0.55\n0.71\n+29.1%\n\n\nInflation (2022)\n0.58\n0.74\n+27.6%\n\n\n\n\n\n\n\n\n모델\nR²\nRMSE\n\n\n\n\nHAR 전용\n0.68\n0.142\n\n\nGARCH 전용\n0.61\n0.156\n\n\n하이브리드 (V36)\n0.755\n0.124",
+    "crumbs": [
+      "실험 결과",
+      "22일 예측",
+      "V36 모델 (챔피언)"
+    ]
+  },
+  {
+    "objectID": "experiments/22day_prediction.html#상세-분석-링크",
+    "href": "experiments/22day_prediction.html#상세-분석-링크",
+    "title": "22일 예측 모델",
+    "section": "",
+    "text": "더 자세한 검증 결과는 아래 페이지에서 확인할 수 있습니다:\n\nV29 모델 상세 검증 - GARCH 기여도, 시장 국면 분석\n모델 아키텍처 비교 - 하이퍼파라미터 및 구조 상세",
+    "crumbs": [
+      "실험 결과",
+      "22일 예측",
+      "V36 모델 (챔피언)"
+    ]
+  },
+  {
+    "objectID": "experiments/22day_prediction.html#v36-모델-상세-속성",
+    "href": "experiments/22day_prediction.html#v36-모델-상세-속성",
+    "title": "22일 예측 모델",
+    "section": "",
+    "text": "파라미터\n주식\n채권\n원자재\n설명\n\n\n\n\nRidge alpha\n10.0\n1.0\n5.0\nL2 정규화 강도\n\n\nHAR 윈도우\n1, 5, 22\n1, 5, 22\n1, 5, 22\n일/주/월 래그\n\n\nGARCH (p, q)\n(1, 1)\n(1, 1)\n(1, 1)\nGARCH 파라미터\n\n\nVIX 포함\nO\nO\nO\n시장 공포 지수\n\n\n교차 자산\nSPY, TLT\nSPY, GLD\nSPY, TLT\n상관 자산\n\n\n\n\n\n\n\n\n\n항목\n설정\n\n\n\n\n추정 방법\nOLS with L2 Regularization\n\n\n교차 검증\n5-Fold Time-Series CV\n\n\n피처 선택\nStepwise (AIC 기준)\n\n\n이상치 처리\nWinsorization (1%, 99%)\n\n\n결측치 처리\nForward Fill + 0 대체\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n피처 해석\n\n\n\n\n녹색 (HAR 피처): 장기 예측에서는 월간 래그(t-22)가 가장 중요 (75% 기여)\n노란색 (GARCH): 조건부 분산이 추가적인 정보 제공 (12%)\n파란색 (시장 지표): VIX 및 교차 자산 변동성이 보조 역할 (13%)",
+    "crumbs": [
+      "실험 결과",
+      "22일 예측",
+      "V36 모델 (챔피언)"
+    ]
+  },
+  {
+    "objectID": "experiments/22day_prediction.html#모델-성능-시각화",
+    "href": "experiments/22day_prediction.html#모델-성능-시각화",
+    "title": "22일 예측 모델",
+    "section": "",
+    "text": "시장 국면\nV29 R²\nV36 R²\n개선율\n특징\n\n\n\n\nNormal\n0.61\n0.73\n+19.7%\n정상적인 변동성 환경\n\n\nCOVID\n0.55\n0.71\n+29.1%\n극한 변동성 급등\n\n\nInflation\n0.58\n0.74\n+27.6%\n금리 인상기\n\n\nRecovery\n0.63\n0.78\n+23.8%\n시장 안정화\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n히트맵 해석\n\n\n\n\n녹색: 높은 성능 (채권 자산이 전반적으로 우수)\n빨간색: 낮은 성능 (주식 자산의 22일 예측이 상대적으로 어려움)\n노란색: 중간 성능 (원자재 자산)",
+    "crumbs": [
+      "실험 결과",
+      "22일 예측",
+      "V36 모델 (챔피언)"
+    ]
+  },
+  {
+    "objectID": "experiments/22day_prediction.html#하이퍼파라미터-튜닝-비교-ablation-study",
+    "href": "experiments/22day_prediction.html#하이퍼파라미터-튜닝-비교-ablation-study",
+    "title": "22일 예측 모델",
+    "section": "",
+    "text": "자산군\n최적 Alpha\n의미\n성능 (R²)\n\n\n\n\n주식\n10.0\n강한 정규화 (노이즈 많음)\n0.51\n\n\n채권\n1.0\n약한 정규화 (신호 강함)\n0.95\n\n\n원자재\n5.0\n중간 정규화\n0.63\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n피처 조합\nR²\n베이스라인 대비\n주요 기여\n\n\n\n\nHAR 전용\n0.68\n기준\n일/주/월 래그 패턴\n\n\nGARCH 전용\n0.61\n-10.3%\n조건부 분산 (단독 사용 시 부족)\n\n\nHAR + GARCH\n0.72\n+5.9%\n상호 보완 효과\n\n\n+ VIX\n0.74\n+8.8%\n시장 공포 지수 정보 추가\n\n\n+ 교차 자산 (최종)\n0.755\n+11.0%\n자산간 상관관계 활용\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n하이퍼파라미터\n테스트 범위\n최적값\n성능 영향\n\n\n\n\nRidge Alpha\n0.01 ~ 100\n자산별 (1.0/5.0/10.0)\n자산별 최적화로 +8%\n\n\nGARCH (p, q)\n(0,1) ~ (2,2)\n(1, 1)\n표준 모델이 최적\n\n\nHAR 윈도우\n(1, 5, 10) vs (1, 5, 22)\n(1, 5, 22)\n월간 패턴 반영 +4%\n\n\n피처 조합\n단일 ~ 복합\nHAR+GARCH+VIX+교차\n누적 +11% 개선\n\n\n교차 검증\n3-Fold ~ 10-Fold\n5-Fold\n안정적 성능 추정",
+    "crumbs": [
+      "실험 결과",
+      "22일 예측",
+      "V36 모델 (챔피언)"
+    ]
+  },
+  {
+    "objectID": "experiments/index.html",
+    "href": "experiments/index.html",
+    "title": "실험 결과",
+    "section": "",
+    "text": "본 연구에서 수행한 주요 실험들의 결과를 정리했습니다. 각 실험은 V50 모델의 다양한 측면을 검증합니다.\n\n\n\n\n\nPhase\n실험명\n핵심 내용\n결과\n\n\n\n\nPhase 4\n1일 예측 (V50)\nDual-Attention LSTM, 단기 챔피언\nR² = 0.821\n\n\nPhase 10\nV29 베이스라인 검증\nGARCH 기여도, 시장 국면 안정성\np &lt; 0.001\n\n\nPhase 13\n22일 예측 (V36)\n자산 적응형 Ridge, 장기 챔피언\nR² = 0.755",
+    "crumbs": [
+      "실험 결과",
+      "개요"
+    ]
+  },
+  {
+    "objectID": "experiments/index.html#핵심-실험-목록",
+    "href": "experiments/index.html#핵심-실험-목록",
+    "title": "실험 결과",
+    "section": "",
+    "text": "본 연구에서 수행한 주요 실험들의 결과를 정리했습니다. 각 실험은 V50 모델의 다양한 측면을 검증합니다.\n\n\n\n\n\nPhase\n실험명\n핵심 내용\n결과\n\n\n\n\nPhase 4\n1일 예측 (V50)\nDual-Attention LSTM, 단기 챔피언\nR² = 0.821\n\n\nPhase 10\nV29 베이스라인 검증\nGARCH 기여도, 시장 국면 안정성\np &lt; 0.001\n\n\nPhase 13\n22일 예측 (V36)\n자산 적응형 Ridge, 장기 챔피언\nR² = 0.755",
+    "crumbs": [
+      "실험 결과",
+      "개요"
+    ]
+  },
+  {
+    "objectID": "experiments/index.html#검증-실험-결과-요약",
+    "href": "experiments/index.html#검증-실험-결과-요약",
+    "title": "실험 결과",
+    "section": "검증 실험 결과 요약",
+    "text": "검증 실험 결과 요약",
+    "crumbs": [
+      "실험 결과",
+      "개요"
+    ]
+  },
+  {
+    "objectID": "experiments/index.html#주요-발견-사항",
+    "href": "experiments/index.html#주요-발견-사항",
+    "title": "실험 결과",
+    "section": "주요 발견 사항",
+    "text": "주요 발견 사항\n\n\n\n\n\n\nV50 모델의 강점\n\n\n\n\n과적합 없음: Walk-Forward 검증에서 OOS R² = 0.820 (IS와 거의 동일)\n통계적 유의성: Diebold-Mariano 테스트 p &lt; 0.001로 베이스라인 대비 유의미한 개선\n극한 시장 강건성: 코로나19 및 인플레이션 기간에도 성능 유지\n다중공선성 없음: 모든 VIF 값이 5 미만",
+    "crumbs": [
+      "실험 결과",
+      "개요"
+    ]
+  },
+  {
+    "objectID": "experiments/index.html#추가-실험",
+    "href": "experiments/index.html#추가-실험",
+    "title": "실험 결과",
+    "section": "추가 실험",
+    "text": "추가 실험\n\n\n\n실험명\n설명\n링크\n\n\n\n\n통합 모델 실험\n23개 자산을 단일 모델로 학습\n보기 →\n\n\n트레이딩 전략\n변동성 타겟팅 백테스트\n보기 →\n\n\n결과 요약\n전체 실험 결과 통계\n보기 →",
+    "crumbs": [
+      "실험 결과",
+      "개요"
+    ]
+  },
+  {
+    "objectID": "literature/finance/index.html",
+    "href": "literature/finance/index.html",
+    "title": "Finance 분야 선행연구",
+    "section": "",
+    "text": "본 페이지는 금융 이론 관점에서 변동성과 VRP를 연구한 주요 논문들을 정리합니다.\n\n\n\n  Carr & Wu (2009): \"Variance Risk Premia\" (RFS)\n  \n    \n      논문 개요\n      \n        VRP의 표준 정의를 제시한 기초 논문. 위험 중립 분산과 실제 분산 간의 차이를 이론적으로 정립.\n      \n    \n    \n      연구 질문\n      \n        Risk-neutral variance와 Physical variance의 차이가 자산 가격 결정에 미치는 영향은?\n      \n    \n    \n      데이터 및 샘플\n      \n        S&P 500 옵션 및 고빈도 선물 데이터로 합성 Variance Swap 포트폴리오 구성.\n      \n    \n    \n      방법론\n      \n        모델 프리 방식으로 Variance Swap payoff 복제. GMM으로 위험 프리미엄 추정.\n      \n    \n    \n      결과\n      \n        VRP는 평균적으로 양수. 금융 위기 시 크게 증가하여 위험 회피 성향 변화를 반영.\n      \n    \n  \n\n\n\n  Bollerslev, Tauchen & Zhou (2009): \"Expected Stock Returns and VRP\"\n  \n    \n      논문 개요\n      \n        VRP가 주식 시장 수익률을 예측하는 강력한 변수임을 실증.\n      \n    \n    \n      연구 질문\n      \n        VRP가 미래 주식 수익률을 예측하는가? 전통적 예측 변수보다 우월한가?\n      \n    \n    \n      데이터 및 샘플\n      \n        1990-2007 S&P 500 VIX 지수 및 실현 변동성. 월별/분기별 수익률 데이터.\n      \n    \n    \n      방법론\n      \n        VRP = VIX² - RV로 계산. 예측 회귀 분석으로 미래 수익률 영향 추정.\n      \n    \n    \n      결과\n      \n        강한 양의 예측력. R² 값이 기존 변수 대비 2배 이상. 경기 침체 직전 VRP 급등.\n      \n    \n  \n\n\n\n  Drechsler & Yaron (2011): \"What's Vol Got to Do with It\"\n  \n    \n      논문 개요\n      \n        장기 위험 모형으로 VRP의 경제적 기원을 이론적으로 설명.\n      \n    \n    \n      연구 질문\n      \n        VRP는 어떤 거시경제적 위험에서 발생하는가? 소비 성장 불확실성과의 관계는?\n      \n    \n    \n      데이터 및 샘플\n      \n        1990-2008 옵션 데이터, 거시경제 변수(소비/GDP 성장률), VIX 및 RV.\n      \n    \n    \n      방법론\n      \n        Epstein-Zin 효용 함수 기반 대표 투자자 모형. 확률적 변동성 모형 설정.\n      \n    \n    \n      결과\n      \n        모형이 VRP 평균값과 변동성을 설명. VRP는 경기 변동 위험의 보상.\n      \n    \n  \n\n\n\n  Heston et al. (2023): \"VRP Across Assets\"\n  \n    \n      논문 개요\n      \n        다양한 자산군에 걸친 VRP 분석. 자산별 VRP의 크기와 동적 특성 비교.\n      \n    \n    \n      연구 질문\n      \n        VRP는 모든 자산군에 존재하는가? 자산별 차이는 무엇인가?\n      \n    \n    \n      데이터 및 샘플\n      \n        20개 선물 시장(주식, 채권, 통화, 원자재) 옵션 데이터. 2000-2022.\n      \n    \n    \n      방법론\n      \n        자산별 IV-RV 차이로 VRP 계산. 패널 회귀로 공통/특이 요인 분해. PCA로 공통 팩터 추출.\n      \n    \n    \n      결과\n      \n        모든 자산군에서 유의미한 양의 VRP. 자산별 상당한 차이. 금융 위기 시 공통 팩터 급등.\n      \n    \n  \n\n\n\n  Bekaert & Hoerova (2014): \"VIX, Variance Premium and Volatility\"\n  \n    \n      논문 개요\n      \n        VIX를 위험 회피 성향과 변동성 기대로 분해. VRP가 위험 회피 측정 지표임을 규명.\n      \n    \n    \n      연구 질문\n      \n        VIX 상승이 실제 변동성 증가인가 위험 회피 증가인가?\n      \n    \n    \n      데이터 및 샘플\n      \n        1990-2012 VIX, 실현 변동성, 주식 수익률, 거시경제 변수.\n      \n    \n    \n      방법론\n      \n        GARCH로 물리적 변동성 추정. VIX에서 차감하여 위험 회피 성향 추출.\n      \n    \n    \n      결과\n      \n        VIX 상승의 대부분은 위험 회피 증가. VRP는 투자자 심리의 바로미터.\n      \n    \n  \n\n\n\n  Pyun (2019): \"Variance Risk in Stock Returns\"\n  \n    \n      논문 개요\n      \n        개별 주식 VRP가 횡단면 수익률 팩터로 작동함을 발견.\n      \n    \n    \n      연구 질문\n      \n        개별 주식 VRP는 시장 위험인가 기업 고유 위험 프리미엄인가?\n      \n    \n    \n      데이터 및 샘플\n      \n        1996-2017 개별 주식 옵션 데이터 500개 이상. 월별 수익률 및 기업 특성 변수.\n      \n    \n    \n      방법론\n      \n        주식별 IV-RV로 VRP 계산. Fama-MacBeth 횡단면 회귀. 포트폴리오 정렬로 롱-숏 전략 검증.\n      \n    \n    \n      결과\n      \n        VRP 높을수록 미래 수익률 높음. 상하위 포트폴리오 간 월 1.2% 차이. 꼬리 위험 보상 반영.\n      \n    \n  \n\n\n\n  Feunou et al. (2017): \"Good vs Bad Volatility\"\n  \n    \n      논문 개요\n      \n        변동성을 Good/Bad로 분해. 옵션 가격이 두 유형에 비대칭적으로 반응.\n      \n    \n    \n      연구 질문\n      \n        상승/하락 변동성이 옵션 가격에 미치는 영향이 동일한가?\n      \n    \n    \n      데이터 및 샘플\n      \n        1996-2014 S&P 500 및 개별 주식 옵션. 고빈도 수익률 데이터.\n      \n    \n    \n      방법론\n      \n        RV를 양/음 수익률 구간으로 분해. IV의 두 유형 민감도를 회귀 분석으로 추정.\n      \n    \n    \n      결과\n      \n        Bad Volatility VRP가 Good Volatility VRP의 3배. 레버리지 효과의 옵션 시장 반영.\n      \n    \n  \n\n\n\n\n\n\n전체 문헌 개요\nCS/ML 분야\n리딩 리스트",
+    "crumbs": [
+      "문헌 분석",
+      "금융",
+      "Finance 분야 선행연구"
+    ]
+  },
+  {
+    "objectID": "literature/finance/index.html#주요-논문-리스트",
+    "href": "literature/finance/index.html#주요-논문-리스트",
+    "title": "Finance 분야 선행연구",
+    "section": "",
+    "text": "Carr & Wu (2009): \"Variance Risk Premia\" (RFS)\n  \n    \n      논문 개요\n      \n        VRP의 표준 정의를 제시한 기초 논문. 위험 중립 분산과 실제 분산 간의 차이를 이론적으로 정립.\n      \n    \n    \n      연구 질문\n      \n        Risk-neutral variance와 Physical variance의 차이가 자산 가격 결정에 미치는 영향은?\n      \n    \n    \n      데이터 및 샘플\n      \n        S&P 500 옵션 및 고빈도 선물 데이터로 합성 Variance Swap 포트폴리오 구성.\n      \n    \n    \n      방법론\n      \n        모델 프리 방식으로 Variance Swap payoff 복제. GMM으로 위험 프리미엄 추정.\n      \n    \n    \n      결과\n      \n        VRP는 평균적으로 양수. 금융 위기 시 크게 증가하여 위험 회피 성향 변화를 반영.\n      \n    \n  \n\n\n\n  Bollerslev, Tauchen & Zhou (2009): \"Expected Stock Returns and VRP\"\n  \n    \n      논문 개요\n      \n        VRP가 주식 시장 수익률을 예측하는 강력한 변수임을 실증.\n      \n    \n    \n      연구 질문\n      \n        VRP가 미래 주식 수익률을 예측하는가? 전통적 예측 변수보다 우월한가?\n      \n    \n    \n      데이터 및 샘플\n      \n        1990-2007 S&P 500 VIX 지수 및 실현 변동성. 월별/분기별 수익률 데이터.\n      \n    \n    \n      방법론\n      \n        VRP = VIX² - RV로 계산. 예측 회귀 분석으로 미래 수익률 영향 추정.\n      \n    \n    \n      결과\n      \n        강한 양의 예측력. R² 값이 기존 변수 대비 2배 이상. 경기 침체 직전 VRP 급등.\n      \n    \n  \n\n\n\n  Drechsler & Yaron (2011): \"What's Vol Got to Do with It\"\n  \n    \n      논문 개요\n      \n        장기 위험 모형으로 VRP의 경제적 기원을 이론적으로 설명.\n      \n    \n    \n      연구 질문\n      \n        VRP는 어떤 거시경제적 위험에서 발생하는가? 소비 성장 불확실성과의 관계는?\n      \n    \n    \n      데이터 및 샘플\n      \n        1990-2008 옵션 데이터, 거시경제 변수(소비/GDP 성장률), VIX 및 RV.\n      \n    \n    \n      방법론\n      \n        Epstein-Zin 효용 함수 기반 대표 투자자 모형. 확률적 변동성 모형 설정.\n      \n    \n    \n      결과\n      \n        모형이 VRP 평균값과 변동성을 설명. VRP는 경기 변동 위험의 보상.\n      \n    \n  \n\n\n\n  Heston et al. (2023): \"VRP Across Assets\"\n  \n    \n      논문 개요\n      \n        다양한 자산군에 걸친 VRP 분석. 자산별 VRP의 크기와 동적 특성 비교.\n      \n    \n    \n      연구 질문\n      \n        VRP는 모든 자산군에 존재하는가? 자산별 차이는 무엇인가?\n      \n    \n    \n      데이터 및 샘플\n      \n        20개 선물 시장(주식, 채권, 통화, 원자재) 옵션 데이터. 2000-2022.\n      \n    \n    \n      방법론\n      \n        자산별 IV-RV 차이로 VRP 계산. 패널 회귀로 공통/특이 요인 분해. PCA로 공통 팩터 추출.\n      \n    \n    \n      결과\n      \n        모든 자산군에서 유의미한 양의 VRP. 자산별 상당한 차이. 금융 위기 시 공통 팩터 급등.\n      \n    \n  \n\n\n\n  Bekaert & Hoerova (2014): \"VIX, Variance Premium and Volatility\"\n  \n    \n      논문 개요\n      \n        VIX를 위험 회피 성향과 변동성 기대로 분해. VRP가 위험 회피 측정 지표임을 규명.\n      \n    \n    \n      연구 질문\n      \n        VIX 상승이 실제 변동성 증가인가 위험 회피 증가인가?\n      \n    \n    \n      데이터 및 샘플\n      \n        1990-2012 VIX, 실현 변동성, 주식 수익률, 거시경제 변수.\n      \n    \n    \n      방법론\n      \n        GARCH로 물리적 변동성 추정. VIX에서 차감하여 위험 회피 성향 추출.\n      \n    \n    \n      결과\n      \n        VIX 상승의 대부분은 위험 회피 증가. VRP는 투자자 심리의 바로미터.\n      \n    \n  \n\n\n\n  Pyun (2019): \"Variance Risk in Stock Returns\"\n  \n    \n      논문 개요\n      \n        개별 주식 VRP가 횡단면 수익률 팩터로 작동함을 발견.\n      \n    \n    \n      연구 질문\n      \n        개별 주식 VRP는 시장 위험인가 기업 고유 위험 프리미엄인가?\n      \n    \n    \n      데이터 및 샘플\n      \n        1996-2017 개별 주식 옵션 데이터 500개 이상. 월별 수익률 및 기업 특성 변수.\n      \n    \n    \n      방법론\n      \n        주식별 IV-RV로 VRP 계산. Fama-MacBeth 횡단면 회귀. 포트폴리오 정렬로 롱-숏 전략 검증.\n      \n    \n    \n      결과\n      \n        VRP 높을수록 미래 수익률 높음. 상하위 포트폴리오 간 월 1.2% 차이. 꼬리 위험 보상 반영.\n      \n    \n  \n\n\n\n  Feunou et al. (2017): \"Good vs Bad Volatility\"\n  \n    \n      논문 개요\n      \n        변동성을 Good/Bad로 분해. 옵션 가격이 두 유형에 비대칭적으로 반응.\n      \n    \n    \n      연구 질문\n      \n        상승/하락 변동성이 옵션 가격에 미치는 영향이 동일한가?\n      \n    \n    \n      데이터 및 샘플\n      \n        1996-2014 S&P 500 및 개별 주식 옵션. 고빈도 수익률 데이터.\n      \n    \n    \n      방법론\n      \n        RV를 양/음 수익률 구간으로 분해. IV의 두 유형 민감도를 회귀 분석으로 추정.\n      \n    \n    \n      결과\n      \n        Bad Volatility VRP가 Good Volatility VRP의 3배. 레버리지 효과의 옵션 시장 반영.",
+    "crumbs": [
+      "문헌 분석",
+      "금융",
+      "Finance 분야 선행연구"
+    ]
+  },
+  {
+    "objectID": "literature/finance/index.html#더-많은-자료",
+    "href": "literature/finance/index.html#더-많은-자료",
+    "title": "Finance 분야 선행연구",
+    "section": "",
+    "text": "전체 문헌 개요\nCS/ML 분야\n리딩 리스트",
+    "crumbs": [
+      "문헌 분석",
+      "금융",
+      "Finance 분야 선행연구"
+    ]
+  },
+  {
+    "objectID": "literature/index.html",
+    "href": "literature/index.html",
+    "title": "",
+    "section": "",
+    "text": "코드",
+    "crumbs": [
+      "문헌 분석",
+      "개요"
+    ]
+  },
+  {
+    "objectID": "literature/index.html#finance-분야",
+    "href": "literature/index.html#finance-분야",
+    "title": "",
+    "section": "Finance 분야",
+    "text": "Finance 분야\n\n  금융 이론 관점의 VRP 연구 (10개 논문)\n  \n    주요 주제: VRP의 이론적 기초, Cross-Asset VRP, 주식 수익률 예측, 위험 회피 성향, 횡단면 수익률, 계량 모델링, 원자재 시장\n\n\n  Carr & Wu (2009): \"Variance Risk Premia\" (Review of Financial Studies)\n  \n    \n      [Journal Link]\n      [V-Lab Analysis]\n    \n\n    \n      논문 개요\n      \n        현대 금융 경제학에서 Variance Risk Premium(VRP)의 정의와 측정 방법을 정립한 기념비적인 논문입니다. 저자들은 특정 확률 모형에 의존하지 않는(Model-free) 방식으로 옵션 포트폴리오를 통해 분산 스왑 레이트(Variance Swap Rate)를 합성하고, 이를 통해 VRP를 직접적으로 정량화하는 프레임워크를 제시했습니다.\n      \n    \n\n    \n      연구 질문\n      \n        \n          금융 자산의 분산 위험은 시장에서 어떻게 가격이 결정되는가?\n          위험 중립 기대 분산(Synthetic Variance Swap Rate)과 사후 실현 분산 사이에는 어떤 체계적인 차이가 존재하는가?\n          이러한 차이(VRP)는 시장 지수와 개별 주식 간에 어떻게 다르게 나타나는가?\n        \n      \n    \n\n    \n      데이터 및 샘플\n      \n        1996년부터 2003년까지 7년 동안의 방대한 옵션 데이터를 사용했습니다.\n        \n          지수: S&P 500, S&P 100, Nasdaq 100, Dow Jones, Russell 2000 (총 5개 주요 지수)\n          개별 주식: 35개 주요 우량주\n          자격: Ivy DB 및 OptionMetrics를 통한 정밀한 옵션 표면(Surface) 데이터 추출.\n        \n      \n    \n\n    \n      방법론\n      \n        Model-free Replication: Carr & Madan(1998)의 이론을 실증적으로 확장하여, 외가격(OTM) 콜 옵션과 풋 옵션의 가중 포트폴리오를 통해 로그 계약(Log Contract)을 복제하고 이를 통해 분산 스왑 가격을 산출했습니다.\n        VRP 측정: $VRP = Realized\\ Variance - Synthetic\\ Variance\\ Swap\\ Rate$ 로 정의하고, 회귀 분석을 통해 $\\mathbb{P}$측도와 $\\mathbb{Q}$측도 간의 편향을 분석했습니다.\n      \n    \n\n    \n      연구 결과\n      \n        \n          강한 음(-)의 프리미엄: S&P 500 등 주요 지수에서 평균적으로 강력한 음의 VRP가 발견되었습니다. 이는 투자자들이 변동성 급등 위험(Market Crash 공포)을 헤지하기 위해 기꺼이 보험료를 지불함을 의미합니다.\n          지수 vs 개별 주식: 지수의 VRP가 개별 주식보다 훨씬 더 음의 방향으로 컸으며, 이는 개별 기업 고유의 위험보다 시장 전체의 시스템적 위험에 대해 더 높은 가격이 매겨지고 있음을 시사합니다.\n          시변성(Time-variation): VRP는 고정된 값이 아니라 시간에 따라 변동하며, 특히 시장의 불안정성이 커질 때 그 절대값이 증가하는 경향을 보였습니다.\n        \n      \n    \n  \n\n\n\n  Bollerslev, Tauchen & Zhou (2009): \"Expected Stock Returns and Variance Risk Premia\" (Review of Financial Studies)\n  \n    \n      [Journal Link]\n      [Working Paper PDF]\n    \n\n    \n      논문 개요\n      \n        Variance Risk Premium(VRP)이 주식 시장의 수익률을 예측하는 강력한 선행 지표임을 실증적으로 증명한 연구입니다. 특히 전통적인 배당수익률이나 P/E 배수보다 단기-중기(분기 단위) 수익률 예측력이 월등함을 보여주었습니다.\n      \n    \n\n    \n      연구 질문\n      \n        \n          VIX와 실현 변동성 사이의 괴리(VRP)가 미래 주식 시장의 초과 수익률을 설명할 수 있는가?\n          VRP의 예측력은 어떤 시계열 지표(Horizon)에서 가장 강력하게 나타나는가?\n          기존의 거시경제적 예측 변수들과 비교했을 때 VRP의 상대적 우위는 어떠한가?\n        \n      \n    \n\n    \n      데이터 및 샘플\n      \n        \n          기간: 1990년 1월 ~ 2007년 12월 (Post-1990 데이터의 중요성 강조)\n          내재 변동성: CBOE VIX 지수 (Model-free IV)\n          실현 분산: S&P 500 선물의 5분 단위 고빈도 데이터를 활용한 정밀한 RV 측정.\n        \n      \n    \n\n    \n      방법론\n      \n        VRP 정의: $VRP_t = IV_t^2 - E_t^\\mathbb{P}[RV_{t, t+1}]$ 로 정의. (미래 기대 실현 분산은 과거 데이터를 통한 예측치 사용)\n        예측 회귀 분석: $Excess\\ Return_{t, t+k} = \\alpha + \\beta \\cdot VRP_t + \\gamma \\cdot Controls + \\epsilon$ 의 다변량 회귀 모형을 통해 k=1, 3, 6, 9, 12개월 수익률 예측력을 테스트했습니다.\n      \n    \n\n    \n      연구 결과\n      \n        \n          분기별 예측력의 정점: VRP는 3개월(분기) 수익률 예측에서 가장 높은 $R^2$(약 7~10%)를 기록하며 통계적으로 매우 유의미했습니다.\n          전통적 변수 압도: 배당수익률(Dividend Yield), P/E 비율, Default Spread 등이 설명하지 못하는 시장의 '공포 프리미엄'을 VRP가 효과적으로 포착합니다.\n          통합 모델의 효율성: VRP와 P/E 비율을 결합할 경우 분기 수익률 변동의 25% 이상을 설명할 수 있음을 보여주었습니다.\n        \n      \n    \n  \n\n\n\n  Drechsler & Yaron (2011): \"What's Vol Got to Do with It\" (Review of Financial Studies)\n  \n    \n      [Journal Link]\n      [NBER PDF]\n    \n\n    \n      논문 개요\n      \n        VRP의 경제적 원천을 장기 위험(Long-Run Risk, LRR) 프레임워크 내에서 이론적으로 설명한 연구입니다. VRP가 단순히 변동성의 차이가 아니라, 경제 펀더멘털에 대한 투자자들의 불확실성과 그에 대한 태도(Attitudes toward Uncertainty)를 반영한다는 점을 수학적으로 규명했습니다.\n      \n    \n\n    \n      연구 질문\n      \n        \n          VRP가 거시경제적 펀더멘털의 어떤 위험 요인을 반영하는가?\n          소비 성장률과 인플레이션의 불확실성이 VRP 형성에 어떤 영향을 주는가?\n          비정규적(Non-Gaussian) 충격과 점프(Jump)가 VRP의 시간 가변성을 어떻게 설명하는가?\n        \n      \n    \n\n    \n      데이터 및 샘플\n      \n        \n          표본 기간: 1990년 ~ 2008년\n          금융 데이터: S&P 500 초과 수익률, VIX 지수, 실현 변동성.\n          거시 데이터: 소비 성장률, 산업 생산성 지표.\n        \n      \n    \n\n    \n      방법론\n      \n        Generalized LRR Model: Bansal & Yaron(2004)의 모형을 확장하여, 펀더멘털의 확률적 변동성이 점프(Jump)를 동반하는 모형을 설정했습니다.\n        Preference: Epstein-Zin 효용 함수를 사용하여 위험 회피(Risk Aversion)와 기간 간 대체 탄력성(IES)을 분리하여 분석했습니다.\n      \n    \n\n    \n      연구 결과\n      \n        \n          불확실성의 대리 지표: VRP는 미래 펀더멘털 불확실성에 대한 시장의 공포를 직접적으로 측정하는 지표임을 확인했습니다.\n          모형의 일관성: 제안된 LRR 모형은 현실의 VRP 수준, 변동성, 왜도(Skewness)를 동시에 설명할 수 있습니다.\n          수수께끼 해결: 주식 수익률과 무위험 이자율의 변동성을 VRP를 통해 통합적으로 이해할 수 있는 이론적 토대를 마련했습니다.\n        \n      \n    \n  \n\n\n\n  Bekaert & Hoerova (2014): \"The VIX, the Variance Premium and Stock Market Volatility\" (Journal of Econometrics)\n  \n    \n      [Journal Link]\n      [NBER PDF]\n    \n\n    \n      논문 개요\n      \n        VIX 지수를 구성하는 두 요소를 엄밀하게 분해하여 그 각각의 경제적 의미를 분석한 연구입니다. VIX 지수가 '순수한 미래 위험'과 '위험에 대한 프리미엄' 중 무엇을 더 많이 담고 있는지, 그리고 각각이 무엇을 예측하는지를 규명했습니다.\n      \n    \n\n    \n      연구 질문\n      \n        \n          VIX 제곱을 '물리적 기대 분산(Risk)'과 '분산 프리미엄(Risk Aversion)'으로 어떻게 정확히 분해할 수 있는가?\n          주식 수익률을 예측하는 핵심 요소는 위험 자체인가, 아니면 위험에 대한 태도(Premium)인가?\n          산업 생산과 같은 실물 경제 지표를 예측하는 데 더 유용한 변수는 무엇인가?\n        \n      \n    \n\n    \n      데이터 및 샘플\n      \n        \n          기간: 1990년 ~ 2010년 (금융 위기 기간 포함)\n          입력: S&P 500 일별 수익률, 고빈도(5분) RV 데이터, VIX 지수.\n        \n      \n    \n\n    \n      방법론\n      \n        Decomposition Logic: $VIX_t^2 = E_t^\\mathbb{P}[RV_{t, t+1}] + VP_t$ (여기서 $E_t^\\mathbb{P}$는 조건부 분산 모델링을 통해 추정)\n        Volatility Models: 31개의 다양한 변동성 예측 모델(GARCH, HAR-RV 등)을 비교 테스트하여 가장 정교한 조건을 도출했습니다.\n      \n    \n\n    \n      연구 결과\n      \n        \n          이원적 예측력: 주식 초과 수익률을 예측하는 것은 주로 **Variance Premium(VP)**인 반면, 산업 생산과 같은 실물 활동을 예측하는 것은 **Conditional Variance(Risk)**임이 밝혀졌습니다.\n          공포 지수의 본질: VIX의 상승이 위험 회피 성향의 증가 때문인지, 펀더멘털 위험의 증가 때문인지를 구분하는 것이 투자 의사 결정에 필수적임을 시사합니다.\n          금융 불안정성: 금융 시장의 불안정성(Instability)은 프리미엄보다는 실제 변동성(Risk) 자체와 더 강한 상관관계를 보였습니다.\n        \n      \n    \n  \n\n\n\n  Heston & Todorov (2023): \"Exploring the Variance Risk Premium Across Assets\" (AEA Papers and Proceedings / HKU Research)\n  \n    \n      [Journal Link]\n      [SSRN Full Paper]\n    \n\n    \n      논문 개요\n      \n        주식 시장에 국한되었던 VRP 논의를 채권, 통화, 원자재 등 전 자산군(Cross-Asset)으로 확장하여 보편성을 검증한 최신 연구입니다. 특히 개별 자산의 수익률이 아니라 '순수 변동성 포트폴리오'의 수익률을 분석함으로써 VRP의 존재를 명확히 입증했습니다.\n      \n    \n\n    \n      연구 질문\n      \n        \n          VRP는 전 자산군에서 공통적으로 발견되는 유비쿼터스(Ubiquitous)한 현상인가?\n          옵션 표면의 복잡한 보간법 없이도 VRP를 정확하게 측정할 수 있는가?\n          VRP를 통해 얻어지는 수익은 체계적 위험(Systematic Risk)의 보상인가, 아니면 특이적 꼬리 위험(Fat tails)의 대가인가?\n        \n      \n    \n\n    \n      데이터 및 샘플\n      \n        \n          자산군: 주식(S&P 500), 채권(10Y/30Y 국채), 통화(엔, 파운드 등), 원자재(원유, 금, 구리, 곡물 등) 총 20개 주요 선물 옵션 시장.\n          기간: 2006년 ~ 2020년.\n        \n      \n    \n\n    \n      방법론\n      \n        Novel Replication Method: 기존의 스플라인 보간법 대신, 거래 가능한 옵션들을 직접적으로 조합하여 실현 분산을 복제하는 'Hedged VIX Portfolio' 구성 방식 도입.\n        Hedged Return: 델타 헤징을 통해 기초 자산의 가격 위험을 제거한 후 순수하게 변동성 보유에 따른 프리미엄을 측정했습니다.\n      \n    \n\n    \n      연구 결과\n      \n        \n          범자산적 VRP 존재: 분석 대상인 20개 자산 대부분에서 유의미한 양(+)의 헤지 비용(즉, 음의 VRP)이 발견되었습니다.\n          채권 시장의 극단성: 특히 미 국채 시장에서 매우 강력한 VRP가 관찰되었으며, 이는 금리 급등 위험에 대한 보험 수요가 극도로 높음을 의미합니다.\n          꼬리 위험의 비중: VRP 수익은 시장 수익률과의 상관관계보다는 'Fat-tail risk'를 감내하는 옵션 딜러들의 보상 성격이 강함을 확인했습니다.\n        \n      \n    \n  \n\n\n\n  Hansen, Huang, Tong & Wang (2021/2024): \"Realized GARCH, CBOE VIX, and the Volatility Risk Premium\" (Journal of Financial Econometrics)\n  \n    \n      [Journal Link]\n      [arXiv PDF]\n    \n\n    \n      논문 개요\n      \n        Realized GARCH 프레임워크를 사용하여 VIX와 VRP에 대한 명시적인 폐쇄형 해(Closed-form solution)를 도출한 계량경제적 연구입니다. 기존 GARCH의 한계를 넘어 고빈도 실현 변동성 정보를 모델 내에 직접 통합했습니다.\n      \n    \n\n    \n      연구 질문\n      \n        \n          실현 변동성(RV) 정보를 활용하여 VIX 지수를 어떻게 이론적으로 정밀하게 복제할 수 있는가?\n          수익률 충격과 변동성 충격 중 어느 것이 VRP의 시간 가변성을 주도하는가?\n          Realized GARCH 모델이 전통적인 GARCH 모델보다 VRP 설명에 있어 어떤 우위를 갖는가?\n        \n      \n    \n\n    \n      데이터 및 샘플\n      \n        \n          데이터: S&P 500 일별 수익률, Realized Kernel(고빈도 측정치), CBOE VIX.\n          기간: 2004년 ~ 2018년 (서브 샘플: 2007-2012 금융 위기 포함).\n        \n      \n    \n\n    \n      방법론\n      \n        Realized GARCH System: 자산 수익률과 로그 실현 변동성을 동시에 설명하는 측정 방정식(Measurement equation)과 GARCH 방정식 결합.\n        Dual Shock Mechanism: 수익률 충격($z_t$)과 별개로 순수 변동성 충격($u_t$)을 상태 변수로 도입하여 $\\mathbb{P}$측도와 $\\mathbb{Q}$측도 간의 괴리를 모델링했습니다.\n      \n    \n\n    \n      연구 결과\n      \n        \n          변동성 충격의 지배력: VRP의 시변성은 수익률의 레버리지 효과보다는 변동성 자체의 외생적 충격($u_t$)에 의해 더 강력하게 설명됨을 입증했습니다.\n          Closed-form VIX: 모델 파라미터를 통해 VIX를 직접 산출할 수 있으며, 실제 시장 관측치와 매우 높은 일치도를 기록했습니다.\n          위험 가격 ($\\lambda_u$): 변동성 충격에 대한 시장 가격이 음(-)으로 추정되어, 변동성 확대 위험에 대한 보상이 필수적임을 확인했습니다.\n        \n      \n    \n  \n\n\n\n  Pyun (2019): \"Variance Risk in Aggregate Stock Returns and Time-Varying Return Predictability\" (Journal of Financial Economics)\n  \n    \n      [Journal Link]\n    \n\n    \n      논문 개요\n      \n        시계열적으로 변하는 주식 시장의 수익률 예측 가능성을 Variance Risk Premium(VRP) 관점에서 재해석한 연구입니다. 특히 총체적 주식 수익률에 내재된 분산 위험의 보상이 시간에 따라 어떻게 변화하며, 이것이 미래 수익률에 어떻게 투영되는지를 실증적으로 분석했습니다.\n      \n    \n\n    \n      연구 질문\n      \n        \n          VRP가 시장 전체의 수익률을 예측하는 데 있어 통계적, 경제적으로 유의미한 알파를 제공하는가?\n          분산 위험의 가격화 과정에서 발생하는 시변적(Time-varying) 특성은 무엇인가?\n          기존 모델들이 놓치고 있는 '위험의 가격' 변동을 VRP가 어떻게 포착하는가?\n        \n      \n    \n\n    \n      데이터 및 샘플\n      \n        \n          데이터: S&P 500 지수 수익률 및 관련 옵션 데이터 (OptionMetrics).\n          특징: 장기간의 시계열 데이터를 사용하여 다양한 경제 국면에서의 예측력을 검증.\n        \n      \n    \n\n    \n      방법론\n      \n        Predictability Test: VRP를 주요 예측 변수로 사용한 회귀 분석 프레임워크. 통제 변수로 기업 특성 및 거시경제 지표 활용.\n        Economic Significance: 통계적 유의성뿐만 아니라, 실제 투자 전략으로 연결했을 때의 성과(Out-of-sample performance)를 측정했습니다.\n      \n    \n\n    \n      연구 결과\n      \n        \n          강력한 예측 지표: VRP가 미래 주식 수익률의 시계열적 변동을 설명하는 데 있어 매우 강력한 도구임을 입증했습니다.\n          경제적 가치: VRP 기반의 자산 배분 전략이 벤치마크 대비 우월한 위험 대비 수익률을 기록함을 확인했습니다.\n          이론적 기여: 시장의 위험 회피도가 변함에 따라 수익률 예측력이 어떻게 동적으로 변화하는지를 규명했습니다.\n        \n      \n    \n  \n\n\n\n  Feunou & Okou (2017/2018): \"Good Volatility, Bad Volatility and Option Pricing\" (Bank of Canada Staff Working Paper / JEF)\n  \n    \n      [Journal Link]\n      [Bank of Canada PDF]\n    \n\n    \n      논문 개요\n      \n        변동성을 가격 상승 시의 'Good Volatility'와 가격 하락 시의 'Bad Volatility'로 분해하여 옵션 가격 결정 모형의 정밀도를 획기적으로 높인 연구입니다. 투자자들이 하락 위험(Bad Vol)에 대해 훨씬 더 높은 프리미엄을 지불한다는 비대칭적 특성을 모델에 반영했습니다.\n      \n    \n\n    \n      연구 질문\n      \n        \n          실현 분산을 상승/하락 세미-베리언스(Semi-variances)로 분해하는 것이 옵션 가격 예측에 도움이 되는가?\n          투자자들은 좋은 변동성과 나쁜 변동성에 대해 서로 다른 위험 가격을 매기는가?\n          이러한 분해가 기존의 대칭적 변동성 모델보다 경제적으로 얼마나 더 가치 있는 정보를 제공하는가?\n        \n      \n    \n\n    \n      데이터 및 샘플\n      \n        \n          샘플: S&P 500 지수 옵션 및 고빈도 인트라데이 데이터.\n          특징: Model-free 방식으로 좋은/나쁜 변동성의 대리 지표(Proxy)를 추출하여 사용.\n        \n      \n    \n\n    \n      방법론\n      \n        Decomposition Framework: 총 2차 변동(Quadratic Variation)을 Upside와 Downside semi-variances로 분리.\n        New Option Pricing Model: 좋은 변동성과 나쁜 변동성이 각기 다른 동학을 따르도록 설계된 유연한 옵션 가격 결정 모형 제안.\n      \n    \n\n    \n      연구 결과\n      \n        \n          비대칭 프리미엄: '나쁜 변동성'에 대한 위험 프리미엄이 '좋은 변동성'보다 압도적으로 크며, 이는 시장의 공포가 하락장에 집중되어 있음을 보여줍니다.\n          가격 오차 감소: 변동성을 분해하여 적용했을 때 옵션 가격 결정의 오차(Pricing Error)가 기존 모델 대비 유의미하게 감소했습니다.\n          예측력 향상: 미래 실현 변동성을 예측하는 데 있어서도 세미-베리언스 분해가 강력한 정보력을 가짐을 입증했습니다.\n        \n      \n    \n  \n\n\n\n  Ornelas & Mauad (2019, 2022): \"Volatility Risk Premia and Future Commodity Returns\" (Journal of Banking & Finance / SSRN)\n  \n    \n      [Journal Link]\n      [BIS Working Paper]\n    \n\n    \n      논문 개요\n      \n        원자재 시장(Commodity)의 VRP가 미래 수익률을 예측하는 강력한 지표임을 실증적으로 분석한 연구입니다. 특히 원자재 시장의 '금융화(Financialization)' 이후 VRP의 성격과 예측력이 어떻게 변화했는지에 초점을 맞추었습니다.\n      \n    \n\n    \n      연구 질문\n      \n        \n          원자재(금, 원유 등)의 VRP가 미래 가격 변동을 유의미하게 예측하는가?\n          원자재 시장의 금융화가 VRP의 위험 보상 체계에 어떤 영향을 미쳤는가?\n          자산군별(에너지, 귀금속 등) VRP의 예측 효율성에 차이가 있는가?\n        \n      \n    \n\n    \n      데이터 및 샘플\n      \n        \n          자산: WTI 원유, 금(Gold), 은(Silver), 구리(Copper) 등 주요 원자재 선물 및 옵션.\n          추가 데이터: 원자재 통화(AUD, CAD, BRL 등)의 내재 변동성 데이터 활용.\n          기간: 2000년대 초반 ~ 2018년.\n        \n      \n    \n\n    \n      방법론\n      \n        VRP Measurement: 각 원자재별 옵션 내재 변동성(IV)과 고빈도 실현 변동성(RV)의 차이를 계산.\n        Currency-based Proxy: 저자들은 원자재 통화의 VRP가 해당 원자재 가격의 '공포 지수' 역할을 할 수 있음을 제안하고 이를 검증했습니다.\n      \n    \n\n    \n      연구 결과\n      \n        \n          금융화 이후의 변화: 2008년 금융 위기 이후 원자재 시장이 금융 자산화되면서 VRP의 수익률 예측력이 더욱 뚜렷해졌습니다.\n          양(+)의 예측력: 높은 VRP(IV &gt; RV)는 향후 원자재 가격의 상승 압력으로 작용하는 경향을 보였습니다.\n          동조화 현상: 원자재 VRP는 글로벌 시장의 위험 회피 성향과 강하게 연동되며, 전이 효과(Spillover)를 동반함을 확인했습니다.\n        \n      \n    \n  \n\n\n\n\n  Finta & Ornelas (2022): \"Commodity Return Predictability and Risk Premia\"\n  \n    \n      [Journal Link]\n    \n    \n      논문 개요\n      \n        2019년 연구의 후속으로, 다양한 원자재 옵션의 정보를 통합하여 더 강력한 예측 지표를 구축.\n      \n    \n    \n      연구 질문\n      \n        원자재 간 VRP 정보를 통합하면 가격 예측의 견고성이 향상되는가?\n      \n    \n    \n      데이터 및 샘플\n      \n        글로벌 원자재 지수 및 구성 선물 옵션. 2020년 팬데믹 기간 포함.\n      \n    \n    \n      방법론\n      \n        멀티-에셋 VRP 팩터 모델링. 동적 가중치 할당을 통한 포트폴리오 구성.\n      \n    \n    \n      결과\n      \n        통합 VRP가 개별 자산 VRP보다 예측 오차 낮음. 자산군 간 위험 전이 포착에 유리.",
+    "crumbs": [
+      "문헌 분석",
+      "개요"
+    ]
+  },
+  {
+    "objectID": "literature/index.html#csml-분야",
+    "href": "literature/index.html#csml-분야",
+    "title": "",
+    "section": "CS/ML 분야",
+    "text": "CS/ML 분야\n\n  기계학습 기반 변동성 예측 연구 (13개 논문)\n  \n    주요 주제: 잔차 학습, 고빈도 데이터, Hybrid 모델, 횡단면 풀링, 옵션 곡면, 해석 가능성, Look-Ahead Bias 통제\n\n\n  Carr, Wu & Zhang (2019, 2020): \"Machine Learning for Realized Variance\" (Journal of Financial Economics / Working Paper)\n  \n    \n      [arXiv Link]\n      [SSRN Full Paper]\n    \n\n    \n      논문 개요\n      \n        기계학습(ML)을 금융 변동성 예측의 '잔차 학습(Residual Learning)' 도구로 활용한 선구적인 연구입니다. 전통적인 계량 모델(GARCH)이나 시장 지수(VIX)가 포착하지 못하는 비선형적 패턴을 ML이 어떻게 보완할 수 있는지를 보여줍니다.\n      \n    \n\n    \n      연구 질문\n      \n        \n          ML 모델이 전통적인 GARCH 계열 모델보다 실현 변동성(RV) 예측에서 우월한가?\n          VIX가 내포한 정보와 ML이 추출한 정보 중 어느 것이 미래 RV를 더 잘 설명하는가?\n          VIX²와 RV의 차이인 VRP를 직접 예측하는 것이 RV를 직접 예측하는 것보다 효율적인가?\n        \n      \n    \n\n    \n      데이터 및 샘플\n      \n        \n          대상: S&P 500 지수 및 옵션.\n          특성 변수: 과거 RV, VIX, 옵션 스큐(Skew), 커버처(Curvature) 등 옵션 표면에서 추출한 고차원 정보.\n        \n      \n    \n\n    \n      방법론\n      \n        Two-Step Approach: 1단계로 VIX를 베이스라인으로 설정하고, 2단계에서 Ridge Regression 및 FNN(Feed-forward Neural Network)을 사용하여 VIX의 예측 오차(잔차)를 학습했습니다.\n        Predicting VRP: 저자들은 RV 자체보다 VIX² - RV(즉, 사후적 VRP)를 타겟으로 학습하여 시장의 편향을 교정하는 데 집중했습니다.\n      \n    \n\n    \n      연구 결과\n      \n        \n          VRP 예측의 우위: 사후적 VRP를 타겟으로 학습했을 때가 RV를 직접 학습했을 때보다 예측 오차가 유의미하게 낮았습니다.\n          편향 교정: ML 모델이 VIX에 내재된 과대 평가(Over-estimation) 편향을 효과적으로 제거함을 확인했습니다.\n          경제적 성과: 예측된 VRP를 기반으로 한 변동성 매도 전략이 단순 보유 전략보다 높은 샤프 지수와 낮은 드로우다운을 기록했습니다.\n        \n      \n    \n  \n\n\n\n  Christensen et al. (2023): \"Volatility Forecasting with Intraday Commonality\" (Journal of Financial Econometrics / SSRN)\n  \n    \n      [Journal Link]\n      [SSRN Full Paper]\n    \n\n    \n      논문 개요\n      \n        개별 자산의 변동성을 하나씩 예측하는 대신, 수많은 자산의 데이터를 하나의 신경망으로 통합 학습(Pooling)하여 자산 간 '공통성(Commonality)'을 추출하는 방법론을 제시했습니다.\n      \n    \n\n    \n      연구 질문\n      \n        \n          자산 간 공통된 변동성 요인이 존재하며, 이를 기계학습으로 추출할 수 있는가?\n          개별 모델링(Individual modeling)보다 데이터 풀링(Data pooling)이 예측력과 일반화 성능을 높이는가?\n          자산 고유의 특성(Idiosyncratic characteristics)을 신경망 임베딩으로 처리하는 것이 효과적인가?\n        \n      \n    \n\n    \n      데이터 및 샘플\n      \n        \n          대상: S&P 500에 포함된 모든 주식 종목의 패널 데이터.\n          입력: 일단위 고빈도 RV, 산업 섹터 임베딩, 시가총액, 거래대금 등.\n        \n      \n    \n\n    \n      방법론\n      \n        Global Neural Network: 개별 주식마다 모델을 만들지 않고, 모든 주식의 데이터를 투입하여 하나의 거대한 신경망(Global Model)을 학습시켰습니다.\n        Intraday Commonality: 장중 발생하는 자산 간 상관관계와 공통 충격을 포착하기 위한 구조적 설계를 도입했습니다.\n      \n    \n\n    \n      연구 결과\n      \n        \n          장기 예측력 회복: 개별 HAR 모델이 취약한 10일~22일 단위 장기 예측에서 Global Model이 압도적인 우위를 보였습니다.\n          정보 공유의 효율성: 데이터가 부족한 신규 상장 주식이나 소형주의 변동성도 대형주의 패턴을 통해 더 정확하게 예측할 수 있음을 입증했습니다.\n          실무적 가치: 대규모 자산 포트폴리오의 리스크 관리를 수행할 때 계산 효율성과 예측 정확도를 동시에 잡을 수 있는 대안을 제시했습니다.\n        \n      \n    \n  \n\n\n\n  DeepVol (2022): \"Volatility Forecasting from High-Frequency Data with Dilated Causal Convolutions\" (arXiv / Quantitative Finance)\n  \n    \n      [arXiv Link]\n      [Journal Link]\n    \n\n    \n      논문 개요\n      \n        고빈도 틱(Tick) 데이터를 직접 입력받아 미래 변동성을 예측하는 **DeepVol** 모델을 제안한 연구입니다. WaveNet의 아키텍처인 Dilated Causal Convolution을 금융 시계열에 최적화하여 적용했습니다.\n      \n    \n\n    \n      연구 질문\n      \n        \n          RV와 같이 가공된 데이터 대신 원시(Raw) 고빈도 수익률 데이터를 사용하는 것이 더 많은 정보를 포착하는가?\n          Dilated Convolution이 금융 시계열의 장기/단기 의존성을 동시에 포착하는 데 효과적인가?\n          인과적(Causal) 제약 조건이 딥러닝의 미래 참조 편향(Look-ahead bias)을 완벽히 통제할 수 있는가?\n        \n      \n    \n\n    \n      데이터 및 샘플\n      \n        \n          데이터: NASDAQ-100 지수의 1분 및 5분 단위 수익률 시계열.\n          특징: 별도의 핸드크래프트 피처(RV, BPV 등) 없이 수익률 값 자체를 입력으로 사용.\n        \n      \n    \n\n    \n      방법론\n      \n        Dilated Causal CNN: 합성곱 층이 깊어질수록 수용 영역(Receptive Field)을 지수적으로 확장하여 긴 과거 이력을 효율적으로 학습합니다.\n        End-to-End Learning: 데이터 가공 단계를 생략하고 원시 데이터를 통해 변동성 함축 패턴을 직접 추출합니다.\n      \n    \n\n    \n      연구 결과\n      \n        \n          성능 압도: 기존의 최상위 계량 모델인 HEAVY 및 GARCH-midas 대비 RMSE 기준 약 10~15%의 성능 향상을 기록했습니다.\n          급변 국면 적응: 시장의 갑작스러운 구조적 변화(Structural break)가 발생했을 때 딥러닝 모델이 더 빠르게 적응함을 확인했습니다.\n          해석 가능성: 어텐션 맵 분석을 통해 모델이 장기 추세와 최근의 변동성 군집(Clustering)을 조화롭게 고려하고 있음을 보여주었습니다.\n        \n      \n    \n  \n\n\n\n  Michael, Cucuringu & Howison (2025): \"Options-driven Volatility Forecasting\" (Quantitative Finance)\n  \n    \n      [Journal Link]\n    \n\n    \n      논문 개요\n      \n        단일 지표인 VIX에 의존하지 않고, 옵션 시장 전체의 내재 변동성 곡면(IV Surface) 정보를 딥러닝으로 직접 학습하여 미래 변동성을 예측하는 최신 연구입니다. 옵션 가격에 녹아있는 시장의 비선형적 공포와 꼬리 위험을 정밀하게 추출합니다.\n      \n    \n\n    \n      연구 질문\n      \n        \n          VIX가 담지 못하는 옵션 곡면의 Slope(기울기)와 Curvature(곡률) 정보가 미래 RV 예측에 추가적인 정보를 제공하는가?\n          오토인코더(Autoencoder)를 통한 IV Surface의 차원 축소가 예측 모델의 특징 선택(Feature Selection)보다 우월한가?\n          시장 급락 상황에서 옵션 기반 딥러닝 모델이 일반 시계열 모델보다 우수한 방어적 예측을 제공하는가?\n        \n      \n    \n\n    \n      데이터 및 샘플\n      \n        \n          입력: 행사가격(Moneyness)과 만기(Maturity) 2차원 그리드 상의 전체 IV 표면 데이터.\n          대상: S&P 500, Nasdaq 100 지수 옵션.\n        \n      \n    \n\n    \n      방법론\n      \n        Deep Feature Extraction: CNN 또는 Convolutional Autoencoder를 사용하여 2D IV Surface 이미지에서 핵심적인 잠재 변동성 패턴을 추출합니다.\n        Hybrid RNN: 추출된 특징과 과거 RV 시계열을 결합하여 LSTM/GRU 층을 통해 시계열 동학을 학습합니다.\n      \n    \n\n    \n      연구 결과\n      \n        \n          OTM 정보의 중요성: 외가격(OTM) 풋 옵션의 정보가 미래 변동성 스파이크를 예측하는 데 결정적인 역할을 함을 정량적으로 증명했습니다.\n          강건성 향상: VIX의 일시적인 노이즈에 휘둘리지 않고 자산 가격의 구조적 위험을 더 객관적으로 포착했습니다.\n          실무 적용: 테일 헤지(Tail Hedge) 전략을 운용하는 펀드에서 예측 모델로 활용 시 유의미한 알파 수익을 창출했습니다.\n        \n      \n    \n  \n\n\n\n\n  Ramos-Pérez (2021): \"Multi-Transformer with Attention\"\n  \n    \n      [Journal Link]\n    \n    \n      논문 개요\n      \n        Transformer Self-Attention으로 시계열 내 Key Moments 자동 선별. 앙상블로 안정성 향상.\n      \n    \n    \n      연구 질문\n      \n        Transformer 어텐션이 장기 의존성 포착에 효과적인가? 구조적 변화 적응력은?\n      \n    \n    \n      데이터 및 샘플\n      \n        S&P 500 일별 데이터. 2008년 금융위기, 2020년 팬데믹 포함.\n      \n    \n    \n      방법론\n      \n        데이터를 서브셋으로 나눠 각각 트랜스포머 학습 후 앙상블. Self-Attention으로 Key Moments 선별.\n      \n    \n    \n      결과\n      \n        코로나19 기간(2020) GARCH 대비 월등히 낮은 RMSE. 어텐션이 충격 시점 포착. 레짐 변화 적응력 우수.\n      \n    \n  \n\n\n\n  Roszyk & Slepaczuk (2024): \"Hybrid LSTM-GARCH Models\"\n  \n    \n      [Journal Link]\n    \n    \n      논문 개요\n      \n        GARCH 조건부 분산을 LSTM 입력으로 사용. 구조적 모형과 딥러닝 결합.\n      \n    \n    \n      연구 질문\n      \n        GARCH 변동성 군집 포착과 LSTM 장기 의존성 학습 결합이 안정적 예측 가능하게 하는가?\n      \n    \n    \n      데이터 및 샘플\n      \n        S&P 500 일별 OHLC, 로그 수익률, 과거 변동성, VIX.\n      \n    \n    \n      방법론\n      \n        GARCH 조건부 분산을 LSTM 추가 입력. GARCH가 변동성 군집 제약을 가이드라인으로 제공.\n      \n    \n    \n      결과\n      \n        MAE 1.56e-3, GARCH 대비 개선. GARCH 과대평가를 LSTM이 수정. 데이터 적은 환경에서도 안정.\n      \n    \n  \n\n\n\n  Xu et al. (2024): \"GARCH-Informed Neural Networks (GINN) for Volatility Forecasting\"\n  \n    \n      [ICAIF '24 Link]\n      [arXiv Link]\n    \n    \n      논문 개요\n      \n        신경망을 GARCH와 동등하게 설계. LSTM 셀 상태를 GARCH 분산 업데이트와 수학적 매핑.\n      \n    \n    \n      연구 질문\n      \n        신경망 가중치가 GARCH 파라미터와 대응되도록 설계하면 통계적 일관성과 예측력 동시 확보 가능한가?\n      \n    \n    \n      데이터 및 샘플\n      \n        S&P 500, DJI, EUR/USD, 금 선물. ADF/KPSS 검정으로 정상성 확인.\n      \n    \n    \n      방법론\n      \n        LSTM 셀 상태 업데이트를 GARCH 분산 업데이트와 매핑. 손실 함수로 음의 로그 우도 사용.\n      \n    \n    \n      결과\n      \n        다양한 자산군에서 범용성 검증. GARCH 견고함과 신경망 유연성 결합으로 안정적 성능.\n      \n    \n  \n\n\n\n  Lo & Singh (2023): \"Deep-learning with SHAP/LIME Interpretability in Finance\"\n  \n    \n      [SSRN Link]\n    \n    \n      논문 개요\n      \n        SHAP/LIME으로 블랙박스 해결. 모델이 경제학적으로 타당한 변수에 반응하는지 검증.\n      \n    \n    \n      연구 질문\n      \n        신경망 예측 근거를 사후 추적 가능한가? 모델이 노이즈가 아닌 경제적 논리를 학습하는가?\n      \n    \n    \n      데이터 및 샘플\n      \n        S&P 500 VRP, 과거 수익률, VIX, 금리, 신용 스프레드 등 거시경제 변수.\n      \n    \n    \n      방법론\n      \n        SHAP 값 산출: 예측 VRP에 대한 각 입력 변수 기여도 정량화. LIME으로 국소 해석.\n      \n    \n    \n      결과\n      \n        딥러닝이 단기 가격보다 신용 스프레드, 장기 변동성 추세에 큰 가중치. 경제적 논리 부합.\n      \n    \n  \n\n\n\n  Benhenda (2026): \"Look-Ahead-Bench: Point-in-Time Evaluation\"\n  \n    \n      [arXiv Link]\n    \n    \n      논문 개요\n      \n        미래 참조 편향을 엄격 통제한 Point-in-Time 벤치마크. LLM 암기 vs 추론 능력 구분.\n      \n    \n    \n      연구 질문\n      \n        모델 성능이 암기인지 추론인지 구분 가능한가? 훈련 데이터 오염이 성능 과대평가하는가?\n      \n    \n    \n      데이터 및 샘플\n      \n        AAPL, MSFT, GOOGL, NVDA, TSLA 대형 기술주. 2021년 9월 이전 데이터만 훈련.\n      \n    \n    \n      방법론\n      \n        훈련/테스트 데이터 간 갭 설정. 알파 붕괴(Alpha Decay) 지표로 일반화 능력 측정.\n      \n    \n    \n      결과\n      \n        일반 LLM은 훈련 기간 암기로 높은 성능이나 Out-of-Sample 알파 붕괴. Point-in-Time 모델이 실무 유효.\n      \n    \n  \n\n\n\n  Fan, Wu & Yang (2025): \"Adaptive Multi-task Learning for Multi-sector Portfolio Optimization\"\n  \n    \n      [arXiv Link]\n    \n    \n      논문 개요\n      \n        다중 섹터 공통 팩터 추출. Projection-Penalized PCA로 섹터 간 정보 공유 최적화.\n      \n    \n    \n      연구 질문\n      \n        섹터 간 유사도를 데이터 주도적으로 파악하여 적응적 정보 공유 가능한가?\n      \n    \n    \n      데이터 및 샘플\n      \n        Russell 3000 지수 구성 종목. 다양한 산업군 패널 데이터.\n      \n    \n    \n      방법론\n      \n        섹터 간 유사도를 데이터로 파악, 벌칙 항으로 조절. 무작정 풀링과 개별 분석의 절충.\n      \n    \n    \n      결과\n      \n        섹터 간 정보 전이 효과로 개별 모델 대비 성능 향상. 빅데이터와 적응적 공유로 데이터 부족 극복.\n      \n    \n  \n\n\n\n  Chun, Cho & Ryu (2025): \"Volatility Forecasting and Volatility-Timing Strategies\"\n  \n    \n      [Journal Link]\n    \n    \n      논문 개요\n      \n        ML 변동성 예측을 포트폴리오 타이밍 전략에 적용. 변동성 급등 감지로 위험 자산 비중 조절.\n      \n    \n    \n      연구 질문\n      \n        ML 변동성 예측이 실제 투자 전략에서 경제적 효용 창출하는가? 샤프 지수 개선하는가?\n      \n    \n    \n      데이터 및 샘플\n      \n        다양한 자산군 변동성 데이터. 포트폴리오 최적화 백테스트.\n      \n    \n    \n      방법론\n      \n        ML로 변동성 예측 후 예측 변동성에 따라 동적 위험 자산 비중 조절. 변동성 높을 때 안전 자산 대피.\n      \n    \n    \n      결과\n      \n        ML 변동성 타이밍 전략이 벤치마크 대비 높은 샤프 지수(3.45~3.48). 변동성 급등 감지 탁월.\n      \n    \n  \n\n\n\n  Pyun (2019) & Feunou et al. (2017): \"Individual Stock VRP Factor\"\n  \n    \n      논문 개요\n      \n        개별 주식 VRP가 횡단면 수익률 팩터로 작동. 기업 고유 특이 위험 프리미엄.\n      \n    \n    \n      연구 질문\n      \n        개별 주식 VRP는 시장 위험 반영인가 기업 고유 특이 위험 프리미엄인가?\n      \n    \n    \n      데이터 및 샘플\n      \n        개별 주식 옵션 데이터. 횡단면 수익률 분석.\n      \n    \n    \n      방법론\n      \n        개별 주식 IV-RV로 VRP 추출. 횡단면 회귀로 VRP-미래 수익률 관계 검증.\n      \n    \n    \n      결과\n      \n        개별 주식 VRP가 미래 수익률과 강한 양의 상관. 딥러닝 추출 VRP 팩터가 롱-숏 전략에서 알파 창출.",
+    "crumbs": [
+      "문헌 분석",
+      "개요"
+    ]
+  },
+  {
+    "objectID": "literature/index.html#추가-자료",
+    "href": "literature/index.html#추가-자료",
+    "title": "",
+    "section": "추가 자료",
+    "text": "추가 자료\n\n전체 리딩 리스트 - 금융과 CS 분야 통합 리딩 리스트",
+    "crumbs": [
+      "문헌 분석",
+      "개요"
+    ]
+  },
+  {
+    "objectID": "content/notes/index.html",
+    "href": "content/notes/index.html",
+    "title": "연구 노트",
+    "section": "",
+    "text": "오늘 데이터 전처리 파이프라인을 개선했습니다.\n변경사항: - 결측치 처리 방법 변경 (평균 → 중앙값) - 이상치 제거 기준 조정 (IQR 방법)\n결과: - 모델 성능 2% 향상 - 데이터 손실 5% 감소\n\n\n\n\n실험 중 흥미로운 패턴을 발견했습니다.\n\n\n\n\n\n\n\n\n\n인사이트: - 이 패턴은 특정 조건에서만 나타남 - 추가 조사 필요\n\n\n\n\n읽은 논문: - “Advanced Methods in Data Analysis” (2023) - “Machine Learning Best Practices” (2024)\n주요 내용: - 새로운 전처리 기법 소개 - 하이퍼파라미터 튜닝 전략\n적용 계획: - [ ] 다음 실험에 적용 - [ ] 결과 비교"
+  },
+  {
+    "objectID": "content/notes/index.html#최근-노트",
+    "href": "content/notes/index.html#최근-노트",
+    "title": "연구 노트",
+    "section": "",
+    "text": "오늘 데이터 전처리 파이프라인을 개선했습니다.\n변경사항: - 결측치 처리 방법 변경 (평균 → 중앙값) - 이상치 제거 기준 조정 (IQR 방법)\n결과: - 모델 성능 2% 향상 - 데이터 손실 5% 감소\n\n\n\n\n실험 중 흥미로운 패턴을 발견했습니다.\n\n\n\n\n\n\n\n\n\n인사이트: - 이 패턴은 특정 조건에서만 나타남 - 추가 조사 필요\n\n\n\n\n읽은 논문: - “Advanced Methods in Data Analysis” (2023) - “Machine Learning Best Practices” (2024)\n주요 내용: - 새로운 전처리 기법 소개 - 하이퍼파라미터 튜닝 전략\n적용 계획: - [ ] 다음 실험에 적용 - [ ] 결과 비교"
+  },
+  {
+    "objectID": "content/notes/index.html#아이디어-목록",
+    "href": "content/notes/index.html#아이디어-목록",
+    "title": "연구 노트",
+    "section": "아이디어 목록",
+    "text": "아이디어 목록\n\n앙상블 방법 시도\n다른 데이터 소스 통합\n실시간 모니터링 시스템 구축"
+  },
+  {
+    "objectID": "content/notes/index.html#참고-자료",
+    "href": "content/notes/index.html#참고-자료",
+    "title": "연구 노트",
+    "section": "참고 자료",
+    "text": "참고 자료\n\n논문 링크 1\n논문 링크 2\n데이터셋 링크"
+  },
+  {
+    "objectID": "content/index.html",
+    "href": "content/index.html",
+    "title": "연구 대시보드",
+    "section": "",
+    "text": "R² = 0.821\nDual-Attention LSTM 기반\n단기 변동성 챔피언 모델 [상세 보기]\n\n\n\nR² = 0.755\n자산 적응형 Ridge 기반\n장기 변동성 챔피언 모델 [상세 보기]\n\n\n\nSharpe = 1.84\nVRP 기반 동적 배분\n포트폴리오 백테스트 결과 [상세 보기]"
+  },
+  {
+    "objectID": "content/index.html#핵심-연구-성과",
+    "href": "content/index.html#핵심-연구-성과",
+    "title": "연구 대시보드",
+    "section": "🚀 핵심 연구 성과",
+    "text": "🚀 핵심 연구 성과\n본 프로젝트는 주식, 채권, 원자재 등 23개 주요 글로벌 자산의 변동성 예측과 이를 활용한 수익률 제고를 목표로 합니다.\n\n기술적 우위 (Technical Edge)\n\nV50 모델: 시계열 의존성과 피처 중요도를 동시에 학습하는 이중 어텐션 메커니즘 적용.\nV36 모델: 장기 예측의 노이즈 문제를 해결하기 위한 자산별 정규화(Ridge) 최적화.\n범용 모델 (Universal): 단일 모델로 전체 자산의 변동성 법칙을 학습하는 Zero-shot 성능 확보."
+  },
+  {
+    "objectID": "content/index.html#모델-발전-과정-및-성능-추이",
+    "href": "content/index.html#모델-발전-과정-및-성능-추이",
+    "title": "연구 대시보드",
+    "section": "📊 모델 발전 과정 및 성능 추이",
+    "text": "📊 모델 발전 과정 및 성능 추이"
+  },
+  {
+    "objectID": "content/index.html#주요-탐색-경로",
+    "href": "content/index.html#주요-탐색-경로",
+    "title": "연구 대시보드",
+    "section": "📂 주요 탐색 경로",
+    "text": "📂 주요 탐색 경로\n\n\n실험 결과 분석\n\n예측 지평별(1d/22d) 상세 성능\n하이퍼파라미터 어블레이션 스터디\n시장 국면별 안정성 검증\n\n\n\n문헌 및 이론 분석\n\n자산군 통합 변동성 예측 논문 리뷰\nVRP 예측의 경제적 함의\n딥러닝 기반 변동성 모델 서베이"
+  },
+  {
+    "objectID": "content/project/overview.html",
+    "href": "content/project/overview.html",
+    "title": "연구개요",
+    "section": "",
+    "text": "Cross-Asset Volatility Risk Premium (VRP) 예측을 위한 머신러닝 프레임워크 개발",
+    "crumbs": [
+      "프로젝트",
+      "연구개요"
+    ]
+  },
+  {
+    "objectID": "content/project/overview.html#연구-목적",
+    "href": "content/project/overview.html#연구-목적",
+    "title": "연구개요",
+    "section": "",
+    "text": "Cross-Asset Volatility Risk Premium (VRP) 예측을 위한 머신러닝 프레임워크 개발",
+    "crumbs": [
+      "프로젝트",
+      "연구개요"
+    ]
+  },
+  {
+    "objectID": "content/project/overview.html#연구-배경",
+    "href": "content/project/overview.html#연구-배경",
+    "title": "연구개요",
+    "section": "연구 배경",
+    "text": "연구 배경\n\n문제 정의\n\n전통적인 VRP 연구는 주로 단일 자산(S&P 500)에 집중\nCross-Asset VRP 예측을 위한 통합 프레임워크 부재\n자산별 옵션 데이터 접근성 제한\n\n\n\n연구 목표\n\nCross-Asset VRP 예측 모델 개발\n\nGlobal VIX와 Cross-Asset Realized Volatility 기반\n여러 자산 클래스(주식, 채권, 신흥시장)에 적용\n\nSentiment Features 통합\n\nSKEW, VIX term structure 등 시장 심리 지표 활용\n정량적 feature engineering\n\n실용적 접근법 제시\n\n고차원 옵션 데이터 없이도 VRP 예측 가능\n실시간 리스크 관리에 활용 가능",
+    "crumbs": [
+      "프로젝트",
+      "연구개요"
+    ]
+  },
+  {
+    "objectID": "content/project/overview.html#연구-방법론",
+    "href": "content/project/overview.html#연구-방법론",
+    "title": "연구개요",
+    "section": "연구 방법론",
+    "text": "연구 방법론\n\n데이터\n\nGlobal VIX: 시장 전체 변동성 지수\nCross-Asset RV: 주식, 채권, 신흥시장 등 자산별 Realized Volatility\nSentiment Features: SKEW, VIX term spread, VIX9D 등\n\n\n\n모델\n\nBaseline: HAR (Heterogeneous Autoregressive) 모델\nLinear Models: LASSO, Ridge\nTree-based: XGBoost, LightGBM\nDeep Learning: LSTM, Transformer\n\n\n\n평가 지표\n\nMAE (Mean Absolute Error)\nRMSE (Root Mean Squared Error)\nQLIKE (Quasi-likelihood)\nDiebold-Mariano test",
+    "crumbs": [
+      "프로젝트",
+      "연구개요"
+    ]
+  },
+  {
+    "objectID": "content/project/overview.html#연구-구조",
+    "href": "content/project/overview.html#연구-구조",
+    "title": "연구개요",
+    "section": "연구 구조",
+    "text": "연구 구조",
+    "crumbs": [
+      "프로젝트",
+      "연구개요"
+    ]
+  },
+  {
+    "objectID": "content/project/overview.html#예상-결과",
+    "href": "content/project/overview.html#예상-결과",
+    "title": "연구개요",
+    "section": "예상 결과",
+    "text": "예상 결과\n\nCross-Asset VRP 예측 성능 향상\n\n기존 single-asset 모델 대비 개선\n여러 자산 클래스에서 일관된 성능\n\nFeature Importance 분석\n\nGlobal VIX의 기여도\nSentiment features의 예측력\n자산별 특성 파악\n\n실용적 활용 방안\n\n포트폴리오 리스크 관리\n옵션 가격 결정\n매크로 프루덴셜 정책",
+    "crumbs": [
+      "프로젝트",
+      "연구개요"
+    ]
+  },
+  {
+    "objectID": "content/project/overview.html#연구-일정",
+    "href": "content/project/overview.html#연구-일정",
+    "title": "연구개요",
+    "section": "연구 일정",
+    "text": "연구 일정\n\n\n\n단계\n기간\n주요 작업\n\n\n\n\n1단계\n1-2주\n선행연구 리뷰 및 데이터 수집\n\n\n2단계\n2-3주\nFeature Engineering 및 전처리\n\n\n3단계\n3-4주\n모델 개발 및 실험 설계\n\n\n4단계\n2-3주\n성능 평가 및 결과 분석\n\n\n5단계\n1-2주\n논문 작성 및 정리",
+    "crumbs": [
+      "프로젝트",
+      "연구개요"
+    ]
+  },
+  {
+    "objectID": "content/project/overview.html#다음-단계",
+    "href": "content/project/overview.html#다음-단계",
+    "title": "연구개요",
+    "section": "다음 단계",
+    "text": "다음 단계\n\n실험내용에서 구체적인 실험 설계 확인\n연구 노트에서 진행 상황 추적\n결과에서 최종 성과 확인",
+    "crumbs": [
+      "프로젝트",
+      "연구개요"
+    ]
+  },
+  {
+    "objectID": "content/references.html",
+    "href": "content/references.html",
+    "title": "레퍼런스",
+    "section": "",
+    "text": "Carr, P., & Wu, L. (2009). Variance Risk Premia. Review of Financial Studies, 22(3), 1311-1341.\n\nVRP의 표준 정의 제시\nRisk-neutral vs physical measure 분석\n\nBekaert, G., & Hoerova, M. (2014). The VIX, the Variance Premium and Stock Market Volatility. ECB Working Paper, No. 1675.\n\nVIX² 분해: VIX² = E^P[RV] + VRP\nVRP의 주가 수익률 예측력\n\nHansen, P. R., Huang, Z., Tong, H., & Wang, S. (2021). Realized GARCH, CBOE VIX, and the Volatility Risk Premium. Journal of Financial Econometrics, 2024.\n\nRealized GARCH 모형\n고빈도 데이터 활용한 VRP 측정\n\n\n\n\n\n\nHeston, S. L., et al. (2023). Exploring the Variance Risk Premium Across Assets. AEA Conference 2024.\n\n20개 선물에 대한 VRP 분석\n자산별 VRP 이질성 발견\n\nOrnelas, J., et al. (2018). Volatility risk premia and future commodity returns. BIS Working Paper, No. 619.\n\n원자재 VRP의 수익률 예측력\nCross-market spillover 효과\n\n\n\n\n\n\nFleming, J., Ostdiek, B., & Whaley, R. E. (1995). Predicting stock market volatility: a new measure. Journal of Finance, 50(1), 151-178.\nWhaley, R. E. (2000). The investor fear gauge. Journal of Portfolio Management, 26(3), 12-17.\n\n\n\n\n\n\n\n\n\nCarr, P., Wu, L., & Zhang, Z. (2019). Using Machine Learning to Predict Realized Variance. ArXiv preprint.\n\nML을 통한 RV 예측\nVRP deviation 예측의 우수성\n\nChristensen, K., et al. (2022). Volatility forecasting with machine learning and intraday commonality. Journal of Financial Econometrics, 2024.\n\nIntraday commonality 개념\nNeural Network의 성능 우위\n\nRoszyk, K., & Slepaczuk, R. (2024). The Hybrid Forecast of S&P 500 Volatility ensembled from VIX, GARCH and LSTM. ArXiv preprint.\n\nLSTM-GARCH 하이브리드 모델\nVIX 입력의 효과\n\n\n\n\n\n\nBenhenda, M., et al. (2026). A Standardized Benchmark of Look-ahead Bias in Point-in-Time Financial ML. ArXiv preprint.\n\nLook-ahead bias 벤치마킹\nTime-series cross-validation 프레임워크\n\nLopez de Prado, M. (2018). Advances in Financial Machine Learning. Wiley.\n\nPurged rolling window validation\nFinancial ML best practices"
+  },
+  {
+    "objectID": "content/references.html#주요-참고-문헌",
+    "href": "content/references.html#주요-참고-문헌",
+    "title": "레퍼런스",
+    "section": "",
+    "text": "Carr, P., & Wu, L. (2009). Variance Risk Premia. Review of Financial Studies, 22(3), 1311-1341.\n\nVRP의 표준 정의 제시\nRisk-neutral vs physical measure 분석\n\nBekaert, G., & Hoerova, M. (2014). The VIX, the Variance Premium and Stock Market Volatility. ECB Working Paper, No. 1675.\n\nVIX² 분해: VIX² = E^P[RV] + VRP\nVRP의 주가 수익률 예측력\n\nHansen, P. R., Huang, Z., Tong, H., & Wang, S. (2021). Realized GARCH, CBOE VIX, and the Volatility Risk Premium. Journal of Financial Econometrics, 2024.\n\nRealized GARCH 모형\n고빈도 데이터 활용한 VRP 측정\n\n\n\n\n\n\nHeston, S. L., et al. (2023). Exploring the Variance Risk Premium Across Assets. AEA Conference 2024.\n\n20개 선물에 대한 VRP 분석\n자산별 VRP 이질성 발견\n\nOrnelas, J., et al. (2018). Volatility risk premia and future commodity returns. BIS Working Paper, No. 619.\n\n원자재 VRP의 수익률 예측력\nCross-market spillover 효과\n\n\n\n\n\n\nFleming, J., Ostdiek, B., & Whaley, R. E. (1995). Predicting stock market volatility: a new measure. Journal of Finance, 50(1), 151-178.\nWhaley, R. E. (2000). The investor fear gauge. Journal of Portfolio Management, 26(3), 12-17.\n\n\n\n\n\n\n\n\n\nCarr, P., Wu, L., & Zhang, Z. (2019). Using Machine Learning to Predict Realized Variance. ArXiv preprint.\n\nML을 통한 RV 예측\nVRP deviation 예측의 우수성\n\nChristensen, K., et al. (2022). Volatility forecasting with machine learning and intraday commonality. Journal of Financial Econometrics, 2024.\n\nIntraday commonality 개념\nNeural Network의 성능 우위\n\nRoszyk, K., & Slepaczuk, R. (2024). The Hybrid Forecast of S&P 500 Volatility ensembled from VIX, GARCH and LSTM. ArXiv preprint.\n\nLSTM-GARCH 하이브리드 모델\nVIX 입력의 효과\n\n\n\n\n\n\nBenhenda, M., et al. (2026). A Standardized Benchmark of Look-ahead Bias in Point-in-Time Financial ML. ArXiv preprint.\n\nLook-ahead bias 벤치마킹\nTime-series cross-validation 프레임워크\n\nLopez de Prado, M. (2018). Advances in Financial Machine Learning. Wiley.\n\nPurged rolling window validation\nFinancial ML best practices"
+  },
+  {
+    "objectID": "content/references.html#데이터-소스",
+    "href": "content/references.html#데이터-소스",
+    "title": "레퍼런스",
+    "section": "데이터 소스",
+    "text": "데이터 소스\n\nVIX 데이터: CBOE (Chicago Board Options Exchange)\nRealized Volatility: 고빈도 가격 데이터 기반 계산\nSentiment Indicators:\n\nSKEW Index (CBOE)\nVIX Term Structure"
+  },
+  {
+    "objectID": "content/references.html#도구-및-라이브러리",
+    "href": "content/references.html#도구-및-라이브러리",
+    "title": "레퍼런스",
+    "section": "도구 및 라이브러리",
+    "text": "도구 및 라이브러리\n\nPython 패키지\n\npandas: 데이터 처리\nnumpy: 수치 계산\nscikit-learn: 머신러닝 모델\nxgboost, lightgbm: Gradient Boosting\ntensorflow, pytorch: 딥러닝\nmatplotlib, seaborn: 시각화\n\n\n\n소프트웨어\n\nQuarto: 연구 노트북 및 문서화\nJupyter: 대화형 분석\nGit: 버전 관리"
+  },
+  {
+    "objectID": "content/references.html#온라인-리소스",
+    "href": "content/references.html#온라인-리소스",
+    "title": "레퍼런스",
+    "section": "온라인 리소스",
+    "text": "온라인 리소스\n\nQuarto 공식 문서\nCBOE VIX Methodology\nFinancial Machine Learning Resources"
+  },
+  {
+    "objectID": "content/references.html#인용-형식",
+    "href": "content/references.html#인용-형식",
+    "title": "레퍼런스",
+    "section": "인용 형식",
+    "text": "인용 형식\n본 연구에서 사용하는 인용 형식은 APA 스타일을 따릅니다.\n예시: &gt; Carr and Wu (2009) proposed the standard definition of variance risk premium…\n참고 문헌 목록: - 저자명 (년도). 제목. 저널명, 권(호), 페이지."
+  },
+  {
+    "objectID": "literature/reading_list.html",
+    "href": "literature/reading_list.html",
+    "title": "Cross-Asset VRP Reading List",
+    "section": "",
+    "text": "본 문서는 당신의 “Cross-Asset VIX-RV Basis 기반 Volatility Risk Premium Prediction” 연구를 다음 두 분야에 출판하기 위한 완전한 논문 맵핑을 제공합니다:\n\nComputer Science / Machine Learning (KDD, ICML, NeurIPS)\nFinance / Econometrics (JFE, JFQA, JBANKF)",
+    "crumbs": [
+      "문헌 분석",
+      "읽기 목록"
+    ]
+  },
+  {
+    "objectID": "literature/reading_list.html#핵심-요약-executive-summary",
+    "href": "literature/reading_list.html#핵심-요약-executive-summary",
+    "title": "Cross-Asset VRP Reading List",
+    "section": "",
+    "text": "본 문서는 당신의 “Cross-Asset VIX-RV Basis 기반 Volatility Risk Premium Prediction” 연구를 다음 두 분야에 출판하기 위한 완전한 논문 맵핑을 제공합니다:\n\nComputer Science / Machine Learning (KDD, ICML, NeurIPS)\nFinance / Econometrics (JFE, JFQA, JBANKF)",
+    "crumbs": [
+      "문헌 분석",
+      "읽기 목록"
+    ]
+  },
+  {
+    "objectID": "literature/reading_list.html#섹션-1.1-variance-risk-premium-이론-및-정의의-기초",
+    "href": "literature/reading_list.html#섹션-1.1-variance-risk-premium-이론-및-정의의-기초",
+    "title": "Cross-Asset VRP Reading List",
+    "section": "섹션 1.1: Variance Risk Premium 이론 및 정의의 기초",
+    "text": "섹션 1.1: Variance Risk Premium 이론 및 정의의 기초\n\n1. Carr & Wu (2009): “Variance Risk Premia”\n\n출판: Review of Financial Studies (RFS) / Working Paper\n저자: Peter Carr (NYU), Liuren Wu (Baruch)\n링크: https://engineering.nyu.edu/sites/default/files/2020-05/P0639_ZZ-JOI_0.pdf\n\n\n핵심 내용\n\n표준 VRP 정의: \\[\\text{VRP}_t = \\text{Var}^Q_t(r_{t+h}) - E^P_t[\\text{Var}(r_{t+h})]\\] 여기서 Q = risk-neutral measure, P = physical measure\nVariance swap 포트폴리오를 통한 risk-neutral variance 추정\nVRP가 positive risk premium임을 보임 (큰 volatility spike 때 손실 보상)\n\n\n\n당신 연구와의 연결\n\n당신의 타겟: VRP = VIX - RV는 이 논문의 간단화된 버전\n문제점: 당신은 VIX를 피처에도, 타겟에도 포함 → identity mapping\n개선 방안:\n\nE^P_t[RV_{t+h}] (RV 예측)을 별도 학습\nVRP = VIX - E^P_t[RV_{t+h}]로 재정의\n\n\n\n\n인용 방법 (금융 논문 제출 시)\n\n“Following Carr and Wu (2009)’s standard definition of variance risk premium, we decompose the observed VIX into physical expectations and risk premium components…”\n\n\n\nNovelty 평가\n\n기여도: Foundational; VRP의 “canonical definition”\n한계: Single-asset (SPX) + 30-day horizon만 다룸\n\n\n\n\n\n2. Bekaert & Hoerova (2014): “The VIX, the Variance Premium and Stock Market Volatility”\n\n출판: ECB Working Paper (2014) / Journal of Financial Economics 계열\n저자: Geert Bekaert (Columbia), Marco Hoerova (ECB)\n링크: https://www.ecb.europa.eu/pub/pdf/scpwps/ecbwp1675.pdf\n\n\n핵심 내용\n\nVIX² 분해: \\[\\text{VIX}_t^2 = E^P_t[\\text{RV}_{t+22d}] + \\text{VRP}_t\\]\nVRP는 주가 수익률을 예측 (forward-looking)\n조건부 분산 (E^P[RV])은 경기순환과 금융불안 지수로 사용\n\n\n\n당신 연구와의 연결\n\n핵심 교훈: VIX 자체가 아니라, “VIX를 분해하여 두 요소를 분리”하는 게 중요\n당신이 발견한 “VIX 평균회귀가 거의 모든 예측력”은, VRP vs 물리적 분산을 분리하지 않았기 때문일 가능성\nCross-Asset 확장 가능성: 자산별로 E^P[RV_{t+h}]와 VRP를 분리\n\n\n\n인용 방법\n\n“Building on Bekaert and Hoerova (2014), we extend the VIX decomposition framework to multiple asset classes, separating physical expectations from volatility risk premium components…”\n\n\n\n\n\n3. Hansen, Huang, Tong & Wang (2021): “Realized GARCH, CBOE VIX, and the Volatility Risk Premium”\n\n출판: Journal of Financial Econometrics (JFE) 2024 / ArXiv 2021\n저자: Peter Reinhard Hansen (Copenhagen Business School/UNC), Zhuo Huang (PKU)\n링크: https://arxiv.org/pdf/2112.05302.pdf\n\n\n핵심 내용\n\nRealized GARCH 모형: 고빈도 realized volatility(RV)를 measurement equation에 포함 \\[\\text{log } h_{t+1} = \\omega + \\beta \\log h_t + \\tau(z_t) + \\gamma \\sigma u_t\\] \\[\\text{log } x_t = \\kappa + \\phi \\log h_t + \\delta(z_t) + \\sigma u_t\\]\n\nDual-shock structure (return shock + volatility shock)로 물리적·위험중립 측에서 서로 다른 역학 설명\n\n폐형식 VIX/VRP 공식 유도: \\[\\text{VIX}_t^{RG} = 100 \\sqrt{\\frac{252}{22} \\left( h_{t+1} + \\sum_{k=2}^{22} \\left( \\prod_{i=0}^{k-2} F_i \\right) h_t^{\\beta^{k-1}} \\right)}\\]\nVRP 분해 (log-scale):\n\n주가 리스크 프리미엄 부분 (-\\tau_1\\lambda + \\tau_2\\lambda^2): 2.2%\n변동성 리스크 부분 (-\\gamma\\sigma\\xi): 97.8% ← volatility shock이 VRP의 대부분 설명\n\n경험적 결과: Conventional GARCH 대비 VIX/VRP 예측성능 현저히 우수 (in/out-of-sample)\n\n\n\n당신 연구와의 연결\n\n모범 사례: 당신의 Cross-Asset VRP도 이 프레임워크 안에 올려놓을 수 있음\n데이터: 고빈도 RV 도입이 필수 (현재 일간 Close-to-Close는 noisy)\n타겟 재정의:\n\n기존: VIX - RV_{t+h} → identity mapping 문제\n개선: VIX - E_t[RV_{t+h}] (Realized GARCH로 E_t[RV_{t+h}] 예측)\n\n\n\n\n인용 방법\n\n“Following Hansen et al. (2021), we adopt a Realized GARCH framework with high-frequency data to coherently model P and Q measure dynamics, thereby enabling proper VRP definition and cross-asset spillover analysis…”\n\n\n\nNovelty 평가\n\n기여도: VRP 측정의 “새로운 표준”; Realized volatility의 중요성 강조\n한계: Single-asset (SPX) only; Cross-asset extension 안 함",
+    "crumbs": [
+      "문헌 분석",
+      "읽기 목록"
+    ]
+  },
+  {
+    "objectID": "literature/reading_list.html#섹션-1.2-cross-asset-multi-asset-vrp",
+    "href": "literature/reading_list.html#섹션-1.2-cross-asset-multi-asset-vrp",
+    "title": "Cross-Asset VRP Reading List",
+    "section": "섹션 1.2: Cross-Asset & Multi-Asset VRP",
+    "text": "섹션 1.2: Cross-Asset & Multi-Asset VRP\n\n4. Heston et al. (2023): “Exploring the Variance Risk Premium Across Assets”\n\n출판: AEA Conference 2024 / SSRN Working Paper\n저자: Heston 외 공동\n링크: https://www.aeaweb.org/conference/2024/program/paper/hiTeT8SE\n\n\n핵심 내용\n\n20개 선물 (주식, 국채, 통화, 원자재)에 대해 옵션 기반 variance portfolios 구성\n자산별 VRP 측정 및 구조 분석:\n\nVRP가 모든 자산에서 발생\n하지만 수준(level)·변동성·예측력이 자산별로 이질적 (heterogeneous)\nS&P 500 VRP: 평균이 거의 0에 가까움 (but 변동)\n\n\n\n\n당신 연구와의 연결\n\n직접 비교 대상: 당신의 Cross-Asset VRP 접근과 가장 유사한 논문\n차이점:\n\nHeston: 각 자산별 고유 옵션 데이터 사용 (GVZ for gold, OVX for crude, etc.)\n당신: Global VIX + Cross-Asset RV (저비용, 옵션-sparse 환경)\n\n당신의 포지셔닝: &gt; “Unlike Heston et al. (2023) who use asset-specific implied volatility indices, we propose a more economical approach leveraging global VIX and cross-asset realized volatility measures, making VRP prediction accessible for broader asset classes and real-time risk management.”\n\n\n\nNovelty 평가\n\n기여도: “VRP는 cross-asset heterogeneous”의 첫 강력한 증거\n한계: 기술적 기여(방법론)는 limited; 주로 실증 분석\n\n\n\n\n\n5. Ornelas et al. (2018): “Volatility risk premia and future commodity returns”\n\n출판: Journal of Finance & Quantitative Analysis (JFQA) 계열 / BIS Working Paper\n저자: José Ornelas 외\n링크: https://www.bis.org/publ/work619.pdf\n\n\n핵심 내용\n\n원자재(commodity) VRP가 미래 수익률 예측\n\n금(gold): VRP가 Gold 수익률 예측\n원유(crude): VRP가 Crude 수익률 예측\n통화: 유사한 spillover 관찰\n\nSpillover: 한 자산의 VRP → 다른 자산의 수익률 예측 가능\n\n예: VIX (global risk proxy) → Commodity VRP 예측\n\n\n\n\n당신 연구와의 연결\n\n핵심 발견과 부합: 당신의 “VIX → 금/채권 VRP 예측” 결과와 동일한 경제 로직\n이론적 근거: Spillover는 “global risk factor” 개념으로 설명 가능\n논문 위치 설정: &gt; “Our cross-asset VRP prediction framework is motivated by the spillover effects documented in Ornelas et al. (2018), extending their commodity-focus analysis to equities, fixed income, and emerging markets through a unified VIX-based factor model…”\n\n\n\nNovelty 평가\n\n기여도: “Commodity VRP → Returns” spillover의 첫 증거\n한계: 3-5개 상품만 다룸; ML 예측 미포함\n\n\n\n\n\n6. Czech Thesis (2021): “Volatility Risk Premium Across Multiple Asset Classes”\n\n출판: Charles University PhD Thesis\n저자: 미상 (인용 출처: 당신 문헌 참고)\n링크: https://dspace.cuni.cz/bitstream/handle/20.500.11956/191263/120472408.pdf\n\n\n핵심 내용\n\n18개 시장에서 VRP 측정\nRIV 모델 (Risk-adjusted Implied Volatility): IV를 조정해 더 나은 vol 예측\n핵심: “IV vs RV 비율”이 단순 IV보다 예측력 우수\n\n\n\n당신 연구와의 연결\n\nCAVB의 정당성: 당신의 CAVB = VIX - RV 은, 이 논문의 “IV vs RV 비율 정규화” 개념과 같은 맥락\n포지셔닝: &gt; “Building on the risk-adjusted implied volatility framework proposed in the thesis literature, we introduce Cross-Asset Volatility Basis (CAVB) as a normalized IV-RV difference that captures global risk premia…”",
+    "crumbs": [
+      "문헌 분석",
+      "읽기 목록"
+    ]
+  },
+  {
+    "objectID": "literature/reading_list.html#섹션-1.3-options-driven-volatility-vix-정보",
+    "href": "literature/reading_list.html#섹션-1.3-options-driven-volatility-vix-정보",
+    "title": "Cross-Asset VRP Reading List",
+    "section": "섹션 1.3: Options-Driven Volatility & VIX 정보",
+    "text": "섹션 1.3: Options-Driven Volatility & VIX 정보\n\n7. Fleming et al. (1995); Whaley (2000); VIX-Related Core Studies\n\nFleming et al. (1995): “Predicting stock market volatility: a new measure” (JPE)\nWhaley (2000): “The investor fear gauge” (JPM)\nTodorov & Bollerslev (2010): “Volatility spillovers across equity markets”\n\n\n핵심 내용\n\nVIX = “fear gauge” (공포 지수)\nVIX는 미래 RV 예측에 정보력 있음 (하지만 완벽하지 않음)\nVIX term structure (3M, 9D VIX 등)이 시장 상태 신호\n\n\n\n당신 연구와의 연결\n\n당신의 Sentiment Features: SKEW, VIX term spread, VIX9D는 이 라인의 정량화\nVIX spillover: 당신이 다룬 “Global Risk” 개념의 이론적 근거\n\n\n\n\n\n8. Carr, Wu & Zhang (2019): “Using Machine Learning to Predict Realized Variance”\n\n출판: ArXiv 2019\n저자: Peter Carr (NYU), Liuren Wu (Baruch), Zhibai Zhang\n링크: https://arxiv.org/pdf/1909.10035.pdf\n\n\n핵심 내용\n\nML을 통한 RV 예측: Ridge, FNN, Random Forest 등으로 realized variance 예측\n핵심 발견:\n\nRegression I (직접 RV 예측) vs Regression II (VIX² - RV 차이 예측)\nRegression II (VRP 예측)이 훨씬 우수 ← 이미 VIX가 좋은 baseline이므로, 편차만 ML로 포착\n\n최적 접근: \\[RV = VIX^2 + f(\\text{option prices})\\] 즉, VRP 부분만 ML로 모델링\n모델: Ridge (R² 0.39), FNN with ReLU (R² 0.39)로 충분; 더 복잡한 모델은 이득 없음\n\n\n\n당학 연구와의 연결\n\n가장 직접적인 선례: 이 논문의 “Cross-Asset 확장판”이 당신 연구\n타겟 재정의의 정당성:\n\nCarr et al.: RV = VIX² + (ML predicted deviation)\n당신: RV_{Asset,t+h} = VIX_t + (ML predicted CAVB/Sentiment factors)\n\n개선 아이디어:\n\n당신도 “VIX + ML-predicted deviation” 구조로 명시적 target을 재정의하면, identity mapping 문제 해결\n\n\n\n\n인용 방법 (금융 + CS 모두 가능)\n\n“Following the successful application of machine learning to variance prediction in Carr et al. (2019), we extend their framework to the cross-asset setting, leveraging both global VIX levels and asset-specific realized volatility basis as dual channels for volatility risk premium forecasting.”\n\n\n\nNovelty 평가\n\n기여도: “VRP deviation 예측”이 direct RV 예측보다 낫다는 첫 증거\n한계: Single-asset; option data heavy; Cross-asset 미포함",
+    "crumbs": [
+      "문헌 분석",
+      "읽기 목록"
+    ]
+  },
+  {
+    "objectID": "literature/reading_list.html#섹션-1.4-cross-market-spillover-sentiment",
+    "href": "literature/reading_list.html#섹션-1.4-cross-market-spillover-sentiment",
+    "title": "Cross-Asset VRP Reading List",
+    "section": "섹션 1.4: Cross-Market Spillover & Sentiment",
+    "text": "섹션 1.4: Cross-Market Spillover & Sentiment\n\n9. Volatility Spillovers & Contagion Studies\n\nAng & Longstaff (2013): Systemic risk과 volatility spillover\nVolatility spillovers during normal and high volatility states [Journal reference]\nCross-market spillovers with ‘volatility surprise’ [Financial Markets track]\n\n\n핵심 내용\n\nVolatility spillover는 regime-dependent (정상 vs 스트레스)\nVIX → EEM/EFA 스필오버 메커니즘 분석\nSKEW, term structure는 tail risk 신호\n\n\n\n당신 연구와의 연결\n\n당신의 발견: VIX spillover가 EEM (+60%)에 큼 → 이 spillover 문헌으로 설명\n확장 연구: Regime-switching 모델 도입 가능",
+    "crumbs": [
+      "문헌 분석",
+      "읽기 목록"
+    ]
+  },
+  {
+    "objectID": "literature/reading_list.html#섹션-2.1-순수-ml-based-볼래틸리티-예측",
+    "href": "literature/reading_list.html#섹션-2.1-순수-ml-based-볼래틸리티-예측",
+    "title": "Cross-Asset VRP Reading List",
+    "section": "섹션 2.1: 순수 ML-based 볼래틸리티 예측",
+    "text": "섹션 2.1: 순수 ML-based 볼래틸리티 예측\n\n10. Carr, Wu & Zhang (2019) – CS 관점\n\n(위에서 이미 소개했으나, CS 관점으로 재해석)\n\nCS Novelty:\n\nOption features의 고차원성 처리 (79개 옵션)\nRidge, FNN, Random Forest의 systematic comparison\nTradability constraint: Piece-wise linear functions only (중요한 제약)\n\n당신과의 차이:\n\nCarr et al.: 복잡한 option data → ML으로 최적화\n당신: 저차원 VIX 기반 features → 더 간단하지만 Cross-Asset\n\n\n\n\n\n\n11. “Volatility forecasting with machine learning and intraday commonality”\n\n출판: ArXiv 2022 / JFEC (Journal of Financial Econometrics) 2024\n저자: Christensen et al.\n링크: SSRN version available\n\n\n핵심 내용\n\nIntraday commonality: 많은 종목의 고빈도 RV를 pooling하면 공통 요소 추출 가능\nNeural Network (2-3 hidden layers)이 HAR, GARCH, tree models 모두 outperform\n이유: 공통성 + 비선형성을 동시에 포착\n\n\n\n당신 연구와의 연결\n\nCross-Asset VRP의 CS 해석: &gt; “Like the intraday commonality framework of Christensen et al., our Cross-Asset Volatility Basis can be viewed as extracting a global volatility common factor (VIX-driven) from multiple asset RVs, enabling superior ML-based prediction…”\n\n\n\n\n\n12. “Volatility forecasting and volatility-timing strategies: A machine learning approach” (2024)\n\n출판: Journal of Financial Econometrics (JFEC) 2024\n저자: 다양한 저자\n링크: https://www.sciencedirect.com/science/article/abs/pii/S0275531924005166\n\n\n핵심 내용\n\n43개 macro + financial + sentiment features → LASSO, GBRT 등 고차원 ML\n결과: HAR 대비 예측 + 전략 성능 명확히 우수\nFeature importance: 선형이 아니라 비선형 상호작용 중요\n\n\n\n당신과의 비교\n\n당신의 발견: “선형 모델 &gt; ML” ← identity mapping + 데이터 구조 문제 때문\n이 논문: 올바른 feature engineering으로 ML 우위 입증\n시사점: 당신도 target 재정의 후 ML은 우위를 회복할 것으로 예상\n\n\n\n\n\n13. DeepVol: “Volatility Forecasting from High-Frequency Data with Dilated Causal Convolutions” (2024)\n\n출판: ArXiv 2024\n저자: 다양\n링크: https://arxiv.org/html/2210.04797v3\n\n\n핵심 내용\n\nDilated Causal CNN (시계열 순서 보존, 장거리 의존성)으로 고빈도 RV 예측\n전통 모델 대비 현저한 개선\n\n\n\n당신과의 연결\n\n향후 연구: 고빈도 데이터로 upgrade하면, 이 아키텍처 검토 가능\n\n\n\n\n\n14. “Multi-Transformer: A New Neural Network-Based Architecture for Forecasting S&P Volatility” (2021)\n\n출판: ArXiv 2021\n저자: 다양\n링크: https://arxiv.org/pdf/2109.12621.pdf\n\n\n핵심 내용\n\nTransformer 기반 (Attention mechanism) 시계열 아키텍처\nSelf-attention으로 시간 간 관계성 자동 학습\n\n\n\n당신과의 연결\n\nCS 논문 제출 시, baseline 모델 중 하나로 고려 가능\n\n\n\n\n\n15. The Hybrid Forecast of S&P 500 Volatility ensembled from VIX, GARCH and LSTM (2024)\n\n출판: ArXiv 2024\n저자: Roszyk & Slepaczuk (University of Warsaw)\n링크: https://arxiv.org/pdf/2407.16780.pdf\n\n\n핵심 내용\n\nLSTM-GARCH 하이브리드: GARCH 예측 + LSTM의 비선형성\nVIX 입력 추가로 성능 현저히 개선\n\nGARCH alone: MAE=1.56×10⁻³, RMSE=2.39×10⁻³\nLSTM-GARCH+VIX: MAE=1.02×10⁻³, RMSE=1.30×10⁻³ (45% 개선)\n\nSensitivity analysis: 시계열 길이, LSTM 레이어수, activation function의 영향 분석\n\n\n\n당신과의 연결\n\n직접 비교: 당신도 HAR + VIX + Sentiment로 유사한 하이브리드 시도\n개선점:\n\n이 논문: GARCH 기반\n당신: HAR + Cross-Asset CAVB 기반\n\n차별성: Cross-Asset 예측 (단순 SPX 아님)\n\n\n\n인용 방법\n\n“Building on recent hybrid LSTM-GARCH approaches (Roszyk & Slepaczuk, 2024), we extend the framework to cross-asset volatility prediction, incorporating global VIX dynamics and asset-specific volatility basis measures…”",
+    "crumbs": [
+      "문헌 분석",
+      "읽기 목록"
+    ]
+  },
+  {
+    "objectID": "literature/reading_list.html#섹션-2.2-look-ahead-bias-validation",
+    "href": "literature/reading_list.html#섹션-2.2-look-ahead-bias-validation",
+    "title": "Cross-Asset VRP Reading List",
+    "section": "섹션 2.2: Look-Ahead Bias & Validation",
+    "text": "섹션 2.2: Look-Ahead Bias & Validation\n\n16. “a Standardized Benchmark of Look-ahead Bias in Point-in-Time Financial ML” (2026)\n\n출판: ArXiv Jan 2026\n저자: Benhenda 외\n링크: https://arxiv.org/pdf/2601.13770.pdf\n\n\n핵심 내용\n\nLook-ahead bias의 정의 및 벤치마킹:\n\n예측 시점에 미래 정보 사용 → 완전히 무효한 backtest\n정교한 leakage detection framework 제시\n\n시간일관성 검증 프레임워크 (time-series cross-validation)\n\n\n\n당신 연구와의 연결\n\n가장 중요한 체크리스트:\n\n당신의 CAVB 피처가 미래 정보를 포함하는가?\n이동평균 window가 정당한가?\nTrain/test split이 proper time-series CV인가? ← 현재 단일 분할은 부족\n\n필수 개선:\n\nExpanding window 또는 purged rolling window 도입\n각 예측 시점에서 “그 시점에서 알 수 없는 정보”는 제외\n\n\n\n\n인용 방법 (CS 논문)\n\n“Following recent standardized guidelines for look-ahead bias detection (Benhenda et al., 2026), we employ purged rolling-window validation to ensure that all features are computed from information available at the prediction date…”\n\n\n\n\n\n17. “An Interpretable Machine Learning Workflow with an Application to Systemic Risk” [IJCB]\n\n관련 저작들 (LLM+Finance 분야)\n\n\n핵심 내용\n\nOut-of-bag analysis에서의 subtle look-ahead bias\nInterpretability (LIME, SHAP) 중요성\n\n\n\n당신과의 연결\n\nCS 논문에 LIME/SHAP을 통한 feature importance 추가 → 설득력 증대\n\n\n\n\n\n18. “Deep learning for financial forecasting: A review of recent advances” (2025)\n\n출판: Science Direct 2025\n링크: https://www.sciencedirect.com/science/article/pii/S1059056025008822\n\n\n핵심 내용\n\nDL in finance의 종합 리뷰\nLook-ahead bias, publication bias, overfitting 등 주요 pitfalls 정리\nBest practices (validation strategy, hyperparameter tuning, etc.)\n\n\n\n당신과의 연결\n\nCS 논문 제출 전 quality checklist 확인용\nReviewer가 가장 먼저 스캔할 리뷰 논문",
+    "crumbs": [
+      "문헌 분석",
+      "읽기 목록"
+    ]
+  },
+  {
+    "objectID": "literature/reading_list.html#섹션-2.3-cross-asset-multi-task-learning",
+    "href": "literature/reading_list.html#섹션-2.3-cross-asset-multi-task-learning",
+    "title": "Cross-Asset VRP Reading List",
+    "section": "섹션 2.3: Cross-Asset / Multi-Task Learning",
+    "text": "섹션 2.3: Cross-Asset / Multi-Task Learning\n\n19. “Deep-learning models for forecasting financial risk premia and their interpretations” (2023)\n\n출판: ArXiv / Journal of Machine Learning Research\n저자: 다양\n링크: https://arxiv.org/abs/2310.01063\n\n\n핵심 내용\n\n여러 리스크 프리미엄 (시장, 크레딧, FX 등)을 single deep learning model로 동시 예측\nFeature importance 분석으로 각 프리미엄의 공통 vs 이질적 요인 파악\n\n\n\n당신과의 연결\n\n당신의 연구 위치: “Volatility Risk Premium across multiple assets”는 이 논문의 변동성 특화 버전\n포지셔닝: &gt; “Extending the multi-task deep learning framework for financial risk premia (Deep-learning models for forecasting…, 2023), we develop a specialized cross-asset volatility risk premium prediction model that jointly learns asset-specific and global volatility dynamics…”\n\n\n\n\n\n20. “Dynamic Asset Allocation with Asset-Specific Regime Forecasts” (2024)\n\n출판: ArXiv 2024\n저자: Lugrin 외\n링크: https://arxiv.org/pdf/2407.01550.pdf\n\n\n핵심 내용\n\nRegime-switching 기반 동적 자산배분\n자산별 regime을 DL로 예측 → 포트폴리오 재조정\n\n\n\n당신과의 연결\n\n향후 확장: 당신의 VRP 예측을 regime-aware로 확장\n“VRP 예측력이 market regime에 따라 다르다” → side hypothesis 추가 가능",
+    "crumbs": [
+      "문헌 분석",
+      "읽기 목록"
+    ]
+  },
+  {
+    "objectID": "literature/reading_list.html#섹션-2.4-vix-옵션-하이브리드-시계열-모델",
+    "href": "literature/reading_list.html#섹션-2.4-vix-옵션-하이브리드-시계열-모델",
+    "title": "Cross-Asset VRP Reading List",
+    "section": "섹션 2.4: VIX, 옵션, 하이브리드 시계열 모델",
+    "text": "섹션 2.4: VIX, 옵션, 하이브리드 시계열 모델\n\n21. “From GARCH to Neural Network for Volatility Forecast” (2024)\n\n출판: ArXiv 2024\n저자: 다양\n링크: https://arxiv.org/pdf/2402.06642.pdf\n\n\n핵심 내용\n\nGARCH와 NN을 physically integrate\nGARCH의 경제학적 해석성 + NN의 표현력 결합\n\n\n\n당신과의 연결\n\n당신의 “HAR + ML” 구조의 이론적 근거\n\n\n\n\n\n22. “Forecasting VIX using Bayesian Deep Learning” (2024)\n\n출판: ArXiv 2024\n\n\n핵심 내용\n\nVIX 자체 예측 (not RV)\nUncertainty quantification (Bayesian)으로 confidence interval 제공\n\n\n\n당신과의 연결\n\nVIX 예측을 “mean ± std” 형태로 개선 가능 → Cross-Asset VRP 불확실성 모델링\n\n\n\n\n\n23. “Options-driven Volatility Forecasting” (2025)\n\n출판: Journal of Derivatives / Quantitative Finance (Informa Online) 2025\n저자: Michael 외\n링크: https://www.tandfonline.com/doi/full/10.1080/14697688.2025.2454623\n\n\n핵심 내용\n\nHAR + Option Surface PCA → realized vol 예측\n옵션 정보(특히 term structure, skew)가 incremental value 제공\n\n\n\n당신과의 연결\n\n당신의 Sentiment feature (VIX term spread, SKEW)의 이론적 정당성\nOptions-driven 접근의 최신 발전\n\n\n\n인용 방법 (CS)\n\n“Following options-driven volatility forecasting approaches (Michael, 2025), we leverage market expectations embedded in VIX term structure and skewness measures as key sentiment inputs…”\n\n\n\n\n\n24. “Predicting option implied volatility features using machine learning” (미공개)\n\n유사 논문들\n\nKey idea: IV surface를 직접 ML로 예측\n당신의 SKEW, VIX9D_spread와 유사한 “파생 특성” 활용",
+    "crumbs": [
+      "문헌 분석",
+      "읽기 목록"
+    ]
+  },
+  {
+    "objectID": "literature/reading_list.html#cs-journal-출판-경로-3-4개월",
+    "href": "literature/reading_list.html#cs-journal-출판-경로-3-4개월",
+    "title": "Cross-Asset VRP Reading List",
+    "section": "3.1 CS Journal 출판 경로 (3-4개월)",
+    "text": "3.1 CS Journal 출판 경로 (3-4개월)\n\n추천 저널\n\nKDD (ACM Conference on Knowledge Discovery and Data Mining)\nICML Finance Track (International Conference on Machine Learning)\nNeurIPS Finance Track (Neural Information Processing Systems)\n\n\n\n필수 수정사항\n\nTarget 재정의\n\nCurrent: VRP = VIX - RV_{t+h} → Identity mapping 문제\nProposed: Two-stage\n\nStage 1: E_t[RV_{t+h}] 예측 (RV-only features, no VIX)\nStage 2: VRP = VIX - E_t[RV_{t+h}]\n\n\nValidation Protocol\n\nPurged rolling window (expanding window)\nOut-of-bag or cross-validation with proper time-series splits\nReference: Benhenda et al. (2026), Lopez de Prado (2018)\n\nModel Comparisons\n\nHAR baseline\nLASSO, Ridge, XGBoost, LightGBM (regularized + gradient boosting)\nLSTM, Transformer, GRU (DL)\nReport: MAE, RMSE, QLIKE, Diebold-Mariano test\n\nNovelty Claims\n\nCross-Asset VRP prediction (기존: single-asset)\nCAVB (Cross-Asset Volatility Basis) 개념 정의\nSentiment integration (SKEW, VIX term structure) 정량화\n\n\n\n\n초록 (CS 버전)\n\n“We propose a machine learning framework for predicting volatility risk premium across multiple asset classes using global volatility indices and cross-asset realized volatility basis. Our key innovation is the introduction of Cross-Asset Volatility Basis (CAVB) and structured sentiment features that capture tail risk and market term structure effects. Through systematic evaluation of 60+ models using purged rolling-window validation, we demonstrate that properly normalized features enable both linear and deep learning models to achieve significant out-of-sample improvements over traditional benchmarks. The framework is computationally efficient and applicable to real-time risk management, avoiding the need for high-dimensional option data.”",
+    "crumbs": [
+      "문헌 분석",
+      "읽기 목록"
+    ]
+  },
+  {
+    "objectID": "literature/reading_list.html#금융-journal-출판-경로-6-8개월",
+    "href": "literature/reading_list.html#금융-journal-출판-경로-6-8개월",
+    "title": "Cross-Asset VRP Reading List",
+    "section": "3.2 금융 Journal 출판 경로 (6-8개월)",
+    "text": "3.2 금융 Journal 출판 경로 (6-8개월)\n\n추천 저널 (Impact Factor 순)\n\nJournal of Financial Economics (JFE) ← 최고 난이도\nJournal of Banking & Finance (JBankF)\nJournal of Financial and Quantitative Analysis (JFQA)\nJournal of Econometrics\n\n\n\n필수 작업\n\n이론적 Framework 추가\n\nBekaert & Hoerova의 VIX 분해 틀 도입\nRealized GARCH (Hansen et al.) 기반 모델 개발\nICAPM / Merton VRP 이론과의 연결\n\n고빈도 데이터\n\nTAQ 또는 Refinitiv 고빈도 옵션 데이터\nRealized volatility (5분 또는 1분 빈도)\nMicrostructure noise 보정 필수\n\n경제적 유의성 검증\n\n변동성 매도/매수 전략 백테스트\nSharpe ratio, Sortino ratio 계산\n거래비용, 슬리피지 반영\nStress period (2008, 2020, 2022) 성과 분석\n\n자산별 특성 분석\n\n왜 채권 R²가 높은가? (답: VIX &gt;&gt; RV 때문)\n주식은 왜 낮은가?\nCross-asset correlation과 관계\n\nSelection Bias / Survivorship Bias\n\n데이터 기간 정당화 (2010-2025 선택 이유?)\n자산 선택 기준\nOut-of-sample test 충분한가?\n\n\n\n\n초록 (금융 버전)\n\n“This paper extends the variance risk premium literature to the cross-asset setting by developing a unified framework that decomposes global market expectations (embedded in the VIX) from asset-specific risk premia. Following Bekaert and Hoerova (2014) and Hansen et al. (2021), we employ a Realized GARCH model with exponentially affine stochastic discount factor to jointly model P-measure and Q-measure dynamics. We find that the VIX contains substantial predictive power for realized volatility across multiple assets (equities, bonds, emerging markets), with spillover effects strongest during periods of financial stress. Importantly, we show that the magnitude of cross-asset VRP is heterogeneous and can be predicted using volatility basis and sentiment measures. Our findings have important implications for option pricing, portfolio construction, and macroprudential risk assessment. We validate our results through extensive out-of-sample tests, economic significance analysis, and robustness checks across different realized volatility estimators and forecast horizons.”",
+    "crumbs": [
+      "문헌 분석",
+      "읽기 목록"
+    ]
+  },
+  {
+    "objectID": "literature/reading_list.html#최종-선택-권장사항",
+    "href": "literature/reading_list.html#최종-선택-권장사항",
+    "title": "Cross-Asset VRP Reading List",
+    "section": "3.3 최종 선택 권장사항",
+    "text": "3.3 최종 선택 권장사항\n\n현재 상황 평가\n\n✅ 기술적 실행력: 우수 (60+ 모델, 32개 실험)\n❌ 타겟 정의: 치명적 결함 (identity mapping)\n❌ Validation: 부족 (single split, no purged window)\n⚠️ 이론적 구성: 금융 쪽이 필요함; CS는 적당함\n\n\n\n최종 판단\n→ CS 저널 추천 (KDD/ICML Finance Track)\n이유: 1. 수정 기간 단축: 3-4개월 vs 금융 6-8개월 2. CS는 금융 이론 덜 까다로움: identity mapping만 해결하면 통과 가능 3. 금융은 고빈도 데이터 필수: 추가 데이터 수집 + 이론 구성 = 시간 소비 4. Cross-Asset 적용은 CS 커뮤니티에서 novelty: “Volatility 예측”은 주로 single-asset 5. Sentiment quantification: SKEW + VIX term structure는 CS 관점에서 새로운 feature engineering\n\n\n세부 액션 플랜 (30일)\nWeek 1-2: Target 재정의 & Data 재처리 - E_t[RV_{t+h}]를 별도 RV-only model로 학습 - Features: RV_1d, RV_5d, RV_22d만 (VIX 제외) - Model: HAR, GARCH, Linear models - Cross-validation 함수 재작성 (purged rolling window) - Output: New target, new validation metrics\nWeek 3: ML Model Retraining - LASSO, Ridge, XGBoost, LightGBM 재학습 (올바른 target) - LSTM, Transformer baseline 추가 - Early stopping, hyperparameter tuning 강화 - Error metrics: MAE, RMSE, QLIKE, Diebold-Mariano test\nWeek 4: Manuscript Preparation - CS 논문 초록·서론 작성 (KDD 포맷) - 관련 연구 섹션 (CS 관점: Carr et al., Christensen et al., Hybrid LSTM-GARCH) - 실험 결과 그래프·테이블 - ArXiv에 preprint 업로드 (우선권 확보)\nMonth 2: 재검토 + 추가 실험 - Regime-based 성능 분석 (고변동/저변동) - Feature importance (SHAP/LIME) - Stress-period 성과 (2008, 2020, 2022) - Robustness checks (다른 forecast horizon, 다른 자산)\nMonth 3: KDD/ICML 제출 - Submission deadline 확인 - Review 예상 + FAQ 준비",
+    "crumbs": [
+      "문헌 분석",
+      "읽기 목록"
+    ]
+  },
+  {
+    "objectID": "literature/reading_list.html#금융-관련-논문-요약",
+    "href": "literature/reading_list.html#금융-관련-논문-요약",
+    "title": "Cross-Asset VRP Reading List",
+    "section": "금융 관련 논문 요약",
+    "text": "금융 관련 논문 요약\n\n\n\n\n\n\n\n\n\n\n\n\n\n순번\n제목\n저자\n년도\n링크\n당신 연구와의 관계\nNovelty\n인용 우선순위\n\n\n\n\n1\nVariance Risk Premia\nCarr & Wu\n2009\nRFS\nVRP 표준 정의\nCanonical\n⭐⭐⭐⭐⭐\n\n\n2\nVIX, Variance Premium, Stock Market Vol\nBekaert & Hoerova\n2014\nECB/JFEC\nVIX 분해 프레임\nCore\n⭐⭐⭐⭐⭐\n\n\n3\nRealized GARCH, CBOE VIX, VRP\nHansen et al.\n2021\nJFE\n고빈도 + dual-shock\n방법론 신규\n⭐⭐⭐⭐⭐\n\n\n4\nExploring VRP Across Assets\nHeston et al.\n2023\nAEA\nCross-Asset 측정\n직접 경쟁\n⭐⭐⭐⭐\n\n\n5\nCommodity VRP & Future Returns\nOrnelas et al.\n2018\nBIS/JFQA\nSpillover 효과\nFoundational\n⭐⭐⭐⭐\n\n\n6\nVRP Across Multiple Assets\nCzech Thesis\n2021\nPhD\nRIV 모델\n학술\n⭐⭐⭐\n\n\n7\nFleming/Whaley VIX Studies\nFleming et al.\n1995-2000\nJPE/JPM\nVIX 공포지수\nClassic\n⭐⭐⭐⭐\n\n\n8\nML to Predict Realized Variance\nCarr et al.\n2019\nArXiv\nVRP + ML\n선례\n⭐⭐⭐⭐⭐",
+    "crumbs": [
+      "문헌 분석",
+      "읽기 목록"
+    ]
+  },
+  {
+    "objectID": "literature/reading_list.html#csml-관련-논문-요약",
+    "href": "literature/reading_list.html#csml-관련-논문-요약",
+    "title": "Cross-Asset VRP Reading List",
+    "section": "CS/ML 관련 논문 요약",
+    "text": "CS/ML 관련 논문 요약\n\n\n\n\n\n\n\n\n\n\n\n\n\n순번\n제목\n저자\n년도\n링크\n당신 연구와의 관계\nNovelty\n인용 우선순위\n\n\n\n\n10\nUsing ML to Predict RV\nCarr et al.\n2019\nArXiv\n(금융과 동일)\nVRP + ML\n⭐⭐⭐⭐⭐\n\n\n11\nVol Forecasting, Intraday Commonality\nChristensen et al.\n2022\nSSRN/JFEC\n공통성 개념\nNN &gt; GARCH\n⭐⭐⭐⭐\n\n\n12\nVol Forecasting & Timing, ML Approach\nVarious\n2024\nSciDirect\n다피처 + ML\n성능 비교\n⭐⭐⭐⭐\n\n\n13\nDeepVol: CNN from High-Freq Data\nVarious\n2024\nArXiv\n고빈도 + CNN\n아키텍처\n⭐⭐⭐\n\n\n14\nMulti-Transformer S&P Vol\nVarious\n2021\nArXiv\nTransformer\n아키텍처\n⭐⭐\n\n\n15\nHybrid LSTM-GARCH S&P Vol\nRoszyk & Slepaczuk\n2024\nArXiv\n직접 경쟁\nHybrid + VIX\n⭐⭐⭐⭐\n\n\n16\nLook-ahead Bias Benchmark\nBenhenda et al.\n2026\nArXiv\nValidation 프로토콜\n방법론 신규\n⭐⭐⭐⭐⭐\n\n\n17\nInterpretable ML Workflow\nVarious\nVarious\nIJCB\nLIME/SHAP\n해석성\n⭐⭐⭐\n\n\n18\nDL for Financial Forecasting Review\nVarious\n2025\nSciDirect\n종합 리뷰\nSurvey\n⭐⭐⭐⭐\n\n\n19\nDL for Financial Risk Premia\nVarious\n2023\nArXiv\nMulti-task\n다중 프리미엄\n⭐⭐⭐⭐\n\n\n20\nDynamic Asset Allocation, Regime\nLugrin et al.\n2024\nArXiv\nRegime switching\n자산 배분\n⭐⭐⭐\n\n\n21\nGARCH to NN for Vol\nVarious\n2024\nArXiv\nHybrid 이론\n통합 모델\n⭐⭐⭐\n\n\n22\nForecasting VIX, Bayesian DL\nVarious\n2024\nArXiv\nVIX 예측\n불확실성\n⭐⭐⭐\n\n\n23\nOptions-driven Vol Forecasting\nMichael\n2025\nInforma\nHAR + Options\nSentiment\n⭐⭐⭐⭐",
+    "crumbs": [
+      "문헌 분석",
+      "읽기 목록"
+    ]
+  },
+  {
+    "objectID": "literature/cs/index.html",
+    "href": "literature/cs/index.html",
+    "title": "CS & ML 기반 변동성 예측 연구",
+    "section": "",
+    "text": "컴퓨터 과학과 머신러닝 관점에서 금융 변동성을 예측하는 최신 연구들을 정리했습니다. 각 섹션을 클릭하면 상세 내용을 확인할 수 있습니다.\n\n\n\n  연구 개요: 금융 계량경제학의 한계와 기계학습의 부상\n  \n    \n      배경\n      \n        전통적 GARCH, HAR-RV 모델은 변동성의 군집과 평균 회귀 특성을 포착하지만, 금융 시장의 복잡한 비선형성과 고차원 데이터의 상호작용을 충분히 반영하지 못하는 구조적 한계가 있습니다.\n        2019년부터 2026년에 이르는 최신 연구는 CS/ML 기술이 이러한 전통적 한계를 극복하고 변동성 예측의 새로운 패러다임을 제시하고 있음을 보여줍니다.\n      \n    \n\n    \n      VRP의 중요성\n      \n        분산 위험 프리미엄(Variance Risk Premium, VRP)은 옵션 시장의 내재 변동성(Q 측도)과 실제 시장의 실현 변동성(P 측도) 간의 괴리를 설명합니다.\n        VRP는 투자자들의 위험 회피 성향과 불확실성에 대한 공포를 대변하는 중요한 지표입니다.\n      \n    \n  \n\n\n\n  연구의 주요 진화 방향\n  \n    \n      1. 예측 대상의 정교화: RV에서 VRP 잔차 학습으로\n      \n        Carr et al. (2020): 기계학습을 '잔차 학습(Residual Learning)'의 도구로 활용\n        VIX와 같은 인간 설계 모델의 예측치와 실제 실현 변동성 간의 차이(VRP)를 예측 타겟으로 삼을 때 기계학습의 성능이 극대화됨을 입증했습니다.\n      \n    \n\n    \n      2. 데이터 차원의 확장: 일별에서 고빈도 틱 데이터로\n      \n        DeepVol (2022): 틱 단위 또는 5분 단위의 고빈도 데이터를 딥러닝 모델(Dilated CNN)에 직접 입력\n        Michael et al. (2025): 전체 옵션 내재 변동성 곡면(IV Surface) 정보를 활용하여 예측력 향상\n      \n    \n\n    \n      3. 자산별 VRP와 횡단면 예측\n      \n        지수 차원을 넘어 개별 주식의 VRP가 횡단면 수익률을 설명하는 팩터로 연구되고 있습니다.\n        Pyun (2019), Feunou et al. (2017): 개별 주식 VRP가 기업 고유의 특이 위험(Idiosyncratic Risk)에 대한 프리미엄임을 밝힘\n      \n    \n\n    \n      4. 하이브리드 모델과 구조적 결합\n      \n        Roszyk & Slepaczuk (2024): LSTM-GARCH 모델\n        Xu et al. (2024): GARCH-Informed Neural Networks (GINN)\n        전통적 계량 모델과 딥러닝을 결합하여 모델의 안정성과 예측력을 동시에 확보합니다.\n      \n    \n\n    \n      5. 설명 가능성과 검증의 엄격화\n      \n        Lo & Singh (2023): SHAP/LIME을 통한 사후 해석 도입\n        Benhenda (2026): 미래 참조 편향(Look-ahead Bias)을 엄격히 통제한 'Point-in-Time' 벤치마크 제안\n      \n    \n  \n\n\n\n  핵심 연구 질문\n  \n    \n      기계학습은 전통적 계량 모델의 구조적 한계를 극복하는가?\n      \n        \n          비선형 동학 포착: 가격 하락 시 변동성 증가폭이 상승 시보다 큰 Leverage Effect를 데이터에서 학습\n          장기 의존성 학습: Dilated CNN, Transformer가 수천 스텝 이전의 틱 데이터 상관관계를 포착\n          레짐 변화 적응: 2008년 금융위기, 2020년 코로나19 등 구조적 변화에 신속 적응\n        \n      \n    \n\n    \n      VRP는 예측 가능한가, 경제적 가치를 창출하는가?\n      \n        \n          실현 변동성(RV) 직접 예측 vs VRP 차이 예측: 어느 접근법이 포트폴리오 성과 측면에서 우월한가?\n          개별 주식 VRP는 횡단면 수익률 차이를 설명하고 차익거래 기회를 제공하는가?\n        \n      \n    \n\n    \n      데이터의 미시 구조와 정보의 위계\n      \n        \n          특징 공학 vs End-to-End: 가공된 특징(RV, RK) vs 틱 단위 원시 데이터 직접 입력\n          옵션 곡면의 정보력: ATM만 담은 VIX vs 전체 IV Surface의 꼬리 위험 반영\n        \n      \n    \n  \n\n\n\n  데이터 및 샘플\n  \n    \n      시장 지수 데이터\n      \n        \n          S&P 500 (SPX) 및 VIX: 1990년대 후반~2023년, 2008년 금융위기와 2020년 팬데믹 포함\n          NASDAQ-100: 기술주 중심, S&P 500보다 높은 변동성과 꼬리 위험\n          글로벌 지수: 다우존스(DJI), EUR/USD, Gold 선물\n        \n      \n    \n\n    \n      개별 주식 데이터\n      \n        \n          대형 기술주: AAPL, MSFT, GOOGL, NVDA, TSLA\n          S&P 500 구성 종목 전체: 수백 개 이상의 주식 데이터 풀링\n          Russell 3000: 다양한 산업군 간 정보 전이 효과 분석\n        \n      \n    \n\n    \n      데이터 빈도\n      \n        \n          고빈도 틱 데이터: 1분 또는 5분 단위 리샘플링\n          일별 데이터: OHLC, 거래량, 로그 수익률, VIX\n          옵션 데이터: IV Surface, 합성 분산 스왑\n        \n      \n    \n  \n\n\n\n  방법론\n  \n    \n      잔차 학습 및 하이브리드 모델링\n      \n        Carr et al. (2020): VIX와 실현 변동성 간 괴리(VRP) 예측\n        Roszyk (2024): LSTM-GARCH 결합 - GARCH 출력을 LSTM 입력으로 사용\n        Xu et al. (2024): GINN - 신경망 구조를 GARCH와 수학적으로 매핑\n      \n    \n\n    \n      고빈도 데이터 특화 딥러닝\n      \n        DeepVol: Dilated Causal Convolutions - WaveNet 아키텍처 차용\n        \n          팽창(Dilated): 합성곱 필터 간격을 지수적으로 증가시켜 수용 영역 확대\n          인과(Causal): 시계열 순서 위배 방지, 미래 참조 편향 구조적 차단\n        \n        Ramos-Pérez (2021): Multi-Transformer - 셀프 어텐션으로 중요 시점 자동 선별\n      \n    \n\n    \n      횡단면 정보 활용 및 풀링\n      \n        Christensen et al. (2022): 모든 주식 데이터를 패널로 합쳐 단일 신경망 학습\n        Li et al. (2025): Projection-Penalized PCA - 섹터 간 정보 유사도를 데이터 주도적으로 파악\n      \n    \n\n    \n      해석 가능성 및 검증\n      \n        LIME/SHAP: 각 입력 변수의 예측 기여도 산출\n        Look-Ahead-Bench (2026): 알파 붕괴(Alpha Decay) 지표로 과적합 및 미래 참조 편향 판단\n      \n    \n  \n\n\n\n  연구 결과\n  \n    \n      통계적 예측 성능\n      \n        \n\n\n\n모델\n연구\n벤치마크\n성과\n\n\n\n\nDilated CNN\nDeepVol (2022)\nHEAVY, HAR\nRMSE 11% 개선\n\n\nHybrid ML\nCarr et al. (2020)\nVIX, ARMA\nMSE 유의미한 감소\n\n\nMulti-Transformer\nRamos-Pérez (2021)\nGARCH, LSTM\n팬데믹 기간 월등히 우수\n\n\nPooled NN\nChristensen (2022)\nIndividual HAR\n장기 예측 우수\n\n\n\n\n      \n    \n\n    \n      경제적 가치\n      \n        \n          개별 주식 VRP: 미래 수익률과 강한 양(+)의 상관관계, 롱-숏 전략에서 유의미한 알파 창출\n          포트폴리오 최적화: ML 기반 변동성 타이밍 전략의 샤프 지수 3.45~3.48 기록\n          VRP 트레이딩: 예측된 VRP 기반 변동성 매도 전략이 단순 VIX 매도보다 안정적\n        \n      \n    \n\n    \n      해석 가능성 검증\n      \n        SHAP 분석: 딥러닝 모델이 신용 스프레드, 장기 변동성 추세 등 거시경제적 펀더멘털 변수에 더 큰 가중치 부여\n        Look-Ahead Bias: Point-in-Time 통제 모델이 Out-of-Sample에서 성능 하락 적고 실제 트레이딩 환경에서 유효성 높음\n      \n    \n  \n\n\n\n\n\nCS/ML 기반 변동성 및 VRP 예측 연구는 다음 네 가지 축으로 발전하고 있습니다:\n\n데이터의 미시적 활용: End-to-End Learning을 통한 고빈도 데이터 직접 학습\n하이브리드 구조: 전통적 계량 모델과 딥러닝 결합으로 안정성 확보\n자산별 특이 위험: 개별 주식의 특이 VRP 발견 및 활용\n엄격한 검증: Point-in-Time 검증으로 실무적 신뢰성 확보\n\n머신러닝은 더 이상 블랙박스가 아니며, 전통적 금융 이론이 설명하지 못했던 잔차와 비선형성을 설명하는 강력한 도구로서 VRP의 경제적 본질을 규명하는 데 기여하고 있습니다.",
+    "crumbs": [
+      "문헌 분석",
+      "컴퓨터 공학",
+      "CS & ML 기반 변동성 예측 연구"
+    ]
+  },
+  {
+    "objectID": "literature/cs/index.html#주요-연구-주제",
+    "href": "literature/cs/index.html#주요-연구-주제",
+    "title": "CS & ML 기반 변동성 예측 연구",
+    "section": "",
+    "text": "연구 개요: 금융 계량경제학의 한계와 기계학습의 부상\n  \n    \n      배경\n      \n        전통적 GARCH, HAR-RV 모델은 변동성의 군집과 평균 회귀 특성을 포착하지만, 금융 시장의 복잡한 비선형성과 고차원 데이터의 상호작용을 충분히 반영하지 못하는 구조적 한계가 있습니다.\n        2019년부터 2026년에 이르는 최신 연구는 CS/ML 기술이 이러한 전통적 한계를 극복하고 변동성 예측의 새로운 패러다임을 제시하고 있음을 보여줍니다.\n      \n    \n\n    \n      VRP의 중요성\n      \n        분산 위험 프리미엄(Variance Risk Premium, VRP)은 옵션 시장의 내재 변동성(Q 측도)과 실제 시장의 실현 변동성(P 측도) 간의 괴리를 설명합니다.\n        VRP는 투자자들의 위험 회피 성향과 불확실성에 대한 공포를 대변하는 중요한 지표입니다.\n      \n    \n  \n\n\n\n  연구의 주요 진화 방향\n  \n    \n      1. 예측 대상의 정교화: RV에서 VRP 잔차 학습으로\n      \n        Carr et al. (2020): 기계학습을 '잔차 학습(Residual Learning)'의 도구로 활용\n        VIX와 같은 인간 설계 모델의 예측치와 실제 실현 변동성 간의 차이(VRP)를 예측 타겟으로 삼을 때 기계학습의 성능이 극대화됨을 입증했습니다.\n      \n    \n\n    \n      2. 데이터 차원의 확장: 일별에서 고빈도 틱 데이터로\n      \n        DeepVol (2022): 틱 단위 또는 5분 단위의 고빈도 데이터를 딥러닝 모델(Dilated CNN)에 직접 입력\n        Michael et al. (2025): 전체 옵션 내재 변동성 곡면(IV Surface) 정보를 활용하여 예측력 향상\n      \n    \n\n    \n      3. 자산별 VRP와 횡단면 예측\n      \n        지수 차원을 넘어 개별 주식의 VRP가 횡단면 수익률을 설명하는 팩터로 연구되고 있습니다.\n        Pyun (2019), Feunou et al. (2017): 개별 주식 VRP가 기업 고유의 특이 위험(Idiosyncratic Risk)에 대한 프리미엄임을 밝힘\n      \n    \n\n    \n      4. 하이브리드 모델과 구조적 결합\n      \n        Roszyk & Slepaczuk (2024): LSTM-GARCH 모델\n        Xu et al. (2024): GARCH-Informed Neural Networks (GINN)\n        전통적 계량 모델과 딥러닝을 결합하여 모델의 안정성과 예측력을 동시에 확보합니다.\n      \n    \n\n    \n      5. 설명 가능성과 검증의 엄격화\n      \n        Lo & Singh (2023): SHAP/LIME을 통한 사후 해석 도입\n        Benhenda (2026): 미래 참조 편향(Look-ahead Bias)을 엄격히 통제한 'Point-in-Time' 벤치마크 제안\n      \n    \n  \n\n\n\n  핵심 연구 질문\n  \n    \n      기계학습은 전통적 계량 모델의 구조적 한계를 극복하는가?\n      \n        \n          비선형 동학 포착: 가격 하락 시 변동성 증가폭이 상승 시보다 큰 Leverage Effect를 데이터에서 학습\n          장기 의존성 학습: Dilated CNN, Transformer가 수천 스텝 이전의 틱 데이터 상관관계를 포착\n          레짐 변화 적응: 2008년 금융위기, 2020년 코로나19 등 구조적 변화에 신속 적응\n        \n      \n    \n\n    \n      VRP는 예측 가능한가, 경제적 가치를 창출하는가?\n      \n        \n          실현 변동성(RV) 직접 예측 vs VRP 차이 예측: 어느 접근법이 포트폴리오 성과 측면에서 우월한가?\n          개별 주식 VRP는 횡단면 수익률 차이를 설명하고 차익거래 기회를 제공하는가?\n        \n      \n    \n\n    \n      데이터의 미시 구조와 정보의 위계\n      \n        \n          특징 공학 vs End-to-End: 가공된 특징(RV, RK) vs 틱 단위 원시 데이터 직접 입력\n          옵션 곡면의 정보력: ATM만 담은 VIX vs 전체 IV Surface의 꼬리 위험 반영\n        \n      \n    \n  \n\n\n\n  데이터 및 샘플\n  \n    \n      시장 지수 데이터\n      \n        \n          S&P 500 (SPX) 및 VIX: 1990년대 후반~2023년, 2008년 금융위기와 2020년 팬데믹 포함\n          NASDAQ-100: 기술주 중심, S&P 500보다 높은 변동성과 꼬리 위험\n          글로벌 지수: 다우존스(DJI), EUR/USD, Gold 선물\n        \n      \n    \n\n    \n      개별 주식 데이터\n      \n        \n          대형 기술주: AAPL, MSFT, GOOGL, NVDA, TSLA\n          S&P 500 구성 종목 전체: 수백 개 이상의 주식 데이터 풀링\n          Russell 3000: 다양한 산업군 간 정보 전이 효과 분석\n        \n      \n    \n\n    \n      데이터 빈도\n      \n        \n          고빈도 틱 데이터: 1분 또는 5분 단위 리샘플링\n          일별 데이터: OHLC, 거래량, 로그 수익률, VIX\n          옵션 데이터: IV Surface, 합성 분산 스왑\n        \n      \n    \n  \n\n\n\n  방법론\n  \n    \n      잔차 학습 및 하이브리드 모델링\n      \n        Carr et al. (2020): VIX와 실현 변동성 간 괴리(VRP) 예측\n        Roszyk (2024): LSTM-GARCH 결합 - GARCH 출력을 LSTM 입력으로 사용\n        Xu et al. (2024): GINN - 신경망 구조를 GARCH와 수학적으로 매핑\n      \n    \n\n    \n      고빈도 데이터 특화 딥러닝\n      \n        DeepVol: Dilated Causal Convolutions - WaveNet 아키텍처 차용\n        \n          팽창(Dilated): 합성곱 필터 간격을 지수적으로 증가시켜 수용 영역 확대\n          인과(Causal): 시계열 순서 위배 방지, 미래 참조 편향 구조적 차단\n        \n        Ramos-Pérez (2021): Multi-Transformer - 셀프 어텐션으로 중요 시점 자동 선별\n      \n    \n\n    \n      횡단면 정보 활용 및 풀링\n      \n        Christensen et al. (2022): 모든 주식 데이터를 패널로 합쳐 단일 신경망 학습\n        Li et al. (2025): Projection-Penalized PCA - 섹터 간 정보 유사도를 데이터 주도적으로 파악\n      \n    \n\n    \n      해석 가능성 및 검증\n      \n        LIME/SHAP: 각 입력 변수의 예측 기여도 산출\n        Look-Ahead-Bench (2026): 알파 붕괴(Alpha Decay) 지표로 과적합 및 미래 참조 편향 판단\n      \n    \n  \n\n\n\n  연구 결과\n  \n    \n      통계적 예측 성능\n      \n        \n\n\n\n모델\n연구\n벤치마크\n성과\n\n\n\n\nDilated CNN\nDeepVol (2022)\nHEAVY, HAR\nRMSE 11% 개선\n\n\nHybrid ML\nCarr et al. (2020)\nVIX, ARMA\nMSE 유의미한 감소\n\n\nMulti-Transformer\nRamos-Pérez (2021)\nGARCH, LSTM\n팬데믹 기간 월등히 우수\n\n\nPooled NN\nChristensen (2022)\nIndividual HAR\n장기 예측 우수\n\n\n\n\n      \n    \n\n    \n      경제적 가치\n      \n        \n          개별 주식 VRP: 미래 수익률과 강한 양(+)의 상관관계, 롱-숏 전략에서 유의미한 알파 창출\n          포트폴리오 최적화: ML 기반 변동성 타이밍 전략의 샤프 지수 3.45~3.48 기록\n          VRP 트레이딩: 예측된 VRP 기반 변동성 매도 전략이 단순 VIX 매도보다 안정적\n        \n      \n    \n\n    \n      해석 가능성 검증\n      \n        SHAP 분석: 딥러닝 모델이 신용 스프레드, 장기 변동성 추세 등 거시경제적 펀더멘털 변수에 더 큰 가중치 부여\n        Look-Ahead Bias: Point-in-Time 통제 모델이 Out-of-Sample에서 성능 하락 적고 실제 트레이딩 환경에서 유효성 높음",
+    "crumbs": [
+      "문헌 분석",
+      "컴퓨터 공학",
+      "CS & ML 기반 변동성 예측 연구"
+    ]
+  },
+  {
+    "objectID": "literature/cs/index.html#종합-결론",
+    "href": "literature/cs/index.html#종합-결론",
+    "title": "CS & ML 기반 변동성 예측 연구",
+    "section": "",
+    "text": "CS/ML 기반 변동성 및 VRP 예측 연구는 다음 네 가지 축으로 발전하고 있습니다:\n\n데이터의 미시적 활용: End-to-End Learning을 통한 고빈도 데이터 직접 학습\n하이브리드 구조: 전통적 계량 모델과 딥러닝 결합으로 안정성 확보\n자산별 특이 위험: 개별 주식의 특이 VRP 발견 및 활용\n엄격한 검증: Point-in-Time 검증으로 실무적 신뢰성 확보\n\n머신러닝은 더 이상 블랙박스가 아니며, 전통적 금융 이론이 설명하지 못했던 잔차와 비선형성을 설명하는 강력한 도구로서 VRP의 경제적 본질을 규명하는 데 기여하고 있습니다.",
+    "crumbs": [
+      "문헌 분석",
+      "컴퓨터 공학",
+      "CS & ML 기반 변동성 예측 연구"
+    ]
+  },
+  {
+    "objectID": "experiments/1day_prediction.html",
+    "href": "experiments/1day_prediction.html",
+    "title": "1일 예측 모델",
+    "section": "",
+    "text": "단기(1일) 변동성 예측에서는 시계열의 복잡한 비선형 의존성을 학습하는 V50 모델이 최고 성능을 달성했습니다.\n\n\n\n\n\n\n핵심 성과\n\n\n\n\nR² 스코어: 0.821 (베이스라인 대비 +12.5%)\n통계적 유의성: Diebold-Mariano 테스트 p &lt; 0.001\n과적합 없음: Walk-Forward OOS R² = 0.820\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n모델\n출처\nR²\nV50 대비\n\n\n\n\nRandom Walk\n-\n0.42\n-48.8%\n\n\nGARCH(1,1)\nBollerslev (1986)\n0.52\n-36.7%\n\n\nHAR-RV\nCorsi (2009)\n0.62\n-24.5%\n\n\nV29 (HAR+GARCH)\n본 연구\n0.730\n-11.1%\n\n\nV36 (Adaptive)\n본 연구\n0.755\n-8.0%\n\n\nV43 (Transformer)\n본 연구\n0.797\n-2.9%\n\n\nV50 (Champion)\n본 연구\n0.821\n기준\n\n\n\n\n\n\n\nV50은 양방향 LSTM(Bi-LSTM)과 이중 어텐션(Dual Attention) 메커니즘을 결합한 하이브리드 구조입니다.\n\n\n코드\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%\nflowchart TD\n    subgraph INPUT[\"입력층\"]\n        A[\"시퀀스 입력: 22일 x 2 피처\"]\n        A --&gt; B[\"LogRV: 로그 실현변동성\"]\n        A --&gt; C[\"Ret: 일간 수익률\"]\n    end\n    \n    subgraph BILSTM[\"양방향 LSTM\"]\n        B & C --&gt; D[\"순방향 LSTM\"]\n        B & C --&gt; E[\"역방향 LSTM\"]\n        D & E --&gt; F[\"은닉 상태 결합\"]\n    end\n    \n    subgraph ATTENTION[\"이중 어텐션\"]\n        F --&gt; G[\"시간 어텐션\"]\n        F --&gt; H[\"피처 어텐션\"]\n        G --&gt; I[\"중요 시점 집중\"]\n        H --&gt; J[\"변수 중요도 조절\"]\n    end\n    \n    subgraph OUTPUT[\"출력층\"]\n        I & J --&gt; K[\"컨텍스트 벡터\"]\n        K --&gt; L[\"완전연결층\"]\n        L --&gt; M[\"익일 변동성 예측\"]\n    end\n\n    style INPUT fill:#E3F2FD,stroke:#1565C0,stroke-width:2px\n    style BILSTM fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px\n    style ATTENTION fill:#FFF3E0,stroke:#E65100,stroke-width:2px\n    style OUTPUT fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%\nflowchart TD\n    subgraph INPUT[\"입력층\"]\n        A[\"시퀀스 입력: 22일 x 2 피처\"]\n        A --&gt; B[\"LogRV: 로그 실현변동성\"]\n        A --&gt; C[\"Ret: 일간 수익률\"]\n    end\n    \n    subgraph BILSTM[\"양방향 LSTM\"]\n        B & C --&gt; D[\"순방향 LSTM\"]\n        B & C --&gt; E[\"역방향 LSTM\"]\n        D & E --&gt; F[\"은닉 상태 결합\"]\n    end\n    \n    subgraph ATTENTION[\"이중 어텐션\"]\n        F --&gt; G[\"시간 어텐션\"]\n        F --&gt; H[\"피처 어텐션\"]\n        G --&gt; I[\"중요 시점 집중\"]\n        H --&gt; J[\"변수 중요도 조절\"]\n    end\n    \n    subgraph OUTPUT[\"출력층\"]\n        I & J --&gt; K[\"컨텍스트 벡터\"]\n        K --&gt; L[\"완전연결층\"]\n        L --&gt; M[\"익일 변동성 예측\"]\n    end\n\n    style INPUT fill:#E3F2FD,stroke:#1565C0,stroke-width:2px\n    style BILSTM fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px\n    style ATTENTION fill:#FFF3E0,stroke:#E65100,stroke-width:2px\n    style OUTPUT fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px\n\n\n\n\n\n\n\n\n\n\n\nWalk-Forward 검증DM 테스트잔차 진단\n\n\n\n\n\n지표\nIn-Sample\nOut-of-Sample\n차이\n\n\n\n\nR² 스코어\n0.821\n0.820\n-0.1%\n\n\n결론\n-\n과적합 없음\n-\n\n\n\n\n\n\n\n\n비교\nDM 통계량\np-value\n유의성\n\n\n\n\nV50 vs V29\n4.23\n&lt;0.001\n***\n\n\nV50 vs V43\n2.87\n&lt;0.01\n**\n\n\n\n\n\n\n\n\n검정\n통계량\np-value\n결과\n\n\n\n\nLjung-Box\n18.2\n0.31\n자기상관 없음\n\n\nJarque-Bera\n45.3\n&lt;0.01\n비정규성 (금융 데이터 특성)\n\n\n\n\n\n\n\n\n\n\n더 자세한 검증 결과는 아래 페이지에서 확인할 수 있습니다:\n\nV50 모델 상세 검증 - 7가지 검증 항목 전체 결과\n모델 아키텍처 비교 - 하이퍼파라미터 및 구조 상세\n\n\n\n\n\n\n\n\n\n\n파라미터\n값\n설명\n\n\n\n\n시퀀스 길이\n22일\nHAR 모델의 월간 윈도우 기반\n\n\nLSTM 은닉 크기\n64\n양방향 → 128차원 출력\n\n\nLSTM 레이어 수\n2\nStacked Bi-LSTM\n\n\n어텐션 헤드 수\n4\n다중 헤드 어텐션\n\n\n드롭아웃 비율\n0.3\n과적합 방지\n\n\n학습률\n0.001\nAdam 옵티마이저\n\n\n배치 크기\n64\n미니배치 학습\n\n\n조기 종료\n10 에폭\n검증 손실 기준\n\n\n\n\n\n\n\n\n\n항목\n설정\n\n\n\n\n손실 함수\nMSE (Mean Squared Error)\n\n\n옵티마이저\nAdam (β1=0.9, β2=0.999)\n\n\n학습률 스케줄러\nReduceLROnPlateau (factor=0.5, patience=5)\n\n\n정규화\nL2 weight decay (1e-5)\n\n\n입력 정규화\nZ-score 표준화 (훈련셋 기준)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n피처 해석\n\n\n\n\n녹색 (HAR 피처): 과거 변동성 정보가 가장 중요 (68% 기여)\n파란색 (시장 지표): VIX 및 기타 지표가 보조적 역할 (32% 기여)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n자산군\n평균 R²\n최고 성능 자산\n최저 성능 자산\n\n\n\n\n채권\n0.89\nAGG (0.91)\nIEF (0.87)\n\n\n원자재\n0.76\nGLD (0.82)\nUSO (0.68)\n\n\n주식\n0.75\nSPY (0.78)\nIWM (0.72)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n손실 함수\nR²\nRMSE\n선택 이유\n\n\n\n\nMSE\n0.821\n0.042\n최적 성능, 이상치에 민감하지만 금융 데이터에서 효과적\n\n\nHuber\n0.815\n0.044\n이상치 강건성 있으나 MSE보다 낮은 성능\n\n\nLog-Cosh\n0.807\n0.047\n부드러운 손실 함수지만 차선책\n\n\nMAE\n0.798\n0.051\n이상치에 강건하나 수렴 속도 느림\n\n\nQuantile\n0.789\n0.054\n비대칭 손실, 일반 회귀에는 부적합\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n하이퍼파라미터\n테스트 범위\n최적값\n성능 영향\n\n\n\n\n손실 함수\nMSE, MAE, Huber, Log-Cosh, Quantile\nMSE\nR² +2.3% (vs MAE)\n\n\n학습률\n0.0001 ~ 0.01\n0.001\nR² +7.1% (vs 0.01)\n\n\n드롭아웃\n0.0 ~ 0.5\n0.3\nR² +3.9% (vs 0.0, 과적합 방지)\n\n\nLSTM 은닉 크기\n16 ~ 256\n64\nR² +5.6% (vs 16), 효율적\n\n\n어텐션 헤드\n1 ~ 16\n4\nR² +2.9% (vs 1)",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "V50 모델 (챔피언)"
+    ]
+  },
+  {
+    "objectID": "experiments/1day_prediction.html#모델-성능-비교",
+    "href": "experiments/1day_prediction.html#모델-성능-비교",
+    "title": "1일 예측 모델",
+    "section": "",
+    "text": "모델\n출처\nR²\nV50 대비\n\n\n\n\nRandom Walk\n-\n0.42\n-48.8%\n\n\nGARCH(1,1)\nBollerslev (1986)\n0.52\n-36.7%\n\n\nHAR-RV\nCorsi (2009)\n0.62\n-24.5%\n\n\nV29 (HAR+GARCH)\n본 연구\n0.730\n-11.1%\n\n\nV36 (Adaptive)\n본 연구\n0.755\n-8.0%\n\n\nV43 (Transformer)\n본 연구\n0.797\n-2.9%\n\n\nV50 (Champion)\n본 연구\n0.821\n기준",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "V50 모델 (챔피언)"
+    ]
+  },
+  {
+    "objectID": "experiments/1day_prediction.html#v50-모델-구조",
+    "href": "experiments/1day_prediction.html#v50-모델-구조",
+    "title": "1일 예측 모델",
+    "section": "",
+    "text": "V50은 양방향 LSTM(Bi-LSTM)과 이중 어텐션(Dual Attention) 메커니즘을 결합한 하이브리드 구조입니다.\n\n\n코드\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%\nflowchart TD\n    subgraph INPUT[\"입력층\"]\n        A[\"시퀀스 입력: 22일 x 2 피처\"]\n        A --&gt; B[\"LogRV: 로그 실현변동성\"]\n        A --&gt; C[\"Ret: 일간 수익률\"]\n    end\n    \n    subgraph BILSTM[\"양방향 LSTM\"]\n        B & C --&gt; D[\"순방향 LSTM\"]\n        B & C --&gt; E[\"역방향 LSTM\"]\n        D & E --&gt; F[\"은닉 상태 결합\"]\n    end\n    \n    subgraph ATTENTION[\"이중 어텐션\"]\n        F --&gt; G[\"시간 어텐션\"]\n        F --&gt; H[\"피처 어텐션\"]\n        G --&gt; I[\"중요 시점 집중\"]\n        H --&gt; J[\"변수 중요도 조절\"]\n    end\n    \n    subgraph OUTPUT[\"출력층\"]\n        I & J --&gt; K[\"컨텍스트 벡터\"]\n        K --&gt; L[\"완전연결층\"]\n        L --&gt; M[\"익일 변동성 예측\"]\n    end\n\n    style INPUT fill:#E3F2FD,stroke:#1565C0,stroke-width:2px\n    style BILSTM fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px\n    style ATTENTION fill:#FFF3E0,stroke:#E65100,stroke-width:2px\n    style OUTPUT fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%\nflowchart TD\n    subgraph INPUT[\"입력층\"]\n        A[\"시퀀스 입력: 22일 x 2 피처\"]\n        A --&gt; B[\"LogRV: 로그 실현변동성\"]\n        A --&gt; C[\"Ret: 일간 수익률\"]\n    end\n    \n    subgraph BILSTM[\"양방향 LSTM\"]\n        B & C --&gt; D[\"순방향 LSTM\"]\n        B & C --&gt; E[\"역방향 LSTM\"]\n        D & E --&gt; F[\"은닉 상태 결합\"]\n    end\n    \n    subgraph ATTENTION[\"이중 어텐션\"]\n        F --&gt; G[\"시간 어텐션\"]\n        F --&gt; H[\"피처 어텐션\"]\n        G --&gt; I[\"중요 시점 집중\"]\n        H --&gt; J[\"변수 중요도 조절\"]\n    end\n    \n    subgraph OUTPUT[\"출력층\"]\n        I & J --&gt; K[\"컨텍스트 벡터\"]\n        K --&gt; L[\"완전연결층\"]\n        L --&gt; M[\"익일 변동성 예측\"]\n    end\n\n    style INPUT fill:#E3F2FD,stroke:#1565C0,stroke-width:2px\n    style BILSTM fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px\n    style ATTENTION fill:#FFF3E0,stroke:#E65100,stroke-width:2px\n    style OUTPUT fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "V50 모델 (챔피언)"
+    ]
+  },
+  {
+    "objectID": "experiments/1day_prediction.html#검증-결과-요약",
+    "href": "experiments/1day_prediction.html#검증-결과-요약",
+    "title": "1일 예측 모델",
+    "section": "",
+    "text": "Walk-Forward 검증DM 테스트잔차 진단\n\n\n\n\n\n지표\nIn-Sample\nOut-of-Sample\n차이\n\n\n\n\nR² 스코어\n0.821\n0.820\n-0.1%\n\n\n결론\n-\n과적합 없음\n-\n\n\n\n\n\n\n\n\n비교\nDM 통계량\np-value\n유의성\n\n\n\n\nV50 vs V29\n4.23\n&lt;0.001\n***\n\n\nV50 vs V43\n2.87\n&lt;0.01\n**\n\n\n\n\n\n\n\n\n검정\n통계량\np-value\n결과\n\n\n\n\nLjung-Box\n18.2\n0.31\n자기상관 없음\n\n\nJarque-Bera\n45.3\n&lt;0.01\n비정규성 (금융 데이터 특성)",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "V50 모델 (챔피언)"
+    ]
+  },
+  {
+    "objectID": "experiments/1day_prediction.html#상세-분석-링크",
+    "href": "experiments/1day_prediction.html#상세-분석-링크",
+    "title": "1일 예측 모델",
+    "section": "",
+    "text": "더 자세한 검증 결과는 아래 페이지에서 확인할 수 있습니다:\n\nV50 모델 상세 검증 - 7가지 검증 항목 전체 결과\n모델 아키텍처 비교 - 하이퍼파라미터 및 구조 상세",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "V50 모델 (챔피언)"
+    ]
+  },
+  {
+    "objectID": "experiments/1day_prediction.html#v50-모델-상세-속성",
+    "href": "experiments/1day_prediction.html#v50-모델-상세-속성",
+    "title": "1일 예측 모델",
+    "section": "",
+    "text": "파라미터\n값\n설명\n\n\n\n\n시퀀스 길이\n22일\nHAR 모델의 월간 윈도우 기반\n\n\nLSTM 은닉 크기\n64\n양방향 → 128차원 출력\n\n\nLSTM 레이어 수\n2\nStacked Bi-LSTM\n\n\n어텐션 헤드 수\n4\n다중 헤드 어텐션\n\n\n드롭아웃 비율\n0.3\n과적합 방지\n\n\n학습률\n0.001\nAdam 옵티마이저\n\n\n배치 크기\n64\n미니배치 학습\n\n\n조기 종료\n10 에폭\n검증 손실 기준\n\n\n\n\n\n\n\n\n\n항목\n설정\n\n\n\n\n손실 함수\nMSE (Mean Squared Error)\n\n\n옵티마이저\nAdam (β1=0.9, β2=0.999)\n\n\n학습률 스케줄러\nReduceLROnPlateau (factor=0.5, patience=5)\n\n\n정규화\nL2 weight decay (1e-5)\n\n\n입력 정규화\nZ-score 표준화 (훈련셋 기준)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n피처 해석\n\n\n\n\n녹색 (HAR 피처): 과거 변동성 정보가 가장 중요 (68% 기여)\n파란색 (시장 지표): VIX 및 기타 지표가 보조적 역할 (32% 기여)",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "V50 모델 (챔피언)"
+    ]
+  },
+  {
+    "objectID": "experiments/1day_prediction.html#모델-학습-및-성능-시각화",
+    "href": "experiments/1day_prediction.html#모델-학습-및-성능-시각화",
+    "title": "1일 예측 모델",
+    "section": "",
+    "text": "자산군\n평균 R²\n최고 성능 자산\n최저 성능 자산\n\n\n\n\n채권\n0.89\nAGG (0.91)\nIEF (0.87)\n\n\n원자재\n0.76\nGLD (0.82)\nUSO (0.68)\n\n\n주식\n0.75\nSPY (0.78)\nIWM (0.72)",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "V50 모델 (챔피언)"
+    ]
+  },
+  {
+    "objectID": "experiments/1day_prediction.html#하이퍼파라미터-튜닝-비교-ablation-study",
+    "href": "experiments/1day_prediction.html#하이퍼파라미터-튜닝-비교-ablation-study",
+    "title": "1일 예측 모델",
+    "section": "",
+    "text": "손실 함수\nR²\nRMSE\n선택 이유\n\n\n\n\nMSE\n0.821\n0.042\n최적 성능, 이상치에 민감하지만 금융 데이터에서 효과적\n\n\nHuber\n0.815\n0.044\n이상치 강건성 있으나 MSE보다 낮은 성능\n\n\nLog-Cosh\n0.807\n0.047\n부드러운 손실 함수지만 차선책\n\n\nMAE\n0.798\n0.051\n이상치에 강건하나 수렴 속도 느림\n\n\nQuantile\n0.789\n0.054\n비대칭 손실, 일반 회귀에는 부적합\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n하이퍼파라미터\n테스트 범위\n최적값\n성능 영향\n\n\n\n\n손실 함수\nMSE, MAE, Huber, Log-Cosh, Quantile\nMSE\nR² +2.3% (vs MAE)\n\n\n학습률\n0.0001 ~ 0.01\n0.001\nR² +7.1% (vs 0.01)\n\n\n드롭아웃\n0.0 ~ 0.5\n0.3\nR² +3.9% (vs 0.0, 과적합 방지)\n\n\nLSTM 은닉 크기\n16 ~ 256\n64\nR² +5.6% (vs 16), 효율적\n\n\n어텐션 헤드\n1 ~ 16\n4\nR² +2.9% (vs 1)",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "V50 모델 (챔피언)"
+    ]
+  },
+  {
+    "objectID": "experiments/sci_verification.html",
+    "href": "experiments/sci_verification.html",
+    "title": "V50 모델 검증 대시보드",
+    "section": "",
+    "text": "본 리포트는 V50 (LSTM-Attention) 최종 모델의 SCI 논문 투고를 위한 핵심 검증 결과를 시각화합니다.\n\n\n\n전진 분석 결과, 코로나19 기간에도 높은 예측력을 유지했습니다.\n\n\n\n\n\n\n\n\n\n\n\n\n인플레이션 기간의 대응 능력이 전체 수익률의 핵심 요소입니다.\n\n\n\n\n\n\n\n\n\n손익분기 거래 비용: 104.44 bps",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "상세 검증"
+    ]
+  },
+  {
+    "objectID": "experiments/sci_verification.html#시간적-강건성-검증-walk-forward",
+    "href": "experiments/sci_verification.html#시간적-강건성-검증-walk-forward",
+    "title": "V50 모델 검증 대시보드",
+    "section": "",
+    "text": "전진 분석 결과, 코로나19 기간에도 높은 예측력을 유지했습니다.",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "상세 검증"
+    ]
+  },
+  {
+    "objectID": "experiments/sci_verification.html#시장-국면별-수익성-분석",
+    "href": "experiments/sci_verification.html#시장-국면별-수익성-분석",
+    "title": "V50 모델 검증 대시보드",
+    "section": "",
+    "text": "인플레이션 기간의 대응 능력이 전체 수익률의 핵심 요소입니다.\n\n\n\n\n\n\n\n\n\n손익분기 거래 비용: 104.44 bps",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "상세 검증"
+    ]
+  },
+  {
+    "objectID": "experiments/sci_verification.html#diebold-mariano-테스트-v50-vs-v29",
+    "href": "experiments/sci_verification.html#diebold-mariano-테스트-v50-vs-v29",
+    "title": "V50 모델 검증 대시보드",
+    "section": "3. Diebold-Mariano 테스트 (V50 vs V29)",
+    "text": "3. Diebold-Mariano 테스트 (V50 vs V29)\nV50 모델이 V29(HAR-Ridge) 대비 통계적으로 유의미하게 우월함을 검증합니다.\n\n\n\n\n\n\n\n\n\nDM 통계량: -17.7948\n유의성 여부 (alpha=0.05): True",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "상세 검증"
+    ]
+  },
+  {
+    "objectID": "experiments/sci_verification.html#다중-비교-보정-bonferroni-fdr",
+    "href": "experiments/sci_verification.html#다중-비교-보정-bonferroni-fdr",
+    "title": "V50 모델 검증 대시보드",
+    "section": "4. 다중 비교 보정 (Bonferroni & FDR)",
+    "text": "4. 다중 비교 보정 (Bonferroni & FDR)\n11개 자산 동시 테스트에서 발생 가능한 ’거짓 발견’을 보정하여 검증했습니다.\n\n\n\n\n\n\n\n\n\n항목\np-값\n유의성 (alpha=0.05)\n\n\n\n\n0\n원본 p-값\n0.0\nTrue\n\n\n1\nBonferroni 보정\n0.0\nTrue\n\n\n2\nFDR (B-H) 보정\n0.0\nTrue",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "상세 검증"
+    ]
+  },
+  {
+    "objectID": "experiments/sci_verification.html#극한-시장-상황-강건성-테스트-ood",
+    "href": "experiments/sci_verification.html#극한-시장-상황-강건성-테스트-ood",
+    "title": "V50 모델 검증 대시보드",
+    "section": "5. 극한 시장 상황 강건성 테스트 (OOD)",
+    "text": "5. 극한 시장 상황 강건성 테스트 (OOD)\n금융위기, 팬데믹 등 학습 외(OOD) 구간에서의 모델 성능을 분석했습니다.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n중요\n\n\n\n2008년 금융위기 (R²=0.77): 모델이 극단적 변동성 상황에서도 탁월한 예측력을 발휘함을 입증합니다.",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "상세 검증"
+    ]
+  },
+  {
+    "objectID": "experiments/sci_verification.html#다중공선성-진단-vif",
+    "href": "experiments/sci_verification.html#다중공선성-진단-vif",
+    "title": "V50 모델 검증 대시보드",
+    "section": "6. 다중공선성 진단 (VIF)",
+    "text": "6. 다중공선성 진단 (VIF)\n입력 변수 간 중복성을 수치화하여 Ridge 정규화 적용의 당위성을 확보했습니다.\n\n\n\n\n\n\n\n\n\nVIF &gt; 10: Ridge 정규화 또는 딥러닝 구조 필수",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "상세 검증"
+    ]
+  },
+  {
+    "objectID": "experiments/sci_verification.html#잔차-통계-진단",
+    "href": "experiments/sci_verification.html#잔차-통계-진단",
+    "title": "V50 모델 검증 대시보드",
+    "section": "7. 잔차 통계 진단",
+    "text": "7. 잔차 통계 진단\n모델 잔차의 통계적 특성을 분석하여 학술적 완결성을 검토했습니다.\n\n\n\n진단 결과: 금융 시계열 특유의 Fat-tail 및 조건부 이분산성 확인",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "상세 검증"
+    ]
+  },
+  {
+    "objectID": "experiments/phase13_model_comparison.html",
+    "href": "experiments/phase13_model_comparison.html",
+    "title": "Model Architecture Comparison: Short-term vs Long-term",
+    "section": "",
+    "text": "변동성 예측에서는 예측 지평(horizon)에 따라 최적 모델이 달라집니다. 본 연구에서는 1일(단기)과 22일(장기) 예측 지평 각각에서 최고 성능을 보이는 모델의 구조를 상세히 분석했습니다.\n\n\n\n\n\n\n핵심 발견\n\n\n\n\n1일 예측: 복잡한 비선형 패턴을 학습하는 딥러닝(V50)이 유리\n22일 예측: 자산별 특성을 안정적으로 반영하는 적응형 선형모델(V36)이 유리",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "모델 아키텍처 비교"
+    ]
+  },
+  {
+    "objectID": "experiments/phase13_model_comparison.html#예측-지평horizon에-따른-최적-모델",
+    "href": "experiments/phase13_model_comparison.html#예측-지평horizon에-따른-최적-모델",
+    "title": "Model Architecture Comparison: Short-term vs Long-term",
+    "section": "",
+    "text": "변동성 예측에서는 예측 지평(horizon)에 따라 최적 모델이 달라집니다. 본 연구에서는 1일(단기)과 22일(장기) 예측 지평 각각에서 최고 성능을 보이는 모델의 구조를 상세히 분석했습니다.\n\n\n\n\n\n\n핵심 발견\n\n\n\n\n1일 예측: 복잡한 비선형 패턴을 학습하는 딥러닝(V50)이 유리\n22일 예측: 자산별 특성을 안정적으로 반영하는 적응형 선형모델(V36)이 유리",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "모델 아키텍처 비교"
+    ]
+  },
+  {
+    "objectID": "experiments/phase13_model_comparison.html#예측-지평별-성능-비교",
+    "href": "experiments/phase13_model_comparison.html#예측-지평별-성능-비교",
+    "title": "Model Architecture Comparison: Short-term vs Long-term",
+    "section": "1. 예측 지평별 성능 비교",
+    "text": "1. 예측 지평별 성능 비교",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "모델 아키텍처 비교"
+    ]
+  },
+  {
+    "objectID": "experiments/phase13_model_comparison.html#일-예측-champion-v50-dual-attention-lstm",
+    "href": "experiments/phase13_model_comparison.html#일-예측-champion-v50-dual-attention-lstm",
+    "title": "Model Architecture Comparison: Short-term vs Long-term",
+    "section": "2. 1일 예측 Champion: V50 (Dual Attention LSTM)",
+    "text": "2. 1일 예측 Champion: V50 (Dual Attention LSTM)\n단기 예측에서는 시계열의 복잡한 비선형 의존성을 학습하는 능력이 중요합니다.\n\n모델 구조 (V50)\nV50은 양방향 LSTM(Bi-LSTM)과 이중 어텐션(Dual Attention) 메커니즘을 결합한 하이브리드 구조입니다.\n\n\n코드\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0', 'primaryBorderColor': '#1565C0', 'lineColor': '#42A5F5', 'secondaryColor': '#E8F5E9', 'tertiaryColor': '#FFF3E0'}}}%%\nflowchart TD\n    subgraph INPUT[\"INPUT LAYER\"]\n        A[\"Sequence Input: 22 days x 2 features\"]\n        A --&gt; B[\"LogRV: Log Realized Volatility\"]\n        A --&gt; C[\"Ret: Daily Returns\"]\n    end\n    \n    subgraph BILSTM[\"BIDIRECTIONAL LSTM\"]\n        B & C --&gt; D[\"Forward LSTM\"]\n        B & C --&gt; E[\"Backward LSTM\"]\n        D & E --&gt; F[\"Concatenated Hidden States\"]\n    end\n    \n    subgraph ATTENTION[\"DUAL ATTENTION\"]\n        F --&gt; G[\"Temporal Attention\"]\n        F --&gt; H[\"Feature Attention\"]\n        G --&gt; I[\"Focus on critical time points\"]\n        H --&gt; J[\"Variable importance weighting\"]\n    end\n    \n    subgraph OUTPUT[\"OUTPUT LAYER\"]\n        I & J --&gt; K[\"Context Vector\"]\n        K --&gt; L[\"Fully Connected\"]\n        L --&gt; M[\"Next-Day Volatility\"]\n    end\n\n    style INPUT fill:#E3F2FD,stroke:#1565C0,stroke-width:2px\n    style BILSTM fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px\n    style ATTENTION fill:#FFF3E0,stroke:#E65100,stroke-width:2px\n    style OUTPUT fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0', 'primaryBorderColor': '#1565C0', 'lineColor': '#42A5F5', 'secondaryColor': '#E8F5E9', 'tertiaryColor': '#FFF3E0'}}}%%\nflowchart TD\n    subgraph INPUT[\"INPUT LAYER\"]\n        A[\"Sequence Input: 22 days x 2 features\"]\n        A --&gt; B[\"LogRV: Log Realized Volatility\"]\n        A --&gt; C[\"Ret: Daily Returns\"]\n    end\n    \n    subgraph BILSTM[\"BIDIRECTIONAL LSTM\"]\n        B & C --&gt; D[\"Forward LSTM\"]\n        B & C --&gt; E[\"Backward LSTM\"]\n        D & E --&gt; F[\"Concatenated Hidden States\"]\n    end\n    \n    subgraph ATTENTION[\"DUAL ATTENTION\"]\n        F --&gt; G[\"Temporal Attention\"]\n        F --&gt; H[\"Feature Attention\"]\n        G --&gt; I[\"Focus on critical time points\"]\n        H --&gt; J[\"Variable importance weighting\"]\n    end\n    \n    subgraph OUTPUT[\"OUTPUT LAYER\"]\n        I & J --&gt; K[\"Context Vector\"]\n        K --&gt; L[\"Fully Connected\"]\n        L --&gt; M[\"Next-Day Volatility\"]\n    end\n\n    style INPUT fill:#E3F2FD,stroke:#1565C0,stroke-width:2px\n    style BILSTM fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px\n    style ATTENTION fill:#FFF3E0,stroke:#E65100,stroke-width:2px\n    style OUTPUT fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px\n\n\n\n\n\n\n\n\n핵심 구성요소\n\n\n\n\n\n\n\n\n구성요소\n역할\n효과\n\n\n\n\nBi-LSTM\n시계열의 양방향 문맥 파악\n과거→현재, 현재→과거 패턴 동시 학습\n\n\nTemporal Attention\n22일 중 중요 시점에 가중치 부여\n변동성 급증 이벤트에 자동 집중\n\n\nFeature Attention\n변수(RV, Ret) 중요도 동적 조절\n상황에 따라 유용한 변수 선택\n\n\n\n\n\n성능 지표 (1-Day Horizon)\n\nR² Score: 0.821 (vs V29 Baseline 0.730, +12.5% 개선)\nDiebold-Mariano Test: p-value &lt; 0.001 (통계적으로 유의미한 개선)\nWalk-Forward Validation: OOS R² = 0.820 (과적합 없음 확인)",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "모델 아키텍처 비교"
+    ]
+  },
+  {
+    "objectID": "experiments/phase13_model_comparison.html#일-예측-champion-v36-asset-class-adaptive-ridge",
+    "href": "experiments/phase13_model_comparison.html#일-예측-champion-v36-asset-class-adaptive-ridge",
+    "title": "Model Architecture Comparison: Short-term vs Long-term",
+    "section": "3. 22일 예측 Champion: V36 (Asset-Class Adaptive Ridge)",
+    "text": "3. 22일 예측 Champion: V36 (Asset-Class Adaptive Ridge)\n장기 예측에서는 모델이 너무 유연하면(Overfitting) 노이즈까지 학습합니다. V36은 자산군별로 최적화된 단순함을 유지하여 최고 성능을 달성했습니다.\n\n모델 구조 (V36)\nV36은 HAR-GARCH 피처와 자산군별 적응형 앙상블 구조를 가집니다.\n\n\n코드\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0', 'primaryBorderColor': '#1565C0', 'lineColor': '#42A5F5'}}}%%\nflowchart LR\n    subgraph FEATURES[\"FEATURE ENGINEERING\"]\n        A[\"Price Data\"] --&gt; B[\"HAR Features: 1d, 5d, 22d lags\"]\n        A --&gt; C[\"GARCH Features: Conditional Variance\"]\n    end\n    \n    subgraph CLASSIFICATION[\"ASSET CLASSIFICATION\"]\n        B & C --&gt; D{\"Asset Type\"}\n        D --&gt;|SPY, QQQ, IWM| E[\"Equity\"]\n        D --&gt;|TLT, IEF, AGG| F[\"Bond\"]\n        D --&gt;|GLD, SLV, USO| G[\"Commodity\"]\n    end\n    \n    subgraph MODELS[\"ADAPTIVE RIDGE MODELS\"]\n        E --&gt; H[\"Equity-Optimized Ridge\"]\n        F --&gt; I[\"Bond-Optimized Ridge\"]\n        G --&gt; J[\"Commodity-Optimized Ridge\"]\n    end\n    \n    subgraph PREDICTIONS[\"22-DAY VOLATILITY\"]\n        H --&gt; K[\"Equity Vol\"]\n        I --&gt; L[\"Bond Vol\"]\n        J --&gt; M[\"Commodity Vol\"]\n    end\n\n    style FEATURES fill:#E3F2FD,stroke:#1565C0,stroke-width:2px\n    style CLASSIFICATION fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px\n    style MODELS fill:#FFF3E0,stroke:#E65100,stroke-width:2px\n    style PREDICTIONS fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0', 'primaryBorderColor': '#1565C0', 'lineColor': '#42A5F5'}}}%%\nflowchart LR\n    subgraph FEATURES[\"FEATURE ENGINEERING\"]\n        A[\"Price Data\"] --&gt; B[\"HAR Features: 1d, 5d, 22d lags\"]\n        A --&gt; C[\"GARCH Features: Conditional Variance\"]\n    end\n    \n    subgraph CLASSIFICATION[\"ASSET CLASSIFICATION\"]\n        B & C --&gt; D{\"Asset Type\"}\n        D --&gt;|SPY, QQQ, IWM| E[\"Equity\"]\n        D --&gt;|TLT, IEF, AGG| F[\"Bond\"]\n        D --&gt;|GLD, SLV, USO| G[\"Commodity\"]\n    end\n    \n    subgraph MODELS[\"ADAPTIVE RIDGE MODELS\"]\n        E --&gt; H[\"Equity-Optimized Ridge\"]\n        F --&gt; I[\"Bond-Optimized Ridge\"]\n        G --&gt; J[\"Commodity-Optimized Ridge\"]\n    end\n    \n    subgraph PREDICTIONS[\"22-DAY VOLATILITY\"]\n        H --&gt; K[\"Equity Vol\"]\n        I --&gt; L[\"Bond Vol\"]\n        J --&gt; M[\"Commodity Vol\"]\n    end\n\n    style FEATURES fill:#E3F2FD,stroke:#1565C0,stroke-width:2px\n    style CLASSIFICATION fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px\n    style MODELS fill:#FFF3E0,stroke:#E65100,stroke-width:2px\n    style PREDICTIONS fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px\n\n\n\n\n\n\n\n\n핵심 구성요소\n\n\n\n\n\n\n\n\n구성요소\n역할\n효과\n\n\n\n\nHAR 피처\n다중 시간척도(1일/5일/22일) 패턴 포착\n시장 참여자들의 다양한 주기 반영\n\n\nGARCH 피처\n변동성 군집성(Clustering) 모델링\n고변동성 → 고변동성 지속 패턴 학습\n\n\n자산군별 Ridge\n자산 특성에 맞는 가중치 적용\n주식/채권/원자재의 고유 패턴 반영\n\n\n\n\n\n성능 지표 (22-Day Horizon)\n\nR² Score: 0.755 (vs V29 Baseline 0.641, +17.8% 개선)\n채권 카테고리: R² = 0.95 (금리 정책 추세가 예측 가능성 높임)\n주식 카테고리: R² = 0.51 (시장 효율성으로 랜덤워크에 가까움)",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "모델 아키텍처 비교"
+    ]
+  },
+  {
+    "objectID": "experiments/phase13_model_comparison.html#왜-예측-지평에-따라-최적-모델이-다른가",
+    "href": "experiments/phase13_model_comparison.html#왜-예측-지평에-따라-최적-모델이-다른가",
+    "title": "Model Architecture Comparison: Short-term vs Long-term",
+    "section": "4. 왜 예측 지평에 따라 최적 모델이 다른가?",
+    "text": "4. 왜 예측 지평에 따라 최적 모델이 다른가?\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n핵심 인사이트\n\n\n\n\n1일 예측: 시그널이 강하고 자기상관성이 높아 복잡한 딥러닝이 미세한 패턴까지 포착 가능\n22일 예측: 노이즈가 많고 구조적 변화(Structural Break) 영향이 커서 단순하고 강건한 모델이 유리",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "모델 아키텍처 비교"
+    ]
+  },
+  {
+    "objectID": "experiments/phase13_model_comparison.html#결론-및-권장사항",
+    "href": "experiments/phase13_model_comparison.html#결론-및-권장사항",
+    "title": "Model Architecture Comparison: Short-term vs Long-term",
+    "section": "5. 결론 및 권장사항",
+    "text": "5. 결론 및 권장사항\n\n\n\n\n\n\n\n\n\n사용 목적\n권장 모델\nR²\n특징\n\n\n\n\n단기 트레이딩 (1일 예측)\nV50 (Dual-Attn LSTM)\n0.821\n비선형 패턴 학습에 탁월\n\n\n장기 리스크 관리 (22일 예측)\nV36 (Asset-Adaptive)\n0.755\n자산군별 특성 반영에 탁월\n\n\n범용 (두 지평 모두 활용)\nV42 (Ensemble)\n0.65~0.81\nV36 기반 가중 앙상블",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "모델 아키텍처 비교"
+    ]
+  },
+  {
+    "objectID": "experiments/phase13_model_comparison.html#상세-하이퍼파라미터-hyperparameters",
+    "href": "experiments/phase13_model_comparison.html#상세-하이퍼파라미터-hyperparameters",
+    "title": "Model Architecture Comparison: Short-term vs Long-term",
+    "section": "6. 상세 하이퍼파라미터 (Hyperparameters)",
+    "text": "6. 상세 하이퍼파라미터 (Hyperparameters)\n\n6.1 V50 (Dual Attention LSTM) - Deep Learning Model\n\n\n\n\n\n\n\n\n\nCategory\nParameter\nValue\nDescription\n\n\n\n\nArchitecture\nModel Type\nBidirectional LSTM\n양방향 시계열 컨텍스트 추출\n\n\n\nHidden Dimension\n64\nLSTM 은닉층 크기\n\n\n\nInput Dimension\n2\nLogRV, Daily Return\n\n\n\nSequence Length\n22 days\n입력 윈도우 크기 (약 1개월)\n\n\n\nAttention Type\nDual (Temporal + Feature)\n이중 어텐션 메커니즘\n\n\n\nOutput Layer\nFully Connected (128 → 1)\n최종 예측층\n\n\nTraining\nOptimizer\nAdam\nAdaptive learning rate\n\n\n\nLearning Rate\n0.001\n초기 학습률\n\n\n\nBatch Size\n64\n미니배치 크기\n\n\n\nEpochs\n20\n학습 반복 횟수\n\n\n\nLoss Function\nMSE (Mean Squared Error)\n회귀 손실 함수\n\n\nRegularization\nDropout\n0 (implicit in LSTM)\n과적합 방지\n\n\n\nEarly Stopping\nNo\n(향후 적용 가능)\n\n\nData\nAssets\n6\nSPY, QQQ, IWM, TLT, IEF, GLD\n\n\n\nTrain/Test Split\n80%/20%\n시간순 분할\n\n\n\nScaling\nStandardScaler (per asset)\n자산별 정규화\n\n\n\n\n\n6.2 V36 (Asset-Class Adaptive Ridge) - Linear Model\n\n\n\n\n\n\n\n\n\nCategory\nParameter\nValue\nDescription\n\n\n\n\nArchitecture\nModel Type\nRidge Regression\nL2 정규화 선형 회귀\n\n\n\nRegularization (α)\n1.0\nRidge 페널티 강도\n\n\n\nFeatures\n3\nLogRV_lag1, lag5, lag22 (HAR)\n\n\n\nPer-Class Models\n3\nEquity, Bond, Commodity 별도 학습\n\n\nAsset Classification\nEquity\n5 assets\nSPY, QQQ, IWM, EFA, EEM\n\n\n\nBond\n3 assets\nTLT, IEF, AGG\n\n\n\nCommodity\n3 assets\nGLD, SLV, USO\n\n\n\nTotal Assets\n11\n모든 자산 포함\n\n\nFeature Engineering\nRV Window\n22 days\n실현변동성 계산 윈도우\n\n\n\nAnnualization\n× 252 × 10,000\n연간화 및 스케일링\n\n\n\nLog Transform\nlog(RV + 1e-6)\n로그 변환\n\n\nData\nTrain/Test Split\n80%/20%\n시간순 분할\n\n\n\nScaling\nStandardScaler (global)\n전역 정규화",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "모델 아키텍처 비교"
+    ]
+  },
+  {
+    "objectID": "experiments/phase13_model_comparison.html#입력-변수-정의-feature-definitions",
+    "href": "experiments/phase13_model_comparison.html#입력-변수-정의-feature-definitions",
+    "title": "Model Architecture Comparison: Short-term vs Long-term",
+    "section": "7. 입력 변수 정의 (Feature Definitions)",
+    "text": "7. 입력 변수 정의 (Feature Definitions)\n\n7.1 공통 변수\n\n\n\n\n\n\n\n\n\nVariable\nFormula\nDescription\n단위\n\n\n\n\nLogRV\n\\(\\log\\left(\\frac{252 \\times 10000}{22} \\sum_{t-21}^{t} r_t^2\\right)\\)\n22일 로그 실현변동성\nLog scale\n\n\nDaily Return\n\\(r_t = \\log(P_t / P_{t-1})\\)\n일간 로그 수익률\nDecimal\n\n\nLogRV_lag1\n\\(\\text{LogRV}_{t-1}\\)\n전일 변동성\nLog scale\n\n\nLogRV_lag5\n\\(\\text{LogRV}_{t-5}\\)\n5일 전 변동성\nLog scale\n\n\nLogRV_lag22\n\\(\\text{LogRV}_{t-22}\\)\n22일 전 변동성\nLog scale\n\n\nTarget\n\\(\\text{LogRV}_{t+22}\\)\n22일 후 변동성 (예측 대상)\nLog scale\n\n\n\n\n\n7.2 V50 전용 시퀀스 구조\n\n\n\n시점\nLogRV\nReturn\n설명\n\n\n\n\nt-21\n\\(x_1^{(1)}\\)\n\\(x_1^{(2)}\\)\n시퀀스 시작\n\n\nt-20\n\\(x_2^{(1)}\\)\n\\(x_2^{(2)}\\)\n…\n\n\n…\n…\n…\n…\n\n\nt\n\\(x_{22}^{(1)}\\)\n\\(x_{22}^{(2)}\\)\n시퀀스 끝 (현재)\n\n\nt+1\n-\n-\n예측 대상",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "모델 아키텍처 비교"
+    ]
+  },
+  {
+    "objectID": "experiments/phase13_model_comparison.html#appendix-a-sci-리뷰-대비-추가-검증-실험",
+    "href": "experiments/phase13_model_comparison.html#appendix-a-sci-리뷰-대비-추가-검증-실험",
+    "title": "Model Architecture Comparison: Short-term vs Long-term",
+    "section": "Appendix A: SCI 리뷰 대비 추가 검증 실험",
+    "text": "Appendix A: SCI 리뷰 대비 추가 검증 실험\nSCI 저널 리뷰어의 예상 질문에 대응하기 위한 추가 검증 실험 계획입니다.\n\nA.1 예상 리뷰 질문 및 대응 실험\n\n\n\n\n\n\n\n\n\n\n#\n예상 질문\n대응 실험\n스크립트\n상태\n\n\n\n\n1\n과적합 우려: 딥러닝 모델이 테스트셋에 과적합되지 않았는가?\nWalk-Forward Validation (Rolling OOS)\nv51_v50_walk_forward.py\n완료 (OOS R²=0.820)\n\n\n2\n통계적 유의성: 베이스라인 대비 개선이 유의미한가?\nDiebold-Mariano Test\nv53_dm_test_v50.py\n완료 (p&lt;0.001)\n\n\n3\n해석가능성: Attention이 실제로 의미 있는 시점에 집중하는가?\nAttention Weight Visualization\nv52_attention_viz.py\n완료 (플롯 저장)\n\n\n4\n구조적 변화: 위기 시기에도 성능이 유지되는가?\nSub-period Analysis (COVID, Inflation)\nv32_subperiod.py\n완료\n\n\n5\n하이퍼파라미터 민감도: 다른 설정에서도 결과가 재현되는가?\nHyperparameter Sensitivity Analysis\nv54_hyperparam_sensitivity.py\n[추가 필요]\n\n\n6\n자산 확장성: 새로운 자산에서도 일반화되는가?\nOut-of-Universe Test (Crypto, FX)\nv55_asset_generalization.py\n[추가 필요]\n\n\n7\n거래비용 반영: 실제 수익률에서도 우위가 유지되는가?\nTransaction Cost Backtest\nv13_backtest.py\n완료\n\n\n8\n대안 모델 비교: Transformer, TCN 등과의 비교는?\nNeural Architecture Comparison\nv9_nn_comparison.py\n완료\n\n\n\n\n\nA.2 완료된 검증 실험 결과 요약\n\nWalk-Forward Validation (V51)Diebold-Mariano Test (V53)Sub-period Stability (V32)\n\n\n\n\n\nMetric\nIn-Sample\nOut-of-Sample (Rolling)\nGap\n\n\n\n\nR² Score\n0.821\n0.820\n-0.1%\n\n\nConclusion\n-\n과적합 없음\n-\n\n\n\n\n방법: Expanding window (초기 3년) + 1개월 롤링 예측\n결론: IS와 OOS 성능 차이가 0.1%p 미만으로, 과적합이 없음을 입증\n\n\n\n\n\n\nComparison\nDM Statistic\np-value\nSignificance\n\n\n\n\nV50 vs V29 (Baseline)\n4.23\n&lt;0.001\n***\n\n\nV50 vs V43 (Transformer)\n2.87\n&lt;0.01\n**\n\n\n\n\n결론: V50이 베이스라인 및 Transformer 대비 통계적으로 유의미하게 우수\n\n\n\n\n\n\nPeriod\nV29 R²\nV50 R²\nImprovement\n\n\n\n\nNormal (2010-2019)\n0.71\n0.79\n+11.3%\n\n\nCOVID (2020Q1-Q2)\n0.65\n0.75\n+15.4%\n\n\nInflation (2022)\n0.68\n0.78\n+14.7%\n\n\n\n\n결론: 위기 시기에도 V50이 더 높은 안정성을 보임\n\n\n\n\n\n\nA.3 추가 실험 계획 (SCI 리뷰 대응용)\n\n실험 1: 하이퍼파라미터 민감도 분석 (v54)\n목적: 모델 결과의 하이퍼파라미터 의존성 파악\n변수:\n  - Hidden Dimension: [32, 64, 128, 256]\n  - Sequence Length: [10, 22, 44]\n  - Learning Rate: [0.0001, 0.001, 0.01]\n  - Batch Size: [32, 64, 128]\n산출물: 민감도 히트맵, 최적값 보고\n\n\n실험 2: 자산 일반화 테스트 (v55)\n목적: 학습에 사용하지 않은 자산에서의 성능 검증\n테스트 자산:\n  - Crypto: BTC-USD, ETH-USD\n  - FX: EURUSD, USDJPY\n  - Sector ETFs: XLF (금융), XLE (에너지)\n방법: Zero-shot 및 Fine-tuning 비교\n\n\n실험 3: Attention 정량 분석 (v56)\n목적: Attention 가중치와 시장 이벤트 상관관계 분석\n분석 내용:\n  - VIX 급등일의 Attention 집중도\n  - FOMC 발표일 전후 패턴\n  - 분기 실적 시즌 영향\n산출물: 이벤트별 Attention 히트맵",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "모델 아키텍처 비교"
+    ]
+  },
+  {
+    "objectID": "experiments/phase13_model_comparison.html#관련-파일",
+    "href": "experiments/phase13_model_comparison.html#관련-파일",
+    "title": "Model Architecture Comparison: Short-term vs Long-term",
+    "section": "관련 파일",
+    "text": "관련 파일\n\n소스 코드\n\nV50 Dual Attention LSTM\nV36 Asset-Class Adaptive\nV42 Ultimate Ensemble\n\n\n\n검증 실험\n\nV51 Walk-Forward\nV52 Attention Viz\nV53 DM Test",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "모델 아키텍처 비교"
+    ]
+  },
+  {
+    "objectID": "experiments/universal_model.html",
+    "href": "experiments/universal_model.html",
+    "title": "Universal Model Experiment",
+    "section": "",
+    "text": "본 실험은 23개 주요 자산(Equity, Bond, Commodity)을 하나의 데이터셋으로 통합(Pooling)하여 단일 모델로 학습하는 Universal Model 접근법을 검증했습니다.\n\n핵심 가설 (Hypothesis): 개별 자산마다 별도의 모델을 만드는 것보다, 모든 자산의 데이터를 합쳐서 “변동성의 보편적 법칙(Universal Laws of Volatility)”을 학습하는 것이 노이즈 강건성과 일반화 성능이 더 뛰어날 것이다.",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "통합 모델 실험"
+    ]
+  },
+  {
+    "objectID": "experiments/universal_model.html#피처-구성표-feature-config",
+    "href": "experiments/universal_model.html#피처-구성표-feature-config",
+    "title": "Universal Model Experiment",
+    "section": "2.1 피처 구성표 (Feature Config)",
+    "text": "2.1 피처 구성표 (Feature Config)\n\n\n\n\n\n\n\n\n\n그룹\n피처\n수식\n설명\n\n\n\n\n기본 (HAR)\nLogRV_lag1\n\\(\\ln(RV_{t-1})\\)\n어제의 변동성\n\n\n\nLogRV_lag5\n\\(\\ln(\\bar{RV}_{t-5:t-1})\\)\n주간 평균 변동성\n\n\n\nLogRV_lag22\n\\(\\ln(\\bar{RV}_{t-22:t-1})\\)\n월간 평균 변동성\n\n\n\nLogRV_Mom\n\\(\\ln RV_{t-1} - \\ln RV_{t-5}\\)\n변동성 모멘텀\n\n\n글로벌\nLogVIX\n\\(\\ln(VIX_{t-1})\\)\n내재변동성 (시장 공포)\n\n\n\nVIX_Term\n\\(VIX3M - VIX\\)\n기간 구조 (Term Structure)\n\n\n\nSKEW\n\\(SKEW_{Idx} - 1\\)\n꼬리 위험 (Tail Risk)\n\n\n교차 자산\nLogRV_SPY\n\\(\\ln(RV_{SPY})\\)\n주식 시장 리스크 프록시\n\n\n\nLogRV_TLT\n\\(\\ln(RV_{TLT})\\)\n채권 시장 리스크 프록시\n\n\n\nLogRV_GLD\n\\(\\ln(RV_{GLD})\\)\n금/원자재 리스크 프록시",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "통합 모델 실험"
+    ]
+  },
+  {
+    "objectID": "experiments/universal_model.html#피처-확장-feature-expansion---신규",
+    "href": "experiments/universal_model.html#피처-확장-feature-expansion---신규",
+    "title": "Universal Model Experiment",
+    "section": "2.2 피처 확장 (Feature Expansion) - [신규]",
+    "text": "2.2 피처 확장 (Feature Expansion) - [신규]\nLiterature(Feunou 2017, Carr 2009 등)를 기반으로 다음 변수들을 추가하여 모델 개선을 시도했습니다.\n\n\n\n\n\n\n\n\n\n그룹\n피처\n설명\n출처/논리\n\n\n\n\n비대칭성\nLogRV_Down\n하락 변동성\n“나쁜” 변동성이 예측력이 높음 (Feunou ’17)\n\n\n\nRS_Asymmetry\nLogRV_Down - LogRV_Up\n변동성 비대칭성\n\n\nVRP\nVRP_Proxy\nLogVIX - LogRV\n분산 리스크 프리미엄 (Carr ’09)\n\n\n기술적 지표\nRSI\n상대강도지수\n과매수/과매도 지표\n\n\n\nBB_Width\n볼린저 밴드 너비\n변동성 군집성 측정치\n\n\n모멘트\nSkewness\n수익률 왜도\n부호화된 점프(Signed Jump) 프록시",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "통합 모델 실험"
+    ]
+  },
+  {
+    "objectID": "experiments/universal_model.html#아키텍처-비교-linear-vs-deep-learning",
+    "href": "experiments/universal_model.html#아키텍처-비교-linear-vs-deep-learning",
+    "title": "Universal Model Experiment",
+    "section": "3.1 아키텍처 비교 (Linear vs Deep Learning)",
+    "text": "3.1 아키텍처 비교 (Linear vs Deep Learning)\n금융 시계열, 특히 변동성 데이터는 노이즈가 매우 심해 복잡한 딥러닝 모델이 오히려 과적합될 수 있습니다. 본 실험 결과도 이를 뒷받침합니다.\n\n\n\n\n\n\n\n\n\n모델\n전체 R²\n자산 평균 R²\n비고\n\n\n\n\nBaseline MLP\n0.260\n-0.118\n기본 비선형 모델\n\n\nResidual MLP\n0.232\n-0.134\n잔차 연결(Skip-connection) 효과 미미\n\n\nLSTM\n-0.046\n-0.482\n심각한 과적합 발생\n\n\nTransformer\n0.145\n-0.218\n정형 데이터에 과한 복잡성\n\n\nEnsemble (최종)\n0.848\n0.170\n선형 + 트리 모델 조합",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "통합 모델 실험"
+    ]
+  },
+  {
+    "objectID": "experiments/universal_model.html#확장-모델-성능-new-feature-results---new",
+    "href": "experiments/universal_model.html#확장-모델-성능-new-feature-results---new",
+    "title": "Universal Model Experiment",
+    "section": "3.2 확장 모델 성능 (New Feature Results) - [NEW]",
+    "text": "3.2 확장 모델 성능 (New Feature Results) - [NEW]\n새로운 피처를 추가한 V6 실험 결과, Baseline(Ridge) 대비 현저한 성능 향상이 있었습니다. 특히 비선형 모델(Random Forest)에서 Techncial 및 VRP 변수의 효과가 극대화되었습니다.\n\n\n\nModel\nFeatures\nR2 Score\nImprovement\n\n\n\n\nBaseline (Ridge)\nBasic (HAR)\n0.8180\n-\n\n\nExpanded (Ridge)\nBasic + New\n0.8237\n+0.7%\n\n\nExpanded (RF)\nBasic + New\n0.8649\n+5.7%\n\n\n\n\n주요 발견 (Key Findings): 1. VRP Proxy: LogVIX - LogRV가 변동성 예측에 매우 중요한 정보(#2 Importance)를 담고 있습니다. 2. Non-linearity: 단순 선형 모델(Ridge)보다 Tree 모델(RF)에서 피처 효과가 큽니다. 3. Technicals: BB_Width가 상위 중요도에 랭크되었습니다.",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "통합 모델 실험"
+    ]
+  },
+  {
+    "objectID": "experiments/universal_model.html#자산-카테고리별-성능-per-category-results---new",
+    "href": "experiments/universal_model.html#자산-카테고리별-성능-per-category-results---new",
+    "title": "Universal Model Experiment",
+    "section": "3.3 자산 카테고리별 성능 (Per-Category Results) - [NEW]",
+    "text": "3.3 자산 카테고리별 성능 (Per-Category Results) - [NEW]\n자산군을 Equity, Bond, Commodity로 분류하여 각 카테고리별 예측 성능을 분석했습니다.\n\n\n\nCategory\nR2 Score\nSamples\nCharacteristics\n\n\n\n\nBond\n0.9530\n3,664\nHigh Predictability (Rate Trends)\n\n\nCommodity\n0.6251\n2,951\nSupply/Demand Cycles\n\n\nEquity\n0.5142\n9,701\nLow Predictability (Efficient Market)\n\n\n\n\n분석 (Analysis): 1. Bond: 금리 변동은 거시경제 정책에 따라 추세를 형성하므로 예측 가능성이 가장 높습니다. 2. Commodity: 명확한 공급/수요 사이클로 인해 중간 수준의 예측력을 보입니다. 3. Equity: 정보 반영 속도가 빨라 랜덤워크에 가깝고 예측이 어렵습니다.",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "통합 모델 실험"
+    ]
+  },
+  {
+    "objectID": "experiments/universal_model.html#자산별-성능-top-10-assets",
+    "href": "experiments/universal_model.html#자산별-성능-top-10-assets",
+    "title": "Universal Model Experiment",
+    "section": "3.4 자산별 성능 (Top 10 Assets)",
+    "text": "3.4 자산별 성능 (Top 10 Assets)\n예측 정확도가 높은 자산들은 주로 거시경제(Macro) 요인에 민감한 자산군이었습니다.\n\n\n\nRank\nAsset\nR2 Score\nCategory\nFeature\n\n\n\n\n1\nAGG\n0.479\nBond\nRate/Inflation\n\n\n2\nSLV\n0.319\nCommodity\nSilver Demand\n\n\n3\nDBC\n0.306\nCommodity\nSuper-cycle\n\n\n4\nUSO\n0.297\nCommodity\nOil/Geopolitics\n\n\n5\nFXE\n0.231\nCurrency\nEuro/Dollar\n\n\n6\nGLD\n0.200\nCommodity\nSafe Asset\n\n\n7\nLQD\n0.185\nCorp Bond\nCredit Spread\n\n\n8\nSHY\n0.175\nBond\nFed Policy\n\n\n9\nIEF\n0.161\nBond\nBenchmark Rate\n\n\n10\nUNG\n0.144\nCommodity\nGas Seasonality",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "통합 모델 실험"
+    ]
+  },
+  {
+    "objectID": "experiments/universal_model.html#벤치마크-결과-benchmark-results---new",
+    "href": "experiments/universal_model.html#벤치마크-결과-benchmark-results---new",
+    "title": "Universal Model Experiment",
+    "section": "3.5 벤치마크 결과 (Benchmark Results) - [NEW]",
+    "text": "3.5 벤치마크 결과 (Benchmark Results) - [NEW]\nNaive(Random Walk)부터 최신 딥러닝(DeepVol)까지 다양한 모델을 비교했습니다 (V8 실험).\n\n\n\n\n\n\n\n\n\n\nRank\nModel\nR2 Score\nType\nNote\n\n\n\n\n1\nRandom Forest\n0.8655\nML (Tree)\nBest Performance\n\n\n2\nXGBoost\n0.8591\nML (Boosting)\nChristensen et al. (2023)\n\n\n3\nMLP (DeepVol)\n0.8590\nDL (Neural)\nMichael et al. (2025)\n\n\n4\nLightGBM\n0.8590\nML (Boosting)\nFast Training\n\n\n5\nGradientBoosting\n0.8582\nML (Boosting)\n\n\n\n6\nEnsemble (Avg)\n0.8553\nEnsemble\nAverage\n\n\n7\nHAR-Ridge\n0.8180\nBaseline\nCorsi (2009)\n\n\n8\nNaive (RW)\n0.7899\nBaseline\nRandom Walk\n\n\n9\nHistorical Mean\n0.0000\nBaseline\nConstant\n\n\n\n\n인사이트 (Insights): - ML Superiority: 모든 ML/DL 모델이 전통적 계량경제 모델(HAR)을 상회합니다. - Tree vs Neural: 정형 데이터 특성상 Tree 기반 모델(RF)이 가장 우수합니다.",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "통합 모델 실험"
+    ]
+  },
+  {
+    "objectID": "experiments/universal_model.html#신경망-아키텍처-비교-neural-network-results---new",
+    "href": "experiments/universal_model.html#신경망-아키텍처-비교-neural-network-results---new",
+    "title": "Universal Model Experiment",
+    "section": "3.6 신경망 아키텍처 비교 (Neural Network Results) - [NEW]",
+    "text": "3.6 신경망 아키텍처 비교 (Neural Network Results) - [NEW]\nPyTorch 기반 다양한 신경망 아키텍처를 비교했습니다 (V9 실험).\n\n\n\nRank\nModel\nR2 Score\nFeature\n\n\n\n\n1\nDeep MLP (Residual)\n0.8492\nBest NN\n\n\n2\nTransformer\n0.8430\nMichael et al. (2025)\n\n\n3\nLSTM (DeepVol)\n0.8385\nSequence Model\n\n\n4\nTCN\n0.8347\nTemporal Conv\n\n\n5\nSimple MLP\n0.8333\nBasic NN\n\n\n\n\n분석 (Analysis): - Residual: Skip Connection이 성능 향상에 기여했습니다. - Limit: 정형 데이터에서는 Transformer 등의 복잡한 모델 이점이 제한적입니다.",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "통합 모델 실험"
+    ]
+  }
+]

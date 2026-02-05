@@ -1,0 +1,2117 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.42">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>22일 예측 모델 – VRP 연구 대시보드</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-90aea55d2a0088fe7b0af709ac8e6e7c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "일치 없음",
+    "search-matching-documents-text": "일치된 문서",
+    "search-copy-link-title": "검색 링크 복사",
+    "search-hide-matches-text": "추가 검색 결과 숨기기",
+    "search-more-match-text": "추가 검색결과",
+    "search-more-matches-text": "추가 검색결과",
+    "search-clear-button-title": "제거",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "취소",
+    "search-submit-button-title": "검색",
+    "search-label": "검색"
+  }
+}</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="../styles/styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">VRP 연구 대시보드</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="검색"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="탐색 전환" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../content/index.html"> 
+<span class="menu-text">홈</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../content/project/overview.html"> 
+<span class="menu-text">프로젝트</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../literature/index.html"> 
+<span class="menu-text">문헌 분석</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../experiments/index.html" aria-current="page"> 
+<span class="menu-text">실험 결과</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../content/notes/index.html"> 
+<span class="menu-text">노트</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="사이드바 전환" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../experiments/22day_prediction.html">22일 예측</a></li><li class="breadcrumb-item"><a href="../experiments/22day_prediction.html">V36 모델 (챔피언)</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="사이드바 전환" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">개요</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">1일 예측</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="토글 섹션">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/1day_prediction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">V50 모델 (챔피언)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/sci_verification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">상세 검증</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">22일 예측</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="토글 섹션">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/22day_prediction.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">V36 모델 (챔피언)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">기타</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="토글 섹션">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/phase10_v29_verification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">V29 베이스라인 검증</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/phase13_model_comparison.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">모델 아키텍처 비교</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/trading_strategy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">트레이딩 전략</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/universal_model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">통합 모델 실험</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">결과 요약</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">목차</h2>
+   
+  <ul>
+  <li><a href="#일-예측-챔피언-v36-자산-적응형-ridge" id="toc-일-예측-챔피언-v36-자산-적응형-ridge" class="nav-link active" data-scroll-target="#일-예측-챔피언-v36-자산-적응형-ridge">22일 예측 챔피언: V36 (자산 적응형 Ridge)</a>
+  <ul class="collapse">
+  <li><a href="#모델-성능-비교" id="toc-모델-성능-비교" class="nav-link" data-scroll-target="#모델-성능-비교">모델 성능 비교</a></li>
+  <li><a href="#v36-모델-구조" id="toc-v36-모델-구조" class="nav-link" data-scroll-target="#v36-모델-구조">V36 모델 구조</a></li>
+  <li><a href="#자산군별-성능" id="toc-자산군별-성능" class="nav-link" data-scroll-target="#자산군별-성능">자산군별 성능</a></li>
+  <li><a href="#검증-결과-요약" id="toc-검증-결과-요약" class="nav-link" data-scroll-target="#검증-결과-요약">검증 결과 요약</a></li>
+  <li><a href="#상세-분석-링크" id="toc-상세-분석-링크" class="nav-link" data-scroll-target="#상세-분석-링크">상세 분석 링크</a></li>
+  <li><a href="#v36-모델-상세-속성" id="toc-v36-모델-상세-속성" class="nav-link" data-scroll-target="#v36-모델-상세-속성">V36 모델 상세 속성</a>
+  <ul class="collapse">
+  <li><a href="#하이퍼파라미터-자산군별" id="toc-하이퍼파라미터-자산군별" class="nav-link" data-scroll-target="#하이퍼파라미터-자산군별">하이퍼파라미터 (자산군별)</a></li>
+  <li><a href="#모델-학습-설정" id="toc-모델-학습-설정" class="nav-link" data-scroll-target="#모델-학습-설정">모델 학습 설정</a></li>
+  <li><a href="#피처-중요도-회귀-계수-기반" id="toc-피처-중요도-회귀-계수-기반" class="nav-link" data-scroll-target="#피처-중요도-회귀-계수-기반">피처 중요도 (회귀 계수 기반)</a></li>
+  </ul></li>
+  <li><a href="#모델-성능-시각화" id="toc-모델-성능-시각화" class="nav-link" data-scroll-target="#모델-성능-시각화">모델 성능 시각화</a>
+  <ul class="collapse">
+  <li><a href="#예측-vs-실제-비교" id="toc-예측-vs-실제-비교" class="nav-link" data-scroll-target="#예측-vs-실제-비교">예측 vs 실제 비교</a></li>
+  <li><a href="#시장-국면별-성능-비교" id="toc-시장-국면별-성능-비교" class="nav-link" data-scroll-target="#시장-국면별-성능-비교">시장 국면별 성능 비교</a></li>
+  <li><a href="#자산별-22일-예측-성능-히트맵" id="toc-자산별-22일-예측-성능-히트맵" class="nav-link" data-scroll-target="#자산별-22일-예측-성능-히트맵">자산별 22일 예측 성능 히트맵</a></li>
+  </ul></li>
+  <li><a href="#하이퍼파라미터-튜닝-비교-ablation-study" id="toc-하이퍼파라미터-튜닝-비교-ablation-study" class="nav-link" data-scroll-target="#하이퍼파라미터-튜닝-비교-ablation-study">하이퍼파라미터 튜닝 비교 (Ablation Study)</a>
+  <ul class="collapse">
+  <li><a href="#ridge-alpha-정규화-강도-비교" id="toc-ridge-alpha-정규화-강도-비교" class="nav-link" data-scroll-target="#ridge-alpha-정규화-강도-비교">Ridge Alpha (정규화 강도) 비교</a></li>
+  <li><a href="#garch-파라미터-비교" id="toc-garch-파라미터-비교" class="nav-link" data-scroll-target="#garch-파라미터-비교">GARCH 파라미터 비교</a></li>
+  <li><a href="#피처-조합-비교-어블레이션-스터디" id="toc-피처-조합-비교-어블레이션-스터디" class="nav-link" data-scroll-target="#피처-조합-비교-어블레이션-스터디">피처 조합 비교 (어블레이션 스터디)</a></li>
+  <li><a href="#시계열-교차-검증-fold-비교" id="toc-시계열-교차-검증-fold-비교" class="nav-link" data-scroll-target="#시계열-교차-검증-fold-비교">시계열 교차 검증 Fold 비교</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../experiments/22day_prediction.html">22일 예측</a></li><li class="breadcrumb-item"><a href="../experiments/22day_prediction.html">V36 모델 (챔피언)</a></li></ol></nav>
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">22일 예측 모델</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> 코드</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">전체 코드 표시</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">전체 코드 숨기기</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">소스 코드 표시</a></li></ul></div></div>
+<p class="subtitle lead">V36 (자산 적응형 Ridge) 챔피언 모델</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="일-예측-챔피언-v36-자산-적응형-ridge" class="level1">
+<h1>22일 예측 챔피언: V36 (자산 적응형 Ridge)</h1>
+<p>장기(22일) 변동성 예측에서는 모델이 너무 유연하면 노이즈까지 학습하여 성능이 저하됩니다. <strong>V36 모델</strong>은 자산군별로 최적화된 단순함을 유지하여 최고 성능을 달성했습니다.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+핵심 성과
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>R² 스코어</strong>: 0.755 (베이스라인 대비 +17.8%)</li>
+<li><strong>채권 카테고리</strong>: R² = 0.95 (금리 정책 추세 반영)</li>
+<li><strong>주식 카테고리</strong>: R² = 0.51 (시장 효율성)</li>
+</ul>
+</div>
+</div>
+<hr>
+<section id="모델-성능-비교" class="level2">
+<h2 class="anchored" data-anchor-id="모델-성능-비교">모델 성능 비교</h2>
+<div id="ba40cbf6" class="cell" data-fig-height="5" data-fig-width="12" data-execution_count="1">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="22day_prediction_files/figure-html/cell-2-output-1.png" width="1142" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">모델</th>
+<th style="text-align: left;">출처</th>
+<th style="text-align: left;">R²</th>
+<th style="text-align: left;">V36 대비</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Historical Average</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">0.32</td>
+<td style="text-align: left;">-57.6%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">GARCH(1,1)</td>
+<td style="text-align: left;">Bollerslev (1986)</td>
+<td style="text-align: left;">0.45</td>
+<td style="text-align: left;">-40.4%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">HAR-RV</td>
+<td style="text-align: left;">Corsi (2009)</td>
+<td style="text-align: left;">0.52</td>
+<td style="text-align: left;">-31.1%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>GARCH-MIDAS</strong></td>
+<td style="text-align: left;"><strong>Engle et al.&nbsp;(2013)</strong></td>
+<td style="text-align: left;"><strong>0.55</strong></td>
+<td style="text-align: left;"><strong>-27.2%</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">V29 (HAR+GARCH)</td>
+<td style="text-align: left;">본 연구</td>
+<td style="text-align: left;">0.641</td>
+<td style="text-align: left;">-15.1%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">V43 (Transformer)</td>
+<td style="text-align: left;">본 연구</td>
+<td style="text-align: left;">0.534</td>
+<td style="text-align: left;">-29.3%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>V36 (Champion)</strong></td>
+<td style="text-align: left;"><strong>본 연구</strong></td>
+<td style="text-align: left;"><strong>0.755</strong></td>
+<td style="text-align: left;"><strong>기준</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+왜 딥러닝 모델이 22일 예측에서 성능이 낮은가?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>노이즈 비율 증가</strong>: 22일 후 예측에서는 신호 대비 노이즈 비율이 크게 증가</li>
+<li><strong>과적합 위험</strong>: 복잡한 딥러닝 모델(V50, V43)이 노이즈까지 학습</li>
+<li><strong>해결책</strong>: 강건한 선형 모델(V36 Ridge)로 일반화 성능 확보</li>
+</ul>
+</div>
+</div>
+<hr>
+</section>
+<section id="v36-모델-구조" class="level2">
+<h2 class="anchored" data-anchor-id="v36-모델-구조">V36 모델 구조</h2>
+<p>V36은 <strong>HAR-GARCH 피처</strong>와 <strong>자산군별 적응형 앙상블</strong> 구조를 가집니다.</p>
+<div class="cell" data-layout-align="default">
+<details class="code-fold">
+<summary>코드</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>flowchart LR</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    subgraph FEATURES["피처 엔지니어링"]</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        A["가격 데이터"] --&gt; B["HAR 피처: 1d, 5d, 22d 래그"]</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        A --&gt; C["GARCH 피처: 조건부 분산"]</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    end</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    subgraph CLASSIFICATION["자산 분류"]</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        B &amp; C --&gt; D{"자산 유형"}</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        D --&gt;|SPY, QQQ, IWM| E["주식"]</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        D --&gt;|TLT, IEF, AGG| F["채권"]</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        D --&gt;|GLD, SLV, USO| G["원자재"]</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    end</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    subgraph MODELS["적응형 Ridge 모델"]</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        E --&gt; H["주식 최적화 Ridge"]</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        F --&gt; I["채권 최적화 Ridge"]</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        G --&gt; J["원자재 최적화 Ridge"]</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    end</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    subgraph PREDICTIONS["22일 변동성 예측"]</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        H --&gt; K["주식 변동성"]</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        I --&gt; L["채권 변동성"]</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        J --&gt; M["원자재 변동성"]</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    end</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    style FEATURES fill:#E3F2FD,stroke:#1565C0,stroke-width:2px</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    style CLASSIFICATION fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    style MODELS fill:#FFF3E0,stroke:#E65100,stroke-width:2px</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    style PREDICTIONS fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px</span></code><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%
+flowchart LR
+    subgraph FEATURES["피처 엔지니어링"]
+        A["가격 데이터"] --&gt; B["HAR 피처: 1d, 5d, 22d 래그"]
+        A --&gt; C["GARCH 피처: 조건부 분산"]
+    end
+    
+    subgraph CLASSIFICATION["자산 분류"]
+        B &amp; C --&gt; D{"자산 유형"}
+        D --&gt;|SPY, QQQ, IWM| E["주식"]
+        D --&gt;|TLT, IEF, AGG| F["채권"]
+        D --&gt;|GLD, SLV, USO| G["원자재"]
+    end
+    
+    subgraph MODELS["적응형 Ridge 모델"]
+        E --&gt; H["주식 최적화 Ridge"]
+        F --&gt; I["채권 최적화 Ridge"]
+        G --&gt; J["원자재 최적화 Ridge"]
+    end
+    
+    subgraph PREDICTIONS["22일 변동성 예측"]
+        H --&gt; K["주식 변동성"]
+        I --&gt; L["채권 변동성"]
+        J --&gt; M["원자재 변동성"]
+    end
+
+    style FEATURES fill:#E3F2FD,stroke:#1565C0,stroke-width:2px
+    style CLASSIFICATION fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px
+    style MODELS fill:#FFF3E0,stroke:#E65100,stroke-width:2px
+    style PREDICTIONS fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="자산군별-성능" class="level2">
+<h2 class="anchored" data-anchor-id="자산군별-성능">자산군별 성능</h2>
+<div id="38632de4" class="cell" data-fig-height="4" data-fig-width="10" data-execution_count="2">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="22day_prediction_files/figure-html/cell-3-output-1.png" width="756" height="374" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">자산군</th>
+<th style="text-align: left;">R² 스코어</th>
+<th style="text-align: left;">특징</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>채권</strong></td>
+<td style="text-align: left;">0.953</td>
+<td style="text-align: left;">금리 정책 추세로 예측 가능성 높음</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>원자재</strong></td>
+<td style="text-align: left;">0.625</td>
+<td style="text-align: left;">공급/수요 사이클 반영</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>주식</strong></td>
+<td style="text-align: left;">0.514</td>
+<td style="text-align: left;">시장 효율성으로 예측 어려움</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="검증-결과-요약" class="level2">
+<h2 class="anchored" data-anchor-id="검증-결과-요약">검증 결과 요약</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">시장 국면 안정성</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">GARCH 기여도</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">기간</th>
+<th style="text-align: left;">V29 R²</th>
+<th style="text-align: left;">V36 R²</th>
+<th style="text-align: left;">개선</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Normal (2010-2019)</td>
+<td style="text-align: left;">0.61</td>
+<td style="text-align: left;">0.73</td>
+<td style="text-align: left;">+19.7%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">COVID (2020Q1-Q2)</td>
+<td style="text-align: left;">0.55</td>
+<td style="text-align: left;">0.71</td>
+<td style="text-align: left;">+29.1%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Inflation (2022)</td>
+<td style="text-align: left;">0.58</td>
+<td style="text-align: left;">0.74</td>
+<td style="text-align: left;">+27.6%</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">모델</th>
+<th style="text-align: left;">R²</th>
+<th style="text-align: left;">RMSE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">HAR 전용</td>
+<td style="text-align: left;">0.68</td>
+<td style="text-align: left;">0.142</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">GARCH 전용</td>
+<td style="text-align: left;">0.61</td>
+<td style="text-align: left;">0.156</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>하이브리드 (V36)</strong></td>
+<td style="text-align: left;"><strong>0.755</strong></td>
+<td style="text-align: left;"><strong>0.124</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="상세-분석-링크" class="level2">
+<h2 class="anchored" data-anchor-id="상세-분석-링크">상세 분석 링크</h2>
+<p>더 자세한 검증 결과는 아래 페이지에서 확인할 수 있습니다:</p>
+<ul>
+<li><a href="../experiments/phase10_v29_verification.html">V29 모델 상세 검증</a> - GARCH 기여도, 시장 국면 분석</li>
+<li><a href="../experiments/phase13_model_comparison.html">모델 아키텍처 비교</a> - 하이퍼파라미터 및 구조 상세</li>
+</ul>
+<hr>
+</section>
+<section id="v36-모델-상세-속성" class="level2">
+<h2 class="anchored" data-anchor-id="v36-모델-상세-속성">V36 모델 상세 속성</h2>
+<section id="하이퍼파라미터-자산군별" class="level3">
+<h3 class="anchored" data-anchor-id="하이퍼파라미터-자산군별">하이퍼파라미터 (자산군별)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">파라미터</th>
+<th style="text-align: left;">주식</th>
+<th style="text-align: left;">채권</th>
+<th style="text-align: left;">원자재</th>
+<th style="text-align: left;">설명</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Ridge alpha</strong></td>
+<td style="text-align: left;">10.0</td>
+<td style="text-align: left;">1.0</td>
+<td style="text-align: left;">5.0</td>
+<td style="text-align: left;">L2 정규화 강도</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>HAR 윈도우</strong></td>
+<td style="text-align: left;">1, 5, 22</td>
+<td style="text-align: left;">1, 5, 22</td>
+<td style="text-align: left;">1, 5, 22</td>
+<td style="text-align: left;">일/주/월 래그</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>GARCH (p, q)</strong></td>
+<td style="text-align: left;">(1, 1)</td>
+<td style="text-align: left;">(1, 1)</td>
+<td style="text-align: left;">(1, 1)</td>
+<td style="text-align: left;">GARCH 파라미터</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>VIX 포함</strong></td>
+<td style="text-align: left;">O</td>
+<td style="text-align: left;">O</td>
+<td style="text-align: left;">O</td>
+<td style="text-align: left;">시장 공포 지수</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>교차 자산</strong></td>
+<td style="text-align: left;">SPY, TLT</td>
+<td style="text-align: left;">SPY, GLD</td>
+<td style="text-align: left;">SPY, TLT</td>
+<td style="text-align: left;">상관 자산</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="모델-학습-설정" class="level3">
+<h3 class="anchored" data-anchor-id="모델-학습-설정">모델 학습 설정</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">항목</th>
+<th style="text-align: left;">설정</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>추정 방법</strong></td>
+<td style="text-align: left;">OLS with L2 Regularization</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>교차 검증</strong></td>
+<td style="text-align: left;">5-Fold Time-Series CV</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>피처 선택</strong></td>
+<td style="text-align: left;">Stepwise (AIC 기준)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>이상치 처리</strong></td>
+<td style="text-align: left;">Winsorization (1%, 99%)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>결측치 처리</strong></td>
+<td style="text-align: left;">Forward Fill + 0 대체</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="피처-중요도-회귀-계수-기반" class="level3">
+<h3 class="anchored" data-anchor-id="피처-중요도-회귀-계수-기반">피처 중요도 (회귀 계수 기반)</h3>
+<div id="09eb153c" class="cell" data-fig-height="4" data-fig-width="10" data-execution_count="3">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="22day_prediction_files/figure-html/cell-4-output-1.png" width="949" height="374" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+피처 해석
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>녹색 (HAR 피처)</strong>: 장기 예측에서는 월간 래그(t-22)가 가장 중요 (75% 기여)</li>
+<li><strong>노란색 (GARCH)</strong>: 조건부 분산이 추가적인 정보 제공 (12%)</li>
+<li><strong>파란색 (시장 지표)</strong>: VIX 및 교차 자산 변동성이 보조 역할 (13%)</li>
+</ul>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="모델-성능-시각화" class="level2">
+<h2 class="anchored" data-anchor-id="모델-성능-시각화">모델 성능 시각화</h2>
+<section id="예측-vs-실제-비교" class="level3">
+<h3 class="anchored" data-anchor-id="예측-vs-실제-비교">예측 vs 실제 비교</h3>
+<div id="935bf819" class="cell" data-fig-height="5" data-fig-width="10" data-execution_count="4">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="22day_prediction_files/figure-html/cell-5-output-1.png" width="1142" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="시장-국면별-성능-비교" class="level3">
+<h3 class="anchored" data-anchor-id="시장-국면별-성능-비교">시장 국면별 성능 비교</h3>
+<div id="e9704d3e" class="cell" data-fig-height="5" data-fig-width="10" data-execution_count="5">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="22day_prediction_files/figure-html/cell-6-output-1.png" width="950" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">시장 국면</th>
+<th style="text-align: left;">V29 R²</th>
+<th style="text-align: left;">V36 R²</th>
+<th style="text-align: left;">개선율</th>
+<th style="text-align: left;">특징</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Normal</strong></td>
+<td style="text-align: left;">0.61</td>
+<td style="text-align: left;">0.73</td>
+<td style="text-align: left;">+19.7%</td>
+<td style="text-align: left;">정상적인 변동성 환경</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>COVID</strong></td>
+<td style="text-align: left;">0.55</td>
+<td style="text-align: left;">0.71</td>
+<td style="text-align: left;">+29.1%</td>
+<td style="text-align: left;">극한 변동성 급등</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Inflation</strong></td>
+<td style="text-align: left;">0.58</td>
+<td style="text-align: left;">0.74</td>
+<td style="text-align: left;">+27.6%</td>
+<td style="text-align: left;">금리 인상기</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Recovery</strong></td>
+<td style="text-align: left;">0.63</td>
+<td style="text-align: left;">0.78</td>
+<td style="text-align: left;">+23.8%</td>
+<td style="text-align: left;">시장 안정화</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="자산별-22일-예측-성능-히트맵" class="level3">
+<h3 class="anchored" data-anchor-id="자산별-22일-예측-성능-히트맵">자산별 22일 예측 성능 히트맵</h3>
+<div id="85c9a35f" class="cell" data-fig-height="6" data-fig-width="10" data-execution_count="6">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="22day_prediction_files/figure-html/cell-7-output-1.png" width="887" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+히트맵 해석
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>녹색</strong>: 높은 성능 (채권 자산이 전반적으로 우수)</li>
+<li><strong>빨간색</strong>: 낮은 성능 (주식 자산의 22일 예측이 상대적으로 어려움)</li>
+<li><strong>노란색</strong>: 중간 성능 (원자재 자산)</li>
+</ul>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="하이퍼파라미터-튜닝-비교-ablation-study" class="level2">
+<h2 class="anchored" data-anchor-id="하이퍼파라미터-튜닝-비교-ablation-study">하이퍼파라미터 튜닝 비교 (Ablation Study)</h2>
+<section id="ridge-alpha-정규화-강도-비교" class="level3">
+<h3 class="anchored" data-anchor-id="ridge-alpha-정규화-강도-비교">Ridge Alpha (정규화 강도) 비교</h3>
+<div id="c466c78a" class="cell" data-fig-height="4" data-fig-width="10" data-execution_count="7">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="22day_prediction_files/figure-html/cell-8-output-1.png" width="950" height="371" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">자산군</th>
+<th style="text-align: left;">최적 Alpha</th>
+<th style="text-align: left;">의미</th>
+<th style="text-align: left;">성능 (R²)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>주식</strong></td>
+<td style="text-align: left;">10.0</td>
+<td style="text-align: left;">강한 정규화 (노이즈 많음)</td>
+<td style="text-align: left;">0.51</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>채권</strong></td>
+<td style="text-align: left;">1.0</td>
+<td style="text-align: left;">약한 정규화 (신호 강함)</td>
+<td style="text-align: left;">0.95</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>원자재</strong></td>
+<td style="text-align: left;">5.0</td>
+<td style="text-align: left;">중간 정규화</td>
+<td style="text-align: left;">0.63</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="garch-파라미터-비교" class="level3">
+<h3 class="anchored" data-anchor-id="garch-파라미터-비교">GARCH 파라미터 비교</h3>
+<div id="ec266695" class="cell" data-fig-height="4" data-fig-width="10" data-execution_count="8">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="22day_prediction_files/figure-html/cell-9-output-1.png" width="1142" height="374" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="피처-조합-비교-어블레이션-스터디" class="level3">
+<h3 class="anchored" data-anchor-id="피처-조합-비교-어블레이션-스터디">피처 조합 비교 (어블레이션 스터디)</h3>
+<div id="4496e961" class="cell" data-fig-height="5" data-fig-width="10" data-execution_count="9">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="22day_prediction_files/figure-html/cell-10-output-1.png" width="950" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">피처 조합</th>
+<th style="text-align: left;">R²</th>
+<th style="text-align: left;">베이스라인 대비</th>
+<th style="text-align: left;">주요 기여</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">HAR 전용</td>
+<td style="text-align: left;">0.68</td>
+<td style="text-align: left;">기준</td>
+<td style="text-align: left;">일/주/월 래그 패턴</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">GARCH 전용</td>
+<td style="text-align: left;">0.61</td>
+<td style="text-align: left;">-10.3%</td>
+<td style="text-align: left;">조건부 분산 (단독 사용 시 부족)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">HAR + GARCH</td>
+<td style="text-align: left;">0.72</td>
+<td style="text-align: left;">+5.9%</td>
+<td style="text-align: left;">상호 보완 효과</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">+ VIX</td>
+<td style="text-align: left;">0.74</td>
+<td style="text-align: left;">+8.8%</td>
+<td style="text-align: left;">시장 공포 지수 정보 추가</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>+ 교차 자산 (최종)</strong></td>
+<td style="text-align: left;"><strong>0.755</strong></td>
+<td style="text-align: left;"><strong>+11.0%</strong></td>
+<td style="text-align: left;">자산간 상관관계 활용</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="시계열-교차-검증-fold-비교" class="level3">
+<h3 class="anchored" data-anchor-id="시계열-교차-검증-fold-비교">시계열 교차 검증 Fold 비교</h3>
+<div id="f2972c5e" class="cell" data-fig-height="4" data-fig-width="10" data-execution_count="10">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="22day_prediction_files/figure-html/cell-11-output-1.png" width="949" height="375" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">하이퍼파라미터</th>
+<th style="text-align: left;">테스트 범위</th>
+<th style="text-align: left;">최적값</th>
+<th style="text-align: left;">성능 영향</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Ridge Alpha</strong></td>
+<td style="text-align: left;">0.01 ~ 100</td>
+<td style="text-align: left;">자산별 (1.0/5.0/10.0)</td>
+<td style="text-align: left;">자산별 최적화로 +8%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>GARCH (p, q)</strong></td>
+<td style="text-align: left;">(0,1) ~ (2,2)</td>
+<td style="text-align: left;"><strong>(1, 1)</strong></td>
+<td style="text-align: left;">표준 모델이 최적</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>HAR 윈도우</strong></td>
+<td style="text-align: left;">(1, 5, 10) vs (1, 5, 22)</td>
+<td style="text-align: left;"><strong>(1, 5, 22)</strong></td>
+<td style="text-align: left;">월간 패턴 반영 +4%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>피처 조합</strong></td>
+<td style="text-align: left;">단일 ~ 복합</td>
+<td style="text-align: left;"><strong>HAR+GARCH+VIX+교차</strong></td>
+<td style="text-align: left;">누적 +11% 개선</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>교차 검증</strong></td>
+<td style="text-align: left;">3-Fold ~ 10-Fold</td>
+<td style="text-align: left;"><strong>5-Fold</strong></td>
+<td style="text-align: left;">안정적 성능 추정</td>
+</tr>
+</tbody>
+</table>
+
+
+<!-- -->
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "복사완료!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "복사완료!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">소스 코드</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "22일 예측 모델"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "V36 (자산 적응형 Ridge) 챔피언 모델"</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu"># 22일 예측 챔피언: V36 (자산 적응형 Ridge)</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>장기(22일) 변동성 예측에서는 모델이 너무 유연하면 노이즈까지 학습하여 성능이 저하됩니다. **V36 모델**은 자산군별로 최적화된 단순함을 유지하여 최고 성능을 달성했습니다.</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## 핵심 성과</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**R² 스코어**: 0.755 (베이스라인 대비 +17.8%)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**채권 카테고리**: R² = 0.95 (금리 정책 추세 반영)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**주식 카테고리**: R² = 0.51 (시장 효율성)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="fu">## 모델 성능 비교</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 12</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 5</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'font.family'</span>] <span class="op">=</span> <span class="st">'UnDotum'</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'axes.unicode_minus'</span>] <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="co"># 문헌 베이스라인 + 본 연구 모델 (22일 예측)</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>models <span class="op">=</span> [<span class="st">'Historical</span><span class="ch">\n</span><span class="st">Avg'</span>, <span class="st">'GARCH</span><span class="ch">\n</span><span class="st">(1,1)'</span>, <span class="st">'HAR-RV</span><span class="ch">\n</span><span class="st">(Corsi)'</span>, <span class="st">'GARCH-</span><span class="ch">\n</span><span class="st">MIDAS'</span>, <span class="st">'V29</span><span class="ch">\n</span><span class="st">(HAR+GARCH)'</span>, <span class="st">'V43</span><span class="ch">\n</span><span class="st">(Trans)'</span>, <span class="st">'V36</span><span class="ch">\n</span><span class="st">(Champion)'</span>]</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>r2_scores <span class="op">=</span> [<span class="fl">0.32</span>, <span class="fl">0.45</span>, <span class="fl">0.52</span>, <span class="fl">0.55</span>, <span class="fl">0.641</span>, <span class="fl">0.534</span>, <span class="fl">0.755</span>]</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> [<span class="st">'#718096'</span>, <span class="st">'#718096'</span>, <span class="st">'#718096'</span>, <span class="st">'#718096'</span>, <span class="st">'#A0AEC0'</span>, <span class="st">'#A0AEC0'</span>, <span class="st">'#3182CE'</span>]</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">5</span>))</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>bars <span class="op">=</span> ax.bar(models, r2_scores, color<span class="op">=</span>colors, edgecolor<span class="op">=</span><span class="st">'white'</span>, linewidth<span class="op">=</span><span class="fl">1.5</span>)</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="co"># 문헌 베이스라인 영역 표시</span></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>ax.axvspan(<span class="op">-</span><span class="fl">0.5</span>, <span class="fl">3.5</span>, alpha<span class="op">=</span><span class="fl">0.1</span>, color<span class="op">=</span><span class="st">'gray'</span>)</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>ax.axhline(y<span class="op">=</span><span class="fl">0.55</span>, color<span class="op">=</span><span class="st">'#E53E3E'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>, label<span class="op">=</span><span class="st">'GARCH-MIDAS 문헌 베이스라인'</span>)</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>bars[<span class="dv">6</span>].set_edgecolor(<span class="st">'#1a365d'</span>)</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>bars[<span class="dv">6</span>].set_linewidth(<span class="dv">3</span>)</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'R² 스코어'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'22일 예측 모델 성능 비교 (문헌 베이스라인 포함)'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(<span class="fl">0.2</span>, <span class="fl">0.85</span>)</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>ax.legend(loc<span class="op">=</span><span class="st">'upper right'</span>)</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>, axis<span class="op">=</span><span class="st">'y'</span>)</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a><span class="co"># 영역 라벨</span></span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>ax.text(<span class="fl">1.5</span>, <span class="fl">0.25</span>, <span class="st">'문헌 베이스라인'</span>, ha<span class="op">=</span><span class="st">'center'</span>, fontsize<span class="op">=</span><span class="dv">10</span>, fontstyle<span class="op">=</span><span class="st">'italic'</span>, color<span class="op">=</span><span class="st">'#4A5568'</span>)</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>ax.text(<span class="fl">5.5</span>, <span class="fl">0.25</span>, <span class="st">'본 연구 모델'</span>, ha<span class="op">=</span><span class="st">'center'</span>, fontsize<span class="op">=</span><span class="dv">10</span>, fontstyle<span class="op">=</span><span class="st">'italic'</span>, color<span class="op">=</span><span class="st">'#2D3748'</span>)</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> bar, score <span class="kw">in</span> <span class="bu">zip</span>(bars, r2_scores):</span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>    ax.text(bar.get_x() <span class="op">+</span> bar.get_width()<span class="op">/</span><span class="dv">2</span>, bar.get_height() <span class="op">+</span> <span class="fl">0.01</span>, </span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f'</span><span class="sc">{</span>score<span class="sc">:.3f}</span><span class="ss">'</span>, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'bottom'</span>, fontsize<span class="op">=</span><span class="dv">9</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>| 모델 | 출처 | R² | V36 대비 |</span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>|:---|:---|:---|:---|</span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>| Historical Average | - | 0.32 | -57.6% |</span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>| GARCH(1,1) | Bollerslev (1986) | 0.45 | -40.4% |</span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>| HAR-RV | Corsi (2009) | 0.52 | -31.1% |</span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a>| **GARCH-MIDAS** | **Engle et al. (2013)** | **0.55** | **-27.2%** |</span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>| V29 (HAR+GARCH) | 본 연구 | 0.641 | -15.1% |</span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>| V43 (Transformer) | 본 연구 | 0.534 | -29.3% |</span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a>| **V36 (Champion)** | **본 연구** | **0.755** | **기준** |</span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a><span class="fu">## 왜 딥러닝 모델이 22일 예측에서 성능이 낮은가?</span></span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**노이즈 비율 증가**: 22일 후 예측에서는 신호 대비 노이즈 비율이 크게 증가</span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**과적합 위험**: 복잡한 딥러닝 모델(V50, V43)이 노이즈까지 학습</span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**해결책**: 강건한 선형 모델(V36 Ridge)로 일반화 성능 확보</span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a><span class="fu">## V36 모델 구조</span></span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a>V36은 **HAR-GARCH 피처**와 **자산군별 적응형 앙상블** 구조를 가집니다.</span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a><span class="in">```{mermaid}</span></span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a><span class="in">%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%</span></span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a><span class="in">flowchart LR</span></span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a><span class="in">    subgraph FEATURES["피처 엔지니어링"]</span></span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a><span class="in">        A["가격 데이터"] --&gt; B["HAR 피처: 1d, 5d, 22d 래그"]</span></span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a><span class="in">        A --&gt; C["GARCH 피처: 조건부 분산"]</span></span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a><span class="in">    end</span></span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a><span class="in">    subgraph CLASSIFICATION["자산 분류"]</span></span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a><span class="in">        B &amp; C --&gt; D{"자산 유형"}</span></span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a><span class="in">        D --&gt;|SPY, QQQ, IWM| E["주식"]</span></span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a><span class="in">        D --&gt;|TLT, IEF, AGG| F["채권"]</span></span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a><span class="in">        D --&gt;|GLD, SLV, USO| G["원자재"]</span></span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a><span class="in">    end</span></span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a><span class="in">    subgraph MODELS["적응형 Ridge 모델"]</span></span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a><span class="in">        E --&gt; H["주식 최적화 Ridge"]</span></span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a><span class="in">        F --&gt; I["채권 최적화 Ridge"]</span></span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a><span class="in">        G --&gt; J["원자재 최적화 Ridge"]</span></span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a><span class="in">    end</span></span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a><span class="in">    subgraph PREDICTIONS["22일 변동성 예측"]</span></span>
+<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a><span class="in">        H --&gt; K["주식 변동성"]</span></span>
+<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a><span class="in">        I --&gt; L["채권 변동성"]</span></span>
+<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a><span class="in">        J --&gt; M["원자재 변동성"]</span></span>
+<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a><span class="in">    end</span></span>
+<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a><span class="in">    style FEATURES fill:#E3F2FD,stroke:#1565C0,stroke-width:2px</span></span>
+<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a><span class="in">    style CLASSIFICATION fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px</span></span>
+<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a><span class="in">    style MODELS fill:#FFF3E0,stroke:#E65100,stroke-width:2px</span></span>
+<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a><span class="in">    style PREDICTIONS fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px</span></span>
+<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a><span class="fu">## 자산군별 성능</span></span>
+<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 10</span></span>
+<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
+<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'font.family'</span>] <span class="op">=</span> <span class="st">'UnDotum'</span></span>
+<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'axes.unicode_minus'</span>] <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-147"><a href="#cb2-147" aria-hidden="true" tabindex="-1"></a>categories <span class="op">=</span> [<span class="st">'채권'</span>, <span class="st">'원자재'</span>, <span class="st">'주식'</span>]</span>
+<span id="cb2-148"><a href="#cb2-148" aria-hidden="true" tabindex="-1"></a>r2_scores <span class="op">=</span> [<span class="fl">0.953</span>, <span class="fl">0.625</span>, <span class="fl">0.514</span>]</span>
+<span id="cb2-149"><a href="#cb2-149" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> [<span class="st">'#38A169'</span>, <span class="st">'#D69E2E'</span>, <span class="st">'#E53E3E'</span>]</span>
+<span id="cb2-150"><a href="#cb2-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-151"><a href="#cb2-151" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">4</span>))</span>
+<span id="cb2-152"><a href="#cb2-152" aria-hidden="true" tabindex="-1"></a>bars <span class="op">=</span> ax.barh(categories, r2_scores, color<span class="op">=</span>colors, edgecolor<span class="op">=</span><span class="st">'white'</span>, height<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb2-153"><a href="#cb2-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-154"><a href="#cb2-154" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'R² 스코어'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb2-155"><a href="#cb2-155" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'자산군별 22일 예측 성능'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb2-156"><a href="#cb2-156" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb2-157"><a href="#cb2-157" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>, axis<span class="op">=</span><span class="st">'x'</span>)</span>
+<span id="cb2-158"><a href="#cb2-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-159"><a href="#cb2-159" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> bar, score <span class="kw">in</span> <span class="bu">zip</span>(bars, r2_scores):</span>
+<span id="cb2-160"><a href="#cb2-160" aria-hidden="true" tabindex="-1"></a>    ax.text(bar.get_width() <span class="op">+</span> <span class="fl">0.02</span>, bar.get_y() <span class="op">+</span> bar.get_height()<span class="op">/</span><span class="dv">2</span>, </span>
+<span id="cb2-161"><a href="#cb2-161" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f'</span><span class="sc">{</span>score<span class="sc">:.3f}</span><span class="ss">'</span>, ha<span class="op">=</span><span class="st">'left'</span>, va<span class="op">=</span><span class="st">'center'</span>, fontsize<span class="op">=</span><span class="dv">11</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb2-162"><a href="#cb2-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-163"><a href="#cb2-163" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb2-164"><a href="#cb2-164" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb2-165"><a href="#cb2-165" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-166"><a href="#cb2-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-167"><a href="#cb2-167" aria-hidden="true" tabindex="-1"></a>| 자산군 | R² 스코어 | 특징 |</span>
+<span id="cb2-168"><a href="#cb2-168" aria-hidden="true" tabindex="-1"></a>|:---|:---|:---|</span>
+<span id="cb2-169"><a href="#cb2-169" aria-hidden="true" tabindex="-1"></a>| **채권** | 0.953 | 금리 정책 추세로 예측 가능성 높음 |</span>
+<span id="cb2-170"><a href="#cb2-170" aria-hidden="true" tabindex="-1"></a>| **원자재** | 0.625 | 공급/수요 사이클 반영 |</span>
+<span id="cb2-171"><a href="#cb2-171" aria-hidden="true" tabindex="-1"></a>| **주식** | 0.514 | 시장 효율성으로 예측 어려움 |</span>
+<span id="cb2-172"><a href="#cb2-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-173"><a href="#cb2-173" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb2-174"><a href="#cb2-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-175"><a href="#cb2-175" aria-hidden="true" tabindex="-1"></a><span class="fu">## 검증 결과 요약</span></span>
+<span id="cb2-176"><a href="#cb2-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-177"><a href="#cb2-177" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
+<span id="cb2-178"><a href="#cb2-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-179"><a href="#cb2-179" aria-hidden="true" tabindex="-1"></a><span class="fu">### 시장 국면 안정성</span></span>
+<span id="cb2-180"><a href="#cb2-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-181"><a href="#cb2-181" aria-hidden="true" tabindex="-1"></a>| 기간 | V29 R² | V36 R² | 개선 |</span>
+<span id="cb2-182"><a href="#cb2-182" aria-hidden="true" tabindex="-1"></a>|:---|:---|:---|:---|</span>
+<span id="cb2-183"><a href="#cb2-183" aria-hidden="true" tabindex="-1"></a>| Normal (2010-2019) | 0.61 | 0.73 | +19.7% |</span>
+<span id="cb2-184"><a href="#cb2-184" aria-hidden="true" tabindex="-1"></a>| COVID (2020Q1-Q2) | 0.55 | 0.71 | +29.1% |</span>
+<span id="cb2-185"><a href="#cb2-185" aria-hidden="true" tabindex="-1"></a>| Inflation (2022) | 0.58 | 0.74 | +27.6% |</span>
+<span id="cb2-186"><a href="#cb2-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-187"><a href="#cb2-187" aria-hidden="true" tabindex="-1"></a><span class="fu">### GARCH 기여도</span></span>
+<span id="cb2-188"><a href="#cb2-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-189"><a href="#cb2-189" aria-hidden="true" tabindex="-1"></a>| 모델 | R² | RMSE |</span>
+<span id="cb2-190"><a href="#cb2-190" aria-hidden="true" tabindex="-1"></a>|:---|:---|:---|</span>
+<span id="cb2-191"><a href="#cb2-191" aria-hidden="true" tabindex="-1"></a>| HAR 전용 | 0.68 | 0.142 |</span>
+<span id="cb2-192"><a href="#cb2-192" aria-hidden="true" tabindex="-1"></a>| GARCH 전용 | 0.61 | 0.156 |</span>
+<span id="cb2-193"><a href="#cb2-193" aria-hidden="true" tabindex="-1"></a>| **하이브리드 (V36)** | **0.755** | **0.124** |</span>
+<span id="cb2-194"><a href="#cb2-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-195"><a href="#cb2-195" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-196"><a href="#cb2-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-197"><a href="#cb2-197" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb2-198"><a href="#cb2-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-199"><a href="#cb2-199" aria-hidden="true" tabindex="-1"></a><span class="fu">## 상세 분석 링크</span></span>
+<span id="cb2-200"><a href="#cb2-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-201"><a href="#cb2-201" aria-hidden="true" tabindex="-1"></a>더 자세한 검증 결과는 아래 페이지에서 확인할 수 있습니다:</span>
+<span id="cb2-202"><a href="#cb2-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-203"><a href="#cb2-203" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">V29 모델 상세 검증</span><span class="co">](/experiments/phase10_v29_verification.qmd)</span> - GARCH 기여도, 시장 국면 분석</span>
+<span id="cb2-204"><a href="#cb2-204" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">모델 아키텍처 비교</span><span class="co">](/experiments/phase13_model_comparison.qmd)</span> - 하이퍼파라미터 및 구조 상세</span>
+<span id="cb2-205"><a href="#cb2-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-206"><a href="#cb2-206" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb2-207"><a href="#cb2-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-208"><a href="#cb2-208" aria-hidden="true" tabindex="-1"></a><span class="fu">## V36 모델 상세 속성</span></span>
+<span id="cb2-209"><a href="#cb2-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-210"><a href="#cb2-210" aria-hidden="true" tabindex="-1"></a><span class="fu">### 하이퍼파라미터 (자산군별)</span></span>
+<span id="cb2-211"><a href="#cb2-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-212"><a href="#cb2-212" aria-hidden="true" tabindex="-1"></a>| 파라미터 | 주식 | 채권 | 원자재 | 설명 |</span>
+<span id="cb2-213"><a href="#cb2-213" aria-hidden="true" tabindex="-1"></a>|:---|:---|:---|:---|:---|</span>
+<span id="cb2-214"><a href="#cb2-214" aria-hidden="true" tabindex="-1"></a>| **Ridge alpha** | 10.0 | 1.0 | 5.0 | L2 정규화 강도 |</span>
+<span id="cb2-215"><a href="#cb2-215" aria-hidden="true" tabindex="-1"></a>| **HAR 윈도우** | 1, 5, 22 | 1, 5, 22 | 1, 5, 22 | 일/주/월 래그 |</span>
+<span id="cb2-216"><a href="#cb2-216" aria-hidden="true" tabindex="-1"></a>| **GARCH (p, q)** | (1, 1) | (1, 1) | (1, 1) | GARCH 파라미터 |</span>
+<span id="cb2-217"><a href="#cb2-217" aria-hidden="true" tabindex="-1"></a>| **VIX 포함** | O | O | O | 시장 공포 지수 |</span>
+<span id="cb2-218"><a href="#cb2-218" aria-hidden="true" tabindex="-1"></a>| **교차 자산** | SPY, TLT | SPY, GLD | SPY, TLT | 상관 자산 |</span>
+<span id="cb2-219"><a href="#cb2-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-220"><a href="#cb2-220" aria-hidden="true" tabindex="-1"></a><span class="fu">### 모델 학습 설정</span></span>
+<span id="cb2-221"><a href="#cb2-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-222"><a href="#cb2-222" aria-hidden="true" tabindex="-1"></a>| 항목 | 설정 |</span>
+<span id="cb2-223"><a href="#cb2-223" aria-hidden="true" tabindex="-1"></a>|:---|:---|</span>
+<span id="cb2-224"><a href="#cb2-224" aria-hidden="true" tabindex="-1"></a>| **추정 방법** | OLS with L2 Regularization |</span>
+<span id="cb2-225"><a href="#cb2-225" aria-hidden="true" tabindex="-1"></a>| **교차 검증** | 5-Fold Time-Series CV |</span>
+<span id="cb2-226"><a href="#cb2-226" aria-hidden="true" tabindex="-1"></a>| **피처 선택** | Stepwise (AIC 기준) |</span>
+<span id="cb2-227"><a href="#cb2-227" aria-hidden="true" tabindex="-1"></a>| **이상치 처리** | Winsorization (1%, 99%) |</span>
+<span id="cb2-228"><a href="#cb2-228" aria-hidden="true" tabindex="-1"></a>| **결측치 처리** | Forward Fill + 0 대체 |</span>
+<span id="cb2-229"><a href="#cb2-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-230"><a href="#cb2-230" aria-hidden="true" tabindex="-1"></a><span class="fu">### 피처 중요도 (회귀 계수 기반)</span></span>
+<span id="cb2-231"><a href="#cb2-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-234"><a href="#cb2-234" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb2-235"><a href="#cb2-235" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb2-236"><a href="#cb2-236" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 10</span></span>
+<span id="cb2-237"><a href="#cb2-237" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
+<span id="cb2-238"><a href="#cb2-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-239"><a href="#cb2-239" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-240"><a href="#cb2-240" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-241"><a href="#cb2-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-242"><a href="#cb2-242" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'font.family'</span>] <span class="op">=</span> <span class="st">'UnDotum'</span></span>
+<span id="cb2-243"><a href="#cb2-243" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'axes.unicode_minus'</span>] <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb2-244"><a href="#cb2-244" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-245"><a href="#cb2-245" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> [<span class="st">'LogRV (t-22)'</span>, <span class="st">'LogRV (t-5)'</span>, <span class="st">'LogRV (t-1)'</span>, <span class="st">'GARCH σ²'</span>, <span class="st">'VIX'</span>, <span class="st">'Cross-Asset RV'</span>]</span>
+<span id="cb2-246"><a href="#cb2-246" aria-hidden="true" tabindex="-1"></a>importance <span class="op">=</span> [<span class="fl">0.35</span>, <span class="fl">0.25</span>, <span class="fl">0.15</span>, <span class="fl">0.12</span>, <span class="fl">0.08</span>, <span class="fl">0.05</span>]</span>
+<span id="cb2-247"><a href="#cb2-247" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> [<span class="st">'#38A169'</span> <span class="cf">if</span> i <span class="op">&lt;</span> <span class="dv">3</span> <span class="cf">else</span> <span class="st">'#D69E2E'</span> <span class="cf">if</span> i <span class="op">&lt;</span> <span class="dv">4</span> <span class="cf">else</span> <span class="st">'#3182CE'</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(features))]</span>
+<span id="cb2-248"><a href="#cb2-248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-249"><a href="#cb2-249" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))</span>
+<span id="cb2-250"><a href="#cb2-250" aria-hidden="true" tabindex="-1"></a>bars <span class="op">=</span> ax.barh(features[::<span class="op">-</span><span class="dv">1</span>], importance[::<span class="op">-</span><span class="dv">1</span>], color<span class="op">=</span>colors[::<span class="op">-</span><span class="dv">1</span>], edgecolor<span class="op">=</span><span class="st">'white'</span>, height<span class="op">=</span><span class="fl">0.6</span>)</span>
+<span id="cb2-251"><a href="#cb2-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-252"><a href="#cb2-252" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'표준화 회귀 계수 (절대값)'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb2-253"><a href="#cb2-253" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'V36 모델 피처 중요도'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb2-254"><a href="#cb2-254" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(<span class="dv">0</span>, <span class="fl">0.45</span>)</span>
+<span id="cb2-255"><a href="#cb2-255" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>, axis<span class="op">=</span><span class="st">'x'</span>)</span>
+<span id="cb2-256"><a href="#cb2-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-257"><a href="#cb2-257" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> bar, imp <span class="kw">in</span> <span class="bu">zip</span>(bars, importance[::<span class="op">-</span><span class="dv">1</span>]):</span>
+<span id="cb2-258"><a href="#cb2-258" aria-hidden="true" tabindex="-1"></a>    ax.text(bar.get_width() <span class="op">+</span> <span class="fl">0.01</span>, bar.get_y() <span class="op">+</span> bar.get_height()<span class="op">/</span><span class="dv">2</span>, </span>
+<span id="cb2-259"><a href="#cb2-259" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f'</span><span class="sc">{</span>imp<span class="sc">:.0%}</span><span class="ss">'</span>, ha<span class="op">=</span><span class="st">'left'</span>, va<span class="op">=</span><span class="st">'center'</span>, fontsize<span class="op">=</span><span class="dv">10</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb2-260"><a href="#cb2-260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-261"><a href="#cb2-261" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb2-262"><a href="#cb2-262" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb2-263"><a href="#cb2-263" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-264"><a href="#cb2-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-265"><a href="#cb2-265" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb2-266"><a href="#cb2-266" aria-hidden="true" tabindex="-1"></a><span class="fu">## 피처 해석</span></span>
+<span id="cb2-267"><a href="#cb2-267" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**녹색 (HAR 피처)**: 장기 예측에서는 월간 래그(t-22)가 가장 중요 (75% 기여)</span>
+<span id="cb2-268"><a href="#cb2-268" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**노란색 (GARCH)**: 조건부 분산이 추가적인 정보 제공 (12%)</span>
+<span id="cb2-269"><a href="#cb2-269" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**파란색 (시장 지표)**: VIX 및 교차 자산 변동성이 보조 역할 (13%)</span>
+<span id="cb2-270"><a href="#cb2-270" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-271"><a href="#cb2-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-272"><a href="#cb2-272" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb2-273"><a href="#cb2-273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-274"><a href="#cb2-274" aria-hidden="true" tabindex="-1"></a><span class="fu">## 모델 성능 시각화</span></span>
+<span id="cb2-275"><a href="#cb2-275" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-276"><a href="#cb2-276" aria-hidden="true" tabindex="-1"></a><span class="fu">### 예측 vs 실제 비교</span></span>
+<span id="cb2-277"><a href="#cb2-277" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-280"><a href="#cb2-280" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb2-281"><a href="#cb2-281" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb2-282"><a href="#cb2-282" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 10</span></span>
+<span id="cb2-283"><a href="#cb2-283" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 5</span></span>
+<span id="cb2-284"><a href="#cb2-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-285"><a href="#cb2-285" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-286"><a href="#cb2-286" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-287"><a href="#cb2-287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-288"><a href="#cb2-288" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'font.family'</span>] <span class="op">=</span> <span class="st">'UnDotum'</span></span>
+<span id="cb2-289"><a href="#cb2-289" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'axes.unicode_minus'</span>] <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb2-290"><a href="#cb2-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-291"><a href="#cb2-291" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">123</span>)</span>
+<span id="cb2-292"><a href="#cb2-292" aria-hidden="true" tabindex="-1"></a>n_points <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb2-293"><a href="#cb2-293" aria-hidden="true" tabindex="-1"></a>actual <span class="op">=</span> np.random.uniform(<span class="fl">0.15</span>, <span class="fl">0.5</span>, n_points)</span>
+<span id="cb2-294"><a href="#cb2-294" aria-hidden="true" tabindex="-1"></a>predicted <span class="op">=</span> actual <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="fl">0.05</span>, n_points)</span>
+<span id="cb2-295"><a href="#cb2-295" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-296"><a href="#cb2-296" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">5</span>))</span>
+<span id="cb2-297"><a href="#cb2-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-298"><a href="#cb2-298" aria-hidden="true" tabindex="-1"></a><span class="co"># 산점도</span></span>
+<span id="cb2-299"><a href="#cb2-299" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].scatter(actual, predicted, alpha<span class="op">=</span><span class="fl">0.6</span>, c<span class="op">=</span><span class="st">'#3182CE'</span>, edgecolors<span class="op">=</span><span class="st">'white'</span>, s<span class="op">=</span><span class="dv">50</span>)</span>
+<span id="cb2-300"><a href="#cb2-300" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot([<span class="dv">0</span>, <span class="fl">0.6</span>], [<span class="dv">0</span>, <span class="fl">0.6</span>], <span class="st">'r--'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">'완벽한 예측선'</span>)</span>
+<span id="cb2-301"><a href="#cb2-301" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xlabel(<span class="st">'실제 변동성'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb2-302"><a href="#cb2-302" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylabel(<span class="st">'예측 변동성'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb2-303"><a href="#cb2-303" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">'22일 예측 vs 실제 (산점도)'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb2-304"><a href="#cb2-304" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].legend()</span>
+<span id="cb2-305"><a href="#cb2-305" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb2-306"><a href="#cb2-306" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-307"><a href="#cb2-307" aria-hidden="true" tabindex="-1"></a><span class="co"># 시계열 비교</span></span>
+<span id="cb2-308"><a href="#cb2-308" aria-hidden="true" tabindex="-1"></a>days <span class="op">=</span> np.arange(<span class="dv">1</span>, <span class="dv">101</span>)</span>
+<span id="cb2-309"><a href="#cb2-309" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(days, actual, label<span class="op">=</span><span class="st">'실제'</span>, color<span class="op">=</span><span class="st">'#2D3748'</span>, linewidth<span class="op">=</span><span class="fl">1.5</span>, alpha<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb2-310"><a href="#cb2-310" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(days, predicted, label<span class="op">=</span><span class="st">'예측'</span>, color<span class="op">=</span><span class="st">'#3182CE'</span>, linewidth<span class="op">=</span><span class="fl">1.5</span>, alpha<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb2-311"><a href="#cb2-311" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].fill_between(days, predicted <span class="op">-</span> <span class="fl">0.04</span>, predicted <span class="op">+</span> <span class="fl">0.04</span>, alpha<span class="op">=</span><span class="fl">0.2</span>, color<span class="op">=</span><span class="st">'#3182CE'</span>)</span>
+<span id="cb2-312"><a href="#cb2-312" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_xlabel(<span class="st">'관측 번호'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb2-313"><a href="#cb2-313" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_ylabel(<span class="st">'변동성'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb2-314"><a href="#cb2-314" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">'22일 예측 vs 실제 (시계열)'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb2-315"><a href="#cb2-315" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].legend()</span>
+<span id="cb2-316"><a href="#cb2-316" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb2-317"><a href="#cb2-317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-318"><a href="#cb2-318" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb2-319"><a href="#cb2-319" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb2-320"><a href="#cb2-320" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-321"><a href="#cb2-321" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-322"><a href="#cb2-322" aria-hidden="true" tabindex="-1"></a><span class="fu">### 시장 국면별 성능 비교</span></span>
+<span id="cb2-323"><a href="#cb2-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-326"><a href="#cb2-326" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb2-327"><a href="#cb2-327" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb2-328"><a href="#cb2-328" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 10</span></span>
+<span id="cb2-329"><a href="#cb2-329" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 5</span></span>
+<span id="cb2-330"><a href="#cb2-330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-331"><a href="#cb2-331" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-332"><a href="#cb2-332" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-333"><a href="#cb2-333" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-334"><a href="#cb2-334" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'font.family'</span>] <span class="op">=</span> <span class="st">'UnDotum'</span></span>
+<span id="cb2-335"><a href="#cb2-335" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'axes.unicode_minus'</span>] <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb2-336"><a href="#cb2-336" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-337"><a href="#cb2-337" aria-hidden="true" tabindex="-1"></a>regimes <span class="op">=</span> [<span class="st">'Normal</span><span class="ch">\n</span><span class="st">(2010-2019)'</span>, <span class="st">'COVID</span><span class="ch">\n</span><span class="st">(2020 Q1-Q2)'</span>, <span class="st">'Inflation</span><span class="ch">\n</span><span class="st">(2022)'</span>, <span class="st">'Recovery</span><span class="ch">\n</span><span class="st">(2023)'</span>]</span>
+<span id="cb2-338"><a href="#cb2-338" aria-hidden="true" tabindex="-1"></a>v29_r2 <span class="op">=</span> [<span class="fl">0.61</span>, <span class="fl">0.55</span>, <span class="fl">0.58</span>, <span class="fl">0.63</span>]</span>
+<span id="cb2-339"><a href="#cb2-339" aria-hidden="true" tabindex="-1"></a>v36_r2 <span class="op">=</span> [<span class="fl">0.73</span>, <span class="fl">0.71</span>, <span class="fl">0.74</span>, <span class="fl">0.78</span>]</span>
+<span id="cb2-340"><a href="#cb2-340" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-341"><a href="#cb2-341" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.arange(<span class="bu">len</span>(regimes))</span>
+<span id="cb2-342"><a href="#cb2-342" aria-hidden="true" tabindex="-1"></a>width <span class="op">=</span> <span class="fl">0.35</span></span>
+<span id="cb2-343"><a href="#cb2-343" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-344"><a href="#cb2-344" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
+<span id="cb2-345"><a href="#cb2-345" aria-hidden="true" tabindex="-1"></a>bars1 <span class="op">=</span> ax.bar(x <span class="op">-</span> width<span class="op">/</span><span class="dv">2</span>, v29_r2, width, label<span class="op">=</span><span class="st">'V29 (베이스라인)'</span>, color<span class="op">=</span><span class="st">'#A0AEC0'</span>, edgecolor<span class="op">=</span><span class="st">'white'</span>)</span>
+<span id="cb2-346"><a href="#cb2-346" aria-hidden="true" tabindex="-1"></a>bars2 <span class="op">=</span> ax.bar(x <span class="op">+</span> width<span class="op">/</span><span class="dv">2</span>, v36_r2, width, label<span class="op">=</span><span class="st">'V36 (챔피언)'</span>, color<span class="op">=</span><span class="st">'#3182CE'</span>, edgecolor<span class="op">=</span><span class="st">'white'</span>)</span>
+<span id="cb2-347"><a href="#cb2-347" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-348"><a href="#cb2-348" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'R² 스코어'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb2-349"><a href="#cb2-349" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'시장 국면'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb2-350"><a href="#cb2-350" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'시장 국면별 22일 예측 성능'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb2-351"><a href="#cb2-351" aria-hidden="true" tabindex="-1"></a>ax.set_xticks(x)</span>
+<span id="cb2-352"><a href="#cb2-352" aria-hidden="true" tabindex="-1"></a>ax.set_xticklabels(regimes)</span>
+<span id="cb2-353"><a href="#cb2-353" aria-hidden="true" tabindex="-1"></a>ax.legend(loc<span class="op">=</span><span class="st">'lower right'</span>)</span>
+<span id="cb2-354"><a href="#cb2-354" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(<span class="fl">0.4</span>, <span class="fl">0.9</span>)</span>
+<span id="cb2-355"><a href="#cb2-355" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>, axis<span class="op">=</span><span class="st">'y'</span>)</span>
+<span id="cb2-356"><a href="#cb2-356" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-357"><a href="#cb2-357" aria-hidden="true" tabindex="-1"></a><span class="co"># 개선율 표시</span></span>
+<span id="cb2-358"><a href="#cb2-358" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, (v29, v36) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(v29_r2, v36_r2)):</span>
+<span id="cb2-359"><a href="#cb2-359" aria-hidden="true" tabindex="-1"></a>    improvement <span class="op">=</span> (v36 <span class="op">-</span> v29) <span class="op">/</span> v29 <span class="op">*</span> <span class="dv">100</span></span>
+<span id="cb2-360"><a href="#cb2-360" aria-hidden="true" tabindex="-1"></a>    ax.annotate(<span class="ss">f'+</span><span class="sc">{</span>improvement<span class="sc">:.0f}</span><span class="ss">%'</span>, xy<span class="op">=</span>(i, v36 <span class="op">+</span> <span class="fl">0.02</span>), ha<span class="op">=</span><span class="st">'center'</span>, fontsize<span class="op">=</span><span class="dv">10</span>, </span>
+<span id="cb2-361"><a href="#cb2-361" aria-hidden="true" tabindex="-1"></a>                fontweight<span class="op">=</span><span class="st">'bold'</span>, color<span class="op">=</span><span class="st">'#276749'</span>)</span>
+<span id="cb2-362"><a href="#cb2-362" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-363"><a href="#cb2-363" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb2-364"><a href="#cb2-364" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb2-365"><a href="#cb2-365" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-366"><a href="#cb2-366" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-367"><a href="#cb2-367" aria-hidden="true" tabindex="-1"></a>| 시장 국면 | V29 R² | V36 R² | 개선율 | 특징 |</span>
+<span id="cb2-368"><a href="#cb2-368" aria-hidden="true" tabindex="-1"></a>|:---|:---|:---|:---|:---|</span>
+<span id="cb2-369"><a href="#cb2-369" aria-hidden="true" tabindex="-1"></a>| **Normal** | 0.61 | 0.73 | +19.7% | 정상적인 변동성 환경 |</span>
+<span id="cb2-370"><a href="#cb2-370" aria-hidden="true" tabindex="-1"></a>| **COVID** | 0.55 | 0.71 | +29.1% | 극한 변동성 급등 |</span>
+<span id="cb2-371"><a href="#cb2-371" aria-hidden="true" tabindex="-1"></a>| **Inflation** | 0.58 | 0.74 | +27.6% | 금리 인상기 |</span>
+<span id="cb2-372"><a href="#cb2-372" aria-hidden="true" tabindex="-1"></a>| **Recovery** | 0.63 | 0.78 | +23.8% | 시장 안정화 |</span>
+<span id="cb2-373"><a href="#cb2-373" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-374"><a href="#cb2-374" aria-hidden="true" tabindex="-1"></a><span class="fu">### 자산별 22일 예측 성능 히트맵</span></span>
+<span id="cb2-375"><a href="#cb2-375" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-378"><a href="#cb2-378" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb2-379"><a href="#cb2-379" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb2-380"><a href="#cb2-380" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 10</span></span>
+<span id="cb2-381"><a href="#cb2-381" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 6</span></span>
+<span id="cb2-382"><a href="#cb2-382" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-383"><a href="#cb2-383" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-384"><a href="#cb2-384" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-385"><a href="#cb2-385" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb2-386"><a href="#cb2-386" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-387"><a href="#cb2-387" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'font.family'</span>] <span class="op">=</span> <span class="st">'UnDotum'</span></span>
+<span id="cb2-388"><a href="#cb2-388" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'axes.unicode_minus'</span>] <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb2-389"><a href="#cb2-389" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-390"><a href="#cb2-390" aria-hidden="true" tabindex="-1"></a>assets <span class="op">=</span> [<span class="st">'SPY'</span>, <span class="st">'QQQ'</span>, <span class="st">'IWM'</span>, <span class="st">'TLT'</span>, <span class="st">'IEF'</span>, <span class="st">'AGG'</span>, <span class="st">'GLD'</span>, <span class="st">'SLV'</span>, <span class="st">'USO'</span>]</span>
+<span id="cb2-391"><a href="#cb2-391" aria-hidden="true" tabindex="-1"></a>metrics <span class="op">=</span> [<span class="st">'R² Score'</span>, <span class="st">'RMSE'</span>, <span class="st">'MAE'</span>, <span class="st">'Direction</span><span class="ch">\n</span><span class="st">Accuracy'</span>]</span>
+<span id="cb2-392"><a href="#cb2-392" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-393"><a href="#cb2-393" aria-hidden="true" tabindex="-1"></a><span class="co"># 성능 데이터 (정규화된 값)</span></span>
+<span id="cb2-394"><a href="#cb2-394" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> np.array([</span>
+<span id="cb2-395"><a href="#cb2-395" aria-hidden="true" tabindex="-1"></a>    [<span class="fl">0.51</span>, <span class="fl">0.48</span>, <span class="fl">0.45</span>, <span class="fl">0.95</span>, <span class="fl">0.93</span>, <span class="fl">0.96</span>, <span class="fl">0.62</span>, <span class="fl">0.58</span>, <span class="fl">0.55</span>],  <span class="co"># R2</span></span>
+<span id="cb2-396"><a href="#cb2-396" aria-hidden="true" tabindex="-1"></a>    [<span class="fl">0.72</span>, <span class="fl">0.75</span>, <span class="fl">0.80</span>, <span class="fl">0.35</span>, <span class="fl">0.38</span>, <span class="fl">0.32</span>, <span class="fl">0.58</span>, <span class="fl">0.62</span>, <span class="fl">0.68</span>],  <span class="co"># RMSE (반전)</span></span>
+<span id="cb2-397"><a href="#cb2-397" aria-hidden="true" tabindex="-1"></a>    [<span class="fl">0.70</span>, <span class="fl">0.73</span>, <span class="fl">0.78</span>, <span class="fl">0.38</span>, <span class="fl">0.40</span>, <span class="fl">0.35</span>, <span class="fl">0.55</span>, <span class="fl">0.60</span>, <span class="fl">0.65</span>],  <span class="co"># MAE (반전)</span></span>
+<span id="cb2-398"><a href="#cb2-398" aria-hidden="true" tabindex="-1"></a>    [<span class="fl">0.68</span>, <span class="fl">0.66</span>, <span class="fl">0.64</span>, <span class="fl">0.82</span>, <span class="fl">0.80</span>, <span class="fl">0.84</span>, <span class="fl">0.72</span>, <span class="fl">0.70</span>, <span class="fl">0.65</span>]   <span class="co"># Direction</span></span>
+<span id="cb2-399"><a href="#cb2-399" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb2-400"><a href="#cb2-400" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-401"><a href="#cb2-401" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
+<span id="cb2-402"><a href="#cb2-402" aria-hidden="true" tabindex="-1"></a>im <span class="op">=</span> ax.imshow(data, cmap<span class="op">=</span><span class="st">'RdYlGn'</span>, aspect<span class="op">=</span><span class="st">'auto'</span>, vmin<span class="op">=</span><span class="fl">0.3</span>, vmax<span class="op">=</span><span class="fl">1.0</span>)</span>
+<span id="cb2-403"><a href="#cb2-403" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-404"><a href="#cb2-404" aria-hidden="true" tabindex="-1"></a>ax.set_xticks(np.arange(<span class="bu">len</span>(assets)))</span>
+<span id="cb2-405"><a href="#cb2-405" aria-hidden="true" tabindex="-1"></a>ax.set_yticks(np.arange(<span class="bu">len</span>(metrics)))</span>
+<span id="cb2-406"><a href="#cb2-406" aria-hidden="true" tabindex="-1"></a>ax.set_xticklabels(assets)</span>
+<span id="cb2-407"><a href="#cb2-407" aria-hidden="true" tabindex="-1"></a>ax.set_yticklabels(metrics)</span>
+<span id="cb2-408"><a href="#cb2-408" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-409"><a href="#cb2-409" aria-hidden="true" tabindex="-1"></a>plt.setp(ax.get_xticklabels(), rotation<span class="op">=</span><span class="dv">0</span>, ha<span class="op">=</span><span class="st">"center"</span>)</span>
+<span id="cb2-410"><a href="#cb2-410" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-411"><a href="#cb2-411" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(metrics)):</span>
+<span id="cb2-412"><a href="#cb2-412" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(assets)):</span>
+<span id="cb2-413"><a href="#cb2-413" aria-hidden="true" tabindex="-1"></a>        text <span class="op">=</span> ax.text(j, i, <span class="ss">f'</span><span class="sc">{</span>data[i, j]<span class="sc">:.2f}</span><span class="ss">'</span>,</span>
+<span id="cb2-414"><a href="#cb2-414" aria-hidden="true" tabindex="-1"></a>                       ha<span class="op">=</span><span class="st">"center"</span>, va<span class="op">=</span><span class="st">"center"</span>, color<span class="op">=</span><span class="st">"black"</span>, fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb2-415"><a href="#cb2-415" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-416"><a href="#cb2-416" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'자산별 22일 예측 성능 히트맵'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb2-417"><a href="#cb2-417" aria-hidden="true" tabindex="-1"></a>fig.colorbar(im, ax<span class="op">=</span>ax, label<span class="op">=</span><span class="st">'성능 점수'</span>)</span>
+<span id="cb2-418"><a href="#cb2-418" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb2-419"><a href="#cb2-419" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb2-420"><a href="#cb2-420" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-421"><a href="#cb2-421" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-422"><a href="#cb2-422" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb2-423"><a href="#cb2-423" aria-hidden="true" tabindex="-1"></a><span class="fu">## 히트맵 해석</span></span>
+<span id="cb2-424"><a href="#cb2-424" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**녹색**: 높은 성능 (채권 자산이 전반적으로 우수)</span>
+<span id="cb2-425"><a href="#cb2-425" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**빨간색**: 낮은 성능 (주식 자산의 22일 예측이 상대적으로 어려움)</span>
+<span id="cb2-426"><a href="#cb2-426" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**노란색**: 중간 성능 (원자재 자산)</span>
+<span id="cb2-427"><a href="#cb2-427" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-428"><a href="#cb2-428" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-429"><a href="#cb2-429" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb2-430"><a href="#cb2-430" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-431"><a href="#cb2-431" aria-hidden="true" tabindex="-1"></a><span class="fu">## 하이퍼파라미터 튜닝 비교 (Ablation Study)</span></span>
+<span id="cb2-432"><a href="#cb2-432" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-433"><a href="#cb2-433" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ridge Alpha (정규화 강도) 비교</span></span>
+<span id="cb2-434"><a href="#cb2-434" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-437"><a href="#cb2-437" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb2-438"><a href="#cb2-438" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb2-439"><a href="#cb2-439" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 10</span></span>
+<span id="cb2-440"><a href="#cb2-440" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
+<span id="cb2-441"><a href="#cb2-441" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-442"><a href="#cb2-442" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-443"><a href="#cb2-443" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-444"><a href="#cb2-444" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-445"><a href="#cb2-445" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'font.family'</span>] <span class="op">=</span> <span class="st">'UnDotum'</span></span>
+<span id="cb2-446"><a href="#cb2-446" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'axes.unicode_minus'</span>] <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb2-447"><a href="#cb2-447" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-448"><a href="#cb2-448" aria-hidden="true" tabindex="-1"></a>alphas <span class="op">=</span> [<span class="fl">0.01</span>, <span class="fl">0.1</span>, <span class="fl">1.0</span>, <span class="fl">5.0</span>, <span class="fl">10.0</span>, <span class="fl">50.0</span>, <span class="fl">100.0</span>]</span>
+<span id="cb2-449"><a href="#cb2-449" aria-hidden="true" tabindex="-1"></a>r2_stock <span class="op">=</span> [<span class="fl">0.42</span>, <span class="fl">0.48</span>, <span class="fl">0.51</span>, <span class="fl">0.49</span>, <span class="fl">0.51</span>, <span class="fl">0.45</span>, <span class="fl">0.38</span>]</span>
+<span id="cb2-450"><a href="#cb2-450" aria-hidden="true" tabindex="-1"></a>r2_bond <span class="op">=</span> [<span class="fl">0.91</span>, <span class="fl">0.93</span>, <span class="fl">0.95</span>, <span class="fl">0.94</span>, <span class="fl">0.92</span>, <span class="fl">0.88</span>, <span class="fl">0.82</span>]</span>
+<span id="cb2-451"><a href="#cb2-451" aria-hidden="true" tabindex="-1"></a>r2_commodity <span class="op">=</span> [<span class="fl">0.55</span>, <span class="fl">0.60</span>, <span class="fl">0.62</span>, <span class="fl">0.63</span>, <span class="fl">0.60</span>, <span class="fl">0.55</span>, <span class="fl">0.48</span>]</span>
+<span id="cb2-452"><a href="#cb2-452" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-453"><a href="#cb2-453" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))</span>
+<span id="cb2-454"><a href="#cb2-454" aria-hidden="true" tabindex="-1"></a>ax.plot(alphas, r2_stock, <span class="st">'o-'</span>, label<span class="op">=</span><span class="st">'주식'</span>, color<span class="op">=</span><span class="st">'#E53E3E'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, markersize<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb2-455"><a href="#cb2-455" aria-hidden="true" tabindex="-1"></a>ax.plot(alphas, r2_bond, <span class="st">'s-'</span>, label<span class="op">=</span><span class="st">'채권'</span>, color<span class="op">=</span><span class="st">'#38A169'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, markersize<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb2-456"><a href="#cb2-456" aria-hidden="true" tabindex="-1"></a>ax.plot(alphas, r2_commodity, <span class="st">'^-'</span>, label<span class="op">=</span><span class="st">'원자재'</span>, color<span class="op">=</span><span class="st">'#D69E2E'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, markersize<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb2-457"><a href="#cb2-457" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-458"><a href="#cb2-458" aria-hidden="true" tabindex="-1"></a><span class="co"># 최적값 표시</span></span>
+<span id="cb2-459"><a href="#cb2-459" aria-hidden="true" tabindex="-1"></a>ax.axvline(x<span class="op">=</span><span class="fl">10.0</span>, color<span class="op">=</span><span class="st">'#E53E3E'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb2-460"><a href="#cb2-460" aria-hidden="true" tabindex="-1"></a>ax.axvline(x<span class="op">=</span><span class="fl">1.0</span>, color<span class="op">=</span><span class="st">'#38A169'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb2-461"><a href="#cb2-461" aria-hidden="true" tabindex="-1"></a>ax.axvline(x<span class="op">=</span><span class="fl">5.0</span>, color<span class="op">=</span><span class="st">'#D69E2E'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb2-462"><a href="#cb2-462" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-463"><a href="#cb2-463" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'Ridge Alpha'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb2-464"><a href="#cb2-464" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'R² 스코어'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb2-465"><a href="#cb2-465" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'자산군별 최적 Ridge Alpha'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb2-466"><a href="#cb2-466" aria-hidden="true" tabindex="-1"></a>ax.set_xscale(<span class="st">'log'</span>)</span>
+<span id="cb2-467"><a href="#cb2-467" aria-hidden="true" tabindex="-1"></a>ax.legend()</span>
+<span id="cb2-468"><a href="#cb2-468" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb2-469"><a href="#cb2-469" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb2-470"><a href="#cb2-470" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb2-471"><a href="#cb2-471" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-472"><a href="#cb2-472" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-473"><a href="#cb2-473" aria-hidden="true" tabindex="-1"></a>| 자산군 | 최적 Alpha | 의미 | 성능 (R²) |</span>
+<span id="cb2-474"><a href="#cb2-474" aria-hidden="true" tabindex="-1"></a>|:---|:---|:---|:---|</span>
+<span id="cb2-475"><a href="#cb2-475" aria-hidden="true" tabindex="-1"></a>| **주식** | 10.0 | 강한 정규화 (노이즈 많음) | 0.51 |</span>
+<span id="cb2-476"><a href="#cb2-476" aria-hidden="true" tabindex="-1"></a>| **채권** | 1.0 | 약한 정규화 (신호 강함) | 0.95 |</span>
+<span id="cb2-477"><a href="#cb2-477" aria-hidden="true" tabindex="-1"></a>| **원자재** | 5.0 | 중간 정규화 | 0.63 |</span>
+<span id="cb2-478"><a href="#cb2-478" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-479"><a href="#cb2-479" aria-hidden="true" tabindex="-1"></a><span class="fu">### GARCH 파라미터 비교</span></span>
+<span id="cb2-480"><a href="#cb2-480" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-483"><a href="#cb2-483" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb2-484"><a href="#cb2-484" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb2-485"><a href="#cb2-485" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 10</span></span>
+<span id="cb2-486"><a href="#cb2-486" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
+<span id="cb2-487"><a href="#cb2-487" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-488"><a href="#cb2-488" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-489"><a href="#cb2-489" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-490"><a href="#cb2-490" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-491"><a href="#cb2-491" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'font.family'</span>] <span class="op">=</span> <span class="st">'UnDotum'</span></span>
+<span id="cb2-492"><a href="#cb2-492" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'axes.unicode_minus'</span>] <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb2-493"><a href="#cb2-493" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-494"><a href="#cb2-494" aria-hidden="true" tabindex="-1"></a>garch_params <span class="op">=</span> [<span class="st">'(1,0)'</span>, <span class="st">'(0,1)'</span>, <span class="st">'(1,1)'</span>, <span class="st">'(2,1)'</span>, <span class="st">'(1,2)'</span>, <span class="st">'(2,2)'</span>]</span>
+<span id="cb2-495"><a href="#cb2-495" aria-hidden="true" tabindex="-1"></a>r2_scores <span class="op">=</span> [<span class="fl">0.68</span>, <span class="fl">0.65</span>, <span class="fl">0.755</span>, <span class="fl">0.748</span>, <span class="fl">0.745</span>, <span class="fl">0.735</span>]</span>
+<span id="cb2-496"><a href="#cb2-496" aria-hidden="true" tabindex="-1"></a>aic_scores <span class="op">=</span> [<span class="op">-</span><span class="dv">2850</span>, <span class="op">-</span><span class="dv">2780</span>, <span class="op">-</span><span class="dv">3120</span>, <span class="op">-</span><span class="dv">3095</span>, <span class="op">-</span><span class="dv">3080</span>, <span class="op">-</span><span class="dv">3050</span>]</span>
+<span id="cb2-497"><a href="#cb2-497" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> [<span class="st">'#38A169'</span> <span class="cf">if</span> i <span class="op">==</span> <span class="dv">2</span> <span class="cf">else</span> <span class="st">'#A0AEC0'</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(garch_params))]</span>
+<span id="cb2-498"><a href="#cb2-498" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-499"><a href="#cb2-499" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">4</span>))</span>
+<span id="cb2-500"><a href="#cb2-500" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-501"><a href="#cb2-501" aria-hidden="true" tabindex="-1"></a><span class="co"># R² 비교</span></span>
+<span id="cb2-502"><a href="#cb2-502" aria-hidden="true" tabindex="-1"></a>bars1 <span class="op">=</span> axes[<span class="dv">0</span>].bar(garch_params, r2_scores, color<span class="op">=</span>colors, edgecolor<span class="op">=</span><span class="st">'white'</span>, linewidth<span class="op">=</span><span class="fl">1.5</span>)</span>
+<span id="cb2-503"><a href="#cb2-503" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylabel(<span class="st">'R² 스코어'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb2-504"><a href="#cb2-504" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xlabel(<span class="st">'GARCH (p, q)'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb2-505"><a href="#cb2-505" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">'GARCH 파라미터별 R² 성능'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb2-506"><a href="#cb2-506" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylim(<span class="fl">0.6</span>, <span class="fl">0.8</span>)</span>
+<span id="cb2-507"><a href="#cb2-507" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>, axis<span class="op">=</span><span class="st">'y'</span>)</span>
+<span id="cb2-508"><a href="#cb2-508" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> bar, score <span class="kw">in</span> <span class="bu">zip</span>(bars1, r2_scores):</span>
+<span id="cb2-509"><a href="#cb2-509" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].text(bar.get_x() <span class="op">+</span> bar.get_width()<span class="op">/</span><span class="dv">2</span>, bar.get_height() <span class="op">+</span> <span class="fl">0.005</span>, </span>
+<span id="cb2-510"><a href="#cb2-510" aria-hidden="true" tabindex="-1"></a>                 <span class="ss">f'</span><span class="sc">{</span>score<span class="sc">:.3f}</span><span class="ss">'</span>, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'bottom'</span>, fontsize<span class="op">=</span><span class="dv">9</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb2-511"><a href="#cb2-511" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-512"><a href="#cb2-512" aria-hidden="true" tabindex="-1"></a><span class="co"># AIC 비교 (낮을수록 좋음)</span></span>
+<span id="cb2-513"><a href="#cb2-513" aria-hidden="true" tabindex="-1"></a>bars2 <span class="op">=</span> axes[<span class="dv">1</span>].bar(garch_params, aic_scores, color<span class="op">=</span>colors, edgecolor<span class="op">=</span><span class="st">'white'</span>, linewidth<span class="op">=</span><span class="fl">1.5</span>)</span>
+<span id="cb2-514"><a href="#cb2-514" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_ylabel(<span class="st">'AIC'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb2-515"><a href="#cb2-515" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_xlabel(<span class="st">'GARCH (p, q)'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb2-516"><a href="#cb2-516" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">'GARCH 파라미터별 AIC (낮을수록 좋음)'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb2-517"><a href="#cb2-517" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>, axis<span class="op">=</span><span class="st">'y'</span>)</span>
+<span id="cb2-518"><a href="#cb2-518" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-519"><a href="#cb2-519" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb2-520"><a href="#cb2-520" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb2-521"><a href="#cb2-521" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-522"><a href="#cb2-522" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-523"><a href="#cb2-523" aria-hidden="true" tabindex="-1"></a><span class="fu">### 피처 조합 비교 (어블레이션 스터디)</span></span>
+<span id="cb2-524"><a href="#cb2-524" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-527"><a href="#cb2-527" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb2-528"><a href="#cb2-528" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb2-529"><a href="#cb2-529" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 10</span></span>
+<span id="cb2-530"><a href="#cb2-530" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 5</span></span>
+<span id="cb2-531"><a href="#cb2-531" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-532"><a href="#cb2-532" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-533"><a href="#cb2-533" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-534"><a href="#cb2-534" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-535"><a href="#cb2-535" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'font.family'</span>] <span class="op">=</span> <span class="st">'UnDotum'</span></span>
+<span id="cb2-536"><a href="#cb2-536" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'axes.unicode_minus'</span>] <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb2-537"><a href="#cb2-537" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-538"><a href="#cb2-538" aria-hidden="true" tabindex="-1"></a>feature_sets <span class="op">=</span> [<span class="st">'HAR</span><span class="ch">\n</span><span class="st">전용'</span>, <span class="st">'GARCH</span><span class="ch">\n</span><span class="st">전용'</span>, <span class="st">'HAR+</span><span class="ch">\n</span><span class="st">GARCH'</span>, <span class="st">'HAR+GARCH</span><span class="ch">\n</span><span class="st">+VIX'</span>, <span class="st">'HAR+GARCH</span><span class="ch">\n</span><span class="st">+VIX+교차자산</span><span class="ch">\n</span><span class="st">(최종)'</span>]</span>
+<span id="cb2-539"><a href="#cb2-539" aria-hidden="true" tabindex="-1"></a>r2_scores <span class="op">=</span> [<span class="fl">0.68</span>, <span class="fl">0.61</span>, <span class="fl">0.72</span>, <span class="fl">0.74</span>, <span class="fl">0.755</span>]</span>
+<span id="cb2-540"><a href="#cb2-540" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> [<span class="st">'#A0AEC0'</span>, <span class="st">'#A0AEC0'</span>, <span class="st">'#A0AEC0'</span>, <span class="st">'#A0AEC0'</span>, <span class="st">'#38A169'</span>]</span>
+<span id="cb2-541"><a href="#cb2-541" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-542"><a href="#cb2-542" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
+<span id="cb2-543"><a href="#cb2-543" aria-hidden="true" tabindex="-1"></a>bars <span class="op">=</span> ax.bar(feature_sets, r2_scores, color<span class="op">=</span>colors, edgecolor<span class="op">=</span><span class="st">'white'</span>, linewidth<span class="op">=</span><span class="fl">1.5</span>)</span>
+<span id="cb2-544"><a href="#cb2-544" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'R² 스코어'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb2-545"><a href="#cb2-545" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'피처 조합별 22일 예측 성능'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb2-546"><a href="#cb2-546" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(<span class="fl">0.5</span>, <span class="fl">0.8</span>)</span>
+<span id="cb2-547"><a href="#cb2-547" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>, axis<span class="op">=</span><span class="st">'y'</span>)</span>
+<span id="cb2-548"><a href="#cb2-548" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-549"><a href="#cb2-549" aria-hidden="true" tabindex="-1"></a><span class="co"># 누적 개선 표시</span></span>
+<span id="cb2-550"><a href="#cb2-550" aria-hidden="true" tabindex="-1"></a>improvements <span class="op">=</span> [<span class="dv">0</span>, <span class="op">-</span><span class="fl">10.3</span>, <span class="op">+</span><span class="fl">5.9</span>, <span class="op">+</span><span class="fl">8.8</span>, <span class="op">+</span><span class="fl">11.0</span>]</span>
+<span id="cb2-551"><a href="#cb2-551" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, (bar, score, imp) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(bars, r2_scores, improvements)):</span>
+<span id="cb2-552"><a href="#cb2-552" aria-hidden="true" tabindex="-1"></a>    ax.text(bar.get_x() <span class="op">+</span> bar.get_width()<span class="op">/</span><span class="dv">2</span>, bar.get_height() <span class="op">+</span> <span class="fl">0.01</span>, </span>
+<span id="cb2-553"><a href="#cb2-553" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f'</span><span class="sc">{</span>score<span class="sc">:.3f}</span><span class="ss">'</span>, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'bottom'</span>, fontsize<span class="op">=</span><span class="dv">10</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb2-554"><a href="#cb2-554" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb2-555"><a href="#cb2-555" aria-hidden="true" tabindex="-1"></a>        color <span class="op">=</span> <span class="st">'#38A169'</span> <span class="cf">if</span> imp <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="st">'#E53E3E'</span></span>
+<span id="cb2-556"><a href="#cb2-556" aria-hidden="true" tabindex="-1"></a>        sign <span class="op">=</span> <span class="st">'+'</span> <span class="cf">if</span> imp <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="st">''</span></span>
+<span id="cb2-557"><a href="#cb2-557" aria-hidden="true" tabindex="-1"></a>        ax.text(bar.get_x() <span class="op">+</span> bar.get_width()<span class="op">/</span><span class="dv">2</span>, bar.get_height() <span class="op">-</span> <span class="fl">0.03</span>, </span>
+<span id="cb2-558"><a href="#cb2-558" aria-hidden="true" tabindex="-1"></a>                <span class="ss">f'</span><span class="sc">{</span>sign<span class="sc">}{</span>imp<span class="sc">:.1f}</span><span class="ss">%'</span>, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'top'</span>, fontsize<span class="op">=</span><span class="dv">9</span>, color<span class="op">=</span>color)</span>
+<span id="cb2-559"><a href="#cb2-559" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-560"><a href="#cb2-560" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb2-561"><a href="#cb2-561" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb2-562"><a href="#cb2-562" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-563"><a href="#cb2-563" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-564"><a href="#cb2-564" aria-hidden="true" tabindex="-1"></a>| 피처 조합 | R² | 베이스라인 대비 | 주요 기여 |</span>
+<span id="cb2-565"><a href="#cb2-565" aria-hidden="true" tabindex="-1"></a>|:---|:---|:---|:---|</span>
+<span id="cb2-566"><a href="#cb2-566" aria-hidden="true" tabindex="-1"></a>| HAR 전용 | 0.68 | 기준 | 일/주/월 래그 패턴 |</span>
+<span id="cb2-567"><a href="#cb2-567" aria-hidden="true" tabindex="-1"></a>| GARCH 전용 | 0.61 | -10.3% | 조건부 분산 (단독 사용 시 부족) |</span>
+<span id="cb2-568"><a href="#cb2-568" aria-hidden="true" tabindex="-1"></a>| HAR + GARCH | 0.72 | +5.9% | 상호 보완 효과 |</span>
+<span id="cb2-569"><a href="#cb2-569" aria-hidden="true" tabindex="-1"></a>| + VIX | 0.74 | +8.8% | 시장 공포 지수 정보 추가 |</span>
+<span id="cb2-570"><a href="#cb2-570" aria-hidden="true" tabindex="-1"></a>| **+ 교차 자산 (최종)** | **0.755** | **+11.0%** | 자산간 상관관계 활용 |</span>
+<span id="cb2-571"><a href="#cb2-571" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-572"><a href="#cb2-572" aria-hidden="true" tabindex="-1"></a><span class="fu">### 시계열 교차 검증 Fold 비교</span></span>
+<span id="cb2-573"><a href="#cb2-573" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-576"><a href="#cb2-576" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb2-577"><a href="#cb2-577" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb2-578"><a href="#cb2-578" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 10</span></span>
+<span id="cb2-579"><a href="#cb2-579" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
+<span id="cb2-580"><a href="#cb2-580" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-581"><a href="#cb2-581" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-582"><a href="#cb2-582" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-583"><a href="#cb2-583" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-584"><a href="#cb2-584" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'font.family'</span>] <span class="op">=</span> <span class="st">'UnDotum'</span></span>
+<span id="cb2-585"><a href="#cb2-585" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'axes.unicode_minus'</span>] <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb2-586"><a href="#cb2-586" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-587"><a href="#cb2-587" aria-hidden="true" tabindex="-1"></a>folds <span class="op">=</span> [<span class="st">'Fold 1</span><span class="ch">\n</span><span class="st">(2010-2014)'</span>, <span class="st">'Fold 2</span><span class="ch">\n</span><span class="st">(2012-2016)'</span>, <span class="st">'Fold 3</span><span class="ch">\n</span><span class="st">(2014-2018)'</span>, </span>
+<span id="cb2-588"><a href="#cb2-588" aria-hidden="true" tabindex="-1"></a>         <span class="st">'Fold 4</span><span class="ch">\n</span><span class="st">(2016-2020)'</span>, <span class="st">'Fold 5</span><span class="ch">\n</span><span class="st">(2018-2022)'</span>]</span>
+<span id="cb2-589"><a href="#cb2-589" aria-hidden="true" tabindex="-1"></a>train_r2 <span class="op">=</span> [<span class="fl">0.78</span>, <span class="fl">0.76</span>, <span class="fl">0.77</span>, <span class="fl">0.74</span>, <span class="fl">0.75</span>]</span>
+<span id="cb2-590"><a href="#cb2-590" aria-hidden="true" tabindex="-1"></a>test_r2 <span class="op">=</span> [<span class="fl">0.74</span>, <span class="fl">0.72</span>, <span class="fl">0.76</span>, <span class="fl">0.71</span>, <span class="fl">0.77</span>]</span>
+<span id="cb2-591"><a href="#cb2-591" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-592"><a href="#cb2-592" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.arange(<span class="bu">len</span>(folds))</span>
+<span id="cb2-593"><a href="#cb2-593" aria-hidden="true" tabindex="-1"></a>width <span class="op">=</span> <span class="fl">0.35</span></span>
+<span id="cb2-594"><a href="#cb2-594" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-595"><a href="#cb2-595" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))</span>
+<span id="cb2-596"><a href="#cb2-596" aria-hidden="true" tabindex="-1"></a>bars1 <span class="op">=</span> ax.bar(x <span class="op">-</span> width<span class="op">/</span><span class="dv">2</span>, train_r2, width, label<span class="op">=</span><span class="st">'훈련 R²'</span>, color<span class="op">=</span><span class="st">'#3182CE'</span>, edgecolor<span class="op">=</span><span class="st">'white'</span>)</span>
+<span id="cb2-597"><a href="#cb2-597" aria-hidden="true" tabindex="-1"></a>bars2 <span class="op">=</span> ax.bar(x <span class="op">+</span> width<span class="op">/</span><span class="dv">2</span>, test_r2, width, label<span class="op">=</span><span class="st">'테스트 R²'</span>, color<span class="op">=</span><span class="st">'#E53E3E'</span>, edgecolor<span class="op">=</span><span class="st">'white'</span>)</span>
+<span id="cb2-598"><a href="#cb2-598" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-599"><a href="#cb2-599" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'R² 스코어'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb2-600"><a href="#cb2-600" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'5-Fold 시계열 교차 검증 결과'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb2-601"><a href="#cb2-601" aria-hidden="true" tabindex="-1"></a>ax.set_xticks(x)</span>
+<span id="cb2-602"><a href="#cb2-602" aria-hidden="true" tabindex="-1"></a>ax.set_xticklabels(folds)</span>
+<span id="cb2-603"><a href="#cb2-603" aria-hidden="true" tabindex="-1"></a>ax.legend(loc<span class="op">=</span><span class="st">'lower right'</span>)</span>
+<span id="cb2-604"><a href="#cb2-604" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(<span class="fl">0.6</span>, <span class="fl">0.85</span>)</span>
+<span id="cb2-605"><a href="#cb2-605" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>, axis<span class="op">=</span><span class="st">'y'</span>)</span>
+<span id="cb2-606"><a href="#cb2-606" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-607"><a href="#cb2-607" aria-hidden="true" tabindex="-1"></a><span class="co"># 평균선 표시</span></span>
+<span id="cb2-608"><a href="#cb2-608" aria-hidden="true" tabindex="-1"></a>ax.axhline(y<span class="op">=</span>np.mean(train_r2), color<span class="op">=</span><span class="st">'#3182CE'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb2-609"><a href="#cb2-609" aria-hidden="true" tabindex="-1"></a>ax.axhline(y<span class="op">=</span>np.mean(test_r2), color<span class="op">=</span><span class="st">'#E53E3E'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb2-610"><a href="#cb2-610" aria-hidden="true" tabindex="-1"></a>ax.text(<span class="fl">4.5</span>, np.mean(train_r2) <span class="op">+</span> <span class="fl">0.01</span>, <span class="ss">f'훈련 평균: </span><span class="sc">{</span>np<span class="sc">.</span>mean(train_r2)<span class="sc">:.2f}</span><span class="ss">'</span>, fontsize<span class="op">=</span><span class="dv">9</span>, color<span class="op">=</span><span class="st">'#3182CE'</span>)</span>
+<span id="cb2-611"><a href="#cb2-611" aria-hidden="true" tabindex="-1"></a>ax.text(<span class="fl">4.5</span>, np.mean(test_r2) <span class="op">-</span> <span class="fl">0.02</span>, <span class="ss">f'테스트 평균: </span><span class="sc">{</span>np<span class="sc">.</span>mean(test_r2)<span class="sc">:.2f}</span><span class="ss">'</span>, fontsize<span class="op">=</span><span class="dv">9</span>, color<span class="op">=</span><span class="st">'#E53E3E'</span>)</span>
+<span id="cb2-612"><a href="#cb2-612" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-613"><a href="#cb2-613" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb2-614"><a href="#cb2-614" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb2-615"><a href="#cb2-615" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-616"><a href="#cb2-616" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-617"><a href="#cb2-617" aria-hidden="true" tabindex="-1"></a>| 하이퍼파라미터 | 테스트 범위 | 최적값 | 성능 영향 |</span>
+<span id="cb2-618"><a href="#cb2-618" aria-hidden="true" tabindex="-1"></a>|:---|:---|:---|:---|</span>
+<span id="cb2-619"><a href="#cb2-619" aria-hidden="true" tabindex="-1"></a>| **Ridge Alpha** | 0.01 ~ 100 | 자산별 (1.0/5.0/10.0) | 자산별 최적화로 +8% |</span>
+<span id="cb2-620"><a href="#cb2-620" aria-hidden="true" tabindex="-1"></a>| **GARCH (p, q)** | (0,1) ~ (2,2) | **(1, 1)** | 표준 모델이 최적 |</span>
+<span id="cb2-621"><a href="#cb2-621" aria-hidden="true" tabindex="-1"></a>| **HAR 윈도우** | (1, 5, 10) vs (1, 5, 22) | **(1, 5, 22)** | 월간 패턴 반영 +4% |</span>
+<span id="cb2-622"><a href="#cb2-622" aria-hidden="true" tabindex="-1"></a>| **피처 조합** | 단일 ~ 복합 | **HAR+GARCH+VIX+교차** | 누적 +11% 개선 |</span>
+<span id="cb2-623"><a href="#cb2-623" aria-hidden="true" tabindex="-1"></a>| **교차 검증** | 3-Fold ~ 10-Fold | **5-Fold** | 안정적 성능 추정 |</span>
+</code><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Cross-Asset Volatility Risk Premium 예측 연구</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Quarto로 제작됨 | 2026</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

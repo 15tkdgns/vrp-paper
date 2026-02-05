@@ -1,0 +1,2752 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.42">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Cross-Asset VRP Reading List – VRP 연구 대시보드</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-90aea55d2a0088fe7b0af709ac8e6e7c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "일치 없음",
+    "search-matching-documents-text": "일치된 문서",
+    "search-copy-link-title": "검색 링크 복사",
+    "search-hide-matches-text": "추가 검색 결과 숨기기",
+    "search-more-match-text": "추가 검색결과",
+    "search-more-matches-text": "추가 검색결과",
+    "search-clear-button-title": "제거",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "취소",
+    "search-submit-button-title": "검색",
+    "search-label": "검색"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles/styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">VRP 연구 대시보드</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="검색"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="탐색 전환" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../content/index.html"> 
+<span class="menu-text">홈</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../content/project/overview.html"> 
+<span class="menu-text">프로젝트</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../literature/index.html" aria-current="page"> 
+<span class="menu-text">문헌 분석</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../experiments/index.html"> 
+<span class="menu-text">실험 결과</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../content/notes/index.html"> 
+<span class="menu-text">노트</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="사이드바 전환" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../literature/reading_list.html">읽기 목록</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="사이드바 전환" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../literature/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">개요</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">금융</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="토글 섹션">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../literature/finance/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Finance 분야 선행연구</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">컴퓨터 공학</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="토글 섹션">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../literature/cs/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CS &amp; ML 기반 변동성 예측 연구</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../literature/reading_list.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">읽기 목록</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">목차</h2>
+   
+  <ul>
+  <li><a href="#cross-asset-vrp-prediction-연구" id="toc-cross-asset-vrp-prediction-연구" class="nav-link active" data-scroll-target="#cross-asset-vrp-prediction-연구">Cross-Asset VRP Prediction 연구</a>
+  <ul class="collapse">
+  <li><a href="#컴퓨터사이언스-vs-금융학-논문-리딩-리스트-분석" id="toc-컴퓨터사이언스-vs-금융학-논문-리딩-리스트-분석" class="nav-link" data-scroll-target="#컴퓨터사이언스-vs-금융학-논문-리딩-리스트-분석">컴퓨터사이언스 vs 금융학 논문 리딩 리스트 &amp; 분석</a>
+  <ul class="collapse">
+  <li><a href="#작성일-2026-01-22" id="toc-작성일-2026-01-22" class="nav-link" data-scroll-target="#작성일-2026-01-22">작성일: 2026-01-22</a></li>
+  </ul></li>
+  <li><a href="#핵심-요약-executive-summary" id="toc-핵심-요약-executive-summary" class="nav-link" data-scroll-target="#핵심-요약-executive-summary">핵심 요약 (Executive Summary)</a></li>
+  <li><a href="#각-논문마다-핵심-내용과-방법론-본-연구와의-직접적-연결점-논문의-독창성novelty과-한계-그리고-인용-및-포지셔닝-방법을-정리했습니다." id="toc-각-논문마다-핵심-내용과-방법론-본-연구와의-직접적-연결점-논문의-독창성novelty과-한계-그리고-인용-및-포지셔닝-방법을-정리했습니다." class="nav-link" data-scroll-target="#각-논문마다-핵심-내용과-방법론-본-연구와의-직접적-연결점-논문의-독창성novelty과-한계-그리고-인용-및-포지셔닝-방법을-정리했습니다.">각 논문마다 핵심 내용과 방법론, 본 연구와의 직접적 연결점, 논문의 독창성(Novelty)과 한계, 그리고 인용 및 포지셔닝 방법을 정리했습니다.</a></li>
+  </ul></li>
+  <li><a href="#부.-금융-계량경제-계열-논문-part-1.-finance-econometrics" id="toc-부.-금융-계량경제-계열-논문-part-1.-finance-econometrics" class="nav-link" data-scroll-target="#부.-금융-계량경제-계열-논문-part-1.-finance-econometrics">1부. 금융 / 계량경제 계열 논문 (PART 1. FINANCE / ECONOMETRICS)</a>
+  <ul class="collapse">
+  <li><a href="#섹션-1.1-variance-risk-premium-이론-및-정의의-기초" id="toc-섹션-1.1-variance-risk-premium-이론-및-정의의-기초" class="nav-link" data-scroll-target="#섹션-1.1-variance-risk-premium-이론-및-정의의-기초">섹션 1.1: Variance Risk Premium 이론 및 정의의 기초</a>
+  <ul class="collapse">
+  <li><a href="#carr-wu-2009-variance-risk-premia" id="toc-carr-wu-2009-variance-risk-premia" class="nav-link" data-scroll-target="#carr-wu-2009-variance-risk-premia">1. <strong>Carr &amp; Wu (2009): “Variance Risk Premia”</strong></a></li>
+  <li><a href="#bekaert-hoerova-2014-the-vix-the-variance-premium-and-stock-market-volatility" id="toc-bekaert-hoerova-2014-the-vix-the-variance-premium-and-stock-market-volatility" class="nav-link" data-scroll-target="#bekaert-hoerova-2014-the-vix-the-variance-premium-and-stock-market-volatility">2. <strong>Bekaert &amp; Hoerova (2014): “The VIX, the Variance Premium and Stock Market Volatility”</strong></a></li>
+  <li><a href="#hansen-huang-tong-wang-2021-realized-garch-cboe-vix-and-the-volatility-risk-premium" id="toc-hansen-huang-tong-wang-2021-realized-garch-cboe-vix-and-the-volatility-risk-premium" class="nav-link" data-scroll-target="#hansen-huang-tong-wang-2021-realized-garch-cboe-vix-and-the-volatility-risk-premium">3. <strong>Hansen, Huang, Tong &amp; Wang (2021): “Realized GARCH, CBOE VIX, and the Volatility Risk Premium”</strong></a></li>
+  </ul></li>
+  <li><a href="#섹션-1.2-cross-asset-multi-asset-vrp" id="toc-섹션-1.2-cross-asset-multi-asset-vrp" class="nav-link" data-scroll-target="#섹션-1.2-cross-asset-multi-asset-vrp">섹션 1.2: Cross-Asset &amp; Multi-Asset VRP</a>
+  <ul class="collapse">
+  <li><a href="#heston-et-al.-2023-exploring-the-variance-risk-premium-across-assets" id="toc-heston-et-al.-2023-exploring-the-variance-risk-premium-across-assets" class="nav-link" data-scroll-target="#heston-et-al.-2023-exploring-the-variance-risk-premium-across-assets">4. <strong>Heston et al.&nbsp;(2023): “Exploring the Variance Risk Premium Across Assets”</strong></a></li>
+  <li><a href="#ornelas-et-al.-2018-volatility-risk-premia-and-future-commodity-returns" id="toc-ornelas-et-al.-2018-volatility-risk-premia-and-future-commodity-returns" class="nav-link" data-scroll-target="#ornelas-et-al.-2018-volatility-risk-premia-and-future-commodity-returns">5. <strong>Ornelas et al.&nbsp;(2018): “Volatility risk premia and future commodity returns”</strong></a></li>
+  <li><a href="#czech-thesis-2021-volatility-risk-premium-across-multiple-asset-classes" id="toc-czech-thesis-2021-volatility-risk-premium-across-multiple-asset-classes" class="nav-link" data-scroll-target="#czech-thesis-2021-volatility-risk-premium-across-multiple-asset-classes">6. <strong>Czech Thesis (2021): “Volatility Risk Premium Across Multiple Asset Classes”</strong></a></li>
+  </ul></li>
+  <li><a href="#섹션-1.3-options-driven-volatility-vix-정보" id="toc-섹션-1.3-options-driven-volatility-vix-정보" class="nav-link" data-scroll-target="#섹션-1.3-options-driven-volatility-vix-정보">섹션 1.3: Options-Driven Volatility &amp; VIX 정보</a>
+  <ul class="collapse">
+  <li><a href="#fleming-et-al.-1995-whaley-2000-vix-related-core-studies" id="toc-fleming-et-al.-1995-whaley-2000-vix-related-core-studies" class="nav-link" data-scroll-target="#fleming-et-al.-1995-whaley-2000-vix-related-core-studies">7. <strong>Fleming et al.&nbsp;(1995); Whaley (2000); VIX-Related Core Studies</strong></a></li>
+  <li><a href="#carr-wu-zhang-2019-using-machine-learning-to-predict-realized-variance" id="toc-carr-wu-zhang-2019-using-machine-learning-to-predict-realized-variance" class="nav-link" data-scroll-target="#carr-wu-zhang-2019-using-machine-learning-to-predict-realized-variance">8. <strong>Carr, Wu &amp; Zhang (2019): “Using Machine Learning to Predict Realized Variance”</strong></a></li>
+  </ul></li>
+  <li><a href="#섹션-1.4-cross-market-spillover-sentiment" id="toc-섹션-1.4-cross-market-spillover-sentiment" class="nav-link" data-scroll-target="#섹션-1.4-cross-market-spillover-sentiment">섹션 1.4: Cross-Market Spillover &amp; Sentiment</a>
+  <ul class="collapse">
+  <li><a href="#volatility-spillovers-contagion-studies" id="toc-volatility-spillovers-contagion-studies" class="nav-link" data-scroll-target="#volatility-spillovers-contagion-studies">9. <strong>Volatility Spillovers &amp; Contagion Studies</strong></a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#부.-컴퓨터-공학-머신러닝-계열-논문-part-2.-computer-science-machine-learning" id="toc-부.-컴퓨터-공학-머신러닝-계열-논문-part-2.-computer-science-machine-learning" class="nav-link" data-scroll-target="#부.-컴퓨터-공학-머신러닝-계열-논문-part-2.-computer-science-machine-learning">2부. 컴퓨터 공학 / 머신러닝 계열 논문 (PART 2. COMPUTER SCIENCE / MACHINE LEARNING)</a>
+  <ul class="collapse">
+  <li><a href="#섹션-2.1-순수-ml-based-볼래틸리티-예측" id="toc-섹션-2.1-순수-ml-based-볼래틸리티-예측" class="nav-link" data-scroll-target="#섹션-2.1-순수-ml-based-볼래틸리티-예측">섹션 2.1: 순수 ML-based 볼래틸리티 예측</a>
+  <ul class="collapse">
+  <li><a href="#carr-wu-zhang-2019-cs-관점" id="toc-carr-wu-zhang-2019-cs-관점" class="nav-link" data-scroll-target="#carr-wu-zhang-2019-cs-관점">10. <strong>Carr, Wu &amp; Zhang (2019) – CS 관점</strong></a></li>
+  <li><a href="#volatility-forecasting-with-machine-learning-and-intraday-commonality" id="toc-volatility-forecasting-with-machine-learning-and-intraday-commonality" class="nav-link" data-scroll-target="#volatility-forecasting-with-machine-learning-and-intraday-commonality">11. <strong>“Volatility forecasting with machine learning and intraday commonality”</strong></a></li>
+  <li><a href="#volatility-forecasting-and-volatility-timing-strategies-a-machine-learning-approach-2024" id="toc-volatility-forecasting-and-volatility-timing-strategies-a-machine-learning-approach-2024" class="nav-link" data-scroll-target="#volatility-forecasting-and-volatility-timing-strategies-a-machine-learning-approach-2024">12. <strong>“Volatility forecasting and volatility-timing strategies: A machine learning approach”</strong> (2024)</a></li>
+  <li><a href="#deepvol-volatility-forecasting-from-high-frequency-data-with-dilated-causal-convolutions-2024" id="toc-deepvol-volatility-forecasting-from-high-frequency-data-with-dilated-causal-convolutions-2024" class="nav-link" data-scroll-target="#deepvol-volatility-forecasting-from-high-frequency-data-with-dilated-causal-convolutions-2024">13. <strong>DeepVol: “Volatility Forecasting from High-Frequency Data with Dilated Causal Convolutions”</strong> (2024)</a></li>
+  <li><a href="#multi-transformer-a-new-neural-network-based-architecture-for-forecasting-sp-volatility-2021" id="toc-multi-transformer-a-new-neural-network-based-architecture-for-forecasting-sp-volatility-2021" class="nav-link" data-scroll-target="#multi-transformer-a-new-neural-network-based-architecture-for-forecasting-sp-volatility-2021">14. <strong>“Multi-Transformer: A New Neural Network-Based Architecture for Forecasting S&amp;P Volatility”</strong> (2021)</a></li>
+  <li><a href="#the-hybrid-forecast-of-sp-500-volatility-ensembled-from-vix-garch-and-lstm-2024" id="toc-the-hybrid-forecast-of-sp-500-volatility-ensembled-from-vix-garch-and-lstm-2024" class="nav-link" data-scroll-target="#the-hybrid-forecast-of-sp-500-volatility-ensembled-from-vix-garch-and-lstm-2024">15. <strong>The Hybrid Forecast of S&amp;P 500 Volatility ensembled from VIX, GARCH and LSTM</strong> (2024)</a></li>
+  </ul></li>
+  <li><a href="#섹션-2.2-look-ahead-bias-validation" id="toc-섹션-2.2-look-ahead-bias-validation" class="nav-link" data-scroll-target="#섹션-2.2-look-ahead-bias-validation">섹션 2.2: Look-Ahead Bias &amp; Validation</a>
+  <ul class="collapse">
+  <li><a href="#a-standardized-benchmark-of-look-ahead-bias-in-point-in-time-financial-ml-2026" id="toc-a-standardized-benchmark-of-look-ahead-bias-in-point-in-time-financial-ml-2026" class="nav-link" data-scroll-target="#a-standardized-benchmark-of-look-ahead-bias-in-point-in-time-financial-ml-2026">16. <strong>“a Standardized Benchmark of Look-ahead Bias in Point-in-Time Financial ML”</strong> (2026)</a></li>
+  <li><a href="#an-interpretable-machine-learning-workflow-with-an-application-to-systemic-risk-ijcb" id="toc-an-interpretable-machine-learning-workflow-with-an-application-to-systemic-risk-ijcb" class="nav-link" data-scroll-target="#an-interpretable-machine-learning-workflow-with-an-application-to-systemic-risk-ijcb">17. <strong>“An Interpretable Machine Learning Workflow with an Application to Systemic Risk”</strong> [IJCB]</a></li>
+  <li><a href="#deep-learning-for-financial-forecasting-a-review-of-recent-advances-2025" id="toc-deep-learning-for-financial-forecasting-a-review-of-recent-advances-2025" class="nav-link" data-scroll-target="#deep-learning-for-financial-forecasting-a-review-of-recent-advances-2025">18. <strong>“Deep learning for financial forecasting: A review of recent advances”</strong> (2025)</a></li>
+  </ul></li>
+  <li><a href="#섹션-2.3-cross-asset-multi-task-learning" id="toc-섹션-2.3-cross-asset-multi-task-learning" class="nav-link" data-scroll-target="#섹션-2.3-cross-asset-multi-task-learning">섹션 2.3: Cross-Asset / Multi-Task Learning</a>
+  <ul class="collapse">
+  <li><a href="#deep-learning-models-for-forecasting-financial-risk-premia-and-their-interpretations-2023" id="toc-deep-learning-models-for-forecasting-financial-risk-premia-and-their-interpretations-2023" class="nav-link" data-scroll-target="#deep-learning-models-for-forecasting-financial-risk-premia-and-their-interpretations-2023">19. <strong>“Deep-learning models for forecasting financial risk premia and their interpretations”</strong> (2023)</a></li>
+  <li><a href="#dynamic-asset-allocation-with-asset-specific-regime-forecasts-2024" id="toc-dynamic-asset-allocation-with-asset-specific-regime-forecasts-2024" class="nav-link" data-scroll-target="#dynamic-asset-allocation-with-asset-specific-regime-forecasts-2024">20. <strong>“Dynamic Asset Allocation with Asset-Specific Regime Forecasts”</strong> (2024)</a></li>
+  </ul></li>
+  <li><a href="#섹션-2.4-vix-옵션-하이브리드-시계열-모델" id="toc-섹션-2.4-vix-옵션-하이브리드-시계열-모델" class="nav-link" data-scroll-target="#섹션-2.4-vix-옵션-하이브리드-시계열-모델">섹션 2.4: VIX, 옵션, 하이브리드 시계열 모델</a>
+  <ul class="collapse">
+  <li><a href="#from-garch-to-neural-network-for-volatility-forecast-2024" id="toc-from-garch-to-neural-network-for-volatility-forecast-2024" class="nav-link" data-scroll-target="#from-garch-to-neural-network-for-volatility-forecast-2024">21. <strong>“From GARCH to Neural Network for Volatility Forecast”</strong> (2024)</a></li>
+  <li><a href="#forecasting-vix-using-bayesian-deep-learning-2024" id="toc-forecasting-vix-using-bayesian-deep-learning-2024" class="nav-link" data-scroll-target="#forecasting-vix-using-bayesian-deep-learning-2024">22. <strong>“Forecasting VIX using Bayesian Deep Learning”</strong> (2024)</a></li>
+  <li><a href="#options-driven-volatility-forecasting-2025" id="toc-options-driven-volatility-forecasting-2025" class="nav-link" data-scroll-target="#options-driven-volatility-forecasting-2025">23. <strong>“Options-driven Volatility Forecasting”</strong> (2025)</a></li>
+  <li><a href="#predicting-option-implied-volatility-features-using-machine-learning-미공개" id="toc-predicting-option-implied-volatility-features-using-machine-learning-미공개" class="nav-link" data-scroll-target="#predicting-option-implied-volatility-features-using-machine-learning-미공개">24. <strong>“Predicting option implied volatility features using machine learning”</strong> (미공개)</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#part-3.-당신-연구의-출판-전략-최종-권장" id="toc-part-3.-당신-연구의-출판-전략-최종-권장" class="nav-link" data-scroll-target="#part-3.-당신-연구의-출판-전략-최종-권장">PART 3. 당신 연구의 출판 전략 (최종 권장)</a>
+  <ul class="collapse">
+  <li><a href="#cs-journal-출판-경로-3-4개월" id="toc-cs-journal-출판-경로-3-4개월" class="nav-link" data-scroll-target="#cs-journal-출판-경로-3-4개월">3.1 CS Journal 출판 경로 (3-4개월)</a>
+  <ul class="collapse">
+  <li><a href="#추천-저널" id="toc-추천-저널" class="nav-link" data-scroll-target="#추천-저널">추천 저널</a></li>
+  <li><a href="#필수-수정사항" id="toc-필수-수정사항" class="nav-link" data-scroll-target="#필수-수정사항">필수 수정사항</a></li>
+  <li><a href="#초록-cs-버전" id="toc-초록-cs-버전" class="nav-link" data-scroll-target="#초록-cs-버전">초록 (CS 버전)</a></li>
+  </ul></li>
+  <li><a href="#금융-journal-출판-경로-6-8개월" id="toc-금융-journal-출판-경로-6-8개월" class="nav-link" data-scroll-target="#금융-journal-출판-경로-6-8개월">3.2 금융 Journal 출판 경로 (6-8개월)</a>
+  <ul class="collapse">
+  <li><a href="#추천-저널-impact-factor-순" id="toc-추천-저널-impact-factor-순" class="nav-link" data-scroll-target="#추천-저널-impact-factor-순">추천 저널 (Impact Factor 순)</a></li>
+  <li><a href="#필수-작업" id="toc-필수-작업" class="nav-link" data-scroll-target="#필수-작업">필수 작업</a></li>
+  <li><a href="#초록-금융-버전" id="toc-초록-금융-버전" class="nav-link" data-scroll-target="#초록-금융-버전">초록 (금융 버전)</a></li>
+  </ul></li>
+  <li><a href="#최종-선택-권장사항" id="toc-최종-선택-권장사항" class="nav-link" data-scroll-target="#최종-선택-권장사항">3.3 최종 선택 권장사항</a>
+  <ul class="collapse">
+  <li><a href="#현재-상황-평가" id="toc-현재-상황-평가" class="nav-link" data-scroll-target="#현재-상황-평가">현재 상황 평가</a></li>
+  <li><a href="#최종-판단" id="toc-최종-판단" class="nav-link" data-scroll-target="#최종-판단">최종 판단</a></li>
+  <li><a href="#세부-액션-플랜-30일" id="toc-세부-액션-플랜-30일" class="nav-link" data-scroll-target="#세부-액션-플랜-30일">세부 액션 플랜 (30일)</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#appendix-논문-quick-reference-table" id="toc-appendix-논문-quick-reference-table" class="nav-link" data-scroll-target="#appendix-논문-quick-reference-table">APPENDIX: 논문 Quick Reference Table</a>
+  <ul class="collapse">
+  <li><a href="#금융-관련-논문-요약" id="toc-금융-관련-논문-요약" class="nav-link" data-scroll-target="#금융-관련-논문-요약">금융 관련 논문 요약</a></li>
+  <li><a href="#csml-관련-논문-요약" id="toc-csml-관련-논문-요약" class="nav-link" data-scroll-target="#csml-관련-논문-요약">CS/ML 관련 논문 요약</a></li>
+  </ul></li>
+  <li><a href="#final-summary" id="toc-final-summary" class="nav-link" data-scroll-target="#final-summary">FINAL SUMMARY</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Cross-Asset VRP Reading List</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> 코드</button></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="cross-asset-vrp-prediction-연구" class="level1">
+<h1>Cross-Asset VRP Prediction 연구</h1>
+<section id="컴퓨터사이언스-vs-금융학-논문-리딩-리스트-분석" class="level2">
+<h2 class="anchored" data-anchor-id="컴퓨터사이언스-vs-금융학-논문-리딩-리스트-분석">컴퓨터사이언스 vs 금융학 논문 리딩 리스트 &amp; 분석</h2>
+<section id="작성일-2026-01-22" class="level3">
+<h3 class="anchored" data-anchor-id="작성일-2026-01-22">작성일: 2026-01-22</h3>
+<hr>
+</section>
+</section>
+<section id="핵심-요약-executive-summary" class="level2">
+<h2 class="anchored" data-anchor-id="핵심-요약-executive-summary">핵심 요약 (Executive Summary)</h2>
+<p>본 문서는 당신의 “Cross-Asset VIX-RV Basis 기반 Volatility Risk Premium Prediction” 연구를 다음 두 분야에 출판하기 위한 <strong>완전한 논문 맵핑</strong>을 제공합니다:</p>
+<ol type="1">
+<li><strong>Computer Science / Machine Learning</strong> (KDD, ICML, NeurIPS)</li>
+<li><strong>Finance / Econometrics</strong> (JFE, JFQA, JBANKF)</li>
+</ol>
+</section>
+<section id="각-논문마다-핵심-내용과-방법론-본-연구와의-직접적-연결점-논문의-독창성novelty과-한계-그리고-인용-및-포지셔닝-방법을-정리했습니다." class="level2">
+<h2 class="anchored" data-anchor-id="각-논문마다-핵심-내용과-방법론-본-연구와의-직접적-연결점-논문의-독창성novelty과-한계-그리고-인용-및-포지셔닝-방법을-정리했습니다.">각 논문마다 핵심 내용과 방법론, 본 연구와의 직접적 연결점, 논문의 독창성(Novelty)과 한계, 그리고 인용 및 포지셔닝 방법을 정리했습니다.</h2>
+</section>
+</section>
+<section id="부.-금융-계량경제-계열-논문-part-1.-finance-econometrics" class="level1">
+<h1>1부. 금융 / 계량경제 계열 논문 (PART 1. FINANCE / ECONOMETRICS)</h1>
+<section id="섹션-1.1-variance-risk-premium-이론-및-정의의-기초" class="level2">
+<h2 class="anchored" data-anchor-id="섹션-1.1-variance-risk-premium-이론-및-정의의-기초">섹션 1.1: Variance Risk Premium 이론 및 정의의 기초</h2>
+<section id="carr-wu-2009-variance-risk-premia" class="level3">
+<h3 class="anchored" data-anchor-id="carr-wu-2009-variance-risk-premia">1. <strong>Carr &amp; Wu (2009): “Variance Risk Premia”</strong></h3>
+<ul>
+<li><strong>출판</strong>: Review of Financial Studies (RFS) / Working Paper</li>
+<li><strong>저자</strong>: Peter Carr (NYU), Liuren Wu (Baruch)</li>
+<li><strong>링크</strong>: https://engineering.nyu.edu/sites/default/files/2020-05/P0639_ZZ-JOI_0.pdf</li>
+</ul>
+<section id="핵심-내용" class="level4">
+<h4 class="anchored" data-anchor-id="핵심-내용">핵심 내용</h4>
+<ul>
+<li><strong>표준 VRP 정의</strong>: <span class="math display">\[\text{VRP}_t = \text{Var}^Q_t(r_{t+h}) - E^P_t[\text{Var}(r_{t+h})]\]</span> 여기서 Q = risk-neutral measure, P = physical measure</li>
+<li><strong>Variance swap</strong> 포트폴리오를 통한 risk-neutral variance 추정</li>
+<li>VRP가 <strong>positive risk premium</strong>임을 보임 (큰 volatility spike 때 손실 보상)</li>
+</ul>
+</section>
+<section id="당신-연구와의-연결" class="level4">
+<h4 class="anchored" data-anchor-id="당신-연구와의-연결">당신 연구와의 연결</h4>
+<ul>
+<li>당신의 타겟: <code>VRP = VIX - RV</code>는 이 논문의 <strong>간단화된 버전</strong></li>
+<li><strong>문제점</strong>: 당신은 <code>VIX</code>를 피처에도, 타겟에도 포함 → <strong>identity mapping</strong></li>
+<li><strong>개선 방안</strong>:
+<ul>
+<li><code>E^P_t[RV_{t+h}]</code> (RV 예측)을 별도 학습</li>
+<li><code>VRP = VIX - E^P_t[RV_{t+h}]</code>로 재정의</li>
+</ul></li>
+</ul>
+</section>
+<section id="인용-방법-금융-논문-제출-시" class="level4">
+<h4 class="anchored" data-anchor-id="인용-방법-금융-논문-제출-시">인용 방법 (금융 논문 제출 시)</h4>
+<blockquote class="blockquote">
+<p>“Following Carr and Wu (2009)’s standard definition of variance risk premium, we decompose the observed VIX into physical expectations and risk premium components…”</p>
+</blockquote>
+</section>
+<section id="novelty-평가" class="level4">
+<h4 class="anchored" data-anchor-id="novelty-평가">Novelty 평가</h4>
+<ul>
+<li><strong>기여도</strong>: Foundational; VRP의 “canonical definition”</li>
+<li><strong>한계</strong>: Single-asset (SPX) + 30-day horizon만 다룸</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="bekaert-hoerova-2014-the-vix-the-variance-premium-and-stock-market-volatility" class="level3">
+<h3 class="anchored" data-anchor-id="bekaert-hoerova-2014-the-vix-the-variance-premium-and-stock-market-volatility">2. <strong>Bekaert &amp; Hoerova (2014): “The VIX, the Variance Premium and Stock Market Volatility”</strong></h3>
+<ul>
+<li><strong>출판</strong>: ECB Working Paper (2014) / Journal of Financial Economics 계열</li>
+<li><strong>저자</strong>: Geert Bekaert (Columbia), Marco Hoerova (ECB)</li>
+<li><strong>링크</strong>: https://www.ecb.europa.eu/pub/pdf/scpwps/ecbwp1675.pdf</li>
+</ul>
+<section id="핵심-내용-1" class="level4">
+<h4 class="anchored" data-anchor-id="핵심-내용-1">핵심 내용</h4>
+<ul>
+<li><strong>VIX² 분해</strong>: <span class="math display">\[\text{VIX}_t^2 = E^P_t[\text{RV}_{t+22d}] + \text{VRP}_t\]</span></li>
+<li>VRP는 <strong>주가 수익률을 예측</strong> (forward-looking)</li>
+<li>조건부 분산 (<code>E^P[RV]</code>)은 <strong>경기순환과 금융불안 지수</strong>로 사용</li>
+</ul>
+</section>
+<section id="당신-연구와의-연결-1" class="level4">
+<h4 class="anchored" data-anchor-id="당신-연구와의-연결-1">당신 연구와의 연결</h4>
+<ul>
+<li><strong>핵심 교훈</strong>: <code>VIX 자체</code>가 아니라, <strong>“VIX를 분해하여 두 요소를 분리”</strong>하는 게 중요</li>
+<li>당신이 발견한 “VIX 평균회귀가 거의 모든 예측력”은, <strong>VRP vs 물리적 분산을 분리하지 않았기 때문</strong>일 가능성</li>
+<li><strong>Cross-Asset 확장 가능성</strong>: 자산별로 <code>E^P[RV_{t+h}]</code>와 VRP를 분리</li>
+</ul>
+</section>
+<section id="인용-방법" class="level4">
+<h4 class="anchored" data-anchor-id="인용-방법">인용 방법</h4>
+<blockquote class="blockquote">
+<p>“Building on Bekaert and Hoerova (2014), we extend the VIX decomposition framework to multiple asset classes, separating physical expectations from volatility risk premium components…”</p>
+</blockquote>
+<hr>
+</section>
+</section>
+<section id="hansen-huang-tong-wang-2021-realized-garch-cboe-vix-and-the-volatility-risk-premium" class="level3">
+<h3 class="anchored" data-anchor-id="hansen-huang-tong-wang-2021-realized-garch-cboe-vix-and-the-volatility-risk-premium">3. <strong>Hansen, Huang, Tong &amp; Wang (2021): “Realized GARCH, CBOE VIX, and the Volatility Risk Premium”</strong></h3>
+<ul>
+<li><strong>출판</strong>: Journal of Financial Econometrics (JFE) 2024 / ArXiv 2021</li>
+<li><strong>저자</strong>: Peter Reinhard Hansen (Copenhagen Business School/UNC), Zhuo Huang (PKU)</li>
+<li><strong>링크</strong>: https://arxiv.org/pdf/2112.05302.pdf</li>
+</ul>
+<section id="핵심-내용-2" class="level4">
+<h4 class="anchored" data-anchor-id="핵심-내용-2">핵심 내용</h4>
+<ul>
+<li><p><strong>Realized GARCH 모형</strong>: 고빈도 realized volatility(RV)를 measurement equation에 포함 <span class="math display">\[\text{log } h_{t+1} = \omega + \beta \log h_t + \tau(z_t) + \gamma \sigma u_t\]</span> <span class="math display">\[\text{log } x_t = \kappa + \phi \log h_t + \delta(z_t) + \sigma u_t\]</span></p>
+<ul>
+<li>Dual-shock structure (return shock + volatility shock)로 <strong>물리적·위험중립 측에서 서로 다른 역학</strong> 설명</li>
+</ul></li>
+<li><p><strong>폐형식 VIX/VRP 공식</strong> 유도: <span class="math display">\[\text{VIX}_t^{RG} = 100 \sqrt{\frac{252}{22} \left( h_{t+1} + \sum_{k=2}^{22} \left( \prod_{i=0}^{k-2} F_i \right) h_t^{\beta^{k-1}} \right)}\]</span></p></li>
+<li><p><strong>VRP 분해</strong> (log-scale):</p>
+<ul>
+<li>주가 리스크 프리미엄 부분 (<code>-\tau_1\lambda + \tau_2\lambda^2</code>): 2.2%</li>
+<li>변동성 리스크 부분 (<code>-\gamma\sigma\xi</code>): <strong>97.8%</strong> ← <strong>volatility shock이 VRP의 대부분 설명</strong></li>
+</ul></li>
+<li><p><strong>경험적 결과</strong>: Conventional GARCH 대비 VIX/VRP 예측성능 현저히 우수 (in/out-of-sample)</p></li>
+</ul>
+</section>
+<section id="당신-연구와의-연결-2" class="level4">
+<h4 class="anchored" data-anchor-id="당신-연구와의-연결-2">당신 연구와의 연결</h4>
+<ul>
+<li><strong>모범 사례</strong>: 당신의 Cross-Asset VRP도 이 프레임워크 안에 올려놓을 수 있음</li>
+<li><strong>데이터</strong>: 고빈도 RV 도입이 필수 (현재 일간 Close-to-Close는 noisy)</li>
+<li><strong>타겟 재정의</strong>:
+<ul>
+<li>기존: <code>VIX - RV_{t+h}</code> → <strong>identity mapping 문제</strong></li>
+<li>개선: <code>VIX - E_t[RV_{t+h}]</code> (Realized GARCH로 <code>E_t[RV_{t+h}]</code> 예측)</li>
+</ul></li>
+</ul>
+</section>
+<section id="인용-방법-1" class="level4">
+<h4 class="anchored" data-anchor-id="인용-방법-1">인용 방법</h4>
+<blockquote class="blockquote">
+<p>“Following Hansen et al.&nbsp;(2021), we adopt a Realized GARCH framework with high-frequency data to coherently model P and Q measure dynamics, thereby enabling proper VRP definition and cross-asset spillover analysis…”</p>
+</blockquote>
+</section>
+<section id="novelty-평가-1" class="level4">
+<h4 class="anchored" data-anchor-id="novelty-평가-1">Novelty 평가</h4>
+<ul>
+<li><strong>기여도</strong>: VRP 측정의 “새로운 표준”; Realized volatility의 중요성 강조</li>
+<li><strong>한계</strong>: Single-asset (SPX) only; Cross-asset extension 안 함</li>
+</ul>
+<hr>
+</section>
+</section>
+</section>
+<section id="섹션-1.2-cross-asset-multi-asset-vrp" class="level2">
+<h2 class="anchored" data-anchor-id="섹션-1.2-cross-asset-multi-asset-vrp">섹션 1.2: Cross-Asset &amp; Multi-Asset VRP</h2>
+<section id="heston-et-al.-2023-exploring-the-variance-risk-premium-across-assets" class="level3">
+<h3 class="anchored" data-anchor-id="heston-et-al.-2023-exploring-the-variance-risk-premium-across-assets">4. <strong>Heston et al.&nbsp;(2023): “Exploring the Variance Risk Premium Across Assets”</strong></h3>
+<ul>
+<li><strong>출판</strong>: AEA Conference 2024 / SSRN Working Paper</li>
+<li><strong>저자</strong>: Heston 외 공동</li>
+<li><strong>링크</strong>: https://www.aeaweb.org/conference/2024/program/paper/hiTeT8SE</li>
+</ul>
+<section id="핵심-내용-3" class="level4">
+<h4 class="anchored" data-anchor-id="핵심-내용-3">핵심 내용</h4>
+<ul>
+<li><strong>20개 선물</strong> (주식, 국채, 통화, 원자재)에 대해 <strong>옵션 기반 variance portfolios</strong> 구성</li>
+<li><strong>자산별 VRP 측정</strong> 및 <strong>구조 분석</strong>:
+<ul>
+<li>VRP가 모든 자산에서 발생</li>
+<li>하지만 수준(level)·변동성·예측력이 <strong>자산별로 이질적</strong> (heterogeneous)</li>
+<li>S&amp;P 500 VRP: 평균이 거의 0에 가까움 (but 변동)</li>
+</ul></li>
+</ul>
+</section>
+<section id="당신-연구와의-연결-3" class="level4">
+<h4 class="anchored" data-anchor-id="당신-연구와의-연결-3">당신 연구와의 연결</h4>
+<ul>
+<li><strong>직접 비교 대상</strong>: 당신의 Cross-Asset VRP 접근과 가장 유사한 논문</li>
+<li><strong>차이점</strong>:
+<ul>
+<li>Heston: 각 자산별 <strong>고유 옵션 데이터</strong> 사용 (GVZ for gold, OVX for crude, etc.)</li>
+<li>당신: <strong>Global VIX + Cross-Asset RV</strong> (저비용, 옵션-sparse 환경)</li>
+</ul></li>
+<li><strong>당신의 포지셔닝</strong>: &gt; “Unlike Heston et al.&nbsp;(2023) who use asset-specific implied volatility indices, we propose a more economical approach leveraging global VIX and cross-asset realized volatility measures, making VRP prediction accessible for broader asset classes and real-time risk management.”</li>
+</ul>
+</section>
+<section id="novelty-평가-2" class="level4">
+<h4 class="anchored" data-anchor-id="novelty-평가-2">Novelty 평가</h4>
+<ul>
+<li><strong>기여도</strong>: “VRP는 cross-asset heterogeneous”의 첫 강력한 증거</li>
+<li><strong>한계</strong>: 기술적 기여(방법론)는 limited; 주로 실증 분석</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="ornelas-et-al.-2018-volatility-risk-premia-and-future-commodity-returns" class="level3">
+<h3 class="anchored" data-anchor-id="ornelas-et-al.-2018-volatility-risk-premia-and-future-commodity-returns">5. <strong>Ornelas et al.&nbsp;(2018): “Volatility risk premia and future commodity returns”</strong></h3>
+<ul>
+<li><strong>출판</strong>: Journal of Finance &amp; Quantitative Analysis (JFQA) 계열 / BIS Working Paper</li>
+<li><strong>저자</strong>: José Ornelas 외</li>
+<li><strong>링크</strong>: https://www.bis.org/publ/work619.pdf</li>
+</ul>
+<section id="핵심-내용-4" class="level4">
+<h4 class="anchored" data-anchor-id="핵심-내용-4">핵심 내용</h4>
+<ul>
+<li><strong>원자재(commodity) VRP</strong>가 <strong>미래 수익률</strong> 예측
+<ul>
+<li>금(gold): VRP가 Gold 수익률 예측</li>
+<li>원유(crude): VRP가 Crude 수익률 예측</li>
+<li>통화: 유사한 spillover 관찰</li>
+</ul></li>
+<li><strong>Spillover</strong>: 한 자산의 VRP → 다른 자산의 수익률 예측 가능
+<ul>
+<li>예: VIX (global risk proxy) → Commodity VRP 예측</li>
+</ul></li>
+</ul>
+</section>
+<section id="당신-연구와의-연결-4" class="level4">
+<h4 class="anchored" data-anchor-id="당신-연구와의-연결-4">당신 연구와의 연결</h4>
+<ul>
+<li><strong>핵심 발견과 부합</strong>: 당신의 “VIX → 금/채권 VRP 예측” 결과와 <strong>동일한 경제 로직</strong></li>
+<li><strong>이론적 근거</strong>: Spillover는 <strong>“global risk factor”</strong> 개념으로 설명 가능</li>
+<li><strong>논문 위치 설정</strong>: &gt; “Our cross-asset VRP prediction framework is motivated by the spillover effects documented in Ornelas et al.&nbsp;(2018), extending their commodity-focus analysis to equities, fixed income, and emerging markets through a unified VIX-based factor model…”</li>
+</ul>
+</section>
+<section id="novelty-평가-3" class="level4">
+<h4 class="anchored" data-anchor-id="novelty-평가-3">Novelty 평가</h4>
+<ul>
+<li><strong>기여도</strong>: “Commodity VRP → Returns” spillover의 첫 증거</li>
+<li><strong>한계</strong>: 3-5개 상품만 다룸; ML 예측 미포함</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="czech-thesis-2021-volatility-risk-premium-across-multiple-asset-classes" class="level3">
+<h3 class="anchored" data-anchor-id="czech-thesis-2021-volatility-risk-premium-across-multiple-asset-classes">6. <strong>Czech Thesis (2021): “Volatility Risk Premium Across Multiple Asset Classes”</strong></h3>
+<ul>
+<li><strong>출판</strong>: Charles University PhD Thesis</li>
+<li><strong>저자</strong>: 미상 (인용 출처: 당신 문헌 참고)</li>
+<li><strong>링크</strong>: https://dspace.cuni.cz/bitstream/handle/20.500.11956/191263/120472408.pdf</li>
+</ul>
+<section id="핵심-내용-5" class="level4">
+<h4 class="anchored" data-anchor-id="핵심-내용-5">핵심 내용</h4>
+<ul>
+<li><strong>18개 시장</strong>에서 VRP 측정</li>
+<li><strong>RIV 모델</strong> (Risk-adjusted Implied Volatility): IV를 조정해 더 나은 vol 예측</li>
+<li>핵심: <strong>“IV vs RV 비율”</strong>이 단순 IV보다 예측력 우수</li>
+</ul>
+</section>
+<section id="당신-연구와의-연결-5" class="level4">
+<h4 class="anchored" data-anchor-id="당신-연구와의-연결-5">당신 연구와의 연결</h4>
+<ul>
+<li><strong>CAVB의 정당성</strong>: 당신의 <code>CAVB = VIX - RV</code> 은, 이 논문의 <strong>“IV vs RV 비율 정규화”</strong> 개념과 같은 맥락</li>
+<li><strong>포지셔닝</strong>: &gt; “Building on the risk-adjusted implied volatility framework proposed in the thesis literature, we introduce Cross-Asset Volatility Basis (CAVB) as a normalized IV-RV difference that captures global risk premia…”</li>
+</ul>
+<hr>
+</section>
+</section>
+</section>
+<section id="섹션-1.3-options-driven-volatility-vix-정보" class="level2">
+<h2 class="anchored" data-anchor-id="섹션-1.3-options-driven-volatility-vix-정보">섹션 1.3: Options-Driven Volatility &amp; VIX 정보</h2>
+<section id="fleming-et-al.-1995-whaley-2000-vix-related-core-studies" class="level3">
+<h3 class="anchored" data-anchor-id="fleming-et-al.-1995-whaley-2000-vix-related-core-studies">7. <strong>Fleming et al.&nbsp;(1995); Whaley (2000); VIX-Related Core Studies</strong></h3>
+<ul>
+<li><strong>Fleming et al.&nbsp;(1995)</strong>: “Predicting stock market volatility: a new measure” (JPE)</li>
+<li><strong>Whaley (2000)</strong>: “The investor fear gauge” (JPM)</li>
+<li><strong>Todorov &amp; Bollerslev (2010)</strong>: “Volatility spillovers across equity markets”</li>
+</ul>
+<section id="핵심-내용-6" class="level4">
+<h4 class="anchored" data-anchor-id="핵심-내용-6">핵심 내용</h4>
+<ul>
+<li>VIX = <strong>“fear gauge”</strong> (공포 지수)</li>
+<li>VIX는 <strong>미래 RV 예측에 정보력 있음</strong> (하지만 완벽하지 않음)</li>
+<li><strong>VIX term structure</strong> (3M, 9D VIX 등)이 시장 상태 신호</li>
+</ul>
+</section>
+<section id="당신-연구와의-연결-6" class="level4">
+<h4 class="anchored" data-anchor-id="당신-연구와의-연결-6">당신 연구와의 연결</h4>
+<ul>
+<li><strong>당신의 Sentiment Features</strong>: SKEW, VIX term spread, VIX9D는 이 라인의 <strong>정량화</strong></li>
+<li><strong>VIX spillover</strong>: 당신이 다룬 “Global Risk” 개념의 이론적 근거</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="carr-wu-zhang-2019-using-machine-learning-to-predict-realized-variance" class="level3">
+<h3 class="anchored" data-anchor-id="carr-wu-zhang-2019-using-machine-learning-to-predict-realized-variance">8. <strong>Carr, Wu &amp; Zhang (2019): “Using Machine Learning to Predict Realized Variance”</strong></h3>
+<ul>
+<li><strong>출판</strong>: ArXiv 2019</li>
+<li><strong>저자</strong>: Peter Carr (NYU), Liuren Wu (Baruch), Zhibai Zhang</li>
+<li><strong>링크</strong>: https://arxiv.org/pdf/1909.10035.pdf</li>
+</ul>
+<section id="핵심-내용-7" class="level4">
+<h4 class="anchored" data-anchor-id="핵심-내용-7">핵심 내용</h4>
+<ul>
+<li><p><strong>ML을 통한 RV 예측</strong>: Ridge, FNN, Random Forest 등으로 realized variance 예측</p></li>
+<li><p><strong>핵심 발견</strong>:</p>
+<ul>
+<li><strong>Regression I</strong> (직접 RV 예측) vs <strong>Regression II</strong> (VIX² - RV 차이 예측)</li>
+<li><strong>Regression II (VRP 예측)이 훨씬 우수</strong> ← 이미 VIX가 좋은 baseline이므로, <strong>편차만 ML로 포착</strong></li>
+</ul></li>
+<li><p><strong>최적 접근</strong>: <span class="math display">\[RV = VIX^2 + f(\text{option prices})\]</span> 즉, <strong>VRP 부분만 ML로 모델링</strong></p></li>
+<li><p>모델: Ridge (R² 0.39), FNN with ReLU (R² 0.39)로 충분; 더 복잡한 모델은 이득 없음</p></li>
+</ul>
+</section>
+<section id="당학-연구와의-연결" class="level4">
+<h4 class="anchored" data-anchor-id="당학-연구와의-연결">당학 연구와의 연결</h4>
+<ul>
+<li><strong>가장 직접적인 선례</strong>: 이 논문의 “Cross-Asset 확장판”이 당신 연구</li>
+<li><strong>타겟 재정의의 정당성</strong>:
+<ul>
+<li>Carr et al.: <code>RV = VIX² + (ML predicted deviation)</code></li>
+<li>당신: <code>RV_{Asset,t+h} = VIX_t + (ML predicted CAVB/Sentiment factors)</code></li>
+</ul></li>
+<li><strong>개선 아이디어</strong>:
+<ul>
+<li>당신도 <strong>“VIX + ML-predicted deviation” 구조</strong>로 명시적 target을 재정의하면, identity mapping 문제 해결</li>
+</ul></li>
+</ul>
+</section>
+<section id="인용-방법-금융-cs-모두-가능" class="level4">
+<h4 class="anchored" data-anchor-id="인용-방법-금융-cs-모두-가능">인용 방법 (금융 + CS 모두 가능)</h4>
+<blockquote class="blockquote">
+<p>“Following the successful application of machine learning to variance prediction in Carr et al.&nbsp;(2019), we extend their framework to the cross-asset setting, leveraging both global VIX levels and asset-specific realized volatility basis as dual channels for volatility risk premium forecasting.”</p>
+</blockquote>
+</section>
+<section id="novelty-평가-4" class="level4">
+<h4 class="anchored" data-anchor-id="novelty-평가-4">Novelty 평가</h4>
+<ul>
+<li><strong>기여도</strong>: “VRP deviation 예측”이 direct RV 예측보다 낫다는 첫 증거</li>
+<li><strong>한계</strong>: Single-asset; option data heavy; Cross-asset 미포함</li>
+</ul>
+<hr>
+</section>
+</section>
+</section>
+<section id="섹션-1.4-cross-market-spillover-sentiment" class="level2">
+<h2 class="anchored" data-anchor-id="섹션-1.4-cross-market-spillover-sentiment">섹션 1.4: Cross-Market Spillover &amp; Sentiment</h2>
+<section id="volatility-spillovers-contagion-studies" class="level3">
+<h3 class="anchored" data-anchor-id="volatility-spillovers-contagion-studies">9. <strong>Volatility Spillovers &amp; Contagion Studies</strong></h3>
+<ul>
+<li><strong>Ang &amp; Longstaff (2013)</strong>: Systemic risk과 volatility spillover</li>
+<li><strong>Volatility spillovers during normal and high volatility states</strong> [Journal reference]</li>
+<li><strong>Cross-market spillovers with ‘volatility surprise’</strong> [Financial Markets track]</li>
+</ul>
+<section id="핵심-내용-8" class="level4">
+<h4 class="anchored" data-anchor-id="핵심-내용-8">핵심 내용</h4>
+<ul>
+<li>Volatility spillover는 <strong>regime-dependent</strong> (정상 vs 스트레스)</li>
+<li><strong>VIX → EEM/EFA</strong> 스필오버 메커니즘 분석</li>
+<li>SKEW, term structure는 <strong>tail risk</strong> 신호</li>
+</ul>
+</section>
+<section id="당신-연구와의-연결-7" class="level4">
+<h4 class="anchored" data-anchor-id="당신-연구와의-연결-7">당신 연구와의 연결</h4>
+<ul>
+<li><strong>당신의 발견</strong>: VIX spillover가 EEM (+60%)에 큼 → 이 spillover 문헌으로 설명</li>
+<li><strong>확장 연구</strong>: Regime-switching 모델 도입 가능</li>
+</ul>
+<hr>
+</section>
+</section>
+</section>
+</section>
+<section id="부.-컴퓨터-공학-머신러닝-계열-논문-part-2.-computer-science-machine-learning" class="level1">
+<h1>2부. 컴퓨터 공학 / 머신러닝 계열 논문 (PART 2. COMPUTER SCIENCE / MACHINE LEARNING)</h1>
+<section id="섹션-2.1-순수-ml-based-볼래틸리티-예측" class="level2">
+<h2 class="anchored" data-anchor-id="섹션-2.1-순수-ml-based-볼래틸리티-예측">섹션 2.1: 순수 ML-based 볼래틸리티 예측</h2>
+<section id="carr-wu-zhang-2019-cs-관점" class="level3">
+<h3 class="anchored" data-anchor-id="carr-wu-zhang-2019-cs-관점">10. <strong>Carr, Wu &amp; Zhang (2019) – CS 관점</strong></h3>
+<section id="위에서-이미-소개했으나-cs-관점으로-재해석" class="level4">
+<h4 class="anchored" data-anchor-id="위에서-이미-소개했으나-cs-관점으로-재해석">(위에서 이미 소개했으나, CS 관점으로 재해석)</h4>
+<ul>
+<li><strong>CS Novelty</strong>:
+<ul>
+<li>Option features의 고차원성 처리 (79개 옵션)</li>
+<li>Ridge, FNN, Random Forest의 <strong>systematic comparison</strong></li>
+<li><strong>Tradability constraint</strong>: Piece-wise linear functions only (중요한 제약)</li>
+</ul></li>
+<li><strong>당신과의 차이</strong>:
+<ul>
+<li>Carr et al.: 복잡한 option data → ML으로 최적화</li>
+<li>당신: 저차원 VIX 기반 features → 더 간단하지만 <strong>Cross-Asset</strong></li>
+</ul></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="volatility-forecasting-with-machine-learning-and-intraday-commonality" class="level3">
+<h3 class="anchored" data-anchor-id="volatility-forecasting-with-machine-learning-and-intraday-commonality">11. <strong>“Volatility forecasting with machine learning and intraday commonality”</strong></h3>
+<ul>
+<li><strong>출판</strong>: ArXiv 2022 / JFEC (Journal of Financial Econometrics) 2024</li>
+<li><strong>저자</strong>: Christensen et al.</li>
+<li><strong>링크</strong>: SSRN version available</li>
+</ul>
+<section id="핵심-내용-9" class="level4">
+<h4 class="anchored" data-anchor-id="핵심-내용-9">핵심 내용</h4>
+<ul>
+<li><strong>Intraday commonality</strong>: 많은 종목의 고빈도 RV를 pooling하면 <strong>공통 요소</strong> 추출 가능</li>
+<li><strong>Neural Network</strong> (2-3 hidden layers)이 HAR, GARCH, tree models 모두 outperform</li>
+<li>이유: <strong>공통성 + 비선형성</strong>을 동시에 포착</li>
+</ul>
+</section>
+<section id="당신-연구와의-연결-8" class="level4">
+<h4 class="anchored" data-anchor-id="당신-연구와의-연결-8">당신 연구와의 연결</h4>
+<ul>
+<li><strong>Cross-Asset VRP의 CS 해석</strong>: &gt; “Like the intraday commonality framework of Christensen et al., our Cross-Asset Volatility Basis can be viewed as extracting a global volatility common factor (VIX-driven) from multiple asset RVs, enabling superior ML-based prediction…”</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="volatility-forecasting-and-volatility-timing-strategies-a-machine-learning-approach-2024" class="level3">
+<h3 class="anchored" data-anchor-id="volatility-forecasting-and-volatility-timing-strategies-a-machine-learning-approach-2024">12. <strong>“Volatility forecasting and volatility-timing strategies: A machine learning approach”</strong> (2024)</h3>
+<ul>
+<li><strong>출판</strong>: Journal of Financial Econometrics (JFEC) 2024</li>
+<li><strong>저자</strong>: 다양한 저자</li>
+<li><strong>링크</strong>: https://www.sciencedirect.com/science/article/abs/pii/S0275531924005166</li>
+</ul>
+<section id="핵심-내용-10" class="level4">
+<h4 class="anchored" data-anchor-id="핵심-내용-10">핵심 내용</h4>
+<ul>
+<li><strong>43개 macro + financial + sentiment features</strong> → LASSO, GBRT 등 고차원 ML</li>
+<li><strong>결과</strong>: HAR 대비 예측 + 전략 성능 <strong>명확히 우수</strong></li>
+<li>Feature importance: 선형이 아니라 <strong>비선형 상호작용</strong> 중요</li>
+</ul>
+</section>
+<section id="당신과의-비교" class="level4">
+<h4 class="anchored" data-anchor-id="당신과의-비교">당신과의 비교</h4>
+<ul>
+<li><strong>당신의 발견</strong>: “선형 모델 &gt; ML” ← identity mapping + 데이터 구조 문제 때문</li>
+<li><strong>이 논문</strong>: 올바른 feature engineering으로 ML 우위 입증</li>
+<li><strong>시사점</strong>: 당신도 target 재정의 후 ML은 우위를 회복할 것으로 예상</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="deepvol-volatility-forecasting-from-high-frequency-data-with-dilated-causal-convolutions-2024" class="level3">
+<h3 class="anchored" data-anchor-id="deepvol-volatility-forecasting-from-high-frequency-data-with-dilated-causal-convolutions-2024">13. <strong>DeepVol: “Volatility Forecasting from High-Frequency Data with Dilated Causal Convolutions”</strong> (2024)</h3>
+<ul>
+<li><strong>출판</strong>: ArXiv 2024</li>
+<li><strong>저자</strong>: 다양</li>
+<li><strong>링크</strong>: https://arxiv.org/html/2210.04797v3</li>
+</ul>
+<section id="핵심-내용-11" class="level4">
+<h4 class="anchored" data-anchor-id="핵심-내용-11">핵심 내용</h4>
+<ul>
+<li><strong>Dilated Causal CNN</strong> (시계열 순서 보존, 장거리 의존성)으로 고빈도 RV 예측</li>
+<li>전통 모델 대비 현저한 개선</li>
+</ul>
+</section>
+<section id="당신과의-연결" class="level4">
+<h4 class="anchored" data-anchor-id="당신과의-연결">당신과의 연결</h4>
+<ul>
+<li><strong>향후 연구</strong>: 고빈도 데이터로 upgrade하면, 이 아키텍처 검토 가능</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="multi-transformer-a-new-neural-network-based-architecture-for-forecasting-sp-volatility-2021" class="level3">
+<h3 class="anchored" data-anchor-id="multi-transformer-a-new-neural-network-based-architecture-for-forecasting-sp-volatility-2021">14. <strong>“Multi-Transformer: A New Neural Network-Based Architecture for Forecasting S&amp;P Volatility”</strong> (2021)</h3>
+<ul>
+<li><strong>출판</strong>: ArXiv 2021</li>
+<li><strong>저자</strong>: 다양</li>
+<li><strong>링크</strong>: https://arxiv.org/pdf/2109.12621.pdf</li>
+</ul>
+<section id="핵심-내용-12" class="level4">
+<h4 class="anchored" data-anchor-id="핵심-내용-12">핵심 내용</h4>
+<ul>
+<li><strong>Transformer 기반</strong> (Attention mechanism) 시계열 아키텍처</li>
+<li>Self-attention으로 <strong>시간 간 관계성</strong> 자동 학습</li>
+</ul>
+</section>
+<section id="당신과의-연결-1" class="level4">
+<h4 class="anchored" data-anchor-id="당신과의-연결-1">당신과의 연결</h4>
+<ul>
+<li>CS 논문 제출 시, baseline 모델 중 하나로 고려 가능</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="the-hybrid-forecast-of-sp-500-volatility-ensembled-from-vix-garch-and-lstm-2024" class="level3">
+<h3 class="anchored" data-anchor-id="the-hybrid-forecast-of-sp-500-volatility-ensembled-from-vix-garch-and-lstm-2024">15. <strong>The Hybrid Forecast of S&amp;P 500 Volatility ensembled from VIX, GARCH and LSTM</strong> (2024)</h3>
+<ul>
+<li><strong>출판</strong>: ArXiv 2024</li>
+<li><strong>저자</strong>: Roszyk &amp; Slepaczuk (University of Warsaw)</li>
+<li><strong>링크</strong>: https://arxiv.org/pdf/2407.16780.pdf</li>
+</ul>
+<section id="핵심-내용-13" class="level4">
+<h4 class="anchored" data-anchor-id="핵심-내용-13">핵심 내용</h4>
+<ul>
+<li><strong>LSTM-GARCH 하이브리드</strong>: GARCH 예측 + LSTM의 비선형성</li>
+<li><strong>VIX 입력 추가</strong>로 성능 현저히 개선
+<ul>
+<li>GARCH alone: MAE=1.56×10⁻³, RMSE=2.39×10⁻³</li>
+<li>LSTM-GARCH+VIX: MAE=1.02×10⁻³, RMSE=1.30×10⁻³ (45% 개선)</li>
+</ul></li>
+<li><strong>Sensitivity analysis</strong>: 시계열 길이, LSTM 레이어수, activation function의 영향 분석</li>
+</ul>
+</section>
+<section id="당신과의-연결-2" class="level4">
+<h4 class="anchored" data-anchor-id="당신과의-연결-2">당신과의 연결</h4>
+<ul>
+<li><strong>직접 비교</strong>: 당신도 HAR + VIX + Sentiment로 유사한 하이브리드 시도</li>
+<li><strong>개선점</strong>:
+<ul>
+<li>이 논문: GARCH 기반</li>
+<li>당신: HAR + Cross-Asset CAVB 기반</li>
+</ul></li>
+<li><strong>차별성</strong>: Cross-Asset 예측 (단순 SPX 아님)</li>
+</ul>
+</section>
+<section id="인용-방법-2" class="level4">
+<h4 class="anchored" data-anchor-id="인용-방법-2">인용 방법</h4>
+<blockquote class="blockquote">
+<p>“Building on recent hybrid LSTM-GARCH approaches (Roszyk &amp; Slepaczuk, 2024), we extend the framework to cross-asset volatility prediction, incorporating global VIX dynamics and asset-specific volatility basis measures…”</p>
+</blockquote>
+<hr>
+</section>
+</section>
+</section>
+<section id="섹션-2.2-look-ahead-bias-validation" class="level2">
+<h2 class="anchored" data-anchor-id="섹션-2.2-look-ahead-bias-validation">섹션 2.2: Look-Ahead Bias &amp; Validation</h2>
+<section id="a-standardized-benchmark-of-look-ahead-bias-in-point-in-time-financial-ml-2026" class="level3">
+<h3 class="anchored" data-anchor-id="a-standardized-benchmark-of-look-ahead-bias-in-point-in-time-financial-ml-2026">16. <strong>“a Standardized Benchmark of Look-ahead Bias in Point-in-Time Financial ML”</strong> (2026)</h3>
+<ul>
+<li><strong>출판</strong>: ArXiv Jan 2026</li>
+<li><strong>저자</strong>: Benhenda 외</li>
+<li><strong>링크</strong>: https://arxiv.org/pdf/2601.13770.pdf</li>
+</ul>
+<section id="핵심-내용-14" class="level4">
+<h4 class="anchored" data-anchor-id="핵심-내용-14">핵심 내용</h4>
+<ul>
+<li><strong>Look-ahead bias의 정의 및 벤치마킹</strong>:
+<ul>
+<li>예측 시점에 미래 정보 사용 → 완전히 무효한 backtest</li>
+<li>정교한 leakage detection framework 제시</li>
+</ul></li>
+<li><strong>시간일관성 검증 프레임워크</strong> (time-series cross-validation)</li>
+</ul>
+</section>
+<section id="당신-연구와의-연결-9" class="level4">
+<h4 class="anchored" data-anchor-id="당신-연구와의-연결-9">당신 연구와의 연결</h4>
+<ul>
+<li><strong>가장 중요한 체크리스트</strong>:
+<ul>
+<li>당신의 CAVB 피처가 미래 정보를 포함하는가?</li>
+<li>이동평균 window가 정당한가?</li>
+<li>Train/test split이 proper time-series CV인가? ← <strong>현재 단일 분할은 부족</strong></li>
+</ul></li>
+<li><strong>필수 개선</strong>:
+<ul>
+<li>Expanding window 또는 purged rolling window 도입</li>
+<li>각 예측 시점에서 “그 시점에서 알 수 없는 정보”는 제외</li>
+</ul></li>
+</ul>
+</section>
+<section id="인용-방법-cs-논문" class="level4">
+<h4 class="anchored" data-anchor-id="인용-방법-cs-논문">인용 방법 (CS 논문)</h4>
+<blockquote class="blockquote">
+<p>“Following recent standardized guidelines for look-ahead bias detection (Benhenda et al., 2026), we employ purged rolling-window validation to ensure that all features are computed from information available at the prediction date…”</p>
+</blockquote>
+<hr>
+</section>
+</section>
+<section id="an-interpretable-machine-learning-workflow-with-an-application-to-systemic-risk-ijcb" class="level3">
+<h3 class="anchored" data-anchor-id="an-interpretable-machine-learning-workflow-with-an-application-to-systemic-risk-ijcb">17. <strong>“An Interpretable Machine Learning Workflow with an Application to Systemic Risk”</strong> [IJCB]</h3>
+<ul>
+<li><strong>관련 저작</strong>들 (LLM+Finance 분야)</li>
+</ul>
+<section id="핵심-내용-15" class="level4">
+<h4 class="anchored" data-anchor-id="핵심-내용-15">핵심 내용</h4>
+<ul>
+<li><strong>Out-of-bag analysis에서의 subtle look-ahead bias</strong></li>
+<li><strong>Interpretability</strong> (LIME, SHAP) 중요성</li>
+</ul>
+</section>
+<section id="당신과의-연결-3" class="level4">
+<h4 class="anchored" data-anchor-id="당신과의-연결-3">당신과의 연결</h4>
+<ul>
+<li>CS 논문에 LIME/SHAP을 통한 feature importance 추가 → 설득력 증대</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="deep-learning-for-financial-forecasting-a-review-of-recent-advances-2025" class="level3">
+<h3 class="anchored" data-anchor-id="deep-learning-for-financial-forecasting-a-review-of-recent-advances-2025">18. <strong>“Deep learning for financial forecasting: A review of recent advances”</strong> (2025)</h3>
+<ul>
+<li><strong>출판</strong>: Science Direct 2025</li>
+<li><strong>링크</strong>: https://www.sciencedirect.com/science/article/pii/S1059056025008822</li>
+</ul>
+<section id="핵심-내용-16" class="level4">
+<h4 class="anchored" data-anchor-id="핵심-내용-16">핵심 내용</h4>
+<ul>
+<li>DL in finance의 종합 리뷰</li>
+<li><strong>Look-ahead bias, publication bias, overfitting</strong> 등 주요 pitfalls 정리</li>
+<li><strong>Best practices</strong> (validation strategy, hyperparameter tuning, etc.)</li>
+</ul>
+</section>
+<section id="당신과의-연결-4" class="level4">
+<h4 class="anchored" data-anchor-id="당신과의-연결-4">당신과의 연결</h4>
+<ul>
+<li>CS 논문 제출 전 <strong>quality checklist</strong> 확인용</li>
+<li>Reviewer가 가장 먼저 스캔할 리뷰 논문</li>
+</ul>
+<hr>
+</section>
+</section>
+</section>
+<section id="섹션-2.3-cross-asset-multi-task-learning" class="level2">
+<h2 class="anchored" data-anchor-id="섹션-2.3-cross-asset-multi-task-learning">섹션 2.3: Cross-Asset / Multi-Task Learning</h2>
+<section id="deep-learning-models-for-forecasting-financial-risk-premia-and-their-interpretations-2023" class="level3">
+<h3 class="anchored" data-anchor-id="deep-learning-models-for-forecasting-financial-risk-premia-and-their-interpretations-2023">19. <strong>“Deep-learning models for forecasting financial risk premia and their interpretations”</strong> (2023)</h3>
+<ul>
+<li><strong>출판</strong>: ArXiv / Journal of Machine Learning Research</li>
+<li><strong>저자</strong>: 다양</li>
+<li><strong>링크</strong>: https://arxiv.org/abs/2310.01063</li>
+</ul>
+<section id="핵심-내용-17" class="level4">
+<h4 class="anchored" data-anchor-id="핵심-내용-17">핵심 내용</h4>
+<ul>
+<li><strong>여러 리스크 프리미엄</strong> (시장, 크레딧, FX 등)을 <strong>single deep learning model</strong>로 동시 예측</li>
+<li>Feature importance 분석으로 각 프리미엄의 공통 vs 이질적 요인 파악</li>
+</ul>
+</section>
+<section id="당신과의-연결-5" class="level4">
+<h4 class="anchored" data-anchor-id="당신과의-연결-5">당신과의 연결</h4>
+<ul>
+<li><strong>당신의 연구 위치</strong>: “Volatility Risk Premium across multiple assets”는 이 논문의 <strong>변동성 특화 버전</strong></li>
+<li><strong>포지셔닝</strong>: &gt; “Extending the multi-task deep learning framework for financial risk premia (Deep-learning models for forecasting…, 2023), we develop a specialized cross-asset volatility risk premium prediction model that jointly learns asset-specific and global volatility dynamics…”</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="dynamic-asset-allocation-with-asset-specific-regime-forecasts-2024" class="level3">
+<h3 class="anchored" data-anchor-id="dynamic-asset-allocation-with-asset-specific-regime-forecasts-2024">20. <strong>“Dynamic Asset Allocation with Asset-Specific Regime Forecasts”</strong> (2024)</h3>
+<ul>
+<li><strong>출판</strong>: ArXiv 2024</li>
+<li><strong>저자</strong>: Lugrin 외</li>
+<li><strong>링크</strong>: https://arxiv.org/pdf/2407.01550.pdf</li>
+</ul>
+<section id="핵심-내용-18" class="level4">
+<h4 class="anchored" data-anchor-id="핵심-내용-18">핵심 내용</h4>
+<ul>
+<li><strong>Regime-switching</strong> 기반 동적 자산배분</li>
+<li>자산별 regime을 <strong>DL로 예측</strong> → 포트폴리오 재조정</li>
+</ul>
+</section>
+<section id="당신과의-연결-6" class="level4">
+<h4 class="anchored" data-anchor-id="당신과의-연결-6">당신과의 연결</h4>
+<ul>
+<li><strong>향후 확장</strong>: 당신의 VRP 예측을 regime-aware로 확장</li>
+<li>“VRP 예측력이 market regime에 따라 다르다” → side hypothesis 추가 가능</li>
+</ul>
+<hr>
+</section>
+</section>
+</section>
+<section id="섹션-2.4-vix-옵션-하이브리드-시계열-모델" class="level2">
+<h2 class="anchored" data-anchor-id="섹션-2.4-vix-옵션-하이브리드-시계열-모델">섹션 2.4: VIX, 옵션, 하이브리드 시계열 모델</h2>
+<section id="from-garch-to-neural-network-for-volatility-forecast-2024" class="level3">
+<h3 class="anchored" data-anchor-id="from-garch-to-neural-network-for-volatility-forecast-2024">21. <strong>“From GARCH to Neural Network for Volatility Forecast”</strong> (2024)</h3>
+<ul>
+<li><strong>출판</strong>: ArXiv 2024</li>
+<li><strong>저자</strong>: 다양</li>
+<li><strong>링크</strong>: https://arxiv.org/pdf/2402.06642.pdf</li>
+</ul>
+<section id="핵심-내용-19" class="level4">
+<h4 class="anchored" data-anchor-id="핵심-내용-19">핵심 내용</h4>
+<ul>
+<li>GARCH와 NN을 <strong>physically integrate</strong></li>
+<li>GARCH의 경제학적 해석성 + NN의 표현력 결합</li>
+</ul>
+</section>
+<section id="당신과의-연결-7" class="level4">
+<h4 class="anchored" data-anchor-id="당신과의-연결-7">당신과의 연결</h4>
+<ul>
+<li>당신의 “HAR + ML” 구조의 <strong>이론적 근거</strong></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="forecasting-vix-using-bayesian-deep-learning-2024" class="level3">
+<h3 class="anchored" data-anchor-id="forecasting-vix-using-bayesian-deep-learning-2024">22. <strong>“Forecasting VIX using Bayesian Deep Learning”</strong> (2024)</h3>
+<ul>
+<li><strong>출판</strong>: ArXiv 2024</li>
+</ul>
+<section id="핵심-내용-20" class="level4">
+<h4 class="anchored" data-anchor-id="핵심-내용-20">핵심 내용</h4>
+<ul>
+<li>VIX 자체 예측 (not RV)</li>
+<li><strong>Uncertainty quantification</strong> (Bayesian)으로 confidence interval 제공</li>
+</ul>
+</section>
+<section id="당신과의-연결-8" class="level4">
+<h4 class="anchored" data-anchor-id="당신과의-연결-8">당신과의 연결</h4>
+<ul>
+<li>VIX 예측을 “mean ± std” 형태로 개선 가능 → Cross-Asset VRP 불확실성 모델링</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="options-driven-volatility-forecasting-2025" class="level3">
+<h3 class="anchored" data-anchor-id="options-driven-volatility-forecasting-2025">23. <strong>“Options-driven Volatility Forecasting”</strong> (2025)</h3>
+<ul>
+<li><strong>출판</strong>: Journal of Derivatives / Quantitative Finance (Informa Online) 2025</li>
+<li><strong>저자</strong>: Michael 외</li>
+<li><strong>링크</strong>: https://www.tandfonline.com/doi/full/10.1080/14697688.2025.2454623</li>
+</ul>
+<section id="핵심-내용-21" class="level4">
+<h4 class="anchored" data-anchor-id="핵심-내용-21">핵심 내용</h4>
+<ul>
+<li><strong>HAR + Option Surface PCA</strong> → realized vol 예측</li>
+<li>옵션 정보(특히 term structure, skew)가 incremental value 제공</li>
+</ul>
+</section>
+<section id="당신과의-연결-9" class="level4">
+<h4 class="anchored" data-anchor-id="당신과의-연결-9">당신과의 연결</h4>
+<ul>
+<li><strong>당신의 Sentiment feature</strong> (VIX term spread, SKEW)의 <strong>이론적 정당성</strong></li>
+<li>Options-driven 접근의 최신 발전</li>
+</ul>
+</section>
+<section id="인용-방법-cs" class="level4">
+<h4 class="anchored" data-anchor-id="인용-방법-cs">인용 방법 (CS)</h4>
+<blockquote class="blockquote">
+<p>“Following options-driven volatility forecasting approaches (Michael, 2025), we leverage market expectations embedded in VIX term structure and skewness measures as key sentiment inputs…”</p>
+</blockquote>
+<hr>
+</section>
+</section>
+<section id="predicting-option-implied-volatility-features-using-machine-learning-미공개" class="level3">
+<h3 class="anchored" data-anchor-id="predicting-option-implied-volatility-features-using-machine-learning-미공개">24. <strong>“Predicting option implied volatility features using machine learning”</strong> (미공개)</h3>
+<ul>
+<li><strong>유사 논문들</strong>
+<ul>
+<li><strong>Key idea</strong>: IV surface를 직접 ML로 예측</li>
+<li>당신의 SKEW, VIX9D_spread와 유사한 “파생 특성” 활용</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+</section>
+</section>
+<section id="part-3.-당신-연구의-출판-전략-최종-권장" class="level1">
+<h1>PART 3. 당신 연구의 출판 전략 (최종 권장)</h1>
+<section id="cs-journal-출판-경로-3-4개월" class="level2">
+<h2 class="anchored" data-anchor-id="cs-journal-출판-경로-3-4개월">3.1 CS Journal 출판 경로 (3-4개월)</h2>
+<section id="추천-저널" class="level3">
+<h3 class="anchored" data-anchor-id="추천-저널">추천 저널</h3>
+<ul>
+<li><strong>KDD</strong> (ACM Conference on Knowledge Discovery and Data Mining)</li>
+<li><strong>ICML Finance Track</strong> (International Conference on Machine Learning)</li>
+<li><strong>NeurIPS Finance Track</strong> (Neural Information Processing Systems)</li>
+</ul>
+</section>
+<section id="필수-수정사항" class="level3">
+<h3 class="anchored" data-anchor-id="필수-수정사항">필수 수정사항</h3>
+<ol type="1">
+<li><strong>Target 재정의</strong>
+<ul>
+<li>Current: <code>VRP = VIX - RV_{t+h}</code> → Identity mapping 문제</li>
+<li>Proposed: Two-stage
+<ul>
+<li>Stage 1: <code>E_t[RV_{t+h}]</code> 예측 (RV-only features, no VIX)</li>
+<li>Stage 2: <code>VRP = VIX - E_t[RV_{t+h}]</code></li>
+</ul></li>
+</ul></li>
+<li><strong>Validation Protocol</strong>
+<ul>
+<li>Purged rolling window (expanding window)</li>
+<li>Out-of-bag or cross-validation with proper time-series splits</li>
+<li>Reference: Benhenda et al.&nbsp;(2026), Lopez de Prado (2018)</li>
+</ul></li>
+<li><strong>Model Comparisons</strong>
+<ul>
+<li>HAR baseline</li>
+<li>LASSO, Ridge, XGBoost, LightGBM (regularized + gradient boosting)</li>
+<li>LSTM, Transformer, GRU (DL)</li>
+<li>Report: MAE, RMSE, QLIKE, Diebold-Mariano test</li>
+</ul></li>
+<li><strong>Novelty Claims</strong>
+<ul>
+<li>Cross-Asset VRP prediction (기존: single-asset)</li>
+<li>CAVB (Cross-Asset Volatility Basis) 개념 정의</li>
+<li>Sentiment integration (SKEW, VIX term structure) 정량화</li>
+</ul></li>
+</ol>
+</section>
+<section id="초록-cs-버전" class="level3">
+<h3 class="anchored" data-anchor-id="초록-cs-버전">초록 (CS 버전)</h3>
+<blockquote class="blockquote">
+<p>“We propose a machine learning framework for predicting volatility risk premium across multiple asset classes using global volatility indices and cross-asset realized volatility basis. Our key innovation is the introduction of Cross-Asset Volatility Basis (CAVB) and structured sentiment features that capture tail risk and market term structure effects. Through systematic evaluation of 60+ models using purged rolling-window validation, we demonstrate that properly normalized features enable both linear and deep learning models to achieve significant out-of-sample improvements over traditional benchmarks. The framework is computationally efficient and applicable to real-time risk management, avoiding the need for high-dimensional option data.”</p>
+</blockquote>
+<hr>
+</section>
+</section>
+<section id="금융-journal-출판-경로-6-8개월" class="level2">
+<h2 class="anchored" data-anchor-id="금융-journal-출판-경로-6-8개월">3.2 금융 Journal 출판 경로 (6-8개월)</h2>
+<section id="추천-저널-impact-factor-순" class="level3">
+<h3 class="anchored" data-anchor-id="추천-저널-impact-factor-순">추천 저널 (Impact Factor 순)</h3>
+<ol type="1">
+<li><strong>Journal of Financial Economics</strong> (JFE) ← 최고 난이도</li>
+<li><strong>Journal of Banking &amp; Finance</strong> (JBankF)</li>
+<li><strong>Journal of Financial and Quantitative Analysis</strong> (JFQA)</li>
+<li><strong>Journal of Econometrics</strong></li>
+</ol>
+</section>
+<section id="필수-작업" class="level3">
+<h3 class="anchored" data-anchor-id="필수-작업">필수 작업</h3>
+<ol type="1">
+<li><strong>이론적 Framework 추가</strong>
+<ul>
+<li>Bekaert &amp; Hoerova의 VIX 분해 틀 도입</li>
+<li>Realized GARCH (Hansen et al.) 기반 모델 개발</li>
+<li>ICAPM / Merton VRP 이론과의 연결</li>
+</ul></li>
+<li><strong>고빈도 데이터</strong>
+<ul>
+<li>TAQ 또는 Refinitiv 고빈도 옵션 데이터</li>
+<li>Realized volatility (5분 또는 1분 빈도)</li>
+<li>Microstructure noise 보정 필수</li>
+</ul></li>
+<li><strong>경제적 유의성 검증</strong>
+<ul>
+<li>변동성 매도/매수 전략 백테스트</li>
+<li>Sharpe ratio, Sortino ratio 계산</li>
+<li>거래비용, 슬리피지 반영</li>
+<li>Stress period (2008, 2020, 2022) 성과 분석</li>
+</ul></li>
+<li><strong>자산별 특성 분석</strong>
+<ul>
+<li>왜 채권 R²가 높은가? (답: VIX &gt;&gt; RV 때문)</li>
+<li>주식은 왜 낮은가?</li>
+<li>Cross-asset correlation과 관계</li>
+</ul></li>
+<li><strong>Selection Bias / Survivorship Bias</strong>
+<ul>
+<li>데이터 기간 정당화 (2010-2025 선택 이유?)</li>
+<li>자산 선택 기준</li>
+<li>Out-of-sample test 충분한가?</li>
+</ul></li>
+</ol>
+</section>
+<section id="초록-금융-버전" class="level3">
+<h3 class="anchored" data-anchor-id="초록-금융-버전">초록 (금융 버전)</h3>
+<blockquote class="blockquote">
+<p>“This paper extends the variance risk premium literature to the cross-asset setting by developing a unified framework that decomposes global market expectations (embedded in the VIX) from asset-specific risk premia. Following Bekaert and Hoerova (2014) and Hansen et al.&nbsp;(2021), we employ a Realized GARCH model with exponentially affine stochastic discount factor to jointly model P-measure and Q-measure dynamics. We find that the VIX contains substantial predictive power for realized volatility across multiple assets (equities, bonds, emerging markets), with spillover effects strongest during periods of financial stress. Importantly, we show that the magnitude of cross-asset VRP is heterogeneous and can be predicted using volatility basis and sentiment measures. Our findings have important implications for option pricing, portfolio construction, and macroprudential risk assessment. We validate our results through extensive out-of-sample tests, economic significance analysis, and robustness checks across different realized volatility estimators and forecast horizons.”</p>
+</blockquote>
+<hr>
+</section>
+</section>
+<section id="최종-선택-권장사항" class="level2">
+<h2 class="anchored" data-anchor-id="최종-선택-권장사항">3.3 최종 선택 권장사항</h2>
+<section id="현재-상황-평가" class="level3">
+<h3 class="anchored" data-anchor-id="현재-상황-평가">현재 상황 평가</h3>
+<ul>
+<li>✅ <strong>기술적 실행력</strong>: 우수 (60+ 모델, 32개 실험)</li>
+<li>❌ <strong>타겟 정의</strong>: 치명적 결함 (identity mapping)</li>
+<li>❌ <strong>Validation</strong>: 부족 (single split, no purged window)</li>
+<li>⚠️ <strong>이론적 구성</strong>: 금융 쪽이 필요함; CS는 적당함</li>
+</ul>
+</section>
+<section id="최종-판단" class="level3">
+<h3 class="anchored" data-anchor-id="최종-판단">최종 판단</h3>
+<p><strong>→ CS 저널 추천 (KDD/ICML Finance Track)</strong></p>
+<p><strong>이유</strong>: 1. <strong>수정 기간 단축</strong>: 3-4개월 vs 금융 6-8개월 2. <strong>CS는 금융 이론 덜 까다로움</strong>: identity mapping만 해결하면 통과 가능 3. <strong>금융은 고빈도 데이터 필수</strong>: 추가 데이터 수집 + 이론 구성 = 시간 소비 4. <strong>Cross-Asset 적용은 CS 커뮤니티에서 novelty</strong>: “Volatility 예측”은 주로 single-asset 5. <strong>Sentiment quantification</strong>: SKEW + VIX term structure는 CS 관점에서 새로운 feature engineering</p>
+</section>
+<section id="세부-액션-플랜-30일" class="level3">
+<h3 class="anchored" data-anchor-id="세부-액션-플랜-30일">세부 액션 플랜 (30일)</h3>
+<p><strong>Week 1-2: Target 재정의 &amp; Data 재처리</strong> - <code>E_t[RV_{t+h}]</code>를 별도 RV-only model로 학습 - Features: RV_1d, RV_5d, RV_22d만 (VIX 제외) - Model: HAR, GARCH, Linear models - Cross-validation 함수 재작성 (purged rolling window) - Output: New target, new validation metrics</p>
+<p><strong>Week 3: ML Model Retraining</strong> - LASSO, Ridge, XGBoost, LightGBM 재학습 (올바른 target) - LSTM, Transformer baseline 추가 - Early stopping, hyperparameter tuning 강화 - Error metrics: MAE, RMSE, QLIKE, Diebold-Mariano test</p>
+<p><strong>Week 4: Manuscript Preparation</strong> - CS 논문 초록·서론 작성 (KDD 포맷) - 관련 연구 섹션 (CS 관점: Carr et al., Christensen et al., Hybrid LSTM-GARCH) - 실험 결과 그래프·테이블 - ArXiv에 preprint 업로드 (우선권 확보)</p>
+<p><strong>Month 2: 재검토 + 추가 실험</strong> - Regime-based 성능 분석 (고변동/저변동) - Feature importance (SHAP/LIME) - Stress-period 성과 (2008, 2020, 2022) - Robustness checks (다른 forecast horizon, 다른 자산)</p>
+<p><strong>Month 3: KDD/ICML 제출</strong> - Submission deadline 확인 - Review 예상 + FAQ 준비</p>
+<hr>
+</section>
+</section>
+</section>
+<section id="appendix-논문-quick-reference-table" class="level1">
+<h1>APPENDIX: 논문 Quick Reference Table</h1>
+<section id="금융-관련-논문-요약" class="level2">
+<h2 class="anchored" data-anchor-id="금융-관련-논문-요약">금융 관련 논문 요약</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>순번</th>
+<th>제목</th>
+<th>저자</th>
+<th>년도</th>
+<th>링크</th>
+<th>당신 연구와의 관계</th>
+<th>Novelty</th>
+<th>인용 우선순위</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Variance Risk Premia</td>
+<td>Carr &amp; Wu</td>
+<td>2009</td>
+<td>RFS</td>
+<td>VRP 표준 정의</td>
+<td>Canonical</td>
+<td>⭐⭐⭐⭐⭐</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>VIX, Variance Premium, Stock Market Vol</td>
+<td>Bekaert &amp; Hoerova</td>
+<td>2014</td>
+<td>ECB/JFEC</td>
+<td>VIX 분해 프레임</td>
+<td>Core</td>
+<td>⭐⭐⭐⭐⭐</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Realized GARCH, CBOE VIX, VRP</td>
+<td>Hansen et al.</td>
+<td>2021</td>
+<td>JFE</td>
+<td>고빈도 + dual-shock</td>
+<td>방법론 신규</td>
+<td>⭐⭐⭐⭐⭐</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Exploring VRP Across Assets</td>
+<td>Heston et al.</td>
+<td>2023</td>
+<td>AEA</td>
+<td>Cross-Asset 측정</td>
+<td>직접 경쟁</td>
+<td>⭐⭐⭐⭐</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Commodity VRP &amp; Future Returns</td>
+<td>Ornelas et al.</td>
+<td>2018</td>
+<td>BIS/JFQA</td>
+<td>Spillover 효과</td>
+<td>Foundational</td>
+<td>⭐⭐⭐⭐</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>VRP Across Multiple Assets</td>
+<td>Czech Thesis</td>
+<td>2021</td>
+<td>PhD</td>
+<td>RIV 모델</td>
+<td>학술</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>Fleming/Whaley VIX Studies</td>
+<td>Fleming et al.</td>
+<td>1995-2000</td>
+<td>JPE/JPM</td>
+<td>VIX 공포지수</td>
+<td>Classic</td>
+<td>⭐⭐⭐⭐</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>ML to Predict Realized Variance</td>
+<td>Carr et al.</td>
+<td>2019</td>
+<td>ArXiv</td>
+<td>VRP + ML</td>
+<td>선례</td>
+<td>⭐⭐⭐⭐⭐</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="csml-관련-논문-요약" class="level2">
+<h2 class="anchored" data-anchor-id="csml-관련-논문-요약">CS/ML 관련 논문 요약</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>순번</th>
+<th>제목</th>
+<th>저자</th>
+<th>년도</th>
+<th>링크</th>
+<th>당신 연구와의 관계</th>
+<th>Novelty</th>
+<th>인용 우선순위</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>10</td>
+<td>Using ML to Predict RV</td>
+<td>Carr et al.</td>
+<td>2019</td>
+<td>ArXiv</td>
+<td>(금융과 동일)</td>
+<td>VRP + ML</td>
+<td>⭐⭐⭐⭐⭐</td>
+</tr>
+<tr class="even">
+<td>11</td>
+<td>Vol Forecasting, Intraday Commonality</td>
+<td>Christensen et al.</td>
+<td>2022</td>
+<td>SSRN/JFEC</td>
+<td>공통성 개념</td>
+<td>NN &gt; GARCH</td>
+<td>⭐⭐⭐⭐</td>
+</tr>
+<tr class="odd">
+<td>12</td>
+<td>Vol Forecasting &amp; Timing, ML Approach</td>
+<td>Various</td>
+<td>2024</td>
+<td>SciDirect</td>
+<td>다피처 + ML</td>
+<td>성능 비교</td>
+<td>⭐⭐⭐⭐</td>
+</tr>
+<tr class="even">
+<td>13</td>
+<td>DeepVol: CNN from High-Freq Data</td>
+<td>Various</td>
+<td>2024</td>
+<td>ArXiv</td>
+<td>고빈도 + CNN</td>
+<td>아키텍처</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr class="odd">
+<td>14</td>
+<td>Multi-Transformer S&amp;P Vol</td>
+<td>Various</td>
+<td>2021</td>
+<td>ArXiv</td>
+<td>Transformer</td>
+<td>아키텍처</td>
+<td>⭐⭐</td>
+</tr>
+<tr class="even">
+<td>15</td>
+<td>Hybrid LSTM-GARCH S&amp;P Vol</td>
+<td>Roszyk &amp; Slepaczuk</td>
+<td>2024</td>
+<td>ArXiv</td>
+<td>직접 경쟁</td>
+<td>Hybrid + VIX</td>
+<td>⭐⭐⭐⭐</td>
+</tr>
+<tr class="odd">
+<td>16</td>
+<td>Look-ahead Bias Benchmark</td>
+<td>Benhenda et al.</td>
+<td>2026</td>
+<td>ArXiv</td>
+<td>Validation 프로토콜</td>
+<td>방법론 신규</td>
+<td>⭐⭐⭐⭐⭐</td>
+</tr>
+<tr class="even">
+<td>17</td>
+<td>Interpretable ML Workflow</td>
+<td>Various</td>
+<td>Various</td>
+<td>IJCB</td>
+<td>LIME/SHAP</td>
+<td>해석성</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr class="odd">
+<td>18</td>
+<td>DL for Financial Forecasting Review</td>
+<td>Various</td>
+<td>2025</td>
+<td>SciDirect</td>
+<td>종합 리뷰</td>
+<td>Survey</td>
+<td>⭐⭐⭐⭐</td>
+</tr>
+<tr class="even">
+<td>19</td>
+<td>DL for Financial Risk Premia</td>
+<td>Various</td>
+<td>2023</td>
+<td>ArXiv</td>
+<td>Multi-task</td>
+<td>다중 프리미엄</td>
+<td>⭐⭐⭐⭐</td>
+</tr>
+<tr class="odd">
+<td>20</td>
+<td>Dynamic Asset Allocation, Regime</td>
+<td>Lugrin et al.</td>
+<td>2024</td>
+<td>ArXiv</td>
+<td>Regime switching</td>
+<td>자산 배분</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr class="even">
+<td>21</td>
+<td>GARCH to NN for Vol</td>
+<td>Various</td>
+<td>2024</td>
+<td>ArXiv</td>
+<td>Hybrid 이론</td>
+<td>통합 모델</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr class="odd">
+<td>22</td>
+<td>Forecasting VIX, Bayesian DL</td>
+<td>Various</td>
+<td>2024</td>
+<td>ArXiv</td>
+<td>VIX 예측</td>
+<td>불확실성</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr class="even">
+<td>23</td>
+<td>Options-driven Vol Forecasting</td>
+<td>Michael</td>
+<td>2025</td>
+<td>Informa</td>
+<td>HAR + Options</td>
+<td>Sentiment</td>
+<td>⭐⭐⭐⭐</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="final-summary" class="level1">
+<h1>FINAL SUMMARY</h1>
+<p>당신의 연구는 <strong>CS와 금융 모두에서 출판 가능한 좋은 프로젝트</strong>이나:</p>
+<ol type="1">
+<li><strong>즉시 수정 필수</strong>: Identity mapping 문제 해결 (Target 재정의)</li>
+<li><strong>CS 우선 추천</strong>: 더 빠르고 명확한 성공 가능성</li>
+<li><strong>금융은 향후</strong>: 고빈도 데이터 + 이론 추가 후 별도 투고</li>
+</ol>
+<p><strong>다음 30일 Action Items</strong>: - [ ] Target 재정의 (Two-stage RV + VRP) - [ ] Purged rolling window validation 구현 - [ ] ML 모델 재학습 (올바른 CV 프로토콜) - [ ] ArXiv preprint 준비 - [ ] KDD/ICML Finance 마감일 확인</p>
+<p><strong>2026년 목표</strong>: - Q1: ArXiv + KDD/ICML 제출 - Q2-Q3: CS 저널 리뷰 대응 + 출판 - Q4: 금융 버전 준비 (고빈도 데이터 수집)</p>
+
+
+<!-- -->
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "복사완료!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "복사완료!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">소스 코드</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Cross-Asset VRP Reading List"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">editor:</span><span class="co"> visual</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">lang:</span><span class="co"> ko</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu"># Cross-Asset VRP Prediction 연구</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">## 컴퓨터사이언스 vs 금융학 논문 리딩 리스트 &amp; 분석</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">### 작성일: 2026-01-22</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## 핵심 요약 (Executive Summary)</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>본 문서는 당신의 "Cross-Asset VIX-RV Basis 기반 Volatility Risk Premium Prediction" 연구를 다음 두 분야에 출판하기 위한 **완전한 논문 맵핑**을 제공합니다:</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>**Computer Science / Machine Learning** (KDD, ICML, NeurIPS)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>**Finance / Econometrics** (JFE, JFQA, JBANKF)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">## 각 논문마다 핵심 내용과 방법론, 본 연구와의 직접적 연결점, 논문의 독창성(Novelty)과 한계, 그리고 인용 및 포지셔닝 방법을 정리했습니다.</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu"># 1부. 금융 / 계량경제 계열 논문 (PART 1. FINANCE / ECONOMETRICS)</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="fu">## 섹션 1.1: Variance Risk Premium 이론 및 정의의 기초</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">### 1. **Carr &amp; Wu (2009): "Variance Risk Premia"**</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**출판**: Review of Financial Studies (RFS) / Working Paper</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**저자**: Peter Carr (NYU), Liuren Wu (Baruch)</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**링크**: https://engineering.nyu.edu/sites/default/files/2020-05/P0639_ZZ-JOI_0.pdf</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 핵심 내용</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**표준 VRP 정의**: $$\text{VRP}_t = \text{Var}^Q_t(r_{t+h}) - E^P_t[\text{Var}(r_{t+h})]$$ 여기서 Q = risk-neutral measure, P = physical measure</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Variance swap** 포트폴리오를 통한 risk-neutral variance 추정</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>VRP가 **positive risk premium**임을 보임 (큰 volatility spike 때 손실 보상)</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 당신 연구와의 연결</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>당신의 타겟: <span class="in">`VRP = VIX - RV`</span>는 이 논문의 **간단화된 버전**</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**문제점**: 당신은 `VIX`를 피처에도, 타겟에도 포함 → **identity mapping**</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**개선 방안**:</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span><span class="in">`E^P_t[RV_{t+h}]`</span> (RV 예측)을 별도 학습</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span><span class="in">`VRP = VIX - E^P_t[RV_{t+h}]`</span>로 재정의</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 인용 방법 (금융 논문 제출 시)</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; "Following Carr and Wu (2009)'s standard definition of variance risk premium, we decompose the observed VIX into physical expectations and risk premium components..."</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Novelty 평가</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**기여도**: Foundational; VRP의 "canonical definition"</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**한계**: Single-asset (SPX) + 30-day horizon만 다룸</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2. **Bekaert &amp; Hoerova (2014): "The VIX, the Variance Premium and Stock Market Volatility"**</span></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**출판**: ECB Working Paper (2014) / Journal of Financial Economics 계열</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**저자**: Geert Bekaert (Columbia), Marco Hoerova (ECB)</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**링크**: https://www.ecb.europa.eu/pub/pdf/scpwps/ecbwp1675.pdf</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 핵심 내용</span></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**VIX² 분해**: $$\text{VIX}_t^2 = E^P_t[\text{RV}_{t+22d}] + \text{VRP}_t$$</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>VRP는 **주가 수익률을 예측** (forward-looking)</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>조건부 분산 (<span class="in">`E^P[RV]`</span>)은 **경기순환과 금융불안 지수**로 사용</span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 당신 연구와의 연결</span></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**핵심 교훈**: `VIX 자체`가 아니라, **"VIX를 분해하여 두 요소를 분리"**하는 게 중요</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>당신이 발견한 "VIX 평균회귀가 거의 모든 예측력"은, **VRP vs 물리적 분산을 분리하지 않았기 때문**일 가능성</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Cross-Asset 확장 가능성**: 자산별로 <span class="in">`E^P[RV_{t+h}]`</span>와 VRP를 분리</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 인용 방법</span></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; "Building on Bekaert and Hoerova (2014), we extend the VIX decomposition framework to multiple asset classes, separating physical expectations from volatility risk premium components..."</span></span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a><span class="fu">### 3. **Hansen, Huang, Tong &amp; Wang (2021): "Realized GARCH, CBOE VIX, and the Volatility Risk Premium"**</span></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**출판**: Journal of Financial Econometrics (JFE) 2024 / ArXiv 2021</span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**저자**: Peter Reinhard Hansen (Copenhagen Business School/UNC), Zhuo Huang (PKU)</span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**링크**: https://arxiv.org/pdf/2112.05302.pdf</span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 핵심 내용</span></span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Realized GARCH 모형**: 고빈도 realized volatility(RV)를 measurement equation에 포함 $$\text{log } h_{t+1} = \omega + \beta \log h_t + \tau(z_t) + \gamma \sigma u_t$$ $$\text{log } x_t = \kappa + \phi \log h_t + \delta(z_t) + \sigma u_t$$</span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Dual-shock structure (return shock + volatility shock)로 **물리적·위험중립 측에서 서로 다른 역학** 설명</span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**폐형식 VIX/VRP 공식** 유도: $$\text{VIX}_t^{RG} = 100 \sqrt{\frac{252}{22} \left( h_{t+1} + \sum_{k=2}^{22} \left( \prod_{i=0}^{k-2} F_i \right) h_t^{\beta^{k-1}} \right)}$$</span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**VRP 분해** (log-scale):</span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>주가 리스크 프리미엄 부분 (<span class="in">`-\tau_1\lambda + \tau_2\lambda^2`</span>): 2.2%</span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>변동성 리스크 부분 (<span class="in">`-\gamma\sigma\xi`</span>): **97.8%** ← **volatility shock이 VRP의 대부분 설명**</span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**경험적 결과**: Conventional GARCH 대비 VIX/VRP 예측성능 현저히 우수 (in/out-of-sample)</span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 당신 연구와의 연결</span></span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**모범 사례**: 당신의 Cross-Asset VRP도 이 프레임워크 안에 올려놓을 수 있음</span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**데이터**: 고빈도 RV 도입이 필수 (현재 일간 Close-to-Close는 noisy)</span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**타겟 재정의**:</span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>기존: <span class="in">`VIX - RV_{t+h}`</span> → **identity mapping 문제**</span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>개선: <span class="in">`VIX - E_t[RV_{t+h}]`</span> (Realized GARCH로 <span class="in">`E_t[RV_{t+h}]`</span> 예측)</span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 인용 방법</span></span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; "Following Hansen et al. (2021), we adopt a Realized GARCH framework with high-frequency data to coherently model P and Q measure dynamics, thereby enabling proper VRP definition and cross-asset spillover analysis..."</span></span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Novelty 평가</span></span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**기여도**: VRP 측정의 "새로운 표준"; Realized volatility의 중요성 강조</span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**한계**: Single-asset (SPX) only; Cross-asset extension 안 함</span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a><span class="fu">## 섹션 1.2: Cross-Asset &amp; Multi-Asset VRP</span></span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a><span class="fu">### 4. **Heston et al. (2023): "Exploring the Variance Risk Premium Across Assets"**</span></span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**출판**: AEA Conference 2024 / SSRN Working Paper</span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**저자**: Heston 외 공동</span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**링크**: https://www.aeaweb.org/conference/2024/program/paper/hiTeT8SE</span>
+<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 핵심 내용</span></span>
+<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**20개 선물** (주식, 국채, 통화, 원자재)에 대해 **옵션 기반 variance portfolios** 구성</span>
+<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**자산별 VRP 측정** 및 **구조 분석**:</span>
+<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>VRP가 모든 자산에서 발생</span>
+<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>하지만 수준(level)·변동성·예측력이 **자산별로 이질적** (heterogeneous)</span>
+<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>S&amp;P 500 VRP: 평균이 거의 0에 가까움 (but 변동)</span>
+<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 당신 연구와의 연결</span></span>
+<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**직접 비교 대상**: 당신의 Cross-Asset VRP 접근과 가장 유사한 논문</span>
+<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**차이점**:</span>
+<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Heston: 각 자산별 **고유 옵션 데이터** 사용 (GVZ for gold, OVX for crude, etc.)</span>
+<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>당신: **Global VIX + Cross-Asset RV** (저비용, 옵션-sparse 환경)</span>
+<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**당신의 포지셔닝**: <span class="sc">\&gt;</span> "Unlike Heston et al. (2023) who use asset-specific implied volatility indices, we propose a more economical approach leveraging global VIX and cross-asset realized volatility measures, making VRP prediction accessible for broader asset classes and real-time risk management."</span>
+<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Novelty 평가</span></span>
+<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**기여도**: "VRP는 cross-asset heterogeneous"의 첫 강력한 증거</span>
+<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**한계**: 기술적 기여(방법론)는 limited; 주로 실증 분석</span>
+<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a><span class="fu">### 5. **Ornelas et al. (2018): "Volatility risk premia and future commodity returns"**</span></span>
+<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**출판**: Journal of Finance &amp; Quantitative Analysis (JFQA) 계열 / BIS Working Paper</span>
+<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**저자**: José Ornelas 외</span>
+<span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**링크**: https://www.bis.org/publ/work619.pdf</span>
+<span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 핵심 내용</span></span>
+<span id="cb1-161"><a href="#cb1-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-162"><a href="#cb1-162" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**원자재(commodity) VRP**가 **미래 수익률** 예측</span>
+<span id="cb1-163"><a href="#cb1-163" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>금(gold): VRP가 Gold 수익률 예측</span>
+<span id="cb1-164"><a href="#cb1-164" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>원유(crude): VRP가 Crude 수익률 예측</span>
+<span id="cb1-165"><a href="#cb1-165" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>통화: 유사한 spillover 관찰</span>
+<span id="cb1-166"><a href="#cb1-166" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Spillover**: 한 자산의 VRP → 다른 자산의 수익률 예측 가능</span>
+<span id="cb1-167"><a href="#cb1-167" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>예: VIX (global risk proxy) → Commodity VRP 예측</span>
+<span id="cb1-168"><a href="#cb1-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-169"><a href="#cb1-169" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 당신 연구와의 연결</span></span>
+<span id="cb1-170"><a href="#cb1-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-171"><a href="#cb1-171" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**핵심 발견과 부합**: 당신의 "VIX → 금/채권 VRP 예측" 결과와 **동일한 경제 로직**</span>
+<span id="cb1-172"><a href="#cb1-172" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**이론적 근거**: Spillover는 **"global risk factor"** 개념으로 설명 가능</span>
+<span id="cb1-173"><a href="#cb1-173" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**논문 위치 설정**: <span class="sc">\&gt;</span> "Our cross-asset VRP prediction framework is motivated by the spillover effects documented in Ornelas et al. (2018), extending their commodity-focus analysis to equities, fixed income, and emerging markets through a unified VIX-based factor model..."</span>
+<span id="cb1-174"><a href="#cb1-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-175"><a href="#cb1-175" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Novelty 평가</span></span>
+<span id="cb1-176"><a href="#cb1-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-177"><a href="#cb1-177" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**기여도**: "Commodity VRP → Returns" spillover의 첫 증거</span>
+<span id="cb1-178"><a href="#cb1-178" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**한계**: 3-5개 상품만 다룸; ML 예측 미포함</span>
+<span id="cb1-179"><a href="#cb1-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-180"><a href="#cb1-180" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb1-181"><a href="#cb1-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-182"><a href="#cb1-182" aria-hidden="true" tabindex="-1"></a><span class="fu">### 6. **Czech Thesis (2021): "Volatility Risk Premium Across Multiple Asset Classes"**</span></span>
+<span id="cb1-183"><a href="#cb1-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-184"><a href="#cb1-184" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**출판**: Charles University PhD Thesis</span>
+<span id="cb1-185"><a href="#cb1-185" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**저자**: 미상 (인용 출처: 당신 문헌 참고)</span>
+<span id="cb1-186"><a href="#cb1-186" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**링크**: https://dspace.cuni.cz/bitstream/handle/20.500.11956/191263/120472408.pdf</span>
+<span id="cb1-187"><a href="#cb1-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-188"><a href="#cb1-188" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 핵심 내용</span></span>
+<span id="cb1-189"><a href="#cb1-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-190"><a href="#cb1-190" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**18개 시장**에서 VRP 측정</span>
+<span id="cb1-191"><a href="#cb1-191" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**RIV 모델** (Risk-adjusted Implied Volatility): IV를 조정해 더 나은 vol 예측</span>
+<span id="cb1-192"><a href="#cb1-192" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>핵심: **"IV vs RV 비율"**이 단순 IV보다 예측력 우수</span>
+<span id="cb1-193"><a href="#cb1-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-194"><a href="#cb1-194" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 당신 연구와의 연결</span></span>
+<span id="cb1-195"><a href="#cb1-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-196"><a href="#cb1-196" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**CAVB의 정당성**: 당신의 `CAVB = VIX - RV` 은, 이 논문의 **"IV vs RV 비율 정규화"** 개념과 같은 맥락</span>
+<span id="cb1-197"><a href="#cb1-197" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**포지셔닝**: <span class="sc">\&gt;</span> "Building on the risk-adjusted implied volatility framework proposed in the thesis literature, we introduce Cross-Asset Volatility Basis (CAVB) as a normalized IV-RV difference that captures global risk premia..."</span>
+<span id="cb1-198"><a href="#cb1-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-199"><a href="#cb1-199" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb1-200"><a href="#cb1-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-201"><a href="#cb1-201" aria-hidden="true" tabindex="-1"></a><span class="fu">## 섹션 1.3: Options-Driven Volatility &amp; VIX 정보</span></span>
+<span id="cb1-202"><a href="#cb1-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-203"><a href="#cb1-203" aria-hidden="true" tabindex="-1"></a><span class="fu">### 7. **Fleming et al. (1995); Whaley (2000); VIX-Related Core Studies**</span></span>
+<span id="cb1-204"><a href="#cb1-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-205"><a href="#cb1-205" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Fleming et al. (1995)**: "Predicting stock market volatility: a new measure" (JPE)</span>
+<span id="cb1-206"><a href="#cb1-206" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Whaley (2000)**: "The investor fear gauge" (JPM)</span>
+<span id="cb1-207"><a href="#cb1-207" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Todorov &amp; Bollerslev (2010)**: "Volatility spillovers across equity markets"</span>
+<span id="cb1-208"><a href="#cb1-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-209"><a href="#cb1-209" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 핵심 내용</span></span>
+<span id="cb1-210"><a href="#cb1-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-211"><a href="#cb1-211" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>VIX = **"fear gauge"** (공포 지수)</span>
+<span id="cb1-212"><a href="#cb1-212" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>VIX는 **미래 RV 예측에 정보력 있음** (하지만 완벽하지 않음)</span>
+<span id="cb1-213"><a href="#cb1-213" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**VIX term structure** (3M, 9D VIX 등)이 시장 상태 신호</span>
+<span id="cb1-214"><a href="#cb1-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-215"><a href="#cb1-215" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 당신 연구와의 연결</span></span>
+<span id="cb1-216"><a href="#cb1-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-217"><a href="#cb1-217" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**당신의 Sentiment Features**: SKEW, VIX term spread, VIX9D는 이 라인의 **정량화**</span>
+<span id="cb1-218"><a href="#cb1-218" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**VIX spillover**: 당신이 다룬 "Global Risk" 개념의 이론적 근거</span>
+<span id="cb1-219"><a href="#cb1-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-220"><a href="#cb1-220" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb1-221"><a href="#cb1-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-222"><a href="#cb1-222" aria-hidden="true" tabindex="-1"></a><span class="fu">### 8. **Carr, Wu &amp; Zhang (2019): "Using Machine Learning to Predict Realized Variance"**</span></span>
+<span id="cb1-223"><a href="#cb1-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-224"><a href="#cb1-224" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**출판**: ArXiv 2019</span>
+<span id="cb1-225"><a href="#cb1-225" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**저자**: Peter Carr (NYU), Liuren Wu (Baruch), Zhibai Zhang</span>
+<span id="cb1-226"><a href="#cb1-226" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**링크**: https://arxiv.org/pdf/1909.10035.pdf</span>
+<span id="cb1-227"><a href="#cb1-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-228"><a href="#cb1-228" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 핵심 내용</span></span>
+<span id="cb1-229"><a href="#cb1-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-230"><a href="#cb1-230" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**ML을 통한 RV 예측**: Ridge, FNN, Random Forest 등으로 realized variance 예측</span>
+<span id="cb1-231"><a href="#cb1-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-232"><a href="#cb1-232" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**핵심 발견**:</span>
+<span id="cb1-233"><a href="#cb1-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-234"><a href="#cb1-234" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>**Regression I** (직접 RV 예측) vs **Regression II** (VIX² - RV 차이 예측)</span>
+<span id="cb1-235"><a href="#cb1-235" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>**Regression II (VRP 예측)이 훨씬 우수** ← 이미 VIX가 좋은 baseline이므로, **편차만 ML로 포착**</span>
+<span id="cb1-236"><a href="#cb1-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-237"><a href="#cb1-237" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**최적 접근**: $$RV = VIX^2 + f(\text{option prices})$$ 즉, **VRP 부분만 ML로 모델링**</span>
+<span id="cb1-238"><a href="#cb1-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-239"><a href="#cb1-239" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>모델: Ridge (R² 0.39), FNN with ReLU (R² 0.39)로 충분; 더 복잡한 모델은 이득 없음</span>
+<span id="cb1-240"><a href="#cb1-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-241"><a href="#cb1-241" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 당학 연구와의 연결</span></span>
+<span id="cb1-242"><a href="#cb1-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-243"><a href="#cb1-243" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**가장 직접적인 선례**: 이 논문의 "Cross-Asset 확장판"이 당신 연구</span>
+<span id="cb1-244"><a href="#cb1-244" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**타겟 재정의의 정당성**:</span>
+<span id="cb1-245"><a href="#cb1-245" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Carr et al.: <span class="in">`RV = VIX² + (ML predicted deviation)`</span></span>
+<span id="cb1-246"><a href="#cb1-246" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>당신: <span class="in">`RV_{Asset,t+h} = VIX_t + (ML predicted CAVB/Sentiment factors)`</span></span>
+<span id="cb1-247"><a href="#cb1-247" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**개선 아이디어**:</span>
+<span id="cb1-248"><a href="#cb1-248" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>당신도 **"VIX + ML-predicted deviation" 구조**로 명시적 target을 재정의하면, identity mapping 문제 해결</span>
+<span id="cb1-249"><a href="#cb1-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-250"><a href="#cb1-250" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 인용 방법 (금융 + CS 모두 가능)</span></span>
+<span id="cb1-251"><a href="#cb1-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-252"><a href="#cb1-252" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; "Following the successful application of machine learning to variance prediction in Carr et al. (2019), we extend their framework to the cross-asset setting, leveraging both global VIX levels and asset-specific realized volatility basis as dual channels for volatility risk premium forecasting."</span></span>
+<span id="cb1-253"><a href="#cb1-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-254"><a href="#cb1-254" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Novelty 평가</span></span>
+<span id="cb1-255"><a href="#cb1-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-256"><a href="#cb1-256" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**기여도**: "VRP deviation 예측"이 direct RV 예측보다 낫다는 첫 증거</span>
+<span id="cb1-257"><a href="#cb1-257" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**한계**: Single-asset; option data heavy; Cross-asset 미포함</span>
+<span id="cb1-258"><a href="#cb1-258" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-259"><a href="#cb1-259" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb1-260"><a href="#cb1-260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-261"><a href="#cb1-261" aria-hidden="true" tabindex="-1"></a><span class="fu">## 섹션 1.4: Cross-Market Spillover &amp; Sentiment</span></span>
+<span id="cb1-262"><a href="#cb1-262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-263"><a href="#cb1-263" aria-hidden="true" tabindex="-1"></a><span class="fu">### 9. **Volatility Spillovers &amp; Contagion Studies**</span></span>
+<span id="cb1-264"><a href="#cb1-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-265"><a href="#cb1-265" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Ang &amp; Longstaff (2013)**: Systemic risk과 volatility spillover</span>
+<span id="cb1-266"><a href="#cb1-266" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Volatility spillovers during normal and high volatility states** <span class="sc">\[</span>Journal reference<span class="sc">\]</span></span>
+<span id="cb1-267"><a href="#cb1-267" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Cross-market spillovers with 'volatility surprise'** <span class="sc">\[</span>Financial Markets track<span class="sc">\]</span></span>
+<span id="cb1-268"><a href="#cb1-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-269"><a href="#cb1-269" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 핵심 내용</span></span>
+<span id="cb1-270"><a href="#cb1-270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-271"><a href="#cb1-271" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Volatility spillover는 **regime-dependent** (정상 vs 스트레스)</span>
+<span id="cb1-272"><a href="#cb1-272" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**VIX → EEM/EFA** 스필오버 메커니즘 분석</span>
+<span id="cb1-273"><a href="#cb1-273" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>SKEW, term structure는 **tail risk** 신호</span>
+<span id="cb1-274"><a href="#cb1-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-275"><a href="#cb1-275" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 당신 연구와의 연결</span></span>
+<span id="cb1-276"><a href="#cb1-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-277"><a href="#cb1-277" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**당신의 발견**: VIX spillover가 EEM (+60%)에 큼 → 이 spillover 문헌으로 설명</span>
+<span id="cb1-278"><a href="#cb1-278" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**확장 연구**: Regime-switching 모델 도입 가능</span>
+<span id="cb1-279"><a href="#cb1-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-280"><a href="#cb1-280" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb1-281"><a href="#cb1-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-282"><a href="#cb1-282" aria-hidden="true" tabindex="-1"></a><span class="fu"># 2부. 컴퓨터 공학 / 머신러닝 계열 논문 (PART 2. COMPUTER SCIENCE / MACHINE LEARNING)</span></span>
+<span id="cb1-283"><a href="#cb1-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-284"><a href="#cb1-284" aria-hidden="true" tabindex="-1"></a><span class="fu">## 섹션 2.1: 순수 ML-based 볼래틸리티 예측</span></span>
+<span id="cb1-285"><a href="#cb1-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-286"><a href="#cb1-286" aria-hidden="true" tabindex="-1"></a><span class="fu">### 10. **Carr, Wu &amp; Zhang (2019) – CS 관점**</span></span>
+<span id="cb1-287"><a href="#cb1-287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-288"><a href="#cb1-288" aria-hidden="true" tabindex="-1"></a><span class="fu">#### (위에서 이미 소개했으나, CS 관점으로 재해석)</span></span>
+<span id="cb1-289"><a href="#cb1-289" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-290"><a href="#cb1-290" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**CS Novelty**:</span>
+<span id="cb1-291"><a href="#cb1-291" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Option features의 고차원성 처리 (79개 옵션)</span>
+<span id="cb1-292"><a href="#cb1-292" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Ridge, FNN, Random Forest의 **systematic comparison**</span>
+<span id="cb1-293"><a href="#cb1-293" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>**Tradability constraint**: Piece-wise linear functions only (중요한 제약)</span>
+<span id="cb1-294"><a href="#cb1-294" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**당신과의 차이**:</span>
+<span id="cb1-295"><a href="#cb1-295" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Carr et al.: 복잡한 option data → ML으로 최적화</span>
+<span id="cb1-296"><a href="#cb1-296" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>당신: 저차원 VIX 기반 features → 더 간단하지만 **Cross-Asset**</span>
+<span id="cb1-297"><a href="#cb1-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-298"><a href="#cb1-298" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb1-299"><a href="#cb1-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-300"><a href="#cb1-300" aria-hidden="true" tabindex="-1"></a><span class="fu">### 11. **"Volatility forecasting with machine learning and intraday commonality"**</span></span>
+<span id="cb1-301"><a href="#cb1-301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-302"><a href="#cb1-302" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**출판**: ArXiv 2022 / JFEC (Journal of Financial Econometrics) 2024</span>
+<span id="cb1-303"><a href="#cb1-303" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**저자**: Christensen et al.</span>
+<span id="cb1-304"><a href="#cb1-304" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**링크**: SSRN version available</span>
+<span id="cb1-305"><a href="#cb1-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-306"><a href="#cb1-306" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 핵심 내용</span></span>
+<span id="cb1-307"><a href="#cb1-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-308"><a href="#cb1-308" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Intraday commonality**: 많은 종목의 고빈도 RV를 pooling하면 **공통 요소** 추출 가능</span>
+<span id="cb1-309"><a href="#cb1-309" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Neural Network** (2-3 hidden layers)이 HAR, GARCH, tree models 모두 outperform</span>
+<span id="cb1-310"><a href="#cb1-310" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>이유: **공통성 + 비선형성**을 동시에 포착</span>
+<span id="cb1-311"><a href="#cb1-311" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-312"><a href="#cb1-312" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 당신 연구와의 연결</span></span>
+<span id="cb1-313"><a href="#cb1-313" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-314"><a href="#cb1-314" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Cross-Asset VRP의 CS 해석**: <span class="sc">\&gt;</span> "Like the intraday commonality framework of Christensen et al., our Cross-Asset Volatility Basis can be viewed as extracting a global volatility common factor (VIX-driven) from multiple asset RVs, enabling superior ML-based prediction..."</span>
+<span id="cb1-315"><a href="#cb1-315" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-316"><a href="#cb1-316" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb1-317"><a href="#cb1-317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-318"><a href="#cb1-318" aria-hidden="true" tabindex="-1"></a><span class="fu">### 12. **"Volatility forecasting and volatility-timing strategies: A machine learning approach"** (2024)</span></span>
+<span id="cb1-319"><a href="#cb1-319" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-320"><a href="#cb1-320" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**출판**: Journal of Financial Econometrics (JFEC) 2024</span>
+<span id="cb1-321"><a href="#cb1-321" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**저자**: 다양한 저자</span>
+<span id="cb1-322"><a href="#cb1-322" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**링크**: https://www.sciencedirect.com/science/article/abs/pii/S0275531924005166</span>
+<span id="cb1-323"><a href="#cb1-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-324"><a href="#cb1-324" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 핵심 내용</span></span>
+<span id="cb1-325"><a href="#cb1-325" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-326"><a href="#cb1-326" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**43개 macro + financial + sentiment features** → LASSO, GBRT 등 고차원 ML</span>
+<span id="cb1-327"><a href="#cb1-327" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**결과**: HAR 대비 예측 + 전략 성능 **명확히 우수**</span>
+<span id="cb1-328"><a href="#cb1-328" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Feature importance: 선형이 아니라 **비선형 상호작용** 중요</span>
+<span id="cb1-329"><a href="#cb1-329" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-330"><a href="#cb1-330" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 당신과의 비교</span></span>
+<span id="cb1-331"><a href="#cb1-331" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-332"><a href="#cb1-332" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**당신의 발견**: "선형 모델 <span class="sc">\&gt;</span> ML" ← identity mapping + 데이터 구조 문제 때문</span>
+<span id="cb1-333"><a href="#cb1-333" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**이 논문**: 올바른 feature engineering으로 ML 우위 입증</span>
+<span id="cb1-334"><a href="#cb1-334" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**시사점**: 당신도 target 재정의 후 ML은 우위를 회복할 것으로 예상</span>
+<span id="cb1-335"><a href="#cb1-335" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-336"><a href="#cb1-336" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb1-337"><a href="#cb1-337" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-338"><a href="#cb1-338" aria-hidden="true" tabindex="-1"></a><span class="fu">### 13. **DeepVol: "Volatility Forecasting from High-Frequency Data with Dilated Causal Convolutions"** (2024)</span></span>
+<span id="cb1-339"><a href="#cb1-339" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-340"><a href="#cb1-340" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**출판**: ArXiv 2024</span>
+<span id="cb1-341"><a href="#cb1-341" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**저자**: 다양</span>
+<span id="cb1-342"><a href="#cb1-342" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**링크**: https://arxiv.org/html/2210.04797v3</span>
+<span id="cb1-343"><a href="#cb1-343" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-344"><a href="#cb1-344" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 핵심 내용</span></span>
+<span id="cb1-345"><a href="#cb1-345" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-346"><a href="#cb1-346" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Dilated Causal CNN** (시계열 순서 보존, 장거리 의존성)으로 고빈도 RV 예측</span>
+<span id="cb1-347"><a href="#cb1-347" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>전통 모델 대비 현저한 개선</span>
+<span id="cb1-348"><a href="#cb1-348" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-349"><a href="#cb1-349" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 당신과의 연결</span></span>
+<span id="cb1-350"><a href="#cb1-350" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-351"><a href="#cb1-351" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**향후 연구**: 고빈도 데이터로 upgrade하면, 이 아키텍처 검토 가능</span>
+<span id="cb1-352"><a href="#cb1-352" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-353"><a href="#cb1-353" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb1-354"><a href="#cb1-354" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-355"><a href="#cb1-355" aria-hidden="true" tabindex="-1"></a><span class="fu">### 14. **"Multi-Transformer: A New Neural Network-Based Architecture for Forecasting S&amp;P Volatility"** (2021)</span></span>
+<span id="cb1-356"><a href="#cb1-356" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-357"><a href="#cb1-357" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**출판**: ArXiv 2021</span>
+<span id="cb1-358"><a href="#cb1-358" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**저자**: 다양</span>
+<span id="cb1-359"><a href="#cb1-359" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**링크**: https://arxiv.org/pdf/2109.12621.pdf</span>
+<span id="cb1-360"><a href="#cb1-360" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-361"><a href="#cb1-361" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 핵심 내용</span></span>
+<span id="cb1-362"><a href="#cb1-362" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-363"><a href="#cb1-363" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Transformer 기반** (Attention mechanism) 시계열 아키텍처</span>
+<span id="cb1-364"><a href="#cb1-364" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Self-attention으로 **시간 간 관계성** 자동 학습</span>
+<span id="cb1-365"><a href="#cb1-365" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-366"><a href="#cb1-366" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 당신과의 연결</span></span>
+<span id="cb1-367"><a href="#cb1-367" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-368"><a href="#cb1-368" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>CS 논문 제출 시, baseline 모델 중 하나로 고려 가능</span>
+<span id="cb1-369"><a href="#cb1-369" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-370"><a href="#cb1-370" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb1-371"><a href="#cb1-371" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-372"><a href="#cb1-372" aria-hidden="true" tabindex="-1"></a><span class="fu">### 15. **The Hybrid Forecast of S&amp;P 500 Volatility ensembled from VIX, GARCH and LSTM** (2024)</span></span>
+<span id="cb1-373"><a href="#cb1-373" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-374"><a href="#cb1-374" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**출판**: ArXiv 2024</span>
+<span id="cb1-375"><a href="#cb1-375" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**저자**: Roszyk &amp; Slepaczuk (University of Warsaw)</span>
+<span id="cb1-376"><a href="#cb1-376" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**링크**: https://arxiv.org/pdf/2407.16780.pdf</span>
+<span id="cb1-377"><a href="#cb1-377" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-378"><a href="#cb1-378" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 핵심 내용</span></span>
+<span id="cb1-379"><a href="#cb1-379" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-380"><a href="#cb1-380" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**LSTM-GARCH 하이브리드**: GARCH 예측 + LSTM의 비선형성</span>
+<span id="cb1-381"><a href="#cb1-381" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**VIX 입력 추가**로 성능 현저히 개선</span>
+<span id="cb1-382"><a href="#cb1-382" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>GARCH alone: MAE=1.56×10⁻³, RMSE=2.39×10⁻³</span>
+<span id="cb1-383"><a href="#cb1-383" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>LSTM-GARCH+VIX: MAE=1.02×10⁻³, RMSE=1.30×10⁻³ (45% 개선)</span>
+<span id="cb1-384"><a href="#cb1-384" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Sensitivity analysis**: 시계열 길이, LSTM 레이어수, activation function의 영향 분석</span>
+<span id="cb1-385"><a href="#cb1-385" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-386"><a href="#cb1-386" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 당신과의 연결</span></span>
+<span id="cb1-387"><a href="#cb1-387" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-388"><a href="#cb1-388" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**직접 비교**: 당신도 HAR + VIX + Sentiment로 유사한 하이브리드 시도</span>
+<span id="cb1-389"><a href="#cb1-389" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**개선점**:</span>
+<span id="cb1-390"><a href="#cb1-390" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>이 논문: GARCH 기반</span>
+<span id="cb1-391"><a href="#cb1-391" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>당신: HAR + Cross-Asset CAVB 기반</span>
+<span id="cb1-392"><a href="#cb1-392" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**차별성**: Cross-Asset 예측 (단순 SPX 아님)</span>
+<span id="cb1-393"><a href="#cb1-393" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-394"><a href="#cb1-394" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 인용 방법</span></span>
+<span id="cb1-395"><a href="#cb1-395" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-396"><a href="#cb1-396" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; "Building on recent hybrid LSTM-GARCH approaches (Roszyk &amp; Slepaczuk, 2024), we extend the framework to cross-asset volatility prediction, incorporating global VIX dynamics and asset-specific volatility basis measures..."</span></span>
+<span id="cb1-397"><a href="#cb1-397" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-398"><a href="#cb1-398" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb1-399"><a href="#cb1-399" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-400"><a href="#cb1-400" aria-hidden="true" tabindex="-1"></a><span class="fu">## 섹션 2.2: Look-Ahead Bias &amp; Validation</span></span>
+<span id="cb1-401"><a href="#cb1-401" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-402"><a href="#cb1-402" aria-hidden="true" tabindex="-1"></a><span class="fu">### 16. **"a Standardized Benchmark of Look-ahead Bias in Point-in-Time Financial ML"** (2026)</span></span>
+<span id="cb1-403"><a href="#cb1-403" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-404"><a href="#cb1-404" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**출판**: ArXiv Jan 2026</span>
+<span id="cb1-405"><a href="#cb1-405" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**저자**: Benhenda 외</span>
+<span id="cb1-406"><a href="#cb1-406" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**링크**: https://arxiv.org/pdf/2601.13770.pdf</span>
+<span id="cb1-407"><a href="#cb1-407" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-408"><a href="#cb1-408" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 핵심 내용</span></span>
+<span id="cb1-409"><a href="#cb1-409" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-410"><a href="#cb1-410" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Look-ahead bias의 정의 및 벤치마킹**:</span>
+<span id="cb1-411"><a href="#cb1-411" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>예측 시점에 미래 정보 사용 → 완전히 무효한 backtest</span>
+<span id="cb1-412"><a href="#cb1-412" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>정교한 leakage detection framework 제시</span>
+<span id="cb1-413"><a href="#cb1-413" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**시간일관성 검증 프레임워크** (time-series cross-validation)</span>
+<span id="cb1-414"><a href="#cb1-414" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-415"><a href="#cb1-415" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 당신 연구와의 연결</span></span>
+<span id="cb1-416"><a href="#cb1-416" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-417"><a href="#cb1-417" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**가장 중요한 체크리스트**:</span>
+<span id="cb1-418"><a href="#cb1-418" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>당신의 CAVB 피처가 미래 정보를 포함하는가?</span>
+<span id="cb1-419"><a href="#cb1-419" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>이동평균 window가 정당한가?</span>
+<span id="cb1-420"><a href="#cb1-420" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Train/test split이 proper time-series CV인가? ← **현재 단일 분할은 부족**</span>
+<span id="cb1-421"><a href="#cb1-421" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**필수 개선**:</span>
+<span id="cb1-422"><a href="#cb1-422" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Expanding window 또는 purged rolling window 도입</span>
+<span id="cb1-423"><a href="#cb1-423" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>각 예측 시점에서 "그 시점에서 알 수 없는 정보"는 제외</span>
+<span id="cb1-424"><a href="#cb1-424" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-425"><a href="#cb1-425" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 인용 방법 (CS 논문)</span></span>
+<span id="cb1-426"><a href="#cb1-426" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-427"><a href="#cb1-427" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; "Following recent standardized guidelines for look-ahead bias detection (Benhenda et al., 2026), we employ purged rolling-window validation to ensure that all features are computed from information available at the prediction date..."</span></span>
+<span id="cb1-428"><a href="#cb1-428" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-429"><a href="#cb1-429" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb1-430"><a href="#cb1-430" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-431"><a href="#cb1-431" aria-hidden="true" tabindex="-1"></a><span class="fu">### 17. **"An Interpretable Machine Learning Workflow with an Application to Systemic Risk"** \[IJCB\]</span></span>
+<span id="cb1-432"><a href="#cb1-432" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-433"><a href="#cb1-433" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**관련 저작**들 (LLM+Finance 분야)</span>
+<span id="cb1-434"><a href="#cb1-434" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-435"><a href="#cb1-435" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 핵심 내용</span></span>
+<span id="cb1-436"><a href="#cb1-436" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-437"><a href="#cb1-437" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Out-of-bag analysis에서의 subtle look-ahead bias**</span>
+<span id="cb1-438"><a href="#cb1-438" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Interpretability** (LIME, SHAP) 중요성</span>
+<span id="cb1-439"><a href="#cb1-439" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-440"><a href="#cb1-440" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 당신과의 연결</span></span>
+<span id="cb1-441"><a href="#cb1-441" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-442"><a href="#cb1-442" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>CS 논문에 LIME/SHAP을 통한 feature importance 추가 → 설득력 증대</span>
+<span id="cb1-443"><a href="#cb1-443" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-444"><a href="#cb1-444" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb1-445"><a href="#cb1-445" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-446"><a href="#cb1-446" aria-hidden="true" tabindex="-1"></a><span class="fu">### 18. **"Deep learning for financial forecasting: A review of recent advances"** (2025)</span></span>
+<span id="cb1-447"><a href="#cb1-447" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-448"><a href="#cb1-448" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**출판**: Science Direct 2025</span>
+<span id="cb1-449"><a href="#cb1-449" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**링크**: https://www.sciencedirect.com/science/article/pii/S1059056025008822</span>
+<span id="cb1-450"><a href="#cb1-450" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-451"><a href="#cb1-451" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 핵심 내용</span></span>
+<span id="cb1-452"><a href="#cb1-452" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-453"><a href="#cb1-453" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>DL in finance의 종합 리뷰</span>
+<span id="cb1-454"><a href="#cb1-454" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Look-ahead bias, publication bias, overfitting** 등 주요 pitfalls 정리</span>
+<span id="cb1-455"><a href="#cb1-455" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Best practices** (validation strategy, hyperparameter tuning, etc.)</span>
+<span id="cb1-456"><a href="#cb1-456" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-457"><a href="#cb1-457" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 당신과의 연결</span></span>
+<span id="cb1-458"><a href="#cb1-458" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-459"><a href="#cb1-459" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>CS 논문 제출 전 **quality checklist** 확인용</span>
+<span id="cb1-460"><a href="#cb1-460" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Reviewer가 가장 먼저 스캔할 리뷰 논문</span>
+<span id="cb1-461"><a href="#cb1-461" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-462"><a href="#cb1-462" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb1-463"><a href="#cb1-463" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-464"><a href="#cb1-464" aria-hidden="true" tabindex="-1"></a><span class="fu">## 섹션 2.3: Cross-Asset / Multi-Task Learning</span></span>
+<span id="cb1-465"><a href="#cb1-465" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-466"><a href="#cb1-466" aria-hidden="true" tabindex="-1"></a><span class="fu">### 19. **"Deep-learning models for forecasting financial risk premia and their interpretations"** (2023)</span></span>
+<span id="cb1-467"><a href="#cb1-467" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-468"><a href="#cb1-468" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**출판**: ArXiv / Journal of Machine Learning Research</span>
+<span id="cb1-469"><a href="#cb1-469" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**저자**: 다양</span>
+<span id="cb1-470"><a href="#cb1-470" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**링크**: https://arxiv.org/abs/2310.01063</span>
+<span id="cb1-471"><a href="#cb1-471" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-472"><a href="#cb1-472" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 핵심 내용</span></span>
+<span id="cb1-473"><a href="#cb1-473" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-474"><a href="#cb1-474" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**여러 리스크 프리미엄** (시장, 크레딧, FX 등)을 **single deep learning model**로 동시 예측</span>
+<span id="cb1-475"><a href="#cb1-475" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Feature importance 분석으로 각 프리미엄의 공통 vs 이질적 요인 파악</span>
+<span id="cb1-476"><a href="#cb1-476" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-477"><a href="#cb1-477" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 당신과의 연결</span></span>
+<span id="cb1-478"><a href="#cb1-478" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-479"><a href="#cb1-479" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**당신의 연구 위치**: "Volatility Risk Premium across multiple assets"는 이 논문의 **변동성 특화 버전**</span>
+<span id="cb1-480"><a href="#cb1-480" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**포지셔닝**: <span class="sc">\&gt;</span> "Extending the multi-task deep learning framework for financial risk premia (Deep-learning models for forecasting..., 2023), we develop a specialized cross-asset volatility risk premium prediction model that jointly learns asset-specific and global volatility dynamics..."</span>
+<span id="cb1-481"><a href="#cb1-481" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-482"><a href="#cb1-482" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb1-483"><a href="#cb1-483" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-484"><a href="#cb1-484" aria-hidden="true" tabindex="-1"></a><span class="fu">### 20. **"Dynamic Asset Allocation with Asset-Specific Regime Forecasts"** (2024)</span></span>
+<span id="cb1-485"><a href="#cb1-485" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-486"><a href="#cb1-486" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**출판**: ArXiv 2024</span>
+<span id="cb1-487"><a href="#cb1-487" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**저자**: Lugrin 외</span>
+<span id="cb1-488"><a href="#cb1-488" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**링크**: https://arxiv.org/pdf/2407.01550.pdf</span>
+<span id="cb1-489"><a href="#cb1-489" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-490"><a href="#cb1-490" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 핵심 내용</span></span>
+<span id="cb1-491"><a href="#cb1-491" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-492"><a href="#cb1-492" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Regime-switching** 기반 동적 자산배분</span>
+<span id="cb1-493"><a href="#cb1-493" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>자산별 regime을 **DL로 예측** → 포트폴리오 재조정</span>
+<span id="cb1-494"><a href="#cb1-494" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-495"><a href="#cb1-495" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 당신과의 연결</span></span>
+<span id="cb1-496"><a href="#cb1-496" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-497"><a href="#cb1-497" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**향후 확장**: 당신의 VRP 예측을 regime-aware로 확장</span>
+<span id="cb1-498"><a href="#cb1-498" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>"VRP 예측력이 market regime에 따라 다르다" → side hypothesis 추가 가능</span>
+<span id="cb1-499"><a href="#cb1-499" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-500"><a href="#cb1-500" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb1-501"><a href="#cb1-501" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-502"><a href="#cb1-502" aria-hidden="true" tabindex="-1"></a><span class="fu">## 섹션 2.4: VIX, 옵션, 하이브리드 시계열 모델</span></span>
+<span id="cb1-503"><a href="#cb1-503" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-504"><a href="#cb1-504" aria-hidden="true" tabindex="-1"></a><span class="fu">### 21. **"From GARCH to Neural Network for Volatility Forecast"** (2024)</span></span>
+<span id="cb1-505"><a href="#cb1-505" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-506"><a href="#cb1-506" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**출판**: ArXiv 2024</span>
+<span id="cb1-507"><a href="#cb1-507" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**저자**: 다양</span>
+<span id="cb1-508"><a href="#cb1-508" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**링크**: https://arxiv.org/pdf/2402.06642.pdf</span>
+<span id="cb1-509"><a href="#cb1-509" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-510"><a href="#cb1-510" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 핵심 내용</span></span>
+<span id="cb1-511"><a href="#cb1-511" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-512"><a href="#cb1-512" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>GARCH와 NN을 **physically integrate**</span>
+<span id="cb1-513"><a href="#cb1-513" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>GARCH의 경제학적 해석성 + NN의 표현력 결합</span>
+<span id="cb1-514"><a href="#cb1-514" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-515"><a href="#cb1-515" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 당신과의 연결</span></span>
+<span id="cb1-516"><a href="#cb1-516" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-517"><a href="#cb1-517" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>당신의 "HAR + ML" 구조의 **이론적 근거**</span>
+<span id="cb1-518"><a href="#cb1-518" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-519"><a href="#cb1-519" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb1-520"><a href="#cb1-520" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-521"><a href="#cb1-521" aria-hidden="true" tabindex="-1"></a><span class="fu">### 22. **"Forecasting VIX using Bayesian Deep Learning"** (2024)</span></span>
+<span id="cb1-522"><a href="#cb1-522" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-523"><a href="#cb1-523" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**출판**: ArXiv 2024</span>
+<span id="cb1-524"><a href="#cb1-524" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-525"><a href="#cb1-525" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 핵심 내용</span></span>
+<span id="cb1-526"><a href="#cb1-526" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-527"><a href="#cb1-527" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>VIX 자체 예측 (not RV)</span>
+<span id="cb1-528"><a href="#cb1-528" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Uncertainty quantification** (Bayesian)으로 confidence interval 제공</span>
+<span id="cb1-529"><a href="#cb1-529" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-530"><a href="#cb1-530" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 당신과의 연결</span></span>
+<span id="cb1-531"><a href="#cb1-531" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-532"><a href="#cb1-532" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>VIX 예측을 "mean ± std" 형태로 개선 가능 → Cross-Asset VRP 불확실성 모델링</span>
+<span id="cb1-533"><a href="#cb1-533" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-534"><a href="#cb1-534" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb1-535"><a href="#cb1-535" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-536"><a href="#cb1-536" aria-hidden="true" tabindex="-1"></a><span class="fu">### 23. **"Options-driven Volatility Forecasting"** (2025)</span></span>
+<span id="cb1-537"><a href="#cb1-537" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-538"><a href="#cb1-538" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**출판**: Journal of Derivatives / Quantitative Finance (Informa Online) 2025</span>
+<span id="cb1-539"><a href="#cb1-539" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**저자**: Michael 외</span>
+<span id="cb1-540"><a href="#cb1-540" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**링크**: https://www.tandfonline.com/doi/full/10.1080/14697688.2025.2454623</span>
+<span id="cb1-541"><a href="#cb1-541" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-542"><a href="#cb1-542" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 핵심 내용</span></span>
+<span id="cb1-543"><a href="#cb1-543" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-544"><a href="#cb1-544" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**HAR + Option Surface PCA** → realized vol 예측</span>
+<span id="cb1-545"><a href="#cb1-545" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>옵션 정보(특히 term structure, skew)가 incremental value 제공</span>
+<span id="cb1-546"><a href="#cb1-546" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-547"><a href="#cb1-547" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 당신과의 연결</span></span>
+<span id="cb1-548"><a href="#cb1-548" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-549"><a href="#cb1-549" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**당신의 Sentiment feature** (VIX term spread, SKEW)의 **이론적 정당성**</span>
+<span id="cb1-550"><a href="#cb1-550" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Options-driven 접근의 최신 발전</span>
+<span id="cb1-551"><a href="#cb1-551" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-552"><a href="#cb1-552" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 인용 방법 (CS)</span></span>
+<span id="cb1-553"><a href="#cb1-553" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-554"><a href="#cb1-554" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; "Following options-driven volatility forecasting approaches (Michael, 2025), we leverage market expectations embedded in VIX term structure and skewness measures as key sentiment inputs..."</span></span>
+<span id="cb1-555"><a href="#cb1-555" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-556"><a href="#cb1-556" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb1-557"><a href="#cb1-557" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-558"><a href="#cb1-558" aria-hidden="true" tabindex="-1"></a><span class="fu">### 24. **"Predicting option implied volatility features using machine learning"** (미공개)</span></span>
+<span id="cb1-559"><a href="#cb1-559" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-560"><a href="#cb1-560" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**유사 논문들**</span>
+<span id="cb1-561"><a href="#cb1-561" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>**Key idea**: IV surface를 직접 ML로 예측</span>
+<span id="cb1-562"><a href="#cb1-562" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>당신의 SKEW, VIX9D_spread와 유사한 "파생 특성" 활용</span>
+<span id="cb1-563"><a href="#cb1-563" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-564"><a href="#cb1-564" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb1-565"><a href="#cb1-565" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-566"><a href="#cb1-566" aria-hidden="true" tabindex="-1"></a><span class="fu"># PART 3. 당신 연구의 출판 전략 (최종 권장)</span></span>
+<span id="cb1-567"><a href="#cb1-567" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-568"><a href="#cb1-568" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3.1 CS Journal 출판 경로 (3-4개월)</span></span>
+<span id="cb1-569"><a href="#cb1-569" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-570"><a href="#cb1-570" aria-hidden="true" tabindex="-1"></a><span class="fu">### 추천 저널</span></span>
+<span id="cb1-571"><a href="#cb1-571" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-572"><a href="#cb1-572" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**KDD** (ACM Conference on Knowledge Discovery and Data Mining)</span>
+<span id="cb1-573"><a href="#cb1-573" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**ICML Finance Track** (International Conference on Machine Learning)</span>
+<span id="cb1-574"><a href="#cb1-574" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**NeurIPS Finance Track** (Neural Information Processing Systems)</span>
+<span id="cb1-575"><a href="#cb1-575" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-576"><a href="#cb1-576" aria-hidden="true" tabindex="-1"></a><span class="fu">### 필수 수정사항</span></span>
+<span id="cb1-577"><a href="#cb1-577" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-578"><a href="#cb1-578" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>**Target 재정의**</span>
+<span id="cb1-579"><a href="#cb1-579" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Current: <span class="in">`VRP = VIX - RV_{t+h}`</span> → Identity mapping 문제</span>
+<span id="cb1-580"><a href="#cb1-580" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Proposed: Two-stage</span>
+<span id="cb1-581"><a href="#cb1-581" aria-hidden="true" tabindex="-1"></a><span class="ss">        -   </span>Stage 1: <span class="in">`E_t[RV_{t+h}]`</span> 예측 (RV-only features, no VIX)</span>
+<span id="cb1-582"><a href="#cb1-582" aria-hidden="true" tabindex="-1"></a><span class="ss">        -   </span>Stage 2: <span class="in">`VRP = VIX - E_t[RV_{t+h}]`</span></span>
+<span id="cb1-583"><a href="#cb1-583" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>**Validation Protocol**</span>
+<span id="cb1-584"><a href="#cb1-584" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Purged rolling window (expanding window)</span>
+<span id="cb1-585"><a href="#cb1-585" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Out-of-bag or cross-validation with proper time-series splits</span>
+<span id="cb1-586"><a href="#cb1-586" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Reference: Benhenda et al. (2026), Lopez de Prado (2018)</span>
+<span id="cb1-587"><a href="#cb1-587" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>**Model Comparisons**</span>
+<span id="cb1-588"><a href="#cb1-588" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>HAR baseline</span>
+<span id="cb1-589"><a href="#cb1-589" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>LASSO, Ridge, XGBoost, LightGBM (regularized + gradient boosting)</span>
+<span id="cb1-590"><a href="#cb1-590" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>LSTM, Transformer, GRU (DL)</span>
+<span id="cb1-591"><a href="#cb1-591" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Report: MAE, RMSE, QLIKE, Diebold-Mariano test</span>
+<span id="cb1-592"><a href="#cb1-592" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>**Novelty Claims**</span>
+<span id="cb1-593"><a href="#cb1-593" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Cross-Asset VRP prediction (기존: single-asset)</span>
+<span id="cb1-594"><a href="#cb1-594" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>CAVB (Cross-Asset Volatility Basis) 개념 정의</span>
+<span id="cb1-595"><a href="#cb1-595" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Sentiment integration (SKEW, VIX term structure) 정량화</span>
+<span id="cb1-596"><a href="#cb1-596" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-597"><a href="#cb1-597" aria-hidden="true" tabindex="-1"></a><span class="fu">### 초록 (CS 버전)</span></span>
+<span id="cb1-598"><a href="#cb1-598" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-599"><a href="#cb1-599" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; "We propose a machine learning framework for predicting volatility risk premium across multiple asset classes using global volatility indices and cross-asset realized volatility basis. Our key innovation is the introduction of Cross-Asset Volatility Basis (CAVB) and structured sentiment features that capture tail risk and market term structure effects. Through systematic evaluation of 60+ models using purged rolling-window validation, we demonstrate that properly normalized features enable both linear and deep learning models to achieve significant out-of-sample improvements over traditional benchmarks. The framework is computationally efficient and applicable to real-time risk management, avoiding the need for high-dimensional option data."</span></span>
+<span id="cb1-600"><a href="#cb1-600" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-601"><a href="#cb1-601" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb1-602"><a href="#cb1-602" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-603"><a href="#cb1-603" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3.2 금융 Journal 출판 경로 (6-8개월)</span></span>
+<span id="cb1-604"><a href="#cb1-604" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-605"><a href="#cb1-605" aria-hidden="true" tabindex="-1"></a><span class="fu">### 추천 저널 (Impact Factor 순)</span></span>
+<span id="cb1-606"><a href="#cb1-606" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-607"><a href="#cb1-607" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>**Journal of Financial Economics** (JFE) ← 최고 난이도</span>
+<span id="cb1-608"><a href="#cb1-608" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>**Journal of Banking &amp; Finance** (JBankF)</span>
+<span id="cb1-609"><a href="#cb1-609" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>**Journal of Financial and Quantitative Analysis** (JFQA)</span>
+<span id="cb1-610"><a href="#cb1-610" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>**Journal of Econometrics**</span>
+<span id="cb1-611"><a href="#cb1-611" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-612"><a href="#cb1-612" aria-hidden="true" tabindex="-1"></a><span class="fu">### 필수 작업</span></span>
+<span id="cb1-613"><a href="#cb1-613" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-614"><a href="#cb1-614" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>**이론적 Framework 추가**</span>
+<span id="cb1-615"><a href="#cb1-615" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Bekaert &amp; Hoerova의 VIX 분해 틀 도입</span>
+<span id="cb1-616"><a href="#cb1-616" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Realized GARCH (Hansen et al.) 기반 모델 개발</span>
+<span id="cb1-617"><a href="#cb1-617" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>ICAPM / Merton VRP 이론과의 연결</span>
+<span id="cb1-618"><a href="#cb1-618" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>**고빈도 데이터**</span>
+<span id="cb1-619"><a href="#cb1-619" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>TAQ 또는 Refinitiv 고빈도 옵션 데이터</span>
+<span id="cb1-620"><a href="#cb1-620" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Realized volatility (5분 또는 1분 빈도)</span>
+<span id="cb1-621"><a href="#cb1-621" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Microstructure noise 보정 필수</span>
+<span id="cb1-622"><a href="#cb1-622" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>**경제적 유의성 검증**</span>
+<span id="cb1-623"><a href="#cb1-623" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>변동성 매도/매수 전략 백테스트</span>
+<span id="cb1-624"><a href="#cb1-624" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Sharpe ratio, Sortino ratio 계산</span>
+<span id="cb1-625"><a href="#cb1-625" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>거래비용, 슬리피지 반영</span>
+<span id="cb1-626"><a href="#cb1-626" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Stress period (2008, 2020, 2022) 성과 분석</span>
+<span id="cb1-627"><a href="#cb1-627" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>**자산별 특성 분석**</span>
+<span id="cb1-628"><a href="#cb1-628" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>왜 채권 R²가 높은가? (답: VIX <span class="sc">\&gt;\&gt;</span> RV 때문)</span>
+<span id="cb1-629"><a href="#cb1-629" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>주식은 왜 낮은가?</span>
+<span id="cb1-630"><a href="#cb1-630" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Cross-asset correlation과 관계</span>
+<span id="cb1-631"><a href="#cb1-631" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>**Selection Bias / Survivorship Bias**</span>
+<span id="cb1-632"><a href="#cb1-632" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>데이터 기간 정당화 (2010-2025 선택 이유?)</span>
+<span id="cb1-633"><a href="#cb1-633" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>자산 선택 기준</span>
+<span id="cb1-634"><a href="#cb1-634" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Out-of-sample test 충분한가?</span>
+<span id="cb1-635"><a href="#cb1-635" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-636"><a href="#cb1-636" aria-hidden="true" tabindex="-1"></a><span class="fu">### 초록 (금융 버전)</span></span>
+<span id="cb1-637"><a href="#cb1-637" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-638"><a href="#cb1-638" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; "This paper extends the variance risk premium literature to the cross-asset setting by developing a unified framework that decomposes global market expectations (embedded in the VIX) from asset-specific risk premia. Following Bekaert and Hoerova (2014) and Hansen et al. (2021), we employ a Realized GARCH model with exponentially affine stochastic discount factor to jointly model P-measure and Q-measure dynamics. We find that the VIX contains substantial predictive power for realized volatility across multiple assets (equities, bonds, emerging markets), with spillover effects strongest during periods of financial stress. Importantly, we show that the magnitude of cross-asset VRP is heterogeneous and can be predicted using volatility basis and sentiment measures. Our findings have important implications for option pricing, portfolio construction, and macroprudential risk assessment. We validate our results through extensive out-of-sample tests, economic significance analysis, and robustness checks across different realized volatility estimators and forecast horizons."</span></span>
+<span id="cb1-639"><a href="#cb1-639" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-640"><a href="#cb1-640" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb1-641"><a href="#cb1-641" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-642"><a href="#cb1-642" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3.3 최종 선택 권장사항</span></span>
+<span id="cb1-643"><a href="#cb1-643" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-644"><a href="#cb1-644" aria-hidden="true" tabindex="-1"></a><span class="fu">### 현재 상황 평가</span></span>
+<span id="cb1-645"><a href="#cb1-645" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-646"><a href="#cb1-646" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>✅ **기술적 실행력**: 우수 (60+ 모델, 32개 실험)</span>
+<span id="cb1-647"><a href="#cb1-647" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>❌ **타겟 정의**: 치명적 결함 (identity mapping)</span>
+<span id="cb1-648"><a href="#cb1-648" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>❌ **Validation**: 부족 (single split, no purged window)</span>
+<span id="cb1-649"><a href="#cb1-649" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>⚠️ **이론적 구성**: 금융 쪽이 필요함; CS는 적당함</span>
+<span id="cb1-650"><a href="#cb1-650" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-651"><a href="#cb1-651" aria-hidden="true" tabindex="-1"></a><span class="fu">### 최종 판단</span></span>
+<span id="cb1-652"><a href="#cb1-652" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-653"><a href="#cb1-653" aria-hidden="true" tabindex="-1"></a>**→ CS 저널 추천 (KDD/ICML Finance Track)**</span>
+<span id="cb1-654"><a href="#cb1-654" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-655"><a href="#cb1-655" aria-hidden="true" tabindex="-1"></a>**이유**: 1. **수정 기간 단축**: 3-4개월 vs 금융 6-8개월 2. **CS는 금융 이론 덜 까다로움**: identity mapping만 해결하면 통과 가능 3. **금융은 고빈도 데이터 필수**: 추가 데이터 수집 + 이론 구성 = 시간 소비 4. **Cross-Asset 적용은 CS 커뮤니티에서 novelty**: "Volatility 예측"은 주로 single-asset 5. **Sentiment quantification**: SKEW + VIX term structure는 CS 관점에서 새로운 feature engineering</span>
+<span id="cb1-656"><a href="#cb1-656" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-657"><a href="#cb1-657" aria-hidden="true" tabindex="-1"></a><span class="fu">### 세부 액션 플랜 (30일)</span></span>
+<span id="cb1-658"><a href="#cb1-658" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-659"><a href="#cb1-659" aria-hidden="true" tabindex="-1"></a>**Week 1-2: Target 재정의 &amp; Data 재처리** - <span class="in">`E_t[RV_{t+h}]`</span>를 별도 RV-only model로 학습 - Features: RV_1d, RV_5d, RV_22d만 (VIX 제외) - Model: HAR, GARCH, Linear models - Cross-validation 함수 재작성 (purged rolling window) - Output: New target, new validation metrics</span>
+<span id="cb1-660"><a href="#cb1-660" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-661"><a href="#cb1-661" aria-hidden="true" tabindex="-1"></a>**Week 3: ML Model Retraining** - LASSO, Ridge, XGBoost, LightGBM 재학습 (올바른 target) - LSTM, Transformer baseline 추가 - Early stopping, hyperparameter tuning 강화 - Error metrics: MAE, RMSE, QLIKE, Diebold-Mariano test</span>
+<span id="cb1-662"><a href="#cb1-662" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-663"><a href="#cb1-663" aria-hidden="true" tabindex="-1"></a>**Week 4: Manuscript Preparation** - CS 논문 초록·서론 작성 (KDD 포맷) - 관련 연구 섹션 (CS 관점: Carr et al., Christensen et al., Hybrid LSTM-GARCH) - 실험 결과 그래프·테이블 - ArXiv에 preprint 업로드 (우선권 확보)</span>
+<span id="cb1-664"><a href="#cb1-664" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-665"><a href="#cb1-665" aria-hidden="true" tabindex="-1"></a>**Month 2: 재검토 + 추가 실험** - Regime-based 성능 분석 (고변동/저변동) - Feature importance (SHAP/LIME) - Stress-period 성과 (2008, 2020, 2022) - Robustness checks (다른 forecast horizon, 다른 자산)</span>
+<span id="cb1-666"><a href="#cb1-666" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-667"><a href="#cb1-667" aria-hidden="true" tabindex="-1"></a>**Month 3: KDD/ICML 제출** - Submission deadline 확인 - Review 예상 + FAQ 준비</span>
+<span id="cb1-668"><a href="#cb1-668" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-669"><a href="#cb1-669" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb1-670"><a href="#cb1-670" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-671"><a href="#cb1-671" aria-hidden="true" tabindex="-1"></a><span class="fu"># APPENDIX: 논문 Quick Reference Table</span></span>
+<span id="cb1-672"><a href="#cb1-672" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-673"><a href="#cb1-673" aria-hidden="true" tabindex="-1"></a><span class="fu">## 금융 관련 논문 요약</span></span>
+<span id="cb1-674"><a href="#cb1-674" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-675"><a href="#cb1-675" aria-hidden="true" tabindex="-1"></a>| 순번 | 제목 | 저자 | 년도 | 링크 | 당신 연구와의 관계 | Novelty | 인용 우선순위 |</span>
+<span id="cb1-676"><a href="#cb1-676" aria-hidden="true" tabindex="-1"></a>|---------|---------|---------|---------|---------|---------|---------|---------|</span>
+<span id="cb1-677"><a href="#cb1-677" aria-hidden="true" tabindex="-1"></a>| 1 | Variance Risk Premia | Carr &amp; Wu | 2009 | RFS | VRP 표준 정의 | Canonical | ⭐⭐⭐⭐⭐ |</span>
+<span id="cb1-678"><a href="#cb1-678" aria-hidden="true" tabindex="-1"></a>| 2 | VIX, Variance Premium, Stock Market Vol | Bekaert &amp; Hoerova | 2014 | ECB/JFEC | VIX 분해 프레임 | Core | ⭐⭐⭐⭐⭐ |</span>
+<span id="cb1-679"><a href="#cb1-679" aria-hidden="true" tabindex="-1"></a>| 3 | Realized GARCH, CBOE VIX, VRP | Hansen et al. | 2021 | JFE | 고빈도 + dual-shock | 방법론 신규 | ⭐⭐⭐⭐⭐ |</span>
+<span id="cb1-680"><a href="#cb1-680" aria-hidden="true" tabindex="-1"></a>| 4 | Exploring VRP Across Assets | Heston et al. | 2023 | AEA | Cross-Asset 측정 | 직접 경쟁 | ⭐⭐⭐⭐ |</span>
+<span id="cb1-681"><a href="#cb1-681" aria-hidden="true" tabindex="-1"></a>| 5 | Commodity VRP &amp; Future Returns | Ornelas et al. | 2018 | BIS/JFQA | Spillover 효과 | Foundational | ⭐⭐⭐⭐ |</span>
+<span id="cb1-682"><a href="#cb1-682" aria-hidden="true" tabindex="-1"></a>| 6 | VRP Across Multiple Assets | Czech Thesis | 2021 | PhD | RIV 모델 | 학술 | ⭐⭐⭐ |</span>
+<span id="cb1-683"><a href="#cb1-683" aria-hidden="true" tabindex="-1"></a>| 7 | Fleming/Whaley VIX Studies | Fleming et al. | 1995-2000 | JPE/JPM | VIX 공포지수 | Classic | ⭐⭐⭐⭐ |</span>
+<span id="cb1-684"><a href="#cb1-684" aria-hidden="true" tabindex="-1"></a>| 8 | ML to Predict Realized Variance | Carr et al. | 2019 | ArXiv | VRP + ML | 선례 | ⭐⭐⭐⭐⭐ |</span>
+<span id="cb1-685"><a href="#cb1-685" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-686"><a href="#cb1-686" aria-hidden="true" tabindex="-1"></a><span class="fu">## CS/ML 관련 논문 요약</span></span>
+<span id="cb1-687"><a href="#cb1-687" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-688"><a href="#cb1-688" aria-hidden="true" tabindex="-1"></a>| 순번 | 제목 | 저자 | 년도 | 링크 | 당신 연구와의 관계 | Novelty | 인용 우선순위 |</span>
+<span id="cb1-689"><a href="#cb1-689" aria-hidden="true" tabindex="-1"></a>|---------|---------|---------|---------|---------|---------|---------|---------|</span>
+<span id="cb1-690"><a href="#cb1-690" aria-hidden="true" tabindex="-1"></a>| 10 | Using ML to Predict RV | Carr et al. | 2019 | ArXiv | (금융과 동일) | VRP + ML | ⭐⭐⭐⭐⭐ |</span>
+<span id="cb1-691"><a href="#cb1-691" aria-hidden="true" tabindex="-1"></a>| 11 | Vol Forecasting, Intraday Commonality | Christensen et al. | 2022 | SSRN/JFEC | 공통성 개념 | NN <span class="sc">\&gt;</span> GARCH | ⭐⭐⭐⭐ |</span>
+<span id="cb1-692"><a href="#cb1-692" aria-hidden="true" tabindex="-1"></a>| 12 | Vol Forecasting &amp; Timing, ML Approach | Various | 2024 | SciDirect | 다피처 + ML | 성능 비교 | ⭐⭐⭐⭐ |</span>
+<span id="cb1-693"><a href="#cb1-693" aria-hidden="true" tabindex="-1"></a>| 13 | DeepVol: CNN from High-Freq Data | Various | 2024 | ArXiv | 고빈도 + CNN | 아키텍처 | ⭐⭐⭐ |</span>
+<span id="cb1-694"><a href="#cb1-694" aria-hidden="true" tabindex="-1"></a>| 14 | Multi-Transformer S&amp;P Vol | Various | 2021 | ArXiv | Transformer | 아키텍처 | ⭐⭐ |</span>
+<span id="cb1-695"><a href="#cb1-695" aria-hidden="true" tabindex="-1"></a>| 15 | Hybrid LSTM-GARCH S&amp;P Vol | Roszyk &amp; Slepaczuk | 2024 | ArXiv | 직접 경쟁 | Hybrid + VIX | ⭐⭐⭐⭐ |</span>
+<span id="cb1-696"><a href="#cb1-696" aria-hidden="true" tabindex="-1"></a>| 16 | Look-ahead Bias Benchmark | Benhenda et al. | 2026 | ArXiv | Validation 프로토콜 | 방법론 신규 | ⭐⭐⭐⭐⭐ |</span>
+<span id="cb1-697"><a href="#cb1-697" aria-hidden="true" tabindex="-1"></a>| 17 | Interpretable ML Workflow | Various | Various | IJCB | LIME/SHAP | 해석성 | ⭐⭐⭐ |</span>
+<span id="cb1-698"><a href="#cb1-698" aria-hidden="true" tabindex="-1"></a>| 18 | DL for Financial Forecasting Review | Various | 2025 | SciDirect | 종합 리뷰 | Survey | ⭐⭐⭐⭐ |</span>
+<span id="cb1-699"><a href="#cb1-699" aria-hidden="true" tabindex="-1"></a>| 19 | DL for Financial Risk Premia | Various | 2023 | ArXiv | Multi-task | 다중 프리미엄 | ⭐⭐⭐⭐ |</span>
+<span id="cb1-700"><a href="#cb1-700" aria-hidden="true" tabindex="-1"></a>| 20 | Dynamic Asset Allocation, Regime | Lugrin et al. | 2024 | ArXiv | Regime switching | 자산 배분 | ⭐⭐⭐ |</span>
+<span id="cb1-701"><a href="#cb1-701" aria-hidden="true" tabindex="-1"></a>| 21 | GARCH to NN for Vol | Various | 2024 | ArXiv | Hybrid 이론 | 통합 모델 | ⭐⭐⭐ |</span>
+<span id="cb1-702"><a href="#cb1-702" aria-hidden="true" tabindex="-1"></a>| 22 | Forecasting VIX, Bayesian DL | Various | 2024 | ArXiv | VIX 예측 | 불확실성 | ⭐⭐⭐ |</span>
+<span id="cb1-703"><a href="#cb1-703" aria-hidden="true" tabindex="-1"></a>| 23 | Options-driven Vol Forecasting | Michael | 2025 | Informa | HAR + Options | Sentiment | ⭐⭐⭐⭐ |</span>
+<span id="cb1-704"><a href="#cb1-704" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-705"><a href="#cb1-705" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb1-706"><a href="#cb1-706" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-707"><a href="#cb1-707" aria-hidden="true" tabindex="-1"></a><span class="fu"># FINAL SUMMARY</span></span>
+<span id="cb1-708"><a href="#cb1-708" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-709"><a href="#cb1-709" aria-hidden="true" tabindex="-1"></a>당신의 연구는 **CS와 금융 모두에서 출판 가능한 좋은 프로젝트**이나:</span>
+<span id="cb1-710"><a href="#cb1-710" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-711"><a href="#cb1-711" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>**즉시 수정 필수**: Identity mapping 문제 해결 (Target 재정의)</span>
+<span id="cb1-712"><a href="#cb1-712" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>**CS 우선 추천**: 더 빠르고 명확한 성공 가능성</span>
+<span id="cb1-713"><a href="#cb1-713" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>**금융은 향후**: 고빈도 데이터 + 이론 추가 후 별도 투고</span>
+<span id="cb1-714"><a href="#cb1-714" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-715"><a href="#cb1-715" aria-hidden="true" tabindex="-1"></a>**다음 30일 Action Items**: - <span class="sc">\[</span> <span class="sc">\]</span> Target 재정의 (Two-stage RV + VRP) - <span class="sc">\[</span> <span class="sc">\]</span> Purged rolling window validation 구현 - <span class="sc">\[</span> <span class="sc">\]</span> ML 모델 재학습 (올바른 CV 프로토콜) - <span class="sc">\[</span> <span class="sc">\]</span> ArXiv preprint 준비 - <span class="sc">\[</span> <span class="sc">\]</span> KDD/ICML Finance 마감일 확인</span>
+<span id="cb1-716"><a href="#cb1-716" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-717"><a href="#cb1-717" aria-hidden="true" tabindex="-1"></a>**2026년 목표**: - Q1: ArXiv + KDD/ICML 제출 - Q2-Q3: CS 저널 리뷰 대응 + 출판 - Q4: 금융 버전 준비 (고빈도 데이터 수집)</span></code><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Cross-Asset Volatility Risk Premium 예측 연구</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Quarto로 제작됨 | 2026</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
