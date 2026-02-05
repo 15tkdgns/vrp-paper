@@ -1,0 +1,56 @@
+<details>
+  <summary>Christensen et al. (2023): "Volatility Forecasting with Intraday Commonality" (Journal of Financial Econometrics / SSRN)</summary>
+  <div class="paper-details">
+    <div class="paper-links">
+      <a href="https://doi.org/10.1093/jjfinec/nbad033" target="_blank">[Journal Link]</a>
+      <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3816656" target="_blank">[SSRN Full Paper]</a>
+    </div>
+
+    <details class="nested-details">
+      <summary>논문 개요</summary>
+      <div class="nested-content">
+        <p>개별 자산의 변동성을 하나씩 예측하는 대신, 수많은 자산의 데이터를 하나의 신경망으로 통합 학습(Pooling)하여 자산 간 '공통성(Commonality)'을 추출하는 방법론을 제시했습니다.</p>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>연구 질문</summary>
+      <div class="nested-content">
+        <ul>
+          <li>자산 간 공통된 변동성 요인이 존재하며, 이를 기계학습으로 추출할 수 있는가?</li>
+          <li>개별 모델링(Individual modeling)보다 데이터 풀링(Data pooling)이 예측력과 일반화 성능을 높이는가?</li>
+          <li>자산 고유의 특성(Idiosyncratic characteristics)을 신경망 임베딩으로 처리하는 것이 효과적인가?</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>데이터 및 샘플</summary>
+      <div class="nested-content">
+        <ul>
+          <li><strong>대상:</strong> S&P 500에 포함된 모든 주식 종목의 패널 데이터.</li>
+          <li><strong>입력:</strong> 일단위 고빈도 RV, 산업 섹터 임베딩, 시가총액, 거래대금 등.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>방법론</summary>
+      <div class="nested-content">
+        <p><strong>Global Neural Network:</strong> 개별 주식마다 모델을 만들지 않고, 모든 주식의 데이터를 투입하여 하나의 거대한 신경망(Global Model)을 학습시켰습니다.</p>
+        <p><strong>Intraday Commonality:</strong> 장중 발생하는 자산 간 상관관계와 공통 충격을 포착하기 위한 구조적 설계를 도입했습니다.</p>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>연구 결과</summary>
+      <div class="nested-content">
+        <ul>
+          <li><strong>장기 예측력 회복:</strong> 개별 HAR 모델이 취약한 10일~22일 단위 장기 예측에서 Global Model이 압도적인 우위를 보였습니다.</li>
+          <li><strong>정보 공유의 효율성:</strong> 데이터가 부족한 신규 상장 주식이나 소형주의 변동성도 대형주의 패턴을 통해 더 정확하게 예측할 수 있음을 입증했습니다.</li>
+          <li><strong>실무적 가치:</strong> 대규모 자산 포트폴리오의 리스크 관리를 수행할 때 계산 효율성과 예측 정확도를 동시에 잡을 수 있는 대안을 제시했습니다.</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+</details>

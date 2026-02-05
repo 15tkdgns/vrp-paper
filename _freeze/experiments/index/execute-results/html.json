@@ -1,0 +1,12 @@
+{
+  "hash": "210931d15b387fabf0719f0cf9e092b0",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\ntitle: \"실험 결과\"\nsubtitle: \"V50 모델 검증 및 성능 분석\"\ndate: today\n---\n\n\n\n\n## 핵심 실험 목록\n\n본 연구에서 수행한 주요 실험들의 결과를 정리했습니다. 각 실험은 V50 모델의 다양한 측면을 검증합니다.\n\n### Phase별 실험 요약\n\n| Phase | 실험명 | 핵심 내용 | 결과 |\n|:---|:---|:---|:---|\n| **Phase 4** | [1일 예측 (V50)](/experiments/1day_prediction.qmd) | Dual-Attention LSTM, 단기 챔피언 | **R² = 0.821** |\n| **Phase 10** | [V29 베이스라인 검증](/experiments/phase10_v29_verification.qmd) | GARCH 기여도, 시장 국면 안정성 | p < 0.001 |\n| **Phase 13** | [22일 예측 (V36)](/experiments/22day_prediction.qmd) | 자산 적응형 Ridge, 장기 챔피언 | **R² = 0.755** |\n\n---\n\n## 검증 실험 결과 요약\n\n::: {#72191b95 .cell fig-height='5' fig-width='10' execution_count=1}\n\n::: {.cell-output .cell-output-display}\n![](index_files/figure-html/cell-2-output-1.png){width=950 height=471}\n:::\n:::\n\n\n---\n\n## 주요 발견 사항\n\n::: {.callout-note}\n## V50 모델의 강점\n\n1. **과적합 없음**: Walk-Forward 검증에서 OOS R² = 0.820 (IS와 거의 동일)\n2. **통계적 유의성**: Diebold-Mariano 테스트 p < 0.001로 베이스라인 대비 유의미한 개선\n3. **극한 시장 강건성**: 코로나19 및 인플레이션 기간에도 성능 유지\n4. **다중공선성 없음**: 모든 VIF 값이 5 미만\n:::\n\n---\n\n## 추가 실험\n\n| 실험명 | 설명 | 링크 |\n|:---|:---|:---|\n| 통합 모델 실험 | 23개 자산을 단일 모델로 학습 | [보기 →](/experiments/universal_model.qmd) |\n| 트레이딩 전략 | 변동성 타겟팅 백테스트 | [보기 →](/experiments/trading_strategy.qmd) |\n| 결과 요약 | 전체 실험 결과 통계 | [보기 →](/experiments/summary.qmd) |\n\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}

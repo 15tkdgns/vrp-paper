@@ -1,0 +1,168 @@
+CS 및 ML 기반 변동성 예측과 분산 위험 프리미엄(VRP)의 미시적·거시적 동학: 심층 분석 보고서
+1. 연구 개요 (Research Overview)
+1.1 서론: 금융 계량경제학의 한계와 기계학습의 부상
+현대 금융 공학에서 자산의 변동성(Volatility)과 분산 위험 프리미엄(Variance Risk Premium, VRP)을 예측하는 것은 위험 관리, 파생상품 가격 결정, 그리고 포트폴리오 최적화의 핵심 과제이다. 전통적으로 이러한 예측은 자기회귀조건부이분산(GARCH) 모델이나 이분산자기회귀(HAR-RV) 모델과 같은 계량경제학적 접근법에 의존해 왔다. 이들 모델은 변동성의 군집(clustering) 현상과 평균 회귀(mean reversion) 특성을 포착하는 데 있어 이론적 견고함을 제공하지만, 금융 시장의 복잡한 비선형성(non-linearity)과 고차원 데이터의 상호작용을 충분히 반영하지 못한다는 구조적 한계를 안고 있다. 특히, 옵션 시장에서 관측되는 내재 변동성(Implied Volatility,  측도)과 실제 시장에서 실현된 변동성(Realized Volatility,  측도) 간의 괴리를 설명하는 VRP는 투자자들의 위험 회피 성향과 불확실성에 대한 공포를 대변하는 중요한 지표임에도 불구하고, 선형적 모델링으로는 그 동태적 특성을 포착하기 어렵다.
+2019년부터 2026년에 이르는 최신 연구 흐름은 컴퓨터 과학(CS)과 머신러닝(ML) 기술이 이러한 전통적 한계를 극복하고 변동성 예측의 새로운 패러다임을 제시하고 있음을 보여준다. Carr et al. (2019, 2020)의 선구적인 연구를 시작으로, Christensen et al. (2022), Michael et al. (2025), 그리고 최근의 Benhenda (2026)에 이르기까지, 연구자들은 단순한 회귀 분석을 넘어 딥러닝(Deep Learning), 강화학습(Reinforcement Learning), 그리고 거대 언어 모델(LLM)을 금융 시계열에 적용하고 있다. 이들 연구는 기계학습이 단순히 과거 데이터를 외우는 것이 아니라, 시장 참여자들의 이질적인 기대와 미시 구조적 잡음(Microstructure Noise) 속에 숨겨진 '보편적 변동성 메커니즘(Universal Volatility Mechanism)'을 학습할 수 있음을 시사한다.1
+1.2 연구의 주요 주제 및 진화 방향
+본 보고서에서 분석한 문헌들은 다음과 같은 다섯 가지의 주요 주제로 수렴하며 발전하고 있다.
+첫째, 예측 대상의 정교화: 실현 변동성에서 VRP 잔차 학습으로 초기 연구들이 실현 변동성() 자체를 직접 예측하는 데 집중했다면, 최신 연구들은 기계학습을 '잔차 학습(Residual Learning)'의 도구로 활용한다. Carr et al. (2020)은 VIX와 같은 인간이 설계한 모델의 예측치와 실제 실현 변동성 간의 차이, 즉 VRP를 예측 타겟으로 삼을 때 기계학습의 성능이 극대화됨을 입증했다. 이는 기계학습이 인간 모델의 구조적 편향(Bias)을 교정하는 역할을 수행함을 의미한다.1
+둘째, 데이터 차원의 확장: 일별 데이터에서 고빈도 틱 데이터 및 옵션 곡면으로 DeepVol (2022)과 Michael et al. (2025)의 연구는 데이터의 빈도와 차원을 확장했다. DeepVol은 틱(Tick) 단위 또는 5분 단위의 고빈도 데이터를 수작업 특징 추출 없이 딥러닝 모델(Dilated CNN)에 직접 입력하여 미시적 패턴을 학습한다. 반면, Michael et al.은 단일 VIX 지수가 아닌, 행사가격과 만기별로 구성된 전체 옵션 내재 변동성 곡면(Implied Volatility Surface) 정보를 활용하여 예측력을 높였다. 이는 금융 데이터의 '풍부함(Richness)'을 모델이 직접 소화하게 하려는 시도이다.4
+셋째, 자산별(Asset-Specific) VRP와 횡단면 예측 지수(Index) 차원의 연구를 넘어, 개별 주식의 VRP가 횡단면 수익률(Cross-section of returns)을 설명하는 팩터로서 연구되고 있다. Pyun (2019) 및 Feunou et al. (2017) 등은 개별 주식의 VRP가 단순한 시장 위험의 반영이 아니라, 기업 고유의 특이 위험(Idiosyncratic Risk)에 대한 프리미엄임을 밝혔으며, 최신 ML 연구들은 이를 딥러닝으로 추출하여 포트폴리오 최적화에 활용하고 있다. 이는 VRP 연구가 거시경제적 위험 측정에서 개별 자산의 가격 결정 요인 분석으로 확장되고 있음을 보여준다.6
+넷째, 하이브리드 모델과 구조적 결합 순수 딥러닝 모델의 불확실성을 완화하기 위해 전통적 계량 모델과 결합하는 시도가 주류를 이룬다. Roszyk & Slepaczuk (2024)의 LSTM-GARCH 모델이나 Xu et al. (2024)의 GARCH-Informed Neural Networks (GINN)은 신경망 구조 내에 GARCH의 커널을 삽입하거나, GARCH의 출력을 LSTM의 입력으로 사용하여 모델의 안정성과 예측력을 동시에 확보한다.8
+다섯째, 설명 가능성과 검증의 엄격화 Lo & Singh (2023)과 Benhenda (2026)는 모델의 '블랙박스' 문제를 해결하기 위해 SHAP/LIME을 통한 사후 해석을 도입하고, 미래 참조 편향(Look-ahead Bias)을 엄격히 통제한 'Point-in-Time' 벤치마크를 제안했다. 이는 금융 ML 연구가 단순한 성능 경쟁을 넘어 실무적 신뢰성을 확보하는 단계로 진입했음을 시사한다.10
+2. 연구 질문 (Research Questions)
+분석된 문헌들은 금융 시장의 변동성 역학과 위험 프리미엄의 본질을 규명하기 위해 다음과 같은 심층적인 연구 질문들을 제기하고 검증한다. 이 질문들은 머신러닝 모델의 효용성을 입증하는 것을 넘어, 금융 경제학의 이론적 가설들을 데이터 주도적으로 재해석하려는 시도를 담고 있다.
+2.1 기계학습은 전통적 계량 모델의 구조적 한계를 극복하는가?
+가장 근본적인 질문은 과연 복잡한 딥러닝 아키텍처가 단순하고 해석 가능한 GARCH나 HAR 모델보다 우월한가에 대한 것이다.
+비선형 동학의 포착: 금융 시장의 변동성은 충격에 대해 비대칭적으로 반응한다(Leverage Effect). 즉, 가격 하락 시의 변동성 증가폭이 상승 시의 감소폭보다 크다. GARCH 계열은 이를 모수적 제약으로 해결하려 하지만, 딥러닝(특히 LSTM, Transformer)은 데이터 자체에서 이러한 비선형적 패턴을 학습할 수 있는가? 12
+장기 의존성(Long Memory) 학습: 변동성은 긴 기억(Long Memory) 특성을 가진다. HAR 모델은 일/주/월 단위의 계단식 구조로 이를 근사하지만, Dilated CNN이나 Transformer는 수천 스텝 이전의 틱 데이터에서 발생하는 미세한 상관관계를 손실 없이 포착하여 장기 예측 성능을 개선할 수 있는가? 4
+레짐 변화(Regime Switching) 적응: 2008년 금융위기나 2020년 코로나19와 같은 구조적 변화(Structural Break) 발생 시, 기계학습 모델은 과거 데이터에 과적합되지 않고 새로운 시장 레짐에 얼마나 신속하게 적응하는가? 15
+2.2 VRP는 예측 가능한가, 그리고 경제적 가치를 창출하는가?
+이 질문은 VRP가 단순한 통계적 잔차가 아니라, 거래 가능한 위험 프리미엄인가를 탐구한다.
+예측 대상의 최적화: 실현 변동성()을 직접 예측하는 것과, 내재 변동성과 실현 변동성의 차이인  (또는 )를 예측하는 것 중 어느 접근법이 포트폴리오 성과(Sharpe Ratio) 측면에서 우월한가? Carr et al. (2020)은 기계학습이 인간의 편향(VIX)을 수정하는 방식으로 사용될 때 최적의 성과를 낸다는 가설을 검증한다.1
+자산별 특이 위험과 VRP: 개별 주식의 옵션에서 추출한 VRP는 해당 기업의 고유한 뉴스나 이벤트 위험에 대한 보상인가? 만약 그렇다면, 딥러닝을 통해 추출된 개별 주식 VRP 팩터는 횡단면 수익률의 차이를 설명하고 통계적 차익거래 기회를 제공하는가? 6
+2.3 데이터의 미시 구조와 정보의 위계
+데이터의 빈도와 종류가 예측 성능에 미치는 영향에 대한 질문이다.
+특징 공학의 필요성: 실현 변동성(RV)이나 실현 커널(RK)과 같은 '가공된 특징(Hand-crafted Features)'을 사용하는 것과, 틱(Tick) 단위의 '원시 데이터(Raw Data)'를 딥러닝에 직접 입력하는 것(End-to-End Learning) 중 어느 것이 정보 손실을 최소화하는가? DeepVol 연구는 후자가 미시 구조적 잡음 속에서도 더 강건한 신호를 추출할 수 있음을 묻는다.17
+옵션 곡면의 정보력: 등가격(ATM) 옵션 정보만 담고 있는 VIX와 달리, 외가격(OTM) 옵션을 포함한 전체 내재 변동성 곡면 데이터는 시장 붕괴(Crash)에 대한 투자자들의 꼬리 위험(Tail Risk) 인식을 더 잘 반영하는가? Michael et al. (2025)은 차원 축소 기법을 통해 이 방대한 정보가 예측력 향상으로 이어지는지 검증한다.5
+2.4 신뢰성 있는 AI: 해석 가능성과 검증
+설명 가능성: 복잡한 신경망 모델이 내린 예측의 근거를 사후적으로 추적할 수 있는가? 예를 들어, 모델이 변동성 상승을 예측했을 때, 그것이 최근의 마이너스 수익률 충격 때문인지, 아니면 옵션 시장의 내재 변동성 급등 때문인지 정량적으로 분해(SHAP/LIME)할 수 있는가? 10
+미래 참조 편향의 통제: 훈련 과정에서 미래의 정보가 암묵적으로 유출되는(Look-ahead Bias) 문제를 어떻게 방지할 것인가? 특히 LLM 기반 모델이 과거 데이터를 '기억'하여 예측하는 것이 아니라 진정으로 '추론'하고 있는지 검증할 수 있는가? Benhenda (2026)의 연구는 이를 위한 새로운 벤치마크 프로토콜을 제시한다.11
+3. 데이터 및 샘플 (Data & Sample)
+본 보고서에서 다루는 연구들은 데이터의 범위(Scope), 빈도(Frequency), 그리고 출처(Source) 측면에서 매우 다양하며, 이는 각 연구가 검증하고자 하는 가설의 특성을 반영한다.
+3.1 분석 대상 자산 및 시장 범위
+연구 데이터는 크게 시장 전체를 대변하는 지수(Index) 데이터와 개별 기업의 미시적 특성을 반영하는 개별 주식(Individual Stock) 데이터로 구분된다.
+시장 지수 (Indices):
+S&P 500 (SPX) 및 VIX: 가장 유동성이 풍부하고 옵션 시장이 발달한 S&P 500 지수는 변동성 연구의 표준 벤치마크이다. Carr et al. (2020), Roszyk & Slepaczuk (2024), Ramos-Pérez (2021) 등 다수의 연구가 SPX의 실현 변동성과 CBOE VIX 지수를 핵심 데이터로 사용한다. 데이터 기간은 주로 1990년대 후반부터 2023년까지로, 2008년 금융위기와 2020년 팬데믹을 포함한다.1
+NASDAQ-100: DeepVol 연구는 기술주 중심의 변동성을 포착하기 위해 NASDAQ-100 지수를 사용하며, 이는 S&P 500보다 변동성이 크고 꼬리 위험(Fat Tail)이 두드러지는 특성이 있다.20
+글로벌 지수: Xu et al. (2024)은 S&P 500 외에도 다우존스(DJI), 유로-달러 환율(EUR/USD), 금(Gold) 선물 데이터를 사용하여 모델의 범용성을 테스트한다.9
+개별 주식 및 횡단면 데이터:
+대형 기술주: Look-Ahead-Bench (2026)는 AAPL, MSFT, GOOGL, NVDA, TSLA 등 시장 주도주 5개를 집중 분석한다. 이는 최근 시장의 변동성이 소수 대형주에 의해 주도되는 경향을 반영한다.11
+S&P 500 구성 종목 전체: Christensen et al. (2022)과 Li et al. (2025)은 수백 개 이상의 개별 주식 데이터를 풀링(Pooling)하여 사용한다. Li et al.은 Russell 3000 지수의 구성 종목까지 범위를 확장하여 다양한 산업군(Sector) 간의 정보 전이 효과를 분석한다. 이는 개별 종목 옵션의 유동성 부족 문제를 빅데이터로 극복하려는 시도이다.3
+3.2 데이터 유형 및 빈도 구조 (Frequency Structure)
+데이터의 빈도는 모델의 아키텍처 결정에 결정적인 영향을 미친다.
+고빈도 틱 데이터 (High-Frequency Tick Data):
+DeepVol (2022): NASDAQ-100의 틱 데이터를 사용하되, 1분 또는 5분 단위로 리샘플링하여 사용한다. 5분 단위는 미시 구조적 잡음(매수-매도 호가 스프레드로 인한 가격 진동)을 줄이면서도 정보 손실을 최소화하는 최적의 빈도로 간주된다. 이 연구에서는 별도의 실현 변동성 계산 없이 수익률 시계열 자체를 입력으로 사용한다.22
+Michael et al. (2025): 1분 단위의 인트라데이(Intraday) 수익률을 사용하여 일별 실현 변동성(RV)을 계산하고, 이를 예측 타겟으로 삼는다.23
+일별 데이터 (Daily Data):
+시가, 고가, 저가, 종가(OHLC) 및 거래량 데이터는 LSTM 기반 모델의 표준 입력값이다. Roszyk & Slepaczuk (2024)은 여기에 더해 로그 수익률과 과거 변동성, VIX 지수를 입력 변수로 사용한다.19
+옵션 데이터 (Option Data):
+내재 변동성 곡면 (IV Surface): 단순한 VIX 값(30일 만기 등가격 옵션의 가중 평균)을 넘어, 행사가격(Moneyness)과 만기(Maturity)의 2차원 그리드로 구성된 전체 내재 변동성 데이터를 사용한다. Michael et al. (2025)은 이 고차원 데이터를 PCA나 오토인코더로 차원 축소하여 잠재적 변동성 요인(Level, Slope, Curvature)을 추출한다.5
+합성 분산 스왑 (Synthetic Variance Swap): Carr et al. (2020)은 옵션 가격 데이터를 이용해 모델 프리(Model-free) 내재 분산을 직접 계산하여 VRP의 기준점으로 활용한다.1
+3.3 데이터 전처리 및 검증 (Preprocessing & Validation)
+정상성 확보: 주가 자체는 비정상(Non-stationary) 시계열이므로, 모든 연구는 로그 수익률() 또는 변동성의 로그 차분 값을 사용한다. Xu et al. (2024)은 ADF 검정과 KPSS 검정을 통해 데이터의 정상성을 엄격히 확인했다.9
+잡음 제거 및 동기화: 고빈도 데이터 연구에서는 거래가 없는 시간대의 결측치 처리, 배당락 및 주식 분할 조정, 그리고 개장/폐장 직후의 비정상적 변동성을 제거하는 전처리 과정이 필수적이다.
+엄격한 시점 분리 (Point-in-Time): Benhenda (2026)는 훈련 데이터와 테스트 데이터 사이에 '갭(Gap)'을 두거나, 특정 시점(예: 2021년 9월) 이전에 가용한 데이터만을 사용하여 모델을 훈련시키는 Point-in-Time 방식을 강조한다. 이는 훈련 데이터에 미래의 정보가 포함되어 성능이 과대평가되는 것을 방지한다.11
+4. 방법론 (Methodology)
+분석된 연구들은 변동성과 VRP 예측을 위해 다양한 기계학습 방법론을 채택하고 있으며, 이는 크게 잔차 학습 및 하이브리드 모델링, 고빈도 데이터 특화 딥러닝, 횡단면 정보 활용 및 풀링, 그리고 해석 가능성 및 검증 프레임워크로 분류된다.
+4.1 잔차 학습 및 하이브리드 모델링 (Residual Learning & Hybrid Models)
+이 접근법은 전통적 모델이 '전체적인 추세'를 설명하고, 기계학습이 '설명되지 않은 나머지(잔차)'를 처리하도록 설계한다.
+Carr et al. (2020)의 잔차 예측 프레임워크:
+이들은 실현 변동성()을 직접 예측하는 대신, VIX 지수(인간의 모델)와 실현 변동성 간의 괴리, 즉 를 예측 타겟으로 삼았다.
+사용된 모델은 릿지 회귀(Ridge Regression)와 피드포워드 신경망(FNN)이다. 입력 변수로는 옵션 내재 변동성, 과거 수익률, 그리고 옵션의 행사가격별 내재 변동성 스큐(Skew) 등이 사용된다.
+이 방식은 기계학습 모델이 처음부터 모든 변동성 구조를 학습해야 하는 부담을 덜어주며, VIX가 놓친 비선형적 정보만을 집중적으로 학습하게 한다.1
+Roszyk & Slepaczuk (2024)의 LSTM-GARCH 결합:
+전통적인 GARCH(1,1) 모델에서 산출된 조건부 분산()을 LSTM 신경망의 추가적인 입력 피처(Feature)로 사용한다.
+LSTM은 시계열 데이터의 장기 의존성을 학습하는 데 탁월하지만, 데이터가 적을 때 과적합될 위험이 있다. GARCH 변수를 추가함으로써 모델은 변동성 군집(Clustering)이라는 기본적인 경제학적 제약을 가이드라인으로 삼아 더 안정적으로 학습한다.19
+Xu et al. (2024)의 GARCH-Informed Neural Networks (GINN):
+이 연구는 더 나아가 신경망의 구조 자체를 GARCH와 동등하게 만든다. LSTM의 핵심 구성 요소인 셀 상태(Cell State) 업데이트 수식을 GARCH 모델의 분산 업데이트 식과 수학적으로 매핑하여, 신경망의 가중치(Weight)가 GARCH 파라미터()와 대응되도록 설계했다.
+손실 함수(Loss Function) 또한 일반적인 MSE가 아닌, GARCH 추정에 사용되는 음의 로그 우도(Negative Log-Likelihood, N-loss/T-loss)를 사용하여 통계적 일관성을 확보했다.9
+4.2 고빈도 데이터 특화 딥러닝 (Deep Learning for High-Frequency Data)
+미시적 데이터의 패턴을 포착하기 위해 컴퓨터 비전과 NLP에서 유래한 아키텍처가 도입되었다.
+DeepVol의 팽창 인과 합성곱 (Dilated Causal Convolutions):
+DeepVol 모델은 WaveNet 아키텍처를 차용하여 1분 또는 5분 단위의 긴 시계열 데이터를 처리한다.
+팽창(Dilated): 합성곱 필터의 간격을 1, 2, 4, 8과 같이 지수적으로 늘려가며 적용한다. 이를 통해 층이 깊어질수록 수용 영역(Receptive Field)이 기하급수적으로 넓어져, 수천 스텝 이전의 과거 데이터(하루 전의 장중 패턴)까지 한 번에 고려할 수 있다.
+인과(Causal): 시계열의 순서를 위배하지 않도록,  시점의 예측에는  시점 이전의 데이터만 관여하도록 필터링하여 미래 참조 편향을 구조적으로 차단한다.4
+Ramos-Pérez (2021)의 Multi-Transformer:
+트랜스포머의 셀프 어텐션(Self-Attention) 메커니즘을 활용하여 시계열 내에서 중요한 시점(Key Moments)을 자동으로 선별한다.
+Multi-Transformer: 배깅(Bagging) 기법과 유사하게, 데이터를 여러 서브셋으로 나누어 각각 다른 트랜스포머 모델을 학습시킨 후 앙상블한다. 이는 트랜스포머 모델의 높은 변동성(Variance)을 줄이고 예측의 안정성을 높이는 데 기여한다.14
+4.3 횡단면 정보 활용 및 풀링 (Cross-Sectional & Pooling)
+개별 자산의 데이터 부족 문제를 해결하고 자산 간의 공통된 위험 요인을 추출하기 위한 방법론이다.
+Christensen et al. (2022)의 데이터 풀링:
+개별 주식 각각에 대해 모델을 만드는 대신, 모든 주식의 데이터를 하나의 거대한 패널 데이터로 합쳐(Pooling) 단일 신경망을 학습시킨다.
+이때 주식 고유의 특성을 반영하기 위해 기업의 펀더멘털 지표나 산업 코드를 임베딩(Embedding) 벡터로 변환하여 입력에 추가한다. 이는 모델이 '모든 주식에 적용되는 보편적 변동성 법칙'을 학습하게 한다.3
+Li et al. (2025)의 투영 벌칙 팩터 모델 (PPFM):
+다중 섹터 자산의 공통 팩터를 추출하기 위해 Projection-Penalized PCA 알고리즘을 제안했다.
+이 알고리즘은 섹터 간의 정보가 얼마나 유사한지(Homogeneity)를 데이터 주도적으로 파악하고, 유사도가 높을 경우 정보를 공유하도록 벌칙 항(Penalty Term)을 조절한다. 이는 무작정 데이터를 합치는 풀링(Pooling)과 개별적으로 분석하는 방식의 장점만을 취하려는 시도이다.21
+4.4 해석 가능성 및 검증 (Explainability & Validation)
+복잡한 모델의 신뢰성을 확보하기 위한 사후 분석 방법론이다.
+LIME 및 SHAP 분석:
+Lo & Singh (2023)은 모델이 예측한 VRP 값에 대해 각 입력 변수(과거 수익률, VIX, 금리 등)가 얼마나 기여했는지를 SHAP 값으로 산출한다. 이를 통해 딥러닝 모델이 경제학적으로 타당한 변수(예: 신용 스프레드 확대 시 VRP 증가)에 반응하는지 검증한다.10
+Look-Ahead-Bench (Benhenda, 2026):
+모델의 성능이 단순한 암기(Memorization)인지 실제 추론(Reasoning)인지 구분하기 위해, 훈련 기간과 테스트 기간을 엄격히 분리하고, '알파 붕괴(Alpha Decay)' 지표를 도입했다. 이는 훈련 기간 내 성능과 훈련 기간 이후 성능의 차이를 측정하여 모델의 과적합 및 미래 참조 편향 여부를 판단한다.11
+5. 결과 (Results)
+각 연구 방법론의 성과는 통계적 정확도(RMSE, MAE, )와 경제적 효용(Sharpe Ratio, VRP 예측력) 측면에서 종합적으로 평가된다.
+5.1 통계적 예측 성능 비교 (Statistical Performance)
+다양한 연구 결과는 머신러닝, 특히 하이브리드 및 딥러닝 모델이 전통적인 벤치마크를 일관되게 능가함을 보여준다.
+
+모델 유형
+대표 연구
+비교 벤치마크
+주요 성능 지표 (RMSE/MAE)
+결과 요약
+Dilated CNN
+DeepVol (2022)
+HEAVY, HAR
+RMSE: 23.396 (vs 26.322)
+벤치마크(HEAVY) 대비 RMSE 약 11% 개선. 급격한 변동성 구간에서 적응력 우수. 17
+Hybrid ML
+Carr et al. (2020)
+VIX, ARMA
+MSE: 유의미한 감소
+VIX 자체보다 VIX 잔차를 예측하는 ML 모델이 실현 변동성 예측 오차를 크게 줄임. 2
+Multi-Transformer
+Ramos-Pérez (2021)
+GARCH, LSTM
+RMSE: 코로나19 기간 우수
+팬데믹 위기(2020년) 동안 GARCH 대비 월등히 낮은 오차 기록. 어텐션이 충격 시점을 포착. 16
+Pooled NN
+Christensen et al. (2022)
+Individual HAR
+RMSE: 장기 예측 우수
+10일, 22일 등 장기 예측에서 풀링된 신경망이 개별 HAR 모델보다 우월한 성능 유지. 3
+Hybrid LSTM
+Roszyk (2024)
+GARCH(1,1)
+MAE: 1.56e-3 (GARCH) 개선
+GARCH의 과대평가(Overestimation) 경향을 수정하여 MAE 및 RMSE 개선 확인. 19
+
+결과 해석:
+비선형성의 승리: DeepVol과 Multi-Transformer의 우수한 성과는 고빈도 데이터에 내재된 비선형적 패턴과 장기 의존성을 포착하는 딥러닝의 능력을 입증한다. 특히 DeepVol의 RMSE 11% 개선은 틱 데이터의 미세 구조를 활용하는 것이 유효함을 보여준다.
+하이브리드의 안정성: Roszyk의 연구에서 LSTM-GARCH 하이브리드 모델이 순수 GARCH보다 우수한 것은, 구조적 모형(GARCH)이 잡아주는 '뼈대' 위에 딥러닝이 '살'을 붙이는 방식이 데이터 노이즈가 많은 금융 시계열에 효과적임을 시사한다.
+5.2 자산별 VRP와 경제적 가치 (Economic Value & VRP)
+단순한 예측 오차 감소를 넘어, 실제 투자 전략에서의 효용성이 입증되었다.
+개별 주식 VRP의 정보력: Pyun (2019) 및 후속 ML 연구들은 개별 주식의 VRP가 해당 주식의 미래 수익률과 강한 양(+)의 상관관계를 가짐을 확인했다. 즉, VRP가 높은(내재 변동성이 실현 변동성보다 과도하게 높은) 주식은 투자자들이 꼬리 위험을 우려하여 높은 프리미엄을 요구하는 주식이며, 이에 따라 사후적으로 높은 수익률을 기록한다. 딥러닝 모델은 이러한 횡단면 관계를 학습하여 롱-숏 전략에서 유의미한 알파를 창출했다.6
+포트폴리오 최적화: Chun et al. (2025)의 연구에서 ML 기반 변동성 타이밍 전략을 사용한 포트폴리오는 벤치마크 대비 높은 **샤프 지수(3.45~3.48)**를 기록했다. 이는 머신러닝이 변동성이 높아지는 시점을 미리 감지하여 위험 자산 비중을 줄이고 안전 자산으로 대피하는 '타이밍' 능력이 탁월함을 의미한다.25
+VRP 트레이딩: Carr et al. (2020)은 예측된 VRP(잔차)를 기반으로 변동성 매도 전략을 실행했을 때, 단순 VIX 매도 전략보다 더 안정적인 수익 곡선을 그림을 확인했다. 이는 ML이 VRP가 과도하게 벌어진(Mispricing) 시점을 정확히 타게팅함을 보여준다.
+5.3 해석 가능성 및 벤치마크 검증 결과
+SHAP 분석 결과: Lo & Singh (2023)의 연구에서 SHAP 값을 분석한 결과, 딥러닝 모델은 단기적인 가격 등락보다는 신용 스프레드(Credit Spread)나 장기 변동성 추세와 같은 거시경제적 펀더멘털 변수에 더 큰 가중치를 부여하는 것으로 나타났다. 이는 모델이 단순히 노이즈를 학습하는 것이 아니라 경제적 논리에 부합하는 학습을 하고 있음을 방증한다.10
+Look-Ahead Bias와 일반화: Benhenda (2026)의 Look-Ahead-Bench 결과, 일반적인 LLM 기반 모델들은 훈련 데이터 기간 내의 주가 움직임을 암기하여 높은 성능을 보였으나, 훈련 기간 이후(Out-of-Sample)에는 성능이 급격히 하락하는 '알파 붕괴(Alpha Decay)' 현상을 보였다. 반면, 시점(Point-in-Time)을 엄격히 통제한 모델(Pitinf)은 성능 하락이 적어 실제 트레이딩 환경에서의 유효성이 더 높았다. 이는 금융 ML 연구에서 검증 프로토콜의 중요성을 역설한다.11
+5.4 종합 결론
+본 심층 분석 결과, CS/ML 기반 변동성 및 VRP 예측 연구는 데이터의 미시적 활용(End-to-End Learning), 하이브리드 구조를 통한 안정성 확보, 자산별 특이 위험(Idiosyncratic VRP)의 발견, 그리고 **엄격한 검증(Point-in-Time)**이라는 네 가지 축으로 발전하고 있다. 머신러닝은 더 이상 블랙박스가 아니며, 전통적 금융 이론이 설명하지 못했던 잔차(Residual)와 비선형성을 설명하는 강력한 도구로서 VRP의 경제적 본질을 규명하는 데 기여하고 있다.
+참고 자료
+USING MACHINE LEARNING TO PREDICT REALIZED VARIANCE - NYU Tandon, 1월 22, 2026에 액세스, https://engineering.nyu.edu/sites/default/files/2020-05/P0639_ZZ-JOI_0.pdf
+Using Machine Learning to Predict Realized Variance - IDEAS/RePEc, 1월 22, 2026에 액세스, https://ideas.repec.org/p/arx/papers/1909.10035.html
+Volatility forecasting with machine learning and intraday commonality - IDEAS/RePEc, 1월 22, 2026에 액세스, https://ideas.repec.org/p/arx/papers/2202.08962.html
+Full article: DeepVol: volatility forecasting from high-frequency data with dilated causal convolutions - Taylor & Francis, 1월 22, 2026에 액세스, https://www.tandfonline.com/doi/full/10.1080/14697688.2024.2387222
+Options-driven volatility forecasting | Request PDF - ResearchGate, 1월 22, 2026에 액세스, https://www.researchgate.net/publication/389082454_Options-driven_volatility_forecasting
+Variance Risk Premium in Individual Stocks: Aggregating Factor Variance Risk - NUS Risk Management Institute, 1월 22, 2026에 액세스, https://rmi.nus.edu.sg/wp-content/uploads/2020/03/RMI-WPS-2019-09.pdf
+Predicting Market Returns Using Covariance Asymmetry Risk Premium - R Discovery, 1월 22, 2026에 액세스, https://discovery.researcher.life/article/predicting-market-returns-using-covariance-asymmetry-risk-premium/8e03ddec750f3892ba93e5c3e8aa89f1
+The Hybrid Forecast of S&P 500 Volatility ensembled from VIX, GARCH and LSTM models, 1월 22, 2026에 액세스, https://ideas.repec.org/p/war/wpaper/2024-13.html
+From GARCH to Neural Network for Volatility Forecast, 1월 22, 2026에 액세스, https://arxiv.org/abs/2402.06642
+Deep-learning models for forecasting financial risk premia and their interpretations, 1월 22, 2026에 액세스, https://www.tandfonline.com/doi/full/10.1080/14697688.2023.2203844
+a Standardized Benchmark of Look-ahead Bias in Point-in ... - arXiv, 1월 22, 2026에 액세스, https://arxiv.org/abs/2601.13770
+From GARCH to Neural Network for Volatility Forecast - arXiv, 1월 22, 2026에 액세스, https://arxiv.org/html/2402.06642
+hybrid garch, cnn and lstm methods for volatility prediction 1 - Combinatorial Press, 1월 22, 2026에 액세스, https://combinatorialpress.com/article/jcmcc/volume%20124/a-hybrid-garch-convolutional-neural-network-and-long-short-term-memory-methods-for-volatility-prediction-in-stock-market.pdf
+Multi-Transformer: A New Neural Network-Based Architecture for Forecasting S&P Volatility, 1월 22, 2026에 액세스, https://ideas.repec.org/p/arx/papers/2109.12621.html
+Dynamic asset allocation with multiple regime‐switching markets, 1월 22, 2026에 액세스, https://ideas.repec.org/a/wly/ijfiec/v28y2023i2p1741-1755.html
+Multi-Transformer: A New Neural Network-Based Architecture ... - arXiv, 1월 22, 2026에 액세스, https://arxiv.org/abs/2109.12621
+DeepVol: Volatility Forecasting from High-Frequency Data with ..., 1월 22, 2026에 액세스, https://arxiv.org/abs/2210.04797
+Unlocking the Black Box: A Five-Dimensional Framework for Evaluating Explainable AI in Credit Risk - arXiv, 1월 22, 2026에 액세스, https://arxiv.org/html/2511.04980v1
+The Hybrid Forecast of S&P 500 Volatility ensembled from VIX ..., 1월 22, 2026에 액세스, https://arxiv.org/abs/2407.16780
+DeepVol: Volatility Forecasting from High-Frequency Data with Dilated Causal Convolutions, 1월 22, 2026에 액세스, https://ideas.repec.org/p/arx/papers/2210.04797.html
+Adaptive Multi-task Learning for Multi-sector Portfolio ... - arXiv, 1월 22, 2026에 액세스, https://arxiv.org/abs/2507.16433
+DeepVol: Volatility Forecasting from High-Frequency Data with Dilated Causal Convolutions, 1월 22, 2026에 액세스, https://arxiv.org/html/2210.04797v3
+Full article: Options-driven volatility forecasting - Taylor & Francis, 1월 22, 2026에 액세스, https://www.tandfonline.com/doi/full/10.1080/14697688.2025.2454623?af=R
+Deep-learning models for forecasting financial risk premia and their interpretations - DSpace@MIT, 1월 22, 2026에 액세스, https://dspace.mit.edu/bitstream/handle/1721.1/164095/Deep-learning%20models%20for%20forecasting%20financial%20risk%20premia%20and%20their%20interpretations.pdf?sequence=2&isAllowed=y
+Volatility forecasting and volatility-timing strategies: A machine learning approach | Request PDF - ResearchGate, 1월 22, 2026에 액세스, https://www.researchgate.net/publication/387406519_Volatility_forecasting_and_volatility-timing_strategies_A_machine_learning_approach
+Forecasting returns with machine learning and optimizing global portfolios: evidence from the Korean and U.S. stock markets - IDEAS/RePEc, 1월 22, 2026에 액세스, https://ideas.repec.org/a/spr/fininn/v10y2024i1d10.1186_s40854-024-00648-w.html

@@ -1,0 +1,12 @@
+{
+  "hash": "9207f0ee9e1cf344d8ee505db7bb60aa",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\ntitle: \"연구 노트\"\ndate: today\n---\n\n\n## 최근 노트\n\n### 2024-01-15: 데이터 전처리 개선\n\n오늘 데이터 전처리 파이프라인을 개선했습니다.\n\n**변경사항:**\n- 결측치 처리 방법 변경 (평균 → 중앙값)\n- 이상치 제거 기준 조정 (IQR 방법)\n\n**결과:**\n- 모델 성능 2% 향상\n- 데이터 손실 5% 감소\n\n---\n\n### 2024-01-12: 새로운 특징 발견\n\n실험 중 흥미로운 패턴을 발견했습니다.\n\n::: {#db6e5ef6 .cell fig-height='6' fig-width='10' execution_count=1}\n\n::: {.cell-output .cell-output-display}\n![](index_files/figure-html/cell-2-output-1.png){width=950 height=566}\n:::\n:::\n\n\n**인사이트:**\n- 이 패턴은 특정 조건에서만 나타남\n- 추가 조사 필요\n\n---\n\n### 2024-01-10: 문헌 리뷰\n\n**읽은 논문:**\n- \"Advanced Methods in Data Analysis\" (2023)\n- \"Machine Learning Best Practices\" (2024)\n\n**주요 내용:**\n- 새로운 전처리 기법 소개\n- 하이퍼파라미터 튜닝 전략\n\n**적용 계획:**\n- [ ] 다음 실험에 적용\n- [ ] 결과 비교\n\n---\n\n## 아이디어 목록\n\n- [ ] 앙상블 방법 시도\n- [ ] 다른 데이터 소스 통합\n- [ ] 실시간 모니터링 시스템 구축\n\n---\n\n## 참고 자료\n\n- [논문 링크 1](https://example.com)\n- [논문 링크 2](https://example.com)\n- [데이터셋 링크](https://example.com)\n\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}

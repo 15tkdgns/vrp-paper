@@ -1,0 +1,135 @@
+---
+title: "Phase 3: 트레이딩 전략 검증"
+lang: ko
+format:
+  html:
+    theme: cosmo
+    toc: true
+    code-fold: true
+    embed-resources: true
+    self-contained: true
+---
+
+# 트레이딩 전략 검증 보고서
+본 보고서는 도출된 Universal Model의 예측력을 기반으로 한 트레이딩 전략의 성과를 검증합니다.
+
+```{python}
+#| echo: false
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+import json
+import os
+
+# 스타일 및 한글 폰트 설정
+plt.style.use('seaborn-v0_8-whitegrid')
+plt.rcParams['font.family'] = 'UnDotum'
+plt.rcParams['axes.unicode_minus'] = False
+```
+
+## 1. 변동성 타겟팅 전략 (V11)
+예측된 변동성을 기반으로 레버리지를 조절하여 목표 변동성(Target Vol)을 유지하는 전략입니다. 안정적인 우상향과 최대 낙폭(MDD) 감소를 목표로 합니다.
+
+```{python}
+#| echo: false
+#| warning: false
+
+try:
+    v11_df = pd.read_csv('../src/experiments/universal/v11_timeseries.csv')
+    v11_df['Date'] = pd.to_datetime(v11_df['Date'])
+    
+    # SPY 자산 분석
+    asset = 'SPY'
+    spy_df = v11_df[v11_df['Asset'] == asset]
+    
+    if not spy_df.empty:
+        fig, ax = plt.subplots(figsize=(10, 6))
+        ax.plot(spy_df['Date'], spy_df['Strategy'], label='변동성 타겟팅 (전략)', linewidth=1.5)
+        ax.plot(spy_df['Date'], spy_df['Benchmark'], label='매수 후 보유 (벤치마크)', linestyle='--', linewidth=1.5, alpha=0.7)
+        
+        ax.set_title(f'{asset}: 변동성 타겟팅 성과 비교', fontsize=14)
+        ax.set_xlabel('날짜', fontsize=12)
+        ax.set_ylabel('누적 수익률 (로그 스케일)', fontsize=12)
+        ax.set_yscale('log')
+        ax.legend()
+        ax.grid(True, which="both", ls="-", alpha=0.2)
+        plt.show()
+    else:
+        print(f"{asset} 데이터가 없습니다.")
+
+except Exception as e:
+    print(f"V11 데이터 로드 오류: {e}")
+```
+
+## 2. 시그널 기반 트레이딩 전략 (V12)
+VRP(Variance Risk Premium)와 변동성 국면(Regime)을 활용한 동적 자산배분 전략입니다. 고변동성 구간 회피를 통해 손실을 방어합니다.
+
+```{python}
+#| echo: false
+#| warning: false
+
+try:
+    v12_df = pd.read_csv('../src/experiments/universal/v12_timeseries.csv')
+    v12_df['Date'] = pd.to_datetime(v12_df['Date'])
+    
+    # QQQ 자산 분석
+    asset = 'QQQ'
+    qqq_df = v12_df[v12_df['Asset'] == asset]
+    
+    if not qqq_df.empty:
+        fig, ax = plt.subplots(figsize=(10, 6))
+        ax.plot(qqq_df['Date'], qqq_df['Strategy'], label='시그널 트레이딩 (전략)', linewidth=1.5, color='green')
+        ax.plot(qqq_df['Date'], qqq_df['Benchmark'], label='매수 후 보유 (벤치마크)', linestyle='--', linewidth=1.5, alpha=0.7)
+        
+        ax.set_title(f'{asset}: 시그널 트레이딩 성과 비교', fontsize=14)
+        ax.set_xlabel('날짜', fontsize=12)
+        ax.set_ylabel('누적 수익률', fontsize=12)
+        ax.legend()
+        ax.grid(True, alpha=0.3)
+        plt.show()
+    else:
+        print(f"{asset} 데이터가 없습니다.")
+
+except Exception as e:
+    print(f"V12 데이터 로드 오류: {e}")
+```
+
+## 3. 거래 비용을 반영한 통합 백테스트 (V13)
+거래 비용(Transaction Cost 15bps)을 감안한 변동성 타겟팅 전략의 실질 성과입니다. 비용을 고려해도 벤치마크 대비 우수한 위험 조정 수익률을 보이는지 확인합니다.
+
+```{python}
+#| echo: false
+#| warning: false
+
+try:
+    v13_df = pd.read_csv('../src/experiments/universal/v13_timeseries.csv')
+    v13_df['Date'] = pd.to_datetime(v13_df['Date'])
+    
+    # SPY 자산 분석
+    asset = 'SPY'
+    spy_cost_df = v13_df[v13_df['Asset'] == asset]
+    
+    if not spy_cost_df.empty:
+        fig, ax = plt.subplots(figsize=(10, 6))
+        ax.plot(spy_cost_df['Date'], spy_cost_df['Strategy'], label='실질 전략 성과 (비용 차감 후)', linewidth=1.5, color='purple')
+        ax.plot(spy_cost_df['Date'], spy_cost_df['Benchmark'], label='벤치마크', linestyle='--', linewidth=1.5, alpha=0.7)
+        
+        ax.set_title(f'{asset}: 거래 비용 반영 후 실질 성과', fontsize=14)
+        ax.set_xlabel('날짜', fontsize=12)
+        ax.set_ylabel('누적 수익률', fontsize=12)
+        ax.legend()
+        ax.grid(True, alpha=0.3)
+        plt.show()
+        
+        # 지표 출력
+        total_ret = spy_cost_df['Strategy'].iloc[-1]
+        bench_ret = spy_cost_df['Benchmark'].iloc[-1]
+        print(f"최종 수익률: 전략 {total_ret:.2f} vs 벤치마크 {bench_ret:.2f}")
+
+    else:
+        print(f"{asset} 데이터가 없습니다.")
+
+except Exception as e:
+    print(f"V13 데이터 로드 오류: {e}")
+```

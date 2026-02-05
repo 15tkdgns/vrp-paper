@@ -1,0 +1,37 @@
+# Quarto
+docs/
+_quarto.yml.bak
+*.qmd.bak
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+
+# Jupyter
+.ipynb_checkpoints
+
+# 데이터 파일
+*.csv
+*.xlsx
+*.pkl
+*.h5
+*.hdf5
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+/.quarto/

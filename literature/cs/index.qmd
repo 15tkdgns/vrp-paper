@@ -1,0 +1,278 @@
+---
+title: "CS & ML 기반 변동성 예측 연구"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 2
+---
+
+# CS 및 ML 기반 변동성 예측과 분산 위험 프리미엄(VRP)
+
+컴퓨터 과학과 머신러닝 관점에서 금융 변동성을 예측하는 최신 연구들을 정리했습니다. 각 섹션을 클릭하면 상세 내용을 확인할 수 있습니다.
+
+## 주요 연구 주제
+
+```{=html}
+<details>
+  <summary>연구 개요: 금융 계량경제학의 한계와 기계학습의 부상</summary>
+  <div class="paper-details">
+    <details class="nested-details">
+      <summary>배경</summary>
+      <div class="nested-content">
+        <p>전통적 GARCH, HAR-RV 모델은 변동성의 군집과 평균 회귀 특성을 포착하지만, 금융 시장의 복잡한 비선형성과 고차원 데이터의 상호작용을 충분히 반영하지 못하는 구조적 한계가 있습니다.</p>
+        <p>2019년부터 2026년에 이르는 최신 연구는 CS/ML 기술이 이러한 전통적 한계를 극복하고 변동성 예측의 새로운 패러다임을 제시하고 있음을 보여줍니다.</p>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>VRP의 중요성</summary>
+      <div class="nested-content">
+        <p>분산 위험 프리미엄(Variance Risk Premium, VRP)은 옵션 시장의 내재 변동성(Q 측도)과 실제 시장의 실현 변동성(P 측도) 간의 괴리를 설명합니다.</p>
+        <p>VRP는 투자자들의 위험 회피 성향과 불확실성에 대한 공포를 대변하는 중요한 지표입니다.</p>
+      </div>
+    </details>
+  </div>
+</details>
+
+<details>
+  <summary>연구의 주요 진화 방향</summary>
+  <div class="paper-details">
+    <details class="nested-details">
+      <summary>1. 예측 대상의 정교화: RV에서 VRP 잔차 학습으로</summary>
+      <div class="nested-content">
+        <p><strong>Carr et al. (2020)</strong>: 기계학습을 '잔차 학습(Residual Learning)'의 도구로 활용</p>
+        <p>VIX와 같은 인간 설계 모델의 예측치와 실제 실현 변동성 간의 차이(VRP)를 예측 타겟으로 삼을 때 기계학습의 성능이 극대화됨을 입증했습니다.</p>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>2. 데이터 차원의 확장: 일별에서 고빈도 틱 데이터로</summary>
+      <div class="nested-content">
+        <p><strong>DeepVol (2022)</strong>: 틱 단위 또는 5분 단위의 고빈도 데이터를 딥러닝 모델(Dilated CNN)에 직접 입력</p>
+        <p><strong>Michael et al. (2025)</strong>: 전체 옵션 내재 변동성 곡면(IV Surface) 정보를 활용하여 예측력 향상</p>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>3. 자산별 VRP와 횡단면 예측</summary>
+      <div class="nested-content">
+        <p>지수 차원을 넘어 개별 주식의 VRP가 횡단면 수익률을 설명하는 팩터로 연구되고 있습니다.</p>
+        <p><strong>Pyun (2019), Feunou et al. (2017)</strong>: 개별 주식 VRP가 기업 고유의 특이 위험(Idiosyncratic Risk)에 대한 프리미엄임을 밝힘</p>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>4. 하이브리드 모델과 구조적 결합</summary>
+      <div class="nested-content">
+        <p><strong>Roszyk & Slepaczuk (2024)</strong>: LSTM-GARCH 모델</p>
+        <p><strong>Xu et al. (2024)</strong>: GARCH-Informed Neural Networks (GINN)</p>
+        <p>전통적 계량 모델과 딥러닝을 결합하여 모델의 안정성과 예측력을 동시에 확보합니다.</p>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>5. 설명 가능성과 검증의 엄격화</summary>
+      <div class="nested-content">
+        <p><strong>Lo & Singh (2023)</strong>: SHAP/LIME을 통한 사후 해석 도입</p>
+        <p><strong>Benhenda (2026)</strong>: 미래 참조 편향(Look-ahead Bias)을 엄격히 통제한 'Point-in-Time' 벤치마크 제안</p>
+      </div>
+    </details>
+  </div>
+</details>
+
+<details>
+  <summary>핵심 연구 질문</summary>
+  <div class="paper-details">
+    <details class="nested-details">
+      <summary>기계학습은 전통적 계량 모델의 구조적 한계를 극복하는가?</summary>
+      <div class="nested-content">
+        <ul>
+          <li><strong>비선형 동학 포착</strong>: 가격 하락 시 변동성 증가폭이 상승 시보다 큰 Leverage Effect를 데이터에서 학습</li>
+          <li><strong>장기 의존성 학습</strong>: Dilated CNN, Transformer가 수천 스텝 이전의 틱 데이터 상관관계를 포착</li>
+          <li><strong>레짐 변화 적응</strong>: 2008년 금융위기, 2020년 코로나19 등 구조적 변화에 신속 적응</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>VRP는 예측 가능한가, 경제적 가치를 창출하는가?</summary>
+      <div class="nested-content">
+        <ul>
+          <li>실현 변동성(RV) 직접 예측 vs VRP 차이 예측: 어느 접근법이 포트폴리오 성과 측면에서 우월한가?</li>
+          <li>개별 주식 VRP는 횡단면 수익률 차이를 설명하고 차익거래 기회를 제공하는가?</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>데이터의 미시 구조와 정보의 위계</summary>
+      <div class="nested-content">
+        <ul>
+          <li><strong>특징 공학 vs End-to-End</strong>: 가공된 특징(RV, RK) vs 틱 단위 원시 데이터 직접 입력</li>
+          <li><strong>옵션 곡면의 정보력</strong>: ATM만 담은 VIX vs 전체 IV Surface의 꼬리 위험 반영</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+</details>
+
+<details>
+  <summary>데이터 및 샘플</summary>
+  <div class="paper-details">
+    <details class="nested-details">
+      <summary>시장 지수 데이터</summary>
+      <div class="nested-content">
+        <ul>
+          <li><strong>S&P 500 (SPX) 및 VIX</strong>: 1990년대 후반~2023년, 2008년 금융위기와 2020년 팬데믹 포함</li>
+          <li><strong>NASDAQ-100</strong>: 기술주 중심, S&P 500보다 높은 변동성과 꼬리 위험</li>
+          <li><strong>글로벌 지수</strong>: 다우존스(DJI), EUR/USD, Gold 선물</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>개별 주식 데이터</summary>
+      <div class="nested-content">
+        <ul>
+          <li><strong>대형 기술주</strong>: AAPL, MSFT, GOOGL, NVDA, TSLA</li>
+          <li><strong>S&P 500 구성 종목 전체</strong>: 수백 개 이상의 주식 데이터 풀링</li>
+          <li><strong>Russell 3000</strong>: 다양한 산업군 간 정보 전이 효과 분석</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>데이터 빈도</summary>
+      <div class="nested-content">
+        <ul>
+          <li><strong>고빈도 틱 데이터</strong>: 1분 또는 5분 단위 리샘플링</li>
+          <li><strong>일별 데이터</strong>: OHLC, 거래량, 로그 수익률, VIX</li>
+          <li><strong>옵션 데이터</strong>: IV Surface, 합성 분산 스왑</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+</details>
+
+<details>
+  <summary>방법론</summary>
+  <div class="paper-details">
+    <details class="nested-details">
+      <summary>잔차 학습 및 하이브리드 모델링</summary>
+      <div class="nested-content">
+        <p><strong>Carr et al. (2020)</strong>: VIX와 실현 변동성 간 괴리(VRP) 예측</p>
+        <p><strong>Roszyk (2024)</strong>: LSTM-GARCH 결합 - GARCH 출력을 LSTM 입력으로 사용</p>
+        <p><strong>Xu et al. (2024)</strong>: GINN - 신경망 구조를 GARCH와 수학적으로 매핑</p>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>고빈도 데이터 특화 딥러닝</summary>
+      <div class="nested-content">
+        <p><strong>DeepVol</strong>: Dilated Causal Convolutions - WaveNet 아키텍처 차용</p>
+        <ul>
+          <li>팽창(Dilated): 합성곱 필터 간격을 지수적으로 증가시켜 수용 영역 확대</li>
+          <li>인과(Causal): 시계열 순서 위배 방지, 미래 참조 편향 구조적 차단</li>
+        </ul>
+        <p><strong>Ramos-Pérez (2021)</strong>: Multi-Transformer - 셀프 어텐션으로 중요 시점 자동 선별</p>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>횡단면 정보 활용 및 풀링</summary>
+      <div class="nested-content">
+        <p><strong>Christensen et al. (2022)</strong>: 모든 주식 데이터를 패널로 합쳐 단일 신경망 학습</p>
+        <p><strong>Li et al. (2025)</strong>: Projection-Penalized PCA - 섹터 간 정보 유사도를 데이터 주도적으로 파악</p>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>해석 가능성 및 검증</summary>
+      <div class="nested-content">
+        <p><strong>LIME/SHAP</strong>: 각 입력 변수의 예측 기여도 산출</p>
+        <p><strong>Look-Ahead-Bench (2026)</strong>: 알파 붕괴(Alpha Decay) 지표로 과적합 및 미래 참조 편향 판단</p>
+      </div>
+    </details>
+  </div>
+</details>
+
+<details>
+  <summary>연구 결과</summary>
+  <div class="paper-details">
+    <details class="nested-details">
+      <summary>통계적 예측 성능</summary>
+      <div class="nested-content">
+        <table>
+          <thead>
+            <tr>
+              <th>모델</th>
+              <th>연구</th>
+              <th>벤치마크</th>
+              <th>성과</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Dilated CNN</td>
+              <td>DeepVol (2022)</td>
+              <td>HEAVY, HAR</td>
+              <td>RMSE 11% 개선</td>
+            </tr>
+            <tr>
+              <td>Hybrid ML</td>
+              <td>Carr et al. (2020)</td>
+              <td>VIX, ARMA</td>
+              <td>MSE 유의미한 감소</td>
+            </tr>
+            <tr>
+              <td>Multi-Transformer</td>
+              <td>Ramos-Pérez (2021)</td>
+              <td>GARCH, LSTM</td>
+              <td>팬데믹 기간 월등히 우수</td>
+            </tr>
+            <tr>
+              <td>Pooled NN</td>
+              <td>Christensen (2022)</td>
+              <td>Individual HAR</td>
+              <td>장기 예측 우수</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>경제적 가치</summary>
+      <div class="nested-content">
+        <ul>
+          <li><strong>개별 주식 VRP</strong>: 미래 수익률과 강한 양(+)의 상관관계, 롱-숏 전략에서 유의미한 알파 창출</li>
+          <li><strong>포트폴리오 최적화</strong>: ML 기반 변동성 타이밍 전략의 샤프 지수 3.45~3.48 기록</li>
+          <li><strong>VRP 트레이딩</strong>: 예측된 VRP 기반 변동성 매도 전략이 단순 VIX 매도보다 안정적</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>해석 가능성 검증</summary>
+      <div class="nested-content">
+        <p><strong>SHAP 분석</strong>: 딥러닝 모델이 신용 스프레드, 장기 변동성 추세 등 거시경제적 펀더멘털 변수에 더 큰 가중치 부여</p>
+        <p><strong>Look-Ahead Bias</strong>: Point-in-Time 통제 모델이 Out-of-Sample에서 성능 하락 적고 실제 트레이딩 환경에서 유효성 높음</p>
+      </div>
+    </details>
+  </div>
+</details>
+```
+
+<br>
+
+## 종합 결론
+
+CS/ML 기반 변동성 및 VRP 예측 연구는 다음 네 가지 축으로 발전하고 있습니다:
+
+1. **데이터의 미시적 활용**: End-to-End Learning을 통한 고빈도 데이터 직접 학습
+2. **하이브리드 구조**: 전통적 계량 모델과 딥러닝 결합으로 안정성 확보
+3. **자산별 특이 위험**: 개별 주식의 특이 VRP 발견 및 활용
+4. **엄격한 검증**: Point-in-Time 검증으로 실무적 신뢰성 확보
+
+머신러닝은 더 이상 블랙박스가 아니며, 전통적 금융 이론이 설명하지 못했던 잔차와 비선형성을 설명하는 강력한 도구로서 VRP의 경제적 본질을 규명하는 데 기여하고 있습니다.

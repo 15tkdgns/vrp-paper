@@ -1,0 +1,58 @@
+<details>
+  <summary>Carr & Wu (2009): "Variance Risk Premia" (Review of Financial Studies)</summary>
+  <div class="paper-details">
+    <div class="paper-links">
+      <a href="https://doi.org/10.1093/rfs/hhn038" target="_blank">[Journal Link]</a>
+      <a href="https://vlab.stern.nyu.edu/docs/volatility/VRP" target="_blank">[V-Lab Analysis]</a>
+    </div>
+
+    <details class="nested-details">
+      <summary>논문 개요</summary>
+      <div class="nested-content">
+        <p>현대 금융 경제학에서 Variance Risk Premium(VRP)의 정의와 측정 방법을 정립한 기념비적인 논문입니다. 저자들은 특정 확률 모형에 의존하지 않는(Model-free) 방식으로 옵션 포트폴리오를 통해 분산 스왑 레이트(Variance Swap Rate)를 합성하고, 이를 통해 VRP를 직접적으로 정량화하는 프레임워크를 제시했습니다.</p>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>연구 질문</summary>
+      <div class="nested-content">
+        <ul>
+          <li>금융 자산의 분산 위험은 시장에서 어떻게 가격이 결정되는가?</li>
+          <li>위험 중립 기대 분산(Synthetic Variance Swap Rate)과 사후 실현 분산 사이에는 어떤 체계적인 차이가 존재하는가?</li>
+          <li>이러한 차이(VRP)는 시장 지수와 개별 주식 간에 어떻게 다르게 나타나는가?</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>데이터 및 샘플</summary>
+      <div class="nested-content">
+        <p>1996년부터 2003년까지 7년 동안의 방대한 옵션 데이터를 사용했습니다.</p>
+        <ul>
+          <li><strong>지수:</strong> S&P 500, S&P 100, Nasdaq 100, Dow Jones, Russell 2000 (총 5개 주요 지수)</li>
+          <li><strong>개별 주식:</strong> 35개 주요 우량주</li>
+          <li><strong>자격:</strong> Ivy DB 및 OptionMetrics를 통한 정밀한 옵션 표면(Surface) 데이터 추출.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>방법론</summary>
+      <div class="nested-content">
+        <p><strong>Model-free Replication:</strong> Carr & Madan(1998)의 이론을 실증적으로 확장하여, 외가격(OTM) 콜 옵션과 풋 옵션의 가중 포트폴리오를 통해 로그 계약(Log Contract)을 복제하고 이를 통해 분산 스왑 가격을 산출했습니다.</p>
+        <p><strong>VRP 측정:</strong> $VRP = Realized\ Variance - Synthetic\ Variance\ Swap\ Rate$ 로 정의하고, 회귀 분석을 통해 $\mathbb{P}$측도와 $\mathbb{Q}$측도 간의 편향을 분석했습니다.</p>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>연구 결과</summary>
+      <div class="nested-content">
+        <ul>
+          <li><strong>강한 음(-)의 프리미엄:</strong> S&P 500 등 주요 지수에서 평균적으로 강력한 음의 VRP가 발견되었습니다. 이는 투자자들이 변동성 급등 위험(Market Crash 공포)을 헤지하기 위해 기꺼이 보험료를 지불함을 의미합니다.</li>
+          <li><strong>지수 vs 개별 주식:</strong> 지수의 VRP가 개별 주식보다 훨씬 더 음의 방향으로 컸으며, 이는 개별 기업 고유의 위험보다 시장 전체의 시스템적 위험에 대해 더 높은 가격이 매겨지고 있음을 시사합니다.</li>
+          <li><strong>시변성(Time-variation):</strong> VRP는 고정된 값이 아니라 시간에 따라 변동하며, 특히 시장의 불안정성이 커질 때 그 절대값이 증가하는 경향을 보였습니다.</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+</details>

@@ -1,0 +1,12 @@
+{
+  "hash": "173a56e779244bc2f1ed9f443920d9c0",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\ntitle: \"연구개요\"\ndate: today\n---\n\n\n\n\n\n## 연구 목적\n\nCross-Asset Volatility Risk Premium (VRP) 예측을 위한 머신러닝 프레임워크 개발\n\n## 연구 배경\n\n### 문제 정의\n\n- 전통적인 VRP 연구는 주로 단일 자산(S&P 500)에 집중\n- Cross-Asset VRP 예측을 위한 통합 프레임워크 부재\n- 자산별 옵션 데이터 접근성 제한\n\n### 연구 목표\n\n1. **Cross-Asset VRP 예측 모델 개발**\n   - Global VIX와 Cross-Asset Realized Volatility 기반\n   - 여러 자산 클래스(주식, 채권, 신흥시장)에 적용\n\n2. **Sentiment Features 통합**\n   - SKEW, VIX term structure 등 시장 심리 지표 활용\n   - 정량적 feature engineering\n\n3. **실용적 접근법 제시**\n   - 고차원 옵션 데이터 없이도 VRP 예측 가능\n   - 실시간 리스크 관리에 활용 가능\n\n---\n\n## 연구 방법론\n\n### 데이터\n\n- **Global VIX**: 시장 전체 변동성 지수\n- **Cross-Asset RV**: 주식, 채권, 신흥시장 등 자산별 Realized Volatility\n- **Sentiment Features**: SKEW, VIX term spread, VIX9D 등\n\n### 모델\n\n- **Baseline**: HAR (Heterogeneous Autoregressive) 모델\n- **Linear Models**: LASSO, Ridge\n- **Tree-based**: XGBoost, LightGBM\n- **Deep Learning**: LSTM, Transformer\n\n### 평가 지표\n\n- MAE (Mean Absolute Error)\n- RMSE (Root Mean Squared Error)\n- QLIKE (Quasi-likelihood)\n- Diebold-Mariano test\n\n---\n\n## 연구 구조\n\n\n\n---\n\n## 예상 결과\n\n1. **Cross-Asset VRP 예측 성능 향상**\n   - 기존 single-asset 모델 대비 개선\n   - 여러 자산 클래스에서 일관된 성능\n\n2. **Feature Importance 분석**\n   - Global VIX의 기여도\n   - Sentiment features의 예측력\n   - 자산별 특성 파악\n\n3. **실용적 활용 방안**\n   - 포트폴리오 리스크 관리\n   - 옵션 가격 결정\n   - 매크로 프루덴셜 정책\n\n---\n\n## 연구 일정\n\n| 단계 | 기간 | 주요 작업 |\n|------|------|----------|\n| 1단계 | 1-2주 | 선행연구 리뷰 및 데이터 수집 |\n| 2단계 | 2-3주 | Feature Engineering 및 전처리 |\n| 3단계 | 3-4주 | 모델 개발 및 실험 설계 |\n| 4단계 | 2-3주 | 성능 평가 및 결과 분석 |\n| 5단계 | 1-2주 | 논문 작성 및 정리 |\n\n---\n\n## 다음 단계\n\n- [실험내용](experiments.qmd)에서 구체적인 실험 설계 확인\n- [연구 노트](notes.qmd)에서 진행 상황 추적\n- [결과](results.qmd)에서 최종 성과 확인\n\n",
+    "supporting": [
+      "overview_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}

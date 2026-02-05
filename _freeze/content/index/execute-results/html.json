@@ -1,0 +1,12 @@
+{
+  "hash": "1b9f8b24a787300bf490c88c47e7fb4f",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\ntitle: \"연구 대시보드\"\nsubtitle: \"Cross-Asset Volatility Risk Premium 예측 프레임워크\"\ndate: today\nformat:\n  html:\n    toc: false\n---\n\n\n\n\n::: {.grid}\n\n::: {.g-col-4}\n### 1일 예측 (V50)\n**R² = 0.821**  \nDual-Attention LSTM 기반  \n단기 변동성 챔피언 모델\n[[상세 보기]](/experiments/1day_prediction.qmd)\n:::\n\n::: {.g-col-4}\n### 22일 예측 (V36)\n**R² = 0.755**  \n자산 적응형 Ridge 기반  \n장기 변동성 챔피언 모델\n[[상세 보기]](/experiments/22day_prediction.qmd)\n:::\n\n::: {.g-col-4}\n### 트레이딩 전략\n**Sharpe = 1.84**  \nVRP 기반 동적 배분  \n포트폴리오 백테스트 결과\n[[상세 보기]](/experiments/trading_strategy.qmd)\n:::\n\n:::\n\n---\n\n## 🚀 핵심 연구 성과\n\n본 프로젝트는 주식, 채권, 원자재 등 **23개 주요 글로벌 자산**의 변동성 예측과 이를 활용한 수익률 제고를 목표로 합니다.\n\n### 기술적 우위 (Technical Edge)\n- **V50 모델**: 시계열 의존성과 피처 중요도를 동시에 학습하는 이중 어텐션 메커니즘 적용.\n- **V36 모델**: 장기 예측의 노이즈 문제를 해결하기 위한 자산별 정규화(Ridge) 최적화.\n- **범용 모델 (Universal)**: 단일 모델로 전체 자산의 변동성 법칙을 학습하는 Zero-shot 성능 확보.\n\n---\n\n## 📊 모델 발전 과정 및 성능 추이\n\n::: {#137faaa4 .cell fig-height='5' fig-width='10' execution_count=1}\n\n::: {.cell-output .cell-output-display}\n![](index_files/figure-html/cell-2-output-1.png){width=950 height=470}\n:::\n:::\n\n\n---\n\n## 📂 주요 탐색 경로\n\n::: {.grid}\n\n::: {.g-col-6}\n#### [실험 결과 분석](/experiments/index.qmd)\n- 예측 지평별(1d/22d) 상세 성능\n- 하이퍼파라미터 어블레이션 스터디\n- 시장 국면별 안정성 검증\n:::\n\n::: {.g-col-6}\n#### [문헌 및 이론 분석](/literature/index.qmd)\n- 자산군 통합 변동성 예측 논문 리뷰\n- VRP 예측의 경제적 함의\n- 딥러닝 기반 변동성 모델 서베이\n:::\n\n:::\n\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}

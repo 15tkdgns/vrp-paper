@@ -1,0 +1,57 @@
+<details>
+  <summary>Ornelas & Mauad (2019, 2022): "Volatility Risk Premia and Future Commodity Returns" (Journal of Banking & Finance / SSRN)</summary>
+  <div class="paper-details">
+    <div class="paper-links">
+      <a href="https://doi.org/10.1016/j.jbankfin.2019.03.012" target="_blank">[Journal Link]</a>
+      <a href="https://www.bis.org/publ/work619.pdf" target="_blank">[BIS Working Paper]</a>
+    </div>
+
+    <details class="nested-details">
+      <summary>논문 개요</summary>
+      <div class="nested-content">
+        <p>원자재 시장(Commodity)의 VRP가 미래 수익률을 예측하는 강력한 지표임을 실증적으로 분석한 연구입니다. 특히 원자재 시장의 '금융화(Financialization)' 이후 VRP의 성격과 예측력이 어떻게 변화했는지에 초점을 맞추었습니다.</p>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>연구 질문</summary>
+      <div class="nested-content">
+        <ul>
+          <li>원자재(금, 원유 등)의 VRP가 미래 가격 변동을 유의미하게 예측하는가?</li>
+          <li>원자재 시장의 금융화가 VRP의 위험 보상 체계에 어떤 영향을 미쳤는가?</li>
+          <li>자산군별(에너지, 귀금속 등) VRP의 예측 효율성에 차이가 있는가?</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>데이터 및 샘플</summary>
+      <div class="nested-content">
+        <ul>
+          <li><strong>자산:</strong> WTI 원유, 금(Gold), 은(Silver), 구리(Copper) 등 주요 원자재 선물 및 옵션.</li>
+          <li><strong>추가 데이터:</strong> 원자재 통화(AUD, CAD, BRL 등)의 내재 변동성 데이터 활용.</li>
+          <li><strong>기간:</strong> 2000년대 초반 ~ 2018년.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>방법론</summary>
+      <div class="nested-content">
+        <p><strong>VRP Measurement:</strong> 각 원자재별 옵션 내재 변동성(IV)과 고빈도 실현 변동성(RV)의 차이를 계산.</p>
+        <p><strong>Currency-based Proxy:</strong> 저자들은 원자재 통화의 VRP가 해당 원자재 가격의 '공포 지수' 역할을 할 수 있음을 제안하고 이를 검증했습니다.</p>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>연구 결과</summary>
+      <div class="nested-content">
+        <ul>
+          <li><strong>금융화 이후의 변화:</strong> 2008년 금융 위기 이후 원자재 시장이 금융 자산화되면서 VRP의 수익률 예측력이 더욱 뚜렷해졌습니다.</li>
+          <li><strong>양(+)의 예측력:</strong> 높은 VRP(IV > RV)는 향후 원자재 가격의 상승 압력으로 작용하는 경향을 보였습니다.</li>
+          <li><strong>동조화 현상:</strong> 원자재 VRP는 글로벌 시장의 위험 회피 성향과 강하게 연동되며, 전이 효과(Spillover)를 동반함을 확인했습니다.</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+</details>

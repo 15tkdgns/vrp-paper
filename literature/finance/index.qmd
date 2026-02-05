@@ -1,0 +1,276 @@
+---
+title: "Finance 분야 선행연구"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 2
+---
+
+# 금융 분야 변동성 및 VRP 연구
+
+본 페이지는 **금융 이론** 관점에서 변동성과 VRP를 연구한 주요 논문들을 정리합니다.
+
+## 주요 논문 리스트
+
+```{=html}
+<details>
+  <summary>Carr & Wu (2009): "Variance Risk Premia" (RFS)</summary>
+  <div class="paper-details">
+    <details class="nested-details">
+      <summary>논문 개요</summary>
+      <div class="nested-content">
+        <p>VRP의 표준 정의를 제시한 기초 논문. 위험 중립 분산과 실제 분산 간의 차이를 이론적으로 정립.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>연구 질문</summary>
+      <div class="nested-content">
+        <p>Risk-neutral variance와 Physical variance의 차이가 자산 가격 결정에 미치는 영향은?</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>데이터 및 샘플</summary>
+      <div class="nested-content">
+        <p>S&P 500 옵션 및 고빈도 선물 데이터로 합성 Variance Swap 포트폴리오 구성.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>방법론</summary>
+      <div class="nested-content">
+        <p>모델 프리 방식으로 Variance Swap payoff 복제. GMM으로 위험 프리미엄 추정.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>결과</summary>
+      <div class="nested-content">
+        <p>VRP는 평균적으로 양수. 금융 위기 시 크게 증가하여 위험 회피 성향 변화를 반영.</p>
+      </div>
+    </details>
+  </div>
+</details>
+
+<details>
+  <summary>Bollerslev, Tauchen & Zhou (2009): "Expected Stock Returns and VRP"</summary>
+  <div class="paper-details">
+    <details class="nested-details">
+      <summary>논문 개요</summary>
+      <div class="nested-content">
+        <p>VRP가 주식 시장 수익률을 예측하는 강력한 변수임을 실증.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>연구 질문</summary>
+      <div class="nested-content">
+        <p>VRP가 미래 주식 수익률을 예측하는가? 전통적 예측 변수보다 우월한가?</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>데이터 및 샘플</summary>
+      <div class="nested-content">
+        <p>1990-2007 S&P 500 VIX 지수 및 실현 변동성. 월별/분기별 수익률 데이터.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>방법론</summary>
+      <div class="nested-content">
+        <p>VRP = VIX² - RV로 계산. 예측 회귀 분석으로 미래 수익률 영향 추정.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>결과</summary>
+      <div class="nested-content">
+        <p>강한 양의 예측력. R² 값이 기존 변수 대비 2배 이상. 경기 침체 직전 VRP 급등.</p>
+      </div>
+    </details>
+  </div>
+</details>
+
+<details>
+  <summary>Drechsler & Yaron (2011): "What's Vol Got to Do with It"</summary>
+  <div class="paper-details">
+    <details class="nested-details">
+      <summary>논문 개요</summary>
+      <div class="nested-content">
+        <p>장기 위험 모형으로 VRP의 경제적 기원을 이론적으로 설명.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>연구 질문</summary>
+      <div class="nested-content">
+        <p>VRP는 어떤 거시경제적 위험에서 발생하는가? 소비 성장 불확실성과의 관계는?</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>데이터 및 샘플</summary>
+      <div class="nested-content">
+        <p>1990-2008 옵션 데이터, 거시경제 변수(소비/GDP 성장률), VIX 및 RV.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>방법론</summary>
+      <div class="nested-content">
+        <p>Epstein-Zin 효용 함수 기반 대표 투자자 모형. 확률적 변동성 모형 설정.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>결과</summary>
+      <div class="nested-content">
+        <p>모형이 VRP 평균값과 변동성을 설명. VRP는 경기 변동 위험의 보상.</p>
+      </div>
+    </details>
+  </div>
+</details>
+
+<details>
+  <summary>Heston et al. (2023): "VRP Across Assets"</summary>
+  <div class="paper-details">
+    <details class="nested-details">
+      <summary>논문 개요</summary>
+      <div class="nested-content">
+        <p>다양한 자산군에 걸친 VRP 분석. 자산별 VRP의 크기와 동적 특성 비교.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>연구 질문</summary>
+      <div class="nested-content">
+        <p>VRP는 모든 자산군에 존재하는가? 자산별 차이는 무엇인가?</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>데이터 및 샘플</summary>
+      <div class="nested-content">
+        <p>20개 선물 시장(주식, 채권, 통화, 원자재) 옵션 데이터. 2000-2022.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>방법론</summary>
+      <div class="nested-content">
+        <p>자산별 IV-RV 차이로 VRP 계산. 패널 회귀로 공통/특이 요인 분해. PCA로 공통 팩터 추출.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>결과</summary>
+      <div class="nested-content">
+        <p>모든 자산군에서 유의미한 양의 VRP. 자산별 상당한 차이. 금융 위기 시 공통 팩터 급등.</p>
+      </div>
+    </details>
+  </div>
+</details>
+
+<details>
+  <summary>Bekaert & Hoerova (2014): "VIX, Variance Premium and Volatility"</summary>
+  <div class="paper-details">
+    <details class="nested-details">
+      <summary>논문 개요</summary>
+      <div class="nested-content">
+        <p>VIX를 위험 회피 성향과 변동성 기대로 분해. VRP가 위험 회피 측정 지표임을 규명.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>연구 질문</summary>
+      <div class="nested-content">
+        <p>VIX 상승이 실제 변동성 증가인가 위험 회피 증가인가?</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>데이터 및 샘플</summary>
+      <div class="nested-content">
+        <p>1990-2012 VIX, 실현 변동성, 주식 수익률, 거시경제 변수.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>방법론</summary>
+      <div class="nested-content">
+        <p>GARCH로 물리적 변동성 추정. VIX에서 차감하여 위험 회피 성향 추출.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>결과</summary>
+      <div class="nested-content">
+        <p>VIX 상승의 대부분은 위험 회피 증가. VRP는 투자자 심리의 바로미터.</p>
+      </div>
+    </details>
+  </div>
+</details>
+
+<details>
+  <summary>Pyun (2019): "Variance Risk in Stock Returns"</summary>
+  <div class="paper-details">
+    <details class="nested-details">
+      <summary>논문 개요</summary>
+      <div class="nested-content">
+        <p>개별 주식 VRP가 횡단면 수익률 팩터로 작동함을 발견.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>연구 질문</summary>
+      <div class="nested-content">
+        <p>개별 주식 VRP는 시장 위험인가 기업 고유 위험 프리미엄인가?</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>데이터 및 샘플</summary>
+      <div class="nested-content">
+        <p>1996-2017 개별 주식 옵션 데이터 500개 이상. 월별 수익률 및 기업 특성 변수.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>방법론</summary>
+      <div class="nested-content">
+        <p>주식별 IV-RV로 VRP 계산. Fama-MacBeth 횡단면 회귀. 포트폴리오 정렬로 롱-숏 전략 검증.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>결과</summary>
+      <div class="nested-content">
+        <p>VRP 높을수록 미래 수익률 높음. 상하위 포트폴리오 간 월 1.2% 차이. 꼬리 위험 보상 반영.</p>
+      </div>
+    </details>
+  </div>
+</details>
+
+<details>
+  <summary>Feunou et al. (2017): "Good vs Bad Volatility"</summary>
+  <div class="paper-details">
+    <details class="nested-details">
+      <summary>논문 개요</summary>
+      <div class="nested-content">
+        <p>변동성을 Good/Bad로 분해. 옵션 가격이 두 유형에 비대칭적으로 반응.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>연구 질문</summary>
+      <div class="nested-content">
+        <p>상승/하락 변동성이 옵션 가격에 미치는 영향이 동일한가?</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>데이터 및 샘플</summary>
+      <div class="nested-content">
+        <p>1996-2014 S&P 500 및 개별 주식 옵션. 고빈도 수익률 데이터.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>방법론</summary>
+      <div class="nested-content">
+        <p>RV를 양/음 수익률 구간으로 분해. IV의 두 유형 민감도를 회귀 분석으로 추정.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>결과</summary>
+      <div class="nested-content">
+        <p>Bad Volatility VRP가 Good Volatility VRP의 3배. 레버리지 효과의 옵션 시장 반영.</p>
+      </div>
+    </details>
+  </div>
+</details>
+```
+
+<br>
+
+## 더 많은 자료
+
+- [전체 문헌 개요](/literature/index.qmd)
+- [CS/ML 분야](/literature/cs/index.qmd)
+- [리딩 리스트](/literature/reading_list.qmd)

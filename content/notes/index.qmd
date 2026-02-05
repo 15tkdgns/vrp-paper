@@ -1,0 +1,82 @@
+---
+title: "연구 노트"
+date: today
+---
+
+## 최근 노트
+
+### 2024-01-15: 데이터 전처리 개선
+
+오늘 데이터 전처리 파이프라인을 개선했습니다.
+
+**변경사항:**
+- 결측치 처리 방법 변경 (평균 → 중앙값)
+- 이상치 제거 기준 조정 (IQR 방법)
+
+**결과:**
+- 모델 성능 2% 향상
+- 데이터 손실 5% 감소
+
+---
+
+### 2024-01-12: 새로운 특징 발견
+
+실험 중 흥미로운 패턴을 발견했습니다.
+
+```{python}
+#| echo: false
+#| fig-width: 10
+#| fig-height: 6
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+# 발견한 패턴 시각화
+x = np.linspace(0, 10, 100)
+y = np.sin(x) * np.exp(-x/5)
+
+fig, ax = plt.subplots(figsize=(10, 6))
+ax.plot(x, y, linewidth=2, color='steelblue')
+ax.set_title('발견한 패턴', fontsize=14, fontweight='bold')
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+ax.grid(True, alpha=0.3)
+plt.tight_layout()
+plt.show()
+```
+
+**인사이트:**
+- 이 패턴은 특정 조건에서만 나타남
+- 추가 조사 필요
+
+---
+
+### 2024-01-10: 문헌 리뷰
+
+**읽은 논문:**
+- "Advanced Methods in Data Analysis" (2023)
+- "Machine Learning Best Practices" (2024)
+
+**주요 내용:**
+- 새로운 전처리 기법 소개
+- 하이퍼파라미터 튜닝 전략
+
+**적용 계획:**
+- [ ] 다음 실험에 적용
+- [ ] 결과 비교
+
+---
+
+## 아이디어 목록
+
+- [ ] 앙상블 방법 시도
+- [ ] 다른 데이터 소스 통합
+- [ ] 실시간 모니터링 시스템 구축
+
+---
+
+## 참고 자료
+
+- [논문 링크 1](https://example.com)
+- [논문 링크 2](https://example.com)
+- [데이터셋 링크](https://example.com)

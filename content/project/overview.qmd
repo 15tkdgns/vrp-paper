@@ -1,0 +1,152 @@
+---
+title: "연구개요"
+date: today
+---
+
+## 연구 목적
+
+Cross-Asset Volatility Risk Premium (VRP) 예측을 위한 머신러닝 프레임워크 개발
+
+## 연구 배경
+
+### 문제 정의
+
+- 전통적인 VRP 연구는 주로 단일 자산(S&P 500)에 집중
+- Cross-Asset VRP 예측을 위한 통합 프레임워크 부재
+- 자산별 옵션 데이터 접근성 제한
+
+### 연구 목표
+
+1. **Cross-Asset VRP 예측 모델 개발**
+   - Global VIX와 Cross-Asset Realized Volatility 기반
+   - 여러 자산 클래스(주식, 채권, 신흥시장)에 적용
+
+2. **Sentiment Features 통합**
+   - SKEW, VIX term structure 등 시장 심리 지표 활용
+   - 정량적 feature engineering
+
+3. **실용적 접근법 제시**
+   - 고차원 옵션 데이터 없이도 VRP 예측 가능
+   - 실시간 리스크 관리에 활용 가능
+
+---
+
+## 연구 방법론
+
+### 데이터
+
+- **Global VIX**: 시장 전체 변동성 지수
+- **Cross-Asset RV**: 주식, 채권, 신흥시장 등 자산별 Realized Volatility
+- **Sentiment Features**: SKEW, VIX term spread, VIX9D 등
+
+### 모델
+
+- **Baseline**: HAR (Heterogeneous Autoregressive) 모델
+- **Linear Models**: LASSO, Ridge
+- **Tree-based**: XGBoost, LightGBM
+- **Deep Learning**: LSTM, Transformer
+
+### 평가 지표
+
+- MAE (Mean Absolute Error)
+- RMSE (Root Mean Squared Error)
+- QLIKE (Quasi-likelihood)
+- Diebold-Mariano test
+
+---
+
+## 연구 구조
+
+```{python}
+#| echo: false
+#| warning: false
+#| eval: false
+
+import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
+
+fig, ax = plt.subplots(figsize=(12, 8))
+
+# 연구 구조 다이어그램
+boxes = [
+    (0.1, 0.8, 0.15, 0.1, '선행연구\n리뷰'),
+    (0.35, 0.8, 0.15, 0.1, '데이터\n수집'),
+    (0.6, 0.8, 0.15, 0.1, 'Feature\nEngineering'),
+    (0.1, 0.5, 0.15, 0.1, '모델\n개발'),
+    (0.35, 0.5, 0.15, 0.1, '실험\n설계'),
+    (0.6, 0.5, 0.15, 0.1, '성능\n평가'),
+    (0.35, 0.2, 0.15, 0.1, '결과\n분석'),
+]
+
+for x, y, w, h, label in boxes:
+    rect = mpatches.Rectangle((x, y), w, h, 
+                             linewidth=2, 
+                             edgecolor='#4a90e2', 
+                             facecolor='#e8f4f8')
+    ax.add_patch(rect)
+    ax.text(x + w/2, y + h/2, label, 
+           ha='center', va='center', 
+           fontsize=10, fontweight='bold')
+
+# 화살표
+arrows = [
+    (0.25, 0.85, 0.1, 0),
+    (0.5, 0.85, 0.1, 0),
+    (0.1, 0.75, 0, -0.15),
+    (0.35, 0.75, 0, -0.15),
+    (0.6, 0.75, 0, -0.15),
+    (0.25, 0.5, 0.1, 0),
+    (0.5, 0.5, 0.1, 0),
+    (0.35, 0.45, 0, -0.15),
+]
+
+for x, y, dx, dy in arrows:
+    ax.arrow(x, y, dx, dy, head_width=0.02, head_length=0.02, 
+            fc='#4a90e2', ec='#4a90e2', linewidth=1.5)
+
+ax.set_xlim(0, 1)
+ax.set_ylim(0, 1)
+ax.axis('off')
+ax.set_title('연구 프로세스', fontsize=14, fontweight='bold', pad=20)
+
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## 예상 결과
+
+1. **Cross-Asset VRP 예측 성능 향상**
+   - 기존 single-asset 모델 대비 개선
+   - 여러 자산 클래스에서 일관된 성능
+
+2. **Feature Importance 분석**
+   - Global VIX의 기여도
+   - Sentiment features의 예측력
+   - 자산별 특성 파악
+
+3. **실용적 활용 방안**
+   - 포트폴리오 리스크 관리
+   - 옵션 가격 결정
+   - 매크로 프루덴셜 정책
+
+---
+
+## 연구 일정
+
+| 단계 | 기간 | 주요 작업 |
+|------|------|----------|
+| 1단계 | 1-2주 | 선행연구 리뷰 및 데이터 수집 |
+| 2단계 | 2-3주 | Feature Engineering 및 전처리 |
+| 3단계 | 3-4주 | 모델 개발 및 실험 설계 |
+| 4단계 | 2-3주 | 성능 평가 및 결과 분석 |
+| 5단계 | 1-2주 | 논문 작성 및 정리 |
+
+---
+
+## 다음 단계
+
+- [실험내용](/experiments/index.qmd)에서 구체적인 실험 설계 확인
+- [연구 노트](/content/notes/index.qmd)에서 진행 상황 추적
+- [결과](/experiments/summary.qmd)에서 최종 성과 확인

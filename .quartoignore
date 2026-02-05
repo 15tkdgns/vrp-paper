@@ -1,0 +1,16 @@
+# Quarto 빌드에서 제외할 파일들
+README.md
+TROUBLESHOOTING.md
+QUICK_START.md
+START_SERVER.md
+Cross_Asset_VRP_Reading_List.md
+research_notebook_comparison.md
+quarto_setup.md
+jupyter_setup.md
+gradio_alternative.md
+*.py
+*.sh
+*.bat
+.gitignore
+docs/
+_quarto.yml.bak

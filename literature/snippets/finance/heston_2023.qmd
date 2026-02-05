@@ -1,0 +1,56 @@
+<details>
+  <summary>Heston & Todorov (2023): "Exploring the Variance Risk Premium Across Assets" (AEA Papers and Proceedings / HKU Research)</summary>
+  <div class="paper-details">
+    <div class="paper-links">
+      <a href="https://www.aeaweb.org/articles?id=10.1257/pandp.20231016" target="_blank">[Journal Link]</a>
+      <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4082728" target="_blank">[SSRN Full Paper]</a>
+    </div>
+
+    <details class="nested-details">
+      <summary>논문 개요</summary>
+      <div class="nested-content">
+        <p>주식 시장에 국한되었던 VRP 논의를 채권, 통화, 원자재 등 전 자산군(Cross-Asset)으로 확장하여 보편성을 검증한 최신 연구입니다. 특히 개별 자산의 수익률이 아니라 '순수 변동성 포트폴리오'의 수익률을 분석함으로써 VRP의 존재를 명확히 입증했습니다.</p>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>연구 질문</summary>
+      <div class="nested-content">
+        <ul>
+          <li>VRP는 전 자산군에서 공통적으로 발견되는 유비쿼터스(Ubiquitous)한 현상인가?</li>
+          <li>옵션 표면의 복잡한 보간법 없이도 VRP를 정확하게 측정할 수 있는가?</li>
+          <li>VRP를 통해 얻어지는 수익은 체계적 위험(Systematic Risk)의 보상인가, 아니면 특이적 꼬리 위험(Fat tails)의 대가인가?</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>데이터 및 샘플</summary>
+      <div class="nested-content">
+        <ul>
+          <li><strong>자산군:</strong> 주식(S&P 500), 채권(10Y/30Y 국채), 통화(엔, 파운드 등), 원자재(원유, 금, 구리, 곡물 등) 총 20개 주요 선물 옵션 시장.</li>
+          <li><strong>기간:</strong> 2006년 ~ 2020년.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>방법론</summary>
+      <div class="nested-content">
+        <p><strong>Novel Replication Method:</strong> 기존의 스플라인 보간법 대신, 거래 가능한 옵션들을 직접적으로 조합하여 실현 분산을 복제하는 'Hedged VIX Portfolio' 구성 방식 도입.</p>
+        <p><strong>Hedged Return:</strong> 델타 헤징을 통해 기초 자산의 가격 위험을 제거한 후 순수하게 변동성 보유에 따른 프리미엄을 측정했습니다.</p>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>연구 결과</summary>
+      <div class="nested-content">
+        <ul>
+          <li><strong>범자산적 VRP 존재:</strong> 분석 대상인 20개 자산 대부분에서 유의미한 양(+)의 헤지 비용(즉, 음의 VRP)이 발견되었습니다.</li>
+          <li><strong>채권 시장의 극단성:</strong> 특히 미 국채 시장에서 매우 강력한 VRP가 관찰되었으며, 이는 금리 급등 위험에 대한 보험 수요가 극도로 높음을 의미합니다.</li>
+          <li><strong>꼬리 위험의 비중:</strong> VRP 수익은 시장 수익률과의 상관관계보다는 'Fat-tail risk'를 감내하는 옵션 딜러들의 보상 성격이 강함을 확인했습니다.</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+</details>

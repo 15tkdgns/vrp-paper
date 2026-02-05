@@ -1,0 +1,9 @@
+{
+  "best_lags": [
+    1,
+    2,
+    22
+  ],
+  "best_lambda": null,
+  "final_r2": 0.6519951255223886
+}

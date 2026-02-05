@@ -1,0 +1,56 @@
+<details>
+  <summary>Carr, Wu & Zhang (2019, 2020): "Machine Learning for Realized Variance" (Journal of Financial Economics / Working Paper)</summary>
+  <div class="paper-details">
+    <div class="paper-links">
+      <a href="https://arxiv.org/abs/1909.10035" target="_blank">[arXiv Link]</a>
+      <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3451025" target="_blank">[SSRN Full Paper]</a>
+    </div>
+
+    <details class="nested-details">
+      <summary>논문 개요</summary>
+      <div class="nested-content">
+        <p>기계학습(ML)을 금융 변동성 예측의 '잔차 학습(Residual Learning)' 도구로 활용한 선구적인 연구입니다. 전통적인 계량 모델(GARCH)이나 시장 지수(VIX)가 포착하지 못하는 비선형적 패턴을 ML이 어떻게 보완할 수 있는지를 보여줍니다.</p>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>연구 질문</summary>
+      <div class="nested-content">
+        <ul>
+          <li>ML 모델이 전통적인 GARCH 계열 모델보다 실현 변동성(RV) 예측에서 우월한가?</li>
+          <li>VIX가 내포한 정보와 ML이 추출한 정보 중 어느 것이 미래 RV를 더 잘 설명하는가?</li>
+          <li>VIX²와 RV의 차이인 VRP를 직접 예측하는 것이 RV를 직접 예측하는 것보다 효율적인가?</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>데이터 및 샘플</summary>
+      <div class="nested-content">
+        <ul>
+          <li><strong>대상:</strong> S&P 500 지수 및 옵션.</li>
+          <li><strong>특성 변수:</strong> 과거 RV, VIX, 옵션 스큐(Skew), 커버처(Curvature) 등 옵션 표면에서 추출한 고차원 정보.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>방법론</summary>
+      <div class="nested-content">
+        <p><strong>Two-Step Approach:</strong> 1단계로 VIX를 베이스라인으로 설정하고, 2단계에서 Ridge Regression 및 FNN(Feed-forward Neural Network)을 사용하여 VIX의 예측 오차(잔차)를 학습했습니다.</p>
+        <p><strong>Predicting VRP:</strong> 저자들은 RV 자체보다 VIX² - RV(즉, 사후적 VRP)를 타겟으로 학습하여 시장의 편향을 교정하는 데 집중했습니다.</p>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>연구 결과</summary>
+      <div class="nested-content">
+        <ul>
+          <li><strong>VRP 예측의 우위:</strong> 사후적 VRP를 타겟으로 학습했을 때가 RV를 직접 학습했을 때보다 예측 오차가 유의미하게 낮았습니다.</li>
+          <li><strong>편향 교정:</strong> ML 모델이 VIX에 내재된 과대 평가(Over-estimation) 편향을 효과적으로 제거함을 확인했습니다.</li>
+          <li><strong>경제적 성과:</strong> 예측된 VRP를 기반으로 한 변동성 매도 전략이 단순 보유 전략보다 높은 샤프 지수와 낮은 드로우다운을 기록했습니다.</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+</details>

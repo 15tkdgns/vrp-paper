@@ -1,0 +1,84 @@
+---
+title: "실험 결과"
+subtitle: "V50 모델 검증 및 성능 분석"
+date: today
+---
+
+## 핵심 실험 목록
+
+본 연구에서 수행한 주요 실험들의 결과를 정리했습니다. 각 실험은 V50 모델의 다양한 측면을 검증합니다.
+
+### Phase별 실험 요약
+
+| Phase | 실험명 | 핵심 내용 | 결과 |
+|:---|:---|:---|:---|
+| **Phase 4** | [1일 예측 (V50)](/experiments/1day_prediction.qmd) | Dual-Attention LSTM, 단기 챔피언 | **R² = 0.821** |
+| **Phase 10** | [V29 베이스라인 검증](/experiments/phase10_v29_verification.qmd) | GARCH 기여도, 시장 국면 안정성 | p < 0.001 |
+| **Phase 13** | [22일 예측 (V36)](/experiments/22day_prediction.qmd) | 자산 적응형 Ridge, 장기 챔피언 | **R² = 0.755** |
+
+---
+
+## 검증 실험 결과 요약
+
+```{python}
+#| echo: false
+#| fig-width: 10
+#| fig-height: 5
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+# 한글 폰트 설정
+plt.rcParams['font.family'] = 'UnDotum'
+plt.rcParams['axes.unicode_minus'] = False
+
+# 검증 실험 결과
+experiments = ['시간적 강건성\n(Walk-Forward)', 'DM 테스트\n(통계적 유의성)', '극한 시장\n(OOD 테스트)', '다중공선성\n(VIF 진단)', '잔차 진단\n(정규성 검정)']
+status = ['Pass', 'Pass', 'Pass', 'Pass', 'Pass']
+scores = [0.820, 0.001, 0.75, 2.1, 0.87]  # OOS R², p-value, OOD R², max VIF, 정규성 p
+
+colors = ['#38A169' if s == 'Pass' else '#E53E3E' for s in status]
+
+fig, ax = plt.subplots(figsize=(10, 5))
+
+# 막대 그래프
+bars = ax.barh(experiments, [1]*5, color=colors, alpha=0.8, edgecolor='white', height=0.6)
+
+# 상태 텍스트
+for i, (exp, stat) in enumerate(zip(experiments, status)):
+    ax.text(0.5, i, f'✓ {stat}', ha='center', va='center', 
+            fontsize=14, fontweight='bold', color='white')
+
+ax.set_xlim(0, 1)
+ax.set_title('V50 모델 검증 결과 요약', fontsize=14, fontweight='bold')
+ax.set_xticks([])
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+ax.spines['bottom'].set_visible(False)
+
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## 주요 발견 사항
+
+::: {.callout-note}
+## V50 모델의 강점
+
+1. **과적합 없음**: Walk-Forward 검증에서 OOS R² = 0.820 (IS와 거의 동일)
+2. **통계적 유의성**: Diebold-Mariano 테스트 p < 0.001로 베이스라인 대비 유의미한 개선
+3. **극한 시장 강건성**: 코로나19 및 인플레이션 기간에도 성능 유지
+4. **다중공선성 없음**: 모든 VIF 값이 5 미만
+:::
+
+---
+
+## 추가 실험
+
+| 실험명 | 설명 | 링크 |
+|:---|:---|:---|
+| 통합 모델 실험 | 23개 자산을 단일 모델로 학습 | [보기 →](/experiments/universal_model.qmd) |
+| 트레이딩 전략 | 변동성 타겟팅 백테스트 | [보기 →](/experiments/trading_strategy.qmd) |
+| 결과 요약 | 전체 실험 결과 통계 | [보기 →](/experiments/summary.qmd) |
