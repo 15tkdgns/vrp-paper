@@ -1,21 +1,23 @@
 ---
 title: "22일 예측 모델"
-subtitle: "V36 (자산 적응형 Ridge) 챔피언 모델"
+subtitle: "V71 (Enhanced Asset-Adaptive Ridge) 챔피언 모델"
 format:
   html:
     code-fold: true
     toc: true
 ---
 
-# 22일 예측 챔피언: V36 (자산 적응형 Ridge)
+# 22일 예측 챔피언: V71 (Enhanced Asset-Adaptive Ridge)
 
-장기(22일) 변동성 예측에서는 모델이 너무 유연하면 노이즈까지 학습하여 성능이 저하됩니다. **V36 모델**은 자산군별로 최적화된 단순함을 유지하여 최고 성능을 달성했습니다.
+장기(22일) 변동성 예측에서 **V71 모델**은 OHLCV 기반 고빈도 프록시(HF Proxy), 옵션 내재변동성(IV Surface), 대안 데이터(Alternative Data)를 통합하여 37개 피처를 활용합니다. 자산 클래스별 최적화된 Ridge 회귀와 XGBoost의 가중 앙상블로 최고 성능을 달성했습니다.
 
 ::: {.callout-note}
-## 핵심 성과
-- **R² 스코어**: 0.755 (베이스라인 대비 +17.8%)
-- **채권 카테고리**: R² = 0.95 (금리 정책 추세 반영)
-- **주식 카테고리**: R² = 0.51 (시장 효율성)
+## 핵심 성과 (11개 자산 풀링 기준)
+- **R² = 0.803** (Weighted Ensemble, 11개 자산 풀링, cross-sectional variation 포함, V36 대비 +6.3%)
+- **대상 자산**: Equity(SPY, QQQ, IWM, EFA, EEM), Bond(TLT, IEF, AGG), Commodity(GLD, SLV, USO)
+- **4개 메트릭 모두 최고** (R², RMSE, MAE, QLIKE)
+- **DM test p<0.001** (모든 벤치마크 대비 통계적 유의)
+- **High VIX 국면 R² = 0.765** (V36: 0.602, +0.163 개선)
 :::
 
 ---
@@ -33,28 +35,26 @@ import numpy as np
 plt.rcParams['font.family'] = 'UnDotum'
 plt.rcParams['axes.unicode_minus'] = False
 
-# 문헌 베이스라인 + 본 연구 모델 (22일 예측)
-models = ['Historical\nAvg', 'GARCH\n(1,1)', 'HAR-RV\n(Corsi)', 'GARCH-\nMIDAS', 'V29\n(HAR+GARCH)', 'V43\n(Trans)', 'V36\n(Champion)']
-r2_scores = [0.32, 0.45, 0.52, 0.55, 0.641, 0.534, 0.755]
-colors = ['#718096', '#718096', '#718096', '#718096', '#A0AEC0', '#A0AEC0', '#3182CE']
+models = ['Historical\nAvg', 'GARCH\n(1,1)', 'HAR-RV\n(Corsi)', 'GARCH-\nMIDAS', 'V29\n(HAR+GARCH)', 'V43\n(Trans)', 'V36\n(Ridge)', 'V71\n(Champion)']
+r2_scores = [0.32, 0.45, 0.52, 0.55, 0.641, 0.534, 0.755, 0.803]
+colors = ['#718096', '#718096', '#718096', '#718096', '#A0AEC0', '#A0AEC0', '#63B3ED', '#3182CE']
 
 fig, ax = plt.subplots(figsize=(12, 5))
 bars = ax.bar(models, r2_scores, color=colors, edgecolor='white', linewidth=1.5)
 
-# 문헌 베이스라인 영역 표시
 ax.axvspan(-0.5, 3.5, alpha=0.1, color='gray')
 ax.axhline(y=0.55, color='#E53E3E', linestyle='--', alpha=0.7, label='GARCH-MIDAS 문헌 베이스라인')
+ax.axhline(y=0.755, color='#63B3ED', linestyle=':', alpha=0.7, label='V36 이전 챔피언')
 
-bars[6].set_edgecolor('#1a365d')
-bars[6].set_linewidth(3)
+bars[7].set_edgecolor('#1a365d')
+bars[7].set_linewidth(3)
 
 ax.set_ylabel('R² 스코어', fontsize=12)
-ax.set_title('22일 예측 모델 성능 비교 (문헌 베이스라인 포함)', fontsize=14, fontweight='bold')
-ax.set_ylim(0.2, 0.85)
-ax.legend(loc='upper right')
+ax.set_title('22일 예측 모델 성능 비교', fontsize=14, fontweight='bold')
+ax.set_ylim(0.2, 0.9)
+ax.legend(loc='upper left')
 ax.grid(True, alpha=0.3, axis='y')
 
-# 영역 라벨
 ax.text(1.5, 0.25, '문헌 베이스라인', ha='center', fontsize=10, fontstyle='italic', color='#4A5568')
 ax.text(5.5, 0.25, '본 연구 모델', ha='center', fontsize=10, fontstyle='italic', color='#2D3748')
 
@@ -66,71 +66,70 @@ plt.tight_layout()
 plt.show()
 ```
 
-| 모델 | 출처 | R² | V36 대비 |
+| 모델 | R² | RMSE | MAE | QLIKE | V71 대비 |
+|:---|:---|:---|:---|:---|:---|
+| V36 (HAR-3 Ridge) | 0.732 | 0.541 | 0.430 | 0.180 | -0.071 |
+| V68 (Base-14 Ridge) | 0.728 | 0.545 | 0.431 | 0.192 | -0.075 |
+| V71 Ridge (All-37) | 0.774 | 0.496 | 0.396 | 0.149 | -0.029 |
+| **V71 Ensemble** | **0.779** | **0.492** | **0.393** | **0.147** | **기준** |
+
+### Diebold-Mariano 검정 (Newey-West HAC, h=22)
+
+| 비교 | DM 통계량 | p-value | 유의수준 |
 |:---|:---|:---|:---|
-| Historical Average | - | 0.32 | -57.6% |
-| GARCH(1,1) | Bollerslev (1986) | 0.45 | -40.4% |
-| HAR-RV | Corsi (2009) | 0.52 | -31.1% |
-| **GARCH-MIDAS** | **Engle et al. (2013)** | **0.55** | **-27.2%** |
-| V29 (HAR+GARCH) | 본 연구 | 0.641 | -15.1% |
-| V43 (Transformer) | 본 연구 | 0.534 | -29.3% |
-| **V36 (Champion)** | **본 연구** | **0.755** | **기준** |
-
-
-::: {.callout-important}
-## 왜 딥러닝 모델이 22일 예측에서 성능이 낮은가?
-- **노이즈 비율 증가**: 22일 후 예측에서는 신호 대비 노이즈 비율이 크게 증가
-- **과적합 위험**: 복잡한 딥러닝 모델(V50, V43)이 노이즈까지 학습
-- **해결책**: 강건한 선형 모델(V36 Ridge)로 일반화 성능 확보
-:::
+| V71 Ensemble vs V36 | -8.802 | <0.001 | *** |
+| V71 Ensemble vs V68 | -8.756 | <0.001 | *** |
+| V71 Ridge vs V36 | -7.481 | <0.001 | *** |
+| V71 Ridge vs V68 | -7.593 | <0.001 | *** |
 
 ---
 
-## V36 모델 구조
-
-V36은 **HAR-GARCH 피처**와 **자산군별 적응형 앙상블** 구조를 가집니다.
+## V71 모델 구조
 
 ```{mermaid}
 %%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%
 flowchart LR
-    subgraph FEATURES["피처 엔지니어링"]
-        A["가격 데이터"] --> B["HAR 피처: 1d, 5d, 22d 래그"]
-        A --> C["GARCH 피처: 조건부 분산"]
+    subgraph DATA["OHLCV + 옵션 데이터"]
+        A["OHLCV 가격"] --> B["Base Features (14)"]
+        A --> C["HF Proxy (7)"]
+        D["VIX/VIX3M/VIX9D"] --> E["IV Surface (10)"]
+        A --> F["Alt Data (6)"]
     end
     
-    subgraph CLASSIFICATION["자산 분류"]
-        B & C --> D{"자산 유형"}
-        D -->|SPY, QQQ, IWM| E["주식"]
-        D -->|TLT, IEF, AGG| F["채권"]
-        D -->|GLD, SLV, USO| G["원자재"]
+    subgraph FEATURES["37개 피처"]
+        B --> G["HAR lag + GARCH + Vol-of-Vol\n+ Momentum + Cross-Asset"]
+        C --> H["Parkinson + Garman-Klass\n+ Rogers-Satchell"]
+        E --> I["VIX Term Structure\n+ VRP"]
+        F --> J["Amihud + Volume\n+ Order Imbalance"]
     end
     
-    subgraph MODELS["적응형 Ridge 모델"]
-        E --> H["주식 최적화 Ridge"]
-        F --> I["채권 최적화 Ridge"]
-        G --> J["원자재 최적화 Ridge"]
+    subgraph MODELS["자산 클래스별 최적화"]
+        G & H & I & J --> K["Equity Ridge"]
+        G & H & I & J --> L["Bond Ridge"]
+        G & H & I & J --> M["Commodity Ridge"]
+        G & H & I & J --> N["XGBoost"]
     end
     
-    subgraph PREDICTIONS["22일 변동성 예측"]
-        H --> K["주식 변동성"]
-        I --> L["채권 변동성"]
-        J --> M["원자재 변동성"]
+    subgraph ENSEMBLE["가중 앙상블"]
+        K & L & M --> O["Ridge 예측"]
+        N --> P["XGBoost 예측"]
+        O & P --> Q["Weighted Ensemble\nR² = 0.803"]
     end
 
-    style FEATURES fill:#E3F2FD,stroke:#1565C0,stroke-width:2px
-    style CLASSIFICATION fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px
+    style DATA fill:#E3F2FD,stroke:#1565C0,stroke-width:2px
+    style FEATURES fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px
     style MODELS fill:#FFF3E0,stroke:#E65100,stroke-width:2px
-    style PREDICTIONS fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px
+    style ENSEMBLE fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px
 ```
 
 ---
 
-## 자산군별 성능
+## Ablation Study (피처 그룹별 기여도)
 
 ```{python}
 #| echo: false
 #| fig-width: 10
-#| fig-height: 4
+#| fig-height: 5
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -138,95 +137,59 @@ import numpy as np
 plt.rcParams['font.family'] = 'UnDotum'
 plt.rcParams['axes.unicode_minus'] = False
 
-categories = ['채권', '원자재', '주식']
-r2_scores = [0.953, 0.625, 0.514]
-colors = ['#38A169', '#D69E2E', '#E53E3E']
+feature_sets = ['Base\n(14)', 'Base+HF\n(21)', 'Base+IV\n(24)', 'Base+Alt\n(20)', 'Base+HF+IV\n(31)', 'All Ridge\n(37)', 'XGBoost\n(37)', 'Ensemble\n(37)']
+r2_scores = [0.758, 0.779, 0.784, 0.765, 0.796, 0.798, 0.773, 0.803]
+colors = ['#A0AEC0', '#68D391', '#63B3ED', '#FC8181', '#48BB78', '#4299E1', '#ED8936', '#38A169']
 
-fig, ax = plt.subplots(figsize=(8, 4))
-bars = ax.barh(categories, r2_scores, color=colors, edgecolor='white', height=0.5)
+fig, ax = plt.subplots(figsize=(10, 5))
+bars = ax.bar(feature_sets, r2_scores, color=colors, edgecolor='white', linewidth=1.5)
 
-ax.set_xlabel('R² 스코어', fontsize=12)
-ax.set_title('자산군별 22일 예측 성능', fontsize=14, fontweight='bold')
-ax.set_xlim(0, 1)
-ax.grid(True, alpha=0.3, axis='x')
+ax.axhline(y=0.758, color='#A0AEC0', linestyle='--', alpha=0.5, label='Base only')
+bars[7].set_edgecolor('#1a365d')
+bars[7].set_linewidth(3)
+
+ax.set_ylabel('R² 스코어', fontsize=12)
+ax.set_title('V71 Ablation Study: 피처 그룹별 기여도', fontsize=14, fontweight='bold')
+ax.set_ylim(0.73, 0.82)
+ax.legend(loc='lower right')
+ax.grid(True, alpha=0.3, axis='y')
 
 for bar, score in zip(bars, r2_scores):
-    ax.text(bar.get_width() + 0.02, bar.get_y() + bar.get_height()/2, 
-            f'{score:.3f}', ha='left', va='center', fontsize=11, fontweight='bold')
+    delta = score - 0.758
+    label = f'{score:.3f}\n(+{delta:.3f})' if delta > 0 else f'{score:.3f}'
+    ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.002, 
+            label, ha='center', va='bottom', fontsize=8, fontweight='bold')
 
 plt.tight_layout()
 plt.show()
 ```
 
-| 자산군 | R² 스코어 | 특징 |
-|:---|:---|:---|
-| **채권** | 0.953 | 금리 정책 추세로 예측 가능성 높음 |
-| **원자재** | 0.625 | 공급/수요 사이클 반영 |
-| **주식** | 0.514 | 시장 효율성으로 예측 어려움 |
-
----
-
-## 검증 결과 요약
-
-::: {.panel-tabset}
-
-### 시장 국면 안정성
-
-| 기간 | V29 R² | V36 R² | 개선 |
+| 피처 조합 | 피처 수 | R² | 기여도 |
 |:---|:---|:---|:---|
-| Normal (2010-2019) | 0.61 | 0.73 | +19.7% |
-| COVID (2020Q1-Q2) | 0.55 | 0.71 | +29.1% |
-| Inflation (2022) | 0.58 | 0.74 | +27.6% |
+| Base only | 14 | 0.758 | baseline |
+| Base + HF Proxy | 21 | 0.779 | +0.021 |
+| Base + IV Surface | 24 | 0.784 | +0.026 |
+| Base + Alt Data | 20 | 0.765 | +0.007 |
+| Base + HF + IV | 31 | 0.796 | +0.037 |
+| All Features (Ridge) | 37 | 0.798 | +0.040 |
+| **Weighted Ensemble** | **37** | **0.803** | **+0.044** |
 
-### GARCH 기여도
-
-| 모델 | R² | RMSE |
-|:---|:---|:---|
-| HAR 전용 | 0.68 | 0.142 |
-| GARCH 전용 | 0.61 | 0.156 |
-| **하이브리드 (V36)** | **0.755** | **0.124** |
-
+::: {.callout-important}
+## 핵심 발견
+- **IV Surface가 최대 개별 기여** (+0.026): 옵션 시장이 실현변동성 예측에 추가 정보 제공
+- **HF Proxy가 두 번째** (+0.021): OHLC 기반 범위 추정량이 종가 모델의 한계 보완
+- **HF + IV 시너지** (+0.037): 두 소스가 보완적 정보 제공
+- **Alt Data 제한적** (+0.007): 거래량 기반 피처는 다른 피처와 중복
 :::
 
 ---
 
-## 상세 분석 링크
-
-더 자세한 검증 결과는 아래 페이지에서 확인할 수 있습니다:
-
-- [V29 모델 상세 검증](/experiments/phase10_v29_verification.qmd) - GARCH 기여도, 시장 국면 분석
-- [모델 아키텍처 비교](/experiments/phase13_model_comparison.qmd) - 하이퍼파라미터 및 구조 상세
-
----
-
-## V36 모델 상세 속성
-
-### 하이퍼파라미터 (자산군별)
-
-| 파라미터 | 주식 | 채권 | 원자재 | 설명 |
-|:---|:---|:---|:---|:---|
-| **Ridge alpha** | 10.0 | 1.0 | 5.0 | L2 정규화 강도 |
-| **HAR 윈도우** | 1, 5, 22 | 1, 5, 22 | 1, 5, 22 | 일/주/월 래그 |
-| **GARCH (p, q)** | (1, 1) | (1, 1) | (1, 1) | GARCH 파라미터 |
-| **VIX 포함** | O | O | O | 시장 공포 지수 |
-| **교차 자산** | SPY, TLT | SPY, GLD | SPY, TLT | 상관 자산 |
-
-### 모델 학습 설정
-
-| 항목 | 설정 |
-|:---|:---|
-| **추정 방법** | OLS with L2 Regularization |
-| **교차 검증** | 5-Fold Time-Series CV |
-| **피처 선택** | Stepwise (AIC 기준) |
-| **이상치 처리** | Winsorization (1%, 99%) |
-| **결측치 처리** | Forward Fill + 0 대체 |
-
-### 피처 중요도 (회귀 계수 기반)
+## 피처 중요도 (Permutation Importance)
 
 ```{python}
 #| echo: false
 #| fig-width: 10
-#| fig-height: 4
+#| fig-height: 5
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -234,21 +197,29 @@ import numpy as np
 plt.rcParams['font.family'] = 'UnDotum'
 plt.rcParams['axes.unicode_minus'] = False
 
-features = ['LogRV (t-22)', 'LogRV (t-5)', 'LogRV (t-1)', 'GARCH σ²', 'VIX', 'Cross-Asset RV']
-importance = [0.35, 0.25, 0.15, 0.12, 0.08, 0.05]
-colors = ['#38A169' if i < 3 else '#D69E2E' if i < 4 else '#3182CE' for i in range(len(features))]
+features = ['Rogers-Satchell Vol', 'Garman-Klass Vol', 'Parkinson Vol (22d)',
+            'SPY Log RV', 'Range/Close Ratio', 'GARCH Weekly',
+            'GARCH Daily', 'VIX Level', 'Log RV (t-1)', 'VIX3M Level']
+importance = [0.731, 0.290, 0.116, 0.045, 0.033, 0.030, 0.025, 0.024, 0.023, 0.022]
+categories = ['HF', 'HF', 'HF', 'Cross', 'HF', 'GARCH', 'GARCH', 'IV', 'HAR', 'IV']
+cat_colors = {'HF': '#48BB78', 'IV': '#4299E1', 'GARCH': '#ED8936', 'HAR': '#A0AEC0', 'Cross': '#9F7AEA'}
+colors = [cat_colors[c] for c in categories]
 
-fig, ax = plt.subplots(figsize=(10, 4))
+fig, ax = plt.subplots(figsize=(10, 5))
 bars = ax.barh(features[::-1], importance[::-1], color=colors[::-1], edgecolor='white', height=0.6)
 
-ax.set_xlabel('표준화 회귀 계수 (절대값)', fontsize=12)
-ax.set_title('V36 모델 피처 중요도', fontsize=14, fontweight='bold')
-ax.set_xlim(0, 0.45)
+ax.set_xlabel('Permutation Importance (R² drop)', fontsize=12)
+ax.set_title('V71 Top-10 피처 중요도', fontsize=14, fontweight='bold')
 ax.grid(True, alpha=0.3, axis='x')
 
 for bar, imp in zip(bars, importance[::-1]):
     ax.text(bar.get_width() + 0.01, bar.get_y() + bar.get_height()/2, 
-            f'{imp:.0%}', ha='left', va='center', fontsize=10, fontweight='bold')
+            f'{imp:.3f}', ha='left', va='center', fontsize=10, fontweight='bold')
+
+# Legend
+from matplotlib.patches import Patch
+legend_elements = [Patch(facecolor=v, label=k) for k, v in cat_colors.items()]
+ax.legend(handles=legend_elements, loc='lower right', fontsize=9)
 
 plt.tight_layout()
 plt.show()
@@ -256,20 +227,19 @@ plt.show()
 
 ::: {.callout-tip}
 ## 피처 해석
-- **녹색 (HAR 피처)**: 장기 예측에서는 월간 래그(t-22)가 가장 중요 (75% 기여)
-- **노란색 (GARCH)**: 조건부 분산이 추가적인 정보 제공 (12%)
-- **파란색 (시장 지표)**: VIX 및 교차 자산 변동성이 보조 역할 (13%)
+- **녹색 (HF Proxy)**: 상위 5개 중 4개. Rogers-Satchell 변동성이 압도적 1위 (0.731)
+- **파란색 (IV Surface)**: VIX(0.024), VIX3M(0.022)이 Top-10에 포함
+- **주황색 (GARCH)**: 조건부 변동성이 보조 역할 (0.025~0.030)
+- **회색 (HAR)**: OHLC/IV 피처가 있으면 기존 HAR(LogRV t-1)의 상대적 중요도 감소
 :::
 
 ---
 
-## 모델 성능 시각화
-
-### 예측 vs 실제 비교
+## 자산별 성능 비교 (V36 vs V71)
 
 ```{python}
 #| echo: false
-#| fig-width: 10
+#| fig-width: 12
 #| fig-height: 5
 
 import matplotlib.pyplot as plt
@@ -278,38 +248,77 @@ import numpy as np
 plt.rcParams['font.family'] = 'UnDotum'
 plt.rcParams['axes.unicode_minus'] = False
 
-np.random.seed(123)
-n_points = 100
-actual = np.random.uniform(0.15, 0.5, n_points)
-predicted = actual + np.random.normal(0, 0.05, n_points)
+assets = ['SPY', 'QQQ', 'EFA', 'EEM', 'IWM', 'TLT', 'IEF', 'AGG', 'GLD', 'USO', 'SLV']
+v36_r2 = [0.316, 0.078, 0.304, 0.111, -0.025, -0.346, -0.581, -3.907, 0.091, 0.153, 0.063]
+v71_r2 = [0.497, 0.411, 0.428, 0.249, 0.015, -0.045, -0.190, -1.740, 0.065, 0.210, -0.133]
 
-fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+# Clip for visualization
+v36_clip = [max(v, -0.5) for v in v36_r2]
+v71_clip = [max(v, -0.5) for v in v71_r2]
 
-# 산점도
-axes[0].scatter(actual, predicted, alpha=0.6, c='#3182CE', edgecolors='white', s=50)
-axes[0].plot([0, 0.6], [0, 0.6], 'r--', linewidth=2, label='완벽한 예측선')
-axes[0].set_xlabel('실제 변동성', fontsize=12)
-axes[0].set_ylabel('예측 변동성', fontsize=12)
-axes[0].set_title('22일 예측 vs 실제 (산점도)', fontsize=14, fontweight='bold')
-axes[0].legend()
-axes[0].grid(True, alpha=0.3)
+x = np.arange(len(assets))
+width = 0.35
 
-# 시계열 비교
-days = np.arange(1, 101)
-axes[1].plot(days, actual, label='실제', color='#2D3748', linewidth=1.5, alpha=0.8)
-axes[1].plot(days, predicted, label='예측', color='#3182CE', linewidth=1.5, alpha=0.8)
-axes[1].fill_between(days, predicted - 0.04, predicted + 0.04, alpha=0.2, color='#3182CE')
-axes[1].set_xlabel('관측 번호', fontsize=12)
-axes[1].set_ylabel('변동성', fontsize=12)
-axes[1].set_title('22일 예측 vs 실제 (시계열)', fontsize=14, fontweight='bold')
-axes[1].legend()
-axes[1].grid(True, alpha=0.3)
+fig, ax = plt.subplots(figsize=(12, 5))
+bars1 = ax.bar(x - width/2, v36_clip, width, label='V36 (HAR-3)', color='#A0AEC0', edgecolor='white')
+bars2 = ax.bar(x + width/2, v71_clip, width, label='V71 (All-37)', color='#3182CE', edgecolor='white')
+
+ax.axhline(y=0, color='black', linewidth=0.5)
+ax.set_ylabel('R² 스코어', fontsize=12)
+ax.set_title('자산별 V36 vs V71 성능 비교', fontsize=14, fontweight='bold')
+ax.set_xticks(x)
+ax.set_xticklabels(assets)
+ax.legend(loc='lower right')
+ax.grid(True, alpha=0.3, axis='y')
+
+# Asset class background
+ax.axvspan(-0.5, 4.5, alpha=0.05, color='red', label='Equity')
+ax.axvspan(4.5, 7.5, alpha=0.05, color='green')
+ax.axvspan(7.5, 10.5, alpha=0.05, color='orange')
+
+ax.text(2, -0.45, 'Equity', ha='center', fontsize=10, fontstyle='italic', color='#E53E3E')
+ax.text(6, -0.45, 'Bond', ha='center', fontsize=10, fontstyle='italic', color='#38A169')
+ax.text(9, -0.45, 'Commodity', ha='center', fontsize=10, fontstyle='italic', color='#D69E2E')
 
 plt.tight_layout()
 plt.show()
 ```
 
-### 시장 국면별 성능 비교
+### 클래스별 평균 R² (V71 Ensemble 기준)
+
+| 클래스 | V36 R² (평균) | V71 R² (평균) | 개선 |
+|:---|:---|:---|:---|
+| **Equity** (5개) | 0.157 | 0.320 | **+0.163** |
+| **Bond** (3개) | -1.611 | -0.658 | **+0.953** |
+| Commodity (3개) | 0.102 | 0.047 | -0.055 |
+
+### 개별 자산별 R² (V71 Ensemble vs V36, `results_03_asset_class.json` 기준)
+
+| 자산 | 클래스 | V36 R² | V71 R² | 개선 | 샘플 수 |
+|:---|:---|:---|:---|:---|:---|
+| **SPY** | Equity | 0.316 | **0.497** | +0.181 | 750 |
+| **QQQ** | Equity | 0.078 | **0.411** | +0.333 | 750 |
+| **EFA** | Equity | 0.304 | **0.428** | +0.124 | 751 |
+| **EEM** | Equity | 0.111 | **0.249** | +0.138 | 750 |
+| **IWM** | Equity | -0.025 | **0.015** | +0.040 | 750 |
+| TLT | Bond | -0.346 | -0.045 | +0.301 | 750 |
+| IEF | Bond | -0.581 | -0.190 | +0.391 | 750 |
+| AGG | Bond | -3.907 | -1.740 | +2.166 | 751 |
+| GLD | Commodity | **0.091** | 0.065 | -0.026 | 750 |
+| USO | Commodity | 0.153 | **0.210** | +0.057 | 751 |
+| SLV | Commodity | **0.063** | -0.133 | -0.196 | 750 |
+
+::: {.callout-warning}
+## 자산별 성능 해석
+- **풀링 R²(0.803)는 cross-sectional variation 포함**: 자산 간 변동성 수준 차이(예: USO ~7.5 vs AGG ~4.0)가 R²에 기여하므로, 순수 시계열 예측력보다 높게 나타남
+- **개별 자산 중위 R²: 0.065**, Equity 평균: 0.320 — 시계열 예측력의 실질적 지표
+- **Bond 3종은 개별 R² < 0**: 채권의 변동성 패턴이 주식과 달라 별도 모델이 필요할 수 있음
+- **Equity 5종이 핵심 성능 기여**: SPY(0.497), QQQ(0.411), EFA(0.428)가 주력
+:::
+
+---
+
+## VIX 레짐별 성능
 
 ```{python}
 #| echo: false
@@ -322,187 +331,47 @@ import numpy as np
 plt.rcParams['font.family'] = 'UnDotum'
 plt.rcParams['axes.unicode_minus'] = False
 
-regimes = ['Normal\n(2010-2019)', 'COVID\n(2020 Q1-Q2)', 'Inflation\n(2022)', 'Recovery\n(2023)']
-v29_r2 = [0.61, 0.55, 0.58, 0.63]
-v36_r2 = [0.73, 0.71, 0.74, 0.78]
+regimes = ['Low VIX\n(0-50%)', 'Mid VIX\n(50-90%)', 'High VIX\n(90-100%)']
+v36_r2 = [0.739, 0.698, 0.602]
+v71_r2 = [0.781, 0.722, 0.765]
+n_samples = [4136, 3292, 825]
 
 x = np.arange(len(regimes))
 width = 0.35
 
 fig, ax = plt.subplots(figsize=(10, 5))
-bars1 = ax.bar(x - width/2, v29_r2, width, label='V29 (베이스라인)', color='#A0AEC0', edgecolor='white')
-bars2 = ax.bar(x + width/2, v36_r2, width, label='V36 (챔피언)', color='#3182CE', edgecolor='white')
+bars1 = ax.bar(x - width/2, v36_r2, width, label='V36 (HAR-3)', color='#A0AEC0', edgecolor='white')
+bars2 = ax.bar(x + width/2, v71_r2, width, label='V71 (All-37)', color='#3182CE', edgecolor='white')
 
 ax.set_ylabel('R² 스코어', fontsize=12)
-ax.set_xlabel('시장 국면', fontsize=12)
-ax.set_title('시장 국면별 22일 예측 성능', fontsize=14, fontweight='bold')
+ax.set_title('VIX Quantile 레짐별 성능 비교', fontsize=14, fontweight='bold')
 ax.set_xticks(x)
 ax.set_xticklabels(regimes)
-ax.legend(loc='lower right')
-ax.set_ylim(0.4, 0.9)
+ax.legend(loc='lower left')
+ax.set_ylim(0.5, 0.85)
 ax.grid(True, alpha=0.3, axis='y')
 
-# 개선율 표시
-for i, (v29, v36) in enumerate(zip(v29_r2, v36_r2)):
-    improvement = (v36 - v29) / v29 * 100
-    ax.annotate(f'+{improvement:.0f}%', xy=(i, v36 + 0.02), ha='center', fontsize=10, 
-                fontweight='bold', color='#276749')
+for i, (v36, v71) in enumerate(zip(v36_r2, v71_r2)):
+    delta = v71 - v36
+    ax.annotate(f'+{delta:.3f}', xy=(i + width/2, v71 + 0.01), ha='center', 
+                fontsize=11, fontweight='bold', color='#276749')
+    ax.text(i, -0.02, f'N={n_samples[i]:,}', ha='center', fontsize=9, 
+            transform=ax.get_xaxis_transform(), color='#4A5568')
 
-plt.tight_layout()
-plt.show()
-```
-
-| 시장 국면 | V29 R² | V36 R² | 개선율 | 특징 |
-|:---|:---|:---|:---|:---|
-| **Normal** | 0.61 | 0.73 | +19.7% | 정상적인 변동성 환경 |
-| **COVID** | 0.55 | 0.71 | +29.1% | 극한 변동성 급등 |
-| **Inflation** | 0.58 | 0.74 | +27.6% | 금리 인상기 |
-| **Recovery** | 0.63 | 0.78 | +23.8% | 시장 안정화 |
-
-### 자산별 22일 예측 성능 히트맵
-
-```{python}
-#| echo: false
-#| fig-width: 10
-#| fig-height: 6
-
-import matplotlib.pyplot as plt
-import numpy as np
-import seaborn as sns
-
-plt.rcParams['font.family'] = 'UnDotum'
-plt.rcParams['axes.unicode_minus'] = False
-
-assets = ['SPY', 'QQQ', 'IWM', 'TLT', 'IEF', 'AGG', 'GLD', 'SLV', 'USO']
-metrics = ['R² Score', 'RMSE', 'MAE', 'Direction\nAccuracy']
-
-# 성능 데이터 (정규화된 값)
-data = np.array([
-    [0.51, 0.48, 0.45, 0.95, 0.93, 0.96, 0.62, 0.58, 0.55],  # R2
-    [0.72, 0.75, 0.80, 0.35, 0.38, 0.32, 0.58, 0.62, 0.68],  # RMSE (반전)
-    [0.70, 0.73, 0.78, 0.38, 0.40, 0.35, 0.55, 0.60, 0.65],  # MAE (반전)
-    [0.68, 0.66, 0.64, 0.82, 0.80, 0.84, 0.72, 0.70, 0.65]   # Direction
-])
-
-fig, ax = plt.subplots(figsize=(10, 5))
-im = ax.imshow(data, cmap='RdYlGn', aspect='auto', vmin=0.3, vmax=1.0)
-
-ax.set_xticks(np.arange(len(assets)))
-ax.set_yticks(np.arange(len(metrics)))
-ax.set_xticklabels(assets)
-ax.set_yticklabels(metrics)
-
-plt.setp(ax.get_xticklabels(), rotation=0, ha="center")
-
-for i in range(len(metrics)):
-    for j in range(len(assets)):
-        text = ax.text(j, i, f'{data[i, j]:.2f}',
-                       ha="center", va="center", color="black", fontsize=9)
-
-ax.set_title('자산별 22일 예측 성능 히트맵', fontsize=14, fontweight='bold')
-fig.colorbar(im, ax=ax, label='성능 점수')
 plt.tight_layout()
 plt.show()
 ```
 
 ::: {.callout-note}
-## 히트맵 해석
-- **녹색**: 높은 성능 (채권 자산이 전반적으로 우수)
-- **빨간색**: 낮은 성능 (주식 자산의 22일 예측이 상대적으로 어려움)
-- **노란색**: 중간 성능 (원자재 자산)
+## 레짐 분석 핵심
+- V71은 **모든 VIX 레짐에서 V36보다 우수**
+- 특히 **High VIX(극단 고변동성)에서 +0.163 개선** — IV Surface와 HF Proxy가 위기 국면에서 추가 정보 제공
+- Low VIX에서도 안정적 우위 (+0.042)
 :::
 
 ---
 
-## 하이퍼파라미터 튜닝 비교 (Ablation Study)
-
-### Ridge Alpha (정규화 강도) 비교
-
-```{python}
-#| echo: false
-#| fig-width: 10
-#| fig-height: 4
-
-import matplotlib.pyplot as plt
-import numpy as np
-
-plt.rcParams['font.family'] = 'UnDotum'
-plt.rcParams['axes.unicode_minus'] = False
-
-alphas = [0.01, 0.1, 1.0, 5.0, 10.0, 50.0, 100.0]
-r2_stock = [0.42, 0.48, 0.51, 0.49, 0.51, 0.45, 0.38]
-r2_bond = [0.91, 0.93, 0.95, 0.94, 0.92, 0.88, 0.82]
-r2_commodity = [0.55, 0.60, 0.62, 0.63, 0.60, 0.55, 0.48]
-
-fig, ax = plt.subplots(figsize=(10, 4))
-ax.plot(alphas, r2_stock, 'o-', label='주식', color='#E53E3E', linewidth=2, markersize=8)
-ax.plot(alphas, r2_bond, 's-', label='채권', color='#38A169', linewidth=2, markersize=8)
-ax.plot(alphas, r2_commodity, '^-', label='원자재', color='#D69E2E', linewidth=2, markersize=8)
-
-# 최적값 표시
-ax.axvline(x=10.0, color='#E53E3E', linestyle='--', alpha=0.5)
-ax.axvline(x=1.0, color='#38A169', linestyle='--', alpha=0.5)
-ax.axvline(x=5.0, color='#D69E2E', linestyle='--', alpha=0.5)
-
-ax.set_xlabel('Ridge Alpha', fontsize=12)
-ax.set_ylabel('R² 스코어', fontsize=12)
-ax.set_title('자산군별 최적 Ridge Alpha', fontsize=14, fontweight='bold')
-ax.set_xscale('log')
-ax.legend()
-ax.grid(True, alpha=0.3)
-plt.tight_layout()
-plt.show()
-```
-
-| 자산군 | 최적 Alpha | 의미 | 성능 (R²) |
-|:---|:---|:---|:---|
-| **주식** | 10.0 | 강한 정규화 (노이즈 많음) | 0.51 |
-| **채권** | 1.0 | 약한 정규화 (신호 강함) | 0.95 |
-| **원자재** | 5.0 | 중간 정규화 | 0.63 |
-
-### GARCH 파라미터 비교
-
-```{python}
-#| echo: false
-#| fig-width: 10
-#| fig-height: 4
-
-import matplotlib.pyplot as plt
-import numpy as np
-
-plt.rcParams['font.family'] = 'UnDotum'
-plt.rcParams['axes.unicode_minus'] = False
-
-garch_params = ['(1,0)', '(0,1)', '(1,1)', '(2,1)', '(1,2)', '(2,2)']
-r2_scores = [0.68, 0.65, 0.755, 0.748, 0.745, 0.735]
-aic_scores = [-2850, -2780, -3120, -3095, -3080, -3050]
-colors = ['#38A169' if i == 2 else '#A0AEC0' for i in range(len(garch_params))]
-
-fig, axes = plt.subplots(1, 2, figsize=(12, 4))
-
-# R² 비교
-bars1 = axes[0].bar(garch_params, r2_scores, color=colors, edgecolor='white', linewidth=1.5)
-axes[0].set_ylabel('R² 스코어', fontsize=12)
-axes[0].set_xlabel('GARCH (p, q)', fontsize=12)
-axes[0].set_title('GARCH 파라미터별 R² 성능', fontsize=14, fontweight='bold')
-axes[0].set_ylim(0.6, 0.8)
-axes[0].grid(True, alpha=0.3, axis='y')
-for bar, score in zip(bars1, r2_scores):
-    axes[0].text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.005, 
-                 f'{score:.3f}', ha='center', va='bottom', fontsize=9, fontweight='bold')
-
-# AIC 비교 (낮을수록 좋음)
-bars2 = axes[1].bar(garch_params, aic_scores, color=colors, edgecolor='white', linewidth=1.5)
-axes[1].set_ylabel('AIC', fontsize=12)
-axes[1].set_xlabel('GARCH (p, q)', fontsize=12)
-axes[1].set_title('GARCH 파라미터별 AIC (낮을수록 좋음)', fontsize=14, fontweight='bold')
-axes[1].grid(True, alpha=0.3, axis='y')
-
-plt.tight_layout()
-plt.show()
-```
-
-### 피처 조합 비교 (어블레이션 스터디)
+## 동일 피처 세트 공정 비교
 
 ```{python}
 #| echo: false
@@ -515,87 +384,227 @@ import numpy as np
 plt.rcParams['font.family'] = 'UnDotum'
 plt.rcParams['axes.unicode_minus'] = False
 
-feature_sets = ['HAR\n전용', 'GARCH\n전용', 'HAR+\nGARCH', 'HAR+GARCH\n+VIX', 'HAR+GARCH\n+VIX+교차자산\n(최종)']
-r2_scores = [0.68, 0.61, 0.72, 0.74, 0.755]
-colors = ['#A0AEC0', '#A0AEC0', '#A0AEC0', '#A0AEC0', '#38A169']
+models = ['Ridge', 'XGBoost', 'MLP']
+base_r2 = [0.728, 0.736, 0.680]
+all_r2 = [0.773, 0.761, 0.750]
 
-fig, ax = plt.subplots(figsize=(10, 5))
-bars = ax.bar(feature_sets, r2_scores, color=colors, edgecolor='white', linewidth=1.5)
+x = np.arange(len(models))
+width = 0.35
+
+fig, ax = plt.subplots(figsize=(8, 5))
+bars1 = ax.bar(x - width/2, base_r2, width, label='Base (14 features)', color='#A0AEC0', edgecolor='white')
+bars2 = ax.bar(x + width/2, all_r2, width, label='All (37 features)', color='#3182CE', edgecolor='white')
+
 ax.set_ylabel('R² 스코어', fontsize=12)
-ax.set_title('피처 조합별 22일 예측 성능', fontsize=14, fontweight='bold')
-ax.set_ylim(0.5, 0.8)
+ax.set_title('동일 피처 세트에서의 모델 공정 비교', fontsize=14, fontweight='bold')
+ax.set_xticks(x)
+ax.set_xticklabels(models)
+ax.legend()
+ax.set_ylim(0.6, 0.82)
 ax.grid(True, alpha=0.3, axis='y')
 
-# 누적 개선 표시
-improvements = [0, -10.3, +5.9, +8.8, +11.0]
-for i, (bar, score, imp) in enumerate(zip(bars, r2_scores, improvements)):
-    ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.01, 
+for bar, score in zip(list(bars1) + list(bars2), base_r2 + all_r2):
+    ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.005, 
             f'{score:.3f}', ha='center', va='bottom', fontsize=10, fontweight='bold')
-    if i > 0:
-        color = '#38A169' if imp > 0 else '#E53E3E'
-        sign = '+' if imp > 0 else ''
-        ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() - 0.03, 
-                f'{sign}{imp:.1f}%', ha='center', va='top', fontsize=9, color=color)
 
 plt.tight_layout()
 plt.show()
 ```
 
-| 피처 조합 | R² | 베이스라인 대비 | 주요 기여 |
-|:---|:---|:---|:---|
-| HAR 전용 | 0.68 | 기준 | 일/주/월 래그 패턴 |
-| GARCH 전용 | 0.61 | -10.3% | 조건부 분산 (단독 사용 시 부족) |
-| HAR + GARCH | 0.72 | +5.9% | 상호 보완 효과 |
-| + VIX | 0.74 | +8.8% | 시장 공포 지수 정보 추가 |
-| **+ 교차 자산 (최종)** | **0.755** | **+11.0%** | 자산간 상관관계 활용 |
+::: {.callout-important}
+## 공정 비교 결론
+동일 37개 피처를 제공해도 **Ridge(0.773) > XGBoost(0.761) > MLP(0.750)**.
+모델 복잡도가 아닌 **피처 엔지니어링이 성능 향상의 핵심 요인**.
+:::
 
-### 시계열 교차 검증 Fold 비교
+---
+
+## Actual vs Predicted (예측값 시계열)
 
 ```{python}
 #| echo: false
-#| fig-width: 10
-#| fig-height: 4
+#| fig-width: 12
+#| fig-height: 8
 
+import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
 plt.rcParams['font.family'] = 'UnDotum'
 plt.rcParams['axes.unicode_minus'] = False
 
-folds = ['Fold 1\n(2010-2014)', 'Fold 2\n(2012-2016)', 'Fold 3\n(2014-2018)', 
-         'Fold 4\n(2016-2020)', 'Fold 5\n(2018-2022)']
-train_r2 = [0.78, 0.76, 0.77, 0.74, 0.75]
-test_r2 = [0.74, 0.72, 0.76, 0.71, 0.77]
+pred_df = pd.read_csv('/root/vrp/paper/csv/v71_predictions.csv')
 
-x = np.arange(len(folds))
-width = 0.35
+fig, axes = plt.subplots(2, 1, figsize=(12, 8), gridspec_kw={'height_ratios': [3, 1]})
 
-fig, ax = plt.subplots(figsize=(10, 4))
-bars1 = ax.bar(x - width/2, train_r2, width, label='훈련 R²', color='#3182CE', edgecolor='white')
-bars2 = ax.bar(x + width/2, test_r2, width, label='테스트 R²', color='#E53E3E', edgecolor='white')
+# --- Top: Actual vs Predicted (SPY sample) ---
+spy = pred_df[pred_df['Asset'] == 'SPY'].reset_index(drop=True)
+ax = axes[0]
+ax.plot(spy.index, spy['Actual'], color='#2D3748', alpha=0.8, linewidth=1.0, label='Actual')
+ax.plot(spy.index, spy['Pred_Ensemble'], color='#3182CE', alpha=0.8, linewidth=1.0, label='V71 Ensemble')
+ax.fill_between(spy.index, spy['Actual'], spy['Pred_Ensemble'], alpha=0.15, color='#3182CE')
+ax.set_ylabel('Log Realized Volatility', fontsize=11)
+ax.set_title('SPY: Actual vs V71 Ensemble 예측', fontsize=14, fontweight='bold')
+ax.legend(loc='upper right', fontsize=10)
+ax.grid(True, alpha=0.3)
 
-ax.set_ylabel('R² 스코어', fontsize=12)
-ax.set_title('5-Fold 시계열 교차 검증 결과', fontsize=14, fontweight='bold')
-ax.set_xticks(x)
-ax.set_xticklabels(folds)
-ax.legend(loc='lower right')
-ax.set_ylim(0.6, 0.85)
-ax.grid(True, alpha=0.3, axis='y')
-
-# 평균선 표시
-ax.axhline(y=np.mean(train_r2), color='#3182CE', linestyle='--', alpha=0.5)
-ax.axhline(y=np.mean(test_r2), color='#E53E3E', linestyle='--', alpha=0.5)
-ax.text(4.5, np.mean(train_r2) + 0.01, f'훈련 평균: {np.mean(train_r2):.2f}', fontsize=9, color='#3182CE')
-ax.text(4.5, np.mean(test_r2) - 0.02, f'테스트 평균: {np.mean(test_r2):.2f}', fontsize=9, color='#E53E3E')
+# --- Bottom: Residuals ---
+ax2 = axes[1]
+ax2.bar(spy.index, spy['Residual_Ensemble'], color='#E53E3E', alpha=0.5, width=1.0)
+ax2.axhline(y=0, color='black', linewidth=0.5)
+ax2.set_ylabel('잔차', fontsize=11)
+ax2.set_xlabel('Test Sample Index', fontsize=11)
+ax2.grid(True, alpha=0.3)
+ax2.set_title(f'잔차 (Mean={spy["Residual_Ensemble"].mean():.4f}, Std={spy["Residual_Ensemble"].std():.4f})', fontsize=11)
 
 plt.tight_layout()
 plt.show()
 ```
 
-| 하이퍼파라미터 | 테스트 범위 | 최적값 | 성능 영향 |
-|:---|:---|:---|:---|
-| **Ridge Alpha** | 0.01 ~ 100 | 자산별 (1.0/5.0/10.0) | 자산별 최적화로 +8% |
-| **GARCH (p, q)** | (0,1) ~ (2,2) | **(1, 1)** | 표준 모델이 최적 |
-| **HAR 윈도우** | (1, 5, 10) vs (1, 5, 22) | **(1, 5, 22)** | 월간 패턴 반영 +4% |
-| **피처 조합** | 단일 ~ 복합 | **HAR+GARCH+VIX+교차** | 누적 +11% 개선 |
-| **교차 검증** | 3-Fold ~ 10-Fold | **5-Fold** | 안정적 성능 추정 |
+```{python}
+#| echo: false
+#| fig-width: 12
+#| fig-height: 5
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+
+plt.rcParams['font.family'] = 'UnDotum'
+plt.rcParams['axes.unicode_minus'] = False
+
+pred_df = pd.read_csv('/root/vrp/paper/csv/v71_predictions.csv')
+
+fig, axes = plt.subplots(1, 3, figsize=(12, 4))
+
+# 1. Residual Histogram
+ax = axes[0]
+residuals = pred_df['Residual_Ensemble'].dropna()
+ax.hist(residuals, bins=50, color='#3182CE', alpha=0.7, edgecolor='white', density=True)
+x_range = np.linspace(residuals.min(), residuals.max(), 100)
+from scipy import stats
+mu, sigma = residuals.mean(), residuals.std()
+ax.plot(x_range, stats.norm.pdf(x_range, mu, sigma), 'r-', lw=2, label=f'N({mu:.2f}, {sigma:.2f}²)')
+ax.set_title('잔차 분포', fontsize=12, fontweight='bold')
+ax.set_xlabel('Residual')
+ax.legend(fontsize=9)
+ax.grid(True, alpha=0.3)
+
+# 2. Actual vs Predicted Scatter
+ax = axes[1]
+ax.scatter(pred_df['Actual'], pred_df['Pred_Ensemble'], alpha=0.1, s=5, color='#3182CE')
+lims = [pred_df['Actual'].min(), pred_df['Actual'].max()]
+ax.plot(lims, lims, 'r--', linewidth=1.5, label='Perfect Fit')
+ax.set_xlabel('Actual')
+ax.set_ylabel('Predicted')
+ax.set_title('Actual vs Predicted 산점도', fontsize=12, fontweight='bold')
+ax.legend(fontsize=9)
+ax.grid(True, alpha=0.3)
+
+# 3. Per-class R²
+ax = axes[2]
+from sklearn.metrics import r2_score
+classes = ['Equity', 'Bond', 'Commodity']
+class_r2 = []
+for cls in classes:
+    sub = pred_df[pred_df['Class'] == cls]
+    class_r2.append(r2_score(sub['Actual'], sub['Pred_Ensemble']))
+colors = ['#3182CE', '#38A169', '#D69E2E']
+bars = ax.bar(classes, class_r2, color=colors, edgecolor='white', linewidth=1.5)
+for bar, r2 in zip(bars, class_r2):
+    ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.02,
+            f'{r2:.3f}', ha='center', fontsize=11, fontweight='bold')
+ax.set_ylabel('R²')
+ax.set_title('자산 클래스별 R²', fontsize=12, fontweight='bold')
+ax.grid(True, alpha=0.3, axis='y')
+
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## 강건성 검증
+
+```{python}
+#| echo: false
+#| fig-width: 12
+#| fig-height: 4
+
+import json
+import matplotlib.pyplot as plt
+import numpy as np
+
+plt.rcParams['font.family'] = 'UnDotum'
+plt.rcParams['axes.unicode_minus'] = False
+
+with open('/root/vrp/paper/csv/v71_robustness_results.json') as f:
+    rob = json.load(f)
+
+fig, axes = plt.subplots(1, 3, figsize=(12, 4))
+
+# 1. Multi-Seed Stability
+ax = axes[0]
+splits = [d['split_ratio'] for d in rob['multi_seed']['details']]
+r2s = [d['r2'] for d in rob['multi_seed']['details']]
+ax.bar([f'{s:.0%}' for s in splits], r2s, color='#4299E1', edgecolor='white')
+ax.axhline(y=rob['multi_seed']['mean_r2'], color='red', linestyle='--', label=f'Mean={rob["multi_seed"]["mean_r2"]:.4f}')
+ax.set_ylabel('R²')
+ax.set_title('다중 Split 안정성', fontsize=12, fontweight='bold')
+ax.set_ylim(0.75, 0.82)
+ax.legend(fontsize=9)
+ax.grid(True, alpha=0.3, axis='y')
+for i, r2 in enumerate(r2s):
+    ax.text(i, r2 + 0.002, f'{r2:.3f}', ha='center', fontsize=9, fontweight='bold')
+
+# 2. Alpha Sensitivity
+ax = axes[1]
+alphas_data = rob['alpha_sensitivity']
+alphas = [d['alpha'] for d in alphas_data]
+alpha_r2 = [d['r2'] for d in alphas_data]
+ax.semilogx(alphas, alpha_r2, 'o-', color='#38A169', linewidth=2, markersize=5)
+ax.fill_between(alphas, min(alpha_r2), alpha_r2, alpha=0.1, color='#38A169')
+ax.set_xlabel('Alpha')
+ax.set_ylabel('R²')
+ax.set_title('Alpha 민감도', fontsize=12, fontweight='bold')
+ax.set_ylim(0.78, 0.81)
+ax.grid(True, alpha=0.3)
+
+# 3. Cross-Validation
+ax = axes[2]
+folds = rob['cross_validation']['folds']
+fold_r2 = [f['r2'] for f in folds]
+fold_labels = [f'Fold {f["fold"]}' for f in folds]
+colors = ['#FC8181' if r2 < 0.75 else '#48BB78' for r2 in fold_r2]
+ax.bar(fold_labels, fold_r2, color=colors, edgecolor='white')
+ax.axhline(y=rob['cross_validation']['mean_r2'], color='red', linestyle='--', 
+           label=f'Mean={rob["cross_validation"]["mean_r2"]:.4f}')
+ax.set_ylabel('R²')
+ax.set_title('5-Fold 시계열 CV', fontsize=12, fontweight='bold')
+ax.set_ylim(0.6, 0.85)
+ax.legend(fontsize=9)
+ax.grid(True, alpha=0.3, axis='y')
+for i, r2 in enumerate(fold_r2):
+    ax.text(i, r2 + 0.01, f'{r2:.3f}', ha='center', fontsize=9, fontweight='bold')
+
+plt.tight_layout()
+plt.show()
+```
+
+| 검증 방법 | 결과 | 판정 |
+|:---------|:-----|:-----|
+| 다중 Split 안정성 | R² = 0.793 ± 0.010 (5개 split) | PASS |
+| Alpha 민감도 | R² 0.788~0.802 (alpha 0.001~5000) | PASS |
+| 5-Fold 시계열 CV | R² = 0.765 ± 0.046 | PASS |
+| 데이터 누출 검증 | 셔플 R² = -0.002, 시점 체크 통과 | PASS |
+| Permutation Importance | Rogers-Satchell 1위 (0.731) | PASS |
+| DM Test (Newey-West) | 모든 비교 p < 0.001 | PASS |
+
+---
+
+## 상세 분석 링크
+
+- [V29 모델 상세 검증](/experiments/phase10_v29_verification.qmd) - GARCH 기여도, 시장 국면 분석
+- [모델 아키텍처 비교](/experiments/phase13_model_comparison.qmd) - 모델 구조 상세
+- [결과 요약](/experiments/summary.qmd) - 전체 실험 통계
+

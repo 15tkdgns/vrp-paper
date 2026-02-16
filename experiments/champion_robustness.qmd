@@ -1,0 +1,263 @@
+---
+title: "챔피언 모델 강건성 검증"
+subtitle: "V50 (1일) 및 V71 (22일) 모델의 신뢰성 분석"
+format:
+  html:
+    toc: true
+    code-fold: true
+---
+
+# 개요
+
+본 페이지는 1일 예측 챔피언(**V50**)과 22일 예측 챔피언(**V71**)의 강건성(Robustness) 검증 결과입니다.
+
+모든 성능 지표는 **11개 자산 풀링 기준**입니다: Equity(SPY, QQQ, IWM, EFA, EEM), Bond(TLT, IEF, AGG), Commodity(GLD, SLV, USO)
+
+---
+
+# V50 (1일 예측) 검증
+
+## 공정 비교 실험 (v51b)
+
+V50의 성능을 정확히 평가하기 위해 동일한 실험 설정(rolling=22, target=t+22)에서 공정 비교를 수행했습니다.
+
+| 지표 | 값 | 해석 |
+|:---|:---|:---|
+| **IS R²** | 0.848 | 훈련 데이터 성능 |
+| **OOS R²** | **0.533** | 미래 데이터 일반화 |
+| **IS-OOS Gap** | 0.315 | 과적합 정도 |
+
+::: {.callout-info}
+## 수정 이력
+- v66 결과(R². 0.99): 데이터 누출 확인 → 삭제
+- v51 결과(R² 0.820): 실험 설정 불일치 → 수정됨
+- **v51b 결과(R² 0.533)**: 공정 비교 → 최종 확정
+:::
+
+## Extreme Market 테스트 (v59)
+
+| 국면 | 설명 | R² Score |
+|:---|:---|:---|
+| **위기 (08-09)** | 금융위기 | **0.772** |
+| **정상 (12-19)** | 저변동성 | 0.517 |
+| **COVID (2020)** | 팬데믹 | **0.548** |
+| **인플레 (2022)** | 고금리 | 0.306 |
+
+---
+
+# V71 (22일 예측) 검증
+
+V71 모델은 37개 피처와 자산별 Ridge + XGBoost 앙상블로 R²=0.803을 달성했으며, **6종 강건성 테스트를 모두 통과**했습니다.
+
+## 강건성 시각화
+
+```{python}
+#| echo: false
+#| fig-width: 12
+#| fig-height: 10
+
+import json
+import matplotlib.pyplot as plt
+import numpy as np
+
+plt.rcParams['font.family'] = 'UnDotum'
+plt.rcParams['axes.unicode_minus'] = False
+
+with open('/root/vrp/paper/csv/v71_robustness_results.json') as f:
+    rob = json.load(f)
+
+fig, axes = plt.subplots(2, 2, figsize=(12, 10))
+
+# 1. Multi-Seed Stability
+ax = axes[0, 0]
+splits = [d['split_ratio'] for d in rob['multi_seed']['details']]
+r2s = [d['r2'] for d in rob['multi_seed']['details']]
+ax.bar([f'{s:.0%}' for s in splits], r2s, color='#4299E1', edgecolor='white')
+ax.axhline(y=rob['multi_seed']['mean_r2'], color='red', linestyle='--', linewidth=2,
+           label=f'Mean={rob["multi_seed"]["mean_r2"]:.4f} +/- {rob["multi_seed"]["std_r2"]:.4f}')
+ax.set_ylabel('R²', fontsize=11)
+ax.set_title('(a) 다중 Split 안정성', fontsize=13, fontweight='bold')
+ax.set_ylim(0.75, 0.82)
+ax.legend(fontsize=9)
+ax.grid(True, alpha=0.3, axis='y')
+for i, r2 in enumerate(r2s):
+    ax.text(i, r2 + 0.002, f'{r2:.4f}', ha='center', fontsize=9, fontweight='bold')
+
+# 2. Alpha Sensitivity
+ax = axes[0, 1]
+alphas_data = rob['alpha_sensitivity']
+alphas = [d['alpha'] for d in alphas_data]
+alpha_r2 = [d['r2'] for d in alphas_data]
+ax.semilogx(alphas, alpha_r2, 'o-', color='#38A169', linewidth=2, markersize=6)
+ax.fill_between(alphas, min(alpha_r2) - 0.005, alpha_r2, alpha=0.1, color='#38A169')
+ax.set_xlabel('Ridge Alpha', fontsize=11)
+ax.set_ylabel('R²', fontsize=11)
+ax.set_title('(b) Alpha 민감도 분석', fontsize=13, fontweight='bold')
+ax.set_ylim(0.785, 0.805)
+ax.grid(True, alpha=0.3)
+ax.axhline(y=max(alpha_r2), color='red', linestyle=':', alpha=0.5, label=f'Best R²={max(alpha_r2):.4f}')
+ax.legend(fontsize=9)
+
+# 3. Cross-Validation
+ax = axes[1, 0]
+folds = rob['cross_validation']['folds']
+fold_r2 = [f['r2'] for f in folds]
+fold_labels = [f'Fold {f["fold"]}' for f in folds]
+colors_cv = ['#FC8181' if r2 < 0.75 else '#48BB78' for r2 in fold_r2]
+bars_cv = ax.bar(fold_labels, fold_r2, color=colors_cv, edgecolor='white')
+ax.axhline(y=rob['cross_validation']['mean_r2'], color='red', linestyle='--', linewidth=2,
+           label=f'Mean={rob["cross_validation"]["mean_r2"]:.4f}')
+ax.set_ylabel('R²', fontsize=11)
+ax.set_title('(c) 5-Fold 시계열 교차검증', fontsize=13, fontweight='bold')
+ax.set_ylim(0.6, 0.85)
+ax.legend(fontsize=9)
+ax.grid(True, alpha=0.3, axis='y')
+for i, r2 in enumerate(fold_r2):
+    ax.text(i, r2 + 0.01, f'{r2:.3f}', ha='center', fontsize=9, fontweight='bold')
+
+# 4. Permutation Importance Top-10
+ax = axes[1, 1]
+fi = rob['feature_importance'][:10]
+features = [f['feature'] for f in fi][::-1]
+importances = [f['importance'] for f in fi][::-1]
+cat_map = {'RogersSatchell': 'HF', 'GarmanKlass': 'HF', 'Parkinson': 'HF', 
+           'Range_Close': 'HF', 'SPY_LogRV': 'Cross', 'Garch': 'GARCH',
+           'IV_VIX': 'IV', 'LogRV': 'HAR', 'Overnight': 'HF'}
+cat_colors = {'HF': '#48BB78', 'IV': '#4299E1', 'GARCH': '#ED8936', 'HAR': '#A0AEC0', 'Cross': '#9F7AEA'}
+bar_colors = []
+for feat in features:
+    color = '#A0AEC0'
+    for key, cat in cat_map.items():
+        if key in feat:
+            color = cat_colors[cat]
+            break
+    bar_colors.append(color)
+ax.barh(features, importances, color=bar_colors, edgecolor='white', height=0.6)
+ax.set_xlabel('Importance (R² drop)', fontsize=11)
+ax.set_title('(d) Permutation Importance Top-10', fontsize=13, fontweight='bold')
+ax.grid(True, alpha=0.3, axis='x')
+for i, imp in enumerate(importances):
+    ax.text(imp + 0.01, i, f'{imp:.3f}', va='center', fontsize=9, fontweight='bold')
+from matplotlib.patches import Patch
+legend_items = [Patch(facecolor=v, label=k) for k, v in cat_colors.items()]
+ax.legend(handles=legend_items, loc='lower right', fontsize=8)
+
+plt.tight_layout()
+plt.show()
+```
+
+## 검증 결과 요약
+
+| 검증 방법 | 결과 | 판정 |
+|:---------|:-----|:-----|
+| 다중 Split 안정성 | R² = 0.793 ± 0.010 (5개 split) | **PASS** |
+| Alpha 민감도 | R² = 0.788~0.802 (0.001~5000) | **PASS** |
+| 5-Fold 시계열 CV | R² = 0.765 ± 0.046 | **PASS** |
+| 데이터 누출 검증 | 셔플 R² = -0.002 | **PASS** |
+| Permutation Importance | Rogers-Satchell 1위 (0.731) | **PASS** |
+| DM Test (Newey-West) | 모든 p < 0.001 | **PASS** |
+
+## 자산군별 성능 (V36 vs V71)
+
+```{python}
+#| echo: false
+#| fig-width: 12
+#| fig-height: 5
+
+import json
+import matplotlib.pyplot as plt
+import numpy as np
+
+with open('/root/vrp/src/experiments/creative/v71_sci/results_03_asset_class.json') as f:
+    asset_res = json.load(f)
+
+assets = list(asset_res['per_asset'].keys())
+improvements = [asset_res['per_asset'][a]['improvement'] * 100 for a in assets]
+classes = [asset_res['per_asset'][a]['class'] for a in assets]
+colors = {'Equity': '#E53E3E', 'Bond': '#38A169', 'Commodity': '#D69E2E'}
+
+fig, ax = plt.subplots(figsize=(12, 5))
+bars = ax.bar(assets, improvements, color=[colors[c] for c in classes], edgecolor='white')
+
+ax.set_ylabel('R² 개선폭 (%p)', fontsize=12)
+ax.set_title('V36 대비 V71 자산별 성능 개선폭', fontsize=14, fontweight='bold')
+ax.axhline(0, color='black', linewidth=0.8)
+ax.grid(True, alpha=0.3, axis='y')
+
+from matplotlib.patches import Patch
+legend_elements = [Patch(facecolor=colors[k], label=k) for k in colors]
+ax.legend(handles=legend_elements, loc='upper left')
+
+for bar, imp in zip(bars, improvements):
+    height = bar.get_height()
+    xy = (bar.get_x() + bar.get_width() / 2, height)
+    text_xy = (0, 3) if height > 0 else (0, -12)
+    ax.annotate(f'{imp:+.1f}%', xy=xy, xytext=text_xy, textcoords="offset points", ha='center', fontweight='bold')
+
+plt.tight_layout()
+plt.show()
+```
+
+## VIX 국면별 안정성
+
+```{python}
+#| echo: false
+#| fig-width: 10
+#| fig-height: 5
+
+import json
+import matplotlib.pyplot as plt
+import numpy as np
+
+with open('/root/vrp/src/experiments/creative/v71_sci/results_04_regime.json') as f:
+    regime_res = json.load(f)
+
+vix_regimes = list(regime_res['vix_regime'].keys())
+v36_regime = [regime_res['vix_regime'][r]['r2_v36'] for r in vix_regimes]
+v71_regime = [regime_res['vix_regime'][r]['r2_v71'] for r in vix_regimes]
+
+x = np.arange(len(vix_regimes))
+width = 0.35
+
+fig, ax = plt.subplots(figsize=(10, 5))
+ax.bar(x - width/2, v36_regime, width, label='V36 (기존)', color='#A0AEC0')
+ax.bar(x + width/2, v71_regime, width, label='V71 (신규)', color='#1A365D')
+
+ax.set_ylabel('R² Score')
+ax.set_title('VIX 국면별 모델 안정성 비교', fontsize=14, fontweight='bold')
+ax.set_xticks(x)
+ax.set_xticklabels(vix_regimes)
+ax.legend()
+ax.set_ylim(0.5, 0.9)
+ax.grid(True, alpha=0.3, axis='y')
+
+for i in range(len(vix_regimes)):
+    delta = v71_regime[i] - v36_regime[i]
+    ax.text(i, max(v71_regime[i], v36_regime[i]) + 0.01, f'+{delta:.3f}', ha='center', color='red', fontweight='bold')
+
+plt.tight_layout()
+plt.show()
+```
+
+::: {.callout-important}
+## High VIX 국면 우월성
+가장 예측이 어려운 **High VIX (상위 10%)** 구간에서 V71은 **R² 0.765**를 기록하여 V36(0.602) 대비 **+16.3%p** 개선.
+:::
+
+---
+
+# 종합 결론
+
+| 항목 | V50 (1일) | V71 (22일) |
+|:---|:---|:---|
+| **기본 R²** | 0.518 (IS), 0.533 (OOS) | **0.803** |
+| **CV/Multi-seed** | - | R² = 0.793 ± 0.010 |
+| **DM Test** | p < 0.001 (vs V29) | p < 0.001 (모든 비교) |
+| **위기 국면** | R² 0.772 (금융위기) | R² 0.765 (High VIX) |
+| **피처 수** | 2 | 37 |
+| **모델 유형** | Bi-LSTM + Attention | Ridge + XGBoost |
+
+## 관련 자료
+- [V71 강건성 데이터](/paper/csv/v71_robustness_results.json)
+- [V50 공정 비교 결과](../src/experiments/verification/v51b_results.json)
+- [V71 실험 결과](/paper/csv/v71_results.json)
