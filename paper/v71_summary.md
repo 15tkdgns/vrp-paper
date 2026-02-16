@@ -4,10 +4,13 @@
 
 본 연구는 다중 자산 변동성 위험 프리미엄(VRP) 예측을 위한 통합 프레임워크를 개발한다. 기존 종가(Close) 기반 HAR 모델의 한계를 극복하기 위해 **OHLCV 기반 고빈도 프록시(Range-based Estimators)**, **옵션 내재변동성(IV) Surface**, **대안 데이터(Alternative Data)**를 통합한 Enhanced Asset-Adaptive Ridge 모델(V71)을 제안한다.
 
-### 핵심 성과
-- **22일(약 1개월) 예측 R² = 0.803** (Weighted Ensemble)
+### 핵심 성과 (11개 자산 풀링, cross-sectional variation 포함)
+- **22일(약 1개월) 예측 풀링 R² = 0.803** (Weighted Ensemble)
+- **개별 자산 중위 R² = 0.065**, Equity 평균 R² = 0.320
 - 기존 챔피언 V36 (R²=0.755) 대비 **6.3% 개선**
 - 6개 건전성 검증 테스트 **전체 통과**
+
+> **주의**: 풀링 R²는 자산 간 변동성 수준 차이(cross-sectional variation)를 포함하므로, 순수 시계열 예측력(개별 자산 R²)보다 높게 나타남
 
 ---
 
@@ -21,7 +24,7 @@
 | V35 | Multi-Horizon GARCH | 0.685 | 다중 시계열 GARCH |
 | **V36** | **Asset-Adaptive Ridge** | **0.755** | **자산 클래스별 alpha 최적화** |
 | V43 | Transformer | 0.534 | Self-Attention 메커니즘 |
-| V50 | Temporal-Attention LSTM | 0.518 | Bi-LSTM + Temporal Attention |
+| V50 | Temporal-Attention LSTM | 0.651 | Bi-LSTM + Temporal Attention (11개 자산) |
 | V68 | Enhanced Adaptive | 0.777 | V36 + Vol-of-Vol + Momentum + Cross-Asset |
 | V69 | Max Performance | 0.777 | V68 + Stacking/Weighted Ensemble |
 | V70 | Extended Universe | 0.760 | 22개 자산 확장 (성능 하락) |
@@ -29,7 +32,7 @@
 
 ### 2.2 핵심 발견
 
-1. **복잡한 딥러닝 모델 < 강건한 선형 모델**: Transformer(0.534), LSTM(0.518)이 Ridge(0.755)보다 낮은 성능
+1. **복잡한 딥러닝 모델 < 강건한 선형 모델**: Transformer(0.534), LSTM(0.651)이 Ridge(0.803)보다 낮은 성능 (모두 풀링 R²)
 2. **자산 확장 = 노이즈 증가**: 11개→22개 자산 확장 시 R² 0.777→0.760으로 하락
 3. **OHLC 데이터의 정보 우위**: 종가만 사용하는 모델 대비 OHLC 기반 고빈도 프록시가 결정적 성능 향상 제공
 
@@ -102,7 +105,7 @@
 
     ↓ Weighted Ensemble (Ridge 70% + XGBoost 30%)
 
-    → R² = 0.803
+    → 풀링 R² = 0.803 (cross-sectional variation 포함, 개별 자산 중위 R² = 0.065)
 ```
 
 ---
@@ -278,7 +281,7 @@
 | V35 | Ridge+GARCH | 5 | 0.685 | -9.3% |
 | V29 | Ridge+HAR | 4 | 0.679 | -10.1% |
 | V43 | Transformer | 4 | 0.534 | -29.3% |
-| V50 | Bi-LSTM | 4 | 0.518 | -31.4% |
+| V50 | Bi-LSTM | 2 | 0.651 | -19.0% |
 
 ### 8.2 딥러닝 vs 선형 모델
 
@@ -287,9 +290,9 @@
 | **선형 모델 (Ridge)** | **0.803** | V71 |
 | 트리 기반 (XGBoost) | 0.773 | V71 XGBoost |
 | Transformer | 0.534 | V43 |
-| LSTM+Attention | 0.518 | V50 |
+| LSTM+Attention | 0.651 | V50 |
 
-**결론**: 변동성 예측에서 강건한 선형 모델이 복잡한 딥러닝 모델을 압도. 피처 엔지니어링이 모델 복잡도보다 중요
+**결론**: 변동성 예측에서 강건한 선형 모델이 복잡한 딥러닝 모델을 압도. 피처 엔지니어링(37개)이 모델 복잡도(DL)보다 중요. 모든 R²는 풀링 기준(cross-sectional variation 포함)
 
 ### 8.3 동일 피처 세트 공정 비교
 
@@ -324,6 +327,8 @@
 
 ## 9. 자산별/클래스별 성능
 
+> **주의**: 풀링 R²(0.803)는 cross-sectional variation을 포함한다. 아래 자산별 R²는 순수 시계열 예측력을 반영하며, 대부분 자산에서 풀링 R²보다 현저히 낮다.
+
 ### 9.1 자산별 R² (V36 vs V71)
 
 | Asset | Class | V36 R² | V71 R² | Delta |
@@ -339,6 +344,8 @@
 | GLD | Commodity | 0.091 | 0.065 | -0.026 |
 | USO | Commodity | 0.153 | 0.210 | +0.057 |
 | SLV | Commodity | 0.063 | -0.133 | -0.196 |
+
+**요약**: 개별 자산 중위 R² = 0.065, Equity 평균 = 0.320, Bond 평균 = -0.658
 
 ### 9.2 클래스별 평균
 
