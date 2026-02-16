@@ -14,9 +14,9 @@ date: today
 |:---|:---|:---|:---|
 | **V71 챔피언** | [22일 예측 (V71)](/experiments/22day_prediction.html) | **R² = 0.803** | 11개 자산 풀링 (cross-sectional variation 포함) |
 | **강건성 검증** | [챔피언 모델 강건성](/experiments/champion_robustness.html) | 6종 PASS | 11개 자산 풀링 |
-| **V50 검증** | [V50 정밀 검증](/experiments/sci_verification.html) | OOS R² = 0.533 | 6개 자산 풀링 |
-| **V29 베이스라인** | [V29 검증](/experiments/phase10_v29_verification.html) | DM p < 0.001 | 6개 자산 풀링 |
-| **V50 모델** | [1일 예측 (V50)](/experiments/1day_prediction.html) | OOS R² = 0.533 | 6개 자산 풀링 |
+| **V50 검증** | [V50 정밀 검증](/experiments/sci_verification.html) | OOS R² = 0.651 | 11개 자산 풀링 |
+| **V29 베이스라인** | [V29 검증](/experiments/phase10_v29_verification.html) | DM p < 0.001 | 11개 자산 풀링 |
+| **V50 모델** | [1일 예측 (V50)](/experiments/1day_prediction.html) | OOS R² = 0.651 | 11개 자산 풀링 |
 
 ---
 

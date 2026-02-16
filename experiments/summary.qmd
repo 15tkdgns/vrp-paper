@@ -33,7 +33,7 @@ fig, axes = plt.subplots(1, 2, figsize=(12, 5))
 
 # 1일 예측
 models_1d = ['HAR-RV\n(문헌)', 'V50\n(IS)', 'V50\n(OOS)']
-r2_1d = [har, v50, 0.533]
+r2_1d = [har, v50, 0.651]
 colors_1d = ['#718096', '#4299E1', '#2B6CB0']
 bars1 = axes[0].bar(models_1d, r2_1d, color=colors_1d, edgecolor='white', linewidth=2)
 axes[0].set_ylabel('R² 스코어', fontsize=12)
@@ -64,7 +64,7 @@ plt.show()
 | 예측 지평 | 챔피언 모델 | R² | 대상 자산 | 검증 |
 |:---|:---|:---|:---|:---|
 | **22일 (핵심)** | **V71 (Enhanced Asset-Adaptive Ridge)** | **0.803** | **11개 자산 풀링 (cross-sectional variation 포함)** | 6종 강건성 PASS, DM p<0.001 |
-| 1일 (참고) | V50 (Dual-Attention LSTM) | 0.533 (OOS) | 6개 자산 풀링 (cross-sectional variation 포함) | Walk-Forward, DM p<0.001 |
+| 1일 (참고) | V50 (Dual-Attention LSTM) | 0.651 (OOS) | 11개 자산 풀링 (cross-sectional variation 포함) | Walk-Forward, DM p<0.001 |
 
 ::: {.callout-note}
 ## 성능 지표 기준

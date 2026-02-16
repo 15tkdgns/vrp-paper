@@ -12,29 +12,34 @@ format:
 V50은 **양방향 LSTM**과 **Temporal Attention**을 결합한 단기(1일) 변동성 예측 모델입니다. 22일간의 LogRV와 Return 시퀀스를 입력받아 22일 후의 변동성을 예측합니다.
 
 ::: {.callout-note}
-## 핵심 성과 (6개 자산 풀링 기준)
-- **In-Sample R²**: 0.848 (6개 자산 풀링, cross-sectional variation 포함)
-- **Out-of-Sample R²**: 0.533 (공정 비교, v51b, 6개 자산 풀링, cross-sectional variation 포함)
+## 핵심 성과 (11개 자산 풀링 기준)
+- **In-Sample R²**: 0.927 (11개 자산 풀링, cross-sectional variation 포함)
+- **Out-of-Sample R²**: 0.651 (11개 자산 풀링, cross-sectional variation 포함)
 - **DM Test**: p < 0.001 (V29 대비 통계적 우월성)
-- **대상 자산**: Equity(SPY, QQQ, IWM), Bond(TLT, IEF), Commodity(GLD) — V71(11개)과 다름
+- **대상 자산**: Equity(SPY, QQQ, IWM, EFA, EEM), Bond(TLT, IEF, AGG), Commodity(GLD, SLV, USO) — V71과 동일
 :::
 
-### 자산별 OOS R² (V50, v51b 기준)
+### 자산별 OOS R² (V50, 11개 자산)
 
 | 자산 | 클래스 | OOS R² | 샘플 수 |
 |:---|:---|:---|:---|
-| **SPY** | Equity | **0.260** | 842 |
-| **QQQ** | Equity | **0.236** | 842 |
-| IWM | Equity | -0.696 | 843 |
-| TLT | Bond | -0.494 | 843 |
-| IEF | Bond | -0.036 | 843 |
-| GLD | Commodity | -0.508 | 843 |
+| **SPY** | Equity | **0.251** | 842 |
+| **QQQ** | Equity | **0.218** | 842 |
+| IWM | Equity | -0.430 | 843 |
+| EFA | Equity | -0.097 | 843 |
+| EEM | Equity | -0.196 | 843 |
+| TLT | Bond | -0.542 | 843 |
+| IEF | Bond | -0.107 | 842 |
+| AGG | Bond | -0.396 | 843 |
+| GLD | Commodity | -0.476 | 843 |
+| SLV | Commodity | -0.903 | 843 |
+| USO | Commodity | -0.312 | 842 |
 
 ::: {.callout-warning}
 ## V50 자산별 성능 해석
-- **풀링 R²(0.533)는 cross-sectional variation 포함**: 자산 간 변동성 수준 차이가 R²에 기여
-- **개별 자산 중위 R²: -0.265** — SPY(0.260), QQQ(0.236)만 양수
-- V71과 동일하게, 풀링 R²는 순수 시계열 예측력보다 높게 나타남
+- **풀링 R²(0.651)는 cross-sectional variation 포함**: 자산 간 변동성 수준 차이가 R²에 기여
+- **개별 자산 중위 R²: -0.312** — SPY(0.251), QQQ(0.218)만 양수
+- Equity 평균: -0.051, Bond 평균: -0.348, Commodity 평균: -0.563
 :::
 
 ---

@@ -1,49 +1,28 @@
 ---
-title: "V50 모델 검증 대시보드"
-lang: ko
+title: "V50 모델 정밀 검증"
+subtitle: "Walk-Forward, DM Test, Extreme Market 검증"
 format:
   html:
-    theme: cosmo
-    toc: true
     code-fold: true
-    embed-resources: true
-    self-contained: true
+    toc: true
 ---
 
-# V50 모델 검증 결과 대시보드
+# V50 검증 개요
 
-본 리포트는 **V50 (LSTM-Attention)** 최종 모델의 SCI 논문 투고를 위한 핵심 검증 결과를 시각화합니다.
-
----
+V50 (Dual-Attention LSTM) 모델의 OOS 성능을 다각도로 검증합니다.
+공정 비교 실험(v51b), DM 테스트(v53), 극한 시장 테스트(v59), Attention 분석(v60), 피처 중요도(v61)를 포함합니다.
 
 ```{python}
 #| echo: false
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-import json
+import json, os
 
-# 스타일 설정
-plt.style.use('seaborn-v0_8-whitegrid')
-plt.rcParams['font.family'] = 'UnDotum'
-plt.rcParams['axes.unicode_minus'] = False
-plt.rcParams['figure.figsize'] = (10, 6)
-
-# 데이터 로드
-base_path = '../src/experiments/sci/'
 verify_path = '../src/experiments/verification/'
 
 try:
-    with open(f'{base_path}v16_robustness_check.json', 'r') as f:
-        v16_data = json.load(f)
-    with open(f'{base_path}v18_signal_lag_subsample.json', 'r') as f:
-        v18_data = json.load(f)
-    
-    with open(f'{verify_path}v57_results.json', 'r') as f:
-        v57_data = json.load(f)
-    with open(f'{verify_path}v58_results.json', 'r') as f:
-        v58_data = json.load(f)
+    with open(f'{verify_path}v51b_results.json', 'r') as f:
+        v51_data = json.load(f)['exp2_train_scaler']
+    with open(f'{verify_path}v53_results.json', 'r') as f:
+        v53_data = json.load(f)
     with open(f'{verify_path}v59_results.json', 'r') as f:
         v59_data = json.load(f)
     with open(f'{verify_path}v60_results.json', 'r') as f:
@@ -54,186 +33,131 @@ except Exception as e:
     print(f"데이터 로드 오류: {e}")
 ```
 
-## 1. 시간적 강건성 검증 (Walk-Forward)
+---
 
-전진 분석 결과, 코로나19 기간에도 높은 예측력을 유지했습니다.
+## 1. Walk-Forward 검증 (v51b)
+
+| 지표 | 값 | 해석 |
+|:---|:---|:---|
+| **IS R²** | `{python} f"{v51_data['IS_R2']:.3f}"` | 훈련 데이터 성능 |
+| **OOS R²** | **`{python} f"{v51_data['OOS_R2']:.3f}"`** | 미래 데이터 일반화 |
+| **Gap** | `{python} f"{v51_data['delta']:.3f}"` | 과적합 정도 |
+
+::: {.callout-info}
+## 설정 수정 사항
+기존 v51(R²=0.820)은 V50과 다른 실험 설정(rolling=5, target=t+1)을 사용하여 과대 평가됨. v51b는 V50과 동일한 설정(rolling=22, target=t+22)으로 공정 비교한 결과.
+:::
+
+---
+
+## 2. DM 테스트 (v53)
 
 ```{python}
 #| echo: false
-#| warning: false
-
-wf_df = pd.DataFrame(v16_data['walk_forward'])
-
-fig, ax = plt.subplots(figsize=(10, 5))
-ax.plot(wf_df['Year'].astype(str), wf_df['R2'], marker='o', linestyle='-', linewidth=2)
-ax.set_title('연도별 전진 분석 R² 스코어 (2015-2024)', fontsize=14)
-ax.set_ylabel('R² 스코어')
-ax.set_ylim(0, 1.0)
-ax.grid(True)
-
-ax.annotate('코로나19', xy=('2020', 0.8), xytext=('2020', 0.6),
-            arrowprops=dict(facecolor='black', shrink=0.05), ha='center')
-
-plt.show()
+print(f"V50 R²: {v53_data['V50_R2']:.4f}")
+print(f"V29 R²: {v53_data['V29_R2']:.4f}")
+print(f"DM Stat: {v53_data['DM_Stat']:.2f}")
+print(f"P-Value: {v53_data['P_Value']}")
 ```
 
-## 2. 시장 국면별 수익성 분석
+| 비교 | V50 R² | V29 R² | DM Stat | p-value |
+|:---|:---|:---|:---|:---|
+| V50 vs V29 | **`{python} f"{v53_data['V50_R2']:.3f}"`** | `{python} f"{v53_data['V29_R2']:.3f}"` | **`{python} f"{v53_data['DM_Stat']:.2f}"`** | **`{python} f"{v53_data['P_Value']}"`** |
 
-인플레이션 기간의 대응 능력이 전체 수익률의 핵심 요소입니다.
+V50이 V29 대비 통계적으로 유의미하게 우수 (p < 0.001).
+
+---
+
+## 3. 극한 시장 테스트 (v59)
 
 ```{python}
 #| echo: false
-#| warning: false
+#| fig-width: 10
+#| fig-height: 4
 
-sub_df = pd.DataFrame(v18_data['subsample']).T
-sub_df.reset_index(inplace=True)
-sub_df.columns = ['Regime', 'Annual_Return', 'Sharpe']
+import matplotlib.pyplot as plt
 
-fig, ax1 = plt.subplots(figsize=(10, 6))
+plt.rcParams['font.family'] = 'UnDotum'
+plt.rcParams['axes.unicode_minus'] = False
 
-x = np.arange(len(sub_df))
-width = 0.35
+regimes = list(v59_data.keys())
+r2s = [v59_data[r]['R2'] for r in regimes]
 
-rects1 = ax1.bar(x - width/2, sub_df['Annual_Return']*100, width, label='수익률 (%)', color='skyblue')
-ax1.set_ylabel('연간 수익률 (%)')
-ax1.set_xticks(x)
-ax1.set_xticklabels(sub_df['Regime'])
-ax1.axhline(0, color='black', linewidth=0.8)
+fig, ax = plt.subplots(figsize=(10, 4))
+colors = ['#FF6B6B' if r < 0.4 else '#4ECDC4' for r in r2s]
+bars = ax.bar(regimes, r2s, color=colors, edgecolor='black')
+ax.set_ylabel('R² Score')
+ax.set_title('시장 국면별 V50 성능', fontsize=14, fontweight='bold')
+ax.set_ylim(0, 1.0)
+ax.grid(True, alpha=0.3, axis='y')
 
-ax2 = ax1.twinx()
-ax2.plot(x, sub_df['Sharpe'], color='red', marker='D', linestyle='-', linewidth=2, label='샤프 지수')
-ax2.set_ylabel('샤프 지수')
-ax2.set_ylim(-2.5, 2.5)
+for bar, r2 in zip(bars, r2s):
+    ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.02, f'{r2:.3f}', ha='center', fontweight='bold')
 
-lines, labels = ax1.get_legend_handles_labels()
-lines2, labels2 = ax2.get_legend_handles_labels()
-ax1.legend(lines + lines2, labels + labels2, loc='upper left')
-
-ax1.set_title('시장 국면별 전략 성과', fontsize=14)
+plt.tight_layout()
 plt.show()
-
-print(f"손익분기 거래 비용: {v18_data['break_even_bps']:.2f} bps")
 ```
 
 ---
 
-# 정밀 검증 결과
-
-심사자의 잠재적 의구심을 선제적으로 해소하기 위한 추가 검증 결과입니다.
-
-## 3. Diebold-Mariano 테스트 (V50 vs V29)
-
-V50 모델이 V29(HAR-Ridge) 대비 통계적으로 유의미하게 우월함을 검증합니다.
+## 4. Attention 분석 (v60)
 
 ```{python}
 #| echo: false
-#| warning: false
+#| fig-width: 10
+#| fig-height: 4
 
-fig, ax = plt.subplots(figsize=(8, 4))
-models = ['V29 (HAR-Ridge)', 'V50 (LSTM-Attention)']
-rmses = [v57_data['V29_RMSE'], v57_data['V50_RMSE']]
-colors = ['#FF6B6B', '#4ECDC4']
+import matplotlib.pyplot as plt
+import numpy as np
 
-ax.bar(models, rmses, color=colors, edgecolor='black')
-ax.set_ylabel('RMSE')
-ax.set_title(f'모델 성능 비교 (DM 테스트 p-값: {v57_data["P_Value"]:.2e})', fontsize=14)
-ax.set_ylim(0, max(rmses) * 1.3)
+plt.rcParams['font.family'] = 'UnDotum'
+plt.rcParams['axes.unicode_minus'] = False
 
-for i, v in enumerate(rmses):
-    ax.text(i, v + 0.01, f'{v:.4f}', ha='center', fontweight='bold')
-
-plt.show()
-print(f"DM 통계량: {v57_data['DM_Stat']:.4f}")
-print(f"유의성 여부 (alpha=0.05): {v57_data['Significant']}")
+try:
+    weights = v60_data.get('attention_weights', v60_data.get('mean_weights', []))
+    if weights:
+        fig, ax = plt.subplots(figsize=(10, 4))
+        lags = list(range(1, len(weights)+1))
+        ax.bar(lags, weights, color='#4299E1', edgecolor='white')
+        ax.set_xlabel('Lag (일)')
+        ax.set_ylabel('Attention 가중치')
+        ax.set_title('V50 Temporal Attention 가중치 분포', fontsize=14, fontweight='bold')
+        ax.grid(True, alpha=0.3, axis='y')
+        plt.tight_layout()
+        plt.show()
+    else:
+        print("Attention 가중치 데이터 없음")
+except Exception as e:
+    print(f"시각화 오류: {e}")
 ```
 
-## 4. 다중 비교 보정 (Bonferroni & FDR)
+---
 
-11개 자산 동시 테스트에서 발생 가능한 '거짓 발견'을 보정하여 검증했습니다.
+## 5. 피처 중요도 (v61)
 
 ```{python}
 #| echo: false
-#| warning: false
-
-m_test_df = pd.DataFrame({
-    '항목': ['원본 p-값', 'Bonferroni 보정', 'FDR (B-H) 보정'],
-    'p-값': [v58_data['Original_P_Value'], v58_data['Bonferroni_Corrected_P'], v58_data['FDR_Corrected_P']],
-    '유의성 (alpha=0.05)': [v58_data['Original_P_Value'] < 0.05, v58_data['Significant_After_Bonferroni'], v58_data['Significant_After_FDR']]
-})
-
-m_test_df
+try:
+    if 'feature_importance' in v61_data:
+        fi = v61_data['feature_importance']
+        print("| Rank | Feature | Importance |")
+        print("|:---|:---|:---|")
+        for i, item in enumerate(fi[:10], 1):
+            name = item.get('feature', item.get('name', f'Feature_{i}'))
+            imp = item.get('importance', item.get('value', 0))
+            print(f"| {i} | {name} | {imp:.4f} |")
+    else:
+        for k, v in v61_data.items():
+            if isinstance(v, (int, float)):
+                print(f"- {k}: {v}")
+except Exception as e:
+    print(f"피처 중요도 출력 오류: {e}")
 ```
 
-## 5. 극한 시장 상황 강건성 테스트 (OOD)
+---
 
-금융위기, 팬데믹 등 학습 외(OOD) 구간에서의 모델 성능을 분석했습니다.
+## 관련 자료
 
-```{python}
-#| echo: false
-#| warning: false
-
-regimes = list(v59_data.keys())
-r2_scores = [v59_data[r]['R2'] for r in regimes]
-
-fig, ax = plt.subplots(figsize=(10, 5))
-colors = ['#FF6B6B' if r2 < 0.5 else '#4ECDC4' for r2 in r2_scores]
-bars = ax.bar(regimes, r2_scores, color=colors, edgecolor='black')
-ax.set_ylabel('R² 스코어')
-ax.set_title('시장 국면별 모델 성능 (OOD 테스트)', fontsize=14)
-ax.axhline(0.45, color='red', linestyle='--', label='기준선 (R²=0.45)')
-ax.set_ylim(0, 1)
-ax.legend()
-
-for bar, r2 in zip(bars, r2_scores):
-    ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.02, f'{r2:.2f}', ha='center', fontweight='bold')
-
-plt.show()
-```
-
-::: {.callout-important}
-**2008년 금융위기 (R²=0.77)**: 모델이 극단적 변동성 상황에서도 탁월한 예측력을 발휘함을 입증합니다.
-:::
-
-## 6. 다중공선성 진단 (VIF)
-
-입력 변수 간 중복성을 수치화하여 Ridge 정규화 적용의 당위성을 확보했습니다.
-
-```{python}
-#| echo: false
-#| warning: false
-
-vif_df = pd.DataFrame({
-    '변수': list(v60_data.keys()),
-    'VIF': list(v60_data.values())
-})
-vif_df = vif_df[vif_df['변수'] != 'const']
-
-fig, ax = plt.subplots(figsize=(8, 4))
-colors = ['red' if v > 10 else 'blue' for v in vif_df['VIF']]
-ax.barh(vif_df['변수'], vif_df['VIF'], color=colors, edgecolor='black')
-ax.axvline(10, color='red', linestyle='--', label='임계치 (VIF=10)')
-ax.set_xlabel('VIF (분산 팽창 요인)')
-ax.set_title('다중공선성 진단', fontsize=14)
-ax.legend()
-plt.show()
-
-print("VIF > 10: Ridge 정규화 또는 딥러닝 구조 필수")
-```
-
-## 7. 잔차 통계 진단
-
-모델 잔차의 통계적 특성을 분석하여 학술적 완결성을 검토했습니다.
-
-```{python}
-#| echo: false
-#| warning: false
-
-res_diag_df = pd.DataFrame({
-    '테스트': ['Shapiro-Wilk (정규성)', 'Ljung-Box (자기상관)', 'Breusch-Pagan (이분산성)'],
-    'p-값': [v61_data['Shapiro_Wilk_P'], v61_data['Ljung_Box_P_lag10'], v61_data['Breusch_Pagan_P']],
-    '귀무가설 기각 (p<0.05)': [v61_data['Shapiro_Wilk_P'] < 0.05, v61_data['Ljung_Box_P_lag10'] < 0.05, v61_data['Breusch_Pagan_P'] < 0.05]
-})
-
-res_diag_df
-print("\n진단 결과: 금융 시계열 특유의 Fat-tail 및 조건부 이분산성 확인")
-```
+- [V50 상세 분석](/experiments/1day_prediction.html)
+- [V50 강건성 검증](/experiments/champion_robustness.html)
+- [모델 비교](/experiments/phase13_model_comparison.html)
