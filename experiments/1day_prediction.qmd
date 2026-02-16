@@ -12,28 +12,28 @@ format:
 V50은 **양방향 LSTM**과 **Temporal Attention**을 결합한 단기(1일) 변동성 예측 모델입니다. 22일간의 LogRV와 Return 시퀀스를 입력받아 22일 후의 변동성을 예측합니다.
 
 ::: {.callout-note}
-## 핵심 성과 (11개 자산 풀링 기준)
-- **In-Sample R²**: 0.927 (11개 자산 풀링, cross-sectional variation 포함)
-- **Out-of-Sample R²**: 0.651 (11개 자산 풀링, cross-sectional variation 포함)
+## 핵심 성과 (11개 자산 풀링 기준, cross-sectional variation 포함)
+- **OOS R²**: 0.651 | **RMSE**: 0.638 | **MAE**: 0.504 | **QLIKE**: 0.246
+- **In-Sample R²**: 0.927
 - **DM Test**: p < 0.001 (V29 대비 통계적 우월성)
-- **대상 자산**: Equity(SPY, QQQ, IWM, EFA, EEM), Bond(TLT, IEF, AGG), Commodity(GLD, SLV, USO) — V71과 동일
+- **대상 자산**: Equity(SPY, QQQ, IWM, EFA, EEM), Bond(TLT, IEF, AGG), Commodity(GLD, SLV, USO)
 :::
 
-### 자산별 OOS R² (V50, 11개 자산)
+### 자산별 OOS 성능 (V50, 11개 자산)
 
-| 자산 | 클래스 | OOS R² | 샘플 수 |
-|:---|:---|:---|:---|
-| **SPY** | Equity | **0.251** | 842 |
-| **QQQ** | Equity | **0.218** | 842 |
-| IWM | Equity | -0.430 | 843 |
-| EFA | Equity | -0.097 | 843 |
-| EEM | Equity | -0.196 | 843 |
-| TLT | Bond | -0.542 | 843 |
-| IEF | Bond | -0.107 | 842 |
-| AGG | Bond | -0.396 | 843 |
-| GLD | Commodity | -0.476 | 843 |
-| SLV | Commodity | -0.903 | 843 |
-| USO | Commodity | -0.312 | 842 |
+| 자산 | 클래스 | R² | RMSE | MAE | QLIKE |
+|:---|:---|:---|:---|:---|:---|
+| **SPY** | Equity | **0.251** | 0.663 | 0.527 | 0.296 |
+| **QQQ** | Equity | **0.218** | 0.630 | 0.500 | 0.249 |
+| IWM | Equity | -0.430 | 0.609 | 0.483 | 0.231 |
+| EFA | Equity | -0.097 | 0.666 | 0.520 | 0.262 |
+| EEM | Equity | -0.196 | 0.599 | 0.475 | 0.176 |
+| TLT | Bond | -0.542 | 0.569 | 0.458 | 0.190 |
+| IEF | Bond | -0.107 | 0.600 | 0.477 | 0.223 |
+| AGG | Bond | -0.396 | 0.737 | 0.602 | 0.379 |
+| GLD | Commodity | -0.476 | 0.582 | 0.469 | 0.179 |
+| SLV | Commodity | -0.903 | 0.600 | 0.482 | 0.186 |
+| USO | Commodity | -0.312 | 0.733 | 0.554 | 0.331 |
 
 ::: {.callout-warning}
 ## V50 자산별 성능 해석
