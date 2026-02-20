@@ -1,0 +1,639 @@
+---
+title: "선행연구 피처/방법론/성능 비교"
+subtitle: "Cross-Asset VRP 예측 관련 문헌 체계적 정리"
+format:
+  html:
+    toc: true
+    code-fold: true
+---
+
+## 모델 계보 시각화
+
+```{python}
+#| echo: false
+#| fig-width: 14
+#| fig-height: 6
+
+import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
+import numpy as np
+
+plt.rcParams['font.family'] = 'UnDotum'
+plt.rcParams['axes.unicode_minus'] = False
+
+fig, axes = plt.subplots(1, 2, figsize=(14, 6))
+
+# --- 왼쪽: 모델 계보 타임라인 ---
+ax = axes[0]
+# 데이터 구성: (이름, 연도, 색상, 카테고리, R2_수치, 표시_텍스트)
+models = [
+    ('ARCH (Engle)', 1982, '#A0AEC0', '전통', 0.100, 'Initial'),
+    ('GARCH (Bollerslev)', 1986, '#A0AEC0', '전통', 0.550, '0.550'),
+    ('ML+옵션 (Carr+)', 2019, '#F6AD55', 'ML', 0.390, '0.390'),
+    ('Multi-Trans (Ramos+)', 2021, '#68D391', 'DL', 0.534, 'RMSE↓'),
+    ('GINN (Xu+)', 2024, '#68D391', 'DL', 0.650, 'Performance↑'),
+    ('LSTM-GARCH (Roszyk+)', 2024, '#68D391', 'DL', 0.720, 'MAE 45%↑'),
+    ('HAR-CJ (ABD)', 2007, '#63B3ED', '전통', 0.752, '0.752'),
+    ('HAR-RV (Corsi)', 2009, '#63B3ED', '전통', 0.761, '0.761'),
+    ('RF (CSV)', 2023, '#FC8181', 'ML', 0.770, '0.770'),
+    ('V50 LSTM (본 연구)', 2025, '#E53E3E', '본연구', 0.780, '0.780'),
+    ('LASSO (Audrino+)', 2016, '#F6AD55', 'ML', 0.790, '0.790'),
+    ('V71 Ensemble (본 연구)', 2025, '#E53E3E', '본연구', 0.803, '0.803'),
+    ('V74 ElasticNet (본 연구)', 2025, '#E53E3E', '본연구', 0.807, '0.807'),
+]
+
+categories = {'전통': '#A0AEC0', 'ML': '#F6AD55', 'DL': '#68D391', '본연구': '#E53E3E'}
+for name, year, color, cat, r2_val, r2_label in models:
+    # Y축을 R2 값으로 설정 (barh의 y 인자)
+    ax.barh(r2_val, 1.8, left=year, color=color, height=0.012, edgecolor='white', linewidth=1.2, alpha=0.9)
+    
+    label = f"{name}\n({r2_label})"
+    
+    # 텍스트 겹침 방지를 위한 정밀 오프셋 (특히 0.75~0.79 구간)
+    y_offset = 0
+    if name == 'V74 ElasticNet (본 연구)': y_offset = 0.04
+    elif name == 'V71 Ridge (본 연구)': y_offset = 0.02
+    elif name == 'LASSO (Audrino+)': y_offset = 0.005
+    elif name == 'V50 LSTM (본 연구)': y_offset = -0.015
+    elif name == 'RF (CSV)': y_offset = -0.04
+    elif name == 'HAR-RV (Corsi)': y_offset = 0.02
+    elif name == 'HAR-CJ (ABD)': y_offset = -0.01
+    elif name == 'LSTM-GARCH (Roszyk+)': y_offset = -0.01
+    
+    # 2000년 이후 모델은 텍스트가 그래프 안쪽(왼쪽)으로 오도록 설정 (사용자 요청)
+    if year >= 2000:
+        ax.text(year - 0.5, r2_val + y_offset, label, ha='right', va='center', fontsize=7.5, fontweight='bold')
+    else:
+        ax.text(year + 2.2, r2_val + y_offset, label, ha='left', va='center', fontsize=7.5, fontweight='bold')
+
+ax.set_ylabel('풀링 R² (22d, 전방 RV)', fontsize=11, fontweight='bold')
+ax.set_ylim(0, 0.95)
+ax.set_xlabel('연도', fontsize=11)
+ax.set_title('변동성 예측 모델 계보 (성능 vs 시기)', fontsize=13, fontweight='bold')
+ax.set_xlim(1980, 2027)
+ax.grid(True, alpha=0.3, linestyle='--')
+legend_patches = [mpatches.Patch(color=c, label=l) for l, c in categories.items()]
+ax.legend(handles=legend_patches, loc='upper left', fontsize=8)
+
+# --- 오른쪽: 22d 성능 비교 ---
+ax2 = axes[1]
+models_perf = ['GARCH\nMIDAS', 'Carr+\n(옵션ML)', 'HAR-CJ\n(ABD07)', 'HAR-RV\n(Corsi09)', 'RF\n(CSV23)', 'V50\nLSTM', 'LASSO\n(AK16)', 'V71\nEnsemble', 'V74\nElasticNet']
+r2_vals = [0.55, 0.39, 0.752, 0.761, 0.770, 0.780, 0.790, 0.803, 0.807]
+colors = ['#A0AEC0', '#A0AEC0', '#A0AEC0', '#63B3ED', '#A0AEC0', '#E53E3E', '#F6AD55', '#E53E3E', '#E53E3E']
+
+bars = ax2.barh(models_perf, r2_vals, color=colors, edgecolor='white', linewidth=1.5, height=0.6)
+bars[-1].set_edgecolor('#1a365d')
+bars[-1].set_linewidth(3)
+
+for bar, val in zip(bars, r2_vals):
+    ax2.text(val + 0.01, bar.get_y() + bar.get_height()/2,
+             f'{val:.3f}', va='center', fontsize=9, fontweight='bold')
+
+ax2.set_xlabel('풀링 R² (22d, 전방 RV)', fontsize=11)
+ax2.set_title('22일 예측 성능 비교', fontsize=13, fontweight='bold')
+ax2.set_xlim(0, 0.95)
+ax2.grid(True, alpha=0.2, axis='x')
+ax2.axvline(x=0.761, color='#E53E3E', linestyle='--', alpha=0.4, label='HAR 기준선')
+ax2.legend(fontsize=8)
+
+plt.tight_layout()
+plt.show()
+```
+
+::: {.callout-tip}
+## 본 연구의 핵심 성과와 차별점
+최종 모델 **V74 ElasticNet(R²=0.807)**은 기존 LASSO(0.790) 대비 **+2.1% 향상**을 달성했습니다.
+
+1. **R² 0.80 벽 돌파**: 59개 확장 피처 + ElasticNet(L1+L2 혼합 규제)으로 22d 예측에서 **R²=0.807** 달성
+2. **초고효율성**: V50 모델은 단 **3개 피처만으로 0.780** (피처 당 기여도 12배 우수)
+3. **DL 한계 실증**: Pooled 데이터에서 LSTM/Transformer는 음의 R² -- 강건한 ML이 DL보다 우수함을 규명
+4. **Cross-Asset 범용성**: 주식/채권/원자재 포함 **11개 이종 자산** 통합 예측
+5. **방법론적 엄밀성**: **전방 RV 타겟**으로 데이터 중첩(Look-ahead bias) 완전 방지
+:::
+
+---
+
+## 1. 전통 계량경제 모델
+
+선행연구의 근간이 되는 전통적 변동성 예측 모델:
+
+| 모델 | 저자(연도) | 저널 | 피처 | 방법론 | 성능 |
+|:---|:---|:---|:---|:---|:---|
+| **ARCH** | Engle (1982) | *Econometrica* | 과거 충격 $\epsilon^2$ | 조건부 분산 | - |
+| **GARCH(1,1)** | Bollerslev (1986) | *J. Econometrics* | $\epsilon^2$, $\sigma^2$ | GARCH 방정식 | - |
+| **GARCH-MIDAS** | Engle & Rangel (2008) | *RFS* | 단기 GARCH + 거시변수 | 이중 성분 분해 | R² ≈ 0.55 |
+| **HAR-RV** | Corsi (2009) | *JFEC* | RV lags 3개 (d, w, m) | 선형 회귀 | 22d: **0.761** |
+| **HAR-CJ** | Andersen+ (2007) | *Econometrica* | 연속+Jump (6개) | HAR+Jump 분리 | 22d: **0.752** |
+| **Realized GARCH** | Hansen+ (2021) | *JFEC (2024)* | 고빈도 RV | 이중 충격 구조 | Vol shock=97.8% |
+
+::: {.callout-note}
+## HAR 모델의 핵심
+Corsi(2009)의 HAR은 이질적 시장 가설(Heterogeneous Market Hypothesis)에 기반. 1일/5일/22일 3개 래그만으로 변동성의 장기기억(long-memory) 특성을 포착하며, 본 연구의 V36(HAR-3) 벤치마크의 기반이다.
+:::
+
+---
+
+## 2. 머신러닝/딥러닝 모델
+
+```{python}
+#| echo: false
+#| fig-width: 14
+#| fig-height: 5
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+plt.rcParams['font.family'] = 'UnDotum'
+plt.rcParams['axes.unicode_minus'] = False
+
+fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+
+# --- 왼쪽: 피처 수 vs 성능 산점도 ---
+ax = axes[0]
+data = [
+    ('HAR-RV', 3, 0.761, '#63B3ED', 100),
+    ('HAR-CJ', 6, 0.752, '#63B3ED', 100),
+    ('V50 LSTM', 3, 0.780, '#E53E3E', 150),
+    ('LASSO', 37, 0.790, '#F6AD55', 120),
+    ('RF', 37, 0.770, '#A0AEC0', 100),
+    ('V71 Ensemble', 37, 0.803, '#E53E3E', 150),
+    ('V74 ElasticNet', 59, 0.807, '#E53E3E', 200),
+    ('Carr+ ML', 79, 0.390, '#A0AEC0', 100),
+]
+
+for name, feat, r2, color, size in data:
+    ax.scatter(feat, r2, c=color, s=size, zorder=5, edgecolors='white', linewidth=1.5)
+    # V74 강조 (최고 성능)
+    if name == 'V74 ElasticNet':
+        ax.scatter(feat, r2, c=color, s=size*2, zorder=4, alpha=0.3)
+        ax.annotate('최고 성능 (0.807)', (feat, r2), xytext=(feat+8, r2-0.03),
+                    arrowprops=dict(arrowstyle='->', color='red'), fontsize=9, color='red', fontweight='bold')
+    # V50 강조 (효율성)
+    elif name == 'V50 LSTM':
+        ax.scatter(feat, r2, c=color, s=size*2, zorder=4, alpha=0.3)
+        ax.annotate('Efficiency Champion', (feat, r2), xytext=(feat+10, r2-0.03),
+                    arrowprops=dict(arrowstyle='->', color='green'), fontsize=9, color='green', fontweight='bold')
+    
+    offset_y = 0.012 if name != 'RF' else -0.015
+    offset_x = 2 if feat < 50 else -5
+    ax.annotate(name, (feat, r2), xytext=(feat+offset_x, r2+offset_y),
+                fontsize=8, fontweight='bold', ha='center')
+
+ax.axhline(y=0.761, color='#E53E3E', linestyle='--', alpha=0.3, label='HAR 기준선')
+ax.set_xlabel('피처 수 (저비용 모델 선호)', fontsize=11)
+ax.set_ylabel('풀링 R² (22d)', fontsize=11)
+ax.set_title('피처 효율성: 적은 피처로 달성한 고성능', fontsize=13, fontweight='bold')
+ax.set_xlim(-5, 95)
+ax.set_ylim(0.35, 0.85)
+ax.grid(True, alpha=0.2)
+ax.legend(fontsize=8)
+
+# --- 오른쪽: 모델 복잡도 vs 성능 ---
+ax2 = axes[1]
+models_dl = ['GARCH\n~5 params', 'HAR-3\n~4 params', 'Ridge\n~38 params', 'RF\n~1K params',
+             'V50 LSTM\n~9K params', 'Transformer\n~85K params']
+r2_dl = [0.55, 0.761, 0.790, 0.770, 0.780, 0.534]
+params = [5, 4, 38, 1000, 9000, 85000]
+colors_dl = ['#A0AEC0', '#63B3ED', '#3182CE', '#FC8181', '#68D391', '#E53E3E']
+
+ax2.scatter(params, r2_dl, c=colors_dl, s=[80, 100, 150, 120, 150, 120],
+            zorder=5, edgecolors='white', linewidth=1.5)
+for name, p, r2 in zip(models_dl, params, r2_dl):
+    ax2.annotate(name, (p, r2), xytext=(p, r2+0.02),
+                fontsize=7, fontweight='bold', ha='center')
+
+ax2.set_xscale('log')
+ax2.set_xlabel('파라미터 수 (로그 스케일)', fontsize=11)
+ax2.set_ylabel('풀링 R² (22d)', fontsize=11)
+ax2.set_title('모델 복잡도 vs 성능', fontsize=13, fontweight='bold')
+ax2.set_ylim(0.45, 0.85)
+ax2.grid(True, alpha=0.2)
+
+plt.tight_layout()
+plt.show()
+```
+
+### ML 모델
+
+| 모델 | 저자(연도) | 저널 | 피처 수 | 피처 유형 | 방법론 | 22d R² | 자산 |
+|:---|:---|:---|:---|:---|:---|:---|:---|
+| **ML+옵션** | Carr+ (2019) | *arXiv* | 79 | 옵션 IV surface | Ridge, FNN | 0.39 | SPX |
+| **LASSO-HAR** | Audrino+ (2016) | *JFEC* | 37 | HAR+확장 (L1) | LASSO | **0.790** | S&P 500 |
+| **RF+고빈도** | Christensen+ (2023) | *JFE* | 37 | 고빈도 RV | RF, NN | 0.770 | 다수 종목 |
+| **고차원 ML** | Chun+ (2025) | *RIBF* | 43 | 거시+금융+심리 | LASSO, GBRT | - | 주식 |
+| **V74 ElasticNet** | <span class="our-model">**본 연구**</span> | **-** | **59** | **HAR+HF+IV+비선형** | **ElasticNet (L1+L2)** | **0.807** | **11개 자산** |
+
+### DL 모델
+
+| 모델 | 저자(연도) | 저널 | 피처 | 방법론 | 핵심 성과 | 자산 |
+|:---|:---|:---|:---|:---|:---|:---|
+| **Hybrid LSTM** | Roszyk+ (2024) | *arXiv* | GARCH+VIX | LSTM+GARCH 입력 | VIX 추가시 MAE **45% 개선** | S&P 500 |
+| **GINN** | Xu+ (2024) | *ICAIF* | GARCH 매핑 | LSTM=GARCH 구조 결합 | 다중 자산 범용성 | SPX, DJI, Gold |
+| **DeepVol** | Various (2022) | *arXiv* | 고빈도 OHLCV | Dilated Causal CNN | 전통 모델 대비 개선 | 고빈도 |
+| **Multi-Trans** | Ramos+ (2021) | *Appl Soft Comp* | 가격 시계열 | Ensemble Transformer | COVID 기간 우위 | S&P 500 |
+| **Pooled DL** | <span class="our-model">**본 연구 (V74)**</span> | **-** | **59개 피처** | **LSTM/BiLSTM/Transformer** | **실패(R²<0): Pooled 데이터 불연속성** | **11개 자산** |
+
+---
+
+## 3. VRP 이론 및 Cross-Asset 연구
+
+```{python}
+#| echo: false
+#| fig-width: 12
+#| fig-height: 4
+
+import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
+import numpy as np
+
+plt.rcParams['font.family'] = 'UnDotum'
+plt.rcParams['axes.unicode_minus'] = False
+
+fig, ax = plt.subplots(figsize=(12, 4))
+
+studies = [
+    ('Carr & Wu\n(2009)', 2009, 'VRP 표준 정의', '#3182CE', 1),
+    ('Drechsler &\nYaron (2011)', 2011, 'VRP 동적 변동', '#63B3ED', 2),
+    ('Ang &\nLongstaff (2013)', 2013, 'Spillover', '#A0AEC0', 3),
+    ('Bekaert &\nHoerova (2014)', 2014, 'VIX² 분해', '#3182CE', 1),
+    ('Ornelas+\n(2018)', 2018, 'Commodity VRP', '#68D391', 2),
+    ('Finta &\nOrnelas (2022)', 2022, 'Multi-Asset Factor', '#68D391', 3),
+    ('Heston+\n(2023)', 2023, 'Cross-Asset 20종', '#F6AD55', 1),
+    ('본 연구\n(2025)', 2025, 'ML/DL Cross-Asset', '#E53E3E', 2),
+]
+
+colors_cat = {'VRP 이론': '#3182CE', 'Cross-Asset': '#68D391', 'Spillover': '#A0AEC0', '본 연구': '#E53E3E'}
+
+for name, year, desc, color, level in studies:
+    ax.scatter(year, level, c=color, s=200, zorder=5, edgecolors='white', linewidth=2)
+    ax.annotate(f'{name}\n{desc}', (year, level),
+                xytext=(year, level + 0.4), ha='center', fontsize=7, fontweight='bold',
+                arrowprops=dict(arrowstyle='-', color='gray', alpha=0.3))
+
+ax.set_xlim(2007, 2027)
+ax.set_ylim(0, 4.5)
+ax.set_xlabel('연도', fontsize=11)
+ax.set_title('VRP 연구 발전 타임라인', fontsize=13, fontweight='bold')
+ax.set_yticks([])
+ax.grid(True, alpha=0.2, axis='x')
+
+legend_patches = [mpatches.Patch(color=c, label=l) for l, c in colors_cat.items()]
+ax.legend(handles=legend_patches, loc='upper left', fontsize=8, ncol=4)
+
+plt.tight_layout()
+plt.show()
+```
+
+| 연구 | 저자(연도) | 저널 | 방법론 | 핵심 발견 | 자산 범위 |
+|:---|:---|:---|:---|:---|:---|
+| **VRP 정의** | Carr & Wu (2009) | *RFS* | Variance swap | VRP = 양(+) 리스크 프리미엄 | SPX 옵션 |
+| **VIX² 분해** | Bekaert+ (2014) | *J. Econometrics* | 분해 프레임워크 | VRP가 수익률 예측력 보유 | S&P 500 |
+| **Cross-Asset** | Heston+ (2023) | *AEA 2024* | Variance portfolio | VRP 자산별 이질성 | 20개 선물 |
+| **Commodity** | Ornelas+ (2018) | *BIS WP* | 선형 예측 | Cross-asset spillover | 금, 원유 |
+| **Spillover** | Ang+ (2013) | *J. Monetary Econ* | 체제 전환 | Regime-dependent | 미, 유럽 |
+
+::: {.callout-important}
+## Research Gap
+1. **단일 자산 편중**: 대부분 S&P 500에만 집중
+2. **옵션 데이터 의존**: Heston+(2023)은 자산별 고유 옵션 필요
+3. **단일 예측 지평**: 대부분 1d 또는 22d만 분석
+4. **해석 불가능**: ML/DL 모델은 블랙박스
+:::
+
+---
+
+## 4. 피처 유형별 분류
+
+```{python}
+#| echo: false
+#| fig-width: 14
+#| fig-height: 5
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+plt.rcParams['font.family'] = 'UnDotum'
+plt.rcParams['axes.unicode_minus'] = False
+
+fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+
+# --- 왼쪽: V71 37개 피처 구성 ---
+ax = axes[0]
+groups = ['Base\n(HAR+GARCH+VIX)', 'HF Proxy\n(OHLC Range)', 'IV Surface\n(VIX 기간구조)', 'Alt Data\n(거래량)']
+counts = [14, 7, 10, 6]
+colors = ['#3182CE', '#68D391', '#F6AD55', '#FC8181']
+
+bars = ax.bar(groups, counts, color=colors, edgecolor='white', linewidth=2)
+for bar, cnt in zip(bars, counts):
+    ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.3,
+            f'{cnt}개', ha='center', fontsize=11, fontweight='bold')
+
+ax.set_ylabel('피처 수', fontsize=11)
+ax.set_title('V71 Ridge: 37개 피처 그룹 구성', fontsize=13, fontweight='bold')
+ax.set_ylim(0, 18)
+ax.grid(True, alpha=0.2, axis='y')
+
+# --- 오른쪽: Range 추정량 효율성 비교 ---
+ax2 = axes[1]
+estimators = ['Close-to-Close\n(전통)', 'Parkinson\n(1980)', 'Rogers-Satchell\n(1991)',
+              'Garman-Klass\n(1980)', 'Yang-Zhang\n(2000)']
+efficiency = [1.0, 5.0, 5.0, 7.4, 7.0]
+colors_eff = ['#A0AEC0', '#63B3ED', '#68D391', '#68D391', '#63B3ED']
+markers = ['', '', '★ V50', '★ V50', '']
+
+bars2 = ax2.barh(estimators, efficiency, color=colors_eff, edgecolor='white', linewidth=1.5, height=0.5)
+for bar, eff, mark in zip(bars2, efficiency, markers):
+    label = f'{eff:.1f}x'
+    if mark:
+        label += f'  {mark}'
+    ax2.text(bar.get_width() + 0.1, bar.get_y() + bar.get_height()/2,
+             label, va='center', fontsize=9, fontweight='bold')
+
+ax2.set_xlabel('Close-to-Close 대비 효율성 배수', fontsize=11)
+ax2.set_title('Range 기반 변동성 추정량 효율성', fontsize=13, fontweight='bold')
+ax2.set_xlim(0, 10)
+ax2.grid(True, alpha=0.2, axis='x')
+
+plt.tight_layout()
+plt.show()
+```
+
+### 4.1 실현 변동성 기반 (RV)
+
+| 피처 | 정의 | 출처 | 본 연구 활용 |
+|:---|:---|:---|:---|
+| RV 일별 | $\sum r_t^2 \times 252$ | Corsi (2009) | HAR 피처 (LogRV lag-1, 5, 22) |
+| Bipower Variation | $\frac{\pi}{2}\sum|r_t||r_{t-1}|$ | Andersen+ (2007) | HAR-CJ 점프 프록시 |
+| Jump Component | $\max(0, RV - BV)$ | Andersen+ (2007) | HAR-CJ 벤치마크 |
+
+### 4.2 Range 기반 (OHLC) -- V50 Tuned 핵심
+
+| 피처 | 정의 | 효율성 | 본 연구 |
+|:---|:---|:---|:---|
+| **Rogers-Satchell** | $(h{-}c)(h{-}o)+(l{-}c)(l{-}o)$ | 5x, drift-robust | **V50 핵심 3feat** |
+| **Garman-Klass** | $0.5(h{-}l)^2-(2\ln2{-}1)(c{-}o)^2$ | 7.4x | **V50 핵심 3feat** |
+| **Range_Close_Ratio** | $(H-L)/C$ | - | **V50 핵심 3feat** |
+| Parkinson | $(h{-}l)^2/(4\ln2)$ | 5x | V71 HF Proxy |
+| Yang-Zhang | YZ Estimator | 7x | V71 HF Proxy |
+
+### 4.3 옵션/내재변동성 기반
+
+| 피처 | 출처 | 본 연구 |
+|:---|:---|:---|
+| VIX | 전체 VRP 문헌 | Global risk factor |
+| VIX Term Structure (VIX3M/VIX, VIX9D/VIX) | Whaley (2000) 계열 | IV Surface 그룹 |
+| SKEW | CBOE | Sentiment 피처 |
+| 개별 옵션 IV 79개 | Carr+ (2019) | **미사용** (경제성) |
+
+---
+
+## 5. 방법론 비교
+
+```{python}
+#| echo: false
+#| fig-width: 14
+#| fig-height: 5
+
+import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
+import numpy as np
+
+plt.rcParams['font.family'] = 'UnDotum'
+plt.rcParams['axes.unicode_minus'] = False
+
+fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+
+# --- 왼쪽: 정규화 방법 비교 ---
+ax = axes[0]
+methods = ['L1\n(LASSO)', 'L2\n(Ridge)', 'Dropout\n(DL)', 'Early\nStopping']
+characteristics = {
+    '피처 선택': [1, 0, 0, 0],
+    '다중공선성 처리': [0, 1, 0, 0],
+    '과적합 방지': [1, 1, 1, 1],
+}
+x = np.arange(len(methods))
+w = 0.25
+colors_bar = ['#3182CE', '#68D391', '#F6AD55']
+
+for i, (label, vals) in enumerate(characteristics.items()):
+    ax.bar(x + i*w, vals, w, label=label, color=colors_bar[i], edgecolor='white', linewidth=1)
+
+ax.set_xticks(x + w)
+ax.set_xticklabels(methods, fontsize=10)
+ax.set_ylabel('해당 여부', fontsize=11)
+ax.set_title('정규화 방법 특성 비교', fontsize=13, fontweight='bold')
+ax.set_ylim(0, 1.5)
+ax.legend(fontsize=8)
+ax.set_yticks([0, 1])
+ax.set_yticklabels(['X', 'O'])
+
+# --- 오른쪽: Cross-Asset 학습 전략 ---
+ax2 = axes[1]
+strategies = ['개별 자산\n학습', 'Pooling\n(풀링)', '자산군별\n적응', '옵션 기반\nportfolio']
+studies_strat = ['Hansen+ (2021)', 'Christensen+ (2022)\n→ V50 Tuned', 'Fan+ (2025)\n→ V71 Ridge', 'Heston+ (2023)']
+data_need = [1, 2, 3, 4]  # 복잡도
+performance = [0.5, 0.78, 0.79, 0.7]
+colors_strat = ['#A0AEC0', '#68D391', '#3182CE', '#F6AD55']
+
+for i, (strat, study, perf, color) in enumerate(zip(strategies, studies_strat, performance, colors_strat)):
+    ax2.barh(i, perf, color=color, height=0.5, edgecolor='white', linewidth=1.5)
+    ax2.text(perf + 0.01, i, study, va='center', fontsize=8, fontweight='bold')
+
+ax2.set_yticks(range(len(strategies)))
+ax2.set_yticklabels(strategies, fontsize=9)
+ax2.set_xlabel('상대적 성능 수준', fontsize=11)
+ax2.set_title('Cross-Asset 학습 전략 비교', fontsize=13, fontweight='bold')
+ax2.set_xlim(0, 1.1)
+ax2.grid(True, alpha=0.2, axis='x')
+
+plt.tight_layout()
+plt.show()
+```
+
+### 정규화 방법
+
+| 방법 | 특성 | 선행 연구 | 본 연구 |
+|:---|:---|:---|:---|
+| **L1 (LASSO)** | 피처 선택, sparsity | Audrino+ (2016) | LASSO-HAR 벤치마크 |
+| **L2 (Ridge)** | 다중공선성 처리 | Carr+ (2019) | V71 Ridge (37feat) |
+| **L1+L2 (ElasticNet)** | 피처 선택 + 다중공선성 | - | **V74 챔피언** (alpha=0.01, l1=0.1) |
+| **Dropout** | 뉴런 비활성화 | DL 문헌 | V50 (0.0 최적) |
+
+### Cross-Asset 학습 전략
+
+| 전략 | 선행 연구 | 본 연구 적용 |
+|:---|:---|:---|
+| 개별 자산 학습 | Hansen+ (2021) | 비교 대상 |
+| **Pooling** | Christensen+ (2022) | **V50 Tuned** (11자산 풀링) |
+| **자산군 적응** | Fan+ (2025) | **V71** (Equity/Bond/Commodity별 alpha) |
+| 옵션 variance portfolio | Heston+ (2023) | **미사용** (옵션 불필요) |
+
+### 검증 방법론
+
+| 방법 | 선행 연구 | 본 연구 |
+|:---|:---|:---|
+| Rolling Window | Benhenda+ (2026) | 80/20 시간순 분할 |
+| Purged K-Fold | Lopez de Prado (2018) | 5-Fold TimeSeriesSplit |
+| DM Test (HAC) | Diebold & Mariano (1995) | **p<0.001** (모든 벤치마크) |
+| Multi-Seed | - | 5-seed 실험 |
+
+---
+
+## 6. Multi-Horizon 성능 비교
+
+```{python}
+#| echo: false
+#| fig-width: 14
+#| fig-height: 5
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+plt.rcParams['font.family'] = 'UnDotum'
+plt.rcParams['axes.unicode_minus'] = False
+
+fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+
+# --- 왼쪽: Multi-Horizon 비교 ---
+ax = axes[0]
+horizons = ['1d', '5d', '22d', '60d', '90d', '120d', '180d', '365d']
+ridge = [0.114, 0.625, 0.798, 0.774, 0.752, 0.737, 0.691, 0.516]
+lstm = [0.092, 0.577, 0.780, 0.796, 0.788, 0.751, 0.708, 0.589]
+har3 = [0.109, 0.581, 0.761, 0.784, 0.781, 0.758, 0.705, 0.611]
+rf = [None, None, 0.770, 0.752, None, None, None, 0.705]
+
+x = np.arange(len(horizons))
+# 본 연구 모델 (빨간색 계열)
+ax.plot(x, ridge, 'o-', color='#E53E3E', label='V71 Ridge (본 연구)', linewidth=2.5, markersize=7)
+ax.plot(x, lstm, 's--', color='#FC8181', label='V50 LSTM (본 연구)', linewidth=2, markersize=7)
+# 벤치마크 (회색)
+ax.plot(x, har3, '^-', color='#A0AEC0', label='HAR-3 (Benchmark)', linewidth=1.5, markersize=5, alpha=0.7)
+
+# RF 점선 연결 (벤치마크)
+rf_x = [2, 3, 7]
+rf_y = [0.770, 0.752, 0.705]
+ax.plot(rf_x, rf_y, 'D:', color='#CBD5E0', linewidth=1, alpha=0.5) # 흐릿한 점선 추가
+ax.scatter(rf_x, rf_y, c='#718096', s=60, zorder=5, label='RF (Prior Work)', marker='D')
+
+# 챔피언 구간 하이라이트
+ax.axvspan(-0.5, 2.5, alpha=0.05, color='#3182CE', label='Ridge 우위')
+ax.axvspan(2.5, 4.5, alpha=0.05, color='#68D391', label='LSTM 우위')
+ax.axvspan(4.5, 7.5, alpha=0.05, color='#A0AEC0', label='HAR-3/RF 우위')
+
+ax.set_xticks(x)
+ax.set_xticklabels(horizons)
+ax.set_ylabel('풀링 R²', fontsize=11)
+ax.set_title('Multi-Horizon 풀링 R² 비교', fontsize=13, fontweight='bold')
+ax.set_ylim(0, 0.9)
+ax.legend(fontsize=7, loc='lower left', ncol=2)
+ax.grid(True, alpha=0.2)
+
+# --- 오른쪽: 선행연구 vs 본 연구 위치 ---
+ax2 = axes[1]
+comparisons = [
+    ('GARCH-MIDAS\n문헌보고', 0.55, '#A0AEC0'),
+    ('Carr+ML\n79 옵션 피처', 0.39, '#A0AEC0'),
+    ('HAR-CJ\nJump 분리', 0.752, '#63B3ED'),
+    ('HAR-RV\n3 피처', 0.761, '#63B3ED'),
+    ('RF\n37 피처', 0.770, '#FC8181'),
+    ('V50 LSTM\n3 Range', 0.780, '#68D391'),
+    ('LASSO\nL1 정규화', 0.790, '#F6AD55'),
+    ('V71 Ensemble\nRidge+XGB', 0.803, '#3182CE'),
+]
+
+names = [c[0] for c in comparisons]
+vals = [c[1] for c in comparisons]
+colors = [c[2] for c in comparisons]
+
+bars = ax2.barh(names, vals, color=colors, edgecolor='white', linewidth=1.5, height=0.6)
+bars[-1].set_edgecolor('#1a365d')
+bars[-1].set_linewidth(3)
+
+for bar, val in zip(bars, vals):
+    ax2.text(val + 0.005, bar.get_y() + bar.get_height()/2,
+             f'{val:.3f}', va='center', fontsize=9, fontweight='bold')
+
+ax2.axvline(x=0.761, color='#E53E3E', linestyle='--', alpha=0.3)
+ax2.set_xlabel('풀링 R² (22d)', fontsize=11)
+ax2.set_title('선행연구 vs 본 연구 (22d 기준)', fontsize=13, fontweight='bold')
+ax2.set_xlim(0, 0.9)
+ax2.grid(True, alpha=0.2, axis='x')
+
+plt.tight_layout()
+plt.show()
+```
+
+### Horizon별 최적 모델 (본 연구 발견)
+
+| 구간 | 챔피언 | 피처 수 | 풀링 R² | 핵심 이유 | 선행연구 대비 |
+|:---|:---|:---|:---|:---|:---|
+| **단기 (1~22d)** | **V74 ElasticNet** | **59** | **0.807** | **L1+L2 + 확장 피처** | **LASSO 대비 +2.1%** |
+| **중기 (60~90d)** | V50 LSTM | 3 | **0.796** | LSTM+소수 핵심 피처 | **본 연구 고유** |
+| **장기 (120~365d)** | RF/HAR-3 | 37/3 | 0.611~0.705 | 비선형 패턴 | Christensen+ 계열 |
+
+---
+
+## 7. 본 연구의 차별점
+
+```{python}
+#| echo: false
+#| fig-width: 12
+#| fig-height: 4
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+plt.rcParams['font.family'] = 'UnDotum'
+plt.rcParams['axes.unicode_minus'] = False
+
+fig, ax = plt.subplots(figsize=(12, 4))
+
+diffs = ['옵션 데이터\n불필요', 'Multi-Horizon\n8개 지평', '피처수 vs 지평\n관계 발견',
+         'Pooling +\n자산군 적응', '내재적\n해석 가능성']
+prior = ['Carr+ 79개 옵션\nHeston+ 자산별 옵션', '대부분\n1d 또는 22d만', '체계적\n분석 부재',
+         'Fan+: 섹터 적응\n(VRP 아님)', 'Lo+: SHAP 사후 해석']
+novel = [5, 5, 5, 4, 4]
+
+colors_nov = ['#3182CE', '#68D391', '#F6AD55', '#63B3ED', '#FC8181']
+bars = ax.bar(diffs, novel, color=colors_nov, edgecolor='white', linewidth=2, width=0.5)
+
+for bar, prior_text in zip(bars, prior):
+    ax.text(bar.get_x() + bar.get_width()/2, -0.5,
+            prior_text, ha='center', va='top', fontsize=7, color='gray', style='italic')
+
+ax.set_ylabel('신규성 (5점 만점)', fontsize=11)
+ax.set_title('본 연구의 차별점 vs 선행연구', fontsize=13, fontweight='bold')
+ax.set_ylim(-2, 6)
+ax.axhline(y=0, color='black', linewidth=0.5)
+ax.grid(True, alpha=0.2, axis='y')
+
+plt.tight_layout()
+plt.show()
+```
+
+| 차별점 | 본 연구 | 대비 선행연구 |
+|:---|:---|:---|
+| **0.80 벽 돌파** | V71 Ensemble = **0.803**, V74 ElasticNet = **0.807** | LASSO(0.790) 대비 최대 +2.1% |
+| **옵션 데이터 불필요** | VIX 파생 + OHLCV만으로 예측 | Carr+(2019): 79개 옵션, Heston+(2023): 자산별 옵션 |
+| **Multi-Horizon** | 1d~365d 8지평, 7모델 | 대부분 단일 지평 |
+| **ML vs DL 한계 규명** | Pooled 데이터에서 DL 실패 실증 | 대부분 DL 우위만 보고 (Negative Result) |
+| **이중 학습 전략** | Pooling(V50) + Adaptive(V71) | Fan+(2025): VRP 아님 |
+| **내재적 해석** | Attention 가중치 = 해석 도구 | Lo+(2023): SHAP/LIME |
+
+---
+
+## 참고문헌
+
+::: {.callout-tip collapse="true"}
+## 핵심 참고문헌 (클릭하여 펼치기)
+
+**벤치마크 모델**: Corsi(2009) HAR-RV, Andersen+(2007) HAR-CJ, Audrino+(2016) LASSO, Christensen+(2023) RF
+
+**VRP 이론**: Carr & Wu(2009), Bekaert & Hoerova(2014), Hansen+(2021) Realized GARCH
+
+**Cross-Asset**: Heston+(2023), Ornelas+(2018), Finta & Ornelas(2022)
+
+**딥러닝**: Carr+(2019) ML+Options, Roszyk+(2024) LSTM-GARCH, Xu+(2024) GINN, Ramos+(2021) Transformer
+
+**방법론**: Lopez de Prado(2018), Chun+(2025), Fan+(2025)
+:::

@@ -1,10 +1,10 @@
 # V50: Dual Attention LSTM - The New Champion Model
-**Status**: SOTA Achieved (R² 0.821)  
+**Status**: 최고 성능 달성 (R² 0.821)  
 **Date**: Feb 1, 2026  
 **Author**: Antigravity  
 
 ## 1. Executive Summary
-The **V50 (Dual Attention LSTM)** model has successfully broken the previous state-of-the-art (V29, R² ≈ 0.73) and established a new benchmark for volatility forecasting with an **R² of 0.821**. This represents a **12.3% improvement** over the previous champion and proves that modern deep learning architectures, when correctly designed with **Attention mechanisms**, can significantly outperform traditional econometric models (HAR-GARCH) in financial time-series.
+The **V50 (Dual Attention LSTM)** model has successfully broken the previous champion record (V29, R² ≈ 0.73) and established a new benchmark for volatility forecasting with an **R² of 0.821**. This represents a **12.3% improvement** over the previous champion and proves that modern deep learning architectures, when correctly designed with **Attention mechanisms**, can significantly outperform traditional econometric models (HAR-GARCH) in financial time-series.
 
 ## 2. Model Architecture
 The V50 model integrates **Bi-directional Long Short-Term Memory (Bi-LSTM)** networks with a **Temporal Attention Mechanism**.
@@ -63,7 +63,7 @@ Experiments conducted on SPY, QQQ, IWM, TLT, IEF, GLD (2010-2025).
 | V35 (Multi-GARCH) | 0.735 | +0.5% | Minor gain |
 | V36 (Asset-Adaptive) | 0.755 | +3.4% | Good ensemble strategy |
 | V43 (Transformer) | 0.797 | +9.2% | Strong non-linear modeling |
-| **V50 (Dual-Attn LSTM)** | **0.821** | **+12.3%** | **New SOTA Champion** |
+| **V50 (Dual-Attn LSTM)** | **0.821** | **+12.3%** | **신규 챔피언 모델** |
 
 ## 5. Next Steps
 The V50 model is now the core candidate for the SCI paper.

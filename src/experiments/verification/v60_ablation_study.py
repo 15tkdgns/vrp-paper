@@ -151,7 +151,10 @@ def run_ablation_study():
     ASSETS = ['SPY', 'TLT']
     SEQ_LEN = 22
     HIDDEN_DIM = 64
+    SEQ_LEN = 22
+    HIDDEN_DIM = 64
     INPUT_DIM = 2
+    MAX_SAMPLES = 10000 # 학습 속도를 위해 샘플 수 제한
     
     print(f"Assets: {ASSETS}")
     print(f"Sequence Length: {SEQ_LEN}")

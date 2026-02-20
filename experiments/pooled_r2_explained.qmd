@@ -1,0 +1,302 @@
+---
+title: "풀링 R² (Pooled R²) 해설"
+subtitle: "다중 자산 변동성 예측에서의 성능 지표 이해하기"
+format:
+  html:
+    toc: true
+---
+
+## 풀링 R²란?
+
+**풀링 R² (Pooled R²)**는 **다중 자산의 예측값과 실제값을 하나의 벡터로 합친 뒤** 전체에 대해 계산하는 R² 스코어입니다.
+
+```{python}
+#| echo: false
+#| fig-width: 12
+#| fig-height: 5
+
+import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
+import numpy as np
+
+plt.rcParams['font.family'] = 'UnDotum'
+plt.rcParams['axes.unicode_minus'] = False
+
+fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+
+# --- 왼쪽: 개별 자산별 R² (분산 큼) ---
+ax = axes[0]
+np.random.seed(42)
+colors = ['#E53E3E', '#FC8181', '#3182CE', '#63B3ED', '#A0AEC0']
+labels = ['SPY', 'QQQ', 'IWM', 'TLT', 'GLD']
+for i, (label, color) in enumerate(zip(labels, colors)):
+    x = np.random.randn(30) * 0.3 + i * 0.8
+    y = x * (0.3 + np.random.rand() * 0.5) + np.random.randn(30) * 0.4 + i * 0.8
+    ax.scatter(x, y, c=color, alpha=0.6, s=30, label=label)
+
+ax.set_xlabel('예측값', fontsize=11)
+ax.set_ylabel('실제값', fontsize=11)
+ax.set_title('개별 자산별 R² (중위 R²)', fontsize=13, fontweight='bold')
+ax.legend(fontsize=9, loc='upper left')
+ax.grid(True, alpha=0.2)
+ax.text(0.95, 0.05, '자산 간 분산이\n크게 보임',
+        transform=ax.transAxes, ha='right', va='bottom',
+        fontsize=10, color='#718096', style='italic')
+
+# --- 오른쪽: 풀링 R² (모두 합침) ---
+ax2 = axes[1]
+all_x, all_y = [], []
+for i in range(5):
+    x = np.random.randn(30) * 0.3 + i * 0.8
+    y = x * (0.3 + np.random.rand() * 0.5) + np.random.randn(30) * 0.4 + i * 0.8
+    all_x.extend(x)
+    all_y.extend(y)
+
+all_x, all_y = np.array(all_x), np.array(all_y)
+ax2.scatter(all_x, all_y, c='#E53E3E', alpha=0.4, s=30)
+
+# 회귀선
+z = np.polyfit(all_x, all_y, 1)
+p = np.poly1d(z)
+x_line = np.linspace(all_x.min(), all_x.max(), 100)
+ax2.plot(x_line, p(x_line), 'k--', linewidth=2, alpha=0.7, label='회귀선')
+
+ss_res = np.sum((all_y - p(all_x))**2)
+ss_tot = np.sum((all_y - np.mean(all_y))**2)
+r2 = 1 - ss_res / ss_tot
+
+ax2.set_xlabel('예측값', fontsize=11)
+ax2.set_ylabel('실제값', fontsize=11)
+ax2.set_title(f'풀링 R² (전체 통합) = {r2:.3f}', fontsize=13, fontweight='bold')
+ax2.legend(fontsize=9)
+ax2.grid(True, alpha=0.2)
+ax2.text(0.95, 0.05, 'Cross-sectional\nvariation 포함',
+        transform=ax2.transAxes, ha='right', va='bottom',
+        fontsize=10, color='#E53E3E', fontweight='bold')
+
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## 수학적 정의
+
+$N$개 자산, 각 자산 $i$에 대해 $T_i$개의 관측치가 있을 때:
+
+### 풀링 R² (Pooled R²)
+
+$$
+R^2_{\text{pooled}} = 1 - \frac{\sum_{i=1}^{N} \sum_{t=1}^{T_i} (y_{i,t} - \hat{y}_{i,t})^2}{\sum_{i=1}^{N} \sum_{t=1}^{T_i} (y_{i,t} - \bar{y})^2}
+$$
+
+여기서 $\bar{y}$는 **모든 자산의 전체 평균**입니다.
+
+::: {.callout-important}
+## 핵심 특징
+풀링 R²의 분모에서 $\bar{y}$는 **전체 자산의 평균**이므로, 자산 간 수준 차이(cross-sectional variation)가 자동으로 "설명력"에 포함됩니다.
+
+예를 들어, SPY의 변동성이 평균 0.15이고 TLT가 0.08이라면, 모델이 "SPY면 높게, TLT면 낮게" 예측하는 것만으로도 R²가 높아집니다.
+:::
+
+### 개별 자산 R² (Asset-specific R²)
+
+$$
+R^2_i = 1 - \frac{\sum_{t=1}^{T_i} (y_{i,t} - \hat{y}_{i,t})^2}{\sum_{t=1}^{T_i} (y_{i,t} - \bar{y}_i)^2}
+$$
+
+여기서 $\bar{y}_i$는 **자산 $i$만의 평균**입니다.
+
+### 중위 R² (Median R²)
+
+$$
+R^2_{\text{median}} = \text{median}(R^2_1, R^2_2, \ldots, R^2_N)
+$$
+
+개별 자산 R² 분포에서 중위값을 택하여, 이상치(극단적으로 높거나 낮은 자산)의 영향을 줄입니다.
+
+---
+
+## 풀링 R² vs 중위 R² 비교
+
+```{python}
+#| echo: false
+#| fig-width: 10
+#| fig-height: 5
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+plt.rcParams['font.family'] = 'UnDotum'
+plt.rcParams['axes.unicode_minus'] = False
+
+fig, ax = plt.subplots(figsize=(10, 5))
+
+models = ['HAR-3', 'V50 LSTM', 'V71 Ridge', 'V74 ElasticNet']
+pooled = [0.761, 0.780, 0.793, 0.807]
+median = [0.120, 0.274, 0.215, 0.215]
+
+x = np.arange(len(models))
+w = 0.35
+
+bars1 = ax.bar(x - w/2, pooled, w, label='풀링 R²', color='#E53E3E', edgecolor='white', linewidth=1.5)
+bars2 = ax.bar(x + w/2, median, w, label='중위 R²', color='#A0AEC0', edgecolor='white', linewidth=1.5)
+
+for bar, val in zip(bars1, pooled):
+    ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.01,
+            f'{val:.3f}', ha='center', va='bottom', fontsize=10, fontweight='bold', color='#E53E3E')
+for bar, val in zip(bars2, median):
+    ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.01,
+            f'{val:.3f}', ha='center', va='bottom', fontsize=10, fontweight='bold', color='#718096')
+
+ax.set_ylabel('R² 스코어', fontsize=12)
+ax.set_title('풀링 R² vs 중위 R²: 같은 모델, 다른 해석', fontsize=14, fontweight='bold')
+ax.set_xticks(x)
+ax.set_xticklabels(models, fontsize=11)
+ax.set_ylim(-0.1, 0.95)
+ax.axhline(y=0, color='black', linewidth=0.5)
+ax.legend(fontsize=11, loc='upper left')
+ax.grid(True, alpha=0.2, axis='y')
+
+# 화살표 + 설명
+ax.annotate('차이가 매우 큼!\ncross-sectional\nvariation의 영향',
+            xy=(2, 0.5), fontsize=10, ha='center', color='#4a5568',
+            style='italic',
+            bbox=dict(boxstyle='round,pad=0.5', facecolor='#FFF5F5', edgecolor='#E53E3E', alpha=0.8))
+
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## 왜 풀링 R²가 높게 나오는가?
+
+### Cross-Sectional Variation 효과
+
+```{python}
+#| echo: false
+#| fig-width: 10
+#| fig-height: 4
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+plt.rcParams['font.family'] = 'UnDotum'
+plt.rcParams['axes.unicode_minus'] = False
+
+fig, axes = plt.subplots(1, 2, figsize=(10, 4))
+
+# 자산 간 수준 차이
+assets = ['SPY', 'QQQ', 'IWM', 'TLT', 'IEF', 'GLD', 'SLV', 'DBA', 'USO', 'UNG', 'XLE']
+levels = [0.18, 0.22, 0.25, 0.09, 0.06, 0.15, 0.30, 0.14, 0.35, 0.42, 0.27]
+colors = ['#E53E3E' if v > 0.2 else '#3182CE' if v < 0.1 else '#A0AEC0' for v in levels]
+
+axes[0].barh(assets, levels, color=colors, edgecolor='white', linewidth=1)
+axes[0].set_xlabel('평균 LogRV 수준', fontsize=11)
+axes[0].set_title('자산별 변동성 수준 차이', fontsize=13, fontweight='bold')
+axes[0].axvline(x=np.mean(levels), color='gray', linestyle='--', alpha=0.5, label=f'전체 평균: {np.mean(levels):.2f}')
+axes[0].legend(fontsize=9)
+axes[0].grid(True, alpha=0.2, axis='x')
+
+# 분해 도식
+labels = ['Cross-sectional\nVariation\n(자산 간 차이)', 'Time-series\nVariation\n(시간적 변동)']
+sizes = [65, 35]
+colors_pie = ['#E53E3E', '#A0AEC0']
+explode = (0.05, 0)
+wedges, texts, autotexts = axes[1].pie(sizes, explode=explode, labels=labels, colors=colors_pie,
+                                         autopct='%1.0f%%', shadow=False, startangle=90,
+                                         textprops={'fontsize': 10})
+autotexts[0].set_fontweight('bold')
+autotexts[0].set_color('white')
+autotexts[1].set_fontweight('bold')
+axes[1].set_title('풀링 R²의 설명력 구성 (추정)', fontsize=13, fontweight='bold')
+
+plt.tight_layout()
+plt.show()
+```
+
+::: {.callout-note}
+## 설명력 분해
+
+풀링 R²가 0.807이라는 것은 다음 두 요소를 **합산**한 결과입니다:
+
+1. **Cross-sectional variation (~65%)**: 자산 A는 변동성이 높고, 자산 B는 낮다는 "수준 차이"를 맞추는 것
+2. **Time-series variation (~35%)**: 같은 자산 내에서 "내일 변동성이 올라갈 것이다/내려갈 것이다"를 맞추는 것
+
+따라서 **중위 R²** (개별 자산별로만 평가)가 0.2~0.3 수준인 것은, 순수한 시계열 예측력만 반영하기 때문입니다.
+:::
+
+---
+
+## 어떤 지표를 봐야 하는가?
+
+| 관점 | 적합한 지표 | 해석 |
+|:---|:---|:---|
+| **포트폴리오 배분** | **풀링 R²** | "어떤 자산이 더 변동적인가?" 자산 선택/비중 조절에 유용 |
+| **리스크 관리** | **풀링 R²** + **RMSE** | 전체 포트폴리오의 변동성 예측 정확도 |
+| **개별 자산 트레이딩** | **중위 R²** | "내일 이 자산의 변동성이 올라갈까?" 순수 예측력 |
+| **학술 논문** | **양쪽 모두** | 풀링 R²는 상한, 중위 R²는 하한; 함께 보고 |
+
+::: {.callout-tip}
+## 본 연구에서의 사용
+
+본 연구에서는 **풀링 R²를 주(primary) 지표**로 사용합니다. 이유:
+
+1. **Cross-Asset VRP (변동성 리스크 프리미엄) 예측**이 목적이므로, 자산 간 상대적 변동성 수준 파악이 핵심
+2. 11개 자산의 **상대적 변동성 순위**를 정확히 예측하는 것이 포트폴리오 구축에 직접 활용 가능
+3. 선행 연구(Christensen+, 2023; Audrino+, 2016)도 동일한 풀링 R² 기준 사용
+
+단, 개별 자산 수준의 예측력을 확인하기 위해 **중위 R²도 함께 보고**합니다. 이를 통해 모델의 한계(중위 R² < 0.3)도 투명하게 공개합니다.
+:::
+
+---
+
+## 코드 예시
+
+실제로 풀링 R²를 계산하는 Python 코드는 다음과 같습니다:
+
+```python
+import numpy as np
+from sklearn.metrics import r2_score
+
+def compute_pooled_r2(y_true_dict, y_pred_dict):
+    """
+    Parameters
+    ----------
+    y_true_dict : dict[str, np.array]
+        자산별 실제값 딕셔너리. key=자산명, value=실제값 배열
+    y_pred_dict : dict[str, np.array]
+        자산별 예측값 딕셔너리
+
+    Returns
+    -------
+    pooled_r2 : float
+        전체 자산을 합쳐서 계산한 R²
+    median_r2 : float
+        개별 자산 R²의 중위값
+    """
+    # 풀링: 모든 자산의 값을 하나로 합침
+    all_true = np.concatenate(list(y_true_dict.values()))
+    all_pred = np.concatenate(list(y_pred_dict.values()))
+    pooled_r2 = r2_score(all_true, all_pred)
+
+    # 개별 자산 R²
+    asset_r2s = []
+    for asset in y_true_dict:
+        r2 = r2_score(y_true_dict[asset], y_pred_dict[asset])
+        asset_r2s.append(r2)
+
+    median_r2 = np.median(asset_r2s)
+
+    return pooled_r2, median_r2
+```
+
+::: {.callout-warning}
+## 주의사항
+
+- 풀링 R²는 항상 중위 R²보다 높습니다 (cross-sectional variation 때문)
+- 풀링 R²만 보고 "예측력이 80%"라고 해석하면 **과대평가 위험**이 있습니다
+- 반드시 **중위 R²** 또는 **자산별 R²** 분포를 함께 확인해야 합니다
+- 자산 수(N)가 많고. 자산 간 변동성 수준 차이가 클수록, 풀링 R²와 중위 R²의 괴리가 커집니다
+:::

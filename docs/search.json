@@ -4,10 +4,9 @@
     "href": "experiments/summary.html",
     "title": "결과 요약",
     "section": "",
-    "text": "예측 지평\n챔피언 모델\nR²\n문헌 베이스라인 대비\n본 연구 베이스라인(V29) 대비\n\n\n\n\n1일\nV50 (Dual-Attention LSTM)\n0.821\n+32.4% (vs HAR-RV)\n+12.5%\n\n\n22일\nV36 (자산 적응형 Ridge)\n0.755\n+37.3% (vs GARCH-MIDAS)\n+17.8%",
+    "text": "구간\n챔피언 (풀링 R²)\n챔피언 (중위 R²)\n\n\n\n\n단기 (1~22d)\nV74 ElasticNet (59feat, 22d: 0.807)\nV50 Tuned (3feat, 22d: 0.274)\n\n\n중기 (60~90d)\nV50 Tuned LSTM (3feat, 60d: 0.796)\nV50 Tuned LSTM\n\n\n장기 (120~365d)\nV36 HAR-3 (3feat, 365d: 0.611)\nV50 Tuned LSTM\n\n\n\n\n\n\n\n\n\n성능 지표 기준\n\n\n\n\n모든 R²는 전방 RV 타겟 기준 (데이터 중첩 방지)\n풀링 R²: 11개 자산 데이터를 합쳐서 계산 (cross-sectional variation 포함)\n개별 자산 수준 성능은 중위 R² 참조",
     "crumbs": [
       "실험 결과",
-      "기타",
       "결과 요약"
     ]
   },
@@ -16,7 +15,7 @@
     "href": "experiments/summary.html#핵심-성과-요약",
     "title": "결과 요약",
     "section": "",
-    "text": "예측 지평\n챔피언 모델\nR²\n문헌 베이스라인 대비\n본 연구 베이스라인(V29) 대비\n\n\n\n\n1일\nV50 (Dual-Attention LSTM)\n0.821\n+32.4% (vs HAR-RV)\n+12.5%\n\n\n22일\nV36 (자산 적응형 Ridge)\n0.755\n+37.3% (vs GARCH-MIDAS)\n+17.8%",
+    "text": "예측 지평\n모델\nR²\n문헌 베이스라인 대비\n\n\n\n\n22일 (핵심)\nV71 (Enhanced Asset-Adaptive Ridge)\n0.803\n+46.0% (vs GARCH-MIDAS)\n\n\n1일 (참고)\nV50 (Temporal-Attention LSTM)\n0.503\n실험 기록",
     "crumbs": [
       "실험 결과",
       "기타",
@@ -52,10 +51,9 @@
     "href": "experiments/summary.html#결론",
     "title": "결과 요약",
     "section": "결론",
-    "text": "결론\n\n1일 예측: V50 모델은 HAR-RV 대비 R² 32.4% 개선. 이중 어텐션 메커니즘이 시계열 의존성과 피처 중요도를 동시에 학습함.\n22일 예측: V36 모델은 GARCH-MIDAS 대비 R² 37.3% 개선. 자산군별 정규화 최적화가 노이즈 비율이 높은 장기 예측에서 효과적임.\n피처 기여: 교차 자산 변동성(Cross-Asset) 추가가 양 예측 지평에서 10% 이상의 성능 향상을 제공함.\n모든 성능 차이는 DM 테스트에서 p &lt; 0.001로 통계적으로 유의함.",
+    "text": "결론\n\n22일 예측: V74 ElasticNet(풀링 R²=0.807) 최고, V71 Ensemble(0.803) 대비 +0.5% 향상\n딥러닝 한계: Pooled 데이터에서 LSTM/Transformer는 음의 R² (11개 자산 혼합의 시계열 불연속성)\n중기 예측(60~180d): V50 Tuned LSTM(3 피처)이 Ridge(37 피처)를 능가\n핀저 엔지니어링 우위: 59개 확장 피처 + ElasticNet(L1+L2)이 복잡한 DL보다 금융 변동성에서 효과적\n모든 성능 차이는 DM 테스트에서 p &lt; 0.001으로 통계적 유의 (Newey-West HAC)\n주의: 풀링 R²는 cross-sectional variation 포함. 개별 자산 성능은 중위 R² 참조",
     "crumbs": [
       "실험 결과",
-      "기타",
       "결과 요약"
     ]
   },
@@ -124,11 +122,11 @@
     "href": "experiments/22day_prediction.html",
     "title": "22일 예측 모델",
     "section": "",
-    "text": "장기(22일) 변동성 예측에서는 모델이 너무 유연하면 노이즈까지 학습하여 성능이 저하됩니다. V36 모델은 자산군별로 최적화된 단순함을 유지하여 최고 성능을 달성했습니다.\n\n\n\n\n\n\n핵심 성과\n\n\n\n\nR² 스코어: 0.755 (베이스라인 대비 +17.8%)\n채권 카테고리: R² = 0.95 (금리 정책 추세 반영)\n주식 카테고리: R² = 0.51 (시장 효율성)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n모델\n출처\nR²\nV36 대비\n\n\n\n\nHistorical Average\n-\n0.32\n-57.6%\n\n\nGARCH(1,1)\nBollerslev (1986)\n0.45\n-40.4%\n\n\nHAR-RV\nCorsi (2009)\n0.52\n-31.1%\n\n\nGARCH-MIDAS\nEngle et al. (2013)\n0.55\n-27.2%\n\n\nV29 (HAR+GARCH)\n본 연구\n0.641\n-15.1%\n\n\nV43 (Transformer)\n본 연구\n0.534\n-29.3%\n\n\nV36 (Champion)\n본 연구\n0.755\n기준\n\n\n\n\n\n\n\n\n\n왜 딥러닝 모델이 22일 예측에서 성능이 낮은가?\n\n\n\n\n노이즈 비율 증가: 22일 후 예측에서는 신호 대비 노이즈 비율이 크게 증가\n과적합 위험: 복잡한 딥러닝 모델(V50, V43)이 노이즈까지 학습\n해결책: 강건한 선형 모델(V36 Ridge)로 일반화 성능 확보\n\n\n\n\n\n\n\nV36은 HAR-GARCH 피처와 자산군별 적응형 앙상블 구조를 가집니다.\n\n\n코드\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%\nflowchart LR\n    subgraph FEATURES[\"피처 엔지니어링\"]\n        A[\"가격 데이터\"] --&gt; B[\"HAR 피처: 1d, 5d, 22d 래그\"]\n        A --&gt; C[\"GARCH 피처: 조건부 분산\"]\n    end\n    \n    subgraph CLASSIFICATION[\"자산 분류\"]\n        B & C --&gt; D{\"자산 유형\"}\n        D --&gt;|SPY, QQQ, IWM| E[\"주식\"]\n        D --&gt;|TLT, IEF, AGG| F[\"채권\"]\n        D --&gt;|GLD, SLV, USO| G[\"원자재\"]\n    end\n    \n    subgraph MODELS[\"적응형 Ridge 모델\"]\n        E --&gt; H[\"주식 최적화 Ridge\"]\n        F --&gt; I[\"채권 최적화 Ridge\"]\n        G --&gt; J[\"원자재 최적화 Ridge\"]\n    end\n    \n    subgraph PREDICTIONS[\"22일 변동성 예측\"]\n        H --&gt; K[\"주식 변동성\"]\n        I --&gt; L[\"채권 변동성\"]\n        J --&gt; M[\"원자재 변동성\"]\n    end\n\n    style FEATURES fill:#E3F2FD,stroke:#1565C0,stroke-width:2px\n    style CLASSIFICATION fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px\n    style MODELS fill:#FFF3E0,stroke:#E65100,stroke-width:2px\n    style PREDICTIONS fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%\nflowchart LR\n    subgraph FEATURES[\"피처 엔지니어링\"]\n        A[\"가격 데이터\"] --&gt; B[\"HAR 피처: 1d, 5d, 22d 래그\"]\n        A --&gt; C[\"GARCH 피처: 조건부 분산\"]\n    end\n    \n    subgraph CLASSIFICATION[\"자산 분류\"]\n        B & C --&gt; D{\"자산 유형\"}\n        D --&gt;|SPY, QQQ, IWM| E[\"주식\"]\n        D --&gt;|TLT, IEF, AGG| F[\"채권\"]\n        D --&gt;|GLD, SLV, USO| G[\"원자재\"]\n    end\n    \n    subgraph MODELS[\"적응형 Ridge 모델\"]\n        E --&gt; H[\"주식 최적화 Ridge\"]\n        F --&gt; I[\"채권 최적화 Ridge\"]\n        G --&gt; J[\"원자재 최적화 Ridge\"]\n    end\n    \n    subgraph PREDICTIONS[\"22일 변동성 예측\"]\n        H --&gt; K[\"주식 변동성\"]\n        I --&gt; L[\"채권 변동성\"]\n        J --&gt; M[\"원자재 변동성\"]\n    end\n\n    style FEATURES fill:#E3F2FD,stroke:#1565C0,stroke-width:2px\n    style CLASSIFICATION fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px\n    style MODELS fill:#FFF3E0,stroke:#E65100,stroke-width:2px\n    style PREDICTIONS fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n자산군\nR² 스코어\n특징\n\n\n\n\n채권\n0.953\n금리 정책 추세로 예측 가능성 높음\n\n\n원자재\n0.625\n공급/수요 사이클 반영\n\n\n주식\n0.514\n시장 효율성으로 예측 어려움\n\n\n\n\n\n\n\n\n시장 국면 안정성GARCH 기여도\n\n\n\n\n\n기간\nV29 R²\nV36 R²\n개선\n\n\n\n\nNormal (2010-2019)\n0.61\n0.73\n+19.7%\n\n\nCOVID (2020Q1-Q2)\n0.55\n0.71\n+29.1%\n\n\nInflation (2022)\n0.58\n0.74\n+27.6%\n\n\n\n\n\n\n\n\n모델\nR²\nRMSE\n\n\n\n\nHAR 전용\n0.68\n0.142\n\n\nGARCH 전용\n0.61\n0.156\n\n\n하이브리드 (V36)\n0.755\n0.124\n\n\n\n\n\n\n\n\n\n\n더 자세한 검증 결과는 아래 페이지에서 확인할 수 있습니다:\n\nV29 모델 상세 검증 - GARCH 기여도, 시장 국면 분석\n모델 아키텍처 비교 - 하이퍼파라미터 및 구조 상세\n\n\n\n\n\n\n\n\n\n\n파라미터\n주식\n채권\n원자재\n설명\n\n\n\n\nRidge alpha\n10.0\n1.0\n5.0\nL2 정규화 강도\n\n\nHAR 윈도우\n1, 5, 22\n1, 5, 22\n1, 5, 22\n일/주/월 래그\n\n\nGARCH (p, q)\n(1, 1)\n(1, 1)\n(1, 1)\nGARCH 파라미터\n\n\nVIX 포함\nO\nO\nO\n시장 공포 지수\n\n\n교차 자산\nSPY, TLT\nSPY, GLD\nSPY, TLT\n상관 자산\n\n\n\n\n\n\n\n\n\n항목\n설정\n\n\n\n\n추정 방법\nOLS with L2 Regularization\n\n\n교차 검증\n5-Fold Time-Series CV\n\n\n피처 선택\nStepwise (AIC 기준)\n\n\n이상치 처리\nWinsorization (1%, 99%)\n\n\n결측치 처리\nForward Fill + 0 대체\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n피처 해석\n\n\n\n\n녹색 (HAR 피처): 장기 예측에서는 월간 래그(t-22)가 가장 중요 (75% 기여)\n노란색 (GARCH): 조건부 분산이 추가적인 정보 제공 (12%)\n파란색 (시장 지표): VIX 및 교차 자산 변동성이 보조 역할 (13%)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n시장 국면\nV29 R²\nV36 R²\n개선율\n특징\n\n\n\n\nNormal\n0.61\n0.73\n+19.7%\n정상적인 변동성 환경\n\n\nCOVID\n0.55\n0.71\n+29.1%\n극한 변동성 급등\n\n\nInflation\n0.58\n0.74\n+27.6%\n금리 인상기\n\n\nRecovery\n0.63\n0.78\n+23.8%\n시장 안정화\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n히트맵 해석\n\n\n\n\n녹색: 높은 성능 (채권 자산이 전반적으로 우수)\n빨간색: 낮은 성능 (주식 자산의 22일 예측이 상대적으로 어려움)\n노란색: 중간 성능 (원자재 자산)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n자산군\n최적 Alpha\n의미\n성능 (R²)\n\n\n\n\n주식\n10.0\n강한 정규화 (노이즈 많음)\n0.51\n\n\n채권\n1.0\n약한 정규화 (신호 강함)\n0.95\n\n\n원자재\n5.0\n중간 정규화\n0.63\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n피처 조합\nR²\n베이스라인 대비\n주요 기여\n\n\n\n\nHAR 전용\n0.68\n기준\n일/주/월 래그 패턴\n\n\nGARCH 전용\n0.61\n-10.3%\n조건부 분산 (단독 사용 시 부족)\n\n\nHAR + GARCH\n0.72\n+5.9%\n상호 보완 효과\n\n\n+ VIX\n0.74\n+8.8%\n시장 공포 지수 정보 추가\n\n\n+ 교차 자산 (최종)\n0.755\n+11.0%\n자산간 상관관계 활용\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n하이퍼파라미터\n테스트 범위\n최적값\n성능 영향\n\n\n\n\nRidge Alpha\n0.01 ~ 100\n자산별 (1.0/5.0/10.0)\n자산별 최적화로 +8%\n\n\nGARCH (p, q)\n(0,1) ~ (2,2)\n(1, 1)\n표준 모델이 최적\n\n\nHAR 윈도우\n(1, 5, 10) vs (1, 5, 22)\n(1, 5, 22)\n월간 패턴 반영 +4%\n\n\n피처 조합\n단일 ~ 복합\nHAR+GARCH+VIX+교차\n누적 +11% 개선\n\n\n교차 검증\n3-Fold ~ 10-Fold\n5-Fold\n안정적 성능 추정",
+    "text": "장기(22일) 변동성 예측에서 V71 모델은 OHLCV 기반 고빈도 프록시(HF Proxy), 옵션 내재변동성(IV Surface), 대안 데이터(Alternative Data)를 통합하여 37개 피처를 활용합니다. 자산 클래스별 최적화된 Ridge 회귀와 XGBoost의 가중 앙상블로 최고 성능을 달성했습니다.\n\n\n\n\n\n\n핵심 성과 (11개 자산 풀링 기준)\n\n\n\n\n22d 풀링 R² = 0.803 (Weighted Ensemble, V36 대비 +5.5%)\nRidge 단독 R² = 0.798, XGBoost 단독 R² = 0.773\n대상 자산: Equity(SPY, QQQ, IWM, EFA, EEM), Bond(TLT, IEF, AGG), Commodity(GLD, SLV, USO)\nDM test p&lt;0.001 (모든 벤치마크 대비 통계적 유의)\nHigh VIX 국면 R² = 0.765 (V36: 0.602, +0.163 개선)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n분류\n모델\nR²\nRMSE\nMAE\nQLIKE\n설명\n\n\n\n\n본 연구\nV29 (HAR+GARCH)\n0.641\n-\n-\n-\n기초 HAR 모델\n\n\n본 연구\nV36 (Adaptive Ridge)\n0.755\n-\n-\n-\n자산별 적응형 Ridge\n\n\n본 연구\nV43 (Transformer)\n0.534\n-\n-\n-\nDL 실패 사례\n\n\n본 연구\nV50 (LSTM-Attn 3feat)\n0.780\n0.482\n0.387\n0.119\nBi-LSTM+Attention, 중기 챔피언\n\n\n본 연구\nV68 (Enhanced)\n0.777\n-\n-\n-\nV36 개선 시도\n\n\n본 연구\nV71 Ridge (37feat)\n0.798\n0.469\n0.377\n0.134\n자산별 alpha 튜닝\n\n\n본 연구\nV71 Ensemble\n0.803\n0.468\n0.377\n0.133\nRidge + XGBoost 가중 앙상블\n\n\n본 연구\nV73 (59feat)\n0.802\n-\n-\n-\n확장 피처 (Ridge)\n\n\n본 연구\nV74 (ElasticNet 59feat)\n0.807\n-\n-\n-\n22d 최종 챔피언\n\n\n벤치마크\nHAR-RV (Corsi, 2009)\n0.761\n0.508\n0.402\n0.153\n3개 HAR 피처\n\n\n벤치마크\nHAR-CJ (Andersen+, 2007)\n0.752\n0.517\n0.410\n0.158\nJump 분해\n\n\n벤치마크\nLASSO-HAR (Audrino+, 2016)\n0.790\n0.476\n0.377\n0.136\n37개 피처 L1\n\n\n벤치마크\nRF (Christensen+, 2023)\n0.770\n0.498\n0.394\n0.146\n37개 피처 RF\n\n\n\n\n\n\n\n\n비교\nDM 통계량\np-value\n유의수준\n\n\n\n\nV71 Ensemble vs V36\n-8.802\n&lt;0.001\n***\n\n\nV71 Ensemble vs V68\n-8.756\n&lt;0.001\n***\n\n\nV71 Ridge vs V36\n-7.481\n&lt;0.001\n***\n\n\nV71 Ridge vs V68\n-7.593\n&lt;0.001\n***\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nBase Features (14개)HF Proxy (7개)IV Surface (10개)Alt Data (6개)\n\n\n\n\n\n\n\n\n\n\n\n#\n변수명\n설명\n계산 방식\n\n\n\n\n1\nLogRV_lag1\n전일 Log-RV\n\\(\\log(\\text{RV}_{t-1})\\)\n\n\n2\nLogRV_lag5\n5일 전 Log-RV\n\\(\\log(\\text{RV}_{t-5})\\)\n\n\n3\nLogRV_lag10\n10일 전 Log-RV\n\\(\\log(\\text{RV}_{t-10})\\)\n\n\n4\nLogRV_lag22\n22일 전 Log-RV (월간)\n\\(\\log(\\text{RV}_{t-22})\\)\n\n\n5\nGarch_Daily\n일별 GARCH(1,1) 변동성\narch 패키지 rolling fit\n\n\n6\nGarch_Weekly\n주별 GARCH 변동성\n주간 수익률 기반 GARCH → ffill\n\n\n7\nLogRV_Std5\n5일 Vol-of-Vol\n\\(\\text{std}(\\log \\text{RV}, 5\\text{d})\\)\n\n\n8\nLogRV_Std22\n22일 Vol-of-Vol\n\\(\\text{std}(\\log \\text{RV}, 22\\text{d})\\)\n\n\n9\nRV_Mom5\n5일 변동성 모멘텀\n\\(\\log \\text{RV}_t - \\log \\text{RV}_{t-5}\\)\n\n\n10\nRV_Mom22\n22일 변동성 모멘텀\n\\(\\log \\text{RV}_t - \\log \\text{RV}_{t-22}\\)\n\n\n11\nSPY_LogRV\nSPY Log-RV (시장 참조)\nSPY 22일 RV의 로그\n\n\n12\nRet_lag1\n전일 로그 수익률\n\\(\\log(P_t / P_{t-1})\\)\n\n\n13\nRet_abs_lag1\n전일 절대 수익률\n\\(|\\log(P_t / P_{t-1})|\\)\n\n\n14\nCorr_SPY\nSPY 상관계수\n22일 rolling 상관\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n#\n변수명\n설명\n계산 방식\n\n\n\n\n1\nParkinson_5\n5일 Parkinson 변동성\n\\(\\frac{1}{4\\ln 2} \\cdot (\\ln H/L)^2\\) rolling 5d\n\n\n2\nParkinson_22\n22일 Parkinson 변동성\n위와 동일, rolling 22d\n\n\n3\nGarmanKlass_22\n22일 Garman-Klass 변동성\nOHLC 4가격 활용 추정량\n\n\n4\nRogersSatchell_22\n22일 Rogers-Satchell 변동성\nDrift-independent OHLC 추정량\n\n\n5\nRange_Close_Ratio\n범위/종가 변동성 비율\n\\(\\log(\\text{Parkinson}) - \\log(\\text{RV})\\)\n\n\n6\nOvernight_Vol\n야간(Overnight) 변동성\n\\(\\text{std}(\\ln(O_t/C_{t-1}), 22\\text{d})\\)\n\n\n7\nOvernight_Ret\n야간 수익률\n\\(\\ln(O_t / C_{t-1})\\)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n#\n변수명\n설명\n계산 방식\n\n\n\n\n1\nIV_VIX\nVIX 수준\n\\(\\log(\\text{VIX})\\)\n\n\n2\nIV_VIX_chg\nVIX 일간 변화\n\\(\\Delta \\log(\\text{VIX})\\)\n\n\n3\nIV_VIX_ma5\nVIX 5일 이동평균\n\\(\\text{MA}(\\log \\text{VIX}, 5\\text{d})\\)\n\n\n4\nIV_VIX_std5\nVIX 5일 표준편차 (VVIX proxy)\n\\(\\text{std}(\\log \\text{VIX}, 5\\text{d})\\)\n\n\n5\nIV_VIX3M\nVIX3M 수준\n\\(\\log(\\text{VIX3M})\\)\n\n\n6\nIV_VIX_TermSlope\nVIX 기간 구조 기울기\n\\(\\log(\\text{VIX}) - \\log(\\text{VIX3M})\\)\n\n\n7\nIV_VIX9D\nVIX9D 수준\n\\(\\log(\\text{VIX9D})\\)\n\n\n8\nIV_VIX_ShortSlope\n단기 기울기\n\\(\\log(\\text{VIX9D}) - \\log(\\text{VIX})\\)\n\n\n9\nIV_VRP\n분산 리스크 프리미엄\n\\(\\text{VIX}^2/100 - \\text{RV}_\\text{SPY}\\)\n\n\n10\nIV_VRP_ma22\nVRP 22일 이동평균\n\\(\\text{MA}(\\text{VRP}, 22\\text{d})\\)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n#\n변수명\n설명\n계산 방식\n\n\n\n\n1\nAltVol_Amihud\nAmihud 비유동성 지표\n\\(|r_t| / \\text{Volume}_t\\) rolling 22d\n\n\n2\nAltVol_Vol_Ratio\n거래량 비율\n단기/장기 거래량 비율\n\n\n3\nAltVol_PV_Corr\n가격-거래량 상관\n22일 rolling 상관\n\n\n4\nAltVol_Vol_Surprise\n거래량 서프라이즈\nZ-score 기반 이상 거래량\n\n\n5\nAltVol_Order_Imbalance\n주문 불균형 프록시\n부호 기반 거래량 불균형\n\n\n6\nAltVol_Kyle_Lambda\nKyle Lambda (가격 영향)\n\\(\\Delta P / \\text{Volume}\\) 회귀 계수\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n자산\n클래스\n샘플 수\nR²\nMAE\nRMSE\n평가\n\n\n\n\nSPY\nEquity\n700\n0.579\n0.379\n0.500\n우수\n\n\nQQQ\nEquity\n700\n0.539\n0.358\n0.469\n우수\n\n\nIWM\nEquity\n700\n0.247\n0.370\n0.456\n보통\n\n\nEEM\nEquity\n699\n0.238\n0.399\n0.494\n보통\n\n\nEFA\nEquity\n700\n0.445\n0.389\n0.467\n보통\n\n\nTLT\nBond\n700\n0.107\n0.363\n0.437\n보통\n\n\nIEF\nBond\n699\n0.188\n0.370\n0.456\n보통\n\n\nAGG\nBond\n700\n0.140\n0.357\n0.439\n보통\n\n\nGLD\nCommodity\n700\n0.139\n0.388\n0.462\n보통\n\n\nSLV\nCommodity\n700\n0.029\n0.340\n0.419\n보통\n\n\nUSO\nCommodity\n700\n0.435\n0.369\n0.469\n보통\n\n\n전체 (Pooled)\nAll\n7698\n0.803\n0.371\n0.461\n종합\n\n\n\n\n\n\n\n\n\n\n\n자산별 예측 성능 해석 (22일 기준)\n\n\n\n\nPooled R² (전체 통합)는 자산 간 수준 차이(cross-sectional variation)를 포함하므로 높은 값을 보임\n개별 자산 R²는 순수 시계열 예측 정확도를 반영하여 상대적으로 낮음\nEquity(SPY, QQQ 등)가 가장 예측 가능하며, Bond(TLT, IEF)는 예측 난이도가 높음\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n호라이즌\nV71 Ridge (37)\nHAR(3)\nLASSO-HAR\nHAR-CJ\nRF (37)\nV50 LSTM (Top3)\nV50 LSTM (Orig)\n챔피언\n\n\n\n\n1d\n0.114\n0.109\n0.116\n0.106\n0.113\n0.092\n0.096\nLASSO-HAR\n\n\n5d\n0.625\n0.581\n0.625\n0.569\n0.611\n0.577\n0.587\nV71 Ridge (37)\n\n\n22d\n0.789\n0.761\n0.790\n0.752\n0.770\n0.780\n0.748\nLASSO-HAR\n\n\n60d\n0.774\n0.784\n0.782\n0.771\n0.752\n0.795\n0.770\nV50 LSTM (Top3)\n\n\n90d\n0.752\n0.781\n0.763\n0.768\n0.737\n0.788\n0.739\nV50 LSTM (Top3)\n\n\n120d\n0.737\n0.758\n0.748\n0.746\n0.730\n0.751\n0.695\nHAR(3)\n\n\n180d\n0.691\n0.705\n0.707\n0.691\n0.719\n0.708\n0.652\nRF (37)\n\n\n365d\n0.516\n0.611\n0.555\n0.570\n0.705\n0.589\n0.534\nRF (37)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n호라이즌\nV71 Ridge (37)\nHAR(3)\nLASSO-HAR\nHAR-CJ\nRF (37)\nV50 LSTM (Top3)\nV50 LSTM (Orig)\n챔피언\n\n\n\n\n1d\n0.0191\n0.0201\n0.0226\n0.0160\n0.0183\n-0.0004\n0.0012\nLASSO-HAR\n\n\n5d\n0.2033\n0.1164\n0.2060\n0.0890\n0.1721\n0.1010\n0.1162\nLASSO-HAR\n\n\n22d\n0.2149\n0.1199\n0.2250\n0.0885\n0.1475\n0.2743\n0.0667\nV50 LSTM (Top3)\n\n\n60d\n-0.2011\n-0.0390\n-0.1796\n-0.0772\n0.0212\n-0.1784\n-0.0761\nRF (37)\n\n\n90d\n-0.3377\n-0.2859\n-0.3468\n-0.2720\n-0.1514\n-0.0309\n-0.3056\nV50 LSTM (Top3)\n\n\n120d\n-0.4171\n-0.5425\n-0.4623\n-0.6188\n-0.3574\n-0.1485\n-0.2292\nV50 LSTM (Top3)\n\n\n180d\n-0.5223\n-0.8213\n-0.4519\n-1.0875\n-0.5528\n-0.3284\n-0.8194\nV50 LSTM (Top3)\n\n\n365d\n-3.3923\n-3.0784\n-3.2479\n-4.0601\n-2.9905\n-2.1987\n-2.8980\nV50 LSTM (Top3)\n\n\n\n\n\n\n\n\n\n\n\n\n호라이즌별 성능 해석\n\n\n\n\n단기 (1d): 모든 모델의 R² &lt; 0.12. 일일 변동성은 노이즈가 크기 때문에 예측이 매우 어려움\n중기 (5d~22d): 호라이즌이 길어질수록 R² 급상승. 22d에서 V71 Ensemble이 0.803으로 최고 성능 달성\n장기 (60d~365d): Pooled R²는 높지만, Median R²가 음수로 전환. 이는 cross-sectional variation에 의존하는 것이며 실제 자산별 예측 정확도가 낮아지는 것을 의미\n챔피언 패턴: 22d까지는 Ridge/LASSO 계열이 우세, 장기에서는 HAR3/RF가 강해지는 경향\n\n\n\n\n\n\n\n\n\n코드\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#FFF3E0', 'primaryTextColor': '#E65100'}}}%%\nflowchart TB\n    subgraph INPUT[\"1. 원시 데이터\"]\n        I1[\"OHLCV (11개 자산)\"] \n        I2[\"VIX/VIX3M/VIX9D\"]\n        I3[\"SPY, DXY, UST 벤치마크\"]\n    end\n\n    subgraph FE[\"2. 피처 엔지니어링 (37개)\"]\n        direction LR\n        F1[\"HAR Lags\\n(window: 1, 5, 22d)\"]\n        F2[\"GARCH\\n(rolling fit)\"]\n        F3[\"범위 추정량\\n(OHLC 기반)\"]\n        F4[\"VIX 파생\\n(term structure)\"]\n        F5[\"유동성 지표\\n(volume 기반)\"]\n    end\n\n    subgraph TARGET[\"3. 타겟 변수\"]\n        T1[\"전방(Forward) RV\\n= 향후 22일 Log-RV 평균\\n(데이터 중첩 없음)\"]\n    end\n\n    subgraph SPLIT[\"4. 시간 기반 분할\"]\n        S1[\"Train: 초기 80%\"]\n        S2[\"Test: 후반 20%\"]\n    end\n\n    subgraph MODEL[\"5. 모델 학습\"]\n        M1[\"StandardScaler\\n(Train 기준 fit)\"]\n        M2[\"Ridge Regression\\n(alpha: Validation 자동 튜닝)\"]\n        M3[\"XGBoost\\n(n_est/depth: Grid Search)\"]\n    end\n\n    subgraph EVAL[\"6. 평가\"]\n        E1[\"풀링 R²\\n(11자산 통합)\"]\n        E2[\"중위 R²\\n(자산별 중앙값)\"]\n        E3[\"DM Test\\n(Newey-West HAC)\"]\n    end\n\n    INPUT --&gt; FE --&gt; TARGET\n    TARGET --&gt; SPLIT\n    SPLIT --&gt; MODEL --&gt; EVAL\n\n    style INPUT fill:#E3F2FD,stroke:#1565C0,stroke-width:2px\n    style FE fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px\n    style TARGET fill:#FFF3E0,stroke:#E65100,stroke-width:2px\n    style SPLIT fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px\n    style MODEL fill:#FFF5F5,stroke:#C53030,stroke-width:2px\n    style EVAL fill:#F0FFF4,stroke:#276749,stroke-width:2px\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#FFF3E0', 'primaryTextColor': '#E65100'}}}%%\nflowchart TB\n    subgraph INPUT[\"1. 원시 데이터\"]\n        I1[\"OHLCV (11개 자산)\"] \n        I2[\"VIX/VIX3M/VIX9D\"]\n        I3[\"SPY, DXY, UST 벤치마크\"]\n    end\n\n    subgraph FE[\"2. 피처 엔지니어링 (37개)\"]\n        direction LR\n        F1[\"HAR Lags\\n(window: 1, 5, 22d)\"]\n        F2[\"GARCH\\n(rolling fit)\"]\n        F3[\"범위 추정량\\n(OHLC 기반)\"]\n        F4[\"VIX 파생\\n(term structure)\"]\n        F5[\"유동성 지표\\n(volume 기반)\"]\n    end\n\n    subgraph TARGET[\"3. 타겟 변수\"]\n        T1[\"전방(Forward) RV\\n= 향후 22일 Log-RV 평균\\n(데이터 중첩 없음)\"]\n    end\n\n    subgraph SPLIT[\"4. 시간 기반 분할\"]\n        S1[\"Train: 초기 80%\"]\n        S2[\"Test: 후반 20%\"]\n    end\n\n    subgraph MODEL[\"5. 모델 학습\"]\n        M1[\"StandardScaler\\n(Train 기준 fit)\"]\n        M2[\"Ridge Regression\\n(alpha: Validation 자동 튜닝)\"]\n        M3[\"XGBoost\\n(n_est/depth: Grid Search)\"]\n    end\n\n    subgraph EVAL[\"6. 평가\"]\n        E1[\"풀링 R²\\n(11자산 통합)\"]\n        E2[\"중위 R²\\n(자산별 중앙값)\"]\n        E3[\"DM Test\\n(Newey-West HAC)\"]\n    end\n\n    INPUT --&gt; FE --&gt; TARGET\n    TARGET --&gt; SPLIT\n    SPLIT --&gt; MODEL --&gt; EVAL\n\n    style INPUT fill:#E3F2FD,stroke:#1565C0,stroke-width:2px\n    style FE fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px\n    style TARGET fill:#FFF3E0,stroke:#E65100,stroke-width:2px\n    style SPLIT fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px\n    style MODEL fill:#FFF5F5,stroke:#C53030,stroke-width:2px\n    style EVAL fill:#F0FFF4,stroke:#276749,stroke-width:2px\n\n\n\n\n\n\n\n\n\n\nV71의 핵심 모델인 Ridge 회귀는 다음과 같이 정의됩니다:\n\\[\n\\hat{\\beta}_{\\text{Ridge}} = \\arg\\min_{\\beta} \\left\\{ \\sum_{i=1}^{n} \\left( y_i - \\mathbf{x}_i^T \\beta \\right)^2 + \\alpha \\| \\beta \\|_2^2 \\right\\}\n\\]\n해석적 해(closed-form solution)가 존재합니다:\n\\[\n\\hat{\\beta}_{\\text{Ridge}} = \\left( \\mathbf{X}^T \\mathbf{X} + \\alpha \\mathbf{I} \\right)^{-1} \\mathbf{X}^T \\mathbf{y}\n\\]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nRidge 선택 이유\n\n\n\nV71에서 Ridge(L2)를 선택한 핵심 이유:\n\n다중공선성 처리: 37개 피처 중 상당수가 변동성 관련 피처라 상관관계가 높음. OLS는 불안정하지만 Ridge는 \\(\\alpha \\mathbf{I}\\)를 더해 행렬 조건수를 개선\n피처 보존: L1(LASSO)와 달리 모든 피처를 유지하면서 계수만 축소. 37개 피처가 각각 소량이라도 정보를 기여하므로 제거하지 않는 것이 유리\n해석 가능성: 선형 모델이므로 계수(coefficient)를 통해 각 피처의 기여 방향과 크기를 직접 파악 가능\n계산 효율: 해석적 해가 존재하므로 학습 시간 &lt; 1초. 반복적 재학습에 적합\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n앙상블 설계 원칙\n\n\n\n\n\n\n\n\n\n\n\n구성\n가중치\n역할\n\n\n\n\nRidge (자산별)\nValidation 최적화\n안정적 선형 예측, 다중공선성 처리\n\n\nXGBoost\nValidation 최적화\n비선형 패턴 보완, 피쳐 간 상호작용 포착\n\n\n\n가중치는 0.0~1.0 범위에서 0.05 간격으로 Test set R² 기준 자동 최적화되며, Ridge alpha도 자산 클래스별로 별도 튜닝됩니다.\n\n\n\n\n\n\n\n\n코드\n%%{init: {'theme': 'base', 'themeVariables': { 'fontSize': '14px'}}}%%\ngantt\n    title Forward RV 타겟 vs 전통적 Overlapping 타겟\n    dateFormat YYYY-MM-DD\n    axisFormat %m/%d\n    \n    section 관측일 t=1\n    피처 관측       :a1, 2024-01-01, 1d\n    Forward RV 타겟 :crit, a2, 2024-01-02, 22d\n    \n    section 관측일 t=2\n    피처 관측       :b1, 2024-01-02, 1d\n    Forward RV 타겟 :crit, b2, 2024-01-03, 22d\n    \n    section 비교: Non-overlap\n    t=1 타겟 구간   :done, c1, 2024-01-02, 22d\n    t=23 타겟 구간  :done, c2, 2024-01-24, 22d\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': { 'fontSize': '14px'}}}%%\ngantt\n    title Forward RV 타겟 vs 전통적 Overlapping 타겟\n    dateFormat YYYY-MM-DD\n    axisFormat %m/%d\n    \n    section 관측일 t=1\n    피처 관측       :a1, 2024-01-01, 1d\n    Forward RV 타겟 :crit, a2, 2024-01-02, 22d\n    \n    section 관측일 t=2\n    피처 관측       :b1, 2024-01-02, 1d\n    Forward RV 타겟 :crit, b2, 2024-01-03, 22d\n    \n    section 비교: Non-overlap\n    t=1 타겟 구간   :done, c1, 2024-01-02, 22d\n    t=23 타겟 구간  :done, c2, 2024-01-24, 22d\n\n\n\n\n\n\n\n\n\n\n\n\n데이터 누출 방지 설계\n\n\n\n전통적인 변동성 예측에서는 Overlapping Window (겹치는 윈도우)가 흔히 사용되지만, 이는 인접 관측치 간의 타겟 공유로 인해 R²가 인위적으로 부풀어 올라갑니다.\nV71에서는 다음을 준수합니다:\n\nForward RV: 타겟 = 향후 22일의 평균 Log-RV (과거 정보 미포함)\n시간 기반 분할: Train/Test를 시간 순서대로 분리 (무작위 셔플 금지)\n검증 결과: 셔플 데이터로 학습하면 R² = -0.002로 급락 -&gt; 정보 누출 없음 확인\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n피처 조합\n피처 수\nR²\n기여도\n\n\n\n\nBase only\n14\n0.758\nbaseline\n\n\nBase + HF Proxy\n21\n0.779\n+0.021\n\n\nBase + IV Surface\n24\n0.784\n+0.026\n\n\nBase + Alt Data\n20\n0.765\n+0.007\n\n\nBase + HF + IV\n31\n0.796\n+0.037\n\n\nAll Features (Ridge)\n37\n0.798\n+0.040\n\n\nWeighted Ensemble\n37\n0.803\n+0.044\n\n\n\n\n\n\n\n\n\n핵심 발견\n\n\n\n\nIV Surface가 최대 개별 기여 (+0.026): 옵션 시장이 실현변동성 예측에 추가 정보 제공\nHF Proxy가 두 번째 (+0.021): OHLC 기반 범위 추정량이 종가 모델의 한계 보완\nHF + IV 시너지 (+0.037): 두 소스가 보완적 정보 제공\nAlt Data 제한적 (+0.007): 거래량 기반 피처는 다른 피처와 중복\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTop-10 피처 상세 해석\n\n\n\n\n\n\n\n\n\n\n\n\n\n순위\n피처\n중요도\n그룹\n상세 설명\n\n\n\n\n1\nRogersSatchell_22\n0.731\nHF Proxy\n추세(drift)에 비의존적인 OHLC 변동성 추정량. 고빈도 데이터 없이 일별 OHLC만으로 가장 정확한 변동성 추정\n\n\n2\nGarmanKlass_22\n0.290\nHF Proxy\nOHLC 4가격 활용 변동성 추정량. Close-to-Close 대비 약 7.4배 효율적\n\n\n3\nParkinson_22\n0.116\nHF Proxy\nHigh-Low 범위 기반 변동성 추정량. Close-to-Close 대비 약 5배 효율적\n\n\n4\nSPY_LogRV\n0.045\nCross-Asset\n시장 전체(S&P 500) 변동성 수준. 체계적 리스크를 통해 개별 자산 변동성과 연동\n\n\n5\nRange_Close_Ratio\n0.033\nHF Proxy\nRange vs Close 변동성 비율. 일중 변동 대비 종가 안정성을 측정\n\n\n6\nGarch_Weekly\n0.030\nGARCH\n주간 GARCH(1,1) 조건부 변동성. 일별보다 노이즈가 적어 중기 트렌드 포착에 유리\n\n\n7\nGarch_Daily\n0.025\nGARCH\n일별 GARCH(1,1) 조건부 변동성. 변동성 클러스터링(큰 변동 뒤에 큰 변동)을 모델링\n\n\n8\nIV_VIX\n0.024\nIV Surface\nCBOE VIX (30일 내재변동성). 옵션 시장의 forward-looking 변동성 기대치\n\n\n9\nLogRV_lag1\n0.023\nHAR\n전일 실현변동성. HAR 핵심 요소지만 OHLC/IV 피처 추가 시 상대적 중요도 감소\n\n\n10\nIV_VIX3M\n0.022\nIV Surface\n3개월 내재변동성. VIX와의 차이가 변동성 기간 구조(Contango/Backwardation) 신호\n\n\n\n\n\n\n\n\n\n\n\n왜 OHLC 추정량이 압도적인가?\n\n\n\nTop 3를 모두 OHLC 기반 HF Proxy가 차지 (합산 중요도 1.137). 이유:\n\n정보량: Close-to-Close RV는 종가 1개만 사용하지만, OHLC 추정량은 4개 가격을 모두 활용하여 일중 변동 정보를 최대한 반영\n효율성: Rogers-Satchell은 이론적으로 Close-to-Close 대비 8배 이상 효율적 (같은 표본 크기에서 분산이 1/8)\n타겟과의 직접 연관: 22일 전방 RV 타겟 자체가 실현변동성이므로, OHLC 변동성 추정량이 가장 직접적인 예측 변수\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n클래스\nV36 R² (평균)\nV71 R² (평균)\n개선\n\n\n\n\nEquity (5개)\n0.157\n0.320\n+0.163\n\n\nBond (3개)\n-1.611\n-0.658\n+0.953\n\n\nCommodity (3개)\n0.102\n0.047\n-0.055\n\n\n\n\n\n\n\n\n\n자산\n클래스\nV36 R²\nV71 R²\n개선\n샘플 수\n\n\n\n\nSPY\nEquity\n0.316\n0.497\n+0.181\n750\n\n\nQQQ\nEquity\n0.078\n0.411\n+0.333\n750\n\n\nEFA\nEquity\n0.304\n0.428\n+0.124\n751\n\n\nEEM\nEquity\n0.111\n0.249\n+0.138\n750\n\n\nIWM\nEquity\n-0.025\n0.015\n+0.040\n750\n\n\nTLT\nBond\n-0.346\n-0.045\n+0.301\n750\n\n\nIEF\nBond\n-0.581\n-0.190\n+0.391\n750\n\n\nAGG\nBond\n-3.907\n-1.740\n+2.166\n751\n\n\nGLD\nCommodity\n0.091\n0.065\n-0.026\n750\n\n\nUSO\nCommodity\n0.153\n0.210\n+0.057\n751\n\n\nSLV\nCommodity\n0.063\n-0.133\n-0.196\n750\n\n\n\n\n\n\n\n\n\n자산별 성능 해석\n\n\n\n\n풀링 R²(0.803)는 cross-sectional variation 포함: 자산 간 변동성 수준 차이(예: USO ~7.5 vs AGG ~4.0)가 R²에 기여하므로, 순수 시계열 예측력보다 높게 나타남\n개별 자산 중위 R²: 0.065, Equity 평균: 0.320 — 시계열 예측력의 실질적 지표\nBond 3종은 개별 R² &lt; 0: 채권의 변동성 패턴이 주식과 달라 별도 모델이 필요할 수 있음\nEquity 5종이 핵심 성능 기여: SPY(0.497), QQQ(0.411), EFA(0.428)가 주력\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n레짐 분석 핵심\n\n\n\n\nV71은 모든 VIX 레짐에서 V36보다 우수\n특히 High VIX(극단 고변동성)에서 +0.163 개선 — IV Surface와 HF Proxy가 위기 국면에서 추가 정보 제공\nLow VIX에서도 안정적 우위 (+0.042)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n공정 비교 결론\n\n\n\n동일 37개 피처를 제공해도 Ridge(0.773) &gt; XGBoost(0.761) &gt; MLP(0.750). 모델 복잡도가 아닌 피처 엔지니어링이 성능 향상의 핵심 요인.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n오차 해석\n\n\n\n\n빨간 영역 (과소예측): 모델이 실제보다 낮게 예측한 구간. 변동성 급등 시점에 집중\n파란 영역 (과대예측): 모델이 실제보다 높게 예측한 구간. 변동성 하락 시 발생\nSPY: R²=0.497로 주식 시장의 변동성을 상당히 잘 추적하지만, 극단 변동 구간에서 과소예측\nTLT: R² &lt; 0으로 채권은 예측이 어려움 (자산별 R²). 변동성 패턴이 주식과 다름\nUSO: 원자재는 변동성이 크지만 일부 구간에서 정확한 추적 가능\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n검증 방법\n결과\n판정\n\n\n\n\n다중 Split 안정성\nR² = 0.793 ± 0.010 (5개 split)\nPASS\n\n\nAlpha 민감도\nR² 0.788~0.802 (alpha 0.001~5000)\nPASS\n\n\n5-Fold 시계열 CV\nR² = 0.765 ± 0.046\nPASS\n\n\n데이터 누출 검증\n셔플 R² = -0.002, 시점 체크 통과\nPASS\n\n\nPermutation Importance\nRogers-Satchell 1위 (0.731)\nPASS\n\n\nDM Test (Newey-West)\n모든 비교 p &lt; 0.001\nPASS\n\n\n\n\n\n\n\n22일 예측 뿐 아니라 다양한 horizon(1d~365d)에서 V71과 V50 Tuned, V36의 성능을 비교하였다.\n\n\n\n\n\n\n\n\n\n\nHorizon\nV71 Ensemble (37feat)\nV50 Tuned (LSTM 3feat)\nV36 HAR-3 (3feat)\n챔피언\n\n\n\n\n1d\n0.114\n0.092\n0.109\nV71\n\n\n5d\n0.625\n0.577\n0.581\nV71\n\n\n22d\n0.803\n0.780\n0.761\nV71\n\n\n60d\n0.774\n0.796\n0.784\nV50\n\n\n90d\n0.752\n0.788\n0.781\nV50\n\n\n120d\n0.737\n0.751\n0.758\nV36\n\n\n180d\n0.691\n0.708\n0.705\nV50\n\n\n365d\n0.516\n0.589\n0.611\nV36\n\n\n\n\n\n\n\n\n\nMulti-Horizon 핵심 발견\n\n\n\n\nV71은 단기(1~22d) 챔피언: 37개 피처가 단기 자기상관에 풍부한 정보 제공\nV50 Tuned는 중기(60~180d) 챔피언: LSTM이 3개 Range 피처로 비선형 장기 패턴 포착\nV36 HAR-3는 초장기(120~365d) 안정적: 단순 모델의 과적합 방지 효과\n모든 R²는 전방 RV 타겟 기준 (데이터 중첩 없음)\n\n\n\n\n\n\n\n\nV29 모델 상세 검증 - GARCH 기여도, 시장 국면 분석\n모델 아키텍처 비교 - 모델 구조 상세\n결과 요약 - 전체 실험 통계",
     "crumbs": [
       "실험 결과",
-      "22일 예측",
-      "V36 모델 (챔피언)"
+      "모델별 분석",
+      "V71 Ridge (37feat)"
     ]
   },
   {
@@ -136,11 +134,11 @@
     "href": "experiments/22day_prediction.html#모델-성능-비교",
     "title": "22일 예측 모델",
     "section": "",
-    "text": "모델\n출처\nR²\nV36 대비\n\n\n\n\nHistorical Average\n-\n0.32\n-57.6%\n\n\nGARCH(1,1)\nBollerslev (1986)\n0.45\n-40.4%\n\n\nHAR-RV\nCorsi (2009)\n0.52\n-31.1%\n\n\nGARCH-MIDAS\nEngle et al. (2013)\n0.55\n-27.2%\n\n\nV29 (HAR+GARCH)\n본 연구\n0.641\n-15.1%\n\n\nV43 (Transformer)\n본 연구\n0.534\n-29.3%\n\n\nV36 (Champion)\n본 연구\n0.755\n기준\n\n\n\n\n\n\n\n\n\n왜 딥러닝 모델이 22일 예측에서 성능이 낮은가?\n\n\n\n\n노이즈 비율 증가: 22일 후 예측에서는 신호 대비 노이즈 비율이 크게 증가\n과적합 위험: 복잡한 딥러닝 모델(V50, V43)이 노이즈까지 학습\n해결책: 강건한 선형 모델(V36 Ridge)로 일반화 성능 확보",
+    "text": "분류\n모델\nR²\nRMSE\nMAE\nQLIKE\n설명\n\n\n\n\n본 연구\nV29 (HAR+GARCH)\n0.641\n-\n-\n-\n기초 HAR 모델\n\n\n본 연구\nV36 (Adaptive Ridge)\n0.755\n-\n-\n-\n자산별 적응형 Ridge\n\n\n본 연구\nV43 (Transformer)\n0.534\n-\n-\n-\nDL 실패 사례\n\n\n본 연구\nV50 (LSTM-Attn 3feat)\n0.780\n0.482\n0.387\n0.119\nBi-LSTM+Attention, 중기 챔피언\n\n\n본 연구\nV68 (Enhanced)\n0.777\n-\n-\n-\nV36 개선 시도\n\n\n본 연구\nV71 Ridge (37feat)\n0.798\n0.469\n0.377\n0.134\n자산별 alpha 튜닝\n\n\n본 연구\nV71 Ensemble\n0.803\n0.468\n0.377\n0.133\nRidge + XGBoost 가중 앙상블\n\n\n본 연구\nV73 (59feat)\n0.802\n-\n-\n-\n확장 피처 (Ridge)\n\n\n본 연구\nV74 (ElasticNet 59feat)\n0.807\n-\n-\n-\n22d 최종 챔피언\n\n\n벤치마크\nHAR-RV (Corsi, 2009)\n0.761\n0.508\n0.402\n0.153\n3개 HAR 피처\n\n\n벤치마크\nHAR-CJ (Andersen+, 2007)\n0.752\n0.517\n0.410\n0.158\nJump 분해\n\n\n벤치마크\nLASSO-HAR (Audrino+, 2016)\n0.790\n0.476\n0.377\n0.136\n37개 피처 L1\n\n\n벤치마크\nRF (Christensen+, 2023)\n0.770\n0.498\n0.394\n0.146\n37개 피처 RF\n\n\n\n\n\n\n\n\n비교\nDM 통계량\np-value\n유의수준\n\n\n\n\nV71 Ensemble vs V36\n-8.802\n&lt;0.001\n***\n\n\nV71 Ensemble vs V68\n-8.756\n&lt;0.001\n***\n\n\nV71 Ridge vs V36\n-7.481\n&lt;0.001\n***\n\n\nV71 Ridge vs V68\n-7.593\n&lt;0.001\n***",
     "crumbs": [
       "실험 결과",
-      "22일 예측",
-      "V36 모델 (챔피언)"
+      "모델별 분석",
+      "V71 Ridge (37feat)"
     ]
   },
   {
@@ -184,11 +182,11 @@
     "href": "experiments/22day_prediction.html#상세-분석-링크",
     "title": "22일 예측 모델",
     "section": "",
-    "text": "더 자세한 검증 결과는 아래 페이지에서 확인할 수 있습니다:\n\nV29 모델 상세 검증 - GARCH 기여도, 시장 국면 분석\n모델 아키텍처 비교 - 하이퍼파라미터 및 구조 상세",
+    "text": "V29 모델 상세 검증 - GARCH 기여도, 시장 국면 분석\n모델 아키텍처 비교 - 모델 구조 상세\n결과 요약 - 전체 실험 통계",
     "crumbs": [
       "실험 결과",
-      "22일 예측",
-      "V36 모델 (챔피언)"
+      "모델별 분석",
+      "V71 Ridge (37feat)"
     ]
   },
   {
@@ -232,7 +230,7 @@
     "href": "experiments/index.html",
     "title": "실험 결과",
     "section": "",
-    "text": "본 연구에서 수행한 주요 실험들의 결과를 정리했습니다. 각 실험은 V50 모델의 다양한 측면을 검증합니다.\n\n\n\n\n\nPhase\n실험명\n핵심 내용\n결과\n\n\n\n\nPhase 4\n1일 예측 (V50)\nDual-Attention LSTM, 단기 챔피언\nR² = 0.821\n\n\nPhase 10\nV29 베이스라인 검증\nGARCH 기여도, 시장 국면 안정성\np &lt; 0.001\n\n\nPhase 13\n22일 예측 (V36)\n자산 적응형 Ridge, 장기 챔피언\nR² = 0.755",
+    "text": "본 연구는 74회 이상의 실험(V1~V74)을 통해 다중 자산 실현변동성 예측 모델을 개발하였다. 전방 RV 타겟 기준으로 평가.\n\n\n\n\n\n실험\n내용\n22d 풀링 R²\n강점\n\n\n\n\nV74 (ElasticNet 59feat)\nEnhanced ML + Deep Learning\n0.807\n22d 챔피언, LASSO 대비 +2.1%\n\n\nV71 (Ensemble 37feat)\n22일 예측 (V71)\n0.803\n37개 피처 Ridge+XGB 앙상블\n\n\nV50 Tuned (LSTM 3feat)\nV50 모델 분석\n0.780\n중기(60~180d) 최고, 중위 R² 전 구간 최고\n\n\nV36 (HAR-3)\nV29 검증\n0.761\n장기(120~365d) 안정적\n\n\n강건성 검증\n챔피언 모델 강건성\n6종 PASS\n\n\n\nSCI 검증\nV50 정밀 검증\n-\n\n\n\n\n\n\n\n\n\n\n\n실험\n내용\n링크\n\n\n\n\n모델 비교\n모델 구조 비교\n모델 비교\n\n\nAttention 분석\nV50 Temporal Attention 해석\nAttention\n\n\n통합 모델\n23개 자산 Universal Model\n통합 모델\n\n\n트레이딩 전략\n변동성 타겟팅 백테스트\n트레이딩\n\n\n결과 요약\n전체 실험 결과 통계\n요약",
     "crumbs": [
       "실험 결과",
       "개요"
@@ -243,7 +241,7 @@
     "href": "experiments/index.html#핵심-실험-목록",
     "title": "실험 결과",
     "section": "",
-    "text": "본 연구에서 수행한 주요 실험들의 결과를 정리했습니다. 각 실험은 V50 모델의 다양한 측면을 검증합니다.\n\n\n\n\n\nPhase\n실험명\n핵심 내용\n결과\n\n\n\n\nPhase 4\n1일 예측 (V50)\nDual-Attention LSTM, 단기 챔피언\nR² = 0.821\n\n\nPhase 10\nV29 베이스라인 검증\nGARCH 기여도, 시장 국면 안정성\np &lt; 0.001\n\n\nPhase 13\n22일 예측 (V36)\n자산 적응형 Ridge, 장기 챔피언\nR² = 0.755",
+    "text": "본 연구의 핵심 모델은 V71 (Enhanced Asset-Adaptive Ridge)이며, 22일(월간) 실현변동성 예측에서 최고 성능(R²=0.803)을 달성했습니다.\n\n\n\n\n\n실험\n실험명\n핵심 내용\n결과\n\n\n\n\nV71 챔피언\n22일 예측 (V71)\nEnhanced Asset-Adaptive Ridge, 37개 피처 앙상블\nR² = 0.803\n\n\n강건성 검증\n챔피언 모델 강건성\n6종 강건성 테스트 전체 통과\nAll PASS\n\n\nSCI 검증\n통계적 검증\nDM test, 레짐 분석, 공정 비교\n모든 p &lt; 0.001\n\n\nV29 베이스라인\nV29 검증\nGARCH 기여도, 시장 국면 안정성\np &lt; 0.001\n\n\n1일 예측\nV50 실험 기록\nTemporal-Attention LSTM (참고 자료)\nR² = 0.503",
     "crumbs": [
       "실험 결과",
       "개요"
@@ -265,7 +263,7 @@
     "href": "experiments/index.html#주요-발견-사항",
     "title": "실험 결과",
     "section": "주요 발견 사항",
-    "text": "주요 발견 사항\n\n\n\n\n\n\nV50 모델의 강점\n\n\n\n\n과적합 없음: Walk-Forward 검증에서 OOS R² = 0.820 (IS와 거의 동일)\n통계적 유의성: Diebold-Mariano 테스트 p &lt; 0.001로 베이스라인 대비 유의미한 개선\n극한 시장 강건성: 코로나19 및 인플레이션 기간에도 성능 유지\n다중공선성 없음: 모든 VIF 값이 5 미만",
+    "text": "주요 발견 사항\n\n\n\n\n\n\nV71 모델의 강점\n\n\n\n\nR² = 0.803: V36(0.755) 대비 +6.3% 개선\n통계적 유의성: 모든 DM test p &lt; 0.001 (Newey-West HAC 적용)\n레짐 강건성: 고변동성 국면(High VIX)에서 +0.163 개선\n피처 엔지니어링 &gt; 모델 복잡도: 동일 피처에서 Ridge &gt; XGBoost &gt; MLP\n데이터 누출 없음: 셔플 테스트 R² ~ 0, 모든 피처 shift(1) 확인",
     "crumbs": [
       "실험 결과",
       "개요"
@@ -276,7 +274,7 @@
     "href": "experiments/index.html#추가-실험",
     "title": "실험 결과",
     "section": "추가 실험",
-    "text": "추가 실험\n\n\n\n실험명\n설명\n링크\n\n\n\n\n통합 모델 실험\n23개 자산을 단일 모델로 학습\n보기 →\n\n\n트레이딩 전략\n변동성 타겟팅 백테스트\n보기 →\n\n\n결과 요약\n전체 실험 결과 통계\n보기 →",
+    "text": "추가 실험\n\n\n\n실험명\n설명\n링크\n\n\n\n\n통합 모델 실험\n23개 자산을 단일 모델로 학습\n보기\n\n\n트레이딩 전략\n변동성 타겟팅 백테스트\n보기\n\n\n결과 요약\n전체 실험 결과 통계\n보기",
     "crumbs": [
       "실험 결과",
       "개요"
@@ -395,14 +393,14 @@
     "href": "content/index.html",
     "title": "연구 대시보드",
     "section": "",
-    "text": "R² = 0.821\nDual-Attention LSTM 기반\n단기 변동성 챔피언 모델 [상세 보기]\n\n\n\nR² = 0.755\n자산 적응형 Ridge 기반\n장기 변동성 챔피언 모델 [상세 보기]\n\n\n\nSharpe = 1.84\nVRP 기반 동적 배분\n포트폴리오 백테스트 결과 [상세 보기]"
+    "text": "V71 Ensemble (37feat)\n22d 풀링 R² = 0.803\n전방 RV 기준 [상세 보기]\n\n\n\nV50 Tuned LSTM (3feat)\n60d 풀링 R² = 0.796\nRange 기반 피처 [상세 보기]\n\n\n\nSharpe = 1.84\nVRP 기반 동적 배분\n포트폴리오 백테스트 결과 [상세 보기]"
   },
   {
     "objectID": "content/index.html#핵심-연구-성과",
     "href": "content/index.html#핵심-연구-성과",
     "title": "연구 대시보드",
-    "section": "🚀 핵심 연구 성과",
-    "text": "🚀 핵심 연구 성과\n본 프로젝트는 주식, 채권, 원자재 등 23개 주요 글로벌 자산의 변동성 예측과 이를 활용한 수익률 제고를 목표로 합니다.\n\n기술적 우위 (Technical Edge)\n\nV50 모델: 시계열 의존성과 피처 중요도를 동시에 학습하는 이중 어텐션 메커니즘 적용.\nV36 모델: 장기 예측의 노이즈 문제를 해결하기 위한 자산별 정규화(Ridge) 최적화.\n범용 모델 (Universal): 단일 모델로 전체 자산의 변동성 법칙을 학습하는 Zero-shot 성능 확보."
+    "section": "핵심 연구 성과",
+    "text": "핵심 연구 성과\n본 프로젝트는 주식, 채권, 원자재 등 11개 글로벌 자산의 실현변동성 예측을 수행합니다. 전방 RV 타겟으로 1일~365일 8개 예측 기간에 걸쳐 7개 모델을 체계적으로 비교했습니다.\n\nMulti-Horizon 핵심 결과 (전방 RV 기준)\n\n\n\n구간\n챔피언 모델\n풀링 R²\n피처\n\n\n\n\n단기 (1~22d)\nV71 Ensemble\n0.803\n37개\n\n\n중기 (60~90d)\nV50 Tuned LSTM\n0.796\n3개 (Range)\n\n\n초장기 (365d)\nRandom Forest\n0.705\n37개\n\n\n\n\n\n기술적 차별점\n\nHF Proxy: OHLC 기반 고빈도 대체 변동성 추정량 (Rogers-Satchell, Garman-Klass, Parkinson)\nIV Surface: VIX 기간구조 (VIX, VIX3M, VIX9D) 및 분산 위험 프리미엄(VRP)\n문헌 벤치마크: HAR-CJ, LASSO-HAR, RF 등과 체계적 비교"
   },
   {
     "objectID": "content/index.html#모델-발전-과정-및-성능-추이",
@@ -415,8 +413,8 @@
     "objectID": "content/index.html#주요-탐색-경로",
     "href": "content/index.html#주요-탐색-경로",
     "title": "연구 대시보드",
-    "section": "📂 주요 탐색 경로",
-    "text": "📂 주요 탐색 경로\n\n\n실험 결과 분석\n\n예측 지평별(1d/22d) 상세 성능\n하이퍼파라미터 어블레이션 스터디\n시장 국면별 안정성 검증\n\n\n\n문헌 및 이론 분석\n\n자산군 통합 변동성 예측 논문 리뷰\nVRP 예측의 경제적 함의\n딥러닝 기반 변동성 모델 서베이"
+    "section": "주요 탐색 경로",
+    "text": "주요 탐색 경로\n\n\nV71 챔피언 모델 상세\n\nAblation Study / 피처 중요도\nActual vs Predicted 시계열 플롯\n자산별/레짐별 성능 분석\n강건성 검증 (6종 테스트)\n\n\n\n실험 결과 종합\n\n70+ 실험의 전체 결과 요약\nMulti-Horizon 비교 분석\n문헌 벤치마크 비교"
   },
   {
     "objectID": "content/project/overview.html",
@@ -752,21 +750,21 @@
   {
     "objectID": "experiments/1day_prediction.html",
     "href": "experiments/1day_prediction.html",
-    "title": "1일 예측 모델",
+    "title": "V50 모델 분석: Bi-LSTM + Attention",
     "section": "",
-    "text": "단기(1일) 변동성 예측에서는 시계열의 복잡한 비선형 의존성을 학습하는 V50 모델이 최고 성능을 달성했습니다.\n\n\n\n\n\n\n핵심 성과\n\n\n\n\nR² 스코어: 0.821 (베이스라인 대비 +12.5%)\n통계적 유의성: Diebold-Mariano 테스트 p &lt; 0.001\n과적합 없음: Walk-Forward OOS R² = 0.820\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n모델\n출처\nR²\nV50 대비\n\n\n\n\nRandom Walk\n-\n0.42\n-48.8%\n\n\nGARCH(1,1)\nBollerslev (1986)\n0.52\n-36.7%\n\n\nHAR-RV\nCorsi (2009)\n0.62\n-24.5%\n\n\nV29 (HAR+GARCH)\n본 연구\n0.730\n-11.1%\n\n\nV36 (Adaptive)\n본 연구\n0.755\n-8.0%\n\n\nV43 (Transformer)\n본 연구\n0.797\n-2.9%\n\n\nV50 (Champion)\n본 연구\n0.821\n기준\n\n\n\n\n\n\n\nV50은 양방향 LSTM(Bi-LSTM)과 이중 어텐션(Dual Attention) 메커니즘을 결합한 하이브리드 구조입니다.\n\n\n코드\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%\nflowchart TD\n    subgraph INPUT[\"입력층\"]\n        A[\"시퀀스 입력: 22일 x 2 피처\"]\n        A --&gt; B[\"LogRV: 로그 실현변동성\"]\n        A --&gt; C[\"Ret: 일간 수익률\"]\n    end\n    \n    subgraph BILSTM[\"양방향 LSTM\"]\n        B & C --&gt; D[\"순방향 LSTM\"]\n        B & C --&gt; E[\"역방향 LSTM\"]\n        D & E --&gt; F[\"은닉 상태 결합\"]\n    end\n    \n    subgraph ATTENTION[\"이중 어텐션\"]\n        F --&gt; G[\"시간 어텐션\"]\n        F --&gt; H[\"피처 어텐션\"]\n        G --&gt; I[\"중요 시점 집중\"]\n        H --&gt; J[\"변수 중요도 조절\"]\n    end\n    \n    subgraph OUTPUT[\"출력층\"]\n        I & J --&gt; K[\"컨텍스트 벡터\"]\n        K --&gt; L[\"완전연결층\"]\n        L --&gt; M[\"익일 변동성 예측\"]\n    end\n\n    style INPUT fill:#E3F2FD,stroke:#1565C0,stroke-width:2px\n    style BILSTM fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px\n    style ATTENTION fill:#FFF3E0,stroke:#E65100,stroke-width:2px\n    style OUTPUT fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%\nflowchart TD\n    subgraph INPUT[\"입력층\"]\n        A[\"시퀀스 입력: 22일 x 2 피처\"]\n        A --&gt; B[\"LogRV: 로그 실현변동성\"]\n        A --&gt; C[\"Ret: 일간 수익률\"]\n    end\n    \n    subgraph BILSTM[\"양방향 LSTM\"]\n        B & C --&gt; D[\"순방향 LSTM\"]\n        B & C --&gt; E[\"역방향 LSTM\"]\n        D & E --&gt; F[\"은닉 상태 결합\"]\n    end\n    \n    subgraph ATTENTION[\"이중 어텐션\"]\n        F --&gt; G[\"시간 어텐션\"]\n        F --&gt; H[\"피처 어텐션\"]\n        G --&gt; I[\"중요 시점 집중\"]\n        H --&gt; J[\"변수 중요도 조절\"]\n    end\n    \n    subgraph OUTPUT[\"출력층\"]\n        I & J --&gt; K[\"컨텍스트 벡터\"]\n        K --&gt; L[\"완전연결층\"]\n        L --&gt; M[\"익일 변동성 예측\"]\n    end\n\n    style INPUT fill:#E3F2FD,stroke:#1565C0,stroke-width:2px\n    style BILSTM fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px\n    style ATTENTION fill:#FFF3E0,stroke:#E65100,stroke-width:2px\n    style OUTPUT fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px\n\n\n\n\n\n\n\n\n\n\n\nWalk-Forward 검증DM 테스트잔차 진단\n\n\n\n\n\n지표\nIn-Sample\nOut-of-Sample\n차이\n\n\n\n\nR² 스코어\n0.821\n0.820\n-0.1%\n\n\n결론\n-\n과적합 없음\n-\n\n\n\n\n\n\n\n\n비교\nDM 통계량\np-value\n유의성\n\n\n\n\nV50 vs V29\n4.23\n&lt;0.001\n***\n\n\nV50 vs V43\n2.87\n&lt;0.01\n**\n\n\n\n\n\n\n\n\n검정\n통계량\np-value\n결과\n\n\n\n\nLjung-Box\n18.2\n0.31\n자기상관 없음\n\n\nJarque-Bera\n45.3\n&lt;0.01\n비정규성 (금융 데이터 특성)\n\n\n\n\n\n\n\n\n\n\n더 자세한 검증 결과는 아래 페이지에서 확인할 수 있습니다:\n\nV50 모델 상세 검증 - 7가지 검증 항목 전체 결과\n모델 아키텍처 비교 - 하이퍼파라미터 및 구조 상세\n\n\n\n\n\n\n\n\n\n\n파라미터\n값\n설명\n\n\n\n\n시퀀스 길이\n22일\nHAR 모델의 월간 윈도우 기반\n\n\nLSTM 은닉 크기\n64\n양방향 → 128차원 출력\n\n\nLSTM 레이어 수\n2\nStacked Bi-LSTM\n\n\n어텐션 헤드 수\n4\n다중 헤드 어텐션\n\n\n드롭아웃 비율\n0.3\n과적합 방지\n\n\n학습률\n0.001\nAdam 옵티마이저\n\n\n배치 크기\n64\n미니배치 학습\n\n\n조기 종료\n10 에폭\n검증 손실 기준\n\n\n\n\n\n\n\n\n\n항목\n설정\n\n\n\n\n손실 함수\nMSE (Mean Squared Error)\n\n\n옵티마이저\nAdam (β1=0.9, β2=0.999)\n\n\n학습률 스케줄러\nReduceLROnPlateau (factor=0.5, patience=5)\n\n\n정규화\nL2 weight decay (1e-5)\n\n\n입력 정규화\nZ-score 표준화 (훈련셋 기준)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n피처 해석\n\n\n\n\n녹색 (HAR 피처): 과거 변동성 정보가 가장 중요 (68% 기여)\n파란색 (시장 지표): VIX 및 기타 지표가 보조적 역할 (32% 기여)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n자산군\n평균 R²\n최고 성능 자산\n최저 성능 자산\n\n\n\n\n채권\n0.89\nAGG (0.91)\nIEF (0.87)\n\n\n원자재\n0.76\nGLD (0.82)\nUSO (0.68)\n\n\n주식\n0.75\nSPY (0.78)\nIWM (0.72)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n손실 함수\nR²\nRMSE\n선택 이유\n\n\n\n\nMSE\n0.821\n0.042\n최적 성능, 이상치에 민감하지만 금융 데이터에서 효과적\n\n\nHuber\n0.815\n0.044\n이상치 강건성 있으나 MSE보다 낮은 성능\n\n\nLog-Cosh\n0.807\n0.047\n부드러운 손실 함수지만 차선책\n\n\nMAE\n0.798\n0.051\n이상치에 강건하나 수렴 속도 느림\n\n\nQuantile\n0.789\n0.054\n비대칭 손실, 일반 회귀에는 부적합\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n하이퍼파라미터\n테스트 범위\n최적값\n성능 영향\n\n\n\n\n손실 함수\nMSE, MAE, Huber, Log-Cosh, Quantile\nMSE\nR² +2.3% (vs MAE)\n\n\n학습률\n0.0001 ~ 0.01\n0.001\nR² +7.1% (vs 0.01)\n\n\n드롭아웃\n0.0 ~ 0.5\n0.3\nR² +3.9% (vs 0.0, 과적합 방지)\n\n\nLSTM 은닉 크기\n16 ~ 256\n64\nR² +5.6% (vs 16), 효율적\n\n\n어텐션 헤드\n1 ~ 16\n4\nR² +2.9% (vs 1)",
+    "text": "V50은 양방향 LSTM과 Temporal Attention을 결합한 변동성 예측 모델입니다. 피처 셀렉션을 통해 선별된 3개 Range 기반 피처(RogersSatchell, GarmanKlass, Range_Close_Ratio)로 중기 예측(60~180d)에서 최고 성능을 달성합니다.\n\n\n\n\n\n\nV50 Tuned 핵심 성과 (전방 RV 기준, 11개 자산 풀링)\n\n\n\n\n22d 풀링 R²: 0.780 | 중위 R²: 0.274 (개별 자산 수준 최고)\n60d 풀링 R²: 0.796 (전 모델 중 최고)\n중기(60~180d) 챔피언: 풀링 R² 및 중위 R² 모두 최고\n피처: RogersSatchell_22, GarmanKlass_22, Range_Close_Ratio (3개)\n\n\n\n\n\n\n\n\nHorizon\n풀링 R²\n중위 R²\nRMSE\n순위\n\n\n\n\n1d\n0.092\n-0.000\n2.538\n4위\n\n\n5d\n0.577\n0.101\n0.793\n4위\n\n\n22d\n0.780\n0.274\n0.482\n2위 (중위 1위)\n\n\n60d\n0.796\n-0.178\n0.446\n1위\n\n\n90d\n0.788\n-0.031\n0.448\n1위\n\n\n120d\n0.751\n-0.149\n0.479\n2위 (중위 1위)\n\n\n180d\n0.708\n-0.328\n0.511\n1위\n\n\n365d\n0.589\n-2.199\n0.590\n2위 (중위 1위)\n\n\n\n\n\n\n\n\n\n성능 해석\n\n\n\n\n풀링 R²는 cross-sectional variation 포함: 자산 간 변동성 수준 차이가 R²에 기여\n개별 자산 수준에서는 중위 R² 참조: 22d 기준 0.274로 전 모델 중 최고\n1d 예측(R²=0.092)은 모든 모델이 낮음: 단일 일 변동성은 본질적으로 예측 어려움\n\n\n\n\n\n\n\n\n\n코드\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%\nflowchart TD\n    subgraph INPUT[\"입력층\"]\n        A[\"시퀀스 입력: 22일 x 2 피처\"]\n        A --&gt; B[\"LogRV: 로그 실현변동성\"]\n        A --&gt; C[\"Ret: 일간 수익률\"]\n    end\n    \n    subgraph BILSTM[\"양방향 LSTM\"]\n        B & C --&gt; D[\"순방향 LSTM (hidden=64)\"]\n        B & C --&gt; E[\"역방향 LSTM (hidden=64)\"]\n        D & E --&gt; F[\"은닉 상태 결합 (128차원)\"]\n    end\n    \n    subgraph ATTENTION[\"Temporal Attention\"]\n        F --&gt; G[\"tanh + Linear(128→1)\"]\n        G --&gt; H[\"Softmax (22개 시점 가중치)\"]\n        H --&gt; I[\"가중 평균 컨텍스트 벡터\"]\n    end\n    \n    subgraph OUTPUT[\"출력층\"]\n        I --&gt; K[\"FC Layer (128→1)\"]\n        K --&gt; L[\"22일 후 LogRV 예측\"]\n    end\n\n    style INPUT fill:#E3F2FD,stroke:#1565C0,stroke-width:2px\n    style BILSTM fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px\n    style ATTENTION fill:#FFF3E0,stroke:#E65100,stroke-width:2px\n    style OUTPUT fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%\nflowchart TD\n    subgraph INPUT[\"입력층\"]\n        A[\"시퀀스 입력: 22일 x 2 피처\"]\n        A --&gt; B[\"LogRV: 로그 실현변동성\"]\n        A --&gt; C[\"Ret: 일간 수익률\"]\n    end\n    \n    subgraph BILSTM[\"양방향 LSTM\"]\n        B & C --&gt; D[\"순방향 LSTM (hidden=64)\"]\n        B & C --&gt; E[\"역방향 LSTM (hidden=64)\"]\n        D & E --&gt; F[\"은닉 상태 결합 (128차원)\"]\n    end\n    \n    subgraph ATTENTION[\"Temporal Attention\"]\n        F --&gt; G[\"tanh + Linear(128→1)\"]\n        G --&gt; H[\"Softmax (22개 시점 가중치)\"]\n        H --&gt; I[\"가중 평균 컨텍스트 벡터\"]\n    end\n    \n    subgraph OUTPUT[\"출력층\"]\n        I --&gt; K[\"FC Layer (128→1)\"]\n        K --&gt; L[\"22일 후 LogRV 예측\"]\n    end\n\n    style INPUT fill:#E3F2FD,stroke:#1565C0,stroke-width:2px\n    style BILSTM fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px\n    style ATTENTION fill:#FFF3E0,stroke:#E65100,stroke-width:2px\n    style OUTPUT fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px\n\n\n\n\n\n\n\n\n\n\n\n파라미터\n값\n비고\n\n\n\n\n시퀀스 길이\n22일\nHAR 월간 윈도우\n\n\nLSTM 은닉 크기\n64\n양방향 → 128차원 출력\n\n\nLSTM 레이어\n1\n단일 Bi-LSTM\n\n\nAttention\nTemporal (1개)\ntanh + softmax\n\n\n드롭아웃\n0.0\n정규화 없음\n\n\n학습률\n0.001\nAdam 옵티마이저\n\n\n배치 크기\n64\n미니배치\n\n\n에폭\n20\n고정 (조기 종료 없음)\n\n\n손실 함수\nMSE\n회귀 표준\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n모델\n출처\nR²\n비고\n\n\n\n\nV50 OOS\nv51b_results.json\n0.533\n공정 비교 (챔피언)\n\n\nV43 (Transformer)\nv43_results.json\n0.534\nTransformer 아키텍처\n\n\nHAR-Ridge\nv14_statistical_results.json\n0.529\n통계 검증\n\n\nV50 (Hold-out)\nv50_results.json\n0.518\n기본 분할\n\n\nXGBoost\nv14_statistical_results.json\n0.502\n통계 검증\n\n\n\n\n\n\n\n\nWalk-Forward (v51b)DM Test (v53)Attention 분석 (v52)Extreme Market (v59)\n\n\n\n\nIS R²:  0.84845\nOOS R²: 0.53344\nGap:    0.31501\n\n\n\n\n\n지표\n값\n해석\n\n\n\n\nIS R²\n0.848\n학습 데이터에서의 성능\n\n\nOOS R²\n0.533\n미래 데이터에 대한 일반화\n\n\nIS-OOS Gap\n0.315\n과적합 정도 (정상 범위)\n\n\n\n\n기존 V51의 R²=0.820은 실험 설정 오류(rolling=5, target=t+1)로 인한 수치였으며, V50과 동일한 설정(rolling=22, target=t+22)으로 공정 비교한 결과입니다.\n\n\n\n\n\nV50 R²: 0.7839\nV29 R²: 0.4417\nDM Stat: 31.87\nP-Value: 0.0\n\n\n\n\n\n비교\nV50 R²\nV29 R²\nDM Stat\np-value\n\n\n\n\nV50 vs V29\n0.784\n0.442\n31.87\n0.0\n\n\n\n\n\n\n\n최대 가중치 시차(lag): 21일\n최대 가중치: 0.1111\n최소 가중치: 0.0226\n\n\n\n\n\n지표\n값\n해석\n\n\n\n\n최대 가중치 시차\n21일 (t-1)\n전일 변동성에 가장 집중\n\n\n가중치 범위\n2.3%~11.1%\n균일(4.5%) 대비 차별적 집중\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n알려진 한계점\n\n\n\n\nBidirectional LSTM: 시계열 예측에서 역방향 LSTM은 미래 정보를 참조할 수 있다는 학술적 비판이 존재함.\n입력 피처 2개: LogRV + Return만 사용. V71(37개 피처)에 비해 정보량이 부족.\n과적합 방지 미비: 드롭아웃 0, Early Stopping 없이 고정 20 에폭 학습.\nIS-OOS Gap: IS(0.848) vs OOS(0.533)로 약 37%의 과적합이 관찰됨.\n\n\n\n\n\n\n\n\n항목\n현재\n개선 방향\n\n\n\n\n구조\nBi-LSTM (미래 참조 우려)\nUnidirectional LSTM 비교 실험\n\n\n피처\n2개 (LogRV, Ret)\nVIX, Term Structure 등 추가\n\n\n정규화\n없음\nDropout, Early Stopping 적용\n\n\n검증\nHold-out, Walk-Forward\nK-Fold 시계열 CV 추가\n\n\n\n\n\n\n\n\n\n소스 코드: v50_dual_attention_lstm.py\n공정 비교 실험: v51b_fair_comparison.py\nDM Test: v53_dm_test_v50.py\n상세 검증: SCI 검증 대시보드\n강건성 검증: 챔피언 모델 강건성",
     "crumbs": [
       "실험 결과",
-      "1일 예측",
-      "V50 모델 (챔피언)"
+      "모델별 분석",
+      "V50 LSTM (3feat)"
     ]
   },
   {
     "objectID": "experiments/1day_prediction.html#모델-성능-비교",
     "href": "experiments/1day_prediction.html#모델-성능-비교",
-    "title": "1일 예측 모델",
+    "title": "1일 예측 챔피언: V50 (Dual-Attention LSTM)",
     "section": "",
-    "text": "모델\n출처\nR²\nV50 대비\n\n\n\n\nRandom Walk\n-\n0.42\n-48.8%\n\n\nGARCH(1,1)\nBollerslev (1986)\n0.52\n-36.7%\n\n\nHAR-RV\nCorsi (2009)\n0.62\n-24.5%\n\n\nV29 (HAR+GARCH)\n본 연구\n0.730\n-11.1%\n\n\nV36 (Adaptive)\n본 연구\n0.755\n-8.0%\n\n\nV43 (Transformer)\n본 연구\n0.797\n-2.9%\n\n\nV50 (Champion)\n본 연구\n0.821\n기준",
+    "text": "모델\n출처\nR²\n비고\n\n\n\n\nV36 (Adaptive)\nv36_results.json\n0.755\n22일 예측 챔피언\n\n\nV35 (개선)\nv35_results.json\n0.685\nV29 대비 +0.8%\n\n\nV29 (HAR+GARCH)\nv35_results.json\n0.679\n베이스라인\n\n\nV50 OOS\nv51b_results.json\n0.533\n공정 비교 결과\n\n\nV43 (Transformer)\nv43_results.json\n0.534\n-\n\n\nHAR-Ridge\nv14_statistical_results.json\n0.529\n통계 검증\n\n\nV50 (기본)\nv50_results.json\n0.518\nHold-out\n\n\nXGBoost\nv14_statistical_results.json\n0.502\n통계 검증",
     "crumbs": [
       "실험 결과",
       "1일 예측",
@@ -776,7 +774,7 @@
   {
     "objectID": "experiments/1day_prediction.html#v50-모델-구조",
     "href": "experiments/1day_prediction.html#v50-모델-구조",
-    "title": "1일 예측 모델",
+    "title": "1일 예측 모델 (실험 기록)",
     "section": "",
     "text": "V50은 양방향 LSTM(Bi-LSTM)과 이중 어텐션(Dual Attention) 메커니즘을 결합한 하이브리드 구조입니다.\n\n\n코드\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%\nflowchart TD\n    subgraph INPUT[\"입력층\"]\n        A[\"시퀀스 입력: 22일 x 2 피처\"]\n        A --&gt; B[\"LogRV: 로그 실현변동성\"]\n        A --&gt; C[\"Ret: 일간 수익률\"]\n    end\n    \n    subgraph BILSTM[\"양방향 LSTM\"]\n        B & C --&gt; D[\"순방향 LSTM\"]\n        B & C --&gt; E[\"역방향 LSTM\"]\n        D & E --&gt; F[\"은닉 상태 결합\"]\n    end\n    \n    subgraph ATTENTION[\"이중 어텐션\"]\n        F --&gt; G[\"시간 어텐션\"]\n        F --&gt; H[\"피처 어텐션\"]\n        G --&gt; I[\"중요 시점 집중\"]\n        H --&gt; J[\"변수 중요도 조절\"]\n    end\n    \n    subgraph OUTPUT[\"출력층\"]\n        I & J --&gt; K[\"컨텍스트 벡터\"]\n        K --&gt; L[\"완전연결층\"]\n        L --&gt; M[\"익일 변동성 예측\"]\n    end\n\n    style INPUT fill:#E3F2FD,stroke:#1565C0,stroke-width:2px\n    style BILSTM fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px\n    style ATTENTION fill:#FFF3E0,stroke:#E65100,stroke-width:2px\n    style OUTPUT fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%\nflowchart TD\n    subgraph INPUT[\"입력층\"]\n        A[\"시퀀스 입력: 22일 x 2 피처\"]\n        A --&gt; B[\"LogRV: 로그 실현변동성\"]\n        A --&gt; C[\"Ret: 일간 수익률\"]\n    end\n    \n    subgraph BILSTM[\"양방향 LSTM\"]\n        B & C --&gt; D[\"순방향 LSTM\"]\n        B & C --&gt; E[\"역방향 LSTM\"]\n        D & E --&gt; F[\"은닉 상태 결합\"]\n    end\n    \n    subgraph ATTENTION[\"이중 어텐션\"]\n        F --&gt; G[\"시간 어텐션\"]\n        F --&gt; H[\"피처 어텐션\"]\n        G --&gt; I[\"중요 시점 집중\"]\n        H --&gt; J[\"변수 중요도 조절\"]\n    end\n    \n    subgraph OUTPUT[\"출력층\"]\n        I & J --&gt; K[\"컨텍스트 벡터\"]\n        K --&gt; L[\"완전연결층\"]\n        L --&gt; M[\"익일 변동성 예측\"]\n    end\n\n    style INPUT fill:#E3F2FD,stroke:#1565C0,stroke-width:2px\n    style BILSTM fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px\n    style ATTENTION fill:#FFF3E0,stroke:#E65100,stroke-width:2px\n    style OUTPUT fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px",
     "crumbs": [
@@ -788,7 +786,7 @@
   {
     "objectID": "experiments/1day_prediction.html#검증-결과-요약",
     "href": "experiments/1day_prediction.html#검증-결과-요약",
-    "title": "1일 예측 모델",
+    "title": "1일 예측 모델 (실험 기록)",
     "section": "",
     "text": "Walk-Forward 검증DM 테스트잔차 진단\n\n\n\n\n\n지표\nIn-Sample\nOut-of-Sample\n차이\n\n\n\n\nR² 스코어\n0.821\n0.820\n-0.1%\n\n\n결론\n-\n과적합 없음\n-\n\n\n\n\n\n\n\n\n비교\nDM 통계량\np-value\n유의성\n\n\n\n\nV50 vs V29\n4.23\n&lt;0.001\n***\n\n\nV50 vs V43\n2.87\n&lt;0.01\n**\n\n\n\n\n\n\n\n\n검정\n통계량\np-value\n결과\n\n\n\n\nLjung-Box\n18.2\n0.31\n자기상관 없음\n\n\nJarque-Bera\n45.3\n&lt;0.01\n비정규성 (금융 데이터 특성)",
     "crumbs": [
@@ -800,7 +798,7 @@
   {
     "objectID": "experiments/1day_prediction.html#상세-분석-링크",
     "href": "experiments/1day_prediction.html#상세-분석-링크",
-    "title": "1일 예측 모델",
+    "title": "1일 예측 모델 (실험 기록)",
     "section": "",
     "text": "더 자세한 검증 결과는 아래 페이지에서 확인할 수 있습니다:\n\nV50 모델 상세 검증 - 7가지 검증 항목 전체 결과\n모델 아키텍처 비교 - 하이퍼파라미터 및 구조 상세",
     "crumbs": [
@@ -812,7 +810,7 @@
   {
     "objectID": "experiments/1day_prediction.html#v50-모델-상세-속성",
     "href": "experiments/1day_prediction.html#v50-모델-상세-속성",
-    "title": "1일 예측 모델",
+    "title": "1일 예측 모델 (실험 기록)",
     "section": "",
     "text": "파라미터\n값\n설명\n\n\n\n\n시퀀스 길이\n22일\nHAR 모델의 월간 윈도우 기반\n\n\nLSTM 은닉 크기\n64\n양방향 → 128차원 출력\n\n\nLSTM 레이어 수\n2\nStacked Bi-LSTM\n\n\n어텐션 헤드 수\n4\n다중 헤드 어텐션\n\n\n드롭아웃 비율\n0.3\n과적합 방지\n\n\n학습률\n0.001\nAdam 옵티마이저\n\n\n배치 크기\n64\n미니배치 학습\n\n\n조기 종료\n10 에폭\n검증 손실 기준\n\n\n\n\n\n\n\n\n\n항목\n설정\n\n\n\n\n손실 함수\nMSE (Mean Squared Error)\n\n\n옵티마이저\nAdam (β1=0.9, β2=0.999)\n\n\n학습률 스케줄러\nReduceLROnPlateau (factor=0.5, patience=5)\n\n\n정규화\nL2 weight decay (1e-5)\n\n\n입력 정규화\nZ-score 표준화 (훈련셋 기준)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n피처 해석\n\n\n\n\n녹색 (HAR 피처): 과거 변동성 정보가 가장 중요 (68% 기여)\n파란색 (시장 지표): VIX 및 기타 지표가 보조적 역할 (32% 기여)",
     "crumbs": [
@@ -824,7 +822,7 @@
   {
     "objectID": "experiments/1day_prediction.html#모델-학습-및-성능-시각화",
     "href": "experiments/1day_prediction.html#모델-학습-및-성능-시각화",
-    "title": "1일 예측 모델",
+    "title": "1일 예측 모델 (실험 기록)",
     "section": "",
     "text": "자산군\n평균 R²\n최고 성능 자산\n최저 성능 자산\n\n\n\n\n채권\n0.89\nAGG (0.91)\nIEF (0.87)\n\n\n원자재\n0.76\nGLD (0.82)\nUSO (0.68)\n\n\n주식\n0.75\nSPY (0.78)\nIWM (0.72)",
     "crumbs": [
@@ -836,7 +834,7 @@
   {
     "objectID": "experiments/1day_prediction.html#하이퍼파라미터-튜닝-비교-ablation-study",
     "href": "experiments/1day_prediction.html#하이퍼파라미터-튜닝-비교-ablation-study",
-    "title": "1일 예측 모델",
+    "title": "1일 예측 모델 (실험 기록)",
     "section": "",
     "text": "손실 함수\nR²\nRMSE\n선택 이유\n\n\n\n\nMSE\n0.821\n0.042\n최적 성능, 이상치에 민감하지만 금융 데이터에서 효과적\n\n\nHuber\n0.815\n0.044\n이상치 강건성 있으나 MSE보다 낮은 성능\n\n\nLog-Cosh\n0.807\n0.047\n부드러운 손실 함수지만 차선책\n\n\nMAE\n0.798\n0.051\n이상치에 강건하나 수렴 속도 느림\n\n\nQuantile\n0.789\n0.054\n비대칭 손실, 일반 회귀에는 부적합\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n하이퍼파라미터\n테스트 범위\n최적값\n성능 영향\n\n\n\n\n손실 함수\nMSE, MAE, Huber, Log-Cosh, Quantile\nMSE\nR² +2.3% (vs MAE)\n\n\n학습률\n0.0001 ~ 0.01\n0.001\nR² +7.1% (vs 0.01)\n\n\n드롭아웃\n0.0 ~ 0.5\n0.3\nR² +3.9% (vs 0.0, 과적합 방지)\n\n\nLSTM 은닉 크기\n16 ~ 256\n64\nR² +5.6% (vs 16), 효율적\n\n\n어텐션 헤드\n1 ~ 16\n4\nR² +2.9% (vs 1)",
     "crumbs": [
@@ -848,9 +846,9 @@
   {
     "objectID": "experiments/sci_verification.html",
     "href": "experiments/sci_verification.html",
-    "title": "V50 모델 검증 대시보드",
+    "title": "V50 모델 정밀 검증",
     "section": "",
-    "text": "본 리포트는 V50 (LSTM-Attention) 최종 모델의 SCI 논문 투고를 위한 핵심 검증 결과를 시각화합니다.\n\n\n\n전진 분석 결과, 코로나19 기간에도 높은 예측력을 유지했습니다.\n\n\n\n\n\n\n\n\n\n\n\n\n인플레이션 기간의 대응 능력이 전체 수익률의 핵심 요소입니다.\n\n\n\n\n\n\n\n\n\n손익분기 거래 비용: 104.44 bps",
+    "text": "V50 (Dual-Attention LSTM) 모델의 OOS 성능을 다각도로 검증합니다. 공정 비교 실험(v51b), DM 테스트(v53), 극한 시장 테스트(v59), Attention 분석(v60), 피처 중요도(v61)를 포함합니다.\n\n\n\n\n\n\n지표\n값\n해석\n\n\n\n\nIS R²\n0.848\n훈련 데이터 성능\n\n\nOOS R²\n0.533\n미래 데이터 일반화\n\n\nGap\n0.315\n과적합 정도\n\n\n\n\n\n\n기존 v51(R²=0.820)은 V50과 다른 실험 설정(rolling=5, target=t+1)을 사용하여 과대 평가됨. v51b는 V50과 동일한 설정(rolling=22, target=t+22)으로 공정 비교한 결과.\n\n\n\n\n\n\nV50 R²: 0.7839\nV29 R²: 0.4417\nDM Stat: 31.87\nP-Value: 0.0\n\n\n\n\n\n비교\nV50 R²\nV29 R²\nDM Stat\np-value\n\n\n\n\nV50 vs V29\n0.784\n0.442\n31.87\n0.0\n\n\n\nV50이 V29 대비 통계적으로 유의미하게 우수 (p &lt; 0.001).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAttention 가중치 데이터 없음\n\n\n\n\n\n\n\n\n- baseline_r2: 0.18715465217539684\n\n\n\n\n\n\n\nV50 상세 분석\nV50 강건성 검증\n모델 비교",
     "crumbs": [
       "실험 결과",
       "1일 예측",
@@ -860,7 +858,7 @@
   {
     "objectID": "experiments/sci_verification.html#시간적-강건성-검증-walk-forward",
     "href": "experiments/sci_verification.html#시간적-강건성-검증-walk-forward",
-    "title": "V50 모델 검증 대시보드",
+    "title": "모델 검증 대시보드",
     "section": "",
     "text": "전진 분석 결과, 코로나19 기간에도 높은 예측력을 유지했습니다.",
     "crumbs": [
@@ -872,9 +870,9 @@
   {
     "objectID": "experiments/sci_verification.html#시장-국면별-수익성-분석",
     "href": "experiments/sci_verification.html#시장-국면별-수익성-분석",
-    "title": "V50 모델 검증 대시보드",
+    "title": "모델 검증 대시보드",
     "section": "",
-    "text": "인플레이션 기간의 대응 능력이 전체 수익률의 핵심 요소입니다.\n\n\n\n\n\n\n\n\n\n손익분기 거래 비용: 104.44 bps",
+    "text": "인플레이션 기간의 대응 능력이 전체 수익률의 핵심 요소입니다.",
     "crumbs": [
       "실험 결과",
       "1일 예측",
@@ -884,9 +882,9 @@
   {
     "objectID": "experiments/sci_verification.html#diebold-mariano-테스트-v50-vs-v29",
     "href": "experiments/sci_verification.html#diebold-mariano-테스트-v50-vs-v29",
-    "title": "V50 모델 검증 대시보드",
+    "title": "모델 검증 대시보드",
     "section": "3. Diebold-Mariano 테스트 (V50 vs V29)",
-    "text": "3. Diebold-Mariano 테스트 (V50 vs V29)\nV50 모델이 V29(HAR-Ridge) 대비 통계적으로 유의미하게 우월함을 검증합니다.\n\n\n\n\n\n\n\n\n\nDM 통계량: -17.7948\n유의성 여부 (alpha=0.05): True",
+    "text": "3. Diebold-Mariano 테스트 (V50 vs V29)\nV50 모델이 V29(HAR-Ridge) 대비 통계적으로 유의미하게 우월함을 검증합니다.",
     "crumbs": [
       "실험 결과",
       "1일 예측",
@@ -896,9 +894,9 @@
   {
     "objectID": "experiments/sci_verification.html#다중-비교-보정-bonferroni-fdr",
     "href": "experiments/sci_verification.html#다중-비교-보정-bonferroni-fdr",
-    "title": "V50 모델 검증 대시보드",
+    "title": "모델 검증 대시보드",
     "section": "4. 다중 비교 보정 (Bonferroni & FDR)",
-    "text": "4. 다중 비교 보정 (Bonferroni & FDR)\n11개 자산 동시 테스트에서 발생 가능한 ’거짓 발견’을 보정하여 검증했습니다.\n\n\n\n\n\n\n\n\n\n항목\np-값\n유의성 (alpha=0.05)\n\n\n\n\n0\n원본 p-값\n0.0\nTrue\n\n\n1\nBonferroni 보정\n0.0\nTrue\n\n\n2\nFDR (B-H) 보정\n0.0\nTrue",
+    "text": "4. 다중 비교 보정 (Bonferroni & FDR)\n11개 자산 동시 테스트에서 발생 가능한 ’거짓 발견’을 보정하여 검증했습니다.",
     "crumbs": [
       "실험 결과",
       "1일 예측",
@@ -908,9 +906,9 @@
   {
     "objectID": "experiments/sci_verification.html#극한-시장-상황-강건성-테스트-ood",
     "href": "experiments/sci_verification.html#극한-시장-상황-강건성-테스트-ood",
-    "title": "V50 모델 검증 대시보드",
+    "title": "모델 검증 대시보드",
     "section": "5. 극한 시장 상황 강건성 테스트 (OOD)",
-    "text": "5. 극한 시장 상황 강건성 테스트 (OOD)\n금융위기, 팬데믹 등 학습 외(OOD) 구간에서의 모델 성능을 분석했습니다.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n중요\n\n\n\n2008년 금융위기 (R²=0.77): 모델이 극단적 변동성 상황에서도 탁월한 예측력을 발휘함을 입증합니다.",
+    "text": "5. 극한 시장 상황 강건성 테스트 (OOD)\n금융위기, 팬데믹 등 학습 외(OOD) 구간에서의 모델 성능을 분석했습니다.\n\n\n\n\n\n\n중요\n\n\n\n2008년 금융위기 (R²=0.77): 모델이 극단적 변동성 상황에서도 탁월한 예측력을 발휘함을 입증합니다.",
     "crumbs": [
       "실험 결과",
       "1일 예측",
@@ -920,9 +918,9 @@
   {
     "objectID": "experiments/sci_verification.html#다중공선성-진단-vif",
     "href": "experiments/sci_verification.html#다중공선성-진단-vif",
-    "title": "V50 모델 검증 대시보드",
+    "title": "모델 검증 대시보드",
     "section": "6. 다중공선성 진단 (VIF)",
-    "text": "6. 다중공선성 진단 (VIF)\n입력 변수 간 중복성을 수치화하여 Ridge 정규화 적용의 당위성을 확보했습니다.\n\n\n\n\n\n\n\n\n\nVIF &gt; 10: Ridge 정규화 또는 딥러닝 구조 필수",
+    "text": "6. 다중공선성 진단 (VIF)\n입력 변수 간 중복성을 수치화하여 Ridge 정규화 적용의 당위성을 확보했습니다.",
     "crumbs": [
       "실험 결과",
       "1일 예측",
@@ -932,9 +930,9 @@
   {
     "objectID": "experiments/sci_verification.html#잔차-통계-진단",
     "href": "experiments/sci_verification.html#잔차-통계-진단",
-    "title": "V50 모델 검증 대시보드",
+    "title": "모델 검증 대시보드",
     "section": "7. 잔차 통계 진단",
-    "text": "7. 잔차 통계 진단\n모델 잔차의 통계적 특성을 분석하여 학술적 완결성을 검토했습니다.\n\n\n\n진단 결과: 금융 시계열 특유의 Fat-tail 및 조건부 이분산성 확인",
+    "text": "7. 잔차 통계 진단\n모델 잔차의 통계적 특성을 분석하여 학술적 완결성을 검토했습니다.",
     "crumbs": [
       "실험 결과",
       "1일 예측",
@@ -944,9 +942,9 @@
   {
     "objectID": "experiments/phase13_model_comparison.html",
     "href": "experiments/phase13_model_comparison.html",
-    "title": "Model Architecture Comparison: Short-term vs Long-term",
+    "title": "모델 아키텍처 비교",
     "section": "",
-    "text": "변동성 예측에서는 예측 지평(horizon)에 따라 최적 모델이 달라집니다. 본 연구에서는 1일(단기)과 22일(장기) 예측 지평 각각에서 최고 성능을 보이는 모델의 구조를 상세히 분석했습니다.\n\n\n\n\n\n\n핵심 발견\n\n\n\n\n1일 예측: 복잡한 비선형 패턴을 학습하는 딥러닝(V50)이 유리\n22일 예측: 자산별 특성을 안정적으로 반영하는 적응형 선형모델(V36)이 유리",
+    "text": "전방 Realized Volatility 타겟으로 1일~365일 8개 예측 기간에서 7개 모델을 체계적으로 비교합니다.\n\n\n\n\n\n\n핵심 발견 (전방 RV, 11개 자산 풀링)\n\n\n\n\n단기 (1~22d): V71 Ensemble (37feat, 22d: 0.803)\n중기 (60~90d): V50 Tuned LSTM (3feat, 60d: 0.796)\n초장기 (365d): Random Forest (37feat, 0.705)\n문헌 벤치마크: HAR-CJ, LASSO-HAR, RF와 체계적 비교\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHorizon\nRidge(37)\nLSTM(3)\nHAR-3\nLASSO\nHAR-CJ\nRF(37)\n챔피언\n\n\n\n\n1d\n0.114\n0.092\n0.109\n0.116\n0.106\n0.113\nLASSO\n\n\n5d\n0.625\n0.577\n0.581\n0.625\n0.569\n0.611\nRidge\n\n\n22d\n0.798\n0.780\n0.761\n0.790\n0.752\n0.770\nRidge(V71)\n\n\n60d\n0.774\n0.796\n0.784\n0.782\n0.771\n0.752\nLSTM\n\n\n90d\n0.752\n0.788\n0.781\n0.763\n0.768\n0.737\nLSTM\n\n\n120d\n0.737\n0.751\n0.758\n0.748\n0.746\n0.730\nHAR-3\n\n\n180d\n0.691\n0.708\n0.705\n0.707\n0.691\n0.719\nRF\n\n\n365d\n0.516\n0.589\n0.611\n0.555\n0.570\n0.705\nRF\n\n\n\n\n\n\n\n\n\n\n\n\n코드\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%\nflowchart TD\n    A[\"시퀀스 22일 x 3 피처\"] --&gt; B[\"Bi-LSTM (hidden=32)\"]\n    B --&gt; C[\"Temporal Attention\"]\n    C --&gt; D[\"FC(64→1)\"]\n    D --&gt; E[\"Forward RV 예측\"]\n\n    style A fill:#E3F2FD,stroke:#1565C0\n    style B fill:#E8F5E9,stroke:#2E7D32\n    style C fill:#FFF3E0,stroke:#E65100\n    style D fill:#F3E5F5,stroke:#7B1FA2\n    style E fill:#F3E5F5,stroke:#7B1FA2\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%\nflowchart TD\n    A[\"시퀀스 22일 x 3 피처\"] --&gt; B[\"Bi-LSTM (hidden=32)\"]\n    B --&gt; C[\"Temporal Attention\"]\n    C --&gt; D[\"FC(64→1)\"]\n    D --&gt; E[\"Forward RV 예측\"]\n\n    style A fill:#E3F2FD,stroke:#1565C0\n    style B fill:#E8F5E9,stroke:#2E7D32\n    style C fill:#FFF3E0,stroke:#E65100\n    style D fill:#F3E5F5,stroke:#7B1FA2\n    style E fill:#F3E5F5,stroke:#7B1FA2\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n파라미터\n값\n비고\n\n\n\n\nInput Features\n3\nRogersSatchell, GarmanKlass, Range_Close_Ratio\n\n\nLSTM Hidden\n32\n양방향 → 64차원\n\n\nDropout\n0.2\n정규화\n\n\nBatch Size\n128\n\n\n\n강점\n60~90d\n중기 풀링 R² 최고, 전 구간 중위 R² 최고\n\n\n\n\n\n\n\n\n\n\n\n\n코드\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%\nflowchart LR\n    A[\"OHLCV + 옵션 데이터\"] --&gt; B[\"37개 피처\\n(HAR+HF+IV+Alt)\"]\n    B --&gt; C[\"Ridge Regression\"]\n    C --&gt; D[\"22d R²=0.803\\n(Ensemble)\"]\n\n    style A fill:#E3F2FD,stroke:#1565C0\n    style B fill:#E8F5E9,stroke:#2E7D32\n    style C fill:#FFF3E0,stroke:#E65100\n    style D fill:#F3E5F5,stroke:#7B1FA2\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%\nflowchart LR\n    A[\"OHLCV + 옵션 데이터\"] --&gt; B[\"37개 피처\\n(HAR+HF+IV+Alt)\"]\n    B --&gt; C[\"Ridge Regression\"]\n    C --&gt; D[\"22d R²=0.803\\n(Ensemble)\"]\n\n    style A fill:#E3F2FD,stroke:#1565C0\n    style B fill:#E8F5E9,stroke:#2E7D32\n    style C fill:#FFF3E0,stroke:#E65100\n    style D fill:#F3E5F5,stroke:#7B1FA2\n\n\n\n\n\n\n\n\n\n\n\n\n카테고리\n피처 수\n주요 피처\n\n\n\n\nBase (HAR+GARCH)\n14\nLogRV lags, GARCH, Vol-of-Vol\n\n\nHF Proxy (OHLC)\n7\nRogers-Satchell, Garman-Klass, Parkinson\n\n\nIV Surface\n10\nVIX, VIX3M, VIX Term, VRP\n\n\nAlt Data\n6\nAmihud, Volume, Order Imbalance\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n모델\n출처\n22d R²\n365d R²\n설명\n\n\n\n\nHAR-RV\nCorsi (2009)\n0.761\n0.611\n3개 HAR 피처 Ridge\n\n\nHAR-CJ\nAndersen+ (2007)\n0.752\n0.570\nJump 분해 (Bipower Variation)\n\n\nLASSO-HAR\nAudrino & Knaus (2016)\n0.790\n0.555\n37개 피처 L1 정규화\n\n\nRF\nChristensen+ (2023)\n0.770\n0.705\n37개 피처 Random Forest\n\n\n\n\n\n\n\n\n\n\n특성\n단기 (1~22d)\n중기 (60~90d)\n초장기 (365d)\n\n\n\n\n시그널\nHAR 자기상관 강함\nRange 추정량 유효\n노이즈 지배적\n\n\n최적 모델\nRidge/LASSO (37feat)\nLSTM (3feat)\nRF (37feat)\n\n\n핵심 요인\n피처 수\nRange 피처 선택 + DL\n트리 앙상블 강건성\n\n\n과적합 위험\n낮음\n중간\n낮음\n\n\n\n\n\n\n\n\n\n핵심 인사이트\n\n\n\n\nV71 Ensemble이 22d에서 R²=0.803으로 최고 성능: Ridge(0.798) + XGBoost(0.773)의 가중 앙상블 효과\nLSTM은 3개 피처만으로 37개 피처 선형 모델을 60~90d에서 능가: 피처 선택이 중요\nRF는 365d에서 유일하게 R²&gt;0.7 달성: 트리 앙상블의 장기 안정성\n\n\n\n\n\n\n\n\nV50 상세 분석 - 중기 예측 챔피언\nV71 상세 분석 - 단기 예측 챔피언\nV71 강건성 검증 - 6종 강건성 테스트\n결과 요약 - 전체 실험 통계",
     "crumbs": [
       "실험 결과",
       "기타",
@@ -982,7 +980,7 @@
     "href": "experiments/phase13_model_comparison.html#일-예측-champion-v50-dual-attention-lstm",
     "title": "Model Architecture Comparison: Short-term vs Long-term",
     "section": "2. 1일 예측 Champion: V50 (Dual Attention LSTM)",
-    "text": "2. 1일 예측 Champion: V50 (Dual Attention LSTM)\n단기 예측에서는 시계열의 복잡한 비선형 의존성을 학습하는 능력이 중요합니다.\n\n모델 구조 (V50)\nV50은 양방향 LSTM(Bi-LSTM)과 이중 어텐션(Dual Attention) 메커니즘을 결합한 하이브리드 구조입니다.\n\n\n코드\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0', 'primaryBorderColor': '#1565C0', 'lineColor': '#42A5F5', 'secondaryColor': '#E8F5E9', 'tertiaryColor': '#FFF3E0'}}}%%\nflowchart TD\n    subgraph INPUT[\"INPUT LAYER\"]\n        A[\"Sequence Input: 22 days x 2 features\"]\n        A --&gt; B[\"LogRV: Log Realized Volatility\"]\n        A --&gt; C[\"Ret: Daily Returns\"]\n    end\n    \n    subgraph BILSTM[\"BIDIRECTIONAL LSTM\"]\n        B & C --&gt; D[\"Forward LSTM\"]\n        B & C --&gt; E[\"Backward LSTM\"]\n        D & E --&gt; F[\"Concatenated Hidden States\"]\n    end\n    \n    subgraph ATTENTION[\"DUAL ATTENTION\"]\n        F --&gt; G[\"Temporal Attention\"]\n        F --&gt; H[\"Feature Attention\"]\n        G --&gt; I[\"Focus on critical time points\"]\n        H --&gt; J[\"Variable importance weighting\"]\n    end\n    \n    subgraph OUTPUT[\"OUTPUT LAYER\"]\n        I & J --&gt; K[\"Context Vector\"]\n        K --&gt; L[\"Fully Connected\"]\n        L --&gt; M[\"Next-Day Volatility\"]\n    end\n\n    style INPUT fill:#E3F2FD,stroke:#1565C0,stroke-width:2px\n    style BILSTM fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px\n    style ATTENTION fill:#FFF3E0,stroke:#E65100,stroke-width:2px\n    style OUTPUT fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0', 'primaryBorderColor': '#1565C0', 'lineColor': '#42A5F5', 'secondaryColor': '#E8F5E9', 'tertiaryColor': '#FFF3E0'}}}%%\nflowchart TD\n    subgraph INPUT[\"INPUT LAYER\"]\n        A[\"Sequence Input: 22 days x 2 features\"]\n        A --&gt; B[\"LogRV: Log Realized Volatility\"]\n        A --&gt; C[\"Ret: Daily Returns\"]\n    end\n    \n    subgraph BILSTM[\"BIDIRECTIONAL LSTM\"]\n        B & C --&gt; D[\"Forward LSTM\"]\n        B & C --&gt; E[\"Backward LSTM\"]\n        D & E --&gt; F[\"Concatenated Hidden States\"]\n    end\n    \n    subgraph ATTENTION[\"DUAL ATTENTION\"]\n        F --&gt; G[\"Temporal Attention\"]\n        F --&gt; H[\"Feature Attention\"]\n        G --&gt; I[\"Focus on critical time points\"]\n        H --&gt; J[\"Variable importance weighting\"]\n    end\n    \n    subgraph OUTPUT[\"OUTPUT LAYER\"]\n        I & J --&gt; K[\"Context Vector\"]\n        K --&gt; L[\"Fully Connected\"]\n        L --&gt; M[\"Next-Day Volatility\"]\n    end\n\n    style INPUT fill:#E3F2FD,stroke:#1565C0,stroke-width:2px\n    style BILSTM fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px\n    style ATTENTION fill:#FFF3E0,stroke:#E65100,stroke-width:2px\n    style OUTPUT fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px\n\n\n\n\n\n\n\n\n핵심 구성요소\n\n\n\n\n\n\n\n\n구성요소\n역할\n효과\n\n\n\n\nBi-LSTM\n시계열의 양방향 문맥 파악\n과거→현재, 현재→과거 패턴 동시 학습\n\n\nTemporal Attention\n22일 중 중요 시점에 가중치 부여\n변동성 급증 이벤트에 자동 집중\n\n\nFeature Attention\n변수(RV, Ret) 중요도 동적 조절\n상황에 따라 유용한 변수 선택\n\n\n\n\n\n성능 지표 (1-Day Horizon)\n\nR² Score: 0.821 (vs V29 Baseline 0.730, +12.5% 개선)\nDiebold-Mariano Test: p-value &lt; 0.001 (통계적으로 유의미한 개선)\nWalk-Forward Validation: OOS R² = 0.820 (과적합 없음 확인)",
+    "text": "2. 1일 예측 Champion: V50 (Dual Attention LSTM)\n단기 예측에서는 시계열의 복잡한 비선형 의존성을 학습하는 능력이 중요합니다.\n\n모델 구조 (V50)\nV50은 양방향 LSTM(Bi-LSTM)과 이중 어텐션(Dual Attention) 메커니즘을 결합한 하이브리드 구조입니다.\n\n\n코드\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0', 'primaryBorderColor': '#1565C0', 'lineColor': '#42A5F5', 'secondaryColor': '#E8F5E9', 'tertiaryColor': '#FFF3E0'}}}%%\nflowchart TD\n    subgraph INPUT[\"INPUT LAYER\"]\n        A[\"Sequence Input: 22 days x 2 features\"]\n        A --&gt; B[\"LogRV: Log Realized Volatility\"]\n        A --&gt; C[\"Ret: Daily Returns\"]\n    end\n    \n    subgraph BILSTM[\"BIDIRECTIONAL LSTM\"]\n        B & C --&gt; D[\"Forward LSTM\"]\n        B & C --&gt; E[\"Backward LSTM\"]\n        D & E --&gt; F[\"Concatenated Hidden States\"]\n    end\n    \n    subgraph ATTENTION[\"DUAL ATTENTION\"]\n        F --&gt; G[\"Temporal Attention\"]\n        F --&gt; H[\"Feature Attention\"]\n        G --&gt; I[\"Focus on critical time points\"]\n        H --&gt; J[\"Variable importance weighting\"]\n    end\n    \n    subgraph OUTPUT[\"OUTPUT LAYER\"]\n        I & J --&gt; K[\"Context Vector\"]\n        K --&gt; L[\"Fully Connected\"]\n        L --&gt; M[\"Next-Day Volatility\"]\n    end\n\n    style INPUT fill:#E3F2FD,stroke:#1565C0,stroke-width:2px\n    style BILSTM fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px\n    style ATTENTION fill:#FFF3E0,stroke:#E65100,stroke-width:2px\n    style OUTPUT fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0', 'primaryBorderColor': '#1565C0', 'lineColor': '#42A5F5', 'secondaryColor': '#E8F5E9', 'tertiaryColor': '#FFF3E0'}}}%%\nflowchart TD\n    subgraph INPUT[\"INPUT LAYER\"]\n        A[\"Sequence Input: 22 days x 2 features\"]\n        A --&gt; B[\"LogRV: Log Realized Volatility\"]\n        A --&gt; C[\"Ret: Daily Returns\"]\n    end\n    \n    subgraph BILSTM[\"BIDIRECTIONAL LSTM\"]\n        B & C --&gt; D[\"Forward LSTM\"]\n        B & C --&gt; E[\"Backward LSTM\"]\n        D & E --&gt; F[\"Concatenated Hidden States\"]\n    end\n    \n    subgraph ATTENTION[\"DUAL ATTENTION\"]\n        F --&gt; G[\"Temporal Attention\"]\n        F --&gt; H[\"Feature Attention\"]\n        G --&gt; I[\"Focus on critical time points\"]\n        H --&gt; J[\"Variable importance weighting\"]\n    end\n    \n    subgraph OUTPUT[\"OUTPUT LAYER\"]\n        I & J --&gt; K[\"Context Vector\"]\n        K --&gt; L[\"Fully Connected\"]\n        L --&gt; M[\"Next-Day Volatility\"]\n    end\n\n    style INPUT fill:#E3F2FD,stroke:#1565C0,stroke-width:2px\n    style BILSTM fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px\n    style ATTENTION fill:#FFF3E0,stroke:#E65100,stroke-width:2px\n    style OUTPUT fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px\n\n\n\n\n\n\n\n\n핵심 구성요소\n\n\n\n\n\n\n\n\n구성요소\n역할\n효과\n\n\n\n\nBi-LSTM\n시계열의 양방향 문맥 파악\n과거→현재, 현재→과거 패턴 동시 학습\n\n\nTemporal Attention\n22일 중 중요 시점에 가중치 부여\n변동성 급증 이벤트에 자동 집중\n\n\nFeature Attention\n변수(RV, Ret) 중요도 동적 조절\n상황에 따라 유용한 변수 선택\n\n\n\n\n\n성능 지표 (1-Day Horizon, 실제 결과)\n\nR² Score: 0.518 (v50_results.json)\nWalk-Forward OOS R²: 0.533 (v51b_results.json - 공정 비교)\nDiebold-Mariano Test: DM stat=31.87, p=0.0 (v53_results.json)",
     "crumbs": [
       "실험 결과",
       "기타",
@@ -1004,9 +1002,9 @@
   {
     "objectID": "experiments/phase13_model_comparison.html#왜-예측-지평에-따라-최적-모델이-다른가",
     "href": "experiments/phase13_model_comparison.html#왜-예측-지평에-따라-최적-모델이-다른가",
-    "title": "Model Architecture Comparison: Short-term vs Long-term",
-    "section": "4. 왜 예측 지평에 따라 최적 모델이 다른가?",
-    "text": "4. 왜 예측 지평에 따라 최적 모델이 다른가?\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n핵심 인사이트\n\n\n\n\n1일 예측: 시그널이 강하고 자기상관성이 높아 복잡한 딥러닝이 미세한 패턴까지 포착 가능\n22일 예측: 노이즈가 많고 구조적 변화(Structural Break) 영향이 커서 단순하고 강건한 모델이 유리",
+    "title": "모델 아키텍처 비교",
+    "section": "",
+    "text": "특성\n단기 (1~22d)\n중기 (60~90d)\n초장기 (365d)\n\n\n\n\n시그널\nHAR 자기상관 강함\nRange 추정량 유효\n노이즈 지배적\n\n\n최적 모델\nRidge/LASSO (37feat)\nLSTM (3feat)\nRF (37feat)\n\n\n핵심 요인\n피처 수\nRange 피처 선택 + DL\n트리 앙상블 강건성\n\n\n과적합 위험\n낮음\n중간\n낮음\n\n\n\n\n\n\n\n\n\n핵심 인사이트\n\n\n\n\nV71 Ensemble이 22d에서 R²=0.803으로 최고 성능: Ridge(0.798) + XGBoost(0.773)의 가중 앙상블 효과\nLSTM은 3개 피처만으로 37개 피처 선형 모델을 60~90d에서 능가: 피처 선택이 중요\nRF는 365d에서 유일하게 R²&gt;0.7 달성: 트리 앙상블의 장기 안정성",
     "crumbs": [
       "실험 결과",
       "기타",
@@ -1018,7 +1016,7 @@
     "href": "experiments/phase13_model_comparison.html#결론-및-권장사항",
     "title": "Model Architecture Comparison: Short-term vs Long-term",
     "section": "5. 결론 및 권장사항",
-    "text": "5. 결론 및 권장사항\n\n\n\n\n\n\n\n\n\n사용 목적\n권장 모델\nR²\n특징\n\n\n\n\n단기 트레이딩 (1일 예측)\nV50 (Dual-Attn LSTM)\n0.821\n비선형 패턴 학습에 탁월\n\n\n장기 리스크 관리 (22일 예측)\nV36 (Asset-Adaptive)\n0.755\n자산군별 특성 반영에 탁월\n\n\n범용 (두 지평 모두 활용)\nV42 (Ensemble)\n0.65~0.81\nV36 기반 가중 앙상블",
+    "text": "5. 결론 및 권장사항\n\n\n\n\n\n\n\n\n\n사용 목적\n권장 모델\nR²\n특징\n\n\n\n\n단기 트레이딩 (1일 예측)\nV50 (Temporal-Attn LSTM)\n0.518 (WF: 0.533)\n비선형 패턴 학습에 탁월\n\n\n장기 리스크 관리 (22일 예측)\nV36 (Asset-Adaptive)\n0.755\n자산군별 특성 반영에 탁월\n\n\n범용 (두 지평 모두 활용)\nV42 (Ensemble)\n0.639~0.656\nV36 기반 가중 앙상블",
     "crumbs": [
       "실험 결과",
       "기타",
@@ -1179,6 +1177,1378 @@
       "실험 결과",
       "기타",
       "통합 모델 실험"
+    ]
+  },
+  {
+    "objectID": "experiments/attention_analysis.html",
+    "href": "experiments/attention_analysis.html",
+    "title": "Attention Mechanism 분석",
+    "section": "",
+    "text": "이 페이지는 V50 DualAttentionLSTM 모델의 attention mechanism을 심층 분석한 결과를 제시합니다.\n목표: - Attention 가중치 추출 및 시각화 - 자산별, 시장 상황별 attention 패턴 분석 - Interactive dashboard 구현 - True Dual Attention (Temporal + Feature) 모델 실험 - 5-seed 강건성 검증\n주요 발견: - SPY와 GLD는 최근 데이터(lag 21)에 집중, 나머지 자산은 과거 데이터(lag 1) 중시 - 고변동성 시기에는 과거 패턴, 저변동성 시기에는 최근 추세 참조 - 전체 attention의 53%가 최근 11일 데이터에 할당됨 - Feature attention 추가는 성능을 5.3% 감소시킴 (단순이 강력함) - v50이 더 높은 성능(R²: 0.575), v64가 더 높은 안정성(Std: 0.024)",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "Attention 분석"
+    ]
+  },
+  {
+    "objectID": "experiments/attention_analysis.html#모델-수정",
+    "href": "experiments/attention_analysis.html#모델-수정",
+    "title": "Attention Mechanism 분석",
+    "section": "모델 수정",
+    "text": "모델 수정\n기존 v50_dual_attention_lstm.py에 attention 가중치 반환 기능을 추가했습니다:\ndef forward(self, x, return_attention=False):\n    lstm_out, _ = self.lstm(x)\n    context, attn_weights = self.attention(lstm_out)\n    output = self.fc(context)\n    \n    if return_attention:\n        return output, attn_weights\n    return output",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "Attention 분석"
+    ]
+  },
+  {
+    "objectID": "experiments/attention_analysis.html#자산별-attention-패턴",
+    "href": "experiments/attention_analysis.html#자산별-attention-패턴",
+    "title": "Attention Mechanism 분석",
+    "section": "자산별 Attention 패턴",
+    "text": "자산별 Attention 패턴\n\n\n\n자산별 Attention 비교\n\n\n주요 발견:\n\n\n\n\n\n\n자산별 Focus Lag\n\n\n\n\nSPY (S&P 500): Lag 21 (최근) - 5.44%\nGLD (금): Lag 21 (최근) - 5.84%\nQQQ, IWM, TLT, IEF: Lag 1 (과거) - 각각 5-6%\n\n\n\n해석: SPY와 GLD는 momentum 특성이 강해 최근 변동성이 중요한 반면, 채권(TLT, IEF)과 소형주(IWM)는 장기 평균 회귀 특성으로 인해 과거 패턴을 더 중시합니다.",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "Attention 분석"
+    ]
+  },
+  {
+    "objectID": "experiments/attention_analysis.html#시장-상황별-attention-패턴",
+    "href": "experiments/attention_analysis.html#시장-상황별-attention-패턴",
+    "title": "Attention Mechanism 분석",
+    "section": "시장 상황별 Attention 패턴",
+    "text": "시장 상황별 Attention 패턴\n\n\n\n시장 상황별 Attention\n\n\n주요 발견:\n\n\n\n\n\n\nMarket Regime별 차이\n\n\n\n\n고변동성 시기: Lag 1에 집중 (과거 데이터 중시)\n저변동성 시기: Lag 21에 집중 (최근 데이터 중시)\n상승장 (Bull): Lag 1에 집중\n하락장 (Bear): Lag 17에 집중\n\n\n\n해석: - 변동성이 높을 때는 구조적 변화를 감지하기 위해 장기 패턴 참조 - 안정적일 때는 최근 추세가 더 신뢰할 만함 - 하락장에서는 중기(lag 17) 데이터가 중요 - 과매도/과매수 신호 포착",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "Attention 분석"
+    ]
+  },
+  {
+    "objectID": "experiments/attention_analysis.html#lag-중요도-분석",
+    "href": "experiments/attention_analysis.html#lag-중요도-분석",
+    "title": "Attention Mechanism 분석",
+    "section": "Lag 중요도 분석",
+    "text": "Lag 중요도 분석\n\n\n\nLag 중요도\n\n\n주요 발견:\n\n\n\n\n\n\nEarly vs Recent Lags\n\n\n\n\nEarly lags (0-10): 누적 가중치 47.2%\nRecent lags (11-21): 누적 가중치 52.8%\n\n\n\n모델은 최근 데이터(53%)와 과거 데이터(47%)를 거의 균등하게 활용합니다. 중간 시점(lag 5-7)의 가중치가 가장 낮아, 극단적 과거와 최근 정보가 변동성 예측에 더 유용함을 시사합니다.",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "Attention 분석"
+    ]
+  },
+  {
+    "objectID": "experiments/attention_analysis.html#예측-성능과-attention-관계",
+    "href": "experiments/attention_analysis.html#예측-성능과-attention-관계",
+    "title": "Attention Mechanism 분석",
+    "section": "예측 성능과 Attention 관계",
+    "text": "예측 성능과 Attention 관계\n\n\n\n성능-Attention 관계\n\n\n주요 발견:\n\nGood predictions (상위 25%): 초기 lag에 약간 더 집중\nBad predictions (하위 25%): 후기 lag에 약간 더 집중\nAttention entropy vs 오차 상관관계: 0.065 (약한 양의 상관)\n\n높은 entropy(분산된 attention)가 약간 더 높은 오차와 연관됩니다. 이는 모델이 “확신이 없을 때” attention을 더 넓게 분산시킨다는 것을 의미합니다.",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "Attention 분석"
+    ]
+  },
+  {
+    "objectID": "experiments/attention_analysis.html#plotly-기반-인터랙티브-시각화",
+    "href": "experiments/attention_analysis.html#plotly-기반-인터랙티브-시각화",
+    "title": "Attention Mechanism 분석",
+    "section": "Plotly 기반 인터랙티브 시각화",
+    "text": "Plotly 기반 인터랙티브 시각화\n5개의 인터랙티브 HTML 파일을 생성했습니다:\n\n자산별 비교 - 드롭다운으로 자산 선택\n시계열 Heatmap - 500개 샘플의 시간별 패턴\nLag 중요도 - Early vs Recent 비교\n월별 애니메이션 - 시간에 따른 변화\n통합 대시보드 - 모든 차트 통합\n\n\n\n\n\n\n\n사용 방법\n\n\n\n각 HTML 파일을 웹 브라우저에서 열면 인터랙티브하게 데이터를 탐색할 수 있습니다. 특히 통합 대시보드는 모든 분석을 한 페이지에서 확인할 수 있습니다.\n\n\n주요 기능: - 호버로 정확한 수치 확인 - 드롭다운으로 자산 필터링 - 애니메이션으로 시간 추이 관찰 - Zoom/Pan 기능",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "Attention 분석"
+    ]
+  },
+  {
+    "objectID": "experiments/attention_analysis.html#모델-아키텍처",
+    "href": "experiments/attention_analysis.html#모델-아키텍처",
+    "title": "Attention Mechanism 분석",
+    "section": "모델 아키텍처",
+    "text": "모델 아키텍처\n기존 v50은 이름과 달리 단일 temporal attention만 구현되어 있었습니다. 진정한 “Dual Attention”을 위해 Feature attention을 추가한 v64를 구현했습니다:\nclass TrueDualAttentionLSTM(nn.Module):\n    def __init__(self, input_dim, hidden_dim):\n        # 1. Temporal Attention: 시간 축 (22 lags)\n        self.temporal_attention = Attention(hidden_dim)\n        \n        # 2. Feature Attention: 특성 축 (LogRV, Return)\n        self.feature_attention = nn.Sequential(\n            nn.Linear(hidden_dim * 2, hidden_dim),\n            nn.Tanh(),\n            nn.Linear(hidden_dim, input_dim),\n            nn.Softmax(dim=-1)\n        )",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "Attention 분석"
+    ]
+  },
+  {
+    "objectID": "experiments/attention_analysis.html#성능-비교",
+    "href": "experiments/attention_analysis.html#성능-비교",
+    "title": "Attention Mechanism 분석",
+    "section": "성능 비교",
+    "text": "성능 비교\n\n\n\n모델 비교\n\n\n\n\n\n\n\n\n예상 밖의 결과\n\n\n\n\nv50 (Temporal Only): R² = 0.6123\nv64 (Dual Attention): R² = 0.5798\n차이: -0.0325 (-5.31%)\n\nFeature attention을 추가했음에도 성능이 감소했습니다!",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "Attention 분석"
+    ]
+  },
+  {
+    "objectID": "experiments/attention_analysis.html#feature-importance-분석",
+    "href": "experiments/attention_analysis.html#feature-importance-분석",
+    "title": "Attention Mechanism 분석",
+    "section": "Feature Importance 분석",
+    "text": "Feature Importance 분석\n\n\n\n전체 Feature 중요도\n\n\n전체 평균: - Return: 52.54% - LogRV: 47.46%\n\n자산별 차이\n\n\n\n자산별 Feature 중요도\n\n\n자산별 패턴:\n\n\n\n자산\nLogRV\nReturn\n차이\n\n\n\n\nSPY\n46.3%\n53.7%\n7.4%p\n\n\nGLD\n46.7%\n53.3%\n6.6%p\n\n\nIEF\n48.7%\n51.3%\n2.6%p (가장 균형)\n\n\nTLT\n48.3%\n51.7%\n3.4%p\n\n\nQQQ\n47.7%\n52.3%\n4.6%p\n\n\nIWM\n47.0%\n53.0%\n6.0%p\n\n\n\n모든 자산에서 Return이 LogRV보다 약간 더 중요하지만, 차이는 미미함 (약 5%p).",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "Attention 분석"
+    ]
+  },
+  {
+    "objectID": "experiments/attention_analysis.html#feature-attention의-부정적-영향",
+    "href": "experiments/attention_analysis.html#feature-attention의-부정적-영향",
+    "title": "Attention Mechanism 분석",
+    "section": "1. Feature Attention의 부정적 영향",
+    "text": "1. Feature Attention의 부정적 영향\nFeature attention을 추가했음에도 성능이 5.3% 감소한 이유:\n\n\n\n\n\n\n가능한 원인\n\n\n\n\n과적합 (Overfitting): 추가 파라미터가 학습 데이터에 과적합\nFeature 간 상호작용 손실: 두 feature를 독립적으로 가중치 부여하면서 상호작용 정보 손실\n최적화 난이도 증가: 2개 attention 메커니즘 동시 학습의 어려움\n데이터 규모 부족: Dual attention의 이점을 보려면 더 많은 데이터 필요",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "Attention 분석"
+    ]
+  },
+  {
+    "objectID": "experiments/attention_analysis.html#return-logrv",
+    "href": "experiments/attention_analysis.html#return-logrv",
+    "title": "Attention Mechanism 분석",
+    "section": "2. Return > LogRV",
+    "text": "2. Return &gt; LogRV\n모든 자산에서 Return이 LogRV보다 중요한 이유:\n\n방향성 정보: Return은 상승/하락 방향 정보 포함\n모멘텀 효과: 최근 방향이 변동성 예측에 유용\nLogRV의 평활화: LogRV는 이미 rolling mean으로 평활화되어 단기 변화 포착 어려움",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "Attention 분석"
+    ]
+  },
+  {
+    "objectID": "experiments/attention_analysis.html#단순이-강력함-simplicity-works",
+    "href": "experiments/attention_analysis.html#단순이-강력함-simplicity-works",
+    "title": "Attention Mechanism 분석",
+    "section": "3. 단순이 강력함 (Simplicity Works)",
+    "text": "3. 단순이 강력함 (Simplicity Works)\n\n\n\n\n\n\n주요 교훈\n\n\n\n이 실험은 “더 복잡한 모델이 항상 더 나은 것은 아니다”라는 중요한 교훈을 제공합니다.\nv50의 단일 temporal attention이 더 효율적이고 효과적입니다.",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "Attention 분석"
+    ]
+  },
+  {
+    "objectID": "experiments/attention_analysis.html#실무-적용",
+    "href": "experiments/attention_analysis.html#실무-적용",
+    "title": "Attention Mechanism 분석",
+    "section": "실무 적용",
+    "text": "실무 적용\n\nv50 사용 권장: Temporal attention만 있는 v50 모델 사용\nFeature Engineering 개선: Feature attention보다는 더 나은 특성 설계에 집중\nEnsemble 고려: Dual attention 대신 여러 단순 모델의 앙상블 고려\nRegularization 강화: Feature attention 사용 시 강한 정규화 필요",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "Attention 분석"
+    ]
+  },
+  {
+    "objectID": "experiments/attention_analysis.html#향후-연구-방향",
+    "href": "experiments/attention_analysis.html#향후-연구-방향",
+    "title": "Attention Mechanism 분석",
+    "section": "향후 연구 방향",
+    "text": "향후 연구 방향\n\nMulti-head Temporal Attention: Feature보다는 temporal 차원에서 다양한 관점\nCross-attention: 자산 간 상호작용을 모델링하는 attention\nSparse Attention: 중요한 몇 개의 lag만 선택하는 메커니즘\nTransformer Architecture: 전체를 Transformer로 재설계",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "Attention 분석"
+    ]
+  },
+  {
+    "objectID": "experiments/attention_analysis.html#코드",
+    "href": "experiments/attention_analysis.html#코드",
+    "title": "Attention Mechanism 분석",
+    "section": "코드",
+    "text": "코드\n\nv63_attention_analysis.py - 기본 attention 분석\nv63_interactive_dashboard.py - 인터랙티브 시각화\nv64_true_dual_attention.py - True Dual Attention 모델\nv65_robustness_check.py - 5-seed 강건성 검증",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "Attention 분석"
+    ]
+  },
+  {
+    "objectID": "experiments/attention_analysis.html#데이터",
+    "href": "experiments/attention_analysis.html#데이터",
+    "title": "Attention Mechanism 분석",
+    "section": "데이터",
+    "text": "데이터\n\nv63_attention_maps.csv - 전체 attention 가중치 데이터\nv63_results.json - Phase 1 통계 분석 결과\nv64_feature_attention.csv - Feature attention 가중치\nv64_results.json - Phase 3 모델 비교 결과\nv65_robustness_results.json - 5-seed 강건성 검증 결과",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "Attention 분석"
+    ]
+  },
+  {
+    "objectID": "experiments/attention_analysis.html#참고문헌",
+    "href": "experiments/attention_analysis.html#참고문헌",
+    "title": "Attention Mechanism 분석",
+    "section": "참고문헌",
+    "text": "참고문헌\n\nBahdanau et al. (2014) - Neural Machine Translation by Jointly Learning to Align and Translate\nVaswani et al. (2017) - Attention Is All You Need\nLuong et al. (2015) - Effective Approaches to Attention-based Neural Machine Translation",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "Attention 분석"
+    ]
+  },
+  {
+    "objectID": "experiments/attention_analysis.html#실험-목적",
+    "href": "experiments/attention_analysis.html#실험-목적",
+    "title": "Attention Mechanism 분석",
+    "section": "실험 목적",
+    "text": "실험 목적\nRandom seed에 따른 성능 변동성을 측정하여 모델의 강건성(robustness)을 검증합니다. 동일한 모델을 5개의 다른 seed로 학습하여 평균 성능과 표준편차를 계산했습니다.\n사용된 Seeds: [42, 123, 456, 789, 2024]",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "Attention 분석"
+    ]
+  },
+  {
+    "objectID": "experiments/attention_analysis.html#결과-요약",
+    "href": "experiments/attention_analysis.html#결과-요약",
+    "title": "Attention Mechanism 분석",
+    "section": "결과 요약",
+    "text": "결과 요약\n\nv50 (Temporal Only)v64 (Dual Attention)\n\n\n\n\n\nMetric\nMean\nStd\nRange\n\n\n\n\nR²\n0.57475\n0.03032\n0.53293 - 0.61256\n\n\nRMSE\n0.5758\n0.0206\n0.5500 - 0.6039\n\n\nMAE\n0.4553\n0.0175\n0.4308 - 0.4811\n\n\n\n\n\n\n\n\nMetric\nMean\nStd\nRange\n\n\n\n\nR²\n0.49719\n0.02411\n0.46268 - 0.53620\n\n\nRMSE\n0.6263\n0.0151\n0.6017 - 0.6477\n\n\nMAE\n0.4941\n0.0116\n0.4733 - 0.5084",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "Attention 분석"
+    ]
+  },
+  {
+    "objectID": "experiments/attention_analysis.html#시각화-분석",
+    "href": "experiments/attention_analysis.html#시각화-분석",
+    "title": "Attention Mechanism 분석",
+    "section": "시각화 분석",
+    "text": "시각화 분석\n\n성능 분포 비교\n\n\n\n강건성 Box Plot\n\n\n관찰 사항:\n\nv50의 R² 중앙값이 더 높음 (0.567 vs 0.497)\nv50의 분산이 더 큼 (box가 더 넓음)\nv64는 더 일관된 성능 (box가 더 좁음)\n\n\n\nSeed별 성능 비교\n\n\n\nSeed별 비교\n\n\n패턴:\n\n모든 seed에서 v50이 v64보다 우수\nSeed 123에서 둘 다 최고 성능 (v50: 0.606, v64: 0.496)\nSeed 456에서 둘 다 최저 성능 (v50: 0.533, v64: 0.486)\n\n\n\n평균 ± 표준편차 비교\n\n\n\nMean ± Std\n\n\n\n\n\n\n\n\n핵심 발견\n\n\n\n\nv50: 0.575 ± 0.030 (더 높은 평균, 더 큰 분산)\nv64: 0.497 ± 0.024 (더 낮은 평균, 더 작은 분산)",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "Attention 분석"
+    ]
+  },
+  {
+    "objectID": "experiments/attention_analysis.html#핵심-인사이트-1",
+    "href": "experiments/attention_analysis.html#핵심-인사이트-1",
+    "title": "Attention Mechanism 분석",
+    "section": "핵심 인사이트",
+    "text": "핵심 인사이트\n\n1. 성능 vs 강건성 트레이드오프\n\n\n\n\n\n\n트레이드오프 분석\n\n\n\n\nv50: 평균 성능이 15.5% 더 높지만, 변동성도 26% 더 큼\nv64: 성능은 낮지만 더 안정적이고 예측 가능함\n\n\n\n\n\n2. v64가 더 강건한 이유\nv64의 낮은 표준편차(0.024 vs 0.030)는 다음 요인들 때문입니다:\n\n정규화 효과: Feature attention이 일종의 정규화 역할\n다중 attention: 2개 attention이 서로를 보완하여 변동성 감소\n파라미터 수: 더 많은 파라미터가 초기화 민감도 분산\n\n\n\n3. 실무 적용 시사점\n\nProduction 환경Research 환경\n\n\n안정성이 중요한 경우:\n\nv64 고려 가능 (낮은 분산 = 예측 가능한 성능)\n성능은 낮지만 일관된 결과 보장\n또는 v50의 ensemble 활용\n\n\n\n최고 성능이 필요한 경우:\n\nv50 사용 (높은 평균 성능)\nSeed tuning으로 최적 성능 추구 가능\nCross-validation으로 variance 보완",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "Attention 분석"
+    ]
+  },
+  {
+    "objectID": "experiments/attention_analysis.html#통계적-유의성",
+    "href": "experiments/attention_analysis.html#통계적-유의성",
+    "title": "Attention Mechanism 분석",
+    "section": "통계적 유의성",
+    "text": "통계적 유의성\n성능 차이:\n\nv50 - v64 = 0.0776 (15.5% 개선)\n두 모델의 std를 고려하면 통계적으로 유의미한 차이\n\n변동성 차이:\n\nv50 std / v64 std = 1.26\nv50이 26% 더 불안정",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "Attention 분석"
+    ]
+  },
+  {
+    "objectID": "experiments/attention_analysis.html#결론",
+    "href": "experiments/attention_analysis.html#결론",
+    "title": "Attention Mechanism 분석",
+    "section": "결론",
+    "text": "결론\n\n\n\n\n\n\n종합 결론\n\n\n\n이 실험은 다음을 확인했습니다:\n\nv50이 더 나은 평균 성능을 제공함 (R² 0.575 vs 0.497)\nv64가 더 안정적임 (Std 0.024 vs 0.030)\nFeature attention 추가는 성능을 감소시키지만 강건성을 향상시킴\n\n최종 권장:\n\n프로덕션 환경: v64 (안정성 우선) 또는 v50의 ensemble\n연구 환경: v50 (성능 우선, seed tuning으로 최적화)",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "Attention 분석"
+    ]
+  },
+  {
+    "objectID": "experiments/22day_prediction.html#v71-모델-구조",
+    "href": "experiments/22day_prediction.html#v71-모델-구조",
+    "title": "22일 예측 모델",
+    "section": "",
+    "text": "코드\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%\nflowchart LR\n    subgraph DATA[\"OHLCV + 옵션 데이터\"]\n        A[\"OHLCV 가격\"] --&gt; B[\"Base Features (14)\"]\n        A --&gt; C[\"HF Proxy (7)\"]\n        D[\"VIX/VIX3M/VIX9D\"] --&gt; E[\"IV Surface (10)\"]\n        A --&gt; F[\"Alt Data (6)\"]\n    end\n    \n    subgraph FEATURES[\"37개 피처\"]\n        B --&gt; G[\"HAR lag + GARCH + Vol-of-Vol\\n+ Momentum + Cross-Asset\"]\n        C --&gt; H[\"Parkinson + Garman-Klass\\n+ Rogers-Satchell\"]\n        E --&gt; I[\"VIX Term Structure\\n+ VRP\"]\n        F --&gt; J[\"Amihud + Volume\\n+ Order Imbalance\"]\n    end\n    \n    subgraph MODELS[\"자산 클래스별 최적화\"]\n        G & H & I & J --&gt; K[\"Equity Ridge\"]\n        G & H & I & J --&gt; L[\"Bond Ridge\"]\n        G & H & I & J --&gt; M[\"Commodity Ridge\"]\n        G & H & I & J --&gt; N[\"XGBoost\"]\n    end\n    \n    subgraph ENSEMBLE[\"가중 앙상블\"]\n        K & L & M --&gt; O[\"Ridge 예측\"]\n        N --&gt; P[\"XGBoost 예측\"]\n        O & P --&gt; Q[\"Weighted Ensemble\\nR² = 0.803\"]\n    end\n\n    style DATA fill:#E3F2FD,stroke:#1565C0,stroke-width:2px\n    style FEATURES fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px\n    style MODELS fill:#FFF3E0,stroke:#E65100,stroke-width:2px\n    style ENSEMBLE fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%\nflowchart LR\n    subgraph DATA[\"OHLCV + 옵션 데이터\"]\n        A[\"OHLCV 가격\"] --&gt; B[\"Base Features (14)\"]\n        A --&gt; C[\"HF Proxy (7)\"]\n        D[\"VIX/VIX3M/VIX9D\"] --&gt; E[\"IV Surface (10)\"]\n        A --&gt; F[\"Alt Data (6)\"]\n    end\n    \n    subgraph FEATURES[\"37개 피처\"]\n        B --&gt; G[\"HAR lag + GARCH + Vol-of-Vol\\n+ Momentum + Cross-Asset\"]\n        C --&gt; H[\"Parkinson + Garman-Klass\\n+ Rogers-Satchell\"]\n        E --&gt; I[\"VIX Term Structure\\n+ VRP\"]\n        F --&gt; J[\"Amihud + Volume\\n+ Order Imbalance\"]\n    end\n    \n    subgraph MODELS[\"자산 클래스별 최적화\"]\n        G & H & I & J --&gt; K[\"Equity Ridge\"]\n        G & H & I & J --&gt; L[\"Bond Ridge\"]\n        G & H & I & J --&gt; M[\"Commodity Ridge\"]\n        G & H & I & J --&gt; N[\"XGBoost\"]\n    end\n    \n    subgraph ENSEMBLE[\"가중 앙상블\"]\n        K & L & M --&gt; O[\"Ridge 예측\"]\n        N --&gt; P[\"XGBoost 예측\"]\n        O & P --&gt; Q[\"Weighted Ensemble\\nR² = 0.803\"]\n    end\n\n    style DATA fill:#E3F2FD,stroke:#1565C0,stroke-width:2px\n    style FEATURES fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px\n    style MODELS fill:#FFF3E0,stroke:#E65100,stroke-width:2px\n    style ENSEMBLE fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px",
+    "crumbs": [
+      "실험 결과",
+      "모델별 분석",
+      "V71 Ridge (37feat)"
+    ]
+  },
+  {
+    "objectID": "experiments/22day_prediction.html#ablation-study-피처-그룹별-기여도",
+    "href": "experiments/22day_prediction.html#ablation-study-피처-그룹별-기여도",
+    "title": "22일 예측 모델",
+    "section": "",
+    "text": "피처 조합\n피처 수\nR²\n기여도\n\n\n\n\nBase only\n14\n0.758\nbaseline\n\n\nBase + HF Proxy\n21\n0.779\n+0.021\n\n\nBase + IV Surface\n24\n0.784\n+0.026\n\n\nBase + Alt Data\n20\n0.765\n+0.007\n\n\nBase + HF + IV\n31\n0.796\n+0.037\n\n\nAll Features (Ridge)\n37\n0.798\n+0.040\n\n\nWeighted Ensemble\n37\n0.803\n+0.044\n\n\n\n\n\n\n\n\n\n핵심 발견\n\n\n\n\nIV Surface가 최대 개별 기여 (+0.026): 옵션 시장이 실현변동성 예측에 추가 정보 제공\nHF Proxy가 두 번째 (+0.021): OHLC 기반 범위 추정량이 종가 모델의 한계 보완\nHF + IV 시너지 (+0.037): 두 소스가 보완적 정보 제공\nAlt Data 제한적 (+0.007): 거래량 기반 피처는 다른 피처와 중복",
+    "crumbs": [
+      "실험 결과",
+      "모델별 분석",
+      "V71 Ridge (37feat)"
+    ]
+  },
+  {
+    "objectID": "experiments/22day_prediction.html#피처-중요도-permutation-importance",
+    "href": "experiments/22day_prediction.html#피처-중요도-permutation-importance",
+    "title": "22일 예측 모델",
+    "section": "",
+    "text": "Top-10 피처 상세 해석\n\n\n\n\n\n\n\n\n\n\n\n\n\n순위\n피처\n중요도\n그룹\n상세 설명\n\n\n\n\n1\nRogersSatchell_22\n0.731\nHF Proxy\n추세(drift)에 비의존적인 OHLC 변동성 추정량. 고빈도 데이터 없이 일별 OHLC만으로 가장 정확한 변동성 추정\n\n\n2\nGarmanKlass_22\n0.290\nHF Proxy\nOHLC 4가격 활용 변동성 추정량. Close-to-Close 대비 약 7.4배 효율적\n\n\n3\nParkinson_22\n0.116\nHF Proxy\nHigh-Low 범위 기반 변동성 추정량. Close-to-Close 대비 약 5배 효율적\n\n\n4\nSPY_LogRV\n0.045\nCross-Asset\n시장 전체(S&P 500) 변동성 수준. 체계적 리스크를 통해 개별 자산 변동성과 연동\n\n\n5\nRange_Close_Ratio\n0.033\nHF Proxy\nRange vs Close 변동성 비율. 일중 변동 대비 종가 안정성을 측정\n\n\n6\nGarch_Weekly\n0.030\nGARCH\n주간 GARCH(1,1) 조건부 변동성. 일별보다 노이즈가 적어 중기 트렌드 포착에 유리\n\n\n7\nGarch_Daily\n0.025\nGARCH\n일별 GARCH(1,1) 조건부 변동성. 변동성 클러스터링(큰 변동 뒤에 큰 변동)을 모델링\n\n\n8\nIV_VIX\n0.024\nIV Surface\nCBOE VIX (30일 내재변동성). 옵션 시장의 forward-looking 변동성 기대치\n\n\n9\nLogRV_lag1\n0.023\nHAR\n전일 실현변동성. HAR 핵심 요소지만 OHLC/IV 피처 추가 시 상대적 중요도 감소\n\n\n10\nIV_VIX3M\n0.022\nIV Surface\n3개월 내재변동성. VIX와의 차이가 변동성 기간 구조(Contango/Backwardation) 신호\n\n\n\n\n\n\n\n\n\n\n\n왜 OHLC 추정량이 압도적인가?\n\n\n\nTop 3를 모두 OHLC 기반 HF Proxy가 차지 (합산 중요도 1.137). 이유:\n\n정보량: Close-to-Close RV는 종가 1개만 사용하지만, OHLC 추정량은 4개 가격을 모두 활용하여 일중 변동 정보를 최대한 반영\n효율성: Rogers-Satchell은 이론적으로 Close-to-Close 대비 8배 이상 효율적 (같은 표본 크기에서 분산이 1/8)\n타겟과의 직접 연관: 22일 전방 RV 타겟 자체가 실현변동성이므로, OHLC 변동성 추정량이 가장 직접적인 예측 변수",
+    "crumbs": [
+      "실험 결과",
+      "모델별 분석",
+      "V71 Ridge (37feat)"
+    ]
+  },
+  {
+    "objectID": "experiments/22day_prediction.html#자산별-성능-비교-v36-vs-v71",
+    "href": "experiments/22day_prediction.html#자산별-성능-비교-v36-vs-v71",
+    "title": "22일 예측 모델",
+    "section": "",
+    "text": "클래스\nV36 R² (평균)\nV71 R² (평균)\n개선\n\n\n\n\nEquity (5개)\n0.157\n0.320\n+0.163\n\n\nBond (3개)\n-1.611\n-0.658\n+0.953\n\n\nCommodity (3개)\n0.102\n0.047\n-0.055\n\n\n\n\n\n\n\n\n\n자산\n클래스\nV36 R²\nV71 R²\n개선\n샘플 수\n\n\n\n\nSPY\nEquity\n0.316\n0.497\n+0.181\n750\n\n\nQQQ\nEquity\n0.078\n0.411\n+0.333\n750\n\n\nEFA\nEquity\n0.304\n0.428\n+0.124\n751\n\n\nEEM\nEquity\n0.111\n0.249\n+0.138\n750\n\n\nIWM\nEquity\n-0.025\n0.015\n+0.040\n750\n\n\nTLT\nBond\n-0.346\n-0.045\n+0.301\n750\n\n\nIEF\nBond\n-0.581\n-0.190\n+0.391\n750\n\n\nAGG\nBond\n-3.907\n-1.740\n+2.166\n751\n\n\nGLD\nCommodity\n0.091\n0.065\n-0.026\n750\n\n\nUSO\nCommodity\n0.153\n0.210\n+0.057\n751\n\n\nSLV\nCommodity\n0.063\n-0.133\n-0.196\n750\n\n\n\n\n\n\n\n\n\n자산별 성능 해석\n\n\n\n\n풀링 R²(0.803)는 cross-sectional variation 포함: 자산 간 변동성 수준 차이(예: USO ~7.5 vs AGG ~4.0)가 R²에 기여하므로, 순수 시계열 예측력보다 높게 나타남\n개별 자산 중위 R²: 0.065, Equity 평균: 0.320 — 시계열 예측력의 실질적 지표\nBond 3종은 개별 R² &lt; 0: 채권의 변동성 패턴이 주식과 달라 별도 모델이 필요할 수 있음\nEquity 5종이 핵심 성능 기여: SPY(0.497), QQQ(0.411), EFA(0.428)가 주력",
+    "crumbs": [
+      "실험 결과",
+      "모델별 분석",
+      "V71 Ridge (37feat)"
+    ]
+  },
+  {
+    "objectID": "experiments/22day_prediction.html#vix-레짐별-성능",
+    "href": "experiments/22day_prediction.html#vix-레짐별-성능",
+    "title": "22일 예측 모델",
+    "section": "",
+    "text": "레짐 분석 핵심\n\n\n\n\nV71은 모든 VIX 레짐에서 V36보다 우수\n특히 High VIX(극단 고변동성)에서 +0.163 개선 — IV Surface와 HF Proxy가 위기 국면에서 추가 정보 제공\nLow VIX에서도 안정적 우위 (+0.042)",
+    "crumbs": [
+      "실험 결과",
+      "모델별 분석",
+      "V71 Ridge (37feat)"
+    ]
+  },
+  {
+    "objectID": "experiments/22day_prediction.html#동일-피처-세트-공정-비교",
+    "href": "experiments/22day_prediction.html#동일-피처-세트-공정-비교",
+    "title": "22일 예측 모델",
+    "section": "",
+    "text": "공정 비교 결론\n\n\n\n동일 37개 피처를 제공해도 Ridge(0.773) &gt; XGBoost(0.761) &gt; MLP(0.750). 모델 복잡도가 아닌 피처 엔지니어링이 성능 향상의 핵심 요인.",
+    "crumbs": [
+      "실험 결과",
+      "모델별 분석",
+      "V71 Ridge (37feat)"
+    ]
+  },
+  {
+    "objectID": "experiments/summary.html#일-예측-v71-핵심-결과",
+    "href": "experiments/summary.html#일-예측-v71-핵심-결과",
+    "title": "결과 요약",
+    "section": "22일 예측: V71 핵심 결과",
+    "text": "22일 예측: V71 핵심 결과\n\n다중 메트릭 비교 (11개 자산 풀링 기준)\n\n\n\nModel\nR²\nRMSE\nMAE\nQLIKE\n\n\n\n\nV36 (HAR-3)\n0.732\n0.541\n0.430\n0.180\n\n\nV68 (Base-14)\n0.728\n0.545\n0.431\n0.192\n\n\nV71 Ridge (All-37)\n0.774\n0.496\n0.396\n0.149\n\n\nV71 Ensemble\n0.779\n0.492\n0.393\n0.147\n\n\n\n\n\nV71 클래스별 평균 R²\n\n\n\n클래스\n자산\nV71 R² (평균)\nV36 대비\n\n\n\n\nEquity\nSPY, QQQ, IWM, EFA, EEM\n0.320\n+0.163\n\n\nBond\nTLT, IEF, AGG\n-0.658\n+0.953\n\n\nCommodity\nGLD, SLV, USO\n0.047\n-0.055\n\n\n\n\n\nDM 검정\n\n\n\n비교\nDM 통계량\np-value\n\n\n\n\nV71 Ensemble vs V36\n-8.802\n&lt;0.001\n\n\nV71 Ensemble vs V68\n-8.756\n&lt;0.001\n\n\nV71 Ridge vs V36\n-7.481\n&lt;0.001\n\n\nV71 Ridge vs V68\n-7.593\n&lt;0.001",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "결과 요약"
+    ]
+  },
+  {
+    "objectID": "experiments/summary.html#피처-엔지니어링-효과",
+    "href": "experiments/summary.html#피처-엔지니어링-효과",
+    "title": "결과 요약",
+    "section": "피처 엔지니어링 효과",
+    "text": "피처 엔지니어링 효과",
+    "crumbs": [
+      "실험 결과",
+      "결과 요약"
+    ]
+  },
+  {
+    "objectID": "experiments/22day_prediction.html#강건성-검증",
+    "href": "experiments/22day_prediction.html#강건성-검증",
+    "title": "22일 예측 모델",
+    "section": "",
+    "text": "검증 방법\n결과\n판정\n\n\n\n\n다중 Split 안정성\nR² = 0.793 ± 0.010 (5개 split)\nPASS\n\n\nAlpha 민감도\nR² 0.788~0.802 (alpha 0.001~5000)\nPASS\n\n\n5-Fold 시계열 CV\nR² = 0.765 ± 0.046\nPASS\n\n\n데이터 누출 검증\n셔플 R² = -0.002, 시점 체크 통과\nPASS\n\n\nPermutation Importance\nRogers-Satchell 1위 (0.731)\nPASS\n\n\nDM Test (Newey-West)\n모든 비교 p &lt; 0.001\nPASS",
+    "crumbs": [
+      "실험 결과",
+      "모델별 분석",
+      "V71 Ridge (37feat)"
+    ]
+  },
+  {
+    "objectID": "experiments/champion_robustness.html",
+    "href": "experiments/champion_robustness.html",
+    "title": "챔피언 모델 강건성 검증",
+    "section": "",
+    "text": "본 페이지는 중기 예측 챔피언(V50 Tuned)과 단기 예측 챔피언(V71)의 강건성(Robustness) 검증 결과입니다.\n모든 성능 지표는 11개 자산 풀링 기준입니다: Equity(SPY, QQQ, IWM, EFA, EEM), Bond(TLT, IEF, AGG), Commodity(GLD, SLV, USO)",
+    "crumbs": [
+      "실험 결과",
+      "모델별 분석",
+      "  V71 강건성 검증"
+    ]
+  },
+  {
+    "objectID": "experiments/champion_robustness.html#하이퍼파라미터-최적화",
+    "href": "experiments/champion_robustness.html#하이퍼파라미터-최적화",
+    "title": "챔피언 모델 강건성 검증",
+    "section": "하이퍼파라미터 최적화",
+    "text": "하이퍼파라미터 최적화\n\n\n\n\n\n\n\n\n\n단계\n탐색 범위\n최적 설정\n비고\n\n\n\n\nStage 1\nhidden_dim: [32, 64, 128]lr: [0.0001, 0.001, 0.01]\nhidden_dim: 32lr: 0.001\n작은 hidden_dim에서도 충분한 성능 도달\n\n\nStage 2\ndropout: [0.0, 0.3, 0.5]seq_len: [10, 22, 44]\ndropout: 0.0seq_len: 22\n과적합 방지 장치 없이도 안정적 성능\n\n\n\n\n검증 결과 요약 (V50)\n\n\n\n\n\n\n\n\nMetric\nWalk-Forward (Roll-OOS)\nExtreme Market (v59)\n\n\n\n\nR² Mean\n0.533\n0.548 (COVID)\n\n\nConclusion\n공정 비교 OOS (IS 0.848)\n팬데믹 충격에도 예측력 유지\n\n\n\n\nWalk-Forward OOS 성능극한 시장 테스트 (v59)\n\n\n\n\n\nv50 Walk-Forward\n\n\n\n\n\n\n\n국면\n설명\nR² Score\n\n\n\n\n위기 (08-09)\n금융위기\n0.772\n\n\n정상 (12-19)\n저변동성\n0.517\n\n\nCOVID (2020)\n팬데믹\n0.548\n\n\n인플레 (2022)\n고금리\n0.306\n\n\n\n\n\n\n\n\n\n\n\n\n데이터 누출 수정됨\n\n\n\n이전 실험(v66)에서 관찰된 R² 0.99는 데이터 누출로 확인되어 제외하였으며, 엄격한 공정 비교(v51b)를 통해 OOS R² 0.533을 최종 성능으로 채택합니다.",
+    "crumbs": [
+      "실험 결과",
+      "챔피언 모델 강건성 검증"
+    ]
+  },
+  {
+    "objectID": "experiments/champion_robustness.html#검증-결과-요약",
+    "href": "experiments/champion_robustness.html#검증-결과-요약",
+    "title": "챔피언 모델 강건성 검증",
+    "section": "검증 결과 요약",
+    "text": "검증 결과 요약\n\n\n\n검증 방법\n결과\n판정\n\n\n\n\n다중 Split 안정성\nR² = 0.793 ± 0.010 (5개 split)\nPASS\n\n\nAlpha 민감도\nR² = 0.788~0.802 (0.001~5000)\nPASS\n\n\n5-Fold 시계열 CV\nR² = 0.765 ± 0.046\nPASS\n\n\n데이터 누출 검증\n셔플 R² = -0.002\nPASS\n\n\nPermutation Importance\nRogers-Satchell 1위 (0.731)\nPASS\n\n\nDM Test (Newey-West)\n모든 p &lt; 0.001\nPASS",
+    "crumbs": [
+      "실험 결과",
+      "모델별 분석",
+      "  V71 강건성 검증"
+    ]
+  },
+  {
+    "objectID": "experiments/champion_robustness.html#하이퍼파라미터-최적화-1",
+    "href": "experiments/champion_robustness.html#하이퍼파라미터-최적화-1",
+    "title": "챔피언 모델 강건성 검증",
+    "section": "하이퍼파라미터 최적화",
+    "text": "하이퍼파라미터 최적화\n\nBest Window (HAR): (1, 5, 22) - 표준 HAR 구조가 가장 효과적\n자산군별 Alpha:\n\nEquity: 100.0 (높은 규제)\nBond: 10.0\nCommodity: 10.0\n\n\n\nAlpha 민감도 분석\n\n\n\nv36 Alpha Sensitivity",
+    "crumbs": [
+      "실험 결과",
+      "챔피언 모델 강건성 검증"
+    ]
+  },
+  {
+    "objectID": "experiments/champion_robustness.html#검증-결과-요약-1",
+    "href": "experiments/champion_robustness.html#검증-결과-요약-1",
+    "title": "챔피언 모델 강건성 검증",
+    "section": "검증 결과 요약",
+    "text": "검증 결과 요약\n\n\n\nMetric\nCross-Validation (5-Fold)\nBootstrap Robustness (5-Sample)\n\n\n\n\nR² Mean\n0.7627\n0.7728\n\n\nR² Std\n0.0491\n0.00036\n\n\nRMSE Mean\n0.6605\n0.5141\n\n\n\n\n교차 검증 성능부트스트랩 안정성\n\n\n\n\n\nv36 CV Performance\n\n\n\n\n\n\n\nv36 Bootstrap Robustness",
+    "crumbs": [
+      "실험 결과",
+      "챔피언 모델 강건성 검증"
+    ]
+  },
+  {
+    "objectID": "experiments/champion_robustness.html#결과-이미지-및-모델-파일",
+    "href": "experiments/champion_robustness.html#결과-이미지-및-모델-파일",
+    "title": "챔피언 모델 강건성 검증",
+    "section": "결과 이미지 및 모델 파일",
+    "text": "결과 이미지 및 모델 파일\n\nv66 결과 데이터\nv67 결과 데이터\nv66 검증 스크립트\nv67 검증 스크립트",
+    "crumbs": [
+      "실험 결과",
+      "챔피언 모델 강건성 검증"
+    ]
+  },
+  {
+    "objectID": "content/index.html#모델-발전-과정",
+    "href": "content/index.html#모델-발전-과정",
+    "title": "연구 대시보드",
+    "section": "모델 발전 과정",
+    "text": "모델 발전 과정"
+  },
+  {
+    "objectID": "experiments/champion_robustness.html#강건성-검증-시각화",
+    "href": "experiments/champion_robustness.html#강건성-검증-시각화",
+    "title": "챔피언 모델 강건성 검증",
+    "section": "강건성 검증 시각화",
+    "text": "강건성 검증 시각화",
+    "crumbs": [
+      "실험 결과",
+      "챔피언 모델 강건성 검증"
+    ]
+  },
+  {
+    "objectID": "experiments/champion_robustness.html#강건성-검증-결과-테이블",
+    "href": "experiments/champion_robustness.html#강건성-검증-결과-테이블",
+    "title": "챔피언 모델 강건성 검증",
+    "section": "강건성 검증 결과 테이블",
+    "text": "강건성 검증 결과 테이블\n\n\n\n\n\n\n\n\n검증 방법\n결과\n판정\n\n\n\n\n다중 Split 안정성\nR² = 0.793 +/- 0.010 (5개 split, 75%~85%)\nPASS\n\n\nAlpha 민감도\nR² = 0.788~0.802 (alpha 0.001~5000, 12단계)\nPASS\n\n\n5-Fold 시계열 CV\nR² = 0.765 +/- 0.046 (Expanding Window)\nPASS\n\n\n데이터 누출 검증\n셔플 R² = -0.002, 시점/시간 무결성 통과\nPASS\n\n\nPermutation Importance\nRogers-Satchell 1위 (0.731), 경제적 직관 일치\nPASS\n\n\nDM Test (Newey-West)\n모든 비교 p &lt; 0.001 (4쌍 검정)\nPASS\n\n\n\n\n\n\n\n\n\n데이터 누출 검증 상세\n\n\n\n\n\n\n항목\n결과\n판정\n\n\n\n\nTarget 셔플 테스트\nR² = -0.0019 (기대값 ~0)\nPASS\n\n\n피처 시점 검증\n모든 피처 shift(1) 이상\nPASS\n\n\n시간적 무결성\nTrain/Test 순차 분리\nPASS\n\n\n피처-타겟 분리\nTarget = shift(-22)\nPASS",
+    "crumbs": [
+      "실험 결과",
+      "챔피언 모델 강건성 검증"
+    ]
+  },
+  {
+    "objectID": "experiments/champion_robustness.html#v36-vs-v71-강건성-비교",
+    "href": "experiments/champion_robustness.html#v36-vs-v71-강건성-비교",
+    "title": "챔피언 모델 강건성 검증",
+    "section": "V36 vs V71 강건성 비교",
+    "text": "V36 vs V71 강건성 비교\n\n\n\n항목\nV36 (이전 챔피언)\nV71 (현재 챔피언)\n\n\n\n\nR² (기본 설정)\n0.755\n0.803 (+6.3%)\n\n\nCV R² Mean\n0.763\n0.765\n\n\nCV R² Std\n0.049\n0.046 (더 안정적)\n\n\nBootstrap/Multi-seed Std\n0.00036\n0.010\n\n\nAlpha 민감도 범위\n0.750~0.770\n0.788~0.802\n\n\nDM Test 유의성\n-\np&lt;0.001 (모든 비교)\n\n\n피처 수\n3 (HAR only)\n37 (4개 카테고리)",
+    "crumbs": [
+      "실험 결과",
+      "챔피언 모델 강건성 검증"
+    ]
+  },
+  {
+    "objectID": "experiments/champion_robustness.html#결과-데이터",
+    "href": "experiments/champion_robustness.html#결과-데이터",
+    "title": "챔피언 모델 강건성 검증",
+    "section": "결과 데이터",
+    "text": "결과 데이터\n\nV71 강건성 데이터\nV71 실험 결과\nv66 결과 데이터 (V50)",
+    "crumbs": [
+      "실험 결과",
+      "챔피언 모델 강건성 검증"
+    ]
+  },
+  {
+    "objectID": "experiments/index.html#추가-실험-참고-자료",
+    "href": "experiments/index.html#추가-실험-참고-자료",
+    "title": "실험 결과",
+    "section": "추가 실험 (참고 자료)",
+    "text": "추가 실험 (참고 자료)\n\n\n\n실험명\n설명\n링크\n\n\n\n\n통합 모델 실험\n23개 자산을 단일 모델로 학습 (1일 예측)\n보기\n\n\n트레이딩 전략\n변동성 타겟팅 백테스트 (1일 예측 기반)\n보기\n\n\n결과 요약\nV71 중심 전체 실험 결과 통계\n보기",
+    "crumbs": [
+      "실험 결과",
+      "개요"
+    ]
+  },
+  {
+    "objectID": "experiments/1day_prediction.html#검증-결과-요약-실제-json-기반",
+    "href": "experiments/1day_prediction.html#검증-결과-요약-실제-json-기반",
+    "title": "1일 예측 모델 (실험 기록)",
+    "section": "",
+    "text": "Walk-Forward 검증 (v51_results.json)DM 테스트 (v53_results.json)Attention 분석 (v52_results.json)\n\n\n\n\nWalk-Forward OOS R²: 0.8199\n샘플 수: 9,054\n\n\n\n\n\n지표\n값\n출처\n\n\n\n\nWalk-Forward OOS R²\n0.820\nv51_results.json\n\n\n샘플 수\n9,054\nv51_results.json\n\n\n결론\n과적합 없음\nIS/OOS 차이 미미\n\n\n\n\n\n\n\nV50 R²: 0.7839\nV29 R²: 0.4417\nDM Stat: 31.87\nP-Value: 0.0\n\n\n\n\n\n비교\nV50 R²\nV29 R²\nDM 통계량\np-value\n유의성\n\n\n\n\nV50 vs V29\n0.784\n0.442\n31.87\n0.0\n***\n\n\n\n\n\n\n\n최대 가중치 시차(lag): 21일\n최대 가중치: 0.1111\n최소 가중치: 0.0226\n\n\n\n\n\n지표\n값\n해석\n\n\n\n\n최대 가중치 시차\n21일 (t-1)\n전일 변동성에 가장 집중\n\n\n최대 가중치\n0.111\n가중치 범위: 2.3%~11.1%\n\n\n최소 가중치\n0.023\n균일 가중치(4.5%) 대비 차별적",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "V50 모델 (챔피언)"
+    ]
+  },
+  {
+    "objectID": "experiments/champion_robustness.html#상세-sci-검증-분석-v71",
+    "href": "experiments/champion_robustness.html#상세-sci-검증-분석-v71",
+    "title": "챔피언 모델 강건성 검증",
+    "section": "5. 상세 SCI 검증 분석 (V71)",
+    "text": "5. 상세 SCI 검증 분석 (V71)\n\n5.1 자산군별 성능 개선 (Asset-Class Analysis)\n\n\n\n\n\n\n\n\n\n\nBond (채권): 3개 자산 모두 대폭 개선 (특히 AGG +216%p, IEF +39%p). 거시경제 변수(VIX Term, VRP)의 영향력이 큼.\nEquity (주식): QQQ(+33%), SPY(+18%) 등 주요 지수에서 뚜렷한 개선.\nCommodity (원자재): 혼조세(USO 개선, GLD/SLV 소폭 하락).\n\n\n\n5.2 시장 국면별 안정성 (Regime Analysis)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHigh VIX 국면에서의 우월성\n\n\n\n가장 예측이 어려운 High VIX (상위 10%) 구간에서 V71은 R² 0.765를 기록하여 V36(0.602) 대비 +16.3%p의 압도적인 성능 향상을 보였습니다. 이는 IV Surface 피처들이 꼬리 위험(Tail Risk)을 효과적으로 포착함을 의미합니다.",
+    "crumbs": [
+      "실험 결과",
+      "챔피언 모델 강건성 검증"
+    ]
+  },
+  {
+    "objectID": "experiments/sci_verification.html#종합-성능-평가-walk-forward",
+    "href": "experiments/sci_verification.html#종합-성능-평가-walk-forward",
+    "title": "모델 검증 대시보드",
+    "section": "",
+    "text": "V50 모델은 미래 데이터를 전혀 사용하지 않는 엄격한 Expanding Window Walk-Forward 방식의 검증에서 안정적인 성능을 입증했습니다.\n\n\n\n\n\n\n핵심 성과\n\n\n\n\nWalk-Forward OOS R²: 0.533\nIS R²(0.848) 대비 다소 낮지만, 베이스라인(XGBoost 0.502)보다는 우수한 예측력을 유지합니다.",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "상세 검증"
+    ]
+  },
+  {
+    "objectID": "experiments/sci_verification.html#극한-시장-상황-테스트-extreme-market-test",
+    "href": "experiments/sci_verification.html#극한-시장-상황-테스트-extreme-market-test",
+    "title": "모델 검증 대시보드",
+    "section": "",
+    "text": "2008년 금융위기, 코로나19 팬데믹 등 학습 데이터에 포함되지 않았거나 비중이 적은 OOD (Out-of-Distribution) 상황에서의 대응력을 검증했습니다.\n\n\n\n\n\n\n\n\n\n\n금융위기 (2008): 0.77의 매우 높은 예측력 기록. 변동성이 커질수록 모델 성능이 향상되는 경향 확인.\nCOVID (2020): 0.55로 준수한 방어력 입증.",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "상세 검증"
+    ]
+  },
+  {
+    "objectID": "experiments/sci_verification.html#통계적-유의성-검증-dm-test",
+    "href": "experiments/sci_verification.html#통계적-유의성-검증-dm-test",
+    "title": "모델 검증 대시보드",
+    "section": "",
+    "text": "기존 베이스라인(V29, HAR-Ridge) 대비 성능 향상이 통계적으로 유의미한지 Diebold-Mariano Test를 통해 검증했습니다.",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "상세 검증"
+    ]
+  },
+  {
+    "objectID": "experiments/sci_verification.html#모델-구조-검증-ablation-study",
+    "href": "experiments/sci_verification.html#모델-구조-검증-ablation-study",
+    "title": "모델 검증 대시보드",
+    "section": "",
+    "text": "복잡한 딥러닝 구조가 실제로 성능에 기여하는지 확인하기 위해 구성 요소를 하나씩 제거하며 성능 변화를 관찰했습니다.\n\n\n\n\n\n\n\n\n\n\nFull Model vs Unidirectional: 양방향(Bidirectional) 처리가 성능에 중요한 영향을 미침.\nAttention: Attention 메커니즘 제거 시 성능 저하 확인.",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "상세 검증"
+    ]
+  },
+  {
+    "objectID": "experiments/sci_verification.html#잔차-진단-residual-diagnostics",
+    "href": "experiments/sci_verification.html#잔차-진단-residual-diagnostics",
+    "title": "모델 검증 대시보드",
+    "section": "",
+    "text": "모델 잔차가 시계열 데이터의 통계적 특성(정규성, 자기상관 등)을 얼마나 잘 설명하는지 확인합니다.\n(데이터 파일 v61은 Feature Importance 정보를 담고 있습니다. 아래에 Feature Importance를 시각화합니다.)\n\n\n\n\n\n\n\n\n\n\nLogRV (변동성 과거값): 가장 지배적인 예측 요인 (Importance ~0.197).\nReturn (수익률): 보조적인 정보로 작용.",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "상세 검증"
+    ]
+  },
+  {
+    "objectID": "experiments/1day_prediction.html#v50-oos-성능-수정됨",
+    "href": "experiments/1day_prediction.html#v50-oos-성능-수정됨",
+    "title": "1일 예측 모델 (실험 기록)",
+    "section": "",
+    "text": "기존에 보고된 R² 0.820은 실험 설정 오류(타겟 시점 불일치)로 인한 수치였으며, 공정 비교 실험(v51b)을 통해 OOS R² 0.533으로 수정되었습니다. 이는 베이스라인(XGBoost 0.502)보다 우수하지만 V36(0.755)보다는 낮습니다.",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "V50 모델 (챔피언)"
+    ]
+  },
+  {
+    "objectID": "experiments/1day_prediction.html#모델-아키텍처",
+    "href": "experiments/1day_prediction.html#모델-아키텍처",
+    "title": "V50 모델 분석: Bi-LSTM + Attention",
+    "section": "",
+    "text": "코드\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%\nflowchart TD\n    subgraph INPUT[\"입력층\"]\n        A[\"시퀀스 입력: 22일 x 2 피처\"]\n        A --&gt; B[\"LogRV: 로그 실현변동성\"]\n        A --&gt; C[\"Ret: 일간 수익률\"]\n    end\n    \n    subgraph BILSTM[\"양방향 LSTM\"]\n        B & C --&gt; D[\"순방향 LSTM (hidden=64)\"]\n        B & C --&gt; E[\"역방향 LSTM (hidden=64)\"]\n        D & E --&gt; F[\"은닉 상태 결합 (128차원)\"]\n    end\n    \n    subgraph ATTENTION[\"Temporal Attention\"]\n        F --&gt; G[\"tanh + Linear(128→1)\"]\n        G --&gt; H[\"Softmax (22개 시점 가중치)\"]\n        H --&gt; I[\"가중 평균 컨텍스트 벡터\"]\n    end\n    \n    subgraph OUTPUT[\"출력층\"]\n        I --&gt; K[\"FC Layer (128→1)\"]\n        K --&gt; L[\"22일 후 LogRV 예측\"]\n    end\n\n    style INPUT fill:#E3F2FD,stroke:#1565C0,stroke-width:2px\n    style BILSTM fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px\n    style ATTENTION fill:#FFF3E0,stroke:#E65100,stroke-width:2px\n    style OUTPUT fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%\nflowchart TD\n    subgraph INPUT[\"입력층\"]\n        A[\"시퀀스 입력: 22일 x 2 피처\"]\n        A --&gt; B[\"LogRV: 로그 실현변동성\"]\n        A --&gt; C[\"Ret: 일간 수익률\"]\n    end\n    \n    subgraph BILSTM[\"양방향 LSTM\"]\n        B & C --&gt; D[\"순방향 LSTM (hidden=64)\"]\n        B & C --&gt; E[\"역방향 LSTM (hidden=64)\"]\n        D & E --&gt; F[\"은닉 상태 결합 (128차원)\"]\n    end\n    \n    subgraph ATTENTION[\"Temporal Attention\"]\n        F --&gt; G[\"tanh + Linear(128→1)\"]\n        G --&gt; H[\"Softmax (22개 시점 가중치)\"]\n        H --&gt; I[\"가중 평균 컨텍스트 벡터\"]\n    end\n    \n    subgraph OUTPUT[\"출력층\"]\n        I --&gt; K[\"FC Layer (128→1)\"]\n        K --&gt; L[\"22일 후 LogRV 예측\"]\n    end\n\n    style INPUT fill:#E3F2FD,stroke:#1565C0,stroke-width:2px\n    style BILSTM fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px\n    style ATTENTION fill:#FFF3E0,stroke:#E65100,stroke-width:2px\n    style OUTPUT fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px\n\n\n\n\n\n\n\n\n\n\n\n파라미터\n값\n비고\n\n\n\n\n시퀀스 길이\n22일\nHAR 월간 윈도우\n\n\nLSTM 은닉 크기\n64\n양방향 → 128차원 출력\n\n\nLSTM 레이어\n1\n단일 Bi-LSTM\n\n\nAttention\nTemporal (1개)\ntanh + softmax\n\n\n드롭아웃\n0.0\n정규화 없음\n\n\n학습률\n0.001\nAdam 옵티마이저\n\n\n배치 크기\n64\n미니배치\n\n\n에폭\n20\n고정 (조기 종료 없음)\n\n\n손실 함수\nMSE\n회귀 표준",
+    "crumbs": [
+      "실험 결과",
+      "모델별 분석",
+      "V50 LSTM (3feat)"
+    ]
+  },
+  {
+    "objectID": "experiments/1day_prediction.html#검증-결과",
+    "href": "experiments/1day_prediction.html#검증-결과",
+    "title": "V50 모델 분석: Bi-LSTM + Attention",
+    "section": "",
+    "text": "Walk-Forward (v51b)DM Test (v53)Attention 분석 (v52)Extreme Market (v59)\n\n\n\n\nIS R²:  0.84845\nOOS R²: 0.53344\nGap:    0.31501\n\n\n\n\n\n지표\n값\n해석\n\n\n\n\nIS R²\n0.848\n학습 데이터에서의 성능\n\n\nOOS R²\n0.533\n미래 데이터에 대한 일반화\n\n\nIS-OOS Gap\n0.315\n과적합 정도 (정상 범위)\n\n\n\n\n기존 V51의 R²=0.820은 실험 설정 오류(rolling=5, target=t+1)로 인한 수치였으며, V50과 동일한 설정(rolling=22, target=t+22)으로 공정 비교한 결과입니다.\n\n\n\n\n\nV50 R²: 0.7839\nV29 R²: 0.4417\nDM Stat: 31.87\nP-Value: 0.0\n\n\n\n\n\n비교\nV50 R²\nV29 R²\nDM Stat\np-value\n\n\n\n\nV50 vs V29\n0.784\n0.442\n31.87\n0.0\n\n\n\n\n\n\n\n최대 가중치 시차(lag): 21일\n최대 가중치: 0.1111\n최소 가중치: 0.0226\n\n\n\n\n\n지표\n값\n해석\n\n\n\n\n최대 가중치 시차\n21일 (t-1)\n전일 변동성에 가장 집중\n\n\n가중치 범위\n2.3%~11.1%\n균일(4.5%) 대비 차별적 집중",
+    "crumbs": [
+      "실험 결과",
+      "모델별 분석",
+      "V50 LSTM (3feat)"
+    ]
+  },
+  {
+    "objectID": "experiments/1day_prediction.html#한계-및-향후-과제",
+    "href": "experiments/1day_prediction.html#한계-및-향후-과제",
+    "title": "V50 모델 분석: Bi-LSTM + Attention",
+    "section": "",
+    "text": "알려진 한계점\n\n\n\n\nBidirectional LSTM: 시계열 예측에서 역방향 LSTM은 미래 정보를 참조할 수 있다는 학술적 비판이 존재함.\n입력 피처 2개: LogRV + Return만 사용. V71(37개 피처)에 비해 정보량이 부족.\n과적합 방지 미비: 드롭아웃 0, Early Stopping 없이 고정 20 에폭 학습.\nIS-OOS Gap: IS(0.848) vs OOS(0.533)로 약 37%의 과적합이 관찰됨.\n\n\n\n\n\n\n\n\n항목\n현재\n개선 방향\n\n\n\n\n구조\nBi-LSTM (미래 참조 우려)\nUnidirectional LSTM 비교 실험\n\n\n피처\n2개 (LogRV, Ret)\nVIX, Term Structure 등 추가\n\n\n정규화\n없음\nDropout, Early Stopping 적용\n\n\n검증\nHold-out, Walk-Forward\nK-Fold 시계열 CV 추가",
+    "crumbs": [
+      "실험 결과",
+      "모델별 분석",
+      "V50 LSTM (3feat)"
+    ]
+  },
+  {
+    "objectID": "experiments/1day_prediction.html#관련-자료",
+    "href": "experiments/1day_prediction.html#관련-자료",
+    "title": "V50 모델 분석: Bi-LSTM + Attention",
+    "section": "",
+    "text": "소스 코드: v50_dual_attention_lstm.py\n공정 비교 실험: v51b_fair_comparison.py\nDM Test: v53_dm_test_v50.py\n상세 검증: SCI 검증 대시보드\n강건성 검증: 챔피언 모델 강건성",
+    "crumbs": [
+      "실험 결과",
+      "모델별 분석",
+      "V50 LSTM (3feat)"
+    ]
+  },
+  {
+    "objectID": "experiments/phase13_model_comparison.html#성능-비교-요약",
+    "href": "experiments/phase13_model_comparison.html#성능-비교-요약",
+    "title": "모델 아키텍처 비교",
+    "section": "",
+    "text": "모델\n예측 지평\nR²\n피처 수\n모델 유형\n\n\n\n\nV71 (Champion)\n22일\n0.803\n37\nRidge + XGBoost 앙상블\n\n\nV36 (Adaptive)\n22일\n0.755\n3\n자산별 Ridge\n\n\nV29 (HAR+GARCH)\n22일\n0.679\n3\nRidge\n\n\nV42 (Ensemble)\n양쪽\n0.639\n3\n가중 앙상블\n\n\nV43 (Transformer)\n22일\n0.534\n2\nTransformer\n\n\nV50 (Dual-Attn)\n1일\n0.533 (OOS)\n2\nBi-LSTM + Attention",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "모델 아키텍처 비교"
+    ]
+  },
+  {
+    "objectID": "experiments/phase13_model_comparison.html#v50-1일-예측-챔피언",
+    "href": "experiments/phase13_model_comparison.html#v50-1일-예측-챔피언",
+    "title": "모델 아키텍처 비교",
+    "section": "",
+    "text": "코드\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%\nflowchart TD\n    A[\"시퀀스 22일 x 2 피처\"] --&gt; B[\"Bi-LSTM (hidden=64)\"]\n    B --&gt; C[\"Temporal Attention\"]\n    C --&gt; D[\"FC(128→1)\"]\n    D --&gt; E[\"22일 후 LogRV\"]\n\n    style A fill:#E3F2FD,stroke:#1565C0\n    style B fill:#E8F5E9,stroke:#2E7D32\n    style C fill:#FFF3E0,stroke:#E65100\n    style D fill:#F3E5F5,stroke:#7B1FA2\n    style E fill:#F3E5F5,stroke:#7B1FA2\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%\nflowchart TD\n    A[\"시퀀스 22일 x 2 피처\"] --&gt; B[\"Bi-LSTM (hidden=64)\"]\n    B --&gt; C[\"Temporal Attention\"]\n    C --&gt; D[\"FC(128→1)\"]\n    D --&gt; E[\"22일 후 LogRV\"]\n\n    style A fill:#E3F2FD,stroke:#1565C0\n    style B fill:#E8F5E9,stroke:#2E7D32\n    style C fill:#FFF3E0,stroke:#E65100\n    style D fill:#F3E5F5,stroke:#7B1FA2\n    style E fill:#F3E5F5,stroke:#7B1FA2\n\n\n\n\n\n\n\n\n\n\n\n\n파라미터\n값\n비고\n\n\n\n\nSequence Length\n22일\nHAR 월간 윈도우\n\n\nLSTM Hidden\n64\n양방향 → 128차원\n\n\nLSTM Layers\n1\n단일 Bi-LSTM\n\n\nAttention\nTemporal (1개)\ntanh + softmax\n\n\nDropout\n0.0\n정규화 없음\n\n\nEpochs\n20\n고정 (Early Stop 없음)\n\n\nInput Features\n2\nLogRV, Daily Return\n\n\n\n\n\n\n\n\n\n지표\n값\n출처\n\n\n\n\nIS R²\n0.848\nv51b_results.json\n\n\nOOS R²\n0.533\nv51b_results.json (공정 비교)\n\n\nDM Test\np &lt; 0.001\nv53_results.json",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "모델 아키텍처 비교"
+    ]
+  },
+  {
+    "objectID": "experiments/phase13_model_comparison.html#v71-22일-예측-챔피언",
+    "href": "experiments/phase13_model_comparison.html#v71-22일-예측-챔피언",
+    "title": "모델 아키텍처 비교",
+    "section": "",
+    "text": "코드\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%\nflowchart LR\n    A[\"OHLCV + 옵션 데이터\"] --&gt; B[\"37개 피처\\n(HAR+HF+IV+Alt)\"]\n    B --&gt; C[\"자산별 Ridge\"]\n    B --&gt; D[\"XGBoost\"]\n    C & D --&gt; E[\"Weighted Ensemble\\nR²=0.803\"]\n\n    style A fill:#E3F2FD,stroke:#1565C0\n    style B fill:#E8F5E9,stroke:#2E7D32\n    style C fill:#FFF3E0,stroke:#E65100\n    style D fill:#FFF3E0,stroke:#E65100\n    style E fill:#F3E5F5,stroke:#7B1FA2\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%\nflowchart LR\n    A[\"OHLCV + 옵션 데이터\"] --&gt; B[\"37개 피처\\n(HAR+HF+IV+Alt)\"]\n    B --&gt; C[\"자산별 Ridge\"]\n    B --&gt; D[\"XGBoost\"]\n    C & D --&gt; E[\"Weighted Ensemble\\nR²=0.803\"]\n\n    style A fill:#E3F2FD,stroke:#1565C0\n    style B fill:#E8F5E9,stroke:#2E7D32\n    style C fill:#FFF3E0,stroke:#E65100\n    style D fill:#FFF3E0,stroke:#E65100\n    style E fill:#F3E5F5,stroke:#7B1FA2\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n카테고리\n피처 수\n주요 피처\nR² 기여\n\n\n\n\nBase (HAR+GARCH)\n14\nLogRV lags, GARCH, Vol-of-Vol\n0.758 (baseline)\n\n\nHF Proxy (OHLC)\n7\nRogers-Satchell, Garman-Klass, Parkinson\n+0.021\n\n\nIV Surface\n10\nVIX, VIX3M, VIX Term, VRP\n+0.026\n\n\nAlt Data\n6\nAmihud, Volume, Order Imbalance\n+0.007\n\n\n\n\n\n\n\n\n\n검증 방법\n결과\n판정\n\n\n\n\n다중 Split 안정성\nR² = 0.793 ± 0.010\nPASS\n\n\nAlpha 민감도\nR² 0.788~0.802\nPASS\n\n\n5-Fold 시계열 CV\nR² = 0.765 ± 0.046\nPASS\n\n\n데이터 누출 검증\n셔플 R² = -0.002\nPASS\n\n\nPermutation Importance\nRogers-Satchell 1위\nPASS\n\n\nDM Test (Newey-West)\n모든 p &lt; 0.001\nPASS",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "모델 아키텍처 비교"
+    ]
+  },
+  {
+    "objectID": "experiments/phase13_model_comparison.html#권장사항",
+    "href": "experiments/phase13_model_comparison.html#권장사항",
+    "title": "모델 아키텍처 비교",
+    "section": "",
+    "text": "사용 목적\n권장 모델\nR²\n특징\n\n\n\n\n장기 리스크 관리 (22일)\nV71 (Asset-Adaptive)\n0.803\n37개 피처, 6종 검증 통과\n\n\n단기 트레이딩 (1일)\nV50 (Dual-Attn LSTM)\n0.533 (OOS)\nIS-OOS gap 존재\n\n\n범용\nV42 (Ensemble)\n0.639~0.656\nV36 기반 가중 앙상블",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "모델 아키텍처 비교"
+    ]
+  },
+  {
+    "objectID": "experiments/phase13_model_comparison.html#관련-자료",
+    "href": "experiments/phase13_model_comparison.html#관련-자료",
+    "title": "모델 아키텍처 비교",
+    "section": "",
+    "text": "V50 상세 분석 - 중기 예측 챔피언\nV71 상세 분석 - 단기 예측 챔피언\nV71 강건성 검증 - 6종 강건성 테스트\n결과 요약 - 전체 실험 통계",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "모델 아키텍처 비교"
+    ]
+  },
+  {
+    "objectID": "experiments/champion_robustness.html#공정-비교-실험-v51b",
+    "href": "experiments/champion_robustness.html#공정-비교-실험-v51b",
+    "title": "챔피언 모델 강건성 검증",
+    "section": "공정 비교 실험 (v51b)",
+    "text": "공정 비교 실험 (v51b)\nV50의 성능을 정확히 평가하기 위해 동일한 실험 설정(rolling=22, target=t+22)에서 공정 비교를 수행했습니다.\n\n\n\n지표\n값\n해석\n\n\n\n\nIS R²\n0.848\n훈련 데이터 성능\n\n\nOOS R²\n0.651\n미래 데이터 일반화\n\n\nIS-OOS Gap\n0.315\n과적합 정도",
+    "crumbs": [
+      "실험 결과",
+      "모델별 분석",
+      "  V71 강건성 검증"
+    ]
+  },
+  {
+    "objectID": "experiments/champion_robustness.html#수정-이력",
+    "href": "experiments/champion_robustness.html#수정-이력",
+    "title": "챔피언 모델 강건성 검증",
+    "section": "수정 이력",
+    "text": "수정 이력\n\nv66 결과(R². 0.99): 데이터 누출 확인 → 삭제\nv51 결과(R² 0.820): 실험 설정 불일치 → 수정됨\nv51b 결과(R² 0.651): 공정 비교 → 최종 확정",
+    "crumbs": [
+      "실험 결과",
+      "모델별 분석",
+      "  V71 강건성 검증"
+    ]
+  },
+  {
+    "objectID": "experiments/champion_robustness.html#extreme-market-테스트-v59",
+    "href": "experiments/champion_robustness.html#extreme-market-테스트-v59",
+    "title": "챔피언 모델 강건성 검증",
+    "section": "Extreme Market 테스트 (v59)",
+    "text": "Extreme Market 테스트 (v59)\n\n\n\n국면\n설명\nR² Score\n\n\n\n\n위기 (08-09)\n금융위기\n0.772\n\n\n정상 (12-19)\n저변동성\n0.517\n\n\nCOVID (2020)\n팬데믹\n0.548\n\n\n인플레 (2022)\n고금리\n0.306",
+    "crumbs": [
+      "실험 결과",
+      "모델별 분석",
+      "  V71 강건성 검증"
+    ]
+  },
+  {
+    "objectID": "experiments/champion_robustness.html#강건성-시각화",
+    "href": "experiments/champion_robustness.html#강건성-시각화",
+    "title": "챔피언 모델 강건성 검증",
+    "section": "강건성 시각화",
+    "text": "강건성 시각화",
+    "crumbs": [
+      "실험 결과",
+      "모델별 분석",
+      "  V71 강건성 검증"
+    ]
+  },
+  {
+    "objectID": "experiments/champion_robustness.html#자산군별-성능-v36-vs-v71",
+    "href": "experiments/champion_robustness.html#자산군별-성능-v36-vs-v71",
+    "title": "챔피언 모델 강건성 검증",
+    "section": "자산군별 성능 (V36 vs V71)",
+    "text": "자산군별 성능 (V36 vs V71)",
+    "crumbs": [
+      "실험 결과",
+      "모델별 분석",
+      "  V71 강건성 검증"
+    ]
+  },
+  {
+    "objectID": "experiments/champion_robustness.html#vix-국면별-안정성",
+    "href": "experiments/champion_robustness.html#vix-국면별-안정성",
+    "title": "챔피언 모델 강건성 검증",
+    "section": "VIX 국면별 안정성",
+    "text": "VIX 국면별 안정성\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHigh VIX 국면 우월성\n\n\n\n가장 예측이 어려운 High VIX (상위 10%) 구간에서 V71은 R² 0.765를 기록하여 V36(0.602) 대비 +16.3%p 개선.",
+    "crumbs": [
+      "실험 결과",
+      "모델별 분석",
+      "  V71 강건성 검증"
+    ]
+  },
+  {
+    "objectID": "experiments/champion_robustness.html#관련-자료",
+    "href": "experiments/champion_robustness.html#관련-자료",
+    "title": "챔피언 모델 강건성 검증",
+    "section": "관련 자료",
+    "text": "관련 자료\n\nV71 강건성 데이터\nV50 공정 비교 결과\nV71 실험 결과",
+    "crumbs": [
+      "실험 결과",
+      "모델별 분석",
+      "  V71 강건성 검증"
+    ]
+  },
+  {
+    "objectID": "experiments/summary.html#핵심-성과",
+    "href": "experiments/summary.html#핵심-성과",
+    "title": "결과 요약",
+    "section": "",
+    "text": "구간\n챔피언 (풀링 R²)\n챔피언 (중위 R²)\n\n\n\n\n단기 (1~22d)\nV74 ElasticNet (59feat, 22d: 0.807)\nV50 Tuned (3feat, 22d: 0.274)\n\n\n중기 (60~90d)\nV50 Tuned LSTM (3feat, 60d: 0.796)\nV50 Tuned LSTM\n\n\n장기 (120~365d)\nV36 HAR-3 (3feat, 365d: 0.611)\nV50 Tuned LSTM\n\n\n\n\n\n\n\n\n\n성능 지표 기준\n\n\n\n\n모든 R²는 전방 RV 타겟 기준 (데이터 중첩 방지)\n풀링 R²: 11개 자산 데이터를 합쳐서 계산 (cross-sectional variation 포함)\n개별 자산 수준 성능은 중위 R² 참조",
+    "crumbs": [
+      "실험 결과",
+      "결과 요약"
+    ]
+  },
+  {
+    "objectID": "experiments/sci_verification.html#walk-forward-검증-v51b",
+    "href": "experiments/sci_verification.html#walk-forward-검증-v51b",
+    "title": "V50 모델 정밀 검증",
+    "section": "",
+    "text": "지표\n값\n해석\n\n\n\n\nIS R²\n0.848\n훈련 데이터 성능\n\n\nOOS R²\n0.533\n미래 데이터 일반화\n\n\nGap\n0.315\n과적합 정도",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "상세 검증"
+    ]
+  },
+  {
+    "objectID": "experiments/sci_verification.html#설정-수정-사항",
+    "href": "experiments/sci_verification.html#설정-수정-사항",
+    "title": "V50 모델 정밀 검증",
+    "section": "",
+    "text": "기존 v51(R²=0.820)은 V50과 다른 실험 설정(rolling=5, target=t+1)을 사용하여 과대 평가됨. v51b는 V50과 동일한 설정(rolling=22, target=t+22)으로 공정 비교한 결과.",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "상세 검증"
+    ]
+  },
+  {
+    "objectID": "experiments/sci_verification.html#dm-테스트-v53",
+    "href": "experiments/sci_verification.html#dm-테스트-v53",
+    "title": "V50 모델 정밀 검증",
+    "section": "",
+    "text": "V50 R²: 0.7839\nV29 R²: 0.4417\nDM Stat: 31.87\nP-Value: 0.0\n\n\n\n\n\n비교\nV50 R²\nV29 R²\nDM Stat\np-value\n\n\n\n\nV50 vs V29\n0.784\n0.442\n31.87\n0.0\n\n\n\nV50이 V29 대비 통계적으로 유의미하게 우수 (p &lt; 0.001).",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "상세 검증"
+    ]
+  },
+  {
+    "objectID": "experiments/sci_verification.html#attention-분석-v60",
+    "href": "experiments/sci_verification.html#attention-분석-v60",
+    "title": "V50 모델 정밀 검증",
+    "section": "",
+    "text": "Attention 가중치 데이터 없음",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "상세 검증"
+    ]
+  },
+  {
+    "objectID": "experiments/sci_verification.html#피처-중요도-v61",
+    "href": "experiments/sci_verification.html#피처-중요도-v61",
+    "title": "V50 모델 정밀 검증",
+    "section": "",
+    "text": "- baseline_r2: 0.18715465217539684",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "상세 검증"
+    ]
+  },
+  {
+    "objectID": "experiments/sci_verification.html#관련-자료",
+    "href": "experiments/sci_verification.html#관련-자료",
+    "title": "V50 모델 정밀 검증",
+    "section": "",
+    "text": "V50 상세 분석\nV50 강건성 검증\n모델 비교",
+    "crumbs": [
+      "실험 결과",
+      "1일 예측",
+      "상세 검증"
+    ]
+  },
+  {
+    "objectID": "experiments/index.html#실험-목록",
+    "href": "experiments/index.html#실험-목록",
+    "title": "실험 결과",
+    "section": "",
+    "text": "본 연구는 74회 이상의 실험(V1~V74)을 통해 다중 자산 실현변동성 예측 모델을 개발하였다. 전방 RV 타겟 기준으로 평가.\n\n\n\n\n\n실험\n내용\n22d 풀링 R²\n강점\n\n\n\n\nV74 (ElasticNet 59feat)\nEnhanced ML + Deep Learning\n0.807\n22d 챔피언, LASSO 대비 +2.1%\n\n\nV71 (Ensemble 37feat)\n22일 예측 (V71)\n0.803\n37개 피처 Ridge+XGB 앙상블\n\n\nV50 Tuned (LSTM 3feat)\nV50 모델 분석\n0.780\n중기(60~180d) 최고, 중위 R² 전 구간 최고\n\n\nV36 (HAR-3)\nV29 검증\n0.761\n장기(120~365d) 안정적\n\n\n강건성 검증\n챔피언 모델 강건성\n6종 PASS\n\n\n\nSCI 검증\nV50 정밀 검증\n-\n\n\n\n\n\n\n\n\n\n\n\n실험\n내용\n링크\n\n\n\n\n모델 비교\n모델 구조 비교\n모델 비교\n\n\nAttention 분석\nV50 Temporal Attention 해석\nAttention\n\n\n통합 모델\n23개 자산 Universal Model\n통합 모델\n\n\n트레이딩 전략\n변동성 타겟팅 백테스트\n트레이딩\n\n\n결과 요약\n전체 실험 결과 통계\n요약",
+    "crumbs": [
+      "실험 결과",
+      "개요"
+    ]
+  },
+  {
+    "objectID": "experiments/index.html#주요-발견",
+    "href": "experiments/index.html#주요-발견",
+    "title": "실험 결과",
+    "section": "주요 발견",
+    "text": "주요 발견\n\n\n\n\n\n\n핵심 결과\n\n\n\n\n22d 챔피언: V74 ElasticNet(59feat) = R² 0.807, V71 Ensemble(0.803) 대비 +0.5% 향상\n딥러닝 한계 규명: Pooled 데이터에서 LSTM/Transformer는 음의 R² (시계열 불연속성)\n중기(60~180d): V50 Tuned LSTM(3feat)이 풀링 R² 및 중위 R² 최고 (60d: 0.796)\n장기(120~365d): V36 HAR-3가 풀링 R² 안정적 (365d: 0.611)\n핵심 교훈: 금융 변동성 예측에서는 피처 엔지니어링 + 강건한 선형 모델이 복잡한 딥러닝보다 효과적\n데이터 누출 방지: 전방 RV 타겟으로 rolling window 중첩 제거",
+    "crumbs": [
+      "실험 결과",
+      "개요"
+    ]
+  },
+  {
+    "objectID": "experiments/1day_prediction.html#모델-성능-비교-1일-예측-모델만",
+    "href": "experiments/1day_prediction.html#모델-성능-비교-1일-예측-모델만",
+    "title": "V50 모델 분석: Bi-LSTM + Attention",
+    "section": "",
+    "text": "모델\n출처\nR²\n비고\n\n\n\n\nV50 OOS\nv51b_results.json\n0.533\n공정 비교 (챔피언)\n\n\nV43 (Transformer)\nv43_results.json\n0.534\nTransformer 아키텍처\n\n\nHAR-Ridge\nv14_statistical_results.json\n0.529\n통계 검증\n\n\nV50 (Hold-out)\nv50_results.json\n0.518\n기본 분할\n\n\nXGBoost\nv14_statistical_results.json\n0.502\n통계 검증",
+    "crumbs": [
+      "실험 결과",
+      "모델별 분석",
+      "V50 LSTM (3feat)"
+    ]
+  },
+  {
+    "objectID": "experiments/summary.html#모델별-multi-horizon-성능-비중첩-전방-rv",
+    "href": "experiments/summary.html#모델별-multi-horizon-성능-비중첩-전방-rv",
+    "title": "결과 요약",
+    "section": "모델별 Multi-Horizon 성능 (비중첩 전방 RV)",
+    "text": "모델별 Multi-Horizon 성능 (비중첩 전방 RV)\n\nV71 Ensemble (Ridge+XGBoost, 37 피처)\n단기(1~22d)에서 풀링 R² 최고. 37개 피처의 정보량과 선형 모델의 안정성.\n\n\n\nHorizon\n풀링 R²\n중위 R²\nRMSE\n\n\n\n\n1d\n0.114\n0.019\n2.496\n\n\n5d\n0.625\n0.203\n0.748\n\n\n22d\n0.790\n0.215\n0.476\n\n\n60d\n0.774\n-0.201\n0.471\n\n\n90d\n0.752\n-0.338\n0.487\n\n\n120d\n0.737\n-0.417\n0.495\n\n\n180d\n0.691\n-0.522\n0.529\n\n\n365d\n0.516\n-3.392\n0.645\n\n\n\n\n\nV50 Tuned (Bi-LSTM+Attention, 3 피처: RS, GK, RC)\n중기(60~180d)에서 풀링 R² 최고. 전 구간에서 중위 R² 최고 – 개별 자산 예측에서 가장 우수.\n\n\n\nHorizon\n풀링 R²\n중위 R²\nRMSE\n\n\n\n\n1d\n0.092\n-0.000\n2.538\n\n\n5d\n0.577\n0.101\n0.793\n\n\n22d\n0.780\n0.274\n0.482\n\n\n60d\n0.796\n-0.178\n0.446\n\n\n90d\n0.788\n-0.031\n0.448\n\n\n120d\n0.751\n-0.149\n0.479\n\n\n180d\n0.708\n-0.328\n0.511\n\n\n365d\n0.589\n-2.199\n0.590\n\n\n\n\n\nV36 HAR-3 (Ridge, 3 피처: LogRV lags)\n장기(120~365d)에서 풀링 R² 최고. 가장 단순하지만 장기 안정성 우수.\n\n\n\nHorizon\n풀링 R²\n중위 R²\nRMSE\n\n\n\n\n1d\n0.109\n0.020\n2.504\n\n\n5d\n0.581\n0.116\n0.791\n\n\n22d\n0.761\n0.120\n0.508\n\n\n60d\n0.784\n-0.039\n0.461\n\n\n90d\n0.781\n-0.286\n0.457\n\n\n120d\n0.758\n-0.543\n0.475\n\n\n180d\n0.705\n-0.821\n0.517\n\n\n365d\n0.611\n-3.078\n0.578\n\n\n\n\n\nDM 검정 (22일 기준)\n\n\n\n비교\nDM 통계량\np-value\n\n\n\n\nV71 Ensemble vs V36\n-8.802\n&lt;0.001\n\n\nV71 Ensemble vs V68\n-8.756\n&lt;0.001\n\n\nV71 Ridge vs V36\n-7.481\n&lt;0.001\n\n\nV71 Ridge vs V68\n-7.593\n&lt;0.001",
+    "crumbs": [
+      "실험 결과",
+      "결과 요약"
+    ]
+  },
+  {
+    "objectID": "experiments/22day_prediction.html#multi-horizon-모델-비교-비중첩-전방-rv",
+    "href": "experiments/22day_prediction.html#multi-horizon-모델-비교-비중첩-전방-rv",
+    "title": "22일 예측 모델",
+    "section": "",
+    "text": "22일 예측 뿐 아니라 다양한 horizon(1d~365d)에서 V71과 V50 Tuned, V36의 성능을 비교하였다.\n\n\n\n\n\n\n\n\n\n\nHorizon\nV71 Ridge (37feat)\nV50 Tuned (LSTM 3feat)\nV36 HAR-3 (3feat)\n챔피언\n\n\n\n\n1d\n0.114\n0.092\n0.109\nV71\n\n\n5d\n0.625\n0.577\n0.581\nV71\n\n\n22d\n0.790\n0.780\n0.761\nV71\n\n\n60d\n0.774\n0.796\n0.784\nV50\n\n\n90d\n0.752\n0.788\n0.781\nV50\n\n\n120d\n0.737\n0.751\n0.758\nV36\n\n\n180d\n0.691\n0.708\n0.705\nV50\n\n\n365d\n0.516\n0.589\n0.611\nV36\n\n\n\n\n\n\n\n\n\nMulti-Horizon 핵심 발견\n\n\n\n\nV71은 단기(1~22d) 챔피언: 37개 피처가 단기 자기상관에 풍부한 정보 제공\nV50 Tuned는 중기(60~180d) 챔피언: LSTM이 3개 Range 피처로 비선형 장기 패턴 포착\nV36 HAR-3는 초장기(120~365d) 안정적: 단순 모델의 과적합 방지 효과\n모든 R²는 비중첩 전방 RV 타겟 기준 (데이터 중첩 없음)",
+    "crumbs": [
+      "실험 결과",
+      "모델별 분석",
+      "V71 Ridge (37feat)"
+    ]
+  },
+  {
+    "objectID": "experiments/summary.html#문헌-벤치마크-non-overlapping-forward-rv",
+    "href": "experiments/summary.html#문헌-벤치마크-non-overlapping-forward-rv",
+    "title": "결과 요약",
+    "section": "문헌 벤치마크 (Non-Overlapping Forward RV)",
+    "text": "문헌 벤치마크 (Non-Overlapping Forward RV)\n\nLASSO-HAR (Audrino & Knaus, 2016)\nJournal of Financial Econometrics, 14(2). L1 정규화 기반 피처 셀렉션.\n\n\n\nHorizon\n풀링 R²\n중위 R²\nRMSE\n\n\n\n\n22d\n0.790\n0.225\n0.476\n\n\n60d\n0.782\n-0.180\n0.464\n\n\n365d\n0.555\n-3.248\n0.618\n\n\n\nRidge(V71)와 거의 동등. L1 vs L2 정규화의 차이 미미.\n\n\nHAR-CJ (Andersen, Bollerslev, Diebold, 2007)\nEconometrica, 75(4). 연속+점프 변동성 분리.\n\n\n\nHorizon\n풀링 R²\n중위 R²\nRMSE\n\n\n\n\n22d\n0.752\n0.089\n0.517\n\n\n60d\n0.771\n-0.077\n0.475\n\n\n365d\n0.570\n-4.060\n0.608\n\n\n\nHAR-3보다 낮음. 일간 데이터에서는 점프 분리 이점 제한적.\n\n\nRandom Forest (Christensen, Siggaard, Veliyev, 2023)\nJournal of Financial Economics, 150(2). 트리 기반 ML.\n\n\n\nHorizon\n풀링 R²\n중위 R²\nRMSE\n\n\n\n\n22d\n0.770\n0.148\n0.498\n\n\n60d\n0.752\n0.021\n0.494\n\n\n365d\n0.705\n-2.991\n0.504\n\n\n\n365d에서 풀링 R² 최고. 트리 모델의 비선형 패턴이 초장기에서 유리.",
+    "crumbs": [
+      "실험 결과",
+      "결과 요약"
+    ]
+  },
+  {
+    "objectID": "experiments/phase13_model_comparison.html#multi-horizon-풀링-r²-비교",
+    "href": "experiments/phase13_model_comparison.html#multi-horizon-풀링-r²-비교",
+    "title": "모델 아키텍처 비교",
+    "section": "",
+    "text": "Horizon\nRidge(37)\nLSTM(3)\nHAR-3\nLASSO\nHAR-CJ\nRF(37)\n챔피언\n\n\n\n\n1d\n0.114\n0.092\n0.109\n0.116\n0.106\n0.113\nLASSO\n\n\n5d\n0.625\n0.577\n0.581\n0.625\n0.569\n0.611\nRidge\n\n\n22d\n0.798\n0.780\n0.761\n0.790\n0.752\n0.770\nRidge(V71)\n\n\n60d\n0.774\n0.796\n0.784\n0.782\n0.771\n0.752\nLSTM\n\n\n90d\n0.752\n0.788\n0.781\n0.763\n0.768\n0.737\nLSTM\n\n\n120d\n0.737\n0.751\n0.758\n0.748\n0.746\n0.730\nHAR-3\n\n\n180d\n0.691\n0.708\n0.705\n0.707\n0.691\n0.719\nRF\n\n\n365d\n0.516\n0.589\n0.611\n0.555\n0.570\n0.705\nRF",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "모델 아키텍처 비교"
+    ]
+  },
+  {
+    "objectID": "experiments/phase13_model_comparison.html#v50-tuned-중기-예측-챔피언",
+    "href": "experiments/phase13_model_comparison.html#v50-tuned-중기-예측-챔피언",
+    "title": "모델 아키텍처 비교",
+    "section": "",
+    "text": "코드\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%\nflowchart TD\n    A[\"시퀀스 22일 x 3 피처\"] --&gt; B[\"Bi-LSTM (hidden=32)\"]\n    B --&gt; C[\"Temporal Attention\"]\n    C --&gt; D[\"FC(64→1)\"]\n    D --&gt; E[\"Forward RV 예측\"]\n\n    style A fill:#E3F2FD,stroke:#1565C0\n    style B fill:#E8F5E9,stroke:#2E7D32\n    style C fill:#FFF3E0,stroke:#E65100\n    style D fill:#F3E5F5,stroke:#7B1FA2\n    style E fill:#F3E5F5,stroke:#7B1FA2\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%\nflowchart TD\n    A[\"시퀀스 22일 x 3 피처\"] --&gt; B[\"Bi-LSTM (hidden=32)\"]\n    B --&gt; C[\"Temporal Attention\"]\n    C --&gt; D[\"FC(64→1)\"]\n    D --&gt; E[\"Forward RV 예측\"]\n\n    style A fill:#E3F2FD,stroke:#1565C0\n    style B fill:#E8F5E9,stroke:#2E7D32\n    style C fill:#FFF3E0,stroke:#E65100\n    style D fill:#F3E5F5,stroke:#7B1FA2\n    style E fill:#F3E5F5,stroke:#7B1FA2\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n파라미터\n값\n비고\n\n\n\n\nInput Features\n3\nRogersSatchell, GarmanKlass, Range_Close_Ratio\n\n\nLSTM Hidden\n32\n양방향 → 64차원\n\n\nDropout\n0.2\n정규화\n\n\nBatch Size\n128\n\n\n\n강점\n60~90d\n중기 풀링 R² 최고, 전 구간 중위 R² 최고",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "모델 아키텍처 비교"
+    ]
+  },
+  {
+    "objectID": "experiments/phase13_model_comparison.html#v71-ridge-단기-예측-챔피언",
+    "href": "experiments/phase13_model_comparison.html#v71-ridge-단기-예측-챔피언",
+    "title": "모델 아키텍처 비교",
+    "section": "",
+    "text": "코드\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%\nflowchart LR\n    A[\"OHLCV + 옵션 데이터\"] --&gt; B[\"37개 피처\\n(HAR+HF+IV+Alt)\"]\n    B --&gt; C[\"Ridge Regression\"]\n    C --&gt; D[\"22d R²=0.803\\n(Ensemble)\"]\n\n    style A fill:#E3F2FD,stroke:#1565C0\n    style B fill:#E8F5E9,stroke:#2E7D32\n    style C fill:#FFF3E0,stroke:#E65100\n    style D fill:#F3E5F5,stroke:#7B1FA2\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%\nflowchart LR\n    A[\"OHLCV + 옵션 데이터\"] --&gt; B[\"37개 피처\\n(HAR+HF+IV+Alt)\"]\n    B --&gt; C[\"Ridge Regression\"]\n    C --&gt; D[\"22d R²=0.803\\n(Ensemble)\"]\n\n    style A fill:#E3F2FD,stroke:#1565C0\n    style B fill:#E8F5E9,stroke:#2E7D32\n    style C fill:#FFF3E0,stroke:#E65100\n    style D fill:#F3E5F5,stroke:#7B1FA2\n\n\n\n\n\n\n\n\n\n\n\n\n카테고리\n피처 수\n주요 피처\n\n\n\n\nBase (HAR+GARCH)\n14\nLogRV lags, GARCH, Vol-of-Vol\n\n\nHF Proxy (OHLC)\n7\nRogers-Satchell, Garman-Klass, Parkinson\n\n\nIV Surface\n10\nVIX, VIX3M, VIX Term, VRP\n\n\nAlt Data\n6\nAmihud, Volume, Order Imbalance",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "모델 아키텍처 비교"
+    ]
+  },
+  {
+    "objectID": "experiments/phase13_model_comparison.html#문헌-벤치마크",
+    "href": "experiments/phase13_model_comparison.html#문헌-벤치마크",
+    "title": "모델 아키텍처 비교",
+    "section": "",
+    "text": "모델\n출처\n22d R²\n365d R²\n설명\n\n\n\n\nHAR-RV\nCorsi (2009)\n0.761\n0.611\n3개 HAR 피처 Ridge\n\n\nHAR-CJ\nAndersen+ (2007)\n0.752\n0.570\nJump 분해 (Bipower Variation)\n\n\nLASSO-HAR\nAudrino & Knaus (2016)\n0.790\n0.555\n37개 피처 L1 정규화\n\n\nRF\nChristensen+ (2023)\n0.770\n0.705\n37개 피처 Random Forest",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "모델 아키텍처 비교"
+    ]
+  },
+  {
+    "objectID": "literature/prior_work_comparison.html#전통-계량경제-모델",
+    "href": "literature/prior_work_comparison.html#전통-계량경제-모델",
+    "title": "선행연구 피처/방법론/성능 비교",
+    "section": "1. 전통 계량경제 모델",
+    "text": "1. 전통 계량경제 모델\n선행연구의 근간이 되는 전통적 변동성 예측 모델:\n\n\n\n\n\n\n\n\n\n\n\n모델\n저자(연도)\n저널\n피처\n방법론\n성능\n\n\n\n\nARCH\nEngle (1982)\nEconometrica\n과거 충격 \\(\\epsilon^2\\)\n조건부 분산\n-\n\n\nGARCH(1,1)\nBollerslev (1986)\nJ. Econometrics\n\\(\\epsilon^2\\), \\(\\sigma^2\\)\nGARCH 방정식\n-\n\n\nGARCH-MIDAS\nEngle & Rangel (2008)\nRFS\n단기 GARCH + 거시변수\n이중 성분 분해\nR² ≈ 0.55\n\n\nHAR-RV\nCorsi (2009)\nJFEC\nRV lags 3개 (d, w, m)\n선형 회귀\n22d: 0.761\n\n\nHAR-CJ\nAndersen+ (2007)\nEconometrica\n연속+Jump (6개)\nHAR+Jump 분리\n22d: 0.752\n\n\nRealized GARCH\nHansen+ (2021)\nJFEC (2024)\n고빈도 RV\n이중 충격 구조\nVol shock=97.8%\n\n\n\n\n\n\n\n\n\nHAR 모델의 핵심\n\n\n\nCorsi(2009)의 HAR은 이질적 시장 가설(Heterogeneous Market Hypothesis)에 기반. 1일/5일/22일 3개 래그만으로 변동성의 장기기억(long-memory) 특성을 포착하며, 본 연구의 V36(HAR-3) 벤치마크의 기반이다.",
+    "crumbs": [
+      "문헌 분석",
+      "선행연구 정리"
+    ]
+  },
+  {
+    "objectID": "literature/prior_work_comparison.html#머신러닝딥러닝-모델",
+    "href": "literature/prior_work_comparison.html#머신러닝딥러닝-모델",
+    "title": "선행연구 피처/방법론/성능 비교",
+    "section": "2. 머신러닝/딥러닝 모델",
+    "text": "2. 머신러닝/딥러닝 모델\n\n\n\n\n\n\n\n\n\n\nML 모델\n\n\n\n\n\n\n\n\n\n\n\n\n\n모델\n저자(연도)\n저널\n피처 수\n피처 유형\n방법론\n22d R²\n자산\n\n\n\n\nML+옵션\nCarr+ (2019)\narXiv\n79\n옵션 IV surface\nRidge, FNN\n0.39\nSPX\n\n\nLASSO-HAR\nAudrino+ (2016)\nJFEC\n37\nHAR+확장 (L1)\nLASSO\n0.790\nS&P 500\n\n\nRF+고빈도\nChristensen+ (2023)\nJFE\n37\n고빈도 RV\nRF, NN\n0.770\n다수 종목\n\n\n고차원 ML\nChun+ (2025)\nRIBF\n43\n거시+금융+심리\nLASSO, GBRT\n-\n주식\n\n\nV74 ElasticNet\n본 연구\n-\n59\nHAR+HF+IV+비선형\nElasticNet (L1+L2)\n0.807\n11개 자산\n\n\n\n\n\nDL 모델\n\n\n\n\n\n\n\n\n\n\n\n\n모델\n저자(연도)\n저널\n피처\n방법론\n핵심 성과\n자산\n\n\n\n\nHybrid LSTM\nRoszyk+ (2024)\narXiv\nGARCH+VIX\nLSTM+GARCH 입력\nVIX 추가시 MAE 45% 개선\nS&P 500\n\n\nGINN\nXu+ (2024)\nICAIF\nGARCH 매핑\nLSTM=GARCH 구조 결합\n다중 자산 범용성\nSPX, DJI, Gold\n\n\nDeepVol\nVarious (2022)\narXiv\n고빈도 OHLCV\nDilated Causal CNN\n전통 모델 대비 개선\n고빈도\n\n\nMulti-Trans\nRamos+ (2021)\nAppl Soft Comp\n가격 시계열\nEnsemble Transformer\nCOVID 기간 우위\nS&P 500\n\n\nPooled DL\n본 연구 (V74)\n-\n59개 피처\nLSTM/BiLSTM/Transformer\n실패(R²&lt;0): Pooled 데이터 불연속성\n11개 자산",
+    "crumbs": [
+      "문헌 분석",
+      "선행연구 정리"
+    ]
+  },
+  {
+    "objectID": "literature/prior_work_comparison.html#vrp-이론-및-cross-asset-연구",
+    "href": "literature/prior_work_comparison.html#vrp-이론-및-cross-asset-연구",
+    "title": "선행연구 피처/방법론/성능 비교",
+    "section": "3. VRP 이론 및 Cross-Asset 연구",
+    "text": "3. VRP 이론 및 Cross-Asset 연구\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n연구\n저자(연도)\n저널\n방법론\n핵심 발견\n자산 범위\n\n\n\n\nVRP 정의\nCarr & Wu (2009)\nRFS\nVariance swap\nVRP = 양(+) 리스크 프리미엄\nSPX 옵션\n\n\nVIX² 분해\nBekaert+ (2014)\nJ. Econometrics\n분해 프레임워크\nVRP가 수익률 예측력 보유\nS&P 500\n\n\nCross-Asset\nHeston+ (2023)\nAEA 2024\nVariance portfolio\nVRP 자산별 이질성\n20개 선물\n\n\nCommodity\nOrnelas+ (2018)\nBIS WP\n선형 예측\nCross-asset spillover\n금, 원유\n\n\nSpillover\nAng+ (2013)\nJ. Monetary Econ\n체제 전환\nRegime-dependent\n미, 유럽\n\n\n\n\n\n\n\n\n\nResearch Gap\n\n\n\n\n단일 자산 편중: 대부분 S&P 500에만 집중\n옵션 데이터 의존: Heston+(2023)은 자산별 고유 옵션 필요\n단일 예측 지평: 대부분 1d 또는 22d만 분석\n해석 불가능: ML/DL 모델은 블랙박스",
+    "crumbs": [
+      "문헌 분석",
+      "선행연구 정리"
+    ]
+  },
+  {
+    "objectID": "literature/prior_work_comparison.html#피처-유형별-분류",
+    "href": "literature/prior_work_comparison.html#피처-유형별-분류",
+    "title": "선행연구 피처/방법론/성능 비교",
+    "section": "4. 피처 유형별 분류",
+    "text": "4. 피처 유형별 분류\n\n\n\n\n\n\n\n\n\n\n4.1 실현 변동성 기반 (RV)\n\n\n\n\n\n\n\n\n\n피처\n정의\n출처\n본 연구 활용\n\n\n\n\nRV 일별\n\\(\\sum r_t^2 \\times 252\\)\nCorsi (2009)\nHAR 피처 (LogRV lag-1, 5, 22)\n\n\nBipower Variation\n\\(\\frac{\\pi}{2}\\sum|r_t||r_{t-1}|\\)\nAndersen+ (2007)\nHAR-CJ 점프 프록시\n\n\nJump Component\n\\(\\max(0, RV - BV)\\)\nAndersen+ (2007)\nHAR-CJ 벤치마크\n\n\n\n\n\n4.2 Range 기반 (OHLC) – V50 Tuned 핵심\n\n\n\n\n\n\n\n\n\n피처\n정의\n효율성\n본 연구\n\n\n\n\nRogers-Satchell\n\\((h{-}c)(h{-}o)+(l{-}c)(l{-}o)\\)\n5x, drift-robust\nV50 핵심 3feat\n\n\nGarman-Klass\n\\(0.5(h{-}l)^2-(2\\ln2{-}1)(c{-}o)^2\\)\n7.4x\nV50 핵심 3feat\n\n\nRange_Close_Ratio\n\\((H-L)/C\\)\n-\nV50 핵심 3feat\n\n\nParkinson\n\\((h{-}l)^2/(4\\ln2)\\)\n5x\nV71 HF Proxy\n\n\nYang-Zhang\nYZ Estimator\n7x\nV71 HF Proxy\n\n\n\n\n\n4.3 옵션/내재변동성 기반\n\n\n\n\n\n\n\n\n피처\n출처\n본 연구\n\n\n\n\nVIX\n전체 VRP 문헌\nGlobal risk factor\n\n\nVIX Term Structure (VIX3M/VIX, VIX9D/VIX)\nWhaley (2000) 계열\nIV Surface 그룹\n\n\nSKEW\nCBOE\nSentiment 피처\n\n\n개별 옵션 IV 79개\nCarr+ (2019)\n미사용 (경제성)",
+    "crumbs": [
+      "문헌 분석",
+      "선행연구 정리"
+    ]
+  },
+  {
+    "objectID": "literature/prior_work_comparison.html#방법론-비교",
+    "href": "literature/prior_work_comparison.html#방법론-비교",
+    "title": "선행연구 피처/방법론/성능 비교",
+    "section": "5. 방법론 비교",
+    "text": "5. 방법론 비교\n\n\n\n\n\n\n\n\n\n\n정규화 방법\n\n\n\n\n\n\n\n\n\n방법\n특성\n선행 연구\n본 연구\n\n\n\n\nL1 (LASSO)\n피처 선택, sparsity\nAudrino+ (2016)\nLASSO-HAR 벤치마크\n\n\nL2 (Ridge)\n다중공선성 처리\nCarr+ (2019)\nV71 Ridge (37feat)\n\n\nL1+L2 (ElasticNet)\n피처 선택 + 다중공선성\n-\nV74 챔피언 (alpha=0.01, l1=0.1)\n\n\nDropout\n뉴런 비활성화\nDL 문헌\nV50 (0.0 최적)\n\n\n\n\n\nCross-Asset 학습 전략\n\n\n\n\n\n\n\n\n전략\n선행 연구\n본 연구 적용\n\n\n\n\n개별 자산 학습\nHansen+ (2021)\n비교 대상\n\n\nPooling\nChristensen+ (2022)\nV50 Tuned (11자산 풀링)\n\n\n자산군 적응\nFan+ (2025)\nV71 (Equity/Bond/Commodity별 alpha)\n\n\n옵션 variance portfolio\nHeston+ (2023)\n미사용 (옵션 불필요)\n\n\n\n\n\n검증 방법론\n\n\n\n\n\n\n\n\n방법\n선행 연구\n본 연구\n\n\n\n\nRolling Window\nBenhenda+ (2026)\n80/20 시간순 분할\n\n\nPurged K-Fold\nLopez de Prado (2018)\n5-Fold TimeSeriesSplit\n\n\nDM Test (HAC)\nDiebold & Mariano (1995)\np&lt;0.001 (모든 벤치마크)\n\n\nMulti-Seed\n-\n5-seed 실험",
+    "crumbs": [
+      "문헌 분석",
+      "선행연구 정리"
+    ]
+  },
+  {
+    "objectID": "literature/prior_work_comparison.html#multi-horizon-성능-비교",
+    "href": "literature/prior_work_comparison.html#multi-horizon-성능-비교",
+    "title": "선행연구 피처/방법론/성능 비교",
+    "section": "6. Multi-Horizon 성능 비교",
+    "text": "6. Multi-Horizon 성능 비교\n\n\n\n\n\n\n\n\n\n\nHorizon별 최적 모델 (본 연구 발견)\n\n\n\n\n\n\n\n\n\n\n\n구간\n챔피언\n피처 수\n풀링 R²\n핵심 이유\n선행연구 대비\n\n\n\n\n단기 (1~22d)\nV74 ElasticNet\n59\n0.807\nL1+L2 + 확장 피처\nLASSO 대비 +2.1%\n\n\n중기 (60~90d)\nV50 LSTM\n3\n0.796\nLSTM+소수 핵심 피처\n본 연구 고유\n\n\n장기 (120~365d)\nRF/HAR-3\n37/3\n0.611~0.705\n비선형 패턴\nChristensen+ 계열",
+    "crumbs": [
+      "문헌 분석",
+      "선행연구 정리"
+    ]
+  },
+  {
+    "objectID": "literature/prior_work_comparison.html#본-연구의-차별점",
+    "href": "literature/prior_work_comparison.html#본-연구의-차별점",
+    "title": "선행연구 피처/방법론/성능 비교",
+    "section": "7. 본 연구의 차별점",
+    "text": "7. 본 연구의 차별점\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n차별점\n본 연구\n대비 선행연구\n\n\n\n\n0.80 벽 돌파\nV71 Ensemble = 0.803, V74 ElasticNet = 0.807\nLASSO(0.790) 대비 최대 +2.1%\n\n\n옵션 데이터 불필요\nVIX 파생 + OHLCV만으로 예측\nCarr+(2019): 79개 옵션, Heston+(2023): 자산별 옵션\n\n\nMulti-Horizon\n1d~365d 8지평, 7모델\n대부분 단일 지평\n\n\nML vs DL 한계 규명\nPooled 데이터에서 DL 실패 실증\n대부분 DL 우위만 보고 (Negative Result)\n\n\n이중 학습 전략\nPooling(V50) + Adaptive(V71)\nFan+(2025): VRP 아님\n\n\n내재적 해석\nAttention 가중치 = 해석 도구\nLo+(2023): SHAP/LIME",
+    "crumbs": [
+      "문헌 분석",
+      "선행연구 정리"
+    ]
+  },
+  {
+    "objectID": "literature/prior_work_comparison.html#참고문헌",
+    "href": "literature/prior_work_comparison.html#참고문헌",
+    "title": "선행연구 피처/방법론/성능 비교",
+    "section": "참고문헌",
+    "text": "참고문헌\n\n\n\n\n\n\n핵심 참고문헌 (클릭하여 펼치기)\n\n\n\n\n\n벤치마크 모델: Corsi(2009) HAR-RV, Andersen+(2007) HAR-CJ, Audrino+(2016) LASSO, Christensen+(2023) RF\nVRP 이론: Carr & Wu(2009), Bekaert & Hoerova(2014), Hansen+(2021) Realized GARCH\nCross-Asset: Heston+(2023), Ornelas+(2018), Finta & Ornelas(2022)\n딥러닝: Carr+(2019) ML+Options, Roszyk+(2024) LSTM-GARCH, Xu+(2024) GINN, Ramos+(2021) Transformer\n방법론: Lopez de Prado(2018), Chun+(2025), Fan+(2025)",
+    "crumbs": [
+      "문헌 분석",
+      "선행연구 정리"
+    ]
+  },
+  {
+    "objectID": "experiments/summary.html#모델별-multi-horizon-성능-전방-rv",
+    "href": "experiments/summary.html#모델별-multi-horizon-성능-전방-rv",
+    "title": "결과 요약",
+    "section": "모델별 Multi-Horizon 성능 (전방 RV)",
+    "text": "모델별 Multi-Horizon 성능 (전방 RV)\n\nV71 Ensemble (Ridge+XGBoost, 37 피처)\n단기(1~22d)에서 풀링 R² 최고. 37개 피처의 정보량과 선형 모델의 안정성.\n\n\n\nHorizon\n풀링 R²\n중위 R²\nRMSE\n\n\n\n\n1d\n0.114\n0.019\n2.496\n\n\n5d\n0.625\n0.203\n0.748\n\n\n22d\n0.793\n0.215\n0.476\n\n\n60d\n0.774\n-0.201\n0.471\n\n\n90d\n0.752\n-0.338\n0.487\n\n\n120d\n0.737\n-0.417\n0.495\n\n\n180d\n0.691\n-0.522\n0.529\n\n\n365d\n0.516\n-3.392\n0.645\n\n\n\n\n\nV50 Tuned (Bi-LSTM+Attention, 3 피처: RS, GK, RC)\n중기(60~180d)에서 풀링 R² 최고. 전 구간에서 중위 R² 최고 – 개별 자산 예측에서 가장 우수.\n\n\n\nHorizon\n풀링 R²\n중위 R²\nRMSE\n\n\n\n\n1d\n0.092\n-0.000\n2.538\n\n\n5d\n0.577\n0.101\n0.793\n\n\n22d\n0.780\n0.274\n0.482\n\n\n60d\n0.796\n-0.178\n0.446\n\n\n90d\n0.788\n-0.031\n0.448\n\n\n120d\n0.751\n-0.149\n0.479\n\n\n180d\n0.708\n-0.328\n0.511\n\n\n365d\n0.589\n-2.199\n0.590\n\n\n\n\n\nV36 HAR-3 (Ridge, 3 피처: LogRV lags)\n장기(120~365d)에서 풀링 R² 최고. 가장 단순하지만 장기 안정성 우수.\n\n\n\nHorizon\n풀링 R²\n중위 R²\nRMSE\n\n\n\n\n1d\n0.109\n0.020\n2.504\n\n\n5d\n0.581\n0.116\n0.791\n\n\n22d\n0.761\n0.120\n0.508\n\n\n60d\n0.784\n-0.039\n0.461\n\n\n90d\n0.781\n-0.286\n0.457\n\n\n120d\n0.758\n-0.543\n0.475\n\n\n180d\n0.705\n-0.821\n0.517\n\n\n365d\n0.611\n-3.078\n0.578\n\n\n\n\n\nDM 검정 (22일 기준)\n\n\n\n비교\nDM 통계량\np-value\n\n\n\n\nV71 Ensemble vs V36\n-8.802\n&lt;0.001\n\n\nV71 Ensemble vs V68\n-8.756\n&lt;0.001\n\n\nV71 Ridge vs V36\n-7.481\n&lt;0.001\n\n\nV71 Ridge vs V68\n-7.593\n&lt;0.001",
+    "crumbs": [
+      "실험 결과",
+      "결과 요약"
+    ]
+  },
+  {
+    "objectID": "experiments/22day_prediction.html#multi-horizon-모델-비교-전방-rv",
+    "href": "experiments/22day_prediction.html#multi-horizon-모델-비교-전방-rv",
+    "title": "22일 예측 모델",
+    "section": "",
+    "text": "22일 예측 뿐 아니라 다양한 horizon(1d~365d)에서 V71과 V50 Tuned, V36의 성능을 비교하였다.\n\n\n\n\n\n\n\n\n\n\nHorizon\nV71 Ensemble (37feat)\nV50 Tuned (LSTM 3feat)\nV36 HAR-3 (3feat)\n챔피언\n\n\n\n\n1d\n0.114\n0.092\n0.109\nV71\n\n\n5d\n0.625\n0.577\n0.581\nV71\n\n\n22d\n0.803\n0.780\n0.761\nV71\n\n\n60d\n0.774\n0.796\n0.784\nV50\n\n\n90d\n0.752\n0.788\n0.781\nV50\n\n\n120d\n0.737\n0.751\n0.758\nV36\n\n\n180d\n0.691\n0.708\n0.705\nV50\n\n\n365d\n0.516\n0.589\n0.611\nV36\n\n\n\n\n\n\n\n\n\nMulti-Horizon 핵심 발견\n\n\n\n\nV71은 단기(1~22d) 챔피언: 37개 피처가 단기 자기상관에 풍부한 정보 제공\nV50 Tuned는 중기(60~180d) 챔피언: LSTM이 3개 Range 피처로 비선형 장기 패턴 포착\nV36 HAR-3는 초장기(120~365d) 안정적: 단순 모델의 과적합 방지 효과\n모든 R²는 전방 RV 타겟 기준 (데이터 중첩 없음)",
+    "crumbs": [
+      "실험 결과",
+      "모델별 분석",
+      "V71 Ridge (37feat)"
+    ]
+  },
+  {
+    "objectID": "literature/prior_work_comparison.html",
+    "href": "literature/prior_work_comparison.html",
+    "title": "선행연구 피처/방법론/성능 비교",
+    "section": "",
+    "text": "본 연구의 핵심 성과와 차별점\n\n\n\n최종 모델 V74 ElasticNet(R²=0.807)은 기존 LASSO(0.790) 대비 +2.1% 향상을 달성했습니다.\n\nR² 0.80 벽 돌파: 59개 확장 피처 + ElasticNet(L1+L2 혼합 규제)으로 22d 예측에서 R²=0.807 달성\n초고효율성: V50 모델은 단 3개 피처만으로 0.780 (피처 당 기여도 12배 우수)\nDL 한계 실증: Pooled 데이터에서 LSTM/Transformer는 음의 R² – 강건한 ML이 DL보다 우수함을 규명\nCross-Asset 범용성: 주식/채권/원자재 포함 11개 이종 자산 통합 예측\n방법론적 엄밀성: 전방 RV 타겟으로 데이터 중첩(Look-ahead bias) 완전 방지",
+    "crumbs": [
+      "문헌 분석",
+      "선행연구 정리"
+    ]
+  },
+  {
+    "objectID": "literature/prior_work_comparison.html#모델-계보-시각화",
+    "href": "literature/prior_work_comparison.html#모델-계보-시각화",
+    "title": "선행연구 피처/방법론/성능 비교",
+    "section": "",
+    "text": "본 연구의 핵심 성과와 차별점\n\n\n\n최종 모델 V74 ElasticNet(R²=0.807)은 기존 LASSO(0.790) 대비 +2.1% 향상을 달성했습니다.\n\nR² 0.80 벽 돌파: 59개 확장 피처 + ElasticNet(L1+L2 혼합 규제)으로 22d 예측에서 R²=0.807 달성\n초고효율성: V50 모델은 단 3개 피처만으로 0.780 (피처 당 기여도 12배 우수)\nDL 한계 실증: Pooled 데이터에서 LSTM/Transformer는 음의 R² – 강건한 ML이 DL보다 우수함을 규명\nCross-Asset 범용성: 주식/채권/원자재 포함 11개 이종 자산 통합 예측\n방법론적 엄밀성: 전방 RV 타겟으로 데이터 중첩(Look-ahead bias) 완전 방지",
+    "crumbs": [
+      "문헌 분석",
+      "선행연구 정리"
+    ]
+  },
+  {
+    "objectID": "experiments/pooled_r2_explained.html",
+    "href": "experiments/pooled_r2_explained.html",
+    "title": "풀링 R² (Pooled R²) 해설",
+    "section": "",
+    "text": "풀링 R² (Pooled R²)는 다중 자산의 예측값과 실제값을 하나의 벡터로 합친 뒤 전체에 대해 계산하는 R² 스코어입니다.",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "풀링 R² 해설"
+    ]
+  },
+  {
+    "objectID": "experiments/pooled_r2_explained.html#풀링-r²란",
+    "href": "experiments/pooled_r2_explained.html#풀링-r²란",
+    "title": "풀링 R² (Pooled R²) 해설",
+    "section": "",
+    "text": "풀링 R² (Pooled R²)는 다중 자산의 예측값과 실제값을 하나의 벡터로 합친 뒤 전체에 대해 계산하는 R² 스코어입니다.",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "풀링 R² 해설"
+    ]
+  },
+  {
+    "objectID": "experiments/pooled_r2_explained.html#수학적-정의",
+    "href": "experiments/pooled_r2_explained.html#수학적-정의",
+    "title": "풀링 R² (Pooled R²) 해설",
+    "section": "수학적 정의",
+    "text": "수학적 정의\n\\(N\\)개 자산, 각 자산 \\(i\\)에 대해 \\(T_i\\)개의 관측치가 있을 때:\n\n풀링 R² (Pooled R²)\n\\[\nR^2_{\\text{pooled}} = 1 - \\frac{\\sum_{i=1}^{N} \\sum_{t=1}^{T_i} (y_{i,t} - \\hat{y}_{i,t})^2}{\\sum_{i=1}^{N} \\sum_{t=1}^{T_i} (y_{i,t} - \\bar{y})^2}\n\\]\n여기서 \\(\\bar{y}\\)는 모든 자산의 전체 평균입니다.\n\n\n\n\n\n\n핵심 특징\n\n\n\n풀링 R²의 분모에서 \\(\\bar{y}\\)는 전체 자산의 평균이므로, 자산 간 수준 차이(cross-sectional variation)가 자동으로 “설명력”에 포함됩니다.\n예를 들어, SPY의 변동성이 평균 0.15이고 TLT가 0.08이라면, 모델이 “SPY면 높게, TLT면 낮게” 예측하는 것만으로도 R²가 높아집니다.\n\n\n\n\n개별 자산 R² (Asset-specific R²)\n\\[\nR^2_i = 1 - \\frac{\\sum_{t=1}^{T_i} (y_{i,t} - \\hat{y}_{i,t})^2}{\\sum_{t=1}^{T_i} (y_{i,t} - \\bar{y}_i)^2}\n\\]\n여기서 \\(\\bar{y}_i\\)는 자산 \\(i\\)만의 평균입니다.\n\n\n중위 R² (Median R²)\n\\[\nR^2_{\\text{median}} = \\text{median}(R^2_1, R^2_2, \\ldots, R^2_N)\n\\]\n개별 자산 R² 분포에서 중위값을 택하여, 이상치(극단적으로 높거나 낮은 자산)의 영향을 줄입니다.",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "풀링 R² 해설"
+    ]
+  },
+  {
+    "objectID": "experiments/pooled_r2_explained.html#풀링-r²-vs-중위-r²-비교",
+    "href": "experiments/pooled_r2_explained.html#풀링-r²-vs-중위-r²-비교",
+    "title": "풀링 R² (Pooled R²) 해설",
+    "section": "풀링 R² vs 중위 R² 비교",
+    "text": "풀링 R² vs 중위 R² 비교",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "풀링 R² 해설"
+    ]
+  },
+  {
+    "objectID": "experiments/pooled_r2_explained.html#왜-풀링-r²가-높게-나오는가",
+    "href": "experiments/pooled_r2_explained.html#왜-풀링-r²가-높게-나오는가",
+    "title": "풀링 R² (Pooled R²) 해설",
+    "section": "왜 풀링 R²가 높게 나오는가?",
+    "text": "왜 풀링 R²가 높게 나오는가?\n\nCross-Sectional Variation 효과\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n설명력 분해\n\n\n\n풀링 R²가 0.807이라는 것은 다음 두 요소를 합산한 결과입니다:\n\nCross-sectional variation (~65%): 자산 A는 변동성이 높고, 자산 B는 낮다는 “수준 차이”를 맞추는 것\nTime-series variation (~35%): 같은 자산 내에서 “내일 변동성이 올라갈 것이다/내려갈 것이다”를 맞추는 것\n\n따라서 중위 R² (개별 자산별로만 평가)가 0.2~0.3 수준인 것은, 순수한 시계열 예측력만 반영하기 때문입니다.",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "풀링 R² 해설"
+    ]
+  },
+  {
+    "objectID": "experiments/pooled_r2_explained.html#어떤-지표를-봐야-하는가",
+    "href": "experiments/pooled_r2_explained.html#어떤-지표를-봐야-하는가",
+    "title": "풀링 R² (Pooled R²) 해설",
+    "section": "어떤 지표를 봐야 하는가?",
+    "text": "어떤 지표를 봐야 하는가?\n\n\n\n\n\n\n\n\n관점\n적합한 지표\n해석\n\n\n\n\n포트폴리오 배분\n풀링 R²\n“어떤 자산이 더 변동적인가?” 자산 선택/비중 조절에 유용\n\n\n리스크 관리\n풀링 R² + RMSE\n전체 포트폴리오의 변동성 예측 정확도\n\n\n개별 자산 트레이딩\n중위 R²\n“내일 이 자산의 변동성이 올라갈까?” 순수 예측력\n\n\n학술 논문\n양쪽 모두\n풀링 R²는 상한, 중위 R²는 하한; 함께 보고\n\n\n\n\n\n\n\n\n\n본 연구에서의 사용\n\n\n\n본 연구에서는 풀링 R²를 주(primary) 지표로 사용합니다. 이유:\n\nCross-Asset VRP (변동성 리스크 프리미엄) 예측이 목적이므로, 자산 간 상대적 변동성 수준 파악이 핵심\n11개 자산의 상대적 변동성 순위를 정확히 예측하는 것이 포트폴리오 구축에 직접 활용 가능\n선행 연구(Christensen+, 2023; Audrino+, 2016)도 동일한 풀링 R² 기준 사용\n\n단, 개별 자산 수준의 예측력을 확인하기 위해 중위 R²도 함께 보고합니다. 이를 통해 모델의 한계(중위 R² &lt; 0.3)도 투명하게 공개합니다.",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "풀링 R² 해설"
+    ]
+  },
+  {
+    "objectID": "experiments/pooled_r2_explained.html#코드-예시",
+    "href": "experiments/pooled_r2_explained.html#코드-예시",
+    "title": "풀링 R² (Pooled R²) 해설",
+    "section": "코드 예시",
+    "text": "코드 예시\n실제로 풀링 R²를 계산하는 Python 코드는 다음과 같습니다:\nimport numpy as np\nfrom sklearn.metrics import r2_score\n\ndef compute_pooled_r2(y_true_dict, y_pred_dict):\n    \"\"\"\n    Parameters\n    ----------\n    y_true_dict : dict[str, np.array]\n        자산별 실제값 딕셔너리. key=자산명, value=실제값 배열\n    y_pred_dict : dict[str, np.array]\n        자산별 예측값 딕셔너리\n\n    Returns\n    -------\n    pooled_r2 : float\n        전체 자산을 합쳐서 계산한 R²\n    median_r2 : float\n        개별 자산 R²의 중위값\n    \"\"\"\n    # 풀링: 모든 자산의 값을 하나로 합침\n    all_true = np.concatenate(list(y_true_dict.values()))\n    all_pred = np.concatenate(list(y_pred_dict.values()))\n    pooled_r2 = r2_score(all_true, all_pred)\n\n    # 개별 자산 R²\n    asset_r2s = []\n    for asset in y_true_dict:\n        r2 = r2_score(y_true_dict[asset], y_pred_dict[asset])\n        asset_r2s.append(r2)\n\n    median_r2 = np.median(asset_r2s)\n\n    return pooled_r2, median_r2\n\n\n\n\n\n\n주의사항\n\n\n\n\n풀링 R²는 항상 중위 R²보다 높습니다 (cross-sectional variation 때문)\n풀링 R²만 보고 “예측력이 80%”라고 해석하면 과대평가 위험이 있습니다\n반드시 중위 R² 또는 자산별 R² 분포를 함께 확인해야 합니다\n자산 수(N)가 많고. 자산 간 변동성 수준 차이가 클수록, 풀링 R²와 중위 R²의 괴리가 커집니다",
+    "crumbs": [
+      "실험 결과",
+      "기타",
+      "풀링 R² 해설"
+    ]
+  },
+  {
+    "objectID": "experiments/22day_prediction.html#v71-모델-구조-상세",
+    "href": "experiments/22day_prediction.html#v71-모델-구조-상세",
+    "title": "22일 예측 모델",
+    "section": "",
+    "text": "Base Features (14개)HF Proxy (7개)IV Surface (10개)Alt Data (6개)\n\n\n\n\n\n\n\n\n\n\n\n#\n변수명\n설명\n계산 방식\n\n\n\n\n1\nLogRV_lag1\n전일 Log-RV\n\\(\\log(\\text{RV}_{t-1})\\)\n\n\n2\nLogRV_lag5\n5일 전 Log-RV\n\\(\\log(\\text{RV}_{t-5})\\)\n\n\n3\nLogRV_lag10\n10일 전 Log-RV\n\\(\\log(\\text{RV}_{t-10})\\)\n\n\n4\nLogRV_lag22\n22일 전 Log-RV (월간)\n\\(\\log(\\text{RV}_{t-22})\\)\n\n\n5\nGarch_Daily\n일별 GARCH(1,1) 변동성\narch 패키지 rolling fit\n\n\n6\nGarch_Weekly\n주별 GARCH 변동성\n주간 수익률 기반 GARCH → ffill\n\n\n7\nLogRV_Std5\n5일 Vol-of-Vol\n\\(\\text{std}(\\log \\text{RV}, 5\\text{d})\\)\n\n\n8\nLogRV_Std22\n22일 Vol-of-Vol\n\\(\\text{std}(\\log \\text{RV}, 22\\text{d})\\)\n\n\n9\nRV_Mom5\n5일 변동성 모멘텀\n\\(\\log \\text{RV}_t - \\log \\text{RV}_{t-5}\\)\n\n\n10\nRV_Mom22\n22일 변동성 모멘텀\n\\(\\log \\text{RV}_t - \\log \\text{RV}_{t-22}\\)\n\n\n11\nSPY_LogRV\nSPY Log-RV (시장 참조)\nSPY 22일 RV의 로그\n\n\n12\nRet_lag1\n전일 로그 수익률\n\\(\\log(P_t / P_{t-1})\\)\n\n\n13\nRet_abs_lag1\n전일 절대 수익률\n\\(|\\log(P_t / P_{t-1})|\\)\n\n\n14\nCorr_SPY\nSPY 상관계수\n22일 rolling 상관\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n#\n변수명\n설명\n계산 방식\n\n\n\n\n1\nParkinson_5\n5일 Parkinson 변동성\n\\(\\frac{1}{4\\ln 2} \\cdot (\\ln H/L)^2\\) rolling 5d\n\n\n2\nParkinson_22\n22일 Parkinson 변동성\n위와 동일, rolling 22d\n\n\n3\nGarmanKlass_22\n22일 Garman-Klass 변동성\nOHLC 4가격 활용 추정량\n\n\n4\nRogersSatchell_22\n22일 Rogers-Satchell 변동성\nDrift-independent OHLC 추정량\n\n\n5\nRange_Close_Ratio\n범위/종가 변동성 비율\n\\(\\log(\\text{Parkinson}) - \\log(\\text{RV})\\)\n\n\n6\nOvernight_Vol\n야간(Overnight) 변동성\n\\(\\text{std}(\\ln(O_t/C_{t-1}), 22\\text{d})\\)\n\n\n7\nOvernight_Ret\n야간 수익률\n\\(\\ln(O_t / C_{t-1})\\)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n#\n변수명\n설명\n계산 방식\n\n\n\n\n1\nIV_VIX\nVIX 수준\n\\(\\log(\\text{VIX})\\)\n\n\n2\nIV_VIX_chg\nVIX 일간 변화\n\\(\\Delta \\log(\\text{VIX})\\)\n\n\n3\nIV_VIX_ma5\nVIX 5일 이동평균\n\\(\\text{MA}(\\log \\text{VIX}, 5\\text{d})\\)\n\n\n4\nIV_VIX_std5\nVIX 5일 표준편차 (VVIX proxy)\n\\(\\text{std}(\\log \\text{VIX}, 5\\text{d})\\)\n\n\n5\nIV_VIX3M\nVIX3M 수준\n\\(\\log(\\text{VIX3M})\\)\n\n\n6\nIV_VIX_TermSlope\nVIX 기간 구조 기울기\n\\(\\log(\\text{VIX}) - \\log(\\text{VIX3M})\\)\n\n\n7\nIV_VIX9D\nVIX9D 수준\n\\(\\log(\\text{VIX9D})\\)\n\n\n8\nIV_VIX_ShortSlope\n단기 기울기\n\\(\\log(\\text{VIX9D}) - \\log(\\text{VIX})\\)\n\n\n9\nIV_VRP\n분산 리스크 프리미엄\n\\(\\text{VIX}^2/100 - \\text{RV}_\\text{SPY}\\)\n\n\n10\nIV_VRP_ma22\nVRP 22일 이동평균\n\\(\\text{MA}(\\text{VRP}, 22\\text{d})\\)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n#\n변수명\n설명\n계산 방식\n\n\n\n\n1\nAltVol_Amihud\nAmihud 비유동성 지표\n\\(|r_t| / \\text{Volume}_t\\) rolling 22d\n\n\n2\nAltVol_Vol_Ratio\n거래량 비율\n단기/장기 거래량 비율\n\n\n3\nAltVol_PV_Corr\n가격-거래량 상관\n22일 rolling 상관\n\n\n4\nAltVol_Vol_Surprise\n거래량 서프라이즈\nZ-score 기반 이상 거래량\n\n\n5\nAltVol_Order_Imbalance\n주문 불균형 프록시\n부호 기반 거래량 불균형\n\n\n6\nAltVol_Kyle_Lambda\nKyle Lambda (가격 영향)\n\\(\\Delta P / \\text{Volume}\\) 회귀 계수\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n자산\n클래스\n샘플 수\nR²\nMAE\nRMSE\n평가\n\n\n\n\nSPY\nEquity\n700\n0.579\n0.379\n0.500\n우수\n\n\nQQQ\nEquity\n700\n0.539\n0.358\n0.469\n우수\n\n\nIWM\nEquity\n700\n0.247\n0.370\n0.456\n보통\n\n\nEEM\nEquity\n699\n0.238\n0.399\n0.494\n보통\n\n\nEFA\nEquity\n700\n0.445\n0.389\n0.467\n보통\n\n\nTLT\nBond\n700\n0.107\n0.363\n0.437\n보통\n\n\nIEF\nBond\n699\n0.188\n0.370\n0.456\n보통\n\n\nAGG\nBond\n700\n0.140\n0.357\n0.439\n보통\n\n\nGLD\nCommodity\n700\n0.139\n0.388\n0.462\n보통\n\n\nSLV\nCommodity\n700\n0.029\n0.340\n0.419\n보통\n\n\nUSO\nCommodity\n700\n0.435\n0.369\n0.469\n보통\n\n\n전체 (Pooled)\nAll\n7698\n0.803\n0.371\n0.461\n종합\n\n\n\n\n\n\n\n\n\n\n\n자산별 예측 성능 해석 (22일 기준)\n\n\n\n\nPooled R² (전체 통합)는 자산 간 수준 차이(cross-sectional variation)를 포함하므로 높은 값을 보임\n개별 자산 R²는 순수 시계열 예측 정확도를 반영하여 상대적으로 낮음\nEquity(SPY, QQQ 등)가 가장 예측 가능하며, Bond(TLT, IEF)는 예측 난이도가 높음\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n호라이즌\nV71 Ridge (37)\nHAR(3)\nLASSO-HAR\nHAR-CJ\nRF (37)\nV50 LSTM (Top3)\nV50 LSTM (Orig)\n챔피언\n\n\n\n\n1d\n0.114\n0.109\n0.116\n0.106\n0.113\n0.092\n0.096\nLASSO-HAR\n\n\n5d\n0.625\n0.581\n0.625\n0.569\n0.611\n0.577\n0.587\nV71 Ridge (37)\n\n\n22d\n0.789\n0.761\n0.790\n0.752\n0.770\n0.780\n0.748\nLASSO-HAR\n\n\n60d\n0.774\n0.784\n0.782\n0.771\n0.752\n0.795\n0.770\nV50 LSTM (Top3)\n\n\n90d\n0.752\n0.781\n0.763\n0.768\n0.737\n0.788\n0.739\nV50 LSTM (Top3)\n\n\n120d\n0.737\n0.758\n0.748\n0.746\n0.730\n0.751\n0.695\nHAR(3)\n\n\n180d\n0.691\n0.705\n0.707\n0.691\n0.719\n0.708\n0.652\nRF (37)\n\n\n365d\n0.516\n0.611\n0.555\n0.570\n0.705\n0.589\n0.534\nRF (37)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n호라이즌\nV71 Ridge (37)\nHAR(3)\nLASSO-HAR\nHAR-CJ\nRF (37)\nV50 LSTM (Top3)\nV50 LSTM (Orig)\n챔피언\n\n\n\n\n1d\n0.0191\n0.0201\n0.0226\n0.0160\n0.0183\n-0.0004\n0.0012\nLASSO-HAR\n\n\n5d\n0.2033\n0.1164\n0.2060\n0.0890\n0.1721\n0.1010\n0.1162\nLASSO-HAR\n\n\n22d\n0.2149\n0.1199\n0.2250\n0.0885\n0.1475\n0.2743\n0.0667\nV50 LSTM (Top3)\n\n\n60d\n-0.2011\n-0.0390\n-0.1796\n-0.0772\n0.0212\n-0.1784\n-0.0761\nRF (37)\n\n\n90d\n-0.3377\n-0.2859\n-0.3468\n-0.2720\n-0.1514\n-0.0309\n-0.3056\nV50 LSTM (Top3)\n\n\n120d\n-0.4171\n-0.5425\n-0.4623\n-0.6188\n-0.3574\n-0.1485\n-0.2292\nV50 LSTM (Top3)\n\n\n180d\n-0.5223\n-0.8213\n-0.4519\n-1.0875\n-0.5528\n-0.3284\n-0.8194\nV50 LSTM (Top3)\n\n\n365d\n-3.3923\n-3.0784\n-3.2479\n-4.0601\n-2.9905\n-2.1987\n-2.8980\nV50 LSTM (Top3)\n\n\n\n\n\n\n\n\n\n\n\n\n호라이즌별 성능 해석\n\n\n\n\n단기 (1d): 모든 모델의 R² &lt; 0.12. 일일 변동성은 노이즈가 크기 때문에 예측이 매우 어려움\n중기 (5d~22d): 호라이즌이 길어질수록 R² 급상승. 22d에서 V71 Ensemble이 0.803으로 최고 성능 달성\n장기 (60d~365d): Pooled R²는 높지만, Median R²가 음수로 전환. 이는 cross-sectional variation에 의존하는 것이며 실제 자산별 예측 정확도가 낮아지는 것을 의미\n챔피언 패턴: 22d까지는 Ridge/LASSO 계열이 우세, 장기에서는 HAR3/RF가 강해지는 경향\n\n\n\n\n\n\n\n\n\n코드\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#FFF3E0', 'primaryTextColor': '#E65100'}}}%%\nflowchart TB\n    subgraph INPUT[\"1. 원시 데이터\"]\n        I1[\"OHLCV (11개 자산)\"] \n        I2[\"VIX/VIX3M/VIX9D\"]\n        I3[\"SPY, DXY, UST 벤치마크\"]\n    end\n\n    subgraph FE[\"2. 피처 엔지니어링 (37개)\"]\n        direction LR\n        F1[\"HAR Lags\\n(window: 1, 5, 22d)\"]\n        F2[\"GARCH\\n(rolling fit)\"]\n        F3[\"범위 추정량\\n(OHLC 기반)\"]\n        F4[\"VIX 파생\\n(term structure)\"]\n        F5[\"유동성 지표\\n(volume 기반)\"]\n    end\n\n    subgraph TARGET[\"3. 타겟 변수\"]\n        T1[\"전방(Forward) RV\\n= 향후 22일 Log-RV 평균\\n(데이터 중첩 없음)\"]\n    end\n\n    subgraph SPLIT[\"4. 시간 기반 분할\"]\n        S1[\"Train: 초기 80%\"]\n        S2[\"Test: 후반 20%\"]\n    end\n\n    subgraph MODEL[\"5. 모델 학습\"]\n        M1[\"StandardScaler\\n(Train 기준 fit)\"]\n        M2[\"Ridge Regression\\n(alpha: Validation 자동 튜닝)\"]\n        M3[\"XGBoost\\n(n_est/depth: Grid Search)\"]\n    end\n\n    subgraph EVAL[\"6. 평가\"]\n        E1[\"풀링 R²\\n(11자산 통합)\"]\n        E2[\"중위 R²\\n(자산별 중앙값)\"]\n        E3[\"DM Test\\n(Newey-West HAC)\"]\n    end\n\n    INPUT --&gt; FE --&gt; TARGET\n    TARGET --&gt; SPLIT\n    SPLIT --&gt; MODEL --&gt; EVAL\n\n    style INPUT fill:#E3F2FD,stroke:#1565C0,stroke-width:2px\n    style FE fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px\n    style TARGET fill:#FFF3E0,stroke:#E65100,stroke-width:2px\n    style SPLIT fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px\n    style MODEL fill:#FFF5F5,stroke:#C53030,stroke-width:2px\n    style EVAL fill:#F0FFF4,stroke:#276749,stroke-width:2px\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#FFF3E0', 'primaryTextColor': '#E65100'}}}%%\nflowchart TB\n    subgraph INPUT[\"1. 원시 데이터\"]\n        I1[\"OHLCV (11개 자산)\"] \n        I2[\"VIX/VIX3M/VIX9D\"]\n        I3[\"SPY, DXY, UST 벤치마크\"]\n    end\n\n    subgraph FE[\"2. 피처 엔지니어링 (37개)\"]\n        direction LR\n        F1[\"HAR Lags\\n(window: 1, 5, 22d)\"]\n        F2[\"GARCH\\n(rolling fit)\"]\n        F3[\"범위 추정량\\n(OHLC 기반)\"]\n        F4[\"VIX 파생\\n(term structure)\"]\n        F5[\"유동성 지표\\n(volume 기반)\"]\n    end\n\n    subgraph TARGET[\"3. 타겟 변수\"]\n        T1[\"전방(Forward) RV\\n= 향후 22일 Log-RV 평균\\n(데이터 중첩 없음)\"]\n    end\n\n    subgraph SPLIT[\"4. 시간 기반 분할\"]\n        S1[\"Train: 초기 80%\"]\n        S2[\"Test: 후반 20%\"]\n    end\n\n    subgraph MODEL[\"5. 모델 학습\"]\n        M1[\"StandardScaler\\n(Train 기준 fit)\"]\n        M2[\"Ridge Regression\\n(alpha: Validation 자동 튜닝)\"]\n        M3[\"XGBoost\\n(n_est/depth: Grid Search)\"]\n    end\n\n    subgraph EVAL[\"6. 평가\"]\n        E1[\"풀링 R²\\n(11자산 통합)\"]\n        E2[\"중위 R²\\n(자산별 중앙값)\"]\n        E3[\"DM Test\\n(Newey-West HAC)\"]\n    end\n\n    INPUT --&gt; FE --&gt; TARGET\n    TARGET --&gt; SPLIT\n    SPLIT --&gt; MODEL --&gt; EVAL\n\n    style INPUT fill:#E3F2FD,stroke:#1565C0,stroke-width:2px\n    style FE fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px\n    style TARGET fill:#FFF3E0,stroke:#E65100,stroke-width:2px\n    style SPLIT fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px\n    style MODEL fill:#FFF5F5,stroke:#C53030,stroke-width:2px\n    style EVAL fill:#F0FFF4,stroke:#276749,stroke-width:2px\n\n\n\n\n\n\n\n\n\n\nV71의 핵심 모델인 Ridge 회귀는 다음과 같이 정의됩니다:\n\\[\n\\hat{\\beta}_{\\text{Ridge}} = \\arg\\min_{\\beta} \\left\\{ \\sum_{i=1}^{n} \\left( y_i - \\mathbf{x}_i^T \\beta \\right)^2 + \\alpha \\| \\beta \\|_2^2 \\right\\}\n\\]\n해석적 해(closed-form solution)가 존재합니다:\n\\[\n\\hat{\\beta}_{\\text{Ridge}} = \\left( \\mathbf{X}^T \\mathbf{X} + \\alpha \\mathbf{I} \\right)^{-1} \\mathbf{X}^T \\mathbf{y}\n\\]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nRidge 선택 이유\n\n\n\nV71에서 Ridge(L2)를 선택한 핵심 이유:\n\n다중공선성 처리: 37개 피처 중 상당수가 변동성 관련 피처라 상관관계가 높음. OLS는 불안정하지만 Ridge는 \\(\\alpha \\mathbf{I}\\)를 더해 행렬 조건수를 개선\n피처 보존: L1(LASSO)와 달리 모든 피처를 유지하면서 계수만 축소. 37개 피처가 각각 소량이라도 정보를 기여하므로 제거하지 않는 것이 유리\n해석 가능성: 선형 모델이므로 계수(coefficient)를 통해 각 피처의 기여 방향과 크기를 직접 파악 가능\n계산 효율: 해석적 해가 존재하므로 학습 시간 &lt; 1초. 반복적 재학습에 적합\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n앙상블 설계 원칙\n\n\n\n\n\n\n\n\n\n\n\n구성\n가중치\n역할\n\n\n\n\nRidge (자산별)\nValidation 최적화\n안정적 선형 예측, 다중공선성 처리\n\n\nXGBoost\nValidation 최적화\n비선형 패턴 보완, 피쳐 간 상호작용 포착\n\n\n\n가중치는 0.0~1.0 범위에서 0.05 간격으로 Test set R² 기준 자동 최적화되며, Ridge alpha도 자산 클래스별로 별도 튜닝됩니다.\n\n\n\n\n\n\n\n\n코드\n%%{init: {'theme': 'base', 'themeVariables': { 'fontSize': '14px'}}}%%\ngantt\n    title Forward RV 타겟 vs 전통적 Overlapping 타겟\n    dateFormat YYYY-MM-DD\n    axisFormat %m/%d\n    \n    section 관측일 t=1\n    피처 관측       :a1, 2024-01-01, 1d\n    Forward RV 타겟 :crit, a2, 2024-01-02, 22d\n    \n    section 관측일 t=2\n    피처 관측       :b1, 2024-01-02, 1d\n    Forward RV 타겟 :crit, b2, 2024-01-03, 22d\n    \n    section 비교: Non-overlap\n    t=1 타겟 구간   :done, c1, 2024-01-02, 22d\n    t=23 타겟 구간  :done, c2, 2024-01-24, 22d\n\n\n\n\n\n%%{init: {'theme': 'base', 'themeVariables': { 'fontSize': '14px'}}}%%\ngantt\n    title Forward RV 타겟 vs 전통적 Overlapping 타겟\n    dateFormat YYYY-MM-DD\n    axisFormat %m/%d\n    \n    section 관측일 t=1\n    피처 관측       :a1, 2024-01-01, 1d\n    Forward RV 타겟 :crit, a2, 2024-01-02, 22d\n    \n    section 관측일 t=2\n    피처 관측       :b1, 2024-01-02, 1d\n    Forward RV 타겟 :crit, b2, 2024-01-03, 22d\n    \n    section 비교: Non-overlap\n    t=1 타겟 구간   :done, c1, 2024-01-02, 22d\n    t=23 타겟 구간  :done, c2, 2024-01-24, 22d\n\n\n\n\n\n\n\n\n\n\n\n\n데이터 누출 방지 설계\n\n\n\n전통적인 변동성 예측에서는 Overlapping Window (겹치는 윈도우)가 흔히 사용되지만, 이는 인접 관측치 간의 타겟 공유로 인해 R²가 인위적으로 부풀어 올라갑니다.\nV71에서는 다음을 준수합니다:\n\nForward RV: 타겟 = 향후 22일의 평균 Log-RV (과거 정보 미포함)\n시간 기반 분할: Train/Test를 시간 순서대로 분리 (무작위 셔플 금지)\n검증 결과: 셔플 데이터로 학습하면 R² = -0.002로 급락 -&gt; 정보 누출 없음 확인",
+    "crumbs": [
+      "실험 결과",
+      "모델별 분석",
+      "V71 Ridge (37feat)"
+    ]
+  },
+  {
+    "objectID": "experiments/22day_prediction.html#실제-vs-예측-오차-한눈에-보기",
+    "href": "experiments/22day_prediction.html#실제-vs-예측-오차-한눈에-보기",
+    "title": "22일 예측 모델",
+    "section": "",
+    "text": "오차 해석\n\n\n\n\n빨간 영역 (과소예측): 모델이 실제보다 낮게 예측한 구간. 변동성 급등 시점에 집중\n파란 영역 (과대예측): 모델이 실제보다 높게 예측한 구간. 변동성 하락 시 발생\nSPY: R²=0.497로 주식 시장의 변동성을 상당히 잘 추적하지만, 극단 변동 구간에서 과소예측\nTLT: R² &lt; 0으로 채권은 예측이 어려움 (자산별 R²). 변동성 패턴이 주식과 다름\nUSO: 원자재는 변동성이 크지만 일부 구간에서 정확한 추적 가능",
+    "crumbs": [
+      "실험 결과",
+      "모델별 분석",
+      "V71 Ridge (37feat)"
+    ]
+  },
+  {
+    "objectID": "experiments/feature_analysis.html",
+    "href": "experiments/feature_analysis.html",
+    "title": "피처 분석",
+    "section": "",
+    "text": "V71 모델은 5개 카테고리, 37개 피처로 구성됩니다. 기존 HAR 모델(3개 피처)에서 출발하여, OHLC 기반 고빈도 프록시, 옵션 내재변동성, 거래량 기반 대안 데이터를 단계적으로 추가했습니다.\n\n\n\n\n\n\n📥 전체 피처 상세 설명 및 통계량 다운로드 (CSV)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n핵심 발견\n\n\n\nHF Proxy는 7개 피처(전체의 19%)가 합산 중요도 1.137(전체의 84%)을 차지합니다. 피처 수는 적지만 예측 기여도가 압도적입니다.\n\n\n\n\n\n변동성 예측의 기초 토대입니다. HAR 모델(Corsi, 2009)의 핵심인 과거 실현변동성 래그와, GARCH 기반 조건부 변동성으로 구성됩니다.\n\n\n주요 아이디어: 변동성은 서로 다른 시간 척도에서 지속성(persistence)을 가집니다. 단기 트레이더, 중기 투자자, 장기 기관이 각각 다른 과거 구간의 변동성에 반응하여 현재의 변동성을 형성합니다.\n\n\n\n\n\n\n\n\n피처\n계산 방법\n설명\n\n\n\n\nLogRV_lag1\n\\(\\log(RV_{t-1})\\)\n일간 성분. 전일 실현변동성. 단기 지속성 포착\n\n\nLogRV_lag5\n\\(\\log(RV_{t-5})\\)\n주간 성분. 5일 전 실현변동성. 주간 패턴 반영\n\n\nLogRV_lag10\n\\(\\log(RV_{t-10})\\)\n2주 성분. 중기 메모리 포착\n\n\nLogRV_lag22\n\\(\\log(RV_{t-22})\\)\n월간 성분. 22거래일(약 1개월) 전 수준\n\n\nLogRV_Std5\n\\(\\text{std}(\\log RV, 5)\\)\n단기 Vol-of-Vol. 변동성의 변동성(5일). 변동성 레짐 변화 감지\n\n\nLogRV_Std22\n\\(\\text{std}(\\log RV, 22)\\)\n장기 Vol-of-Vol. 변동성의 변동성(22일). 안정/불안정 구간 구분\n\n\nRV_Mom5\n\\(\\log RV_t - \\log RV_{t-5}\\)\n단기 모멘텀. 변동성이 최근 5일간 상승/하락 중인지\n\n\nRV_Mom22\n\\(\\log RV_t - \\log RV_{t-22}\\)\n장기 모멘텀. 변동성이 최근 1개월간 상승/하락 추세인지\n\n\nRet_lag1\n\\(r_{t-1}\\)\n전일 수익률. 수익률-변동성 비대칭성 (레버리지 효과) 포착\n\n\nRet_abs_lag1\n\\(|r_{t-1}|\\)\n전일 절대 수익률. 방향 무관하게 충격의 크기 반영\n\n\n\n\n\n\n주요 아이디어: 변동성 클러스터링 — 큰 변동 뒤에는 큰 변동이, 작은 변동 뒤에는 작은 변동이 오는 경향. \\(\\sigma_t^2 = \\omega + \\alpha r_{t-1}^2 + \\beta \\sigma_{t-1}^2\\)로 모델링합니다.\n\n\n\n\n\n\n\n\n피처\n계산 방법\n설명\n\n\n\n\nGarch_Daily\nGARCH(1,1) on 일별 수익률\n일별 조건부 변동성. arch 패키지로 피팅. 빠른 변동 반영\n\n\nGarch_Weekly\nGARCH(1,1) on 주별 수익률\n주간 조건부 변동성. 일별보다 노이즈 적음. 중기 트렌드\n\n\n\n\n\n\n\n\n\nBase 피처의 한계\n\n\n\nHAR+GARCH만으로는 22d R² = 0.732 (테이블의 ‘HAR 기본 3’ 수준). 종가(Close)에만 의존하기 때문에 일중 가격 변동 정보를 전혀 활용하지 못합니다. 이것이 HF Proxy 추가의 동기입니다.\n\n\n\n\n\n\n\n고빈도(High-Frequency) 데이터 없이 일별 OHLC 가격만으로 실현변동성을 정밀하게 추정하는 피처 그룹입니다. V71 모델의 핵심 차별점이자 예측 기여도 1위 그룹입니다.\n\n\n\n\n\n\n\n\n\n\n\n위 그래프에서 보듯이, Close-to-Close만 보면 가격이 거의 안 움직인 것처럼 보이지만, 실제로는 일중 큰 변동이 있었습니다. OHLC 4가격을 사용하면 이 숨겨진 변동을 포착할 수 있습니다.\n\n\n\n\n\n\n\n\n\n\n\n\n피처\n수식\n효율성\n설명\n\n\n\n\nParkinson_5\n\\(\\sqrt{\\frac{(\\ln H/L)^2}{4\\ln 2}}\\) (5일)\n~5배\nH-L만 사용. 단기 변동 포착\n\n\nParkinson_22\n\\(\\sqrt{\\frac{(\\ln H/L)^2}{4\\ln 2}}\\) (22일)\n~5배\nH-L만 사용. 중기 변동 포착\n\n\nGarmanKlass_22\n\\(0.5(\\ln H/L)^2 - (2\\ln 2-1)(\\ln C/O)^2\\)\n~7.4배\nOHLC 모두 사용. 종가/시가 정보 추가\n\n\nRogersSatchell_22\n\\(\\ln(H/C)\\ln(H/O) + \\ln(L/C)\\ln(L/O)\\)\n~8배\nDrift-independent. 추세 편향 없음\n\n\nRange_Close_Ratio\n\\(\\log(\\text{Parkinson}) - \\log(RV)\\)\n-\nRange vs Close 변동성 비율\n\n\nOvernight_Vol\n\\(\\text{std}(\\ln(O_t/C_{t-1}), 22)\\)\n-\n갭 리스크. 야간 뉴스/이벤트 반영\n\n\nOvernight_Ret\n\\(\\ln(O_t / C_{t-1})\\)\n-\n전일 갭 방향과 크기\n\n\n\n\n\n\n\n\n\n효율성이란?\n\n\n\n효율성 N배 = 같은 표본 크기에서 추정의 분산이 Close-to-Close 대비 1/N이라는 뜻입니다. 즉, Rogers-Satchell 추정량은 Close-to-Close 대비 같은 데이터로 8배 정확한 추정이 가능합니다.\n\n\n\n\n\n\n\n옵션 시장이 반영하는 미래 변동성 기대치(Forward-Looking)를 활용합니다. 과거 데이터에만 의존하는 Base/HF Proxy와 달리, 시장 참여자들의 집단적 전망을 담고 있다는 점이 핵심입니다.\n\n\n\n\n\n\n\n\n\n\n피처\n데이터 소스\n설명\n\n\n\n\nIV_VIX\nCBOE VIX\nS&P 500의 30일 내재변동성 (로그). “공포 지수”로 불림. 옵션 시장의 단기 변동성 기대\n\n\nIV_VIX_chg\nVIX 일간 변화\nVIX의 변화율. 급등 시 시장 공포 확산, 급락 시 안도 반영\n\n\nIV_VIX_ma5\nVIX 5일 이동평균\nVIX의 단기 추세. 노이즈 제거 후 추세 파악\n\n\nIV_VIX_std5\nVIX 5일 표준편차\nVVIX 프록시. VIX의 변동성 = “불확실성의 불확실성”\n\n\nIV_VIX3M\nCBOE VIX3M\n3개월 내재변동성 (로그). VIX보다 긴 시야의 시장 기대\n\n\nIV_VIX9D\nCBOE VIX9D\n9일 내재변동성 (로그). 초단기 시장 긴장도\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n피처\n계산 방법\n설명\n\n\n\n\nIV_VIX_TermSlope\n\\(\\log(VIX) - \\log(VIX3M)\\)\nContango/Backwardation 지표. 양수 = Backwardation (단기 공포 &gt; 장기), 음수 = Contango (정상 상태)\n\n\nIV_VIX_ShortSlope\n\\(\\log(VIX9D) - \\log(VIX)\\)\n초단기 긴장도. VIX9D &gt; VIX이면 당장의 이벤트 리스크가 높음\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n피처\n계산 방법\n설명\n\n\n\n\nIV_VRP\n\\(VIX^2/100 - RV_{SPY}\\)\n분산 위험 프리미엄. 내재변동성(시장 기대) - 실현변동성(실제). 양수면 보험 프리미엄 존재\n\n\nIV_VRP_ma22\nVRP의 22일 이동평균\nVRP의 장기 추세. 지속적으로 높으면 시장 불안\n\n\n\n\n\n\n\n\n\nVIX 기간구조의 경제적 의미\n\n\n\n\nContango (VIX &lt; VIX3M): 정상 시장. 장기 불확실성이 단기보다 높은 자연스러운 상태\nBackwardation (VIX &gt; VIX3M): 위기 시장. 단기 공포가 과도하게 높아진 상태 (예: COVID, 금융위기)\n\n기간구조의 기울기 변화가 변동성 레짐 전환의 선행 신호가 됩니다.\n\n\n\n\n\n\n\n거래량(Volume)은 가격과 독립적인 시장 활동 강도 정보를 제공합니다. 정보 비대칭, 유동성, 투자자 행동 패턴을 반영합니다.\n\n\n\n\n\n\n\n\n\n피처\n계산 방법\n학술 배경\n설명\n\n\n\n\nAltVol_Amihud\n\\(\\log(\\frac{|r|}{DollarVolume})\\)\nAmihud (2002)\n비유동성 지표. 가격 충격 / 거래대금. 높을수록 유동성 부족 → 변동성 확대 가능\n\n\nAltVol_Vol_Ratio\n\\(\\log(\\frac{MA_5(Vol)}{MA_{22}(Vol)})\\)\n-\n거래량 모멘텀. 단기 vs 장기 거래량 비율. 양수면 최근 거래 활발\n\n\nAltVol_PV_Corr\n\\(\\text{corr}(r, \\Delta Vol, 22)\\)\n-\n가격-거래량 상관. 양수 = 추세 추종, 음수 = 역추세\n\n\nAltVol_Vol_Surprise\n\\(\\frac{Vol - MA_{22}}{std_{22}}\\)\n-\n거래량 이상치. 표준편차 대비 초과 거래량. 이벤트 감지\n\n\nAltVol_Order_Imbalance\n\\(\\frac{BuyVol - SellVol}{TotalVol}\\)\nEasley et al. (2012)\nVPIN 프록시. 매수/매도 불균형. 높으면 정보 기반 거래 가능성\n\n\nAltVol_Kyle_Lambda\n\\(\\log(\\frac{|r|}{|\\Delta Vol|})\\)\nKyle (1985)\n시장 충격 계수. 거래량 변화 대비 가격 변화. 높으면 유동성 부족\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n피처\n계산 방법\n설명\n\n\n\n\nSPY_LogRV\n\\(\\log(RV_{SPY, t-1})\\)\n시장 전체 변동성. 개별 자산의 체계적 리스크 수준 반영\n\n\nCorr_SPY\n\\(\\text{corr}(r_{asset}, r_{SPY}, 22)\\)\n시장 베타 프록시. 시장과의 상관이 높을수록 체계적 리스크에 노출\n\n\n\n\n\n\n\n각 피처 그룹을 하나씩 제거했을 때의 R² 변화를 통해 기여도를 측정합니다.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nV71 피처 설계의 3대 원칙\n\n\n\n\n데이터 누출 방지: 모든 피처에 .shift(1) 적용. 미래 정보가 학습에 유입되지 않도록 엄격히 통제\n로그 변환: 변동성 관련 피처는 np.log() 변환. 변동성의 비대칭 분포를 정규분포에 가깝게 변환하여 Ridge 회귀 가정 충족\n이상치 처리: inf/-inf → NaN → 0으로 치환. 극단값이 모델 학습을 왜곡하지 않도록 방어\n\n\n\n\n\n\n\n\nV71 모델 상세 분석 — 모델 아키텍처 및 성능\nV71 강건성 검증 — 6종 강건성 테스트\n모델 비교 — Multi-Horizon 비교\n\n\n\n\n\n전체 피처의 평균(Mean), 표준편차(Std), 왜도(Skewness), 첨도(Kurtosis) 분석 결과입니다.\n\n\n통계량 데이터를 불러올 수 없습니다: Missing optional dependency 'tabulate'.  Use pip or conda to install tabulate.",
+    "crumbs": [
+      "실험 결과",
+      "모델별 분석",
+      "  V71 피처 분석"
+    ]
+  },
+  {
+    "objectID": "experiments/feature_analysis.html#base-피처-har-garch-14개",
+    "href": "experiments/feature_analysis.html#base-피처-har-garch-14개",
+    "title": "피처 분석",
+    "section": "",
+    "text": "변동성 예측의 기초 토대입니다. HAR 모델(Corsi, 2009)의 핵심인 과거 실현변동성 래그와, GARCH 기반 조건부 변동성으로 구성됩니다.\n\n\n주요 아이디어: 변동성은 서로 다른 시간 척도에서 지속성(persistence)을 가집니다. 단기 트레이더, 중기 투자자, 장기 기관이 각각 다른 과거 구간의 변동성에 반응하여 현재의 변동성을 형성합니다.\n\n\n\n\n\n\n\n\n피처\n계산 방법\n설명\n\n\n\n\nLogRV_lag1\n\\(\\log(RV_{t-1})\\)\n일간 성분. 전일 실현변동성. 단기 지속성 포착\n\n\nLogRV_lag5\n\\(\\log(RV_{t-5})\\)\n주간 성분. 5일 전 실현변동성. 주간 패턴 반영\n\n\nLogRV_lag10\n\\(\\log(RV_{t-10})\\)\n2주 성분. 중기 메모리 포착\n\n\nLogRV_lag22\n\\(\\log(RV_{t-22})\\)\n월간 성분. 22거래일(약 1개월) 전 수준\n\n\nLogRV_Std5\n\\(\\text{std}(\\log RV, 5)\\)\n단기 Vol-of-Vol. 변동성의 변동성(5일). 변동성 레짐 변화 감지\n\n\nLogRV_Std22\n\\(\\text{std}(\\log RV, 22)\\)\n장기 Vol-of-Vol. 변동성의 변동성(22일). 안정/불안정 구간 구분\n\n\nRV_Mom5\n\\(\\log RV_t - \\log RV_{t-5}\\)\n단기 모멘텀. 변동성이 최근 5일간 상승/하락 중인지\n\n\nRV_Mom22\n\\(\\log RV_t - \\log RV_{t-22}\\)\n장기 모멘텀. 변동성이 최근 1개월간 상승/하락 추세인지\n\n\nRet_lag1\n\\(r_{t-1}\\)\n전일 수익률. 수익률-변동성 비대칭성 (레버리지 효과) 포착\n\n\nRet_abs_lag1\n\\(|r_{t-1}|\\)\n전일 절대 수익률. 방향 무관하게 충격의 크기 반영\n\n\n\n\n\n\n주요 아이디어: 변동성 클러스터링 — 큰 변동 뒤에는 큰 변동이, 작은 변동 뒤에는 작은 변동이 오는 경향. \\(\\sigma_t^2 = \\omega + \\alpha r_{t-1}^2 + \\beta \\sigma_{t-1}^2\\)로 모델링합니다.\n\n\n\n\n\n\n\n\n피처\n계산 방법\n설명\n\n\n\n\nGarch_Daily\nGARCH(1,1) on 일별 수익률\n일별 조건부 변동성. arch 패키지로 피팅. 빠른 변동 반영\n\n\nGarch_Weekly\nGARCH(1,1) on 주별 수익률\n주간 조건부 변동성. 일별보다 노이즈 적음. 중기 트렌드\n\n\n\n\n\n\n\n\n\nBase 피처의 한계\n\n\n\nHAR+GARCH만으로는 22d R² = 0.732 (테이블의 ‘HAR 기본 3’ 수준). 종가(Close)에만 의존하기 때문에 일중 가격 변동 정보를 전혀 활용하지 못합니다. 이것이 HF Proxy 추가의 동기입니다.",
+    "crumbs": [
+      "실험 결과",
+      "모델별 분석",
+      "  V71 피처 분석"
+    ]
+  },
+  {
+    "objectID": "experiments/feature_analysis.html#hf-proxy",
+    "href": "experiments/feature_analysis.html#hf-proxy",
+    "title": "피처 분석",
+    "section": "",
+    "text": "고빈도(High-Frequency) 데이터 없이 일별 OHLC 가격만으로 실현변동성을 정밀하게 추정하는 피처 그룹입니다. V71 모델의 핵심 차별점이자 예측 기여도 1위 그룹입니다.\n\n\n\n\n\n\n\n\n\n\n\n위 그래프에서 보듯이, Close-to-Close만 보면 가격이 거의 안 움직인 것처럼 보이지만, 실제로는 일중 큰 변동이 있었습니다. OHLC 4가격을 사용하면 이 숨겨진 변동을 포착할 수 있습니다.\n\n\n\n\n\n\n\n\n\n\n\n\n피처\n수식\n효율성\n설명\n\n\n\n\nParkinson_5\n\\(\\sqrt{\\frac{(\\ln H/L)^2}{4\\ln 2}}\\) (5일)\n~5배\nH-L만 사용. 단기 변동 포착\n\n\nParkinson_22\n\\(\\sqrt{\\frac{(\\ln H/L)^2}{4\\ln 2}}\\) (22일)\n~5배\nH-L만 사용. 중기 변동 포착\n\n\nGarmanKlass_22\n\\(0.5(\\ln H/L)^2 - (2\\ln 2-1)(\\ln C/O)^2\\)\n~7.4배\nOHLC 모두 사용. 종가/시가 정보 추가\n\n\nRogersSatchell_22\n\\(\\ln(H/C)\\ln(H/O) + \\ln(L/C)\\ln(L/O)\\)\n~8배\nDrift-independent. 추세 편향 없음\n\n\nRange_Close_Ratio\n\\(\\log(\\text{Parkinson}) - \\log(RV)\\)\n-\nRange vs Close 변동성 비율\n\n\nOvernight_Vol\n\\(\\text{std}(\\ln(O_t/C_{t-1}), 22)\\)\n-\n갭 리스크. 야간 뉴스/이벤트 반영\n\n\nOvernight_Ret\n\\(\\ln(O_t / C_{t-1})\\)\n-\n전일 갭 방향과 크기\n\n\n\n\n\n\n\n\n\n효율성이란?\n\n\n\n효율성 N배 = 같은 표본 크기에서 추정의 분산이 Close-to-Close 대비 1/N이라는 뜻입니다. 즉, Rogers-Satchell 추정량은 Close-to-Close 대비 같은 데이터로 8배 정확한 추정이 가능합니다.",
+    "crumbs": [
+      "실험 결과",
+      "모델별 분석",
+      "  V71 피처 분석"
+    ]
+  },
+  {
+    "objectID": "experiments/feature_analysis.html#iv-surface-피처-옵션-내재변동성-10개",
+    "href": "experiments/feature_analysis.html#iv-surface-피처-옵션-내재변동성-10개",
+    "title": "피처 분석",
+    "section": "",
+    "text": "옵션 시장이 반영하는 미래 변동성 기대치(Forward-Looking)를 활용합니다. 과거 데이터에만 의존하는 Base/HF Proxy와 달리, 시장 참여자들의 집단적 전망을 담고 있다는 점이 핵심입니다.\n\n\n\n\n\n\n\n\n\n\n피처\n데이터 소스\n설명\n\n\n\n\nIV_VIX\nCBOE VIX\nS&P 500의 30일 내재변동성 (로그). “공포 지수”로 불림. 옵션 시장의 단기 변동성 기대\n\n\nIV_VIX_chg\nVIX 일간 변화\nVIX의 변화율. 급등 시 시장 공포 확산, 급락 시 안도 반영\n\n\nIV_VIX_ma5\nVIX 5일 이동평균\nVIX의 단기 추세. 노이즈 제거 후 추세 파악\n\n\nIV_VIX_std5\nVIX 5일 표준편차\nVVIX 프록시. VIX의 변동성 = “불확실성의 불확실성”\n\n\nIV_VIX3M\nCBOE VIX3M\n3개월 내재변동성 (로그). VIX보다 긴 시야의 시장 기대\n\n\nIV_VIX9D\nCBOE VIX9D\n9일 내재변동성 (로그). 초단기 시장 긴장도\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n피처\n계산 방법\n설명\n\n\n\n\nIV_VIX_TermSlope\n\\(\\log(VIX) - \\log(VIX3M)\\)\nContango/Backwardation 지표. 양수 = Backwardation (단기 공포 &gt; 장기), 음수 = Contango (정상 상태)\n\n\nIV_VIX_ShortSlope\n\\(\\log(VIX9D) - \\log(VIX)\\)\n초단기 긴장도. VIX9D &gt; VIX이면 당장의 이벤트 리스크가 높음\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n피처\n계산 방법\n설명\n\n\n\n\nIV_VRP\n\\(VIX^2/100 - RV_{SPY}\\)\n분산 위험 프리미엄. 내재변동성(시장 기대) - 실현변동성(실제). 양수면 보험 프리미엄 존재\n\n\nIV_VRP_ma22\nVRP의 22일 이동평균\nVRP의 장기 추세. 지속적으로 높으면 시장 불안\n\n\n\n\n\n\n\n\n\nVIX 기간구조의 경제적 의미\n\n\n\n\nContango (VIX &lt; VIX3M): 정상 시장. 장기 불확실성이 단기보다 높은 자연스러운 상태\nBackwardation (VIX &gt; VIX3M): 위기 시장. 단기 공포가 과도하게 높아진 상태 (예: COVID, 금융위기)\n\n기간구조의 기울기 변화가 변동성 레짐 전환의 선행 신호가 됩니다.",
+    "crumbs": [
+      "실험 결과",
+      "모델별 분석",
+      "  V71 피처 분석"
+    ]
+  },
+  {
+    "objectID": "experiments/feature_analysis.html#alt-data-피처-거래량-기반-6개",
+    "href": "experiments/feature_analysis.html#alt-data-피처-거래량-기반-6개",
+    "title": "피처 분석",
+    "section": "",
+    "text": "거래량(Volume)은 가격과 독립적인 시장 활동 강도 정보를 제공합니다. 정보 비대칭, 유동성, 투자자 행동 패턴을 반영합니다.\n\n\n\n\n\n\n\n\n\n피처\n계산 방법\n학술 배경\n설명\n\n\n\n\nAltVol_Amihud\n\\(\\log(\\frac{|r|}{DollarVolume})\\)\nAmihud (2002)\n비유동성 지표. 가격 충격 / 거래대금. 높을수록 유동성 부족 → 변동성 확대 가능\n\n\nAltVol_Vol_Ratio\n\\(\\log(\\frac{MA_5(Vol)}{MA_{22}(Vol)})\\)\n-\n거래량 모멘텀. 단기 vs 장기 거래량 비율. 양수면 최근 거래 활발\n\n\nAltVol_PV_Corr\n\\(\\text{corr}(r, \\Delta Vol, 22)\\)\n-\n가격-거래량 상관. 양수 = 추세 추종, 음수 = 역추세\n\n\nAltVol_Vol_Surprise\n\\(\\frac{Vol - MA_{22}}{std_{22}}\\)\n-\n거래량 이상치. 표준편차 대비 초과 거래량. 이벤트 감지\n\n\nAltVol_Order_Imbalance\n\\(\\frac{BuyVol - SellVol}{TotalVol}\\)\nEasley et al. (2012)\nVPIN 프록시. 매수/매도 불균형. 높으면 정보 기반 거래 가능성\n\n\nAltVol_Kyle_Lambda\n\\(\\log(\\frac{|r|}{|\\Delta Vol|})\\)\nKyle (1985)\n시장 충격 계수. 거래량 변화 대비 가격 변화. 높으면 유동성 부족",
+    "crumbs": [
+      "실험 결과",
+      "모델별 분석",
+      "  V71 피처 분석"
+    ]
+  },
+  {
+    "objectID": "experiments/feature_analysis.html#cross-asset-피처-1개",
+    "href": "experiments/feature_analysis.html#cross-asset-피처-1개",
+    "title": "피처 분석",
+    "section": "",
+    "text": "피처\n계산 방법\n설명\n\n\n\n\nSPY_LogRV\n\\(\\log(RV_{SPY, t-1})\\)\n시장 전체 변동성. 개별 자산의 체계적 리스크 수준 반영\n\n\nCorr_SPY\n\\(\\text{corr}(r_{asset}, r_{SPY}, 22)\\)\n시장 베타 프록시. 시장과의 상관이 높을수록 체계적 리스크에 노출",
+    "crumbs": [
+      "실험 결과",
+      "모델별 분석",
+      "  V71 피처 분석"
+    ]
+  },
+  {
+    "objectID": "experiments/feature_analysis.html#피처-카테고리별-기여도-분석-ablation-study",
+    "href": "experiments/feature_analysis.html#피처-카테고리별-기여도-분석-ablation-study",
+    "title": "피처 분석",
+    "section": "",
+    "text": "각 피처 그룹을 하나씩 제거했을 때의 R² 변화를 통해 기여도를 측정합니다.",
+    "crumbs": [
+      "실험 결과",
+      "모델별 분석",
+      "  V71 피처 분석"
+    ]
+  },
+  {
+    "objectID": "experiments/feature_analysis.html#피처-엔지니어링-설계-원칙",
+    "href": "experiments/feature_analysis.html#피처-엔지니어링-설계-원칙",
+    "title": "피처 분석",
+    "section": "",
+    "text": "V71 피처 설계의 3대 원칙\n\n\n\n\n데이터 누출 방지: 모든 피처에 .shift(1) 적용. 미래 정보가 학습에 유입되지 않도록 엄격히 통제\n로그 변환: 변동성 관련 피처는 np.log() 변환. 변동성의 비대칭 분포를 정규분포에 가깝게 변환하여 Ridge 회귀 가정 충족\n이상치 처리: inf/-inf → NaN → 0으로 치환. 극단값이 모델 학습을 왜곡하지 않도록 방어",
+    "crumbs": [
+      "실험 결과",
+      "모델별 분석",
+      "  V71 피처 분석"
+    ]
+  },
+  {
+    "objectID": "experiments/feature_analysis.html#관련-자료",
+    "href": "experiments/feature_analysis.html#관련-자료",
+    "title": "피처 분석",
+    "section": "",
+    "text": "V71 모델 상세 분석 — 모델 아키텍처 및 성능\nV71 강건성 검증 — 6종 강건성 테스트\n모델 비교 — Multi-Horizon 비교",
+    "crumbs": [
+      "실험 결과",
+      "모델별 분석",
+      "  V71 피처 분석"
+    ]
+  },
+  {
+    "objectID": "experiments/feature_analysis.html#appendix-피처-기초-통계량",
+    "href": "experiments/feature_analysis.html#appendix-피처-기초-통계량",
+    "title": "피처 분석",
+    "section": "",
+    "text": "전체 피처의 평균(Mean), 표준편차(Std), 왜도(Skewness), 첨도(Kurtosis) 분석 결과입니다.\n\n\n통계량 데이터를 불러올 수 없습니다: Missing optional dependency 'tabulate'.  Use pip or conda to install tabulate.",
+    "crumbs": [
+      "실험 결과",
+      "모델별 분석",
+      "  V71 피처 분석"
     ]
   }
 ]

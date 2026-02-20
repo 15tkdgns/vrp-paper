@@ -1,0 +1,65 @@
+{
+  "ablation": {
+    "Base only": 0.7581424033314654,
+    "Base + HF Proxy": 0.7788333636197791,
+    "Base + IV Surface": 0.7838143595974321,
+    "Base + Alt Data": 0.7649376567765144,
+    "Base + HF + IV": 0.7955525853941319,
+    "All Features (Ridge)": 0.797783456210325,
+    "All Features (XGBoost)": 0.7725199000529193,
+    "Weighted Ensemble": 0.8025240129540704
+  },
+  "hf_contribution": 0.02069096028831363,
+  "iv_contribution": 0.025671956265966633,
+  "alt_contribution": 0.006795253445048943,
+  "best_name": "Weighted Ensemble",
+  "best_r2": 0.8025240129540704,
+  "n_features": 37,
+  "feature_groups": {
+    "base": [
+      "LogRV_lag1",
+      "LogRV_lag5",
+      "LogRV_lag10",
+      "LogRV_lag22",
+      "Garch_Daily",
+      "Garch_Weekly",
+      "LogRV_Std5",
+      "LogRV_Std22",
+      "RV_Mom5",
+      "RV_Mom22",
+      "SPY_LogRV",
+      "Ret_lag1",
+      "Ret_abs_lag1",
+      "Corr_SPY"
+    ],
+    "hf_proxy": [
+      "Parkinson_5",
+      "Parkinson_22",
+      "GarmanKlass_22",
+      "RogersSatchell_22",
+      "Range_Close_Ratio",
+      "Overnight_Vol",
+      "Overnight_Ret"
+    ],
+    "iv_surface": [
+      "IV_VIX",
+      "IV_VIX_chg",
+      "IV_VIX_ma5",
+      "IV_VIX_std5",
+      "IV_VIX3M",
+      "IV_VIX_TermSlope",
+      "IV_VIX9D",
+      "IV_VIX_ShortSlope",
+      "IV_VRP",
+      "IV_VRP_ma22"
+    ],
+    "alternative": [
+      "AltVol_Amihud",
+      "AltVol_Vol_Ratio",
+      "AltVol_PV_Corr",
+      "AltVol_Vol_Surprise",
+      "AltVol_Order_Imbalance",
+      "AltVol_Kyle_Lambda"
+    ]
+  }
+}

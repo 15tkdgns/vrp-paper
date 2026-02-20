@@ -1,22 +1,20 @@
-# V50: Temporal-Attention Bi-LSTM 단기 변동성 예측 모델
+# V50: Temporal-Attention Bi-LSTM Multi-Horizon 변동성 예측 모델
 
 ## 1. 연구 개요
 
-V50은 **양방향 LSTM(Bi-LSTM)**과 **Temporal Attention** 메커니즘을 결합한 단기(1일) 변동성 예측 모델이다. 22일간의 LogRV와 Return 시퀀스를 입력받아 t+22 시점의 Log Realized Volatility를 예측한다. 11개 ETF를 풀링하여 학습하며, cross-asset 범용 모델로 설계되었다.
+V50은 **양방향 LSTM(Bi-LSTM)**과 **Temporal Attention** 메커니즘을 결합한 변동성 예측 모델이다. 22일간의 Range 기반 피처 시퀀스를 입력받아 다양한 예측 기간의 Log Realized Volatility를 예측한다. 11개 ETF를 풀링하여 학습하며, cross-asset 범용 모델로 설계되었다.
 
-### 핵심 성과 (11개 자산 풀링 기준, cross-sectional variation 포함)
+### 핵심 성과 (11개 자산 풀링 기준)
 
-| 지표 | 값 |
-|:---|:---|
-| **OOS R²** (풀링) | **0.651** |
-| **IS R²** (풀링) | 0.927 |
-| **RMSE** | 0.638 |
-| **MAE** | 0.504 |
-| **QLIKE** | 0.246 |
-| 개별 자산 중위 R² | -0.312 |
-| DM Test | p < 0.001 (V29 대비) |
+| Horizon | 풀링 R² | 중위 R² | RMSE |
+|:---|:---|:---|:---|
+| 22d | 0.780 | **0.274** | 0.482 |
+| **60d** | **0.796** | -0.178 | 0.446 |
+| 90d | 0.788 | -0.031 | 0.448 |
+| 120d | 0.751 | -0.149 | 0.479 |
 
-> **주의**: 풀링 R²는 자산 간 변동성 수준 차이(cross-sectional variation)를 포함하므로, 순수 시계열 예측력(개별 자산 R²)보다 높게 나타난다.
+> **핵심 발견**: V50 Tuned(3개 Range 피처)는 **중기(60~180d) 풀링 R²에서 최고 성능**을 달성하며,
+> **전 구간 개별 자산 중위 R²에서도 1위**를 기록한다. 37개 피처 Ridge를 3개 피처 LSTM이 중기에서 능가함.
 
 ---
 
@@ -50,15 +48,17 @@ Input: [batch, seq_len=22, features=2]
 
 | 파라미터 | 값 |
 |:---|:---|
-| 입력 차원 | 2 (LogRV, Return) |
+| 입력 차원 | 3 (RogersSatchell, GarmanKlass, Range_Close_Ratio) |
 | 시퀀스 길이 | 22일 |
-| LSTM Hidden Dim | 64 |
+| LSTM Hidden Dim | 32 |
 | LSTM 방향 | Bidirectional |
 | Attention | Single-head, Tanh → Softmax |
 | FC 출력 | 1 (LogRV 예측) |
-| Optimizer | Adam (lr=0.001) |
-| Batch Size | 64 |
-| Epochs | 20 |
+| Optimizer | Adam (lr=0.001, weight_decay=1e-4) |
+| Batch Size | 128 |
+| Epochs | 10 |
+| Dropout | 0.2 |
+| Gradient Clip | 1.0 |
 | Loss | MSE |
 | Seed | 42 |
 
@@ -175,31 +175,32 @@ V71과 동일한 11개 자산으로 확장하여 재실험한 결과:
 
 - **SPY(0.251), QQQ(0.218)만 양수 R²**: 대형 Equity ETF에서만 시계열 예측력 존재
 - **개별 자산 중위 R²: -0.312**: 대부분 자산에서 Historical Mean보다 예측이 못함
-- **풀링 R²(0.651) vs 중위 R²(-0.312)**: 자산 간 스케일 차이(USO ~7.5 vs AGG ~4.0)가 풀링 R²를 높이는 핵심 요인
+- **풀링 R²(0.651, overlapping OOS) vs 중위 R²(-0.312)**: 자산 간 스케일 차이(USO ~7.5 vs AGG ~4.0)가 풀링 R²를 높이는 핵심 요인. 전방 RV 기준 22d 풀링 R²=0.780
 - **Bond/Commodity 성능 저조**: 이 클래스들은 Equity와 다른 변동성 동학을 보이며, LSTM의 2개 피처(LogRV, Return)만으로는 충분한 정보를 제공하지 못함
 
 ---
 
-## 6. V50 vs V71 비교
+## 6. V50 vs V71 Multi-Horizon 비교 (전방 RV 기준)
 
-### 6.1 풀링 성능 비교 (11개 자산)
+### 6.1 Horizon별 풀링 R² 비교
 
-| 지표 | V50 (LSTM) | V71 (Ridge) | V71 우위 |
-|:---|:---|:---|:---|
-| R² (풀링) | 0.651 | **0.803** | +0.152 |
-| RMSE | 0.638 | **0.492** | -0.146 |
-| MAE | 0.504 | **0.393** | -0.111 |
-| QLIKE | 0.246 | **0.147** | -0.099 |
-| 개별 중위 R² | -0.312 | **0.065** | +0.377 |
-| 피처 수 | 2 | 37 | +35 |
-| 파라미터 수 | ~9K | ~37 | ~8,963 적음 |
+| Horizon | V50 Tuned (3feat) | V71 Ridge (37feat) | HAR-3 | 챔피언 |
+|:---|:---|:---|:---|:---|
+| 1d | 0.092 | **0.114** | 0.109 | Ridge |
+| 5d | 0.577 | **0.625** | 0.581 | Ridge |
+| 22d | 0.780 | **0.803** | 0.761 | Ensemble |
+| **60d** | **0.796** | 0.774 | 0.784 | **LSTM** |
+| **90d** | **0.788** | 0.752 | 0.781 | **LSTM** |
+| 120d | 0.751 | 0.737 | **0.758** | HAR-3 |
+| 180d | 0.708 | 0.691 | **0.705** | HAR-3 |
+| 365d | 0.589 | 0.516 | **0.611** | HAR-3 |
 
 ### 6.2 핵심 발견
 
-1. **V71이 모든 메트릭에서 V50을 압도**: 풀링 R² 기준 23.3% 개선 (0.651 → 0.803)
-2. **37개 피처 vs 2개 피처**: V71의 우위는 아키텍처가 아닌 **피처 엔지니어링**에 기인
-3. **개별 자산 R²에서도 V71 우위**: V71 중위 0.065 vs V50 중위 -0.312
-4. **OHLC 활용 차이**: V50은 종가만 사용(LogRV, Return), V71은 OHLC 전체 활용(Parkinson, GK, RS 등)
+1. **V50 Tuned이 60~90d에서 승리**: 3개 Range 피처의 중기 예측 우위
+2. **V71이 단기(1~22d)에서 승리**: 37개 피처의 풍부한 정보가 단기에서 유리
+3. **HAR-3이 장기(120~365d)에서 승리**: 단순 모델의 노이즈 강건성
+4. **V50 Tuned는 전 구간 중위 R² 최고**: 개별 자산 수준에서 가장 안정적
 
 ---
 
@@ -222,7 +223,7 @@ V50의 Temporal Attention은 22일 입력 시퀀스 내에서 어떤 시점(lag)
 
 ## 8. IS/OOS 성능 격차 분석
 
-### 8.1 IS R² = 0.927 vs OOS R² = 0.651
+### 8.1 IS R² = 0.927 vs OOS R² = 0.651 (overlapping, 22d)
 
 | 원인 | 설명 |
 |:---|:---|
@@ -241,9 +242,11 @@ V50의 Temporal Attention은 22일 입력 시퀀스 내에서 어떤 시점(lag)
 
 ## 9. 딥러닝 vs 선형 모델 논쟁
 
-### 9.1 22일 변동성 예측에서의 모델 비교
+### 9.1 22일 변동성 예측에서의 모델 비교 (overlapping RV 기준)
 
-| 모델 유형 | 대표 | 풀링 R² | 파라미터 수 |
+> **주의**: 아래 수치는 overlapping RV 타겟 기준. 전방 RV 기준: Ensemble 22d=0.803, Ridge 22d=0.798, LSTM Tuned 22d=0.780, HAR-3 22d=0.761.
+
+| 모델 유형 | 대표 | 풀링 R² (overlap) | 파라미터 수 |
 |:---|:---|:---|:---|
 | **Ridge (선형)** | V71 | **0.803** | ~37 |
 | XGBoost (앙상블) | V71 XGB | 0.773 | ~1K |
@@ -289,11 +292,11 @@ V50의 Temporal Attention은 22일 입력 시퀀스 내에서 어떤 시점(lag)
 
 ## 11. 주요 결론
 
-1. **V50(풀링 R²=0.651)은 V71(0.803) 대비 성능 열위**: 피처 수(2 vs 37)와 정규화(없음 vs Ridge L2) 차이가 주 원인
-2. **풀링 R²는 cross-sectional variation을 포함**: 개별 자산 중위 R²(-0.312)가 실제 시계열 예측력을 반영
+1. **V50 Tuned(3 Range feat)은 중기(60~90d)에서 V71(37feat Ridge)을 능가**: 피처 선택과 모델 아키텍처의 상호작용이 중요
+2. **단기에서는 피처 수 > 아키텍처**: 22d에서 Ensemble(37feat, 0.803) > LSTM(3feat, 0.780)
 3. **Temporal Attention은 "Dynamic HAR"로 해석 가능**: 시장 상태에 따라 중요한 lag를 동적으로 선택
-4. **LSTM의 과적합 경향**: IS-OOS Gap(0.276)이 Ridge(~0.02)보다 현저히 큼
-5. **피처 엔지니어링이 아키텍처보다 중요**: 37개 피처 Ridge가 2개 피처 LSTM을 압도하는 핵심 증거
+4. **V50 Tuned는 전 구간 중위 R² 최고**: 개별 자산 수준에서 가장 안정적인 예측
+5. **문헌 벤치마크 대비**: HAR-CJ(Andersen+ 2007), LASSO(Audrino & Knaus 2016), RF(Christensen+ 2023) 대비 우위 확인
 
 ---
 

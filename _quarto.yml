@@ -12,6 +12,7 @@ project:
     - literature/reading_list.qmd
     - literature/finance/index.qmd
     - literature/cs/index.qmd
+    - literature/prior_work_comparison.qmd
     - experiments/index.qmd
     - experiments/1day_prediction.qmd
     - experiments/22day_prediction.qmd
@@ -20,7 +21,11 @@ project:
     - experiments/phase13_model_comparison.qmd
     - experiments/trading_strategy.qmd
     - experiments/universal_model.qmd
+    - experiments/attention_analysis.qmd
+    - experiments/champion_robustness.qmd
     - experiments/summary.qmd
+    - experiments/pooled_r2_explained.qmd
+    - experiments/feature_analysis.qmd
 
 website:
   title: "VRP 연구 대시보드"
@@ -57,33 +62,41 @@ website:
             - literature/cs/index.qmd
         - href: literature/reading_list.qmd
           text: 읽기 목록
+        - href: literature/prior_work_comparison.qmd
+          text: 선행연구 정리
 
     - title: "실험 결과"
       contents:
         - href: experiments/index.qmd
           text: 개요
-        - section: "1일 예측"
-          contents:
-            - href: experiments/1day_prediction.qmd
-              text: V50 모델 (챔피언)
-            - href: experiments/sci_verification.qmd
-              text: 상세 검증
-        - section: "22일 예측"
+        - href: experiments/summary.qmd
+          text: 결과 요약
+        - section: "모델별 분석"
           contents:
             - href: experiments/22day_prediction.qmd
-              text: V36 모델 (챔피언)
+              text: V71 Ridge (37feat)
+            - href: experiments/champion_robustness.qmd
+              text: "  V71 강건성 검증"
+            - href: experiments/feature_analysis.qmd
+              text: "  V71 피처 분석"
+            - href: experiments/1day_prediction.qmd
+              text: V50 LSTM (3feat)
+            - href: experiments/sci_verification.qmd
+              text: "  V50 상세 검증"
+            - href: experiments/attention_analysis.qmd
+              text: "  V50 Attention 분석"
+            - href: experiments/phase10_v29_verification.qmd
+              text: V36 HAR-3 베이스라인
         - section: "기타"
           contents:
-            - href: experiments/phase10_v29_verification.qmd
-              text: V29 베이스라인 검증
             - href: experiments/phase13_model_comparison.qmd
               text: 모델 아키텍처 비교
             - href: experiments/trading_strategy.qmd
               text: 트레이딩 전략
             - href: experiments/universal_model.qmd
               text: 통합 모델 실험
-            - href: experiments/summary.qmd
-              text: 결과 요약
+            - href: experiments/pooled_r2_explained.qmd
+              text: 풀링 R² 해설
 
   page-footer:
     left: "Cross-Asset Volatility Risk Premium 예측 연구"

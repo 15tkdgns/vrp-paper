@@ -128,11 +128,15 @@ table {
 }
 
 table th {
-  background: linear-gradient(135deg, #3182ce 0%, #2c5282 100%);
-  color: white;
-  padding: 1rem;
+  background-color: #1e293b;
+  color: #f8fafc;
+  padding: 1.125rem 1rem;
   text-align: left;
-  font-weight: 600;
+  font-weight: 700;
+  border-bottom: 3px solid #3182ce;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
 }
 
 table td {
@@ -330,19 +334,19 @@ details[open] summary {
   .grid {
     grid-template-columns: 1fr;
   }
-  
+
   .kpi-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   table {
     font-size: 0.85rem;
   }
-  
+
   h1 {
     font-size: 1.5rem;
   }
-  
+
   h2 {
     font-size: 1.25rem;
   }
@@ -385,4 +389,17 @@ footer {
   border-top: 1px solid #e2e8f0;
   color: #718096;
   font-size: 0.9rem;
+}
+
+/* ===================== */
+/* 본 연구 모델 강조 스타일 */
+/* ===================== */
+.our-model {
+  color: #e53e3e !important;
+  font-weight: 700 !important;
+}
+
+.our-model-bg {
+  background-color: #fff5f5 !important;
+  font-weight: 700;
 }

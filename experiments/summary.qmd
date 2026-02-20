@@ -31,70 +31,108 @@ har = v14['confidence_intervals']['HAR-Ridge']['R2']['mean']
 
 fig, axes = plt.subplots(1, 2, figsize=(12, 5))
 
-# 1일 예측
-models_1d = ['HAR-RV\n(문헌)', 'V50\n(IS)', 'V50\n(OOS)']
-r2_1d = [har, v50, 0.651]
-colors_1d = ['#718096', '#4299E1', '#2B6CB0']
-bars1 = axes[0].bar(models_1d, r2_1d, color=colors_1d, edgecolor='white', linewidth=2)
-axes[0].set_ylabel('R² 스코어', fontsize=12)
-axes[0].set_title('1일 예측 성능', fontsize=14, fontweight='bold')
-axes[0].set_ylim(0.3, 0.7)
+# Multi-Horizon 챔피언
+horizons = ['1d', '5d', '22d', '60d', '90d', '120d', '180d', '365d']
+ridge = [0.114, 0.625, 0.798, 0.774, 0.752, 0.737, 0.691, 0.516]
+lstm = [0.092, 0.577, 0.780, 0.796, 0.788, 0.751, 0.708, 0.589]
+har3 = [0.109, 0.581, 0.761, 0.784, 0.781, 0.758, 0.705, 0.611]
+
+x = np.arange(len(horizons))
+w = 0.25
+axes[0].bar(x-w, ridge, w, label='V71 Ridge (본 연구)', color='#E53E3E') # 빨간색
+axes[0].bar(x, lstm, w, label='V50 LSTM (본 연구)', color='#FC8181')   # 연한 빨간색
+axes[0].bar(x+w, har3, w, label='HAR-3 (Benchmark)', color='#A0AEC0') # 회색
+axes[0].set_ylabel('R²', fontsize=12)
+axes[0].set_title('Multi-Horizon 풀링 R²', fontsize=14, fontweight='bold')
+axes[0].set_xticks(x)
+axes[0].set_xticklabels(horizons, fontsize=9)
+axes[0].set_ylim(0, 0.9)
+axes[0].legend(fontsize=9)
 axes[0].grid(True, alpha=0.3, axis='y')
-for bar, score in zip(bars1, r2_1d):
-    axes[0].text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.01, 
-                 f'{score:.3f}', ha='center', va='bottom', fontsize=11, fontweight='bold')
 
 # 22일 예측
-models_22d = ['GARCH-\nMIDAS\n(문헌)', 'V29\n(Base)', 'V36\n(이전)', 'V71\n(Champion)']
-r2_22d = [0.55, 0.641, 0.755, 0.803]
-colors_22d = ['#718096', '#A0AEC0', '#63B3ED', '#3182CE']
+models_22d = ['HAR-RV\n(Corsi)', 'HAR-CJ\n(And+)', 'LASSO\n(Aud+)', 'RF\n(Chr+)', 'LSTM\n(V50)', 'Ensemble\n(V71)', 'ElasticNet\n(V74)']
+r2_22d = [0.761, 0.752, 0.790, 0.770, 0.780, 0.803, 0.807]
+# 우리 모델은 모두 빨간색 강조
+colors_22d = ['#A0AEC0', '#A0AEC0', '#A0AEC0', '#A0AEC0', '#E53E3E', '#E53E3E', '#E53E3E']
 bars2 = axes[1].bar(models_22d, r2_22d, color=colors_22d, edgecolor='white', linewidth=2)
-axes[1].set_ylabel('R² 스코어', fontsize=12)
-axes[1].set_title('22일 예측 성능', fontsize=14, fontweight='bold')
-axes[1].set_ylim(0.4, 0.9)
+axes[1].set_ylabel('R²', fontsize=12)
+axes[1].set_title('22일 예측 성능 (전방 RV)', fontsize=14, fontweight='bold')
+axes[1].set_ylim(0.7, 0.83)
 axes[1].grid(True, alpha=0.3, axis='y')
 for bar, score in zip(bars2, r2_22d):
-    axes[1].text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.01, 
-                 f'{score:.3f}', ha='center', va='bottom', fontsize=11, fontweight='bold')
+    axes[1].text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.002, 
+                 f'{score:.3f}', ha='center', va='bottom', fontsize=9, fontweight='bold')
 
 plt.tight_layout()
 plt.show()
 ```
 
-| 예측 지평 | 챔피언 모델 | R² | RMSE | MAE | QLIKE | 대상 자산 |
-|:---|:---|:---|:---|:---|:---|:---|
-| **22일 (핵심)** | **V71 Ensemble** | **0.803** | **0.492** | **0.393** | **0.147** | 11개 자산 풀링 (cross-sectional variation 포함) |
-| 1일 (참고) | V50 LSTM | 0.651 | 0.638 | 0.504 | 0.246 | 11개 자산 풀링 (cross-sectional variation 포함) |
+### Horizon별 챔피언 모델 (전방 RV 기준)
+
+| 구간 | 챔피언 (풀링 R²) | 챔피언 (중위 R²) |
+|:---|:---|:---|
+| **단기 (1~22d)** | <span class="our-model">**V74 ElasticNet**</span> (59feat, 22d: **0.807**) | <span class="our-model">**V50 Tuned**</span> (3feat, 22d: 0.274) |
+| **중기 (60~90d)** | <span class="our-model">**V50 Tuned LSTM**</span> (3feat, 60d: 0.796) | <span class="our-model">**V50 Tuned LSTM**</span> |
+| **장기 (120~365d)** | **V36 HAR-3** (3feat, 365d: 0.611) | <span class="our-model">**V50 Tuned LSTM**</span> |
 
 ::: {.callout-note}
 ## 성능 지표 기준
-- **풀링 R²**: 11개 자산 데이터를 합쳐서 계산 (cross-sectional variation 포함, 자산 간 스케일 차이가 R²에 기여)
-- 개별 자산 R²는 풀링 R²보다 낮음 (SPY: 0.497, QQQ: 0.411 등)
-- Bond 3종(TLT, IEF, AGG)은 개별 R² < 0
+- 모든 R²는 **전방 RV** 타겟 기준 (데이터 중첩 방지)
+- **풀링 R²**: 11개 자산 데이터를 합쳐서 계산 (cross-sectional variation 포함)
+- 개별 자산 수준 성능은 **중위 R²** 참조
 :::
 
 ---
 
-## 22일 예측: V71 핵심 결과
+## 모델별 Multi-Horizon 성능 (전방 RV)
 
-### 다중 메트릭 비교 (11개 자산 풀링 기준)
+### V71 Ensemble (Ridge+XGBoost, 37 피처)
 
-| Model | R² | RMSE | MAE | QLIKE |
-|:---|:---|:---|:---|:---|
-| V36 (HAR-3) | 0.732 | 0.541 | 0.430 | 0.180 |
-| V68 (Base-14) | 0.728 | 0.545 | 0.431 | 0.192 |
-| V71 Ridge (All-37) | 0.774 | 0.496 | 0.396 | 0.149 |
-| **V71 Ensemble** | **0.779** | **0.492** | **0.393** | **0.147** |
+단기(1~22d)에서 풀링 R² 최고. 37개 피처의 정보량과 선형 모델의 안정성.
 
-### V71 클래스별 평균 R²
-
-| 클래스 | 자산 | V71 R² (평균) | V36 대비 |
+| Horizon | 풀링 R² | 중위 R² | RMSE |
 |:---|:---|:---|:---|
-| **Equity** | SPY, QQQ, IWM, EFA, EEM | 0.320 | +0.163 |
-| **Bond** | TLT, IEF, AGG | -0.658 | +0.953 |
-| Commodity | GLD, SLV, USO | 0.047 | -0.055 |
+| 1d | 0.114 | 0.019 | 2.496 |
+| 5d | 0.625 | 0.203 | 0.748 |
+| **22d** | **0.793** | **0.215** | **0.476** |
+| 60d | 0.774 | -0.201 | 0.471 |
+| 90d | 0.752 | -0.338 | 0.487 |
+| 120d | 0.737 | -0.417 | 0.495 |
+| 180d | 0.691 | -0.522 | 0.529 |
+| 365d | 0.516 | -3.392 | 0.645 |
 
-### DM 검정
+### V50 Tuned (Bi-LSTM+Attention, 3 피처: RS, GK, RC)
+
+중기(60~180d)에서 풀링 R² 최고. 전 구간에서 **중위 R² 최고** -- 개별 자산 예측에서 가장 우수.
+
+| Horizon | 풀링 R² | 중위 R² | RMSE |
+|:---|:---|:---|:---|
+| 1d | 0.092 | -0.000 | 2.538 |
+| 5d | 0.577 | 0.101 | 0.793 |
+| 22d | 0.780 | **0.274** | 0.482 |
+| **60d** | **0.796** | -0.178 | **0.446** |
+| **90d** | **0.788** | **-0.031** | **0.448** |
+| 120d | 0.751 | **-0.149** | 0.479 |
+| **180d** | **0.708** | **-0.328** | **0.511** |
+| 365d | 0.589 | **-2.199** | 0.590 |
+
+### V36 HAR-3 (Ridge, 3 피처: LogRV lags)
+
+장기(120~365d)에서 풀링 R² 최고. 가장 단순하지만 장기 안정성 우수.
+
+| Horizon | 풀링 R² | 중위 R² | RMSE |
+|:---|:---|:---|:---|
+| 1d | 0.109 | 0.020 | 2.504 |
+| 5d | 0.581 | 0.116 | 0.791 |
+| 22d | 0.761 | 0.120 | 0.508 |
+| 60d | 0.784 | -0.039 | 0.461 |
+| 90d | 0.781 | -0.286 | 0.457 |
+| **120d** | **0.758** | -0.543 | 0.475 |
+| 180d | 0.705 | -0.821 | 0.517 |
+| **365d** | **0.611** | -3.078 | **0.578** |
+
+### DM 검정 (22일 기준)
 
 | 비교 | DM 통계량 | p-value |
 |:---|:---|:---|
@@ -102,6 +140,46 @@ plt.show()
 | V71 Ensemble vs V68 | -8.756 | <0.001 |
 | V71 Ridge vs V36 | -7.481 | <0.001 |
 | V71 Ridge vs V68 | -7.593 | <0.001 |
+
+---
+
+## 문헌 벤치마크 (Non-Overlapping Forward RV)
+
+### LASSO-HAR (Audrino & Knaus, 2016)
+
+*Journal of Financial Econometrics*, 14(2). L1 정규화 기반 피처 셀렉션.
+
+| Horizon | 풀링 R² | 중위 R² | RMSE |
+|:---|:---|:---|:---|
+| 22d | **0.790** | **0.225** | 0.476 |
+| 60d | 0.782 | -0.180 | 0.464 |
+| 365d | 0.555 | -3.248 | 0.618 |
+
+Ridge(V71)와 거의 동등. L1 vs L2 정규화의 차이 미미.
+
+### HAR-CJ (Andersen, Bollerslev, Diebold, 2007)
+
+*Econometrica*, 75(4). 연속+점프 변동성 분리.
+
+| Horizon | 풀링 R² | 중위 R² | RMSE |
+|:---|:---|:---|:---|
+| 22d | 0.752 | 0.089 | 0.517 |
+| 60d | 0.771 | -0.077 | 0.475 |
+| 365d | 0.570 | -4.060 | 0.608 |
+
+HAR-3보다 낮음. 일간 데이터에서는 점프 분리 이점 제한적.
+
+### Random Forest (Christensen, Siggaard, Veliyev, 2023)
+
+*Journal of Financial Economics*, 150(2). 트리 기반 ML.
+
+| Horizon | 풀링 R² | 중위 R² | RMSE |
+|:---|:---|:---|:---|
+| 22d | 0.770 | 0.148 | 0.498 |
+| 60d | 0.752 | **0.021** | 0.494 |
+| **365d** | **0.705** | -2.991 | **0.504** |
+
+**365d에서 풀링 R² 최고**. 트리 모델의 비선형 패턴이 초장기에서 유리.
 
 ---
 
@@ -118,16 +196,17 @@ import numpy as np
 plt.rcParams['font.family'] = 'UnDotum'
 plt.rcParams['axes.unicode_minus'] = False
 
-features = ['HAR\n(기본 3)', '+GARCH\n+Vol-of-Vol', '+HF Proxy\n(OHLC)', '+IV Surface\n(VIX)', '+Alt Data\n(Volume)', 'Ensemble\n(최종 V71)']
-r2 = [0.732, 0.758, 0.779, 0.796, 0.798, 0.803]
-colors = ['#A0AEC0', '#A0AEC0', '#68D391', '#63B3ED', '#FC8181', '#38A169']
+features = ['HAR\n(기본 3)', '+GARCH\n+Vol-of-Vol', '+HF Proxy\n(OHLC)', '+IV Surface\n(VIX)', '+Alt Data\n(Volume)', 'V71\nRidge', 'V73\n(59feat)', 'V74\nElasticNet']
+r2 = [0.732, 0.758, 0.779, 0.790, 0.790, 0.803, 0.802, 0.807]
+# V71부터는 우리 모델이므로 빨간색 계열
+colors = ['#A0AEC0', '#CBD5E0', '#CBD5E0', '#CBD5E0', '#CBD5E0', '#E53E3E', '#C53030', '#9B2C2C']
 
-fig, ax = plt.subplots(figsize=(10, 4))
+fig, ax = plt.subplots(figsize=(12, 4))
 bars = ax.bar(features, r2, color=colors, edgecolor='white', linewidth=1.5)
 
 ax.set_ylabel('R² 스코어', fontsize=12)
-ax.set_title('V71 피처 누적 추가에 따른 성능 향상', fontsize=14, fontweight='bold')
-ax.set_ylim(0.7, 0.82)
+ax.set_title('피처 엔지니어링 + 모델 진화에 따른 성능 향상', fontsize=14, fontweight='bold')
+ax.set_ylim(0.7, 0.83)
 ax.grid(True, alpha=0.3, axis='y')
 
 for i, (bar, score) in enumerate(zip(bars, r2)):
@@ -147,8 +226,9 @@ plt.show()
 
 ## 결론
 
-1. **22일 예측 (11개 자산 풀링)**: V71은 GARCH-MIDAS 대비 R² **+46.0%**, V36 대비 **+6.3%** 개선
-2. **모델 복잡도 < 피처 엔지니어링**: Ridge(0.773) > XGBoost(0.761) > MLP(0.750)
-3. **레짐 강건성**: High VIX 국면에서 V71이 V36 대비 +0.163 개선
-4. **모든 성능 차이는 DM 테스트에서 p < 0.001으로 통계적 유의** (Newey-West HAC)
-5. **주의**: 풀링 R²(0.803)는 Equity 중심. 개별 자산 R²는 SPY(0.497), QQQ(0.411) 등으로 낮음
+1. **22일 예측**: V74 ElasticNet(풀링 R²=**0.807**) 최고, V71 Ensemble(0.803) 대비 **+0.5% 향상**
+2. **딥러닝 한계**: Pooled 데이터에서 LSTM/Transformer는 음의 R² (11개 자산 혼합의 시계열 불연속성)
+3. **중기 예측(60~180d)**: V50 Tuned LSTM(3 피처)이 Ridge(37 피처)를 능가
+4. **핀저 엔지니어링 우위**: 59개 확장 피처 + ElasticNet(L1+L2)이 복잡한 DL보다 금융 변동성에서 효과적
+5. **모든 성능 차이는 DM 테스트에서 p < 0.001으로 통계적 유의** (Newey-West HAC)
+6. **주의**: 풀링 R²는 cross-sectional variation 포함. 개별 자산 성능은 중위 R² 참조

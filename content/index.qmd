@@ -10,19 +10,19 @@ format:
 ::: {.grid}
 
 ::: {.g-col-4}
-### 1일 예측 (V50)
-**R² = 0.821**  
-Dual-Attention LSTM 기반  
-단기 변동성 챔피언 모델
-[[상세 보기]](/experiments/1day_prediction.qmd)
+### 단기 예측 (1~22d)
+**V71 Ensemble (37feat)**  
+22d 풀링 R² = 0.803  
+전방 RV 기준
+[[상세 보기]](/experiments/22day_prediction.qmd)
 :::
 
 ::: {.g-col-4}
-### 22일 예측 (V36)
-**R² = 0.755**  
-자산 적응형 Ridge 기반  
-장기 변동성 챔피언 모델
-[[상세 보기]](/experiments/22day_prediction.qmd)
+### 중기 예측 (60~180d)
+**V50 Tuned LSTM (3feat)**  
+60d 풀링 R² = 0.796  
+Range 기반 피처
+[[상세 보기]](/experiments/1day_prediction.qmd)
 :::
 
 ::: {.g-col-4}
@@ -37,22 +37,30 @@ VRP 기반 동적 배분
 
 ---
 
-## 🚀 핵심 연구 성과
+## 핵심 연구 성과
 
-본 프로젝트는 주식, 채권, 원자재 등 **23개 주요 글로벌 자산**의 변동성 예측과 이를 활용한 수익률 제고를 목표로 합니다.
+본 프로젝트는 주식, 채권, 원자재 등 **11개 글로벌 자산**의 실현변동성 예측을 수행합니다. 전방 RV 타겟으로 1일~365일 **8개 예측 기간**에 걸쳐 7개 모델을 체계적으로 비교했습니다.
 
-### 기술적 우위 (Technical Edge)
-- **V50 모델**: 시계열 의존성과 피처 중요도를 동시에 학습하는 이중 어텐션 메커니즘 적용.
-- **V36 모델**: 장기 예측의 노이즈 문제를 해결하기 위한 자산별 정규화(Ridge) 최적화.
-- **범용 모델 (Universal)**: 단일 모델로 전체 자산의 변동성 법칙을 학습하는 Zero-shot 성능 확보.
+### Multi-Horizon 핵심 결과 (전방 RV 기준)
+
+| 구간 | 챔피언 모델 | 풀링 R² | 피처 |
+|:---|:---|:---|:---|
+| **단기 (1~22d)** | V71 Ensemble | 0.803 | 37개 |
+| **중기 (60~90d)** | V50 Tuned LSTM | 0.796 | 3개 (Range) |
+| **초장기 (365d)** | Random Forest | 0.705 | 37개 |
+
+### 기술적 차별점
+- **HF Proxy**: OHLC 기반 고빈도 대체 변동성 추정량 (Rogers-Satchell, Garman-Klass, Parkinson)
+- **IV Surface**: VIX 기간구조 (VIX, VIX3M, VIX9D) 및 분산 위험 프리미엄(VRP)
+- **문헌 벤치마크**: HAR-CJ, LASSO-HAR, RF 등과 체계적 비교
 
 ---
 
-## 📊 모델 발전 과정 및 성능 추이
+## 모델 발전 과정
 
 ```{python}
 #| echo: false
-#| fig-width: 10
+#| fig-width: 12
 #| fig-height: 5
 
 import matplotlib.pyplot as plt
@@ -61,24 +69,30 @@ import numpy as np
 plt.rcParams['font.family'] = 'UnDotum'
 plt.rcParams['axes.unicode_minus'] = False
 
-versions = ['V29\n(Base)', 'V36\n(Adaptive)', 'V43\n(Trans)', 'V50\n(LSTM-Attn)']
-r2_1d = [0.730, 0.755, 0.797, 0.821]
-r2_22d = [0.641, 0.755, 0.534, 0.503]
+versions = ['V29\n(HAR+GARCH)', 'V36\n(Adaptive\nRidge)', 'V43\n(Trans-\nformer)', 'V50\n(LSTM-\nAttn)', 'V68\n(Enhanced)', 'V71\n(Champion)']
+r2_22d = [0.641, 0.755, 0.534, 0.780, 0.777, 0.803]
 
-fig, ax = plt.subplots(figsize=(10, 5))
+fig, ax = plt.subplots(figsize=(12, 5))
 
-ax.plot(versions, r2_1d, 'o-', label='1일 예측 (Short-term)', color='#2D3748', linewidth=3, markersize=10)
-ax.plot(versions, r2_22d, 's--', label='22일 예측 (Long-term)', color='#A0AEC0', linewidth=2, markersize=8)
+colors = ['#A0AEC0', '#63B3ED', '#FC8181', '#68D391', '#A0AEC0', '#3182CE']
+bars = ax.bar(versions, r2_22d, color=colors, edgecolor='white', linewidth=2)
 
-ax.set_ylabel('R² 스코어', fontsize=12)
-ax.set_title('모델 버전별 예측 성능 추이', fontsize=14, fontweight='bold')
-ax.legend(loc='lower left')
-ax.grid(True, alpha=0.3)
+# V71 강조
+bars[5].set_edgecolor('#1a365d')
+bars[5].set_linewidth(3)
+
+ax.axhline(y=0.761, color='#E53E3E', linestyle='--', alpha=0.5, label='HAR-RV (Corsi, 2009)')
+ax.axhline(y=0.755, color='#63B3ED', linestyle=':', alpha=0.5, label='V36 이전 챔피언')
+
+ax.set_ylabel('R² Score (전방 RV, 22d)', fontsize=12)
+ax.set_title('22일 예측 모델 발전 과정', fontsize=14, fontweight='bold')
 ax.set_ylim(0.4, 0.9)
+ax.legend(loc='upper left', fontsize=9)
+ax.grid(True, alpha=0.3, axis='y')
 
-# 강조
-ax.annotate('최종 챔피언', xy=('V50\n(LSTM-Attn)', 0.821), xytext=(2, 0.85),
-            arrowprops=dict(facecolor='black', shrink=0.05), fontsize=10, fontweight='bold')
+for bar, score in zip(bars, r2_22d):
+    ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.01,
+            f'{score:.3f}', ha='center', va='bottom', fontsize=10, fontweight='bold')
 
 plt.tight_layout()
 plt.show()
@@ -86,22 +100,23 @@ plt.show()
 
 ---
 
-## 📂 주요 탐색 경로
+## 주요 탐색 경로
 
 ::: {.grid}
 
 ::: {.g-col-6}
-#### [실험 결과 분석](/experiments/index.qmd)
-- 예측 지평별(1d/22d) 상세 성능
-- 하이퍼파라미터 어블레이션 스터디
-- 시장 국면별 안정성 검증
+#### [V71 챔피언 모델 상세](/experiments/22day_prediction.qmd)
+- Ablation Study / 피처 중요도
+- Actual vs Predicted 시계열 플롯
+- 자산별/레짐별 성능 분석
+- 강건성 검증 (6종 테스트)
 :::
 
 ::: {.g-col-6}
-#### [문헌 및 이론 분석](/literature/index.qmd)
-- 자산군 통합 변동성 예측 논문 리뷰
-- VRP 예측의 경제적 함의
-- 딥러닝 기반 변동성 모델 서베이
+#### [실험 결과 종합](/experiments/index.qmd)
+- 70+ 실험의 전체 결과 요약
+- Multi-Horizon 비교 분석
+- 문헌 벤치마크 비교
 :::
 
 :::

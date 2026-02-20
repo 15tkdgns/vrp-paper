@@ -1,27 +1,27 @@
 ---
 title: "모델 아키텍처 비교"
-subtitle: "1일 vs 22일 예측 지평별 최적 모델 분석"
+subtitle: "Multi-Horizon 예측 지평별 최적 모델 분석 (전방 RV)"
 format:
   html:
     code-fold: true
     toc: true
 ---
 
-# 예측 지평별 최적 모델
+# Multi-Horizon 예측 모델 비교
 
-변동성 예측에서 **예측 지평(horizon)**에 따라 최적 모델이 달라집니다.
+전방 Realized Volatility 타겟으로 1일~365일 8개 예측 기간에서 7개 모델을 체계적으로 비교합니다.
 
 ::: {.callout-note}
-## 핵심 발견 (11개 자산 풀링 기준)
-- **1일 예측**: Dual-Attention LSTM (**V50**) - R² 0.651 (OOS, 11개 자산 풀링, cross-sectional variation 포함)
-- **22일 예측**: Enhanced Asset-Adaptive Ridge (**V71**) - R² 0.803 (11개 자산 풀링, cross-sectional variation 포함)
-- **대상 자산**: Equity(SPY,QQQ,IWM,EFA,EEM), Bond(TLT,IEF,AGG), Commodity(GLD,SLV,USO)
-- **결론**: 모델 복잡도보다 **피처 엔지니어링**이 장기 예측에서 결정적
+## 핵심 발견 (전방 RV, 11개 자산 풀링)
+- **단기 (1~22d)**: V71 Ensemble (37feat, 22d: 0.803)
+- **중기 (60~90d)**: V50 Tuned LSTM (3feat, 60d: 0.796)
+- **초장기 (365d)**: Random Forest (37feat, 0.705)
+- **문헌 벤치마크**: HAR-CJ, LASSO-HAR, RF와 체계적 비교
 :::
 
 ---
 
-## 1. 성능 비교 요약
+## 1. Multi-Horizon 풀링 R² 비교
 
 ```{python}
 #| echo: false
@@ -35,64 +35,79 @@ import json
 plt.rcParams['font.family'] = 'UnDotum'
 plt.rcParams['axes.unicode_minus'] = False
 
-base = '/root/vrp/src/experiments'
-def load_json(path):
-    with open(path) as f:
-        return json.load(f)
+with open('/root/vrp/src/experiments/creative/multi_horizon_benchmark_results.json') as f:
+    data = json.load(f)['results']
 
-v50 = load_json(f'{base}/creative/v50_results.json')['V50_R2']
-v43 = load_json(f'{base}/creative/v43_results.json')['V43_R2']
-v36 = load_json(f'{base}/creative/v36_results.json')['V36_R2']
-v35_data = load_json(f'{base}/creative/v35_results.json')
-v29 = v35_data['V29_R2']
-v42 = load_json(f'{base}/creative/v42_results.json')
-v42_avg = v42['V42_R2_Avg']
+horizons = ['1d', '5d', '22d', '60d', '90d', '120d', '180d', '365d']
+models = {
+    'Ridge(37)': ('Ridge_37', '#3182CE'),
+    'LSTM(3)': ('LSTM_Top3', '#68D391'),
+    'HAR-3': ('HAR3', '#A0AEC0'),
+    'LASSO': ('LASSO_HAR', '#F6AD55'),
+    'RF(37)': ('RF_37', '#FC8181'),
+}
 
-models = ['V29\n(HAR+GARCH)', 'V43\n(Transformer)', 'V50\n(Dual-Attn)', 'V36\n(Adaptive)', 'V42\n(Ensemble)', 'V71\n(Champion)']
-r2_scores = [v29, v43, v50, v36, v42_avg, 0.803]
-colors = ['#A0AEC0', '#A0AEC0', '#4299E1', '#63B3ED', '#A0AEC0', '#3182CE']
+fig, axes = plt.subplots(1, 2, figsize=(12, 5))
 
-fig, ax = plt.subplots(figsize=(12, 5))
-bars = ax.bar(models, r2_scores, color=colors, edgecolor='white', linewidth=1.5)
+# Left: Multi-Horizon
+x = np.arange(len(horizons))
+w = 0.15
+for i, (label, (key, color)) in enumerate(models.items()):
+    r2s = [data[h][key]['R2'] for h in horizons]
+    axes[0].bar(x + (i-2)*w, r2s, w, label=label, color=color)
 
-bars[-1].set_edgecolor('#1a365d')
-bars[-1].set_linewidth(3)
+axes[0].set_ylabel('R²', fontsize=12)
+axes[0].set_title('Multi-Horizon 풀링 R² (전방 RV)', fontsize=13, fontweight='bold')
+axes[0].set_xticks(x)
+axes[0].set_xticklabels(horizons, fontsize=9)
+axes[0].set_ylim(0, 0.9)
+axes[0].legend(fontsize=8, ncol=2)
+axes[0].grid(True, alpha=0.3, axis='y')
 
-ax.set_ylabel('R² 스코어', fontsize=12)
-ax.set_title('22일 예측 모델 성능 비교 (실제 실험 결과)', fontsize=14, fontweight='bold')
-ax.set_ylim(0.4, 0.9)
-ax.grid(True, alpha=0.3, axis='y')
-
-for bar, score in zip(bars, r2_scores):
-    ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.01, 
-            f'{score:.3f}', ha='center', va='bottom', fontsize=10, fontweight='bold')
+# Right: 22d detailed
+models_22d = ['HAR-RV\n(Corsi)', 'HAR-CJ\n(And+)', 'LASSO\n(Aud+)', 'RF\n(Chr+)', 'LSTM\n(V50)', 'Ridge\n(V71)']
+keys_22d = ['HAR3', 'HAR_CJ', 'LASSO_HAR', 'RF_37', 'LSTM_Top3', 'Ridge_37']
+r2_22d = [data['22d'][k]['R2'] for k in keys_22d]
+colors_22d = ['#A0AEC0', '#A0AEC0', '#F6AD55', '#FC8181', '#68D391', '#3182CE']
+bars = axes[1].bar(models_22d, r2_22d, color=colors_22d, edgecolor='white', linewidth=2)
+axes[1].set_ylabel('R²', fontsize=12)
+axes[1].set_title('22일 예측 모델 비교 (전방 RV)', fontsize=13, fontweight='bold')
+axes[1].set_ylim(0.7, 0.81)
+axes[1].grid(True, alpha=0.3, axis='y')
+for bar, score in zip(bars, r2_22d):
+    axes[1].text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.002, 
+                 f'{score:.3f}', ha='center', va='bottom', fontsize=9, fontweight='bold')
 
 plt.tight_layout()
 plt.show()
 ```
 
-| 모델 | 예측 지평 | R² | 피처 수 | 모델 유형 |
-|:---|:---|:---|:---|:---|
-| **V71 (Champion)** | 22일 | **0.803** | 37 | Ridge + XGBoost 앙상블 |
-| V36 (Adaptive) | 22일 | 0.755 | 3 | 자산별 Ridge |
-| V29 (HAR+GARCH) | 22일 | 0.679 | 3 | Ridge |
-| V42 (Ensemble) | 양쪽 | 0.639 | 3 | 가중 앙상블 |
-| V43 (Transformer) | 22일 | 0.534 | 2 | Transformer |
-| **V50 (Dual-Attn)** | **1일** | **0.533 (OOS)** | 2 | Bi-LSTM + Attention |
+### Horizon별 풀링 R² (전방 RV)
+
+| Horizon | Ridge(37) | LSTM(3) | HAR-3 | LASSO | HAR-CJ | RF(37) | 챔피언 |
+|:---|:---|:---|:---|:---|:---|:---|:---|
+| 1d | **0.114** | 0.092 | 0.109 | **0.116** | 0.106 | 0.113 | LASSO |
+| 5d | **0.625** | 0.577 | 0.581 | 0.625 | 0.569 | 0.611 | Ridge |
+| 22d | **0.798** | 0.780 | 0.761 | 0.790 | 0.752 | 0.770 | Ridge(V71) |
+| **60d** | 0.774 | **0.796** | 0.784 | 0.782 | 0.771 | 0.752 | **LSTM** |
+| **90d** | 0.752 | **0.788** | 0.781 | 0.763 | 0.768 | 0.737 | **LSTM** |
+| 120d | 0.737 | 0.751 | **0.758** | 0.748 | 0.746 | 0.730 | HAR-3 |
+| 180d | 0.691 | 0.708 | 0.705 | 0.707 | 0.691 | **0.719** | RF |
+| 365d | 0.516 | 0.589 | 0.611 | 0.555 | 0.570 | **0.705** | **RF** |
 
 ---
 
-## 2. V50 (1일 예측 챔피언)
+## 2. V50 Tuned (중기 예측 챔피언)
 
 ### 아키텍처
 
 ```{mermaid}
 %%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%
 flowchart TD
-    A["시퀀스 22일 x 2 피처"] --> B["Bi-LSTM (hidden=64)"]
+    A["시퀀스 22일 x 3 피처"] --> B["Bi-LSTM (hidden=32)"]
     B --> C["Temporal Attention"]
-    C --> D["FC(128→1)"]
-    D --> E["22일 후 LogRV"]
+    C --> D["FC(64→1)"]
+    D --> E["Forward RV 예측"]
 
     style A fill:#E3F2FD,stroke:#1565C0
     style B fill:#E8F5E9,stroke:#2E7D32
@@ -101,29 +116,19 @@ flowchart TD
     style E fill:#F3E5F5,stroke:#7B1FA2
 ```
 
-### 하이퍼파라미터 (실제 코드 기준)
+### 하이퍼파라미터
 
 | 파라미터 | 값 | 비고 |
 |:---|:---|:---|
-| Sequence Length | 22일 | HAR 월간 윈도우 |
-| LSTM Hidden | 64 | 양방향 → 128차원 |
-| LSTM Layers | **1** | 단일 Bi-LSTM |
-| Attention | **Temporal (1개)** | tanh + softmax |
-| Dropout | **0.0** | 정규화 없음 |
-| Epochs | **20** | 고정 (Early Stop 없음) |
-| Input Features | **2** | LogRV, Daily Return |
-
-### 성능
-
-| 지표 | 값 | 출처 |
-|:---|:---|:---|
-| IS R² | 0.848 | `v51b_results.json` |
-| **OOS R²** | **0.533** | `v51b_results.json` (공정 비교) |
-| DM Test | p < 0.001 | `v53_results.json` |
+| Input Features | **3** | RogersSatchell, GarmanKlass, Range_Close_Ratio |
+| LSTM Hidden | 32 | 양방향 → 64차원 |
+| Dropout | 0.2 | 정규화 |
+| Batch Size | 128 | |
+| 강점 | 60~90d | 중기 풀링 R² 최고, 전 구간 중위 R² 최고 |
 
 ---
 
-## 3. V71 (22일 예측 챔피언)
+## 3. V71 Ridge (단기 예측 챔피언)
 
 ### 아키텍처
 
@@ -131,68 +136,58 @@ flowchart TD
 %%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%
 flowchart LR
     A["OHLCV + 옵션 데이터"] --> B["37개 피처\n(HAR+HF+IV+Alt)"]
-    B --> C["자산별 Ridge"]
-    B --> D["XGBoost"]
-    C & D --> E["Weighted Ensemble\nR²=0.803"]
+    B --> C["Ridge Regression"]
+    C --> D["22d R²=0.803\n(Ensemble)"]
 
     style A fill:#E3F2FD,stroke:#1565C0
     style B fill:#E8F5E9,stroke:#2E7D32
     style C fill:#FFF3E0,stroke:#E65100
-    style D fill:#FFF3E0,stroke:#E65100
-    style E fill:#F3E5F5,stroke:#7B1FA2
+    style D fill:#F3E5F5,stroke:#7B1FA2
 ```
 
 ### 피처 구성 (37개)
 
-| 카테고리 | 피처 수 | 주요 피처 | R² 기여 |
-|:---|:---|:---|:---|
-| **Base (HAR+GARCH)** | 14 | LogRV lags, GARCH, Vol-of-Vol | 0.758 (baseline) |
-| **HF Proxy (OHLC)** | 7 | Rogers-Satchell, Garman-Klass, Parkinson | +0.021 |
-| **IV Surface** | 10 | VIX, VIX3M, VIX Term, VRP | +0.026 |
-| **Alt Data** | 6 | Amihud, Volume, Order Imbalance | +0.007 |
-
-### 강건성 검증 (6종 PASS)
-
-| 검증 방법 | 결과 | 판정 |
+| 카테고리 | 피처 수 | 주요 피처 |
 |:---|:---|:---|
-| 다중 Split 안정성 | R² = 0.793 ± 0.010 | PASS |
-| Alpha 민감도 | R² 0.788~0.802 | PASS |
-| 5-Fold 시계열 CV | R² = 0.765 ± 0.046 | PASS |
-| 데이터 누출 검증 | 셔플 R² = -0.002 | PASS |
-| Permutation Importance | Rogers-Satchell 1위 | PASS |
-| DM Test (Newey-West) | 모든 p < 0.001 | PASS |
+| **Base (HAR+GARCH)** | 14 | LogRV lags, GARCH, Vol-of-Vol |
+| **HF Proxy (OHLC)** | 7 | Rogers-Satchell, Garman-Klass, Parkinson |
+| **IV Surface** | 10 | VIX, VIX3M, VIX Term, VRP |
+| **Alt Data** | 6 | Amihud, Volume, Order Imbalance |
 
 ---
 
-## 4. 왜 예측 지평에 따라 최적 모델이 다른가?
+## 4. 문헌 벤치마크
 
-| 특성 | 1일 예측 | 22일 예측 |
-|:---|:---|:---|
-| **시그널 강도** | 높음 (자기상관 강함) | 낮음 (노이즈 많음) |
-| **최적 모델** | 비선형 DL (V50) | 선형 Ridge (V71) |
-| **핵심 요인** | 시간적 패턴 학습 | 피처 엔지니어링 |
-| **과적합 위험** | 중간 (IS-OOS gap 37%) | 낮음 (CV std 0.046) |
+| 모델 | 출처 | 22d R² | 365d R² | 설명 |
+|:---|:---|:---|:---|:---|
+| HAR-RV | Corsi (2009) | 0.761 | 0.611 | 3개 HAR 피처 Ridge |
+| HAR-CJ | Andersen+ (2007) | 0.752 | 0.570 | Jump 분해 (Bipower Variation) |
+| LASSO-HAR | Audrino & Knaus (2016) | 0.790 | 0.555 | 37개 피처 L1 정규화 |
+| RF | Christensen+ (2023) | 0.770 | **0.705** | 37개 피처 Random Forest |
+
+---
+
+## 5. 왜 예측 지평에 따라 최적 모델이 다른가?
+
+| 특성 | 단기 (1~22d) | 중기 (60~90d) | 초장기 (365d) |
+|:---|:---|:---|:---|
+| **시그널** | HAR 자기상관 강함 | Range 추정량 유효 | 노이즈 지배적 |
+| **최적 모델** | Ridge/LASSO (37feat) | LSTM (3feat) | RF (37feat) |
+| **핵심 요인** | 피처 수 | Range 피처 선택 + DL | 트리 앙상블 강건성 |
+| **과적합 위험** | 낮음 | 중간 | 낮음 |
 
 ::: {.callout-important}
 ## 핵심 인사이트
-동일 37개 피처에서 **Ridge(0.773) > XGBoost(0.761) > MLP(0.750)**. 모델 복잡도가 아닌 **피처 엔지니어링이 22일 예측에서 결정적 요인**.
+- V71 Ensemble이 22d에서 R²=0.803으로 최고 성능: Ridge(0.798) + XGBoost(0.773)의 가중 앙상블 효과
+- LSTM은 3개 피처만으로 37개 피처 선형 모델을 60~90d에서 능가: **피처 선택이 중요**
+- RF는 365d에서 유일하게 R²>0.7 달성: 트리 앙상블의 장기 안정성
 :::
-
----
-
-## 5. 권장사항
-
-| 사용 목적 | 권장 모델 | R² | 특징 |
-|:---|:---|:---|:---|
-| **장기 리스크 관리** (22일) | **V71 (Asset-Adaptive)** | 0.803 | 37개 피처, 6종 검증 통과 |
-| **단기 트레이딩** (1일) | **V50 (Dual-Attn LSTM)** | 0.533 (OOS) | IS-OOS gap 존재 |
-| **범용** | **V42 (Ensemble)** | 0.639~0.656 | V36 기반 가중 앙상블 |
 
 ---
 
 ## 관련 자료
 
-- [V50 상세 분석](/experiments/1day_prediction.html) - 1일 예측 챔피언
-- [V71 상세 분석](/experiments/22day_prediction.html) - 22일 예측 챔피언
+- [V50 상세 분석](/experiments/1day_prediction.html) - 중기 예측 챔피언
+- [V71 상세 분석](/experiments/22day_prediction.html) - 단기 예측 챔피언
 - [V71 강건성 검증](/experiments/champion_robustness.html) - 6종 강건성 테스트
-- [V50 SCI 검증](/experiments/sci_verification.html) - Walk-Forward, DM Test
+- [결과 요약](/experiments/summary.html) - 전체 실험 통계

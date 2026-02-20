@@ -41,10 +41,13 @@ class DualAttentionLSTM(nn.Module):
         self.attention = Attention(hidden_dim)
         self.fc = nn.Linear(hidden_dim * 2, 1)
         
-    def forward(self, x):
+    def forward(self, x, return_attention=False):
         lstm_out, _ = self.lstm(x) # (Batch, Seq_Len, Hidden*2)
-        context, _ = self.attention(lstm_out)
+        context, attn_weights = self.attention(lstm_out)
         output = self.fc(context)
+        
+        if return_attention:
+            return output, attn_weights
         return output
 
 def create_sequences(data, seq_len):

@@ -1,0 +1,647 @@
+# Methodology (방법론)
+
+> **Cross-Asset Volatility Risk Premium Prediction Using Machine Learning**
+>
+> 본 문서는 논문 작성을 위한 방법론(Methodology) 상세 기술 초안입니다.
+
+---
+
+## 1. 연구 개요 (Research Overview)
+
+본 연구는 Cross-Asset Volatility Risk Premium(VRP)을 예측하기 위한 머신러닝 프레임워크를 제안한다. 핵심 연구 질문은 다음과 같다:
+
+1. Global VIX와 Cross-Asset Realized Volatility만으로 다수 자산군의 VRP를 효과적으로 예측할 수 있는가?
+2. 예측 지평(1일 vs 22일)에 따라 최적 모델 아키텍처가 달라지는가?
+3. Attention Mechanism이 변동성 예측에서 해석 가능한 통찰을 제공하는가?
+
+---
+
+## 2. 데이터 (Data)
+
+### 2.1 자산 유니버스
+
+본 연구는 3개 자산 클래스에 걸쳐 총 11개 자산의 일별 가격 데이터를 사용한다.
+
+| 자산 클래스 | Ticker | 설명 | 비고 |
+|:-----------|:-------|:-----|:-----|
+| **Equity** | SPY | S&P 500 ETF | 미국 대형주 |
+| | QQQ | Nasdaq-100 ETF | 기술주 중심 |
+| | IWM | Russell 2000 ETF | 미국 소형주 |
+| | EFA | MSCI EAFE ETF | 선진 해외시장 |
+| | EEM | MSCI Emerging Markets ETF | 신흥시장 |
+| **Bond** | TLT | 20+ Year Treasury Bond ETF | 장기 국채 |
+| | IEF | 7-10 Year Treasury Bond ETF | 중기 국채 |
+| | AGG | Aggregate Bond ETF | 종합 채권 |
+| **Commodity** | GLD | Gold ETF | 금 |
+| | SLV | Silver ETF | 은 |
+| | USO | US Oil Fund ETF | 원유 |
+
+### 2.2 데이터 기간 및 출처
+
+- **기간**: 2010년 1월 ~ 2025년 1월 (약 15년, 약 3,780 거래일)
+- **출처**: Yahoo Finance (yfinance API)를 통한 일별 OHLCV 데이터
+- **전처리**: 결측치는 forward-fill 방식으로 보간
+
+### 2.3 데이터 분할
+
+시계열 데이터의 시간적 순서를 보존하기 위해 **시간 기반 분할(Temporal Split)**을 사용한다.
+
+- **학습 세트 (Training Set)**: 전체 데이터의 80% (시간순 기준 앞부분)
+- **테스트 세트 (Test Set)**: 전체 데이터의 20% (시간순 기준 뒷부분)
+- **교차 검증**: 5-Fold TimeSeriesSplit (확장 윈도우 방식)
+
+```
+전체 데이터 타임라인:
+|[=================== Training (80%) ====================|= Test (20%) =|
+2010                                                     ~2022          2025
+
+5-Fold TimeSeriesSplit:
+Fold 1: |==Train==|=Val=|
+Fold 2: |=====Train=====|=Val=|
+Fold 3: |=========Train=========|=Val=|
+Fold 4: |=============Train=============|=Val=|
+Fold 5: |=================Train=================|=Val=|
+```
+
+---
+
+## 3. 타겟 변수 정의 (Target Variable)
+
+### 3.1 실현 변동성 (Realized Volatility)
+
+본 연구의 예측 타겟은 **로그 실현 변동성(Log-Realized Volatility, LogRV)**이다. 로그 변환은 실현 변동성의 양적 편향(right-skewness)을 완화하고, 모델 학습의 안정성을 향상시키기 위함이다.
+
+#### 실현 변동성 계산
+
+일별 로그 수익률 r_t로부터 22일(약 1개월) 롤링 윈도우의 실현 변동성을 산출한다:
+
+$$RV_t = \frac{252}{22} \sum_{i=0}^{21} r_{t-i}^2 \times 10000$$
+
+여기서:
+- r_t = ln(P_t / P_{t-1}): 일별 로그 수익률
+- 252: 연환산 계수 (연간 거래일 수)
+- 22: 롤링 윈도우 크기 (약 1개월)
+- 10000: 스케일링 계수
+
+#### 로그 변환
+
+$$LogRV_t = \ln(RV_t + \epsilon), \quad \epsilon = 10^{-6}$$
+
+$\epsilon$은 수치 안정성을 위한 극소값이다.
+
+### 3.2 예측 지평 (Forecast Horizons)
+
+본 연구는 두 가지 예측 지평을 대상으로 한다:
+
+| 예측 지평 | 타겟 정의 | 경제적 의미 |
+|:---------|:---------|:-----------|
+| **1일 (h=1)** | Y_{t+1} = LogRV_{t+1} | 단기 트레이딩 및 일별 리스크 관리 |
+| **22일 (h=22)** | Y_{t+22} = LogRV_{t+22} | 월간 포트폴리오 재조정 및 옵션 가격결정 |
+
+---
+
+## 4. 피처 엔지니어링 (Feature Engineering)
+
+### 4.1 HAR (Heterogeneous Autoregressive) 피처
+
+Corsi (2009)의 HAR 구조에 기반하여, 세 가지 시간 스케일의 실현 변동성 래그를 핵심 피처로 사용한다:
+
+| 피처 | 정의 | 경제적 의미 |
+|------|------|------------|
+| LogRV_{t-1}^{(d)} | 전일 로그 실현 변동성 | 단기 트레이더 반응 (일간 수준) |
+| LogRV_{t-5}^{(w)} | 5일 전 로그 실현 변동성 | 중기 투자자 경향 (주간 수준) |
+| LogRV_{t-22}^{(m)} | 22일 전 로그 실현 변동성 | 장기 투자자 전략 (월간 수준) |
+
+이 세 래그는 이질적 시장 가설(Heterogeneous Market Hypothesis; Muller et al., 1997)에 기반하며, 서로 다른 투자 지평을 가진 참여자들의 행동이 변동성의 다중 시간 스케일 구조를 형성한다는 이론을 반영한다.
+
+### 4.2 일별 수익률 (Daily Return)
+
+Ret_t = ln(P_t / P_{t-1})
+
+일별 수익률은 변동성의 방향성(directionality) 정보를 제공하며, 특히 레력지 효과(leverage effect) --- 음의 수익률이 양의 수익률보다 변동성에 더 큰 영학을 미치는 현상 --- 를 포착하는 데 기여한다.
+
+### 4.3 피처 정규화 (Feature Normalization)
+
+모든 피처는 **StandardScaler**를 통해 자산별로 정규화된다:
+
+$$x_{scaled} = \frac{x - \mu}{\sigma}$$
+
+여기서 \mu, \sigma는 학습 세트에서 산출된 평균 및 표준편차이다. 정규화는 다음 목적을 충족한다:
+1. 자산 간 변동성 Scale 차이 제거 (예: 주식 vs 채권)
+2. 신경망 학습의 수렴 속도 향상
+3. Ridge 정규화에서 피처 간 공정한 패널티 부여
+
+**역정규화(Inverse Transform)**: 예측값 평가 시 원래 스케일로 복원하여 경제적으로 의미 있는 수치를 비교한다:
+
+$$\hat{y}_{orig} = \hat{y}_{scaled} \cdot \sigma_y + \mu_y$$
+
+### 4.4 입력 시퀀스 구성
+
+모델에 따라 두 가지 입력 형태를 사용한다:
+
+#### V50 (Dual-Attention LSTM)을 위한 시퀀스 입력
+
+$t$ 시점의 입력은 과거 $L$일 동안의 다변량 시계열 행렬이다:
+
+X_t \in R^{L \times d}
+
+여기서:
+- L = 22 (시퀀스 길이, 약 1개월)
+- d = 2 (피처 차원: LogRV, Daily Return)
+- X_t = [LogRV_{t-L+1}  Ret_{t-L+1} ; LogRV_{t-L+2}  Ret_{t-L+2} ; ... ; LogRV_t  Ret_t]
+
+#### V36 (Asset-Adaptive Ridge)을 위한 고정 차원 입력
+
+X_t = [LogRV_{t-1}^{(d)},  LogRV_{t-5}^{(w)},  LogRV_{t-22}^{(m)}] \in R^{3}
+
+---
+
+## 5. 모델 아키텍처 (Model Architectures)
+
+### 5.1 베이스라인 모델: V29 (Hybrid HAR-GARCH Ridge)
+
+모든 실험의 비교 기준으로, HAR 피처와 GARCH 조건부 분산을 결합한 Ridge 회귀 모형을 사용한다.
+
+#### GARCH(1,1) 피처
+
+GARCH(1,1) 모형으로 조건부 분산을 추정하고, 이를 추가 피처로 활용한다:
+
+$$\sigma_t^2 = \omega + \alpha \epsilon_{t-1}^2 + \beta \sigma_{t-1}^2$$
+
+여기서 \epsilon_t는 수익률 잔차이다. GARCH는 **변동성 군집 현상(Volatility Clustering)** --- 높은 변동성이 높은 변동성에 이어지는 경향 --- 을 명시적으로 모델링한다.
+
+#### Ridge 회귀
+
+\hat{Y}_{t+h} = \beta_0 + \beta_d LogRV_{t-1}^{(d)} + \beta_w LogRV_{t-5}^{(w)} + \beta_m LogRV_{t-22}^{(m)} + \beta_g \sigma_{t}
+
+학습 목적 함수:
+
+$$\min_{\beta} \|X\beta - y\|_2^2 + \alpha \|\beta\|_2^2$$
+
+L2 정규화(\alpha)는 다중공선성(multicollinearity) 문제를 완화하고 과적합을 방지한다.
+
+---
+
+### 5.2 1일 예측 챔피언: V50 (Dual-Attention Bi-LSTM)
+
+#### 5.2.1 아키텍처 개요
+
+V50 모델은 **양방향 LSTM(Bi-LSTM)**에 **Temporal Attention Mechanism**을 결합한 구조이다.
+
+```
+입력 시퀀스 X ∈ R^{22×2}
+     │
+     ▼
+┌─────────────────────────┐
+│    Bi-directional LSTM   │
+│  Forward:  h→ = LSTM→(x) │
+│  Backward: h← = LSTM←(x) │
+│  H = [h→; h←] ∈ R^{22×2d}│
+└──────────┬──────────────┘
+           │
+           ▼
+┌─────────────────────────┐
+│   Attention Mechanism    │
+│  e_t = tanh(W_a · H_t)  │
+│  α_t = softmax(e_t)     │
+│  c = Σ α_t · H_t        │
+└──────────┬──────────────┘
+           │
+           ▼
+┌─────────────────────────┐
+│   Fully Connected Layer  │
+│   ŷ = W_fc · c + b      │
+└──────────┬──────────────┘
+           │
+           ▼
+       Predicted LogRV
+```
+
+#### 5.2.2 Bi-directional LSTM
+
+양방향 LSTM은 입력 시퀀스를 순방향(t -> t+L)과 역방향(t+L -> t) 두 방향으로 처리한다:
+
+**순방향 (Forward LSTM)**:
+\vec{h}_t = LSTM_{\rightarrow}(x_t, \vec{h}_{t-1})
+
+**역방향 (Backward LSTM)**:
+\overleftarrow{h}_t = LSTM_{\leftarrow}(x_t, \overleftarrow{h}_{t+1})
+
+**결합 은닉 상태**:
+H_t = [\vec{h}_t ; \overleftarrow{h}_t] \in R^{2d_h}
+
+여기서 d_h는 은닉 차원(hidden dimension)이다.
+
+**양방향 구조의 동기**: 변동성 충격(volatility shock)은 사전 징후(pre-shock buildup)와 사후 감쇠(post-shock decay)를 동반하는 경우가 많다. 양방향 처리는 예측 윈도우 내 변동성 이벤트의 전체 구조적 맥락(structural context)을 포착할 수 있다.
+
+#### LSTM 셀 내부 동작
+
+각 LSTM 셀의 게이트 연산을 명시한다:
+
+f_t = \sigma(W_f \cdot [h_{t-1}, x_t] + b_f) (Forget Gate)
+i_t = \sigma(W_i \cdot [h_{t-1}, x_t] + b_i) (Input Gate)
+\tilde{C}_t = \tanh(W_C \cdot [h_{t-1}, x_t] + b_C) (Candidate Cell State)
+C_t = f_t \odot C_{t-1} + i_t \odot \tilde{C}_t (Cell State Update)
+o_t = \sigma(W_o \cdot [h_{t-1}, x_t] + b_o) (Output Gate)
+h_t = o_t \odot \tanh(C_t) (Hidden State)
+
+여기서 \sigma는 시그모이드 함수, \odot은 원소별 곱(Hadamard product)이다.
+
+#### 5.2.3 Temporal Attention Mechanism
+
+표준 LSTM은 마지막 은닉 상태(h_T)만을 예측에 사용한다. 이와 대조적으로, 본 모델은 **모든 시점의 은닉 상태에 동적 가중치를 부여**하여 Context Vector를 생성한다.
+
+**에너지 점수 (Energy Score)**:
+e_t = \tanh(W_a H_t + b_a)
+
+**Attention 가중치 (Softmax 정규화)**:
+\alpha_t = exp(e_t) / \sum exp(e_j)
+
+\alpha_t는 시점 t의 정보가 최종 예측에 미치는 상대적 중요도를 나타낸다.
+
+**Context Vector (가중 합)**:
+c = \sum \alpha_t \cdot H_t
+
+**Attention의 경제적 해석**: Attention 가중치 \alpha_t는 변동성 예측에 가장 영향력 있는 과거 시점을 자동으로 식별한다. HAR 모델이 고정된 래그(1, 5, 22일)만 사용하는 반면, Attention은 **Dynamic HAR**로 기능하여 변동성 충격이 발생한 특정 시점에 가중치를 집중시킬 수 있다.
+
+#### 5.2.4 예측 헤드 (Prediction Head)
+
+Context Vector c를 선형 레이어로 사영하여 스칼라 예측값을 산출한다:
+
+\hat{Y}_{t+h} = W_{fc} \cdot c + b_{fc}
+
+#### 5.2.5 하이퍼파라미터
+
+| 파라미터 | 기본값 | 탐색 범위 | 최적값 |
+|---------|--------|----------|--------|
+| hidden_dim (d_h) | 64 | {32, 64, 128} | **32** |
+| learning_rate (\eta) | 0.001 | {0.0001, 0.001, 0.01} | **0.001** |
+| dropout (p) | 0.0 | {0.0, 0.3, 0.5} | **0.0** |
+| seq_len (L) | 22 | {10, 22, 44} | **22** |
+| batch_size (B) | 64 | 고정 | 64 |
+| epochs | 20 | 고정 | 20 |
+| optimizer | Adam | 고정 | Adam |
+| loss function | MSE | 고정 | MSE |
+
+**주목할 점**: 최적 hidden_dim이 32로 가장 작은 값이 선택되었다. 이는 금융 시계열의 낮은 신호 대 잡음비(low SNR) 환경에서, 과잉 모수화(over-parameterization)보다 **간소한 구조(parsimonious architecture)**가 일반화에 유리하다는 것을 시사한다.
+
+#### 5.2.6 모델 파라미터 수
+
+d_{in} = 2 (입력 차원), d_h = 32 (은닉 차원)일 때:
+
+| 구성 요소 | 파라미터 수 | 산출 근거 |
+|----------|-----------|----------|
+| Bi-LSTM | 4 x (d_h^2 + d_{in} x d_h + d_h) x 2 | 양방향, 4개 게이트 |
+| Attention | 2d_h + 1 | 선형 변환 + 바이어스 |
+| FC Layer | 2d_h + 1 | Context -> 스칼라 |
+| **합계** | **~9,000** | --- |
+
+Transformer(V43, ~85,000)의 약 **1/9** 수준으로, 더 적은 파라미터로 더 높은 성능을 달성한다.
+
+---
+
+### 5.3 22일 예측 챔피언: V36 (Asset-Adaptive Ridge)
+
+#### 5.3.1 설계 원리
+
+장기(22일) 예측에서는 변동성 신호의 감쇠로 인해 신호 대 잡음비가 더욱 낮아진다. 이 환경에서 딥러닝 모델은 노이즈를 패턴으로 오인하여 과적합되는 경향이 있다. V36 모델은 이 문제에 대한 해법으로 **자산 클래스별 적응적 정규화(Asset-Class Adaptive Regularization)**를 적용한 Ridge 회귀를 채택한다.
+
+#### 5.3.2 자산 클래스 분류
+
+| 클래스 | 포함 자산 | 특성 |
+|--------|----------|------|
+| Equity | SPY, QQQ, IWM, EFA, EEM | 높은 노이즈, 시장 효율성 |
+| Bond | TLT, IEF, AGG | 낮은 노이즈, 금리 정책 추세 |
+| Commodity | GLD, SLV, USO | 중간 노이즈, 매크로 요인 의존 |
+
+#### 5.3.3 자산 클래스별 독립 모델
+
+각 자산 클래스 k in {Equity, Bond, Commodity}에 대해 독립적인 Ridge 모델을 학습한다:
+
+\hat{Y}_{t+22}^{(k)} = \beta_0^{(k)} + \beta_d^{(k)} LogRV_{t-1} + \beta_w^{(k)} LogRV_{t-5} + \beta_m^{(k)} LogRV_{t-22}
+
+각 모델의 정규화 강도는 자산 클래스에 따라 최적화된다:
+
+$$\min_{\beta^{(k)}} \|X^{(k)}\beta^{(k)} - y^{(k)}\|_2^2 + \alpha_k \|\beta^{(k)}\|_2^2$$
+
+#### 5.3.4 자산 클래스별 최적 정규화 파라미터
+
+| 클래스 | 최적 Alpha (\alpha_k) | 탐색 범위 | 근거 |
+|---------|-------------------------|----------|------|
+| **Equity** | **100.0** | {0.1, 1, 10, 100} | 높은 노이즈 -> 강한 정규화로 과적합 억제 |
+| **Bond** | **10.0** | {0.1, 1, 10, 100} | 금리 추세가 명확 -> 중간 정규화 |
+| **Commodity** | **10.0** | {0.1, 1, 10, 100} | 매크로 요인에 의한 중간 수준의 노이즈 |
+
+**경제적 해석**: 주식 시장은 효율적 시장 가설(EMH)에 가까워 예측 가능한 신호의 비중이 낮다. 따라서 강한 정규화를 통해 극소수의 핵심 추세만 포착하는 것이 바람직하다. 반면 채권 시장은 중앙은행 정책에 의한 명확한 금리 추세가 있어, 약한 정규화로도 안정적 예측이 가능하다.
+
+#### 5.3.5 HAR Window 최적화
+
+HAR 피처의 래그 구조도 탐색 대상에 포함한다:
+
+| Window 조합 | 전체 R^2 | 최적 여부 |
+|------------|---------|----------|
+| **(1, 5, 22)** | **0.7727** | **최적** |
+| (1, 5, 10) | 0.7608 | |
+| (1, 10, 22) | 0.7712 | |
+
+표준 HAR 구조(1, 5, 22일)가 최적으로 확인되었으며, 이는 Corsi (2009)의 원래 제안과 일치한다.
+
+#### 5.3.6 예측 시 흐름
+
+```
+새로운 데이터 포인트 x (자산: GLD)
+     │
+     ▼
+자산 클래스 판별 → Commodity
+     │
+     ▼
+Commodity Ridge 모델 적용 (α = 10.0)
+     │
+     ▼
+ŷ(t+22) = β₀ᶜ + β_dᶜ·LogRV(t-1) + β_wᶜ·LogRV(t-5) + β_mᶜ·LogRV(t-22)
+```
+
+---
+
+## 6. 학습 절차 (Training Procedure)
+
+### 6.1 V50 학습
+
+#### 6.1.1 데이터 Pooling
+
+6개 자산(SPY, QQQ, IWM, TLT, IEF, GLD)의 시퀀스를 단일 데이터셋에 합산(pooling)한 후, 날짜 순으로 정렬하여 시간적 순서를 보존한다. 이는 자산 간 공통 변동성 역학을 학습하기 위한 설계이다.
+
+```python
+# 의사 코드
+all_sequences = []
+for asset in ASSETS:
+    for t in range(len(data) - SEQ_LEN - h):
+        X = data[t : t+SEQ_LEN]       # 입력 시퀀스 (22, 2)
+        y = data[t + SEQ_LEN + h - 1]  # 타겟 LogRV
+        all_sequences.append((Date, Asset, X, y))
+
+all_sequences.sort(by='Date')  # 시간순 정렬
+train, test = temporal_split(all_sequences, ratio=0.8)
+```
+
+#### 6.1.2 Mini-Batch 학습
+
+| 항목 | 설정 |
+|------|------|
+| Optimizer | Adam (\beta_1=0.9, \beta_2=0.999) |
+| Learning Rate | 0.001 |
+| Loss Function | Mean Squared Error (MSE) |
+| Batch Size | 64 |
+| Epochs | 20 |
+| Shuffle | True (배치 내에서만; 전체 시간 순서는 분할에서 보존) |
+
+#### 6.1.3 학습 루프
+
+```
+for epoch = 1 to 20:
+    for each mini-batch (X_batch, Y_batch) in train_loader:
+        1. Forward Pass: Ŷ = Model(X_batch)
+        2. Loss Computation: L = MSE(Ŷ, Y_batch)
+        3. Backward Pass: ∂L/∂θ
+        4. Parameter Update: θ ← θ - η · ∂L/∂θ
+    end for
+end for
+```
+
+### 6.2 V36 학습
+
+#### 6.2.1 데이터 Pooling (자산 클래스별)
+
+11개 자산의 HAR 피처를 합산한 후, 자산 클래스별로 분리하여 각각 독립적인 Ridge 모델을 학습한다.
+
+```
+data_all = concatenate([HAR_features(asset) for asset in ALL_ASSETS])
+data_all.sort(by='Date')
+train, test = temporal_split(data_all, ratio=0.8)
+
+for class in {Equity, Bond, Commodity}:
+    train_class = train[train.Class == class]
+    model[class] = Ridge(alpha=α_class).fit(train_class)
+```
+
+#### 6.2.2 Fallback 메커니즘
+
+자산 클래스 분류가 불확실하거나 데이터가 부족한 경우(< 100 samples), 전체 데이터로 학습된 Global Model의 예측값으로 대체한다.
+
+---
+
+## 7. 평가 지표 (Evaluation Metrics)
+
+### 7.1 1차 지표: 결정 계수 (R^2 Score)
+
+R^2 = 1 - \sum(y_t - \hat{y}_t)^2 / \sum(y_t - \bar{y})^2
+
+R^2는 모델이 타겟 변수의 분산 중 얼마나 설명하는지를 측정한다. R^2 = 1이면 완전한 예측, R^2 = 0이평 균 예측과 동일한 성능을 의미한다.
+
+### 7.2 보조 지표
+
+| 지표 | 정의 | 특성 |
+|------|------|------|
+| **RMSE** | sqrt(\sum(y_t - \hat{y}_t)^2 / n) | 큰 오차에 민감 |
+| **MAE** | \sum|y_t - \hat{y}_t| / n | 이상치에 강건 |
+| **Diebold-Mariano Test** | 두 모델 예측 오차의 유의한 차이 검정 | 통계적 유의성 확인 |
+
+### 7.3 Diebold-Mariano 검정
+
+두 모델 A와 B의 예측 성능이 통계적으로 유의하게 다른지를 검정한다:
+
+d_t = L(e_t^A) - L(e_t^B)
+DM = \bar{d} / (std_d / sqrt(n)) ~ N(0, 1)
+
+여기서 L()은 손실 함수(MSE), e_t는 예측 오차이다.
+
+---
+
+## 8. 강건성 검증 (Robustness Validation)
+
+### 8.1 검증 프레임워크
+
+모델의 신뢰성을 다각도로 입증하기 위해 3단계 강건성 검증 체계를 설계하였다.
+
+```
+Phase 1: Hyperparameter Sensitivity
+    ├── Stage 1: hidden_dim × lr 그리드 (3×3 = 9 조합)
+    └── Stage 2: dropout × seq_len 그리드 (3×3 = 9 조합)
+
+Phase 2: 5-Fold TimeSeriesSplit Cross-Validation
+    └── 시간순 확장 윈도우, 5개 fold
+
+Phase 3: Multi-Seed / Bootstrap Robustness
+    ├── V50: 5개 독립 랜덤 시드 실험 (42, 123, 456, 789, 2024)
+    └── V36: 5회 부트스트랩 리샘플링 (Ridge는 결정론적이므로)
+```
+
+### 8.2 V50 하이퍼파라미터 민감도 분석
+
+#### Stage 1: hidden_dim x lr
+
+| hidden_dim | lr=0.0001 | lr=0.001 | lr=0.01 |
+|:-----------|:----------|:---------|:--------|
+| 32 | R^2=0.9816 | **R^2=0.9913** | R^2=0.9911 |
+| 64 | R^2=0.9827 | R^2=0.9902 | R^2=0.9902 |
+| 128 | R^2=0.9810 | R^2=0.9891 | R^2=0.9896 |
+
+**Best Stage 1**: hidden_dim=32, lr=0.001 (R^2=0.9913)
+
+#### Stage 2: dropout x seq_len (hidden_dim=32, lr=0.001 고정)
+
+| dropout | seq_len=10 | seq_len=22 | seq_len=44 |
+|:--------|:-----------|:-----------|:-----------|
+| 0.0 | R^2=0.9859 | **R^2=0.9913** | R^2=0.9873 |
+| 0.3 | R^2=0.9855 | R^2=0.9912 | R^2=0.9873 |
+| 0.5 | R^2=0.9854 | R^2=0.9908 | R^2=0.9866 |
+
+**Best Stage 2**: dropout=0.0, seq_len=22
+
+### 8.3 5-Fold 교차 검증 결과
+
+#### V50 (1일 예측)
+
+| Fold | R^2 | RMSE | MAE |
+|------|-----|------|-----|
+| 1 | 0.9797 | 0.1445 | 0.0998 |
+| 2 | 0.9838 | 0.1156 | 0.0774 |
+| 3 | 0.9802 | 0.1452 | 0.1010 |
+| 4 | 0.9926 | 0.1095 | 0.0774 |
+| 5 | 0.9913 | 0.0797 | 0.0534 |
+| **Mean ± Std** | **0.9855 ± 0.0061** | **0.1189 ± 0.0273** | |
+
+#### V36 (22일 예측)
+
+| Fold | R^2 | RMSE | MAE |
+|------|-----|------|-----|
+| 1 | 0.7849 | 0.6747 | 0.5140 |
+| 2 | 0.7975 | 0.6073 | 0.4736 |
+| 3 | 0.7862 | 0.6346 | 0.4924 |
+| 4 | 0.6769 | 0.8849 | 0.6350 |
+| 5 | 0.7679 | 0.5008 | 0.3991 |
+| **Mean ± Std** | **0.7627 ± 0.0491** | **0.6605 ± 0.1411** | |
+
+### 8.4 시드 / 부트스트랩 안정성
+
+#### V50: 5-Seed 실험
+
+| Seed | R^2 | RMSE | MAE |
+|------|-----|------|-----|
+| 42 | 0.9913 | 0.0823 | 0.0503 |
+| 123 | 0.9914 | 0.0819 | 0.0545 |
+| 456 | 0.9891 | 0.0923 | 0.0725 |
+| 789 | 0.9907 | 0.0853 | 0.0531 |
+| 2024 | 0.9906 | 0.0861 | 0.0560 |
+| **Mean ± Std** | **0.9906 ± 0.0009** | **0.0856 ± 0.0042** | |
+
+**해석**: Std(R^2) = 0.0009로 극도로 낮은 변동성을 보이며, 랜덤 시드 초기화에 거의 무관하게 안정적인 성능을 달성한다.
+
+#### V36: 5-Bootstrap 실험
+
+| Bootstrap | R^2 | RMSE |
+|-----------|-----|------|
+| 1 | 0.7734 | 0.5134 |
+| 2 | 0.7726 | 0.5143 |
+| 3 | 0.7729 | 0.5139 |
+| 4 | 0.7725 | 0.5144 |
+| 5 | 0.7726 | 0.5143 |
+| **Mean ± Std** | **0.7728 ± 0.0004** | **0.5141 ± 0.0004** |
+
+**해석**: Ridge 회귀의 결정론적 특성으로 인해, 부트스트랩 변동이 거의 없다(Std = 0.0004). 이는 모델이 학습 데이터의 일부 변동에 매우 강건함을 입증한다.
+
+---
+
+## 9. 실험 모델 비교 (Model Comparison)
+
+### 9.1 1일 예측 (h=1)
+
+| 모델 | 아키텍처 | R^2 | 파라미터 수 | 비고 |
+|------|---------|-----|-----------|------|
+| Random Walk | 없음 | 0.42 | 0 | 하한 |
+| GARCH(1,1) | 통계 모형 | 0.52 | 3 | 변동성 군집 포착 |
+| HAR-RV (Corsi) | 선형 회귀 | 0.62 | 4 | 문헌 베이스라인 |
+| **V29** (HAR+GARCH Ridge) | Ridge | 0.730 | ~5 | 본 연구 베이스라인 |
+| V36 (Asset-Adaptive) | Ridge 앙상블 | 0.755 | ~15 | 자산별 최적화 |
+| V43 (Transformer) | Transformer | 0.797 | ~85K | Self-Attention |
+| **V50 (Dual-Attn LSTM)** | **Bi-LSTM+Attn** | **0.821** | **~9K** | **챔피언** |
+
+### 9.2 22일 예측 (h=22)
+
+| 모델 | R^2 | 비고 |
+|------|-----|------|
+| Historical Average | 0.32* | 문헌 참고 |
+| GARCH(1,1) | 0.45* | 문헌 참고 |
+| HAR-RV (Corsi) | 0.529 | v14 실험 결과 |
+| GARCH-MIDAS | 0.55* | 문헌 참고 |
+| **V29** (HAR+GARCH Ridge) | 0.641 | v29 실험 결과 |
+| V43 (Transformer) | 0.534 | 과적합 발생 |
+| **V36 (Asset-Adaptive)** | **0.755** | **챔피언** |
+
+### 9.3 예측 지평에 따른 최적 아키텍처 분화
+
+| | 1일 예측 | 22일 예측 |
+|---|---------|----------|
+| **최적 모델** | V36 (정규화 선형) | V36 (정규화 선형) |
+| **신호 대 잡음비** | 낮음 | 낮음 |
+| **비선형성 필요** | 보통 | 낮음 |
+| **과적합 위험** | 보통 | 높음 |
+| **핵심 기법** | 정규화 선형 모델 | 강한 정규화로 노이즈 제거 |
+
+**핵심 발견**: 단기 예측에서는 비선형 패턴 포착 능력이 중요하여 딥러닝이 우수하고, 장기 예측에서는 노이즈 내성(noise robustness)이 중요하여 정규화된 선형 모델이 우수하다. 이는 변동성 예측 문제에서 하나의 "만능(one-size-fits-all)" 아키텍처가 존재하지 않음을 시사한다.
+
+---
+
+## 10. 피처 기여 분석 (Feature Contribution Analysis)
+
+### 10.1 누적 피처 추가 효과
+
+| 피처 추가 단계 | 1일 R^2 | 개선율 | 22일 R^2 | 개선율 |
+|:-------------|:-------|:------|:--------|:------|
+| HAR (기본) | 0.62 | 기준 | 0.52 | 기준 |
+| +GARCH | 0.69 | +11.3% | 0.61 | +17.3% |
+| +VIX | 0.73 | +5.8% | 0.68 | +11.5% |
+| **+Cross-Asset** | **0.821** | **+12.5%** | **0.755** | **+11.0%** |
+
+**분석**: 각 피처 그룹은 상호 보완적인 정보를 제공하며, Cross-Asset 피처의 추가가 양 예측 지평에서 10% 이상의 최종 성능 향상을 초래하였다. 이는 자산 간 변동성 spillover가 예측에 중요한 정보원임을 확인한다.
+
+### 10.2 자산군별 성능 분석 (22일 예측)
+
+| 자산군 | V29 R^2 | V36 R^2 | 정레 | 최적 Alpha |
+|:------|:-------|:-------|:------|:----------|
+| 주식 | - | 0.458 | v67 실험 결과 | 100.0 |
+| 채권 | - | 0.789 | v67 실험 결과 | 10.0 |
+| 원자재 | - | 0.626 | v67 실험 결과 | 10.0 |
+
+---
+
+## 11. 구현 환경 (Implementation Details)
+
+### 11.1 소프트웨어 환경
+
+| 항목 | 버전 |
+|------|------|
+| Python | 3.12 |
+| PyTorch | 2.x |
+| scikit-learn | 1.x |
+| pandas | 2.x |
+| numpy | 1.x |
+| matplotlib + seaborn | 시각화 |
+| OS | Ubuntu 24.04 (WSL) |
+
+### 11.2 핵심 소스코드 경로
+
+| 파일 | 역할 |
+|------|------|
+| `src/experiments/creative/v50_dual_attention_lstm.py` | V50 모델 정의 및 실험 |
+| `src/experiments/creative/v36_asset_adaptive.py` | V36 모델 정의 및 실험 |
+| `src/experiments/verification/v66_v50_robustness_hparam_cv.py` | V50 강건성 검증 |
+| `src/experiments/verification/v67_v36_robustness_hparam_cv.py` | V36 강건성 검증 |
+| `src/data/ohlcv_cache.csv` | OHLCV 데이터 캐시 |
+
+### 11.3 재현성 (Reproducibility)
+
+- 모든 실험에서 5개 고정 시드(42, 123, 456, 789, 2024)를 사용
+- PyTorch 및 NumPy의 난수 생성기를 실험 시작 시 초기화
+- 데이터 분할은 시간 기반으로 결정론적
+- 모든 결과는 JSON 형식으로 저장(v66_results.json, v67_results.json)

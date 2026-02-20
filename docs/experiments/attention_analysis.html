@@ -1,0 +1,1913 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.42">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Attention Mechanism 분석 – VRP 연구 대시보드</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-90aea55d2a0088fe7b0af709ac8e6e7c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "일치 없음",
+    "search-matching-documents-text": "일치된 문서",
+    "search-copy-link-title": "검색 링크 복사",
+    "search-hide-matches-text": "추가 검색 결과 숨기기",
+    "search-more-match-text": "추가 검색결과",
+    "search-more-matches-text": "추가 검색결과",
+    "search-clear-button-title": "제거",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "취소",
+    "search-submit-button-title": "검색",
+    "search-label": "검색"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles/styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">VRP 연구 대시보드</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="검색"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="탐색 전환" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../content/index.html"> 
+<span class="menu-text">홈</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../content/project/overview.html"> 
+<span class="menu-text">프로젝트</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../literature/index.html"> 
+<span class="menu-text">문헌 분석</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../experiments/index.html" aria-current="page"> 
+<span class="menu-text">실험 결과</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../content/notes/index.html"> 
+<span class="menu-text">노트</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="사이드바 전환" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../experiments/1day_prediction.html">1일 예측</a></li><li class="breadcrumb-item"><a href="../experiments/attention_analysis.html">Attention 분석</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="사이드바 전환" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">개요</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">1일 예측</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="토글 섹션">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/1day_prediction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">V50 모델 (챔피언)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/sci_verification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">상세 검증</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/attention_analysis.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Attention 분석</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">22일 예측</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="토글 섹션">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/22day_prediction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">V36 모델 (챔피언)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">기타</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="토글 섹션">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/phase10_v29_verification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">V29 베이스라인 검증</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/phase13_model_comparison.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">모델 아키텍처 비교</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/trading_strategy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">트레이딩 전략</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/universal_model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">통합 모델 실험</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">결과 요약</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">목차</h2>
+   
+  <ul>
+  <li><a href="#개요" id="toc-개요" class="nav-link active" data-scroll-target="#개요">개요</a></li>
+  <li><a href="#phase-1-기본-attention-분석" id="toc-phase-1-기본-attention-분석" class="nav-link" data-scroll-target="#phase-1-기본-attention-분석">Phase 1: 기본 Attention 분석</a>
+  <ul class="collapse">
+  <li><a href="#모델-수정" id="toc-모델-수정" class="nav-link" data-scroll-target="#모델-수정">모델 수정</a></li>
+  <li><a href="#자산별-attention-패턴" id="toc-자산별-attention-패턴" class="nav-link" data-scroll-target="#자산별-attention-패턴">자산별 Attention 패턴</a></li>
+  <li><a href="#시장-상황별-attention-패턴" id="toc-시장-상황별-attention-패턴" class="nav-link" data-scroll-target="#시장-상황별-attention-패턴">시장 상황별 Attention 패턴</a></li>
+  <li><a href="#lag-중요도-분석" id="toc-lag-중요도-분석" class="nav-link" data-scroll-target="#lag-중요도-분석">Lag 중요도 분석</a></li>
+  <li><a href="#예측-성능과-attention-관계" id="toc-예측-성능과-attention-관계" class="nav-link" data-scroll-target="#예측-성능과-attention-관계">예측 성능과 Attention 관계</a></li>
+  </ul></li>
+  <li><a href="#phase-2-interactive-dashboard" id="toc-phase-2-interactive-dashboard" class="nav-link" data-scroll-target="#phase-2-interactive-dashboard">Phase 2: Interactive Dashboard</a>
+  <ul class="collapse">
+  <li><a href="#plotly-기반-인터랙티브-시각화" id="toc-plotly-기반-인터랙티브-시각화" class="nav-link" data-scroll-target="#plotly-기반-인터랙티브-시각화">Plotly 기반 인터랙티브 시각화</a></li>
+  </ul></li>
+  <li><a href="#phase-3-true-dual-attention-실험" id="toc-phase-3-true-dual-attention-실험" class="nav-link" data-scroll-target="#phase-3-true-dual-attention-실험">Phase 3: True Dual Attention 실험</a>
+  <ul class="collapse">
+  <li><a href="#모델-아키텍처" id="toc-모델-아키텍처" class="nav-link" data-scroll-target="#모델-아키텍처">모델 아키텍처</a></li>
+  <li><a href="#성능-비교" id="toc-성능-비교" class="nav-link" data-scroll-target="#성능-비교">성능 비교</a></li>
+  <li><a href="#feature-importance-분석" id="toc-feature-importance-분석" class="nav-link" data-scroll-target="#feature-importance-분석">Feature Importance 분석</a>
+  <ul class="collapse">
+  <li><a href="#자산별-차이" id="toc-자산별-차이" class="nav-link" data-scroll-target="#자산별-차이">자산별 차이</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#핵심-인사이트" id="toc-핵심-인사이트" class="nav-link" data-scroll-target="#핵심-인사이트">핵심 인사이트</a>
+  <ul class="collapse">
+  <li><a href="#feature-attention의-부정적-영향" id="toc-feature-attention의-부정적-영향" class="nav-link" data-scroll-target="#feature-attention의-부정적-영향">1. Feature Attention의 부정적 영향</a></li>
+  <li><a href="#return-logrv" id="toc-return-logrv" class="nav-link" data-scroll-target="#return-logrv">2. Return &gt; LogRV</a></li>
+  <li><a href="#단순이-강력함-simplicity-works" id="toc-단순이-강력함-simplicity-works" class="nav-link" data-scroll-target="#단순이-강력함-simplicity-works">3. 단순이 강력함 (Simplicity Works)</a></li>
+  </ul></li>
+  <li><a href="#권장사항" id="toc-권장사항" class="nav-link" data-scroll-target="#권장사항">권장사항</a>
+  <ul class="collapse">
+  <li><a href="#실무-적용" id="toc-실무-적용" class="nav-link" data-scroll-target="#실무-적용">실무 적용</a></li>
+  <li><a href="#향후-연구-방향" id="toc-향후-연구-방향" class="nav-link" data-scroll-target="#향후-연구-방향">향후 연구 방향</a></li>
+  </ul></li>
+  <li><a href="#생성된-파일" id="toc-생성된-파일" class="nav-link" data-scroll-target="#생성된-파일">생성된 파일</a>
+  <ul class="collapse">
+  <li><a href="#코드" id="toc-코드" class="nav-link" data-scroll-target="#코드">코드</a></li>
+  <li><a href="#데이터" id="toc-데이터" class="nav-link" data-scroll-target="#데이터">데이터</a></li>
+  <li><a href="#참고문헌" id="toc-참고문헌" class="nav-link" data-scroll-target="#참고문헌">참고문헌</a></li>
+  </ul></li>
+  <li><a href="#모델-강건성-검증-5-seed-experiment" id="toc-모델-강건성-검증-5-seed-experiment" class="nav-link" data-scroll-target="#모델-강건성-검증-5-seed-experiment">모델 강건성 검증 (5-Seed Experiment)</a>
+  <ul class="collapse">
+  <li><a href="#실험-목적" id="toc-실험-목적" class="nav-link" data-scroll-target="#실험-목적">실험 목적</a></li>
+  <li><a href="#결과-요약" id="toc-결과-요약" class="nav-link" data-scroll-target="#결과-요약">결과 요약</a></li>
+  <li><a href="#시각화-분석" id="toc-시각화-분석" class="nav-link" data-scroll-target="#시각화-분석">시각화 분석</a>
+  <ul class="collapse">
+  <li><a href="#성능-분포-비교" id="toc-성능-분포-비교" class="nav-link" data-scroll-target="#성능-분포-비교">성능 분포 비교</a></li>
+  <li><a href="#seed별-성능-비교" id="toc-seed별-성능-비교" class="nav-link" data-scroll-target="#seed별-성능-비교">Seed별 성능 비교</a></li>
+  <li><a href="#평균-표준편차-비교" id="toc-평균-표준편차-비교" class="nav-link" data-scroll-target="#평균-표준편차-비교">평균 ± 표준편차 비교</a></li>
+  </ul></li>
+  <li><a href="#핵심-인사이트-1" id="toc-핵심-인사이트-1" class="nav-link" data-scroll-target="#핵심-인사이트-1">핵심 인사이트</a>
+  <ul class="collapse">
+  <li><a href="#성능-vs-강건성-트레이드오프" id="toc-성능-vs-강건성-트레이드오프" class="nav-link" data-scroll-target="#성능-vs-강건성-트레이드오프">1. 성능 vs 강건성 트레이드오프</a></li>
+  <li><a href="#v64가-더-강건한-이유" id="toc-v64가-더-강건한-이유" class="nav-link" data-scroll-target="#v64가-더-강건한-이유">2. v64가 더 강건한 이유</a></li>
+  <li><a href="#실무-적용-시사점" id="toc-실무-적용-시사점" class="nav-link" data-scroll-target="#실무-적용-시사점">3. 실무 적용 시사점</a></li>
+  </ul></li>
+  <li><a href="#통계적-유의성" id="toc-통계적-유의성" class="nav-link" data-scroll-target="#통계적-유의성">통계적 유의성</a></li>
+  <li><a href="#결론" id="toc-결론" class="nav-link" data-scroll-target="#결론">결론</a></li>
+  </ul></li>
+  <li><a href="#전체-결론-및-권장사항" id="toc-전체-결론-및-권장사항" class="nav-link" data-scroll-target="#전체-결론-및-권장사항">전체 결론 및 권장사항</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../experiments/1day_prediction.html">1일 예측</a></li><li class="breadcrumb-item"><a href="../experiments/attention_analysis.html">Attention 분석</a></li></ol></nav>
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Attention Mechanism 분석</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> 코드</button></div></div>
+<p class="subtitle lead">DualAttentionLSTM 해석가능성 연구</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">공개</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">2026년 2월 10일</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="개요" class="level1">
+<h1>개요</h1>
+<p>이 페이지는 V50 DualAttentionLSTM 모델의 attention mechanism을 심층 분석한 결과를 제시합니다.</p>
+<p><strong>목표:</strong> - Attention 가중치 추출 및 시각화 - 자산별, 시장 상황별 attention 패턴 분석 - Interactive dashboard 구현 - True Dual Attention (Temporal + Feature) 모델 실험 - 5-seed 강건성 검증</p>
+<p><strong>주요 발견:</strong> - SPY와 GLD는 최근 데이터(lag 21)에 집중, 나머지 자산은 과거 데이터(lag 1) 중시 - 고변동성 시기에는 과거 패턴, 저변동성 시기에는 최근 추세 참조 - 전체 attention의 53%가 최근 11일 데이터에 할당됨 - Feature attention 추가는 성능을 5.3% 감소시킴 (단순이 강력함) - <strong>v50이 더 높은 성능(R²: 0.575), v64가 더 높은 안정성(Std: 0.024)</strong></p>
+<hr>
+</section>
+<section id="phase-1-기본-attention-분석" class="level1">
+<h1>Phase 1: 기본 Attention 분석</h1>
+<section id="모델-수정" class="level2">
+<h2 class="anchored" data-anchor-id="모델-수정">모델 수정</h2>
+<p>기존 <a href="../src/experiments/creative/v50_dual_attention_lstm.py">v50_dual_attention_lstm.py</a>에 attention 가중치 반환 기능을 추가했습니다:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> forward(<span class="va">self</span>, x, return_attention<span class="op">=</span><span class="va">False</span>):</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    lstm_out, _ <span class="op">=</span> <span class="va">self</span>.lstm(x)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    context, attn_weights <span class="op">=</span> <span class="va">self</span>.attention(lstm_out)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    output <span class="op">=</span> <span class="va">self</span>.fc(context)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> return_attention:</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> output, attn_weights</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> output</span></code><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="자산별-attention-패턴" class="level2">
+<h2 class="anchored" data-anchor-id="자산별-attention-패턴">자산별 Attention 패턴</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../src/experiments/verification/v63_asset_comparison.png" class="img-fluid figure-img"></p>
+<figcaption>자산별 Attention 비교</figcaption>
+</figure>
+</div>
+<p><strong>주요 발견:</strong></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+자산별 Focus Lag
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>SPY (S&amp;P 500)</strong>: Lag 21 (최근) - 5.44%</li>
+<li><strong>GLD (금)</strong>: Lag 21 (최근) - 5.84%</li>
+<li><strong>QQQ, IWM, TLT, IEF</strong>: Lag 1 (과거) - 각각 5-6%</li>
+</ul>
+</div>
+</div>
+<p><strong>해석:</strong> SPY와 GLD는 momentum 특성이 강해 최근 변동성이 중요한 반면, 채권(TLT, IEF)과 소형주(IWM)는 장기 평균 회귀 특성으로 인해 과거 패턴을 더 중시합니다.</p>
+</section>
+<section id="시장-상황별-attention-패턴" class="level2">
+<h2 class="anchored" data-anchor-id="시장-상황별-attention-패턴">시장 상황별 Attention 패턴</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../src/experiments/verification/v63_market_regime.png" class="img-fluid figure-img"></p>
+<figcaption>시장 상황별 Attention</figcaption>
+</figure>
+</div>
+<p><strong>주요 발견:</strong></p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Market Regime별 차이
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>고변동성 시기</strong>: Lag 1에 집중 (과거 데이터 중시)</li>
+<li><strong>저변동성 시기</strong>: Lag 21에 집중 (최근 데이터 중시)</li>
+<li><strong>상승장 (Bull)</strong>: Lag 1에 집중</li>
+<li><strong>하락장 (Bear)</strong>: Lag 17에 집중</li>
+</ul>
+</div>
+</div>
+<p><strong>해석:</strong> - 변동성이 높을 때는 구조적 변화를 감지하기 위해 장기 패턴 참조 - 안정적일 때는 최근 추세가 더 신뢰할 만함 - 하락장에서는 중기(lag 17) 데이터가 중요 - 과매도/과매수 신호 포착</p>
+</section>
+<section id="lag-중요도-분석" class="level2">
+<h2 class="anchored" data-anchor-id="lag-중요도-분석">Lag 중요도 분석</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../src/experiments/verification/v63_lag_importance.png" class="img-fluid figure-img"></p>
+<figcaption>Lag 중요도</figcaption>
+</figure>
+</div>
+<p><strong>주요 발견:</strong></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Early vs Recent Lags
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Early lags (0-10)</strong>: 누적 가중치 <strong>47.2%</strong></li>
+<li><strong>Recent lags (11-21)</strong>: 누적 가중치 <strong>52.8%</strong></li>
+</ul>
+</div>
+</div>
+<p>모델은 최근 데이터(53%)와 과거 데이터(47%)를 거의 균등하게 활용합니다. 중간 시점(lag 5-7)의 가중치가 가장 낮아, <strong>극단적 과거와 최근 정보</strong>가 변동성 예측에 더 유용함을 시사합니다.</p>
+</section>
+<section id="예측-성능과-attention-관계" class="level2">
+<h2 class="anchored" data-anchor-id="예측-성능과-attention-관계">예측 성능과 Attention 관계</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../src/experiments/verification/v63_performance_attention.png" class="img-fluid figure-img"></p>
+<figcaption>성능-Attention 관계</figcaption>
+</figure>
+</div>
+<p><strong>주요 발견:</strong></p>
+<ul>
+<li>Good predictions (상위 25%): 초기 lag에 약간 더 집중</li>
+<li>Bad predictions (하위 25%): 후기 lag에 약간 더 집중</li>
+<li><strong>Attention entropy vs 오차 상관관계</strong>: <strong>0.065</strong> (약한 양의 상관)</li>
+</ul>
+<p>높은 entropy(분산된 attention)가 약간 더 높은 오차와 연관됩니다. 이는 모델이 “확신이 없을 때” attention을 더 넓게 분산시킨다는 것을 의미합니다.</p>
+<hr>
+</section>
+</section>
+<section id="phase-2-interactive-dashboard" class="level1">
+<h1>Phase 2: Interactive Dashboard</h1>
+<section id="plotly-기반-인터랙티브-시각화" class="level2">
+<h2 class="anchored" data-anchor-id="plotly-기반-인터랙티브-시각화">Plotly 기반 인터랙티브 시각화</h2>
+<p>5개의 인터랙티브 HTML 파일을 생성했습니다:</p>
+<ol type="1">
+<li><strong><a href="../src/experiments/verification/v63_interactive_asset_comparison.html">자산별 비교</a></strong> - 드롭다운으로 자산 선택</li>
+<li><strong><a href="../src/experiments/verification/v63_interactive_heatmap.html">시계열 Heatmap</a></strong> - 500개 샘플의 시간별 패턴</li>
+<li><strong><a href="../src/experiments/verification/v63_interactive_lag_importance.html">Lag 중요도</a></strong> - Early vs Recent 비교</li>
+<li><strong><a href="../src/experiments/verification/v63_interactive_monthly.html">월별 애니메이션</a></strong> - 시간에 따른 변화</li>
+<li><strong><a href="../src/experiments/verification/v63_interactive_dashboard.html">통합 대시보드</a></strong> - 모든 차트 통합</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+사용 방법
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>각 HTML 파일을 웹 브라우저에서 열면 인터랙티브하게 데이터를 탐색할 수 있습니다. 특히 통합 대시보드는 모든 분석을 한 페이지에서 확인할 수 있습니다.</p>
+</div>
+</div>
+<p><strong>주요 기능:</strong> - 호버로 정확한 수치 확인 - 드롭다운으로 자산 필터링 - 애니메이션으로 시간 추이 관찰 - Zoom/Pan 기능</p>
+<hr>
+</section>
+</section>
+<section id="phase-3-true-dual-attention-실험" class="level1">
+<h1>Phase 3: True Dual Attention 실험</h1>
+<section id="모델-아키텍처" class="level2">
+<h2 class="anchored" data-anchor-id="모델-아키텍처">모델 아키텍처</h2>
+<p>기존 v50은 이름과 달리 <strong>단일 temporal attention</strong>만 구현되어 있었습니다. 진정한 “Dual Attention”을 위해 Feature attention을 추가한 v64를 구현했습니다:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TrueDualAttentionLSTM(nn.Module):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, input_dim, hidden_dim):</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 1. Temporal Attention: 시간 축 (22 lags)</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.temporal_attention <span class="op">=</span> Attention(hidden_dim)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 2. Feature Attention: 특성 축 (LogRV, Return)</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.feature_attention <span class="op">=</span> nn.Sequential(</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>            nn.Linear(hidden_dim <span class="op">*</span> <span class="dv">2</span>, hidden_dim),</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>            nn.Tanh(),</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>            nn.Linear(hidden_dim, input_dim),</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>            nn.Softmax(dim<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        )</span></code><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="성능-비교" class="level2">
+<h2 class="anchored" data-anchor-id="성능-비교">성능 비교</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../src/experiments/creative/v64_model_comparison.png" class="img-fluid figure-img"></p>
+<figcaption>모델 비교</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+예상 밖의 결과
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>v50 (Temporal Only)</strong>: R² = <strong>0.6123</strong></li>
+<li><strong>v64 (Dual Attention)</strong>: R² = <strong>0.5798</strong></li>
+<li><strong>차이</strong>: -0.0325 (-5.31%)</li>
+</ul>
+<p>Feature attention을 추가했음에도 성능이 <strong>감소</strong>했습니다!</p>
+</div>
+</div>
+</section>
+<section id="feature-importance-분석" class="level2">
+<h2 class="anchored" data-anchor-id="feature-importance-분석">Feature Importance 분석</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../src/experiments/creative/v64_overall_feature_importance.png" class="img-fluid figure-img"></p>
+<figcaption>전체 Feature 중요도</figcaption>
+</figure>
+</div>
+<p><strong>전체 평균:</strong> - <strong>Return:</strong> 52.54% - <strong>LogRV:</strong> 47.46%</p>
+<section id="자산별-차이" class="level3">
+<h3 class="anchored" data-anchor-id="자산별-차이">자산별 차이</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../src/experiments/creative/v64_feature_importance_by_asset.png" class="img-fluid figure-img"></p>
+<figcaption>자산별 Feature 중요도</figcaption>
+</figure>
+</div>
+<p><strong>자산별 패턴:</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>자산</th>
+<th>LogRV</th>
+<th>Return</th>
+<th>차이</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SPY</td>
+<td>46.3%</td>
+<td>53.7%</td>
+<td>7.4%p</td>
+</tr>
+<tr class="even">
+<td>GLD</td>
+<td>46.7%</td>
+<td>53.3%</td>
+<td>6.6%p</td>
+</tr>
+<tr class="odd">
+<td>IEF</td>
+<td>48.7%</td>
+<td>51.3%</td>
+<td>2.6%p (가장 균형)</td>
+</tr>
+<tr class="even">
+<td>TLT</td>
+<td>48.3%</td>
+<td>51.7%</td>
+<td>3.4%p</td>
+</tr>
+<tr class="odd">
+<td>QQQ</td>
+<td>47.7%</td>
+<td>52.3%</td>
+<td>4.6%p</td>
+</tr>
+<tr class="even">
+<td>IWM</td>
+<td>47.0%</td>
+<td>53.0%</td>
+<td>6.0%p</td>
+</tr>
+</tbody>
+</table>
+<p>모든 자산에서 Return이 LogRV보다 약간 더 중요하지만, <strong>차이는 미미함</strong> (약 5%p).</p>
+<hr>
+</section>
+</section>
+</section>
+<section id="핵심-인사이트" class="level1">
+<h1>핵심 인사이트</h1>
+<section id="feature-attention의-부정적-영향" class="level2">
+<h2 class="anchored" data-anchor-id="feature-attention의-부정적-영향">1. Feature Attention의 부정적 영향</h2>
+<p>Feature attention을 추가했음에도 성능이 <strong>5.3% 감소</strong>한 이유:</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+가능한 원인
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><strong>과적합 (Overfitting)</strong>: 추가 파라미터가 학습 데이터에 과적합</li>
+<li><strong>Feature 간 상호작용 손실</strong>: 두 feature를 독립적으로 가중치 부여하면서 상호작용 정보 손실</li>
+<li><strong>최적화 난이도 증가</strong>: 2개 attention 메커니즘 동시 학습의 어려움</li>
+<li><strong>데이터 규모 부족</strong>: Dual attention의 이점을 보려면 더 많은 데이터 필요</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="return-logrv" class="level2">
+<h2 class="anchored" data-anchor-id="return-logrv">2. Return &gt; LogRV</h2>
+<p>모든 자산에서 Return이 LogRV보다 중요한 이유:</p>
+<ul>
+<li><strong>방향성 정보</strong>: Return은 상승/하락 방향 정보 포함</li>
+<li><strong>모멘텀 효과</strong>: 최근 방향이 변동성 예측에 유용</li>
+<li><strong>LogRV의 평활화</strong>: LogRV는 이미 rolling mean으로 평활화되어 단기 변화 포착 어려움</li>
+</ul>
+</section>
+<section id="단순이-강력함-simplicity-works" class="level2">
+<h2 class="anchored" data-anchor-id="단순이-강력함-simplicity-works">3. 단순이 강력함 (Simplicity Works)</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+주요 교훈
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>이 실험은 <strong>“더 복잡한 모델이 항상 더 나은 것은 아니다”</strong>라는 중요한 교훈을 제공합니다.</p>
+<p>v50의 단일 temporal attention이 더 효율적이고 효과적입니다.</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="권장사항" class="level1">
+<h1>권장사항</h1>
+<section id="실무-적용" class="level2">
+<h2 class="anchored" data-anchor-id="실무-적용">실무 적용</h2>
+<ol type="1">
+<li><strong>v50 사용 권장</strong>: Temporal attention만 있는 v50 모델 사용</li>
+<li><strong>Feature Engineering 개선</strong>: Feature attention보다는 더 나은 특성 설계에 집중</li>
+<li><strong>Ensemble 고려</strong>: Dual attention 대신 여러 단순 모델의 앙상블 고려</li>
+<li><strong>Regularization 강화</strong>: Feature attention 사용 시 강한 정규화 필요</li>
+</ol>
+</section>
+<section id="향후-연구-방향" class="level2">
+<h2 class="anchored" data-anchor-id="향후-연구-방향">향후 연구 방향</h2>
+<ul>
+<li><strong>Multi-head Temporal Attention</strong>: Feature보다는 temporal 차원에서 다양한 관점</li>
+<li><strong>Cross-attention</strong>: 자산 간 상호작용을 모델링하는 attention</li>
+<li><strong>Sparse Attention</strong>: 중요한 몇 개의 lag만 선택하는 메커니즘</li>
+<li><strong>Transformer Architecture</strong>: 전체를 Transformer로 재설계</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="생성된-파일" class="level1">
+<h1>생성된 파일</h1>
+<section id="코드" class="level2">
+<h2 class="anchored" data-anchor-id="코드">코드</h2>
+<ul>
+<li><a href="../src/experiments/verification/v63_attention_analysis.py">v63_attention_analysis.py</a> - 기본 attention 분석</li>
+<li><a href="../src/experiments/verification/v63_interactive_dashboard.py">v63_interactive_dashboard.py</a> - 인터랙티브 시각화</li>
+<li><a href="../src/experiments/creative/v64_true_dual_attention.py">v64_true_dual_attention.py</a> - True Dual Attention 모델</li>
+<li><a href="../src/experiments/verification/v65_robustness_check.py">v65_robustness_check.py</a> - 5-seed 강건성 검증</li>
+</ul>
+</section>
+<section id="데이터" class="level2">
+<h2 class="anchored" data-anchor-id="데이터">데이터</h2>
+<ul>
+<li><code>v63_attention_maps.csv</code> - 전체 attention 가중치 데이터</li>
+<li><code>v63_results.json</code> - Phase 1 통계 분석 결과</li>
+<li><code>v64_feature_attention.csv</code> - Feature attention 가중치</li>
+<li><code>v64_results.json</code> - Phase 3 모델 비교 결과</li>
+<li><code>v65_robustness_results.json</code> - 5-seed 강건성 검증 결과</li>
+</ul>
+</section>
+<section id="참고문헌" class="level2">
+<h2 class="anchored" data-anchor-id="참고문헌">참고문헌</h2>
+<ul>
+<li>Bahdanau et al.&nbsp;(2014) - Neural Machine Translation by Jointly Learning to Align and Translate</li>
+<li>Vaswani et al.&nbsp;(2017) - Attention Is All You Need</li>
+<li>Luong et al.&nbsp;(2015) - Effective Approaches to Attention-based Neural Machine Translation</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="모델-강건성-검증-5-seed-experiment" class="level1">
+<h1>모델 강건성 검증 (5-Seed Experiment)</h1>
+<section id="실험-목적" class="level2">
+<h2 class="anchored" data-anchor-id="실험-목적">실험 목적</h2>
+<p>Random seed에 따른 성능 변동성을 측정하여 모델의 <strong>강건성(robustness)</strong>을 검증합니다. 동일한 모델을 5개의 다른 seed로 학습하여 평균 성능과 표준편차를 계산했습니다.</p>
+<p><strong>사용된 Seeds:</strong> [42, 123, 456, 789, 2024]</p>
+</section>
+<section id="결과-요약" class="level2">
+<h2 class="anchored" data-anchor-id="결과-요약">결과 요약</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">v50 (Temporal Only)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">v64 (Dual Attention)</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Metric</th>
+<th>Mean</th>
+<th>Std</th>
+<th>Range</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>R²</strong></td>
+<td><strong>0.57475</strong></td>
+<td>0.03032</td>
+<td>0.53293 - 0.61256</td>
+</tr>
+<tr class="even">
+<td>RMSE</td>
+<td>0.5758</td>
+<td>0.0206</td>
+<td>0.5500 - 0.6039</td>
+</tr>
+<tr class="odd">
+<td>MAE</td>
+<td>0.4553</td>
+<td>0.0175</td>
+<td>0.4308 - 0.4811</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Metric</th>
+<th>Mean</th>
+<th>Std</th>
+<th>Range</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>R²</strong></td>
+<td><strong>0.49719</strong></td>
+<td>0.02411</td>
+<td>0.46268 - 0.53620</td>
+</tr>
+<tr class="even">
+<td>RMSE</td>
+<td>0.6263</td>
+<td>0.0151</td>
+<td>0.6017 - 0.6477</td>
+</tr>
+<tr class="odd">
+<td>MAE</td>
+<td>0.4941</td>
+<td>0.0116</td>
+<td>0.4733 - 0.5084</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="시각화-분석" class="level2">
+<h2 class="anchored" data-anchor-id="시각화-분석">시각화 분석</h2>
+<section id="성능-분포-비교" class="level3">
+<h3 class="anchored" data-anchor-id="성능-분포-비교">성능 분포 비교</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../src/experiments/verification/v65_robustness_boxplot.png" class="img-fluid figure-img"></p>
+<figcaption>강건성 Box Plot</figcaption>
+</figure>
+</div>
+<p><strong>관찰 사항:</strong></p>
+<ul>
+<li>v50의 R² 중앙값이 더 높음 (0.567 vs 0.497)</li>
+<li>v50의 분산이 더 큼 (box가 더 넓음)</li>
+<li>v64는 더 일관된 성능 (box가 더 좁음)</li>
+</ul>
+</section>
+<section id="seed별-성능-비교" class="level3">
+<h3 class="anchored" data-anchor-id="seed별-성능-비교">Seed별 성능 비교</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../src/experiments/verification/v65_seed_comparison.png" class="img-fluid figure-img"></p>
+<figcaption>Seed별 비교</figcaption>
+</figure>
+</div>
+<p><strong>패턴:</strong></p>
+<ul>
+<li>모든 seed에서 v50이 v64보다 우수</li>
+<li>Seed 123에서 둘 다 최고 성능 (v50: 0.606, v64: 0.496)</li>
+<li>Seed 456에서 둘 다 최저 성능 (v50: 0.533, v64: 0.486)</li>
+</ul>
+</section>
+<section id="평균-표준편차-비교" class="level3">
+<h3 class="anchored" data-anchor-id="평균-표준편차-비교">평균 ± 표준편차 비교</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../src/experiments/verification/v65_mean_std_comparison.png" class="img-fluid figure-img"></p>
+<figcaption>Mean ± Std</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+핵심 발견
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>v50</strong>: 0.575 ± 0.030 (더 높은 평균, 더 큰 분산)</li>
+<li><strong>v64</strong>: 0.497 ± 0.024 (더 낮은 평균, 더 작은 분산)</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+<section id="핵심-인사이트-1" class="level2">
+<h2 class="anchored" data-anchor-id="핵심-인사이트-1">핵심 인사이트</h2>
+<section id="성능-vs-강건성-트레이드오프" class="level3">
+<h3 class="anchored" data-anchor-id="성능-vs-강건성-트레이드오프">1. 성능 vs 강건성 트레이드오프</h3>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+트레이드오프 분석
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>v50</strong>: 평균 성능이 <strong>15.5% 더 높지만</strong>, 변동성도 <strong>26% 더 큼</strong></li>
+<li><strong>v64</strong>: 성능은 낮지만 <strong>더 안정적</strong>이고 예측 가능함</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="v64가-더-강건한-이유" class="level3">
+<h3 class="anchored" data-anchor-id="v64가-더-강건한-이유">2. v64가 더 강건한 이유</h3>
+<p>v64의 낮은 표준편차(0.024 vs 0.030)는 다음 요인들 때문입니다:</p>
+<ol type="1">
+<li><strong>정규화 효과</strong>: Feature attention이 일종의 정규화 역할</li>
+<li><strong>다중 attention</strong>: 2개 attention이 서로를 보완하여 변동성 감소</li>
+<li><strong>파라미터 수</strong>: 더 많은 파라미터가 초기화 민감도 분산</li>
+</ol>
+</section>
+<section id="실무-적용-시사점" class="level3">
+<h3 class="anchored" data-anchor-id="실무-적용-시사점">3. 실무 적용 시사점</h3>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Production 환경</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Research 환경</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<p><strong>안정성이 중요한 경우:</strong></p>
+<ul>
+<li>v64 고려 가능 (낮은 분산 = 예측 가능한 성능)</li>
+<li>성능은 낮지만 일관된 결과 보장</li>
+<li>또는 v50의 <strong>ensemble</strong> 활용</li>
+</ul>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<p><strong>최고 성능이 필요한 경우:</strong></p>
+<ul>
+<li>v50 사용 (높은 평균 성능)</li>
+<li>Seed tuning으로 최적 성능 추구 가능</li>
+<li>Cross-validation으로 variance 보완</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="통계적-유의성" class="level2">
+<h2 class="anchored" data-anchor-id="통계적-유의성">통계적 유의성</h2>
+<p><strong>성능 차이:</strong></p>
+<ul>
+<li>v50 - v64 = 0.0776 (15.5% 개선)</li>
+<li>두 모델의 std를 고려하면 통계적으로 유의미한 차이</li>
+</ul>
+<p><strong>변동성 차이:</strong></p>
+<ul>
+<li>v50 std / v64 std = 1.26</li>
+<li>v50이 26% 더 불안정</li>
+</ul>
+</section>
+<section id="결론" class="level2">
+<h2 class="anchored" data-anchor-id="결론">결론</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+종합 결론
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>이 실험은 다음을 확인했습니다:</p>
+<ol type="1">
+<li><strong>v50이 더 나은 평균 성능</strong>을 제공함 (R² 0.575 vs 0.497)</li>
+<li><strong>v64가 더 안정적</strong>임 (Std 0.024 vs 0.030)</li>
+<li><strong>Feature attention 추가</strong>는 성능을 감소시키지만 강건성을 향상시킴</li>
+</ol>
+<p><strong>최종 권장:</strong></p>
+<ul>
+<li><strong>프로덕션 환경</strong>: v64 (안정성 우선) 또는 v50의 ensemble</li>
+<li><strong>연구 환경</strong>: v50 (성능 우선, seed tuning으로 최적화)</li>
+</ul>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="전체-결론-및-권장사항" class="level1">
+<h1>전체 결론 및 권장사항</h1>
+<p>이 연구를 통해 DualAttentionLSTM의 attention mechanism을 다각도로 분석했습니다:</p>
+<ol type="1">
+<li><strong>Phase 1</strong>: 자산별, 시장 상황별 attention 패턴 발견</li>
+<li><strong>Phase 2</strong>: 인터랙티브 대시보드로 동적 탐색 가능</li>
+<li><strong>Phase 3</strong>: Feature attention은 성능 향상에 기여하지 못함</li>
+<li><strong>강건성 검증</strong>: v50이 더 나은 성능, v64가 더 안정적</li>
+</ol>
+<p><strong>실무 적용 시:</strong></p>
+<ul>
+<li>대부분의 경우 v50 사용 권장</li>
+<li>안정성이 매우 중요한 production 환경에서는 v64 고려</li>
+<li>Ensemble 방법으로 성능과 안정성 모두 확보</li>
+</ul>
+
+
+<!-- -->
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "복사완료!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "복사완료!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">소스 코드</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb3" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Attention Mechanism 분석"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "DualAttentionLSTM 해석가능성 연구"</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "2026-02-10"</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">    toc-depth: 3</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu"># 개요</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>이 페이지는 V50 DualAttentionLSTM 모델의 attention mechanism을 심층 분석한 결과를 제시합니다.</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>**목표:**</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Attention 가중치 추출 및 시각화</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>자산별, 시장 상황별 attention 패턴 분석</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Interactive dashboard 구현</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>True Dual Attention (Temporal + Feature) 모델 실험</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>5-seed 강건성 검증</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>**주요 발견:**</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>SPY와 GLD는 최근 데이터(lag 21)에 집중, 나머지 자산은 과거 데이터(lag 1) 중시</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>고변동성 시기에는 과거 패턴, 저변동성 시기에는 최근 추세 참조</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>전체 attention의 53%가 최근 11일 데이터에 할당됨</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Feature attention 추가는 성능을 5.3% 감소시킴 (단순이 강력함)</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**v50이 더 높은 성능(R²: 0.575), v64가 더 높은 안정성(Std: 0.024)**</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="fu"># Phase 1: 기본 Attention 분석</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="fu">## 모델 수정</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>기존 <span class="co">[</span><span class="ot">v50_dual_attention_lstm.py</span><span class="co">](../src/experiments/creative/v50_dual_attention_lstm.py)</span>에 attention 가중치 반환 기능을 추가했습니다:</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> forward(<span class="va">self</span>, x, return_attention<span class="op">=</span><span class="va">False</span>):</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>    lstm_out, _ <span class="op">=</span> <span class="va">self</span>.lstm(x)</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>    context, attn_weights <span class="op">=</span> <span class="va">self</span>.attention(lstm_out)</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>    output <span class="op">=</span> <span class="va">self</span>.fc(context)</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> return_attention:</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> output, attn_weights</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> output</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a><span class="fu">## 자산별 Attention 패턴</span></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a><span class="al">![자산별 Attention 비교](../src/experiments/verification/v63_asset_comparison.png)</span></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>**주요 발견:**</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a><span class="fu">## 자산별 Focus Lag</span></span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**SPY (S&amp;P 500)**: Lag 21 (최근) - 5.44%</span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**GLD (금)**: Lag 21 (최근) - 5.84%</span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**QQQ, IWM, TLT, IEF**: Lag 1 (과거) - 각각 5-6%</span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>**해석:** SPY와 GLD는 momentum 특성이 강해 최근 변동성이 중요한 반면, 채권(TLT, IEF)과 소형주(IWM)는 장기 평균 회귀 특성으로 인해 과거 패턴을 더 중시합니다.</span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a><span class="fu">## 시장 상황별 Attention 패턴</span></span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a><span class="al">![시장 상황별 Attention](../src/experiments/verification/v63_market_regime.png)</span></span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>**주요 발견:**</span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a><span class="fu">## Market Regime별 차이</span></span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**고변동성 시기**: Lag 1에 집중 (과거 데이터 중시)</span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**저변동성 시기**: Lag 21에 집중 (최근 데이터 중시)</span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**상승장 (Bull)**: Lag 1에 집중</span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**하락장 (Bear)**: Lag 17에 집중</span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a>**해석:**</span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>변동성이 높을 때는 구조적 변화를 감지하기 위해 장기 패턴 참조</span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>안정적일 때는 최근 추세가 더 신뢰할 만함</span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>하락장에서는 중기(lag 17) 데이터가 중요 - 과매도/과매수 신호 포착</span>
+<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a><span class="fu">## Lag 중요도 분석</span></span>
+<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a><span class="al">![Lag 중요도](../src/experiments/verification/v63_lag_importance.png)</span></span>
+<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a>**주요 발견:**</span>
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a><span class="fu">## Early vs Recent Lags</span></span>
+<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Early lags (0-10)**: 누적 가중치 **47.2%**</span>
+<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Recent lags (11-21)**: 누적 가중치 **52.8%**</span>
+<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a>모델은 최근 데이터(53%)와 과거 데이터(47%)를 거의 균등하게 활용합니다. 중간 시점(lag 5-7)의 가중치가 가장 낮아, **극단적 과거와 최근 정보**가 변동성 예측에 더 유용함을 시사합니다.</span>
+<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a><span class="fu">## 예측 성능과 Attention 관계</span></span>
+<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a><span class="al">![성능-Attention 관계](../src/experiments/verification/v63_performance_attention.png)</span></span>
+<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a>**주요 발견:**</span>
+<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Good predictions (상위 25%): 초기 lag에 약간 더 집중</span>
+<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Bad predictions (하위 25%): 후기 lag에 약간 더 집중</span>
+<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Attention entropy vs 오차 상관관계**: **0.065** (약한 양의 상관)</span>
+<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a>높은 entropy(분산된 attention)가 약간 더 높은 오차와 연관됩니다. 이는 모델이 "확신이 없을 때" attention을 더 넓게 분산시킨다는 것을 의미합니다.</span>
+<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a><span class="fu"># Phase 2: Interactive Dashboard</span></span>
+<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a><span class="fu">## Plotly 기반 인터랙티브 시각화</span></span>
+<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a>5개의 인터랙티브 HTML 파일을 생성했습니다:</span>
+<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**[자산별 비교](../src/experiments/verification/v63_interactive_asset_comparison.html)** - 드롭다운으로 자산 선택</span>
+<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**[시계열 Heatmap](../src/experiments/verification/v63_interactive_heatmap.html)** - 500개 샘플의 시간별 패턴</span>
+<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**[Lag 중요도](../src/experiments/verification/v63_interactive_lag_importance.html)** - Early vs Recent 비교</span>
+<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**[월별 애니메이션](../src/experiments/verification/v63_interactive_monthly.html)** - 시간에 따른 변화</span>
+<span id="cb3-124"><a href="#cb3-124" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>**[통합 대시보드](../src/experiments/verification/v63_interactive_dashboard.html)** - 모든 차트 통합</span>
+<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-126"><a href="#cb3-126" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb3-127"><a href="#cb3-127" aria-hidden="true" tabindex="-1"></a><span class="fu">## 사용 방법</span></span>
+<span id="cb3-128"><a href="#cb3-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-129"><a href="#cb3-129" aria-hidden="true" tabindex="-1"></a>각 HTML 파일을 웹 브라우저에서 열면 인터랙티브하게 데이터를 탐색할 수 있습니다. 특히 통합 대시보드는 모든 분석을 한 페이지에서 확인할 수 있습니다.</span>
+<span id="cb3-130"><a href="#cb3-130" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-131"><a href="#cb3-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-132"><a href="#cb3-132" aria-hidden="true" tabindex="-1"></a>**주요 기능:**</span>
+<span id="cb3-133"><a href="#cb3-133" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>호버로 정확한 수치 확인</span>
+<span id="cb3-134"><a href="#cb3-134" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>드롭다운으로 자산 필터링</span>
+<span id="cb3-135"><a href="#cb3-135" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>애니메이션으로 시간 추이 관찰</span>
+<span id="cb3-136"><a href="#cb3-136" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Zoom/Pan 기능</span>
+<span id="cb3-137"><a href="#cb3-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-138"><a href="#cb3-138" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb3-139"><a href="#cb3-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-140"><a href="#cb3-140" aria-hidden="true" tabindex="-1"></a><span class="fu"># Phase 3: True Dual Attention 실험</span></span>
+<span id="cb3-141"><a href="#cb3-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-142"><a href="#cb3-142" aria-hidden="true" tabindex="-1"></a><span class="fu">## 모델 아키텍처</span></span>
+<span id="cb3-143"><a href="#cb3-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-144"><a href="#cb3-144" aria-hidden="true" tabindex="-1"></a>기존 v50은 이름과 달리 **단일 temporal attention**만 구현되어 있었습니다. 진정한 "Dual Attention"을 위해 Feature attention을 추가한 v64를 구현했습니다:</span>
+<span id="cb3-145"><a href="#cb3-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-146"><a href="#cb3-146" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
+<span id="cb3-147"><a href="#cb3-147" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TrueDualAttentionLSTM(nn.Module):</span>
+<span id="cb3-148"><a href="#cb3-148" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, input_dim, hidden_dim):</span>
+<span id="cb3-149"><a href="#cb3-149" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 1. Temporal Attention: 시간 축 (22 lags)</span></span>
+<span id="cb3-150"><a href="#cb3-150" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.temporal_attention <span class="op">=</span> Attention(hidden_dim)</span>
+<span id="cb3-151"><a href="#cb3-151" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb3-152"><a href="#cb3-152" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 2. Feature Attention: 특성 축 (LogRV, Return)</span></span>
+<span id="cb3-153"><a href="#cb3-153" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.feature_attention <span class="op">=</span> nn.Sequential(</span>
+<span id="cb3-154"><a href="#cb3-154" aria-hidden="true" tabindex="-1"></a>            nn.Linear(hidden_dim <span class="op">*</span> <span class="dv">2</span>, hidden_dim),</span>
+<span id="cb3-155"><a href="#cb3-155" aria-hidden="true" tabindex="-1"></a>            nn.Tanh(),</span>
+<span id="cb3-156"><a href="#cb3-156" aria-hidden="true" tabindex="-1"></a>            nn.Linear(hidden_dim, input_dim),</span>
+<span id="cb3-157"><a href="#cb3-157" aria-hidden="true" tabindex="-1"></a>            nn.Softmax(dim<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb3-158"><a href="#cb3-158" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb3-159"><a href="#cb3-159" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-160"><a href="#cb3-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-161"><a href="#cb3-161" aria-hidden="true" tabindex="-1"></a><span class="fu">## 성능 비교</span></span>
+<span id="cb3-162"><a href="#cb3-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-163"><a href="#cb3-163" aria-hidden="true" tabindex="-1"></a><span class="al">![모델 비교](../src/experiments/creative/v64_model_comparison.png)</span></span>
+<span id="cb3-164"><a href="#cb3-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-165"><a href="#cb3-165" aria-hidden="true" tabindex="-1"></a>::: {.callout-warning}</span>
+<span id="cb3-166"><a href="#cb3-166" aria-hidden="true" tabindex="-1"></a><span class="fu">## 예상 밖의 결과</span></span>
+<span id="cb3-167"><a href="#cb3-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-168"><a href="#cb3-168" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**v50 (Temporal Only)**: R² = **0.6123**</span>
+<span id="cb3-169"><a href="#cb3-169" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**v64 (Dual Attention)**: R² = **0.5798**</span>
+<span id="cb3-170"><a href="#cb3-170" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**차이**: -0.0325 (-5.31%)</span>
+<span id="cb3-171"><a href="#cb3-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-172"><a href="#cb3-172" aria-hidden="true" tabindex="-1"></a>Feature attention을 추가했음에도 성능이 **감소**했습니다!</span>
+<span id="cb3-173"><a href="#cb3-173" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-174"><a href="#cb3-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-175"><a href="#cb3-175" aria-hidden="true" tabindex="-1"></a><span class="fu">## Feature Importance 분석</span></span>
+<span id="cb3-176"><a href="#cb3-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-177"><a href="#cb3-177" aria-hidden="true" tabindex="-1"></a><span class="al">![전체 Feature 중요도](../src/experiments/creative/v64_overall_feature_importance.png)</span></span>
+<span id="cb3-178"><a href="#cb3-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-179"><a href="#cb3-179" aria-hidden="true" tabindex="-1"></a>**전체 평균:**</span>
+<span id="cb3-180"><a href="#cb3-180" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Return:** 52.54%</span>
+<span id="cb3-181"><a href="#cb3-181" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**LogRV:** 47.46%</span>
+<span id="cb3-182"><a href="#cb3-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-183"><a href="#cb3-183" aria-hidden="true" tabindex="-1"></a><span class="fu">### 자산별 차이</span></span>
+<span id="cb3-184"><a href="#cb3-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-185"><a href="#cb3-185" aria-hidden="true" tabindex="-1"></a><span class="al">![자산별 Feature 중요도](../src/experiments/creative/v64_feature_importance_by_asset.png)</span></span>
+<span id="cb3-186"><a href="#cb3-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-187"><a href="#cb3-187" aria-hidden="true" tabindex="-1"></a>**자산별 패턴:**</span>
+<span id="cb3-188"><a href="#cb3-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-189"><a href="#cb3-189" aria-hidden="true" tabindex="-1"></a>| 자산 | LogRV | Return | 차이 |</span>
+<span id="cb3-190"><a href="#cb3-190" aria-hidden="true" tabindex="-1"></a>|------|-------|--------|------|</span>
+<span id="cb3-191"><a href="#cb3-191" aria-hidden="true" tabindex="-1"></a>| SPY  | 46.3% | 53.7%  | 7.4%p |</span>
+<span id="cb3-192"><a href="#cb3-192" aria-hidden="true" tabindex="-1"></a>| GLD  | 46.7% | 53.3%  | 6.6%p |</span>
+<span id="cb3-193"><a href="#cb3-193" aria-hidden="true" tabindex="-1"></a>| IEF  | 48.7% | 51.3%  | 2.6%p (가장 균형) |</span>
+<span id="cb3-194"><a href="#cb3-194" aria-hidden="true" tabindex="-1"></a>| TLT  | 48.3% | 51.7%  | 3.4%p |</span>
+<span id="cb3-195"><a href="#cb3-195" aria-hidden="true" tabindex="-1"></a>| QQQ  | 47.7% | 52.3%  | 4.6%p |</span>
+<span id="cb3-196"><a href="#cb3-196" aria-hidden="true" tabindex="-1"></a>| IWM  | 47.0% | 53.0%  | 6.0%p |</span>
+<span id="cb3-197"><a href="#cb3-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-198"><a href="#cb3-198" aria-hidden="true" tabindex="-1"></a>모든 자산에서 Return이 LogRV보다 약간 더 중요하지만, **차이는 미미함** (약 5%p).</span>
+<span id="cb3-199"><a href="#cb3-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-200"><a href="#cb3-200" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb3-201"><a href="#cb3-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-202"><a href="#cb3-202" aria-hidden="true" tabindex="-1"></a><span class="fu"># 핵심 인사이트</span></span>
+<span id="cb3-203"><a href="#cb3-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-204"><a href="#cb3-204" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1. Feature Attention의 부정적 영향</span></span>
+<span id="cb3-205"><a href="#cb3-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-206"><a href="#cb3-206" aria-hidden="true" tabindex="-1"></a>Feature attention을 추가했음에도 성능이 **5.3% 감소**한 이유:</span>
+<span id="cb3-207"><a href="#cb3-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-208"><a href="#cb3-208" aria-hidden="true" tabindex="-1"></a>::: {.callout-caution}</span>
+<span id="cb3-209"><a href="#cb3-209" aria-hidden="true" tabindex="-1"></a><span class="fu">## 가능한 원인</span></span>
+<span id="cb3-210"><a href="#cb3-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-211"><a href="#cb3-211" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**과적합 (Overfitting)**: 추가 파라미터가 학습 데이터에 과적합</span>
+<span id="cb3-212"><a href="#cb3-212" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Feature 간 상호작용 손실**: 두 feature를 독립적으로 가중치 부여하면서 상호작용 정보 손실</span>
+<span id="cb3-213"><a href="#cb3-213" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**최적화 난이도 증가**: 2개 attention 메커니즘 동시 학습의 어려움</span>
+<span id="cb3-214"><a href="#cb3-214" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**데이터 규모 부족**: Dual attention의 이점을 보려면 더 많은 데이터 필요</span>
+<span id="cb3-215"><a href="#cb3-215" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-216"><a href="#cb3-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-217"><a href="#cb3-217" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2. Return &gt; LogRV</span></span>
+<span id="cb3-218"><a href="#cb3-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-219"><a href="#cb3-219" aria-hidden="true" tabindex="-1"></a>모든 자산에서 Return이 LogRV보다 중요한 이유:</span>
+<span id="cb3-220"><a href="#cb3-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-221"><a href="#cb3-221" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**방향성 정보**: Return은 상승/하락 방향 정보 포함</span>
+<span id="cb3-222"><a href="#cb3-222" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**모멘텀 효과**: 최근 방향이 변동성 예측에 유용</span>
+<span id="cb3-223"><a href="#cb3-223" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**LogRV의 평활화**: LogRV는 이미 rolling mean으로 평활화되어 단기 변화 포착 어려움</span>
+<span id="cb3-224"><a href="#cb3-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-225"><a href="#cb3-225" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3. 단순이 강력함 (Simplicity Works)</span></span>
+<span id="cb3-226"><a href="#cb3-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-227"><a href="#cb3-227" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb3-228"><a href="#cb3-228" aria-hidden="true" tabindex="-1"></a><span class="fu">## 주요 교훈</span></span>
+<span id="cb3-229"><a href="#cb3-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-230"><a href="#cb3-230" aria-hidden="true" tabindex="-1"></a>이 실험은 **"더 복잡한 모델이 항상 더 나은 것은 아니다"**라는 중요한 교훈을 제공합니다.</span>
+<span id="cb3-231"><a href="#cb3-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-232"><a href="#cb3-232" aria-hidden="true" tabindex="-1"></a>v50의 단일 temporal attention이 더 효율적이고 효과적입니다.</span>
+<span id="cb3-233"><a href="#cb3-233" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-234"><a href="#cb3-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-235"><a href="#cb3-235" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb3-236"><a href="#cb3-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-237"><a href="#cb3-237" aria-hidden="true" tabindex="-1"></a><span class="fu"># 권장사항</span></span>
+<span id="cb3-238"><a href="#cb3-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-239"><a href="#cb3-239" aria-hidden="true" tabindex="-1"></a><span class="fu">## 실무 적용</span></span>
+<span id="cb3-240"><a href="#cb3-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-241"><a href="#cb3-241" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**v50 사용 권장**: Temporal attention만 있는 v50 모델 사용</span>
+<span id="cb3-242"><a href="#cb3-242" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Feature Engineering 개선**: Feature attention보다는 더 나은 특성 설계에 집중</span>
+<span id="cb3-243"><a href="#cb3-243" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Ensemble 고려**: Dual attention 대신 여러 단순 모델의 앙상블 고려</span>
+<span id="cb3-244"><a href="#cb3-244" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Regularization 강화**: Feature attention 사용 시 강한 정규화 필요</span>
+<span id="cb3-245"><a href="#cb3-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-246"><a href="#cb3-246" aria-hidden="true" tabindex="-1"></a><span class="fu">## 향후 연구 방향</span></span>
+<span id="cb3-247"><a href="#cb3-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-248"><a href="#cb3-248" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Multi-head Temporal Attention**: Feature보다는 temporal 차원에서 다양한 관점</span>
+<span id="cb3-249"><a href="#cb3-249" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Cross-attention**: 자산 간 상호작용을 모델링하는 attention</span>
+<span id="cb3-250"><a href="#cb3-250" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Sparse Attention**: 중요한 몇 개의 lag만 선택하는 메커니즘</span>
+<span id="cb3-251"><a href="#cb3-251" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Transformer Architecture**: 전체를 Transformer로 재설계</span>
+<span id="cb3-252"><a href="#cb3-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-253"><a href="#cb3-253" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb3-254"><a href="#cb3-254" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-255"><a href="#cb3-255" aria-hidden="true" tabindex="-1"></a><span class="fu"># 생성된 파일</span></span>
+<span id="cb3-256"><a href="#cb3-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-257"><a href="#cb3-257" aria-hidden="true" tabindex="-1"></a><span class="fu">## 코드</span></span>
+<span id="cb3-258"><a href="#cb3-258" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-259"><a href="#cb3-259" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">v63_attention_analysis.py</span><span class="co">](../src/experiments/verification/v63_attention_analysis.py)</span> - 기본 attention 분석</span>
+<span id="cb3-260"><a href="#cb3-260" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">v63_interactive_dashboard.py</span><span class="co">](../src/experiments/verification/v63_interactive_dashboard.py)</span> - 인터랙티브 시각화</span>
+<span id="cb3-261"><a href="#cb3-261" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">v64_true_dual_attention.py</span><span class="co">](../src/experiments/creative/v64_true_dual_attention.py)</span> - True Dual Attention 모델</span>
+<span id="cb3-262"><a href="#cb3-262" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">v65_robustness_check.py</span><span class="co">](../src/experiments/verification/v65_robustness_check.py)</span> - 5-seed 강건성 검증</span>
+<span id="cb3-263"><a href="#cb3-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-264"><a href="#cb3-264" aria-hidden="true" tabindex="-1"></a><span class="fu">## 데이터</span></span>
+<span id="cb3-265"><a href="#cb3-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-266"><a href="#cb3-266" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`v63_attention_maps.csv`</span> - 전체 attention 가중치 데이터</span>
+<span id="cb3-267"><a href="#cb3-267" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`v63_results.json`</span> - Phase 1 통계 분석 결과</span>
+<span id="cb3-268"><a href="#cb3-268" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`v64_feature_attention.csv`</span> - Feature attention 가중치</span>
+<span id="cb3-269"><a href="#cb3-269" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`v64_results.json`</span> - Phase 3 모델 비교 결과</span>
+<span id="cb3-270"><a href="#cb3-270" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`v65_robustness_results.json`</span> - 5-seed 강건성 검증 결과</span>
+<span id="cb3-271"><a href="#cb3-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-272"><a href="#cb3-272" aria-hidden="true" tabindex="-1"></a><span class="fu">## 참고문헌</span></span>
+<span id="cb3-273"><a href="#cb3-273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-274"><a href="#cb3-274" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Bahdanau et al. (2014) - Neural Machine Translation by Jointly Learning to Align and Translate</span>
+<span id="cb3-275"><a href="#cb3-275" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Vaswani et al. (2017) - Attention Is All You Need</span>
+<span id="cb3-276"><a href="#cb3-276" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Luong et al. (2015) - Effective Approaches to Attention-based Neural Machine Translation</span>
+<span id="cb3-277"><a href="#cb3-277" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-278"><a href="#cb3-278" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb3-279"><a href="#cb3-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-280"><a href="#cb3-280" aria-hidden="true" tabindex="-1"></a><span class="fu"># 모델 강건성 검증 (5-Seed Experiment)</span></span>
+<span id="cb3-281"><a href="#cb3-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-282"><a href="#cb3-282" aria-hidden="true" tabindex="-1"></a><span class="fu">## 실험 목적</span></span>
+<span id="cb3-283"><a href="#cb3-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-284"><a href="#cb3-284" aria-hidden="true" tabindex="-1"></a>Random seed에 따른 성능 변동성을 측정하여 모델의 **강건성(robustness)**을 검증합니다. 동일한 모델을 5개의 다른 seed로 학습하여 평균 성능과 표준편차를 계산했습니다.</span>
+<span id="cb3-285"><a href="#cb3-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-286"><a href="#cb3-286" aria-hidden="true" tabindex="-1"></a>**사용된 Seeds:** <span class="co">[</span><span class="ot">42, 123, 456, 789, 2024</span><span class="co">]</span></span>
+<span id="cb3-287"><a href="#cb3-287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-288"><a href="#cb3-288" aria-hidden="true" tabindex="-1"></a><span class="fu">## 결과 요약</span></span>
+<span id="cb3-289"><a href="#cb3-289" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-290"><a href="#cb3-290" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
+<span id="cb3-291"><a href="#cb3-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-292"><a href="#cb3-292" aria-hidden="true" tabindex="-1"></a><span class="fu">### v50 (Temporal Only)</span></span>
+<span id="cb3-293"><a href="#cb3-293" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-294"><a href="#cb3-294" aria-hidden="true" tabindex="-1"></a>| Metric | Mean | Std | Range |</span>
+<span id="cb3-295"><a href="#cb3-295" aria-hidden="true" tabindex="-1"></a>|--------|------|-----|-------|</span>
+<span id="cb3-296"><a href="#cb3-296" aria-hidden="true" tabindex="-1"></a>| **R²** | **0.57475** | 0.03032 | 0.53293 - 0.61256 |</span>
+<span id="cb3-297"><a href="#cb3-297" aria-hidden="true" tabindex="-1"></a>| RMSE | 0.5758 | 0.0206 | 0.5500 - 0.6039 |</span>
+<span id="cb3-298"><a href="#cb3-298" aria-hidden="true" tabindex="-1"></a>| MAE | 0.4553 | 0.0175 | 0.4308 - 0.4811 |</span>
+<span id="cb3-299"><a href="#cb3-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-300"><a href="#cb3-300" aria-hidden="true" tabindex="-1"></a><span class="fu">### v64 (Dual Attention)</span></span>
+<span id="cb3-301"><a href="#cb3-301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-302"><a href="#cb3-302" aria-hidden="true" tabindex="-1"></a>| Metric | Mean | Std | Range |</span>
+<span id="cb3-303"><a href="#cb3-303" aria-hidden="true" tabindex="-1"></a>|--------|------|-----|-------|</span>
+<span id="cb3-304"><a href="#cb3-304" aria-hidden="true" tabindex="-1"></a>| **R²** | **0.49719** | 0.02411 | 0.46268 - 0.53620 |</span>
+<span id="cb3-305"><a href="#cb3-305" aria-hidden="true" tabindex="-1"></a>| RMSE | 0.6263 | 0.0151 | 0.6017 - 0.6477 |</span>
+<span id="cb3-306"><a href="#cb3-306" aria-hidden="true" tabindex="-1"></a>| MAE | 0.4941 | 0.0116 | 0.4733 - 0.5084 |</span>
+<span id="cb3-307"><a href="#cb3-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-308"><a href="#cb3-308" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-309"><a href="#cb3-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-310"><a href="#cb3-310" aria-hidden="true" tabindex="-1"></a><span class="fu">## 시각화 분석</span></span>
+<span id="cb3-311"><a href="#cb3-311" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-312"><a href="#cb3-312" aria-hidden="true" tabindex="-1"></a><span class="fu">### 성능 분포 비교</span></span>
+<span id="cb3-313"><a href="#cb3-313" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-314"><a href="#cb3-314" aria-hidden="true" tabindex="-1"></a><span class="al">![강건성 Box Plot](../src/experiments/verification/v65_robustness_boxplot.png)</span></span>
+<span id="cb3-315"><a href="#cb3-315" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-316"><a href="#cb3-316" aria-hidden="true" tabindex="-1"></a>**관찰 사항:**</span>
+<span id="cb3-317"><a href="#cb3-317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-318"><a href="#cb3-318" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>v50의 R² 중앙값이 더 높음 (0.567 vs 0.497)</span>
+<span id="cb3-319"><a href="#cb3-319" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>v50의 분산이 더 큼 (box가 더 넓음)</span>
+<span id="cb3-320"><a href="#cb3-320" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>v64는 더 일관된 성능 (box가 더 좁음)</span>
+<span id="cb3-321"><a href="#cb3-321" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-322"><a href="#cb3-322" aria-hidden="true" tabindex="-1"></a><span class="fu">### Seed별 성능 비교</span></span>
+<span id="cb3-323"><a href="#cb3-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-324"><a href="#cb3-324" aria-hidden="true" tabindex="-1"></a><span class="al">![Seed별 비교](../src/experiments/verification/v65_seed_comparison.png)</span></span>
+<span id="cb3-325"><a href="#cb3-325" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-326"><a href="#cb3-326" aria-hidden="true" tabindex="-1"></a>**패턴:**</span>
+<span id="cb3-327"><a href="#cb3-327" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-328"><a href="#cb3-328" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>모든 seed에서 v50이 v64보다 우수</span>
+<span id="cb3-329"><a href="#cb3-329" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Seed 123에서 둘 다 최고 성능 (v50: 0.606, v64: 0.496)</span>
+<span id="cb3-330"><a href="#cb3-330" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Seed 456에서 둘 다 최저 성능 (v50: 0.533, v64: 0.486)</span>
+<span id="cb3-331"><a href="#cb3-331" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-332"><a href="#cb3-332" aria-hidden="true" tabindex="-1"></a><span class="fu">### 평균 ± 표준편차 비교</span></span>
+<span id="cb3-333"><a href="#cb3-333" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-334"><a href="#cb3-334" aria-hidden="true" tabindex="-1"></a><span class="al">![Mean ± Std](../src/experiments/verification/v65_mean_std_comparison.png)</span></span>
+<span id="cb3-335"><a href="#cb3-335" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-336"><a href="#cb3-336" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb3-337"><a href="#cb3-337" aria-hidden="true" tabindex="-1"></a><span class="fu">## 핵심 발견</span></span>
+<span id="cb3-338"><a href="#cb3-338" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-339"><a href="#cb3-339" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**v50**: 0.575 ± 0.030 (더 높은 평균, 더 큰 분산)</span>
+<span id="cb3-340"><a href="#cb3-340" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**v64**: 0.497 ± 0.024 (더 낮은 평균, 더 작은 분산)</span>
+<span id="cb3-341"><a href="#cb3-341" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-342"><a href="#cb3-342" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-343"><a href="#cb3-343" aria-hidden="true" tabindex="-1"></a><span class="fu">## 핵심 인사이트</span></span>
+<span id="cb3-344"><a href="#cb3-344" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-345"><a href="#cb3-345" aria-hidden="true" tabindex="-1"></a><span class="fu">### 1. 성능 vs 강건성 트레이드오프</span></span>
+<span id="cb3-346"><a href="#cb3-346" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-347"><a href="#cb3-347" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb3-348"><a href="#cb3-348" aria-hidden="true" tabindex="-1"></a><span class="fu">## 트레이드오프 분석</span></span>
+<span id="cb3-349"><a href="#cb3-349" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-350"><a href="#cb3-350" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**v50**: 평균 성능이 **15.5% 더 높지만**, 변동성도 **26% 더 큼**</span>
+<span id="cb3-351"><a href="#cb3-351" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**v64**: 성능은 낮지만 **더 안정적**이고 예측 가능함</span>
+<span id="cb3-352"><a href="#cb3-352" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-353"><a href="#cb3-353" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-354"><a href="#cb3-354" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2. v64가 더 강건한 이유</span></span>
+<span id="cb3-355"><a href="#cb3-355" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-356"><a href="#cb3-356" aria-hidden="true" tabindex="-1"></a>v64의 낮은 표준편차(0.024 vs 0.030)는 다음 요인들 때문입니다:</span>
+<span id="cb3-357"><a href="#cb3-357" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-358"><a href="#cb3-358" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**정규화 효과**: Feature attention이 일종의 정규화 역할</span>
+<span id="cb3-359"><a href="#cb3-359" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**다중 attention**: 2개 attention이 서로를 보완하여 변동성 감소</span>
+<span id="cb3-360"><a href="#cb3-360" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**파라미터 수**: 더 많은 파라미터가 초기화 민감도 분산</span>
+<span id="cb3-361"><a href="#cb3-361" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-362"><a href="#cb3-362" aria-hidden="true" tabindex="-1"></a><span class="fu">### 3. 실무 적용 시사점</span></span>
+<span id="cb3-363"><a href="#cb3-363" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-364"><a href="#cb3-364" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
+<span id="cb3-365"><a href="#cb3-365" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-366"><a href="#cb3-366" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Production 환경</span></span>
+<span id="cb3-367"><a href="#cb3-367" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-368"><a href="#cb3-368" aria-hidden="true" tabindex="-1"></a>**안정성이 중요한 경우:**</span>
+<span id="cb3-369"><a href="#cb3-369" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-370"><a href="#cb3-370" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>v64 고려 가능 (낮은 분산 = 예측 가능한 성능)</span>
+<span id="cb3-371"><a href="#cb3-371" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>성능은 낮지만 일관된 결과 보장</span>
+<span id="cb3-372"><a href="#cb3-372" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>또는 v50의 **ensemble** 활용</span>
+<span id="cb3-373"><a href="#cb3-373" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-374"><a href="#cb3-374" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Research 환경</span></span>
+<span id="cb3-375"><a href="#cb3-375" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-376"><a href="#cb3-376" aria-hidden="true" tabindex="-1"></a>**최고 성능이 필요한 경우:**</span>
+<span id="cb3-377"><a href="#cb3-377" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-378"><a href="#cb3-378" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>v50 사용 (높은 평균 성능)</span>
+<span id="cb3-379"><a href="#cb3-379" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Seed tuning으로 최적 성능 추구 가능</span>
+<span id="cb3-380"><a href="#cb3-380" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Cross-validation으로 variance 보완</span>
+<span id="cb3-381"><a href="#cb3-381" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-382"><a href="#cb3-382" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-383"><a href="#cb3-383" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-384"><a href="#cb3-384" aria-hidden="true" tabindex="-1"></a><span class="fu">## 통계적 유의성</span></span>
+<span id="cb3-385"><a href="#cb3-385" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-386"><a href="#cb3-386" aria-hidden="true" tabindex="-1"></a>**성능 차이:**</span>
+<span id="cb3-387"><a href="#cb3-387" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-388"><a href="#cb3-388" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>v50 - v64 = 0.0776 (15.5% 개선)</span>
+<span id="cb3-389"><a href="#cb3-389" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>두 모델의 std를 고려하면 통계적으로 유의미한 차이</span>
+<span id="cb3-390"><a href="#cb3-390" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-391"><a href="#cb3-391" aria-hidden="true" tabindex="-1"></a>**변동성 차이:**</span>
+<span id="cb3-392"><a href="#cb3-392" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-393"><a href="#cb3-393" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>v50 std / v64 std = 1.26</span>
+<span id="cb3-394"><a href="#cb3-394" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>v50이 26% 더 불안정</span>
+<span id="cb3-395"><a href="#cb3-395" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-396"><a href="#cb3-396" aria-hidden="true" tabindex="-1"></a><span class="fu">## 결론</span></span>
+<span id="cb3-397"><a href="#cb3-397" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-398"><a href="#cb3-398" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb3-399"><a href="#cb3-399" aria-hidden="true" tabindex="-1"></a><span class="fu">## 종합 결론</span></span>
+<span id="cb3-400"><a href="#cb3-400" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-401"><a href="#cb3-401" aria-hidden="true" tabindex="-1"></a>이 실험은 다음을 확인했습니다:</span>
+<span id="cb3-402"><a href="#cb3-402" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-403"><a href="#cb3-403" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**v50이 더 나은 평균 성능**을 제공함 (R² 0.575 vs 0.497)</span>
+<span id="cb3-404"><a href="#cb3-404" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**v64가 더 안정적**임 (Std 0.024 vs 0.030)</span>
+<span id="cb3-405"><a href="#cb3-405" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Feature attention 추가**는 성능을 감소시키지만 강건성을 향상시킴</span>
+<span id="cb3-406"><a href="#cb3-406" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-407"><a href="#cb3-407" aria-hidden="true" tabindex="-1"></a>**최종 권장:**</span>
+<span id="cb3-408"><a href="#cb3-408" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-409"><a href="#cb3-409" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**프로덕션 환경**: v64 (안정성 우선) 또는 v50의 ensemble</span>
+<span id="cb3-410"><a href="#cb3-410" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**연구 환경**: v50 (성능 우선, seed tuning으로 최적화)</span>
+<span id="cb3-411"><a href="#cb3-411" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb3-412"><a href="#cb3-412" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-413"><a href="#cb3-413" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb3-414"><a href="#cb3-414" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-415"><a href="#cb3-415" aria-hidden="true" tabindex="-1"></a><span class="fu"># 전체 결론 및 권장사항</span></span>
+<span id="cb3-416"><a href="#cb3-416" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-417"><a href="#cb3-417" aria-hidden="true" tabindex="-1"></a>이 연구를 통해 DualAttentionLSTM의 attention mechanism을 다각도로 분석했습니다:</span>
+<span id="cb3-418"><a href="#cb3-418" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-419"><a href="#cb3-419" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Phase 1**: 자산별, 시장 상황별 attention 패턴 발견</span>
+<span id="cb3-420"><a href="#cb3-420" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Phase 2**: 인터랙티브 대시보드로 동적 탐색 가능</span>
+<span id="cb3-421"><a href="#cb3-421" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Phase 3**: Feature attention은 성능 향상에 기여하지 못함</span>
+<span id="cb3-422"><a href="#cb3-422" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**강건성 검증**: v50이 더 나은 성능, v64가 더 안정적</span>
+<span id="cb3-423"><a href="#cb3-423" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-424"><a href="#cb3-424" aria-hidden="true" tabindex="-1"></a>**실무 적용 시:**</span>
+<span id="cb3-425"><a href="#cb3-425" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-426"><a href="#cb3-426" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>대부분의 경우 v50 사용 권장</span>
+<span id="cb3-427"><a href="#cb3-427" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>안정성이 매우 중요한 production 환경에서는 v64 고려</span>
+<span id="cb3-428"><a href="#cb3-428" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Ensemble 방법으로 성능과 안정성 모두 확보</span>
+<span id="cb3-429"><a href="#cb3-429" aria-hidden="true" tabindex="-1"></a></span></code><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Cross-Asset Volatility Risk Premium 예측 연구</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Quarto로 제작됨 | 2026</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

@@ -2,10 +2,10 @@
 
 본 연구는 Cross-Asset Volatility Risk Premium(VRP) 예측을 위한 통합 머신러닝 프레임워크를 제안한다. 기존 VRP 연구가 주로 S&P 500 단일 자산에 한정되고 자산별 고유 옵션 데이터를 필요로 하는 반면, 본 연구는 OHLCV 데이터와 Global VIX를 활용하여 주식, 채권, 원자재 등 다수 자산군의 VRP를 통합적으로 예측하는 경제적(parsimonious) 접근법을 제시한다.
 
-11개 ETF(SPY, QQQ, IWM, EFA, EEM, TLT, IEF, AGG, GLD, SLV, USO)의 2010-2024년 일별 데이터를 대상으로 70회 이상의 체계적 실험을 수행한 결과, **피처 엔지니어링이 모델 복잡도보다 변동성 예측 성능에 결정적 역할**을 한다는 핵심 발견을 도출하였다. 22일 예측에서는 OHLCV 기반 고빈도 프록시(Parkinson, Garman-Klass, Rogers-Satchell), 옵션 내재변동성 서피스(VIX/VIX3M/VIX9D 기간구조, VRP), 대안 데이터(거래량 기반 유동성 지표)를 통합한 37개 피처와 자산 클래스별 적응적 정규화를 적용한 Enhanced Asset-Adaptive Ridge 모델(V71)이 **풀링 R² = 0.803** (cross-sectional variation 포함)을 달성하였다. 단기(1일) 예측에서는 Temporal-Attention Bi-LSTM 모델(V50)이 풀링 R² = 0.651을 기록하였다. 풀링 R²는 자산 간 변동성 수준 차이(cross-sectional variation)를 포함하며, 개별 자산 중위 R²는 V71: 0.065, V50: -0.312로 낮다.
+11개 ETF(SPY, QQQ, IWM, EFA, EEM, TLT, IEF, AGG, GLD, SLV, USO)의 2010-2024년 일별 데이터를 대상으로 70회 이상의 체계적 실험을 수행하였다. 전방 Realized Volatility를 타겟으로 사용하여 데이터 중첩 문제를 완전히 방지하고, 1일부터 365일까지 8개 예측 기간(horizon)에 걸쳐 7개 모델을 체계적으로 비교하였다.
 
-V71 모델의 성능 우위는 Diebold-Mariano 검정(Newey-West HAC)에서 모든 벤치마크 대비 p<0.001로 통계적으로 유의하며, VIX quantile 레짐 분석에서 고변동성 국면(90-100%)에서 V36 대비 +0.163 개선을 보여 위기 대응력이 우수하다. 동일 37개 피처를 사용한 공정 비교에서 Ridge(0.773) > XGBoost(0.761) > MLP(0.750)으로, 선형 모델이 비선형 모델을 일관적으로 압도하는 결과를 확인하였다.
+핵심 발견은 다음과 같다: (1) **예측 기간에 따라 최적 모델이 달라진다**. 단기(1~22일)에서는 37개 피처를 활용한 Ridge+XGBoost 가중 앙상블(V71, 22d 풀링 R²=0.803)이, 중기(60~180일)에서는 3개 Range 기반 피처를 사용한 Bi-LSTM+Attention 모델(60d 풀링 R²=0.796)이, 초장기(365일)에서는 Random Forest(풀링 R²=0.705)가 최고 성능을 달성하였다. 59개 확장 피처의 ElasticNet(V74, 22d R²=0.807)이 최종 최고 성능을 기록하였다. (2) **LSTM은 소수 핵심 피처에 최적화될 때 다수 피처 선형 모델을 능가**하며, 특히 개별 자산 수준(중위 R²)에서 전 구간 최고 성능을 보였다. (3) 문헌 벤치마크(HAR-RV, HAR-CJ, LASSO-HAR, Random Forest) 대비 통계적으로 유의한 성능 우위를 확인하였다(DM test, p<0.001).
 
-본 연구의 주요 기여는 다음과 같다: (1) OHLC 기반 범위 추정량(Range-based Estimators)의 실현변동성 예측에서의 핵심적 역할 실증, (2) 내재변동성 서피스와 실현변동성의 보완적 예측력 확인, (3) 자산 클래스별 적응적 정규화를 통한 다중 자산 통합 프레임워크 제안, (4) 포괄적 건전성 검증(6개 테스트, DM test, 레짐별 분석)을 통한 결과 신뢰성 확보.
+본 연구의 주요 기여는 다음과 같다: (1) 전방 RV 타겟을 통한 엄밀한 multi-horizon 평가 프레임워크 제안, (2) OHLC 기반 Range 추정량(RogersSatchell, GarmanKlass)의 중기 변동성 예측에서의 핵심적 역할 실증, (3) 예측 기간별 최적 모델 전략의 체계적 제시, (4) 기존 문헌이 다루지 않는 60일~365일 장기 예측 분석.
 
-**Keywords**: Volatility Risk Premium, Cross-Asset, Realized Volatility, Range-based Estimators, Implied Volatility Surface, Ridge Regression, Machine Learning, Financial Forecasting
+**Keywords**: Volatility Risk Premium, Cross-Asset, Realized Volatility, Range-based Estimators, Multi-Horizon Forecasting, LSTM, Ridge Regression, Machine Learning

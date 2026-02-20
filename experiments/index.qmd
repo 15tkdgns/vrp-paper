@@ -1,22 +1,23 @@
 ---
 title: "실험 결과"
-subtitle: "V71 챔피언 모델 검증 및 성능 분석"
+subtitle: "Multi-Horizon 변동성 예측 모델 비교"
 date: today
 ---
 
 ## 실험 목록
 
-본 연구의 핵심 모델은 **V71 (Enhanced Asset-Adaptive Ridge)**이며, 22일 실현변동성 예측에서 R²=0.803을 달성했습니다.
+본 연구는 74회 이상의 실험(V1~V74)을 통해 다중 자산 실현변동성 예측 모델을 개발하였다. 전방 RV 타겟 기준으로 평가.
 
 ### 핵심 실험
 
-| 실험 | 내용 | 결과 | 대상 자산 |
+| 실험 | 내용 | 22d 풀링 R² | 강점 |
 |:---|:---|:---|:---|
-| **V71 챔피언** | [22일 예측 (V71)](/experiments/22day_prediction.html) | **R² = 0.803** | 11개 자산 풀링 (cross-sectional variation 포함) |
-| **강건성 검증** | [챔피언 모델 강건성](/experiments/champion_robustness.html) | 6종 PASS | 11개 자산 풀링 |
-| **V50 검증** | [V50 정밀 검증](/experiments/sci_verification.html) | OOS R² = 0.651 | 11개 자산 풀링 |
-| **V29 베이스라인** | [V29 검증](/experiments/phase10_v29_verification.html) | DM p < 0.001 | 11개 자산 풀링 |
-| **V50 모델** | [1일 예측 (V50)](/experiments/1day_prediction.html) | OOS R² = 0.651 | 11개 자산 풀링 |
+| <span class="our-model">**V74 (ElasticNet 59feat)**</span> | Enhanced ML + Deep Learning | **0.807** | **22d 챔피언, LASSO 대비 +2.1%** |
+| <span class="our-model">**V71 (Ensemble 37feat)**</span> | [22일 예측 (V71)](/experiments/22day_prediction.html) | 0.803 | 37개 피처 Ridge+XGB 앙상블 |
+| <span class="our-model">**V50 Tuned (LSTM 3feat)**</span> | [V50 모델 분석](/experiments/1day_prediction.html) | 0.780 | 중기(60~180d) 최고, 중위 R² 전 구간 최고 |
+| **V36 (HAR-3)** | [V29 검증](/experiments/phase10_v29_verification.html) | 0.761 | 장기(120~365d) 안정적 |
+| **강건성 검증** | [챔피언 모델 강건성](/experiments/champion_robustness.html) | 6종 PASS | |
+| **SCI 검증** | [V50 정밀 검증](/experiments/sci_verification.html) | - | |
 
 ---
 
@@ -24,8 +25,8 @@ date: today
 
 | 실험 | 내용 | 링크 |
 |:---|:---|:---|
-| **모델 비교** | 1일 vs 22일 예측 구조 비교 | [모델 비교](/experiments/phase13_model_comparison.html) |
-| **Attention 분석** | V50 Temporal Attention 해석 | [Attention](/experiments/attention_analysis.html) |
+| **모델 비교** | 모델 구조 비교 | [모델 비교](/experiments/phase13_model_comparison.html) |
+| **Attention 분석** | <span class="our-model">V50 Temporal Attention</span> 해석 | [Attention](/experiments/attention_analysis.html) |
 | **통합 모델** | 23개 자산 Universal Model | [통합 모델](/experiments/universal_model.html) |
 | **트레이딩 전략** | 변동성 타겟팅 백테스트 | [트레이딩](/experiments/trading_strategy.html) |
 | **결과 요약** | 전체 실험 결과 통계 | [요약](/experiments/summary.html) |
@@ -35,11 +36,12 @@ date: today
 ## 주요 발견
 
 ::: {.callout-note}
-## V71 모델의 강점
+## 핵심 결과
 
-1. **R² = 0.803**: V36(0.755) 대비 +6.3% 개선
-2. **통계적 유의성**: 모든 DM test p < 0.001
-3. **레짐 강건성**: High VIX 구간에서 +0.163 개선
-4. **피처 엔지니어링 > 모델 복잡도**: Ridge > XGBoost > MLP
-5. **데이터 누출 없음**: 셔플 R² ~ 0
+1. **22d 챔피언**: <span class="our-model">V74 ElasticNet(59feat)</span> = **R² 0.807**, V71 Ensemble(0.803) 대비 **+0.5% 향상**
+2. **딥러닝 한계 규명**: Pooled 데이터에서 LSTM/Transformer는 음의 R² (시계열 불연속성)
+3. **중기(60~180d)**: <span class="our-model">V50 Tuned LSTM(3feat)</span>이 풀링 R² 및 중위 R² 최고 (60d: 0.796)
+4. **장기(120~365d)**: V36 HAR-3가 풀링 R² 안정적 (365d: 0.611)
+5. **핵심 교훈**: 금융 변동성 예측에서는 **피처 엔지니어링 + 강건한 선형 모델**이 복잡한 딥러닝보다 효과적
+6. **데이터 누출 방지**: 전방 RV 타겟으로 rolling window 중첩 제거
 :::

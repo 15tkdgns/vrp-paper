@@ -1,0 +1,66 @@
+{
+  "experiment": "V74_Deep_Learning",
+  "models": [
+    "Ridge",
+    "ElasticNet",
+    "LSTM",
+    "BiLSTM",
+    "Transformer",
+    "LSTM_Attention",
+    "DL_ML_Ensemble"
+  ],
+  "results": {
+    "Ridge": {
+      "R2": 0.8042077829988076,
+      "RMSE": 0.4596276118452252,
+      "QLIKE": 0.12215359559981691
+    },
+    "ElasticNet": {
+      "R2": 0.8046718575561895,
+      "RMSE": 0.45908257479589915,
+      "QLIKE": 0.12223092480794133
+    },
+    "LSTM": {
+      "R2": -0.00020014119725764168,
+      "RMSE": 1.037151351705841,
+      "QLIKE": 0.8189323787601149
+    },
+    "BiLSTM": {
+      "R2": -0.008791271313853155,
+      "RMSE": 1.0415960873239394,
+      "QLIKE": 0.8385663183506451
+    },
+    "Transformer": {
+      "R2": -0.44646330396639367,
+      "RMSE": 1.2472467819580273,
+      "QLIKE": 1.5544077849972955
+    },
+    "LSTM_Attention": {
+      "R2": -0.7054262581783461,
+      "RMSE": 1.3543008613024257,
+      "QLIKE": 2.074135658966124
+    },
+    "DL_ML_Ensemble": {
+      "R2": 0.8065164976526094,
+      "RMSE": 0.45616362587649206,
+      "QLIKE": 0.11968059413287142,
+      "weights": {
+        "LSTM": 0.0,
+        "ElasticNet": 1.0
+      }
+    }
+  },
+  "best_model": "DL_ML_Ensemble",
+  "best_r2": 0.8065164976526094,
+  "config": {
+    "seq_len": 22,
+    "hidden_dim": 64,
+    "num_layers": 2,
+    "dropout": 0.2,
+    "batch_size": 256,
+    "epochs": 100,
+    "lr": 0.001,
+    "n_features": 59,
+    "device": "cuda"
+  }
+}

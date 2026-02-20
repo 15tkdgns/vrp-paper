@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>1일 예측 모델 – VRP 연구 대시보드</title>
+<title>V50 모델 분석: Bi-LSTM + Attention – VRP 연구 대시보드</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -163,7 +163,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="사이드바 전환" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../experiments/1day_prediction.html">1일 예측</a></li><li class="breadcrumb-item"><a href="../experiments/1day_prediction.html">V50 모델 (챔피언)</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../experiments/22day_prediction.html">모델별 분석</a></li><li class="breadcrumb-item"><a href="../experiments/1day_prediction.html">V50 LSTM (3feat)</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="사이드바 전환" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -181,10 +181,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">개요</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">결과 요약</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">1일 예측</span></a>
+ <span class="menu-text">모델별 분석</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="토글 섹션">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -192,14 +198,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../experiments/22day_prediction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">V71 Ridge (37feat)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/champion_robustness.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">V71 강건성 검증</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../experiments/1day_prediction.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">V50 모델 (챔피언)</span></a>
+ <span class="menu-text">V50 LSTM (3feat)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../experiments/sci_verification.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">상세 검증</span></a>
+ <span class="menu-text">V50 상세 검증</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/attention_analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">V50 Attention 분석</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/phase10_v29_verification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">V36 HAR-3 베이스라인</span></a>
   </div>
 </li>
       </ul>
@@ -207,35 +237,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">22일 예측</span></a>
+ <span class="menu-text">기타</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="토글 섹션">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../experiments/22day_prediction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">V36 모델 (챔피언)</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">기타</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="토글 섹션">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../experiments/phase10_v29_verification.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">V29 베이스라인 검증</span></a>
-  </div>
-</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../experiments/phase13_model_comparison.html" class="sidebar-item-text sidebar-link">
@@ -254,12 +261,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">통합 모델 실험</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../experiments/summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">결과 요약</span></a>
-  </div>
-</li>
       </ul>
   </li>
     </ul>
@@ -272,32 +273,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">목차</h2>
    
   <ul>
-  <li><a href="#일-예측-챔피언-v50-dual-attention-lstm" id="toc-일-예측-챔피언-v50-dual-attention-lstm" class="nav-link active" data-scroll-target="#일-예측-챔피언-v50-dual-attention-lstm">1일 예측 챔피언: V50 (Dual-Attention LSTM)</a>
+  <li><a href="#v50-모델-개요" id="toc-v50-모델-개요" class="nav-link active" data-scroll-target="#v50-모델-개요">V50 모델 개요</a>
   <ul class="collapse">
-  <li><a href="#모델-성능-비교" id="toc-모델-성능-비교" class="nav-link" data-scroll-target="#모델-성능-비교">모델 성능 비교</a></li>
-  <li><a href="#v50-모델-구조" id="toc-v50-모델-구조" class="nav-link" data-scroll-target="#v50-모델-구조">V50 모델 구조</a></li>
-  <li><a href="#검증-결과-요약" id="toc-검증-결과-요약" class="nav-link" data-scroll-target="#검증-결과-요약">검증 결과 요약</a></li>
-  <li><a href="#상세-분석-링크" id="toc-상세-분석-링크" class="nav-link" data-scroll-target="#상세-분석-링크">상세 분석 링크</a></li>
-  <li><a href="#v50-모델-상세-속성" id="toc-v50-모델-상세-속성" class="nav-link" data-scroll-target="#v50-모델-상세-속성">V50 모델 상세 속성</a>
+  <li><a href="#multi-horizon-성능-v50-tuned-전방-rv" id="toc-multi-horizon-성능-v50-tuned-전방-rv" class="nav-link" data-scroll-target="#multi-horizon-성능-v50-tuned-전방-rv">Multi-Horizon 성능 (V50 Tuned, 전방 RV)</a></li>
+  <li><a href="#모델-아키텍처" id="toc-모델-아키텍처" class="nav-link" data-scroll-target="#모델-아키텍처">1. 모델 아키텍처</a>
   <ul class="collapse">
-  <li><a href="#하이퍼파라미터" id="toc-하이퍼파라미터" class="nav-link" data-scroll-target="#하이퍼파라미터">하이퍼파라미터</a></li>
-  <li><a href="#학습-설정" id="toc-학습-설정" class="nav-link" data-scroll-target="#학습-설정">학습 설정</a></li>
-  <li><a href="#피처-중요도-어텐션-가중치-기반" id="toc-피처-중요도-어텐션-가중치-기반" class="nav-link" data-scroll-target="#피처-중요도-어텐션-가중치-기반">피처 중요도 (어텐션 가중치 기반)</a></li>
+  <li><a href="#하이퍼파라미터-실제-코드-기준" id="toc-하이퍼파라미터-실제-코드-기준" class="nav-link" data-scroll-target="#하이퍼파라미터-실제-코드-기준">하이퍼파라미터 (실제 코드 기준)</a></li>
   </ul></li>
-  <li><a href="#모델-학습-및-성능-시각화" id="toc-모델-학습-및-성능-시각화" class="nav-link" data-scroll-target="#모델-학습-및-성능-시각화">모델 학습 및 성능 시각화</a>
+  <li><a href="#모델-성능-비교-1일-예측-모델만" id="toc-모델-성능-비교-1일-예측-모델만" class="nav-link" data-scroll-target="#모델-성능-비교-1일-예측-모델만">2. 모델 성능 비교 (1일 예측 모델만)</a></li>
+  <li><a href="#검증-결과" id="toc-검증-결과" class="nav-link" data-scroll-target="#검증-결과">3. 검증 결과</a></li>
+  <li><a href="#한계-및-향후-과제" id="toc-한계-및-향후-과제" class="nav-link" data-scroll-target="#한계-및-향후-과제">4. 한계 및 향후 과제</a>
   <ul class="collapse">
-  <li><a href="#학습-곡선" id="toc-학습-곡선" class="nav-link" data-scroll-target="#학습-곡선">학습 곡선</a></li>
-  <li><a href="#예측-vs-실제-비교" id="toc-예측-vs-실제-비교" class="nav-link" data-scroll-target="#예측-vs-실제-비교">예측 vs 실제 비교</a></li>
-  <li><a href="#잔차-분포" id="toc-잔차-분포" class="nav-link" data-scroll-target="#잔차-분포">잔차 분포</a></li>
-  <li><a href="#자산별-1일-예측-성능" id="toc-자산별-1일-예측-성능" class="nav-link" data-scroll-target="#자산별-1일-예측-성능">자산별 1일 예측 성능</a></li>
+  <li><a href="#향후-개선-방향" id="toc-향후-개선-방향" class="nav-link" data-scroll-target="#향후-개선-방향">향후 개선 방향</a></li>
   </ul></li>
-  <li><a href="#하이퍼파라미터-튜닝-비교-ablation-study" id="toc-하이퍼파라미터-튜닝-비교-ablation-study" class="nav-link" data-scroll-target="#하이퍼파라미터-튜닝-비교-ablation-study">하이퍼파라미터 튜닝 비교 (Ablation Study)</a>
-  <ul class="collapse">
-  <li><a href="#손실-함수-비교" id="toc-손실-함수-비교" class="nav-link" data-scroll-target="#손실-함수-비교">손실 함수 비교</a></li>
-  <li><a href="#학습률-비교" id="toc-학습률-비교" class="nav-link" data-scroll-target="#학습률-비교">학습률 비교</a></li>
-  <li><a href="#드롭아웃-비율-비교" id="toc-드롭아웃-비율-비교" class="nav-link" data-scroll-target="#드롭아웃-비율-비교">드롭아웃 비율 비교</a></li>
-  <li><a href="#lstm-은닉-크기-및-어텐션-헤드-비교" id="toc-lstm-은닉-크기-및-어텐션-헤드-비교" class="nav-link" data-scroll-target="#lstm-은닉-크기-및-어텐션-헤드-비교">LSTM 은닉 크기 및 어텐션 헤드 비교</a></li>
-  </ul></li>
+  <li><a href="#관련-자료" id="toc-관련-자료" class="nav-link" data-scroll-target="#관련-자료">관련 자료</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -305,10 +294,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../experiments/1day_prediction.html">1일 예측</a></li><li class="breadcrumb-item"><a href="../experiments/1day_prediction.html">V50 모델 (챔피언)</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../experiments/22day_prediction.html">모델별 분석</a></li><li class="breadcrumb-item"><a href="../experiments/1day_prediction.html">V50 LSTM (3feat)</a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">1일 예측 모델</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> 코드</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">전체 코드 표시</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">전체 코드 숨기기</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">소스 코드 표시</a></li></ul></div></div>
-<p class="subtitle lead">V50 (Dual-Attention LSTM) 챔피언 모델</p>
+<div class="quarto-title-block"><div><h1 class="title">V50 모델 분석: Bi-LSTM + Attention</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> 코드</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">전체 코드 표시</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">전체 코드 숨기기</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">소스 코드 표시</a></li></ul></div></div>
+<p class="subtitle lead">Multi-Horizon 변동성 예측 모델</p>
 </div>
 
 
@@ -325,97 +314,119 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="일-예측-챔피언-v50-dual-attention-lstm" class="level1">
-<h1>1일 예측 챔피언: V50 (Dual-Attention LSTM)</h1>
-<p>단기(1일) 변동성 예측에서는 시계열의 복잡한 비선형 의존성을 학습하는 <strong>V50 모델</strong>이 최고 성능을 달성했습니다.</p>
+<section id="v50-모델-개요" class="level1">
+<h1>V50 모델 개요</h1>
+<p>V50은 <strong>양방향 LSTM</strong>과 <strong>Temporal Attention</strong>을 결합한 변동성 예측 모델입니다. 피처 셀렉션을 통해 선별된 3개 Range 기반 피처(RogersSatchell, GarmanKlass, Range_Close_Ratio)로 <strong>중기 예측(60~180d)에서 최고 성능</strong>을 달성합니다.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-핵심 성과
+V50 Tuned 핵심 성과 (전방 RV 기준, 11개 자산 풀링)
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li><strong>R² 스코어</strong>: 0.821 (베이스라인 대비 +12.5%)</li>
-<li><strong>통계적 유의성</strong>: Diebold-Mariano 테스트 p &lt; 0.001</li>
-<li><strong>과적합 없음</strong>: Walk-Forward OOS R² = 0.820</li>
+<li><strong>22d 풀링 R²</strong>: 0.780 | <strong>중위 R²</strong>: 0.274 (개별 자산 수준 최고)</li>
+<li><strong>60d 풀링 R²</strong>: 0.796 (전 모델 중 최고)</li>
+<li><strong>중기(60~180d) 챔피언</strong>: 풀링 R² 및 중위 R² 모두 최고</li>
+<li><strong>피처</strong>: RogersSatchell_22, GarmanKlass_22, Range_Close_Ratio (3개)</li>
 </ul>
 </div>
 </div>
-<hr>
-<section id="모델-성능-비교" class="level2">
-<h2 class="anchored" data-anchor-id="모델-성능-비교">모델 성능 비교</h2>
-<div id="f26c121f" class="cell" data-fig-height="5" data-fig-width="12" data-execution_count="1">
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="1day_prediction_files/figure-html/cell-2-output-1.png" width="1142" height="470" class="figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
+<section id="multi-horizon-성능-v50-tuned-전방-rv" class="level3">
+<h3 class="anchored" data-anchor-id="multi-horizon-성능-v50-tuned-전방-rv">Multi-Horizon 성능 (V50 Tuned, 전방 RV)</h3>
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th style="text-align: left;">모델</th>
-<th style="text-align: left;">출처</th>
-<th style="text-align: left;">R²</th>
-<th style="text-align: left;">V50 대비</th>
+<th style="text-align: left;">Horizon</th>
+<th style="text-align: left;">풀링 R²</th>
+<th style="text-align: left;">중위 R²</th>
+<th style="text-align: left;">RMSE</th>
+<th style="text-align: left;">순위</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Random Walk</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">0.42</td>
-<td style="text-align: left;">-48.8%</td>
+<td style="text-align: left;">1d</td>
+<td style="text-align: left;">0.092</td>
+<td style="text-align: left;">-0.000</td>
+<td style="text-align: left;">2.538</td>
+<td style="text-align: left;">4위</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">GARCH(1,1)</td>
-<td style="text-align: left;">Bollerslev (1986)</td>
-<td style="text-align: left;">0.52</td>
-<td style="text-align: left;">-36.7%</td>
+<td style="text-align: left;">5d</td>
+<td style="text-align: left;">0.577</td>
+<td style="text-align: left;">0.101</td>
+<td style="text-align: left;">0.793</td>
+<td style="text-align: left;">4위</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>HAR-RV</strong></td>
-<td style="text-align: left;"><strong>Corsi (2009)</strong></td>
-<td style="text-align: left;"><strong>0.62</strong></td>
-<td style="text-align: left;"><strong>-24.5%</strong></td>
+<td style="text-align: left;">22d</td>
+<td style="text-align: left;">0.780</td>
+<td style="text-align: left;"><strong>0.274</strong></td>
+<td style="text-align: left;">0.482</td>
+<td style="text-align: left;">2위 (중위 1위)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">V29 (HAR+GARCH)</td>
-<td style="text-align: left;">본 연구</td>
-<td style="text-align: left;">0.730</td>
-<td style="text-align: left;">-11.1%</td>
+<td style="text-align: left;"><strong>60d</strong></td>
+<td style="text-align: left;"><strong>0.796</strong></td>
+<td style="text-align: left;">-0.178</td>
+<td style="text-align: left;"><strong>0.446</strong></td>
+<td style="text-align: left;"><strong>1위</strong></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">V36 (Adaptive)</td>
-<td style="text-align: left;">본 연구</td>
-<td style="text-align: left;">0.755</td>
-<td style="text-align: left;">-8.0%</td>
+<td style="text-align: left;"><strong>90d</strong></td>
+<td style="text-align: left;"><strong>0.788</strong></td>
+<td style="text-align: left;"><strong>-0.031</strong></td>
+<td style="text-align: left;"><strong>0.448</strong></td>
+<td style="text-align: left;"><strong>1위</strong></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">V43 (Transformer)</td>
-<td style="text-align: left;">본 연구</td>
-<td style="text-align: left;">0.797</td>
-<td style="text-align: left;">-2.9%</td>
+<td style="text-align: left;">120d</td>
+<td style="text-align: left;">0.751</td>
+<td style="text-align: left;"><strong>-0.149</strong></td>
+<td style="text-align: left;">0.479</td>
+<td style="text-align: left;">2위 (중위 1위)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>V50 (Champion)</strong></td>
-<td style="text-align: left;"><strong>본 연구</strong></td>
-<td style="text-align: left;"><strong>0.821</strong></td>
-<td style="text-align: left;"><strong>기준</strong></td>
+<td style="text-align: left;"><strong>180d</strong></td>
+<td style="text-align: left;"><strong>0.708</strong></td>
+<td style="text-align: left;"><strong>-0.328</strong></td>
+<td style="text-align: left;"><strong>0.511</strong></td>
+<td style="text-align: left;"><strong>1위</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">365d</td>
+<td style="text-align: left;">0.589</td>
+<td style="text-align: left;"><strong>-2.199</strong></td>
+<td style="text-align: left;">0.590</td>
+<td style="text-align: left;">2위 (중위 1위)</td>
 </tr>
 </tbody>
 </table>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+성능 해석
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>풀링 R²는 cross-sectional variation 포함</strong>: 자산 간 변동성 수준 차이가 R²에 기여</li>
+<li><strong>개별 자산 수준에서는 중위 R² 참조</strong>: 22d 기준 0.274로 전 모델 중 최고</li>
+<li>1d 예측(R²=0.092)은 모든 모델이 낮음: 단일 일 변동성은 본질적으로 예측 어려움</li>
+</ul>
+</div>
+</div>
 <hr>
 </section>
-<section id="v50-모델-구조" class="level2">
-<h2 class="anchored" data-anchor-id="v50-모델-구조">V50 모델 구조</h2>
-<p>V50은 <strong>양방향 LSTM(Bi-LSTM)</strong>과 <strong>이중 어텐션(Dual Attention)</strong> 메커니즘을 결합한 하이브리드 구조입니다.</p>
+<section id="모델-아키텍처" class="level2">
+<h2 class="anchored" data-anchor-id="모델-아키텍처">1. 모델 아키텍처</h2>
 <div class="cell" data-layout-align="default">
 <details class="code-fold">
 <summary>코드</summary>
@@ -428,28 +439,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    end</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    subgraph BILSTM["양방향 LSTM"]</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        B &amp; C --&gt; D["순방향 LSTM"]</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        B &amp; C --&gt; E["역방향 LSTM"]</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        D &amp; E --&gt; F["은닉 상태 결합"]</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        B &amp; C --&gt; D["순방향 LSTM (hidden=64)"]</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        B &amp; C --&gt; E["역방향 LSTM (hidden=64)"]</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        D &amp; E --&gt; F["은닉 상태 결합 (128차원)"]</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    end</span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    subgraph ATTENTION["이중 어텐션"]</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        F --&gt; G["시간 어텐션"]</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        F --&gt; H["피처 어텐션"]</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        G --&gt; I["중요 시점 집중"]</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>        H --&gt; J["변수 중요도 조절"]</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    end</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    subgraph OUTPUT["출력층"]</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        I &amp; J --&gt; K["컨텍스트 벡터"]</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        K --&gt; L["완전연결층"]</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        L --&gt; M["익일 변동성 예측"]</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    end</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    style INPUT fill:#E3F2FD,stroke:#1565C0,stroke-width:2px</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    style BILSTM fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    style ATTENTION fill:#FFF3E0,stroke:#E65100,stroke-width:2px</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    style OUTPUT fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px</span></code><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    subgraph ATTENTION["Temporal Attention"]</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        F --&gt; G["tanh + Linear(128→1)"]</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        G --&gt; H["Softmax (22개 시점 가중치)"]</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        H --&gt; I["가중 평균 컨텍스트 벡터"]</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    end</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    subgraph OUTPUT["출력층"]</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        I --&gt; K["FC Layer (128→1)"]</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        K --&gt; L["22일 후 LogRV 예측"]</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    end</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    style INPUT fill:#E3F2FD,stroke:#1565C0,stroke-width:2px</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    style BILSTM fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    style ATTENTION fill:#FFF3E0,stroke:#E65100,stroke-width:2px</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    style OUTPUT fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px</span></code><button title="클립보드 복사" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -464,22 +473,20 @@ flowchart TD
     end
     
     subgraph BILSTM["양방향 LSTM"]
-        B &amp; C --&gt; D["순방향 LSTM"]
-        B &amp; C --&gt; E["역방향 LSTM"]
-        D &amp; E --&gt; F["은닉 상태 결합"]
+        B &amp; C --&gt; D["순방향 LSTM (hidden=64)"]
+        B &amp; C --&gt; E["역방향 LSTM (hidden=64)"]
+        D &amp; E --&gt; F["은닉 상태 결합 (128차원)"]
     end
     
-    subgraph ATTENTION["이중 어텐션"]
-        F --&gt; G["시간 어텐션"]
-        F --&gt; H["피처 어텐션"]
-        G --&gt; I["중요 시점 집중"]
-        H --&gt; J["변수 중요도 조절"]
+    subgraph ATTENTION["Temporal Attention"]
+        F --&gt; G["tanh + Linear(128→1)"]
+        G --&gt; H["Softmax (22개 시점 가중치)"]
+        H --&gt; I["가중 평균 컨텍스트 벡터"]
     end
     
     subgraph OUTPUT["출력층"]
-        I &amp; J --&gt; K["컨텍스트 벡터"]
-        K --&gt; L["완전연결층"]
-        L --&gt; M["익일 변동성 예측"]
+        I --&gt; K["FC Layer (128→1)"]
+        K --&gt; L["22일 후 LogRV 예측"]
     end
 
     style INPUT fill:#E3F2FD,stroke:#1565C0,stroke-width:2px
@@ -492,121 +499,21 @@ flowchart TD
 </div>
 </div>
 </div>
-<hr>
-</section>
-<section id="검증-결과-요약" class="level2">
-<h2 class="anchored" data-anchor-id="검증-결과-요약">검증 결과 요약</h2>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Walk-Forward 검증</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">DM 테스트</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">잔차 진단</a></li></ul>
-<div class="tab-content">
-<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: left;">지표</th>
-<th style="text-align: left;">In-Sample</th>
-<th style="text-align: left;">Out-of-Sample</th>
-<th style="text-align: left;">차이</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">R² 스코어</td>
-<td style="text-align: left;">0.821</td>
-<td style="text-align: left;">0.820</td>
-<td style="text-align: left;"><strong>-0.1%</strong></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">결론</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;"><strong>과적합 없음</strong></td>
-<td style="text-align: left;">-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: left;">비교</th>
-<th style="text-align: left;">DM 통계량</th>
-<th style="text-align: left;">p-value</th>
-<th style="text-align: left;">유의성</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">V50 vs V29</td>
-<td style="text-align: left;">4.23</td>
-<td style="text-align: left;">&lt;0.001</td>
-<td style="text-align: left;">***</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">V50 vs V43</td>
-<td style="text-align: left;">2.87</td>
-<td style="text-align: left;">&lt;0.01</td>
-<td style="text-align: left;">**</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: left;">검정</th>
-<th style="text-align: left;">통계량</th>
-<th style="text-align: left;">p-value</th>
-<th style="text-align: left;">결과</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Ljung-Box</td>
-<td style="text-align: left;">18.2</td>
-<td style="text-align: left;">0.31</td>
-<td style="text-align: left;">자기상관 없음</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Jarque-Bera</td>
-<td style="text-align: left;">45.3</td>
-<td style="text-align: left;">&lt;0.01</td>
-<td style="text-align: left;">비정규성 (금융 데이터 특성)</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<hr>
-</section>
-<section id="상세-분석-링크" class="level2">
-<h2 class="anchored" data-anchor-id="상세-분석-링크">상세 분석 링크</h2>
-<p>더 자세한 검증 결과는 아래 페이지에서 확인할 수 있습니다:</p>
-<ul>
-<li><a href="../experiments/sci_verification.html">V50 모델 상세 검증</a> - 7가지 검증 항목 전체 결과</li>
-<li><a href="../experiments/phase13_model_comparison.html">모델 아키텍처 비교</a> - 하이퍼파라미터 및 구조 상세</li>
-</ul>
-<hr>
-</section>
-<section id="v50-모델-상세-속성" class="level2">
-<h2 class="anchored" data-anchor-id="v50-모델-상세-속성">V50 모델 상세 속성</h2>
-<section id="하이퍼파라미터" class="level3">
-<h3 class="anchored" data-anchor-id="하이퍼파라미터">하이퍼파라미터</h3>
+<section id="하이퍼파라미터-실제-코드-기준" class="level3">
+<h3 class="anchored" data-anchor-id="하이퍼파라미터-실제-코드-기준">하이퍼파라미터 (실제 코드 기준)</h3>
 <table class="caption-top table">
 <thead>
 <tr class="header">
 <th style="text-align: left;">파라미터</th>
 <th style="text-align: left;">값</th>
-<th style="text-align: left;">설명</th>
+<th style="text-align: left;">비고</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;"><strong>시퀀스 길이</strong></td>
 <td style="text-align: left;">22일</td>
-<td style="text-align: left;">HAR 모델의 월간 윈도우 기반</td>
+<td style="text-align: left;">HAR 월간 윈도우</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>LSTM 은닉 크기</strong></td>
@@ -614,19 +521,19 @@ flowchart TD
 <td style="text-align: left;">양방향 → 128차원 출력</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>LSTM 레이어 수</strong></td>
-<td style="text-align: left;">2</td>
-<td style="text-align: left;">Stacked Bi-LSTM</td>
+<td style="text-align: left;"><strong>LSTM 레이어</strong></td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">단일 Bi-LSTM</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>어텐션 헤드 수</strong></td>
-<td style="text-align: left;">4</td>
-<td style="text-align: left;">다중 헤드 어텐션</td>
+<td style="text-align: left;"><strong>Attention</strong></td>
+<td style="text-align: left;">Temporal (1개)</td>
+<td style="text-align: left;">tanh + softmax</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>드롭아웃 비율</strong></td>
-<td style="text-align: left;">0.3</td>
-<td style="text-align: left;">과적합 방지</td>
+<td style="text-align: left;"><strong>드롭아웃</strong></td>
+<td style="text-align: left;">0.0</td>
+<td style="text-align: left;">정규화 없음</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>학습률</strong></td>
@@ -636,311 +543,271 @@ flowchart TD
 <tr class="odd">
 <td style="text-align: left;"><strong>배치 크기</strong></td>
 <td style="text-align: left;">64</td>
-<td style="text-align: left;">미니배치 학습</td>
+<td style="text-align: left;">미니배치</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>조기 종료</strong></td>
-<td style="text-align: left;">10 에폭</td>
-<td style="text-align: left;">검증 손실 기준</td>
+<td style="text-align: left;"><strong>에폭</strong></td>
+<td style="text-align: left;">20</td>
+<td style="text-align: left;">고정 (조기 종료 없음)</td>
 </tr>
-</tbody>
-</table>
-</section>
-<section id="학습-설정" class="level3">
-<h3 class="anchored" data-anchor-id="학습-설정">학습 설정</h3>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: left;">항목</th>
-<th style="text-align: left;">설정</th>
-</tr>
-</thead>
-<tbody>
 <tr class="odd">
 <td style="text-align: left;"><strong>손실 함수</strong></td>
-<td style="text-align: left;">MSE (Mean Squared Error)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>옵티마이저</strong></td>
-<td style="text-align: left;">Adam (β1=0.9, β2=0.999)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>학습률 스케줄러</strong></td>
-<td style="text-align: left;">ReduceLROnPlateau (factor=0.5, patience=5)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>정규화</strong></td>
-<td style="text-align: left;">L2 weight decay (1e-5)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>입력 정규화</strong></td>
-<td style="text-align: left;">Z-score 표준화 (훈련셋 기준)</td>
+<td style="text-align: left;">MSE</td>
+<td style="text-align: left;">회귀 표준</td>
 </tr>
 </tbody>
 </table>
+<hr>
 </section>
-<section id="피처-중요도-어텐션-가중치-기반" class="level3">
-<h3 class="anchored" data-anchor-id="피처-중요도-어텐션-가중치-기반">피처 중요도 (어텐션 가중치 기반)</h3>
-<div id="14d2b3e5" class="cell" data-fig-height="4" data-fig-width="10" data-execution_count="2">
+</section>
+<section id="모델-성능-비교-1일-예측-모델만" class="level2">
+<h2 class="anchored" data-anchor-id="모델-성능-비교-1일-예측-모델만">2. 모델 성능 비교 (1일 예측 모델만)</h2>
+<div id="0075563b" class="cell" data-fig-height="4" data-fig-width="10" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="1day_prediction_files/figure-html/cell-3-output-1.png" width="950" height="374" class="figure-img"></p>
+<p><img src="1day_prediction_files/figure-html/cell-2-output-1.png" width="950" height="374" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div class="callout callout-style-default callout-tip callout-titled">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">모델</th>
+<th style="text-align: left;">출처</th>
+<th style="text-align: left;">R²</th>
+<th style="text-align: left;">비고</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>V50 OOS</strong></td>
+<td style="text-align: left;"><code>v51b_results.json</code></td>
+<td style="text-align: left;"><strong>0.533</strong></td>
+<td style="text-align: left;">공정 비교 (챔피언)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">V43 (Transformer)</td>
+<td style="text-align: left;"><code>v43_results.json</code></td>
+<td style="text-align: left;">0.534</td>
+<td style="text-align: left;">Transformer 아키텍처</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">HAR-Ridge</td>
+<td style="text-align: left;"><code>v14_statistical_results.json</code></td>
+<td style="text-align: left;">0.529</td>
+<td style="text-align: left;">통계 검증</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">V50 (Hold-out)</td>
+<td style="text-align: left;"><code>v50_results.json</code></td>
+<td style="text-align: left;">0.518</td>
+<td style="text-align: left;">기본 분할</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">XGBoost</td>
+<td style="text-align: left;"><code>v14_statistical_results.json</code></td>
+<td style="text-align: left;">0.502</td>
+<td style="text-align: left;">통계 검증</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="검증-결과" class="level2">
+<h2 class="anchored" data-anchor-id="검증-결과">3. 검증 결과</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Walk-Forward (v51b)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">DM Test (v53)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Attention 분석 (v52)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">Extreme Market (v59)</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div id="2860e9a3" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-stdout">
+<pre><code>IS R²:  0.84845
+OOS R²: 0.53344
+Gap:    0.31501</code></pre>
+</div>
+</div>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">지표</th>
+<th style="text-align: left;">값</th>
+<th style="text-align: left;">해석</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>IS R²</strong></td>
+<td style="text-align: left;">0.848</td>
+<td style="text-align: left;">학습 데이터에서의 성능</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>OOS R²</strong></td>
+<td style="text-align: left;"><strong>0.533</strong></td>
+<td style="text-align: left;">미래 데이터에 대한 일반화</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>IS-OOS Gap</strong></td>
+<td style="text-align: left;">0.315</td>
+<td style="text-align: left;">과적합 정도 (정상 범위)</td>
+</tr>
+</tbody>
+</table>
+<div class="callout-info">
+<p>기존 V51의 R²=0.820은 실험 설정 오류(rolling=5, target=t+1)로 인한 수치였으며, V50과 동일한 설정(rolling=22, target=t+22)으로 공정 비교한 결과입니다.</p>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div id="a5053d60" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-stdout">
+<pre><code>V50 R²: 0.7839
+V29 R²: 0.4417
+DM Stat: 31.87
+P-Value: 0.0</code></pre>
+</div>
+</div>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">비교</th>
+<th style="text-align: left;">V50 R²</th>
+<th style="text-align: left;">V29 R²</th>
+<th style="text-align: left;">DM Stat</th>
+<th style="text-align: left;">p-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">V50 vs V29</td>
+<td style="text-align: left;"><strong>0.784</strong></td>
+<td style="text-align: left;">0.442</td>
+<td style="text-align: left;"><strong>31.87</strong></td>
+<td style="text-align: left;"><strong>0.0</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<div id="6029ed27" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-stdout">
+<pre><code>최대 가중치 시차(lag): 21일
+최대 가중치: 0.1111
+최소 가중치: 0.0226</code></pre>
+</div>
+</div>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">지표</th>
+<th style="text-align: left;">값</th>
+<th style="text-align: left;">해석</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">최대 가중치 시차</td>
+<td style="text-align: left;"><strong>21일 (t-1)</strong></td>
+<td style="text-align: left;">전일 변동성에 가장 집중</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">가중치 범위</td>
+<td style="text-align: left;">2.3%~11.1%</td>
+<td style="text-align: left;">균일(4.5%) 대비 차별적 집중</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<div id="199f186b" class="cell" data-fig-height="4" data-fig-width="10" data-execution_count="5">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="1day_prediction_files/figure-html/cell-6-output-1.png" width="950" height="375" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="한계-및-향후-과제" class="level2">
+<h2 class="anchored" data-anchor-id="한계-및-향후-과제">4. 한계 및 향후 과제</h2>
+<div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-피처 해석
+알려진 한계점
 </div>
 </div>
 <div class="callout-body-container callout-body">
+<ol type="1">
+<li><strong>Bidirectional LSTM</strong>: 시계열 예측에서 역방향 LSTM은 미래 정보를 참조할 수 있다는 학술적 비판이 존재함.</li>
+<li><strong>입력 피처 2개</strong>: LogRV + Return만 사용. V71(37개 피처)에 비해 정보량이 부족.</li>
+<li><strong>과적합 방지 미비</strong>: 드롭아웃 0, Early Stopping 없이 고정 20 에폭 학습.</li>
+<li><strong>IS-OOS Gap</strong>: IS(0.848) vs OOS(0.533)로 약 37%의 과적합이 관찰됨.</li>
+</ol>
+</div>
+</div>
+<section id="향후-개선-방향" class="level3">
+<h3 class="anchored" data-anchor-id="향후-개선-방향">향후 개선 방향</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">항목</th>
+<th style="text-align: left;">현재</th>
+<th style="text-align: left;">개선 방향</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>구조</strong></td>
+<td style="text-align: left;">Bi-LSTM (미래 참조 우려)</td>
+<td style="text-align: left;">Unidirectional LSTM 비교 실험</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>피처</strong></td>
+<td style="text-align: left;">2개 (LogRV, Ret)</td>
+<td style="text-align: left;">VIX, Term Structure 등 추가</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>정규화</strong></td>
+<td style="text-align: left;">없음</td>
+<td style="text-align: left;">Dropout, Early Stopping 적용</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>검증</strong></td>
+<td style="text-align: left;">Hold-out, Walk-Forward</td>
+<td style="text-align: left;">K-Fold 시계열 CV 추가</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="관련-자료" class="level2">
+<h2 class="anchored" data-anchor-id="관련-자료">관련 자료</h2>
 <ul>
-<li><strong>녹색 (HAR 피처)</strong>: 과거 변동성 정보가 가장 중요 (68% 기여)</li>
-<li><strong>파란색 (시장 지표)</strong>: VIX 및 기타 지표가 보조적 역할 (32% 기여)</li>
+<li><strong>소스 코드</strong>: <a href="../src/experiments/creative/v50_dual_attention_lstm.py">v50_dual_attention_lstm.py</a></li>
+<li><strong>공정 비교 실험</strong>: <a href="../src/experiments/verification/v51b_fair_comparison.py">v51b_fair_comparison.py</a></li>
+<li><strong>DM Test</strong>: <a href="../src/experiments/verification/v53_dm_test_v50.py">v53_dm_test_v50.py</a></li>
+<li><strong>상세 검증</strong>: <a href="../experiments/sci_verification.html">SCI 검증 대시보드</a></li>
+<li><strong>강건성 검증</strong>: <a href="../experiments/champion_robustness.html">챔피언 모델 강건성</a></li>
 </ul>
-</div>
-</div>
-<hr>
-</section>
-</section>
-<section id="모델-학습-및-성능-시각화" class="level2">
-<h2 class="anchored" data-anchor-id="모델-학습-및-성능-시각화">모델 학습 및 성능 시각화</h2>
-<section id="학습-곡선" class="level3">
-<h3 class="anchored" data-anchor-id="학습-곡선">학습 곡선</h3>
-<div id="57a1b06d" class="cell" data-fig-height="4" data-fig-width="10" data-execution_count="3">
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="1day_prediction_files/figure-html/cell-4-output-1.png" width="950" height="375" class="figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="예측-vs-실제-비교" class="level3">
-<h3 class="anchored" data-anchor-id="예측-vs-실제-비교">예측 vs 실제 비교</h3>
-<div id="091f7256" class="cell" data-fig-height="5" data-fig-width="10" data-execution_count="4">
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="1day_prediction_files/figure-html/cell-5-output-1.png" width="1142" height="470" class="figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="잔차-분포" class="level3">
-<h3 class="anchored" data-anchor-id="잔차-분포">잔차 분포</h3>
-<div id="fa4ff430" class="cell" data-fig-height="4" data-fig-width="10" data-execution_count="5">
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="1day_prediction_files/figure-html/cell-6-output-1.png" width="1142" height="375" class="figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="자산별-1일-예측-성능" class="level3">
-<h3 class="anchored" data-anchor-id="자산별-1일-예측-성능">자산별 1일 예측 성능</h3>
-<div id="eeb05a25" class="cell" data-fig-height="5" data-fig-width="10" data-execution_count="6">
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="1day_prediction_files/figure-html/cell-7-output-1.png" width="950" height="470" class="figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: left;">자산군</th>
-<th style="text-align: left;">평균 R²</th>
-<th style="text-align: left;">최고 성능 자산</th>
-<th style="text-align: left;">최저 성능 자산</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><strong>채권</strong></td>
-<td style="text-align: left;">0.89</td>
-<td style="text-align: left;">AGG (0.91)</td>
-<td style="text-align: left;">IEF (0.87)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>원자재</strong></td>
-<td style="text-align: left;">0.76</td>
-<td style="text-align: left;">GLD (0.82)</td>
-<td style="text-align: left;">USO (0.68)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>주식</strong></td>
-<td style="text-align: left;">0.75</td>
-<td style="text-align: left;">SPY (0.78)</td>
-<td style="text-align: left;">IWM (0.72)</td>
-</tr>
-</tbody>
-</table>
-<hr>
-</section>
-</section>
-<section id="하이퍼파라미터-튜닝-비교-ablation-study" class="level2">
-<h2 class="anchored" data-anchor-id="하이퍼파라미터-튜닝-비교-ablation-study">하이퍼파라미터 튜닝 비교 (Ablation Study)</h2>
-<section id="손실-함수-비교" class="level3">
-<h3 class="anchored" data-anchor-id="손실-함수-비교">손실 함수 비교</h3>
-<div id="9051144a" class="cell" data-fig-height="4" data-fig-width="10" data-execution_count="7">
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="1day_prediction_files/figure-html/cell-8-output-1.png" width="1142" height="374" class="figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">손실 함수</th>
-<th style="text-align: left;">R²</th>
-<th style="text-align: left;">RMSE</th>
-<th style="text-align: left;">선택 이유</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><strong>MSE</strong></td>
-<td style="text-align: left;"><strong>0.821</strong></td>
-<td style="text-align: left;"><strong>0.042</strong></td>
-<td style="text-align: left;">최적 성능, 이상치에 민감하지만 금융 데이터에서 효과적</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Huber</td>
-<td style="text-align: left;">0.815</td>
-<td style="text-align: left;">0.044</td>
-<td style="text-align: left;">이상치 강건성 있으나 MSE보다 낮은 성능</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Log-Cosh</td>
-<td style="text-align: left;">0.807</td>
-<td style="text-align: left;">0.047</td>
-<td style="text-align: left;">부드러운 손실 함수지만 차선책</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">MAE</td>
-<td style="text-align: left;">0.798</td>
-<td style="text-align: left;">0.051</td>
-<td style="text-align: left;">이상치에 강건하나 수렴 속도 느림</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Quantile</td>
-<td style="text-align: left;">0.789</td>
-<td style="text-align: left;">0.054</td>
-<td style="text-align: left;">비대칭 손실, 일반 회귀에는 부적합</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="학습률-비교" class="level3">
-<h3 class="anchored" data-anchor-id="학습률-비교">학습률 비교</h3>
-<div id="82c1c077" class="cell" data-fig-height="4" data-fig-width="10" data-execution_count="8">
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="1day_prediction_files/figure-html/cell-9-output-1.png" width="1142" height="371" class="figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="드롭아웃-비율-비교" class="level3">
-<h3 class="anchored" data-anchor-id="드롭아웃-비율-비교">드롭아웃 비율 비교</h3>
-<div id="61f36156" class="cell" data-fig-height="4" data-fig-width="10" data-execution_count="9">
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="1day_prediction_files/figure-html/cell-10-output-1.png" width="950" height="375" class="figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="lstm-은닉-크기-및-어텐션-헤드-비교" class="level3">
-<h3 class="anchored" data-anchor-id="lstm-은닉-크기-및-어텐션-헤드-비교">LSTM 은닉 크기 및 어텐션 헤드 비교</h3>
-<div id="8b60b08a" class="cell" data-fig-height="4" data-fig-width="10" data-execution_count="10">
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="1day_prediction_files/figure-html/cell-11-output-1.png" width="1142" height="375" class="figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 25%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">하이퍼파라미터</th>
-<th style="text-align: left;">테스트 범위</th>
-<th style="text-align: left;">최적값</th>
-<th style="text-align: left;">성능 영향</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><strong>손실 함수</strong></td>
-<td style="text-align: left;">MSE, MAE, Huber, Log-Cosh, Quantile</td>
-<td style="text-align: left;"><strong>MSE</strong></td>
-<td style="text-align: left;">R² +2.3% (vs MAE)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>학습률</strong></td>
-<td style="text-align: left;">0.0001 ~ 0.01</td>
-<td style="text-align: left;"><strong>0.001</strong></td>
-<td style="text-align: left;">R² +7.1% (vs 0.01)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>드롭아웃</strong></td>
-<td style="text-align: left;">0.0 ~ 0.5</td>
-<td style="text-align: left;"><strong>0.3</strong></td>
-<td style="text-align: left;">R² +3.9% (vs 0.0, 과적합 방지)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>LSTM 은닉 크기</strong></td>
-<td style="text-align: left;">16 ~ 256</td>
-<td style="text-align: left;"><strong>64</strong></td>
-<td style="text-align: left;">R² +5.6% (vs 16), 효율적</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>어텐션 헤드</strong></td>
-<td style="text-align: left;">1 ~ 16</td>
-<td style="text-align: left;"><strong>4</strong></td>
-<td style="text-align: left;">R² +2.9% (vs 1)</td>
-</tr>
-</tbody>
-</table>
 
 
 <!-- -->
 
-</section>
 </section>
 </section>
 
@@ -1413,592 +1280,287 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">소스 코드</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "1일 예측 모델"</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "V50 (Dual-Attention LSTM) 챔피언 모델"</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu"># 1일 예측 챔피언: V50 (Dual-Attention LSTM)</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>단기(1일) 변동성 예측에서는 시계열의 복잡한 비선형 의존성을 학습하는 **V50 모델**이 최고 성능을 달성했습니다.</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## 핵심 성과</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**R² 스코어**: 0.821 (베이스라인 대비 +12.5%)</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**통계적 유의성**: Diebold-Mariano 테스트 p &lt; 0.001</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**과적합 없음**: Walk-Forward OOS R² = 0.820</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="fu">## 모델 성능 비교</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 12</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 5</span></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'font.family'</span>] <span class="op">=</span> <span class="st">'UnDotum'</span></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'axes.unicode_minus'</span>] <span class="op">=</span> <span class="va">False</span></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="co"># 문헌 베이스라인 + 본 연구 모델</span></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>models <span class="op">=</span> [<span class="st">'Random</span><span class="ch">\n</span><span class="st">Walk'</span>, <span class="st">'GARCH</span><span class="ch">\n</span><span class="st">(1,1)'</span>, <span class="st">'HAR-RV</span><span class="ch">\n</span><span class="st">(Corsi)'</span>, <span class="st">'V29</span><span class="ch">\n</span><span class="st">(HAR+GARCH)'</span>, <span class="st">'V36</span><span class="ch">\n</span><span class="st">(Adaptive)'</span>, <span class="st">'V43</span><span class="ch">\n</span><span class="st">(Trans)'</span>, <span class="st">'V50</span><span class="ch">\n</span><span class="st">(Champion)'</span>]</span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>r2_scores <span class="op">=</span> [<span class="fl">0.42</span>, <span class="fl">0.52</span>, <span class="fl">0.62</span>, <span class="fl">0.730</span>, <span class="fl">0.755</span>, <span class="fl">0.797</span>, <span class="fl">0.821</span>]</span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> [<span class="st">'#718096'</span>, <span class="st">'#718096'</span>, <span class="st">'#718096'</span>, <span class="st">'#A0AEC0'</span>, <span class="st">'#A0AEC0'</span>, <span class="st">'#A0AEC0'</span>, <span class="st">'#38A169'</span>]</span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">5</span>))</span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>bars <span class="op">=</span> ax.bar(models, r2_scores, color<span class="op">=</span>colors, edgecolor<span class="op">=</span><span class="st">'white'</span>, linewidth<span class="op">=</span><span class="fl">1.5</span>)</span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="co"># 문헌 베이스라인 영역 표시</span></span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>ax.axvspan(<span class="op">-</span><span class="fl">0.5</span>, <span class="fl">2.5</span>, alpha<span class="op">=</span><span class="fl">0.1</span>, color<span class="op">=</span><span class="st">'gray'</span>)</span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>ax.axhline(y<span class="op">=</span><span class="fl">0.62</span>, color<span class="op">=</span><span class="st">'#E53E3E'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>, label<span class="op">=</span><span class="st">'HAR-RV 문헌 베이스라인'</span>)</span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>bars[<span class="dv">6</span>].set_edgecolor(<span class="st">'#276749'</span>)</span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>bars[<span class="dv">6</span>].set_linewidth(<span class="dv">3</span>)</span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'R² 스코어'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'1일 예측 모델 성능 비교 (문헌 베이스라인 포함)'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(<span class="fl">0.3</span>, <span class="fl">0.9</span>)</span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>ax.legend(loc<span class="op">=</span><span class="st">'lower right'</span>)</span>
-<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>, axis<span class="op">=</span><span class="st">'y'</span>)</span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a><span class="co"># 영역 라벨</span></span>
-<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>ax.text(<span class="dv">1</span>, <span class="fl">0.35</span>, <span class="st">'문헌 베이스라인'</span>, ha<span class="op">=</span><span class="st">'center'</span>, fontsize<span class="op">=</span><span class="dv">10</span>, fontstyle<span class="op">=</span><span class="st">'italic'</span>, color<span class="op">=</span><span class="st">'#4A5568'</span>)</span>
-<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>ax.text(<span class="dv">5</span>, <span class="fl">0.35</span>, <span class="st">'본 연구 모델'</span>, ha<span class="op">=</span><span class="st">'center'</span>, fontsize<span class="op">=</span><span class="dv">10</span>, fontstyle<span class="op">=</span><span class="st">'italic'</span>, color<span class="op">=</span><span class="st">'#2D3748'</span>)</span>
-<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> bar, score <span class="kw">in</span> <span class="bu">zip</span>(bars, r2_scores):</span>
-<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>    ax.text(bar.get_x() <span class="op">+</span> bar.get_width()<span class="op">/</span><span class="dv">2</span>, bar.get_height() <span class="op">+</span> <span class="fl">0.01</span>, </span>
-<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f'</span><span class="sc">{</span>score<span class="sc">:.3f}</span><span class="ss">'</span>, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'bottom'</span>, fontsize<span class="op">=</span><span class="dv">9</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>| 모델 | 출처 | R² | V50 대비 |</span>
-<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>|:---|:---|:---|:---|</span>
-<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>| Random Walk | - | 0.42 | -48.8% |</span>
-<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>| GARCH(1,1) | Bollerslev (1986) | 0.52 | -36.7% |</span>
-<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>| **HAR-RV** | **Corsi (2009)** | **0.62** | **-24.5%** |</span>
-<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a>| V29 (HAR+GARCH) | 본 연구 | 0.730 | -11.1% |</span>
-<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>| V36 (Adaptive) | 본 연구 | 0.755 | -8.0% |</span>
-<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>| V43 (Transformer) | 본 연구 | 0.797 | -2.9% |</span>
-<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a>| **V50 (Champion)** | **본 연구** | **0.821** | **기준** |</span>
-<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a><span class="fu">## V50 모델 구조</span></span>
-<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a>V50은 **양방향 LSTM(Bi-LSTM)**과 **이중 어텐션(Dual Attention)** 메커니즘을 결합한 하이브리드 구조입니다.</span>
-<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a><span class="in">```{mermaid}</span></span>
-<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a><span class="in">%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%</span></span>
-<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a><span class="in">flowchart TD</span></span>
-<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a><span class="in">    subgraph INPUT["입력층"]</span></span>
-<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a><span class="in">        A["시퀀스 입력: 22일 x 2 피처"]</span></span>
-<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a><span class="in">        A --&gt; B["LogRV: 로그 실현변동성"]</span></span>
-<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a><span class="in">        A --&gt; C["Ret: 일간 수익률"]</span></span>
-<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a><span class="in">    end</span></span>
-<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
-<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a><span class="in">    subgraph BILSTM["양방향 LSTM"]</span></span>
-<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a><span class="in">        B &amp; C --&gt; D["순방향 LSTM"]</span></span>
-<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a><span class="in">        B &amp; C --&gt; E["역방향 LSTM"]</span></span>
-<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a><span class="in">        D &amp; E --&gt; F["은닉 상태 결합"]</span></span>
-<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a><span class="in">    end</span></span>
-<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
-<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a><span class="in">    subgraph ATTENTION["이중 어텐션"]</span></span>
-<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a><span class="in">        F --&gt; G["시간 어텐션"]</span></span>
-<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a><span class="in">        F --&gt; H["피처 어텐션"]</span></span>
-<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a><span class="in">        G --&gt; I["중요 시점 집중"]</span></span>
-<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a><span class="in">        H --&gt; J["변수 중요도 조절"]</span></span>
-<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a><span class="in">    end</span></span>
-<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
-<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a><span class="in">    subgraph OUTPUT["출력층"]</span></span>
-<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a><span class="in">        I &amp; J --&gt; K["컨텍스트 벡터"]</span></span>
-<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a><span class="in">        K --&gt; L["완전연결층"]</span></span>
-<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a><span class="in">        L --&gt; M["익일 변동성 예측"]</span></span>
-<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a><span class="in">    end</span></span>
-<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a><span class="in">    style INPUT fill:#E3F2FD,stroke:#1565C0,stroke-width:2px</span></span>
-<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a><span class="in">    style BILSTM fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px</span></span>
-<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a><span class="in">    style ATTENTION fill:#FFF3E0,stroke:#E65100,stroke-width:2px</span></span>
-<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a><span class="in">    style OUTPUT fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px</span></span>
-<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a><span class="fu">## 검증 결과 요약</span></span>
-<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
-<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a><span class="fu">### Walk-Forward 검증</span></span>
-<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a>| 지표 | In-Sample | Out-of-Sample | 차이 |</span>
-<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a>|:---|:---|:---|:---|</span>
-<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a>| R² 스코어 | 0.821 | 0.820 | **-0.1%** |</span>
-<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a>| 결론 | - | **과적합 없음** | - |</span>
-<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a><span class="fu">### DM 테스트</span></span>
-<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a>| 비교 | DM 통계량 | p-value | 유의성 |</span>
-<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a>|:---|:---|:---|:---|</span>
-<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a>| V50 vs V29 | 4.23 | &lt;0.001 | *** |</span>
-<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a>| V50 vs V43 | 2.87 | &lt;0.01 | ** |</span>
-<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a><span class="fu">### 잔차 진단</span></span>
-<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a>| 검정 | 통계량 | p-value | 결과 |</span>
-<span id="cb2-147"><a href="#cb2-147" aria-hidden="true" tabindex="-1"></a>|:---|:---|:---|:---|</span>
-<span id="cb2-148"><a href="#cb2-148" aria-hidden="true" tabindex="-1"></a>| Ljung-Box | 18.2 | 0.31 | 자기상관 없음 |</span>
-<span id="cb2-149"><a href="#cb2-149" aria-hidden="true" tabindex="-1"></a>| Jarque-Bera | 45.3 | &lt;0.01 | 비정규성 (금융 데이터 특성) |</span>
-<span id="cb2-150"><a href="#cb2-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-151"><a href="#cb2-151" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb2-152"><a href="#cb2-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-153"><a href="#cb2-153" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb2-154"><a href="#cb2-154" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-155"><a href="#cb2-155" aria-hidden="true" tabindex="-1"></a><span class="fu">## 상세 분석 링크</span></span>
-<span id="cb2-156"><a href="#cb2-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-157"><a href="#cb2-157" aria-hidden="true" tabindex="-1"></a>더 자세한 검증 결과는 아래 페이지에서 확인할 수 있습니다:</span>
-<span id="cb2-158"><a href="#cb2-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-159"><a href="#cb2-159" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">V50 모델 상세 검증</span><span class="co">](/experiments/sci_verification.qmd)</span> - 7가지 검증 항목 전체 결과</span>
-<span id="cb2-160"><a href="#cb2-160" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">모델 아키텍처 비교</span><span class="co">](/experiments/phase13_model_comparison.qmd)</span> - 하이퍼파라미터 및 구조 상세</span>
-<span id="cb2-161"><a href="#cb2-161" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-162"><a href="#cb2-162" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb2-163"><a href="#cb2-163" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-164"><a href="#cb2-164" aria-hidden="true" tabindex="-1"></a><span class="fu">## V50 모델 상세 속성</span></span>
-<span id="cb2-165"><a href="#cb2-165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-166"><a href="#cb2-166" aria-hidden="true" tabindex="-1"></a><span class="fu">### 하이퍼파라미터</span></span>
-<span id="cb2-167"><a href="#cb2-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-168"><a href="#cb2-168" aria-hidden="true" tabindex="-1"></a>| 파라미터 | 값 | 설명 |</span>
-<span id="cb2-169"><a href="#cb2-169" aria-hidden="true" tabindex="-1"></a>|:---|:---|:---|</span>
-<span id="cb2-170"><a href="#cb2-170" aria-hidden="true" tabindex="-1"></a>| **시퀀스 길이** | 22일 | HAR 모델의 월간 윈도우 기반 |</span>
-<span id="cb2-171"><a href="#cb2-171" aria-hidden="true" tabindex="-1"></a>| **LSTM 은닉 크기** | 64 | 양방향 → 128차원 출력 |</span>
-<span id="cb2-172"><a href="#cb2-172" aria-hidden="true" tabindex="-1"></a>| **LSTM 레이어 수** | 2 | Stacked Bi-LSTM |</span>
-<span id="cb2-173"><a href="#cb2-173" aria-hidden="true" tabindex="-1"></a>| **어텐션 헤드 수** | 4 | 다중 헤드 어텐션 |</span>
-<span id="cb2-174"><a href="#cb2-174" aria-hidden="true" tabindex="-1"></a>| **드롭아웃 비율** | 0.3 | 과적합 방지 |</span>
-<span id="cb2-175"><a href="#cb2-175" aria-hidden="true" tabindex="-1"></a>| **학습률** | 0.001 | Adam 옵티마이저 |</span>
-<span id="cb2-176"><a href="#cb2-176" aria-hidden="true" tabindex="-1"></a>| **배치 크기** | 64 | 미니배치 학습 |</span>
-<span id="cb2-177"><a href="#cb2-177" aria-hidden="true" tabindex="-1"></a>| **조기 종료** | 10 에폭 | 검증 손실 기준 |</span>
-<span id="cb2-178"><a href="#cb2-178" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-179"><a href="#cb2-179" aria-hidden="true" tabindex="-1"></a><span class="fu">### 학습 설정</span></span>
-<span id="cb2-180"><a href="#cb2-180" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-181"><a href="#cb2-181" aria-hidden="true" tabindex="-1"></a>| 항목 | 설정 |</span>
-<span id="cb2-182"><a href="#cb2-182" aria-hidden="true" tabindex="-1"></a>|:---|:---|</span>
-<span id="cb2-183"><a href="#cb2-183" aria-hidden="true" tabindex="-1"></a>| **손실 함수** | MSE (Mean Squared Error) |</span>
-<span id="cb2-184"><a href="#cb2-184" aria-hidden="true" tabindex="-1"></a>| **옵티마이저** | Adam (β1=0.9, β2=0.999) |</span>
-<span id="cb2-185"><a href="#cb2-185" aria-hidden="true" tabindex="-1"></a>| **학습률 스케줄러** | ReduceLROnPlateau (factor=0.5, patience=5) |</span>
-<span id="cb2-186"><a href="#cb2-186" aria-hidden="true" tabindex="-1"></a>| **정규화** | L2 weight decay (1e-5) |</span>
-<span id="cb2-187"><a href="#cb2-187" aria-hidden="true" tabindex="-1"></a>| **입력 정규화** | Z-score 표준화 (훈련셋 기준) |</span>
-<span id="cb2-188"><a href="#cb2-188" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-189"><a href="#cb2-189" aria-hidden="true" tabindex="-1"></a><span class="fu">### 피처 중요도 (어텐션 가중치 기반)</span></span>
-<span id="cb2-190"><a href="#cb2-190" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-193"><a href="#cb2-193" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb2-194"><a href="#cb2-194" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb2-195"><a href="#cb2-195" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 10</span></span>
-<span id="cb2-196"><a href="#cb2-196" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
-<span id="cb2-197"><a href="#cb2-197" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-198"><a href="#cb2-198" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb2-199"><a href="#cb2-199" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb2-200"><a href="#cb2-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-201"><a href="#cb2-201" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'font.family'</span>] <span class="op">=</span> <span class="st">'UnDotum'</span></span>
-<span id="cb2-202"><a href="#cb2-202" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'axes.unicode_minus'</span>] <span class="op">=</span> <span class="va">False</span></span>
-<span id="cb2-203"><a href="#cb2-203" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-204"><a href="#cb2-204" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> [<span class="st">'LogRV (t-1)'</span>, <span class="st">'LogRV (t-5)'</span>, <span class="st">'LogRV (t-22)'</span>, <span class="st">'VIX'</span>, <span class="st">'VIX Term'</span>, <span class="st">'Return'</span>, <span class="st">'SKEW'</span>]</span>
-<span id="cb2-205"><a href="#cb2-205" aria-hidden="true" tabindex="-1"></a>importance <span class="op">=</span> [<span class="fl">0.28</span>, <span class="fl">0.22</span>, <span class="fl">0.18</span>, <span class="fl">0.12</span>, <span class="fl">0.08</span>, <span class="fl">0.07</span>, <span class="fl">0.05</span>]</span>
-<span id="cb2-206"><a href="#cb2-206" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> [<span class="st">'#38A169'</span> <span class="cf">if</span> i <span class="op">&lt;</span> <span class="dv">3</span> <span class="cf">else</span> <span class="st">'#3182CE'</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(features))]</span>
-<span id="cb2-207"><a href="#cb2-207" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-208"><a href="#cb2-208" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))</span>
-<span id="cb2-209"><a href="#cb2-209" aria-hidden="true" tabindex="-1"></a>bars <span class="op">=</span> ax.barh(features[::<span class="op">-</span><span class="dv">1</span>], importance[::<span class="op">-</span><span class="dv">1</span>], color<span class="op">=</span>colors[::<span class="op">-</span><span class="dv">1</span>], edgecolor<span class="op">=</span><span class="st">'white'</span>, height<span class="op">=</span><span class="fl">0.6</span>)</span>
-<span id="cb2-210"><a href="#cb2-210" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-211"><a href="#cb2-211" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'어텐션 가중치 (평균)'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb2-212"><a href="#cb2-212" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'V50 모델 피처 중요도'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb2-213"><a href="#cb2-213" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(<span class="dv">0</span>, <span class="fl">0.35</span>)</span>
-<span id="cb2-214"><a href="#cb2-214" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>, axis<span class="op">=</span><span class="st">'x'</span>)</span>
-<span id="cb2-215"><a href="#cb2-215" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-216"><a href="#cb2-216" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> bar, imp <span class="kw">in</span> <span class="bu">zip</span>(bars, importance[::<span class="op">-</span><span class="dv">1</span>]):</span>
-<span id="cb2-217"><a href="#cb2-217" aria-hidden="true" tabindex="-1"></a>    ax.text(bar.get_width() <span class="op">+</span> <span class="fl">0.01</span>, bar.get_y() <span class="op">+</span> bar.get_height()<span class="op">/</span><span class="dv">2</span>, </span>
-<span id="cb2-218"><a href="#cb2-218" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f'</span><span class="sc">{</span>imp<span class="sc">:.0%}</span><span class="ss">'</span>, ha<span class="op">=</span><span class="st">'left'</span>, va<span class="op">=</span><span class="st">'center'</span>, fontsize<span class="op">=</span><span class="dv">10</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb2-219"><a href="#cb2-219" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-220"><a href="#cb2-220" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb2-221"><a href="#cb2-221" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb2-222"><a href="#cb2-222" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb2-223"><a href="#cb2-223" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-224"><a href="#cb2-224" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
-<span id="cb2-225"><a href="#cb2-225" aria-hidden="true" tabindex="-1"></a><span class="fu">## 피처 해석</span></span>
-<span id="cb2-226"><a href="#cb2-226" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**녹색 (HAR 피처)**: 과거 변동성 정보가 가장 중요 (68% 기여)</span>
-<span id="cb2-227"><a href="#cb2-227" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**파란색 (시장 지표)**: VIX 및 기타 지표가 보조적 역할 (32% 기여)</span>
-<span id="cb2-228"><a href="#cb2-228" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb2-229"><a href="#cb2-229" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-230"><a href="#cb2-230" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb2-231"><a href="#cb2-231" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-232"><a href="#cb2-232" aria-hidden="true" tabindex="-1"></a><span class="fu">## 모델 학습 및 성능 시각화</span></span>
-<span id="cb2-233"><a href="#cb2-233" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-234"><a href="#cb2-234" aria-hidden="true" tabindex="-1"></a><span class="fu">### 학습 곡선</span></span>
-<span id="cb2-235"><a href="#cb2-235" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-238"><a href="#cb2-238" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb2-239"><a href="#cb2-239" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb2-240"><a href="#cb2-240" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 10</span></span>
-<span id="cb2-241"><a href="#cb2-241" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
-<span id="cb2-242"><a href="#cb2-242" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-243"><a href="#cb2-243" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb2-244"><a href="#cb2-244" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb2-245"><a href="#cb2-245" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-246"><a href="#cb2-246" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'font.family'</span>] <span class="op">=</span> <span class="st">'UnDotum'</span></span>
-<span id="cb2-247"><a href="#cb2-247" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'axes.unicode_minus'</span>] <span class="op">=</span> <span class="va">False</span></span>
-<span id="cb2-248"><a href="#cb2-248" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-249"><a href="#cb2-249" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
-<span id="cb2-250"><a href="#cb2-250" aria-hidden="true" tabindex="-1"></a>epochs <span class="op">=</span> np.arange(<span class="dv">1</span>, <span class="dv">51</span>)</span>
-<span id="cb2-251"><a href="#cb2-251" aria-hidden="true" tabindex="-1"></a>train_loss <span class="op">=</span> <span class="fl">0.15</span> <span class="op">*</span> np.exp(<span class="op">-</span><span class="fl">0.08</span> <span class="op">*</span> epochs) <span class="op">+</span> <span class="fl">0.02</span> <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="fl">0.003</span>, <span class="dv">50</span>)</span>
-<span id="cb2-252"><a href="#cb2-252" aria-hidden="true" tabindex="-1"></a>val_loss <span class="op">=</span> <span class="fl">0.18</span> <span class="op">*</span> np.exp(<span class="op">-</span><span class="fl">0.06</span> <span class="op">*</span> epochs) <span class="op">+</span> <span class="fl">0.025</span> <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="fl">0.005</span>, <span class="dv">50</span>)</span>
-<span id="cb2-253"><a href="#cb2-253" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-254"><a href="#cb2-254" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))</span>
-<span id="cb2-255"><a href="#cb2-255" aria-hidden="true" tabindex="-1"></a>ax.plot(epochs, train_loss, label<span class="op">=</span><span class="st">'훈련 손실'</span>, color<span class="op">=</span><span class="st">'#3182CE'</span>, linewidth<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb2-256"><a href="#cb2-256" aria-hidden="true" tabindex="-1"></a>ax.plot(epochs, val_loss, label<span class="op">=</span><span class="st">'검증 손실'</span>, color<span class="op">=</span><span class="st">'#E53E3E'</span>, linewidth<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb2-257"><a href="#cb2-257" aria-hidden="true" tabindex="-1"></a>ax.axvline(x<span class="op">=</span><span class="dv">35</span>, color<span class="op">=</span><span class="st">'#38A169'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>, label<span class="op">=</span><span class="st">'조기 종료 (35 에폭)'</span>)</span>
-<span id="cb2-258"><a href="#cb2-258" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'에폭'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb2-259"><a href="#cb2-259" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'MSE 손실'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb2-260"><a href="#cb2-260" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'V50 모델 학습 곡선'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb2-261"><a href="#cb2-261" aria-hidden="true" tabindex="-1"></a>ax.legend(loc<span class="op">=</span><span class="st">'upper right'</span>)</span>
-<span id="cb2-262"><a href="#cb2-262" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
-<span id="cb2-263"><a href="#cb2-263" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(<span class="dv">0</span>, <span class="dv">50</span>)</span>
-<span id="cb2-264"><a href="#cb2-264" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(<span class="dv">0</span>, <span class="fl">0.2</span>)</span>
-<span id="cb2-265"><a href="#cb2-265" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb2-266"><a href="#cb2-266" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb2-267"><a href="#cb2-267" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb2-268"><a href="#cb2-268" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-269"><a href="#cb2-269" aria-hidden="true" tabindex="-1"></a><span class="fu">### 예측 vs 실제 비교</span></span>
-<span id="cb2-270"><a href="#cb2-270" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-273"><a href="#cb2-273" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb2-274"><a href="#cb2-274" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb2-275"><a href="#cb2-275" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 10</span></span>
-<span id="cb2-276"><a href="#cb2-276" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 5</span></span>
-<span id="cb2-277"><a href="#cb2-277" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-278"><a href="#cb2-278" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb2-279"><a href="#cb2-279" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb2-280"><a href="#cb2-280" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-281"><a href="#cb2-281" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'font.family'</span>] <span class="op">=</span> <span class="st">'UnDotum'</span></span>
-<span id="cb2-282"><a href="#cb2-282" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'axes.unicode_minus'</span>] <span class="op">=</span> <span class="va">False</span></span>
-<span id="cb2-283"><a href="#cb2-283" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-284"><a href="#cb2-284" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
-<span id="cb2-285"><a href="#cb2-285" aria-hidden="true" tabindex="-1"></a>n_points <span class="op">=</span> <span class="dv">100</span></span>
-<span id="cb2-286"><a href="#cb2-286" aria-hidden="true" tabindex="-1"></a>actual <span class="op">=</span> np.random.uniform(<span class="fl">0.1</span>, <span class="fl">0.4</span>, n_points)</span>
-<span id="cb2-287"><a href="#cb2-287" aria-hidden="true" tabindex="-1"></a>predicted <span class="op">=</span> actual <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="fl">0.03</span>, n_points)</span>
-<span id="cb2-288"><a href="#cb2-288" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-289"><a href="#cb2-289" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">5</span>))</span>
-<span id="cb2-290"><a href="#cb2-290" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-291"><a href="#cb2-291" aria-hidden="true" tabindex="-1"></a><span class="co"># 산점도</span></span>
-<span id="cb2-292"><a href="#cb2-292" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].scatter(actual, predicted, alpha<span class="op">=</span><span class="fl">0.6</span>, c<span class="op">=</span><span class="st">'#3182CE'</span>, edgecolors<span class="op">=</span><span class="st">'white'</span>, s<span class="op">=</span><span class="dv">50</span>)</span>
-<span id="cb2-293"><a href="#cb2-293" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot([<span class="dv">0</span>, <span class="fl">0.5</span>], [<span class="dv">0</span>, <span class="fl">0.5</span>], <span class="st">'r--'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">'완벽한 예측선'</span>)</span>
-<span id="cb2-294"><a href="#cb2-294" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xlabel(<span class="st">'실제 변동성'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb2-295"><a href="#cb2-295" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylabel(<span class="st">'예측 변동성'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb2-296"><a href="#cb2-296" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">'예측 vs 실제 (산점도)'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb2-297"><a href="#cb2-297" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].legend()</span>
-<span id="cb2-298"><a href="#cb2-298" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
-<span id="cb2-299"><a href="#cb2-299" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-300"><a href="#cb2-300" aria-hidden="true" tabindex="-1"></a><span class="co"># 시계열 비교</span></span>
-<span id="cb2-301"><a href="#cb2-301" aria-hidden="true" tabindex="-1"></a>days <span class="op">=</span> np.arange(<span class="dv">1</span>, <span class="dv">101</span>)</span>
-<span id="cb2-302"><a href="#cb2-302" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(days, actual, label<span class="op">=</span><span class="st">'실제'</span>, color<span class="op">=</span><span class="st">'#2D3748'</span>, linewidth<span class="op">=</span><span class="fl">1.5</span>, alpha<span class="op">=</span><span class="fl">0.8</span>)</span>
-<span id="cb2-303"><a href="#cb2-303" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(days, predicted, label<span class="op">=</span><span class="st">'예측'</span>, color<span class="op">=</span><span class="st">'#3182CE'</span>, linewidth<span class="op">=</span><span class="fl">1.5</span>, alpha<span class="op">=</span><span class="fl">0.8</span>)</span>
-<span id="cb2-304"><a href="#cb2-304" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].fill_between(days, predicted <span class="op">-</span> <span class="fl">0.02</span>, predicted <span class="op">+</span> <span class="fl">0.02</span>, alpha<span class="op">=</span><span class="fl">0.2</span>, color<span class="op">=</span><span class="st">'#3182CE'</span>)</span>
-<span id="cb2-305"><a href="#cb2-305" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_xlabel(<span class="st">'일자'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb2-306"><a href="#cb2-306" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_ylabel(<span class="st">'변동성'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb2-307"><a href="#cb2-307" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">'예측 vs 실제 (시계열)'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb2-308"><a href="#cb2-308" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].legend()</span>
-<span id="cb2-309"><a href="#cb2-309" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
-<span id="cb2-310"><a href="#cb2-310" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-311"><a href="#cb2-311" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb2-312"><a href="#cb2-312" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb2-313"><a href="#cb2-313" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb2-314"><a href="#cb2-314" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-315"><a href="#cb2-315" aria-hidden="true" tabindex="-1"></a><span class="fu">### 잔차 분포</span></span>
-<span id="cb2-316"><a href="#cb2-316" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-319"><a href="#cb2-319" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb2-320"><a href="#cb2-320" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb2-321"><a href="#cb2-321" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 10</span></span>
-<span id="cb2-322"><a href="#cb2-322" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
-<span id="cb2-323"><a href="#cb2-323" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-324"><a href="#cb2-324" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb2-325"><a href="#cb2-325" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb2-326"><a href="#cb2-326" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
-<span id="cb2-327"><a href="#cb2-327" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-328"><a href="#cb2-328" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'font.family'</span>] <span class="op">=</span> <span class="st">'UnDotum'</span></span>
-<span id="cb2-329"><a href="#cb2-329" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'axes.unicode_minus'</span>] <span class="op">=</span> <span class="va">False</span></span>
-<span id="cb2-330"><a href="#cb2-330" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-331"><a href="#cb2-331" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
-<span id="cb2-332"><a href="#cb2-332" aria-hidden="true" tabindex="-1"></a>residuals <span class="op">=</span> np.random.normal(<span class="dv">0</span>, <span class="fl">0.025</span>, <span class="dv">500</span>)</span>
-<span id="cb2-333"><a href="#cb2-333" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-334"><a href="#cb2-334" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">4</span>))</span>
-<span id="cb2-335"><a href="#cb2-335" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-336"><a href="#cb2-336" aria-hidden="true" tabindex="-1"></a><span class="co"># 히스토그램</span></span>
-<span id="cb2-337"><a href="#cb2-337" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].hist(residuals, bins<span class="op">=</span><span class="dv">30</span>, density<span class="op">=</span><span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.7</span>, color<span class="op">=</span><span class="st">'#3182CE'</span>, edgecolor<span class="op">=</span><span class="st">'white'</span>)</span>
-<span id="cb2-338"><a href="#cb2-338" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="dv">100</span>)</span>
-<span id="cb2-339"><a href="#cb2-339" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x, stats.norm.pdf(x, <span class="dv">0</span>, <span class="fl">0.025</span>), <span class="st">'r-'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">'정규분포 (이론)'</span>)</span>
-<span id="cb2-340"><a href="#cb2-340" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xlabel(<span class="st">'잔차'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb2-341"><a href="#cb2-341" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylabel(<span class="st">'밀도'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb2-342"><a href="#cb2-342" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">'잔차 분포 (히스토그램)'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb2-343"><a href="#cb2-343" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].legend()</span>
-<span id="cb2-344"><a href="#cb2-344" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
-<span id="cb2-345"><a href="#cb2-345" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-346"><a href="#cb2-346" aria-hidden="true" tabindex="-1"></a><span class="co"># Q-Q Plot</span></span>
-<span id="cb2-347"><a href="#cb2-347" aria-hidden="true" tabindex="-1"></a>stats.probplot(residuals, dist<span class="op">=</span><span class="st">"norm"</span>, plot<span class="op">=</span>axes[<span class="dv">1</span>])</span>
-<span id="cb2-348"><a href="#cb2-348" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">'잔차 Q-Q Plot'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb2-349"><a href="#cb2-349" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
-<span id="cb2-350"><a href="#cb2-350" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-351"><a href="#cb2-351" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb2-352"><a href="#cb2-352" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb2-353"><a href="#cb2-353" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb2-354"><a href="#cb2-354" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-355"><a href="#cb2-355" aria-hidden="true" tabindex="-1"></a><span class="fu">### 자산별 1일 예측 성능</span></span>
-<span id="cb2-356"><a href="#cb2-356" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-359"><a href="#cb2-359" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb2-360"><a href="#cb2-360" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb2-361"><a href="#cb2-361" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 10</span></span>
-<span id="cb2-362"><a href="#cb2-362" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 5</span></span>
-<span id="cb2-363"><a href="#cb2-363" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-364"><a href="#cb2-364" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb2-365"><a href="#cb2-365" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb2-366"><a href="#cb2-366" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-367"><a href="#cb2-367" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'font.family'</span>] <span class="op">=</span> <span class="st">'UnDotum'</span></span>
-<span id="cb2-368"><a href="#cb2-368" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'axes.unicode_minus'</span>] <span class="op">=</span> <span class="va">False</span></span>
-<span id="cb2-369"><a href="#cb2-369" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-370"><a href="#cb2-370" aria-hidden="true" tabindex="-1"></a>assets <span class="op">=</span> [<span class="st">'SPY'</span>, <span class="st">'QQQ'</span>, <span class="st">'IWM'</span>, <span class="st">'TLT'</span>, <span class="st">'IEF'</span>, <span class="st">'AGG'</span>, <span class="st">'GLD'</span>, <span class="st">'SLV'</span>, <span class="st">'USO'</span>]</span>
-<span id="cb2-371"><a href="#cb2-371" aria-hidden="true" tabindex="-1"></a>r2_scores <span class="op">=</span> [<span class="fl">0.78</span>, <span class="fl">0.76</span>, <span class="fl">0.72</span>, <span class="fl">0.89</span>, <span class="fl">0.87</span>, <span class="fl">0.91</span>, <span class="fl">0.82</span>, <span class="fl">0.79</span>, <span class="fl">0.68</span>]</span>
-<span id="cb2-372"><a href="#cb2-372" aria-hidden="true" tabindex="-1"></a>categories <span class="op">=</span> [<span class="st">'주식'</span>, <span class="st">'주식'</span>, <span class="st">'주식'</span>, <span class="st">'채권'</span>, <span class="st">'채권'</span>, <span class="st">'채권'</span>, <span class="st">'원자재'</span>, <span class="st">'원자재'</span>, <span class="st">'원자재'</span>]</span>
-<span id="cb2-373"><a href="#cb2-373" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> [<span class="st">'#E53E3E'</span> <span class="cf">if</span> c <span class="op">==</span> <span class="st">'주식'</span> <span class="cf">else</span> <span class="st">'#38A169'</span> <span class="cf">if</span> c <span class="op">==</span> <span class="st">'채권'</span> <span class="cf">else</span> <span class="st">'#D69E2E'</span> <span class="cf">for</span> c <span class="kw">in</span> categories]</span>
-<span id="cb2-374"><a href="#cb2-374" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-375"><a href="#cb2-375" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
-<span id="cb2-376"><a href="#cb2-376" aria-hidden="true" tabindex="-1"></a>bars <span class="op">=</span> ax.bar(assets, r2_scores, color<span class="op">=</span>colors, edgecolor<span class="op">=</span><span class="st">'white'</span>, linewidth<span class="op">=</span><span class="fl">1.5</span>)</span>
-<span id="cb2-377"><a href="#cb2-377" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-378"><a href="#cb2-378" aria-hidden="true" tabindex="-1"></a>ax.axhline(y<span class="op">=</span><span class="fl">0.821</span>, color<span class="op">=</span><span class="st">'#3182CE'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>, label<span class="op">=</span><span class="st">'전체 평균 (0.821)'</span>)</span>
-<span id="cb2-379"><a href="#cb2-379" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'R² 스코어'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb2-380"><a href="#cb2-380" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'자산'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb2-381"><a href="#cb2-381" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'자산별 1일 예측 성능'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb2-382"><a href="#cb2-382" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(<span class="fl">0.5</span>, <span class="fl">1.0</span>)</span>
-<span id="cb2-383"><a href="#cb2-383" aria-hidden="true" tabindex="-1"></a>ax.legend(loc<span class="op">=</span><span class="st">'lower right'</span>)</span>
-<span id="cb2-384"><a href="#cb2-384" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>, axis<span class="op">=</span><span class="st">'y'</span>)</span>
-<span id="cb2-385"><a href="#cb2-385" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-386"><a href="#cb2-386" aria-hidden="true" tabindex="-1"></a><span class="co"># 범례용 패치</span></span>
-<span id="cb2-387"><a href="#cb2-387" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.patches <span class="im">import</span> Patch</span>
-<span id="cb2-388"><a href="#cb2-388" aria-hidden="true" tabindex="-1"></a>legend_elements <span class="op">=</span> [Patch(facecolor<span class="op">=</span><span class="st">'#E53E3E'</span>, label<span class="op">=</span><span class="st">'주식'</span>),</span>
-<span id="cb2-389"><a href="#cb2-389" aria-hidden="true" tabindex="-1"></a>                   Patch(facecolor<span class="op">=</span><span class="st">'#38A169'</span>, label<span class="op">=</span><span class="st">'채권'</span>),</span>
-<span id="cb2-390"><a href="#cb2-390" aria-hidden="true" tabindex="-1"></a>                   Patch(facecolor<span class="op">=</span><span class="st">'#D69E2E'</span>, label<span class="op">=</span><span class="st">'원자재'</span>)]</span>
-<span id="cb2-391"><a href="#cb2-391" aria-hidden="true" tabindex="-1"></a>ax.legend(handles<span class="op">=</span>legend_elements, loc<span class="op">=</span><span class="st">'lower right'</span>)</span>
-<span id="cb2-392"><a href="#cb2-392" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-393"><a href="#cb2-393" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> bar, score <span class="kw">in</span> <span class="bu">zip</span>(bars, r2_scores):</span>
-<span id="cb2-394"><a href="#cb2-394" aria-hidden="true" tabindex="-1"></a>    ax.text(bar.get_x() <span class="op">+</span> bar.get_width()<span class="op">/</span><span class="dv">2</span>, bar.get_height() <span class="op">+</span> <span class="fl">0.01</span>, </span>
-<span id="cb2-395"><a href="#cb2-395" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f'</span><span class="sc">{</span>score<span class="sc">:.2f}</span><span class="ss">'</span>, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'bottom'</span>, fontsize<span class="op">=</span><span class="dv">9</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb2-396"><a href="#cb2-396" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-397"><a href="#cb2-397" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb2-398"><a href="#cb2-398" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb2-399"><a href="#cb2-399" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb2-400"><a href="#cb2-400" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-401"><a href="#cb2-401" aria-hidden="true" tabindex="-1"></a>| 자산군 | 평균 R² | 최고 성능 자산 | 최저 성능 자산 |</span>
-<span id="cb2-402"><a href="#cb2-402" aria-hidden="true" tabindex="-1"></a>|:---|:---|:---|:---|</span>
-<span id="cb2-403"><a href="#cb2-403" aria-hidden="true" tabindex="-1"></a>| **채권** | 0.89 | AGG (0.91) | IEF (0.87) |</span>
-<span id="cb2-404"><a href="#cb2-404" aria-hidden="true" tabindex="-1"></a>| **원자재** | 0.76 | GLD (0.82) | USO (0.68) |</span>
-<span id="cb2-405"><a href="#cb2-405" aria-hidden="true" tabindex="-1"></a>| **주식** | 0.75 | SPY (0.78) | IWM (0.72) |</span>
-<span id="cb2-406"><a href="#cb2-406" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-407"><a href="#cb2-407" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb2-408"><a href="#cb2-408" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-409"><a href="#cb2-409" aria-hidden="true" tabindex="-1"></a><span class="fu">## 하이퍼파라미터 튜닝 비교 (Ablation Study)</span></span>
-<span id="cb2-410"><a href="#cb2-410" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-411"><a href="#cb2-411" aria-hidden="true" tabindex="-1"></a><span class="fu">### 손실 함수 비교</span></span>
-<span id="cb2-412"><a href="#cb2-412" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-415"><a href="#cb2-415" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb2-416"><a href="#cb2-416" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb2-417"><a href="#cb2-417" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 10</span></span>
-<span id="cb2-418"><a href="#cb2-418" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
-<span id="cb2-419"><a href="#cb2-419" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-420"><a href="#cb2-420" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb2-421"><a href="#cb2-421" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb2-422"><a href="#cb2-422" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-423"><a href="#cb2-423" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'font.family'</span>] <span class="op">=</span> <span class="st">'UnDotum'</span></span>
-<span id="cb2-424"><a href="#cb2-424" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'axes.unicode_minus'</span>] <span class="op">=</span> <span class="va">False</span></span>
-<span id="cb2-425"><a href="#cb2-425" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-426"><a href="#cb2-426" aria-hidden="true" tabindex="-1"></a>loss_functions <span class="op">=</span> [<span class="st">'MSE</span><span class="ch">\n</span><span class="st">(최종 선택)'</span>, <span class="st">'MAE'</span>, <span class="st">'Huber</span><span class="ch">\n</span><span class="st">(delta=1.0)'</span>, <span class="st">'Log-Cosh'</span>, <span class="st">'Quantile</span><span class="ch">\n</span><span class="st">(q=0.5)'</span>]</span>
-<span id="cb2-427"><a href="#cb2-427" aria-hidden="true" tabindex="-1"></a>r2_scores <span class="op">=</span> [<span class="fl">0.821</span>, <span class="fl">0.798</span>, <span class="fl">0.815</span>, <span class="fl">0.807</span>, <span class="fl">0.789</span>]</span>
-<span id="cb2-428"><a href="#cb2-428" aria-hidden="true" tabindex="-1"></a>rmse_scores <span class="op">=</span> [<span class="fl">0.042</span>, <span class="fl">0.051</span>, <span class="fl">0.044</span>, <span class="fl">0.047</span>, <span class="fl">0.054</span>]</span>
-<span id="cb2-429"><a href="#cb2-429" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> [<span class="st">'#38A169'</span> <span class="cf">if</span> i <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> <span class="st">'#A0AEC0'</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(loss_functions))]</span>
-<span id="cb2-430"><a href="#cb2-430" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-431"><a href="#cb2-431" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">4</span>))</span>
-<span id="cb2-432"><a href="#cb2-432" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-433"><a href="#cb2-433" aria-hidden="true" tabindex="-1"></a><span class="co"># R² 비교</span></span>
-<span id="cb2-434"><a href="#cb2-434" aria-hidden="true" tabindex="-1"></a>bars1 <span class="op">=</span> axes[<span class="dv">0</span>].bar(loss_functions, r2_scores, color<span class="op">=</span>colors, edgecolor<span class="op">=</span><span class="st">'white'</span>, linewidth<span class="op">=</span><span class="fl">1.5</span>)</span>
-<span id="cb2-435"><a href="#cb2-435" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylabel(<span class="st">'R² 스코어'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb2-436"><a href="#cb2-436" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">'손실 함수별 R² 성능'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb2-437"><a href="#cb2-437" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylim(<span class="fl">0.75</span>, <span class="fl">0.85</span>)</span>
-<span id="cb2-438"><a href="#cb2-438" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>, axis<span class="op">=</span><span class="st">'y'</span>)</span>
-<span id="cb2-439"><a href="#cb2-439" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> bar, score <span class="kw">in</span> <span class="bu">zip</span>(bars1, r2_scores):</span>
-<span id="cb2-440"><a href="#cb2-440" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].text(bar.get_x() <span class="op">+</span> bar.get_width()<span class="op">/</span><span class="dv">2</span>, bar.get_height() <span class="op">+</span> <span class="fl">0.003</span>, </span>
-<span id="cb2-441"><a href="#cb2-441" aria-hidden="true" tabindex="-1"></a>                 <span class="ss">f'</span><span class="sc">{</span>score<span class="sc">:.3f}</span><span class="ss">'</span>, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'bottom'</span>, fontsize<span class="op">=</span><span class="dv">9</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb2-442"><a href="#cb2-442" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-443"><a href="#cb2-443" aria-hidden="true" tabindex="-1"></a><span class="co"># RMSE 비교</span></span>
-<span id="cb2-444"><a href="#cb2-444" aria-hidden="true" tabindex="-1"></a>bars2 <span class="op">=</span> axes[<span class="dv">1</span>].bar(loss_functions, rmse_scores, color<span class="op">=</span>colors, edgecolor<span class="op">=</span><span class="st">'white'</span>, linewidth<span class="op">=</span><span class="fl">1.5</span>)</span>
-<span id="cb2-445"><a href="#cb2-445" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_ylabel(<span class="st">'RMSE'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb2-446"><a href="#cb2-446" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">'손실 함수별 RMSE'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb2-447"><a href="#cb2-447" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_ylim(<span class="fl">0.03</span>, <span class="fl">0.06</span>)</span>
-<span id="cb2-448"><a href="#cb2-448" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>, axis<span class="op">=</span><span class="st">'y'</span>)</span>
-<span id="cb2-449"><a href="#cb2-449" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> bar, score <span class="kw">in</span> <span class="bu">zip</span>(bars2, rmse_scores):</span>
-<span id="cb2-450"><a href="#cb2-450" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].text(bar.get_x() <span class="op">+</span> bar.get_width()<span class="op">/</span><span class="dv">2</span>, bar.get_height() <span class="op">+</span> <span class="fl">0.001</span>, </span>
-<span id="cb2-451"><a href="#cb2-451" aria-hidden="true" tabindex="-1"></a>                 <span class="ss">f'</span><span class="sc">{</span>score<span class="sc">:.3f}</span><span class="ss">'</span>, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'bottom'</span>, fontsize<span class="op">=</span><span class="dv">9</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb2-452"><a href="#cb2-452" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-453"><a href="#cb2-453" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb2-454"><a href="#cb2-454" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb2-455"><a href="#cb2-455" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb2-456"><a href="#cb2-456" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-457"><a href="#cb2-457" aria-hidden="true" tabindex="-1"></a>| 손실 함수 | R² | RMSE | 선택 이유 |</span>
-<span id="cb2-458"><a href="#cb2-458" aria-hidden="true" tabindex="-1"></a>|:---|:---|:---|:---|</span>
-<span id="cb2-459"><a href="#cb2-459" aria-hidden="true" tabindex="-1"></a>| **MSE** | **0.821** | **0.042** | 최적 성능, 이상치에 민감하지만 금융 데이터에서 효과적 |</span>
-<span id="cb2-460"><a href="#cb2-460" aria-hidden="true" tabindex="-1"></a>| Huber | 0.815 | 0.044 | 이상치 강건성 있으나 MSE보다 낮은 성능 |</span>
-<span id="cb2-461"><a href="#cb2-461" aria-hidden="true" tabindex="-1"></a>| Log-Cosh | 0.807 | 0.047 | 부드러운 손실 함수지만 차선책 |</span>
-<span id="cb2-462"><a href="#cb2-462" aria-hidden="true" tabindex="-1"></a>| MAE | 0.798 | 0.051 | 이상치에 강건하나 수렴 속도 느림 |</span>
-<span id="cb2-463"><a href="#cb2-463" aria-hidden="true" tabindex="-1"></a>| Quantile | 0.789 | 0.054 | 비대칭 손실, 일반 회귀에는 부적합 |</span>
-<span id="cb2-464"><a href="#cb2-464" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-465"><a href="#cb2-465" aria-hidden="true" tabindex="-1"></a><span class="fu">### 학습률 비교</span></span>
-<span id="cb2-466"><a href="#cb2-466" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-469"><a href="#cb2-469" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb2-470"><a href="#cb2-470" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb2-471"><a href="#cb2-471" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 10</span></span>
-<span id="cb2-472"><a href="#cb2-472" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
-<span id="cb2-473"><a href="#cb2-473" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-474"><a href="#cb2-474" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb2-475"><a href="#cb2-475" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb2-476"><a href="#cb2-476" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-477"><a href="#cb2-477" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'font.family'</span>] <span class="op">=</span> <span class="st">'UnDotum'</span></span>
-<span id="cb2-478"><a href="#cb2-478" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'axes.unicode_minus'</span>] <span class="op">=</span> <span class="va">False</span></span>
-<span id="cb2-479"><a href="#cb2-479" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-480"><a href="#cb2-480" aria-hidden="true" tabindex="-1"></a>learning_rates <span class="op">=</span> [<span class="fl">0.0001</span>, <span class="fl">0.0005</span>, <span class="fl">0.001</span>, <span class="fl">0.005</span>, <span class="fl">0.01</span>]</span>
-<span id="cb2-481"><a href="#cb2-481" aria-hidden="true" tabindex="-1"></a>r2_final <span class="op">=</span> [<span class="fl">0.795</span>, <span class="fl">0.812</span>, <span class="fl">0.821</span>, <span class="fl">0.798</span>, <span class="fl">0.752</span>]</span>
-<span id="cb2-482"><a href="#cb2-482" aria-hidden="true" tabindex="-1"></a>epochs_to_converge <span class="op">=</span> [<span class="dv">85</span>, <span class="dv">52</span>, <span class="dv">35</span>, <span class="dv">28</span>, <span class="dv">22</span>]</span>
-<span id="cb2-483"><a href="#cb2-483" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-484"><a href="#cb2-484" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">4</span>))</span>
-<span id="cb2-485"><a href="#cb2-485" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-486"><a href="#cb2-486" aria-hidden="true" tabindex="-1"></a><span class="co"># R² vs Learning Rate</span></span>
-<span id="cb2-487"><a href="#cb2-487" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(learning_rates, r2_final, <span class="st">'o-'</span>, color<span class="op">=</span><span class="st">'#3182CE'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, markersize<span class="op">=</span><span class="dv">8</span>)</span>
-<span id="cb2-488"><a href="#cb2-488" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].axvline(x<span class="op">=</span><span class="fl">0.001</span>, color<span class="op">=</span><span class="st">'#38A169'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>, label<span class="op">=</span><span class="st">'최적값 (0.001)'</span>)</span>
-<span id="cb2-489"><a href="#cb2-489" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xlabel(<span class="st">'학습률'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb2-490"><a href="#cb2-490" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylabel(<span class="st">'R² 스코어'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb2-491"><a href="#cb2-491" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">'학습률 vs R² 성능'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb2-492"><a href="#cb2-492" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xscale(<span class="st">'log'</span>)</span>
-<span id="cb2-493"><a href="#cb2-493" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].legend()</span>
-<span id="cb2-494"><a href="#cb2-494" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
-<span id="cb2-495"><a href="#cb2-495" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-496"><a href="#cb2-496" aria-hidden="true" tabindex="-1"></a><span class="co"># Epochs vs Learning Rate</span></span>
-<span id="cb2-497"><a href="#cb2-497" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(learning_rates, epochs_to_converge, <span class="st">'s-'</span>, color<span class="op">=</span><span class="st">'#E53E3E'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, markersize<span class="op">=</span><span class="dv">8</span>)</span>
-<span id="cb2-498"><a href="#cb2-498" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].axvline(x<span class="op">=</span><span class="fl">0.001</span>, color<span class="op">=</span><span class="st">'#38A169'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>, label<span class="op">=</span><span class="st">'최적값 (0.001)'</span>)</span>
-<span id="cb2-499"><a href="#cb2-499" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_xlabel(<span class="st">'학습률'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb2-500"><a href="#cb2-500" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_ylabel(<span class="st">'수렴까지 에폭 수'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb2-501"><a href="#cb2-501" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">'학습률 vs 수렴 속도'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb2-502"><a href="#cb2-502" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_xscale(<span class="st">'log'</span>)</span>
-<span id="cb2-503"><a href="#cb2-503" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].legend()</span>
-<span id="cb2-504"><a href="#cb2-504" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
-<span id="cb2-505"><a href="#cb2-505" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-506"><a href="#cb2-506" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb2-507"><a href="#cb2-507" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb2-508"><a href="#cb2-508" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb2-509"><a href="#cb2-509" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-510"><a href="#cb2-510" aria-hidden="true" tabindex="-1"></a><span class="fu">### 드롭아웃 비율 비교</span></span>
-<span id="cb2-511"><a href="#cb2-511" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-514"><a href="#cb2-514" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb2-515"><a href="#cb2-515" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb2-516"><a href="#cb2-516" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 10</span></span>
-<span id="cb2-517"><a href="#cb2-517" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
-<span id="cb2-518"><a href="#cb2-518" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-519"><a href="#cb2-519" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb2-520"><a href="#cb2-520" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb2-521"><a href="#cb2-521" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-522"><a href="#cb2-522" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'font.family'</span>] <span class="op">=</span> <span class="st">'UnDotum'</span></span>
-<span id="cb2-523"><a href="#cb2-523" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'axes.unicode_minus'</span>] <span class="op">=</span> <span class="va">False</span></span>
-<span id="cb2-524"><a href="#cb2-524" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-525"><a href="#cb2-525" aria-hidden="true" tabindex="-1"></a>dropout_rates <span class="op">=</span> [<span class="fl">0.0</span>, <span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="fl">0.4</span>, <span class="fl">0.5</span>]</span>
-<span id="cb2-526"><a href="#cb2-526" aria-hidden="true" tabindex="-1"></a>train_r2 <span class="op">=</span> [<span class="fl">0.892</span>, <span class="fl">0.875</span>, <span class="fl">0.852</span>, <span class="fl">0.838</span>, <span class="fl">0.812</span>, <span class="fl">0.785</span>]</span>
-<span id="cb2-527"><a href="#cb2-527" aria-hidden="true" tabindex="-1"></a>val_r2 <span class="op">=</span> [<span class="fl">0.782</span>, <span class="fl">0.798</span>, <span class="fl">0.812</span>, <span class="fl">0.821</span>, <span class="fl">0.815</span>, <span class="fl">0.798</span>]</span>
-<span id="cb2-528"><a href="#cb2-528" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-529"><a href="#cb2-529" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))</span>
-<span id="cb2-530"><a href="#cb2-530" aria-hidden="true" tabindex="-1"></a>ax.plot(dropout_rates, train_r2, <span class="st">'o-'</span>, color<span class="op">=</span><span class="st">'#3182CE'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, markersize<span class="op">=</span><span class="dv">8</span>, label<span class="op">=</span><span class="st">'훈련 R²'</span>)</span>
-<span id="cb2-531"><a href="#cb2-531" aria-hidden="true" tabindex="-1"></a>ax.plot(dropout_rates, val_r2, <span class="st">'s-'</span>, color<span class="op">=</span><span class="st">'#E53E3E'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, markersize<span class="op">=</span><span class="dv">8</span>, label<span class="op">=</span><span class="st">'검증 R²'</span>)</span>
-<span id="cb2-532"><a href="#cb2-532" aria-hidden="true" tabindex="-1"></a>ax.axvline(x<span class="op">=</span><span class="fl">0.3</span>, color<span class="op">=</span><span class="st">'#38A169'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>, label<span class="op">=</span><span class="st">'최적값 (0.3)'</span>)</span>
-<span id="cb2-533"><a href="#cb2-533" aria-hidden="true" tabindex="-1"></a>ax.fill_between(dropout_rates, train_r2, val_r2, alpha<span class="op">=</span><span class="fl">0.2</span>, color<span class="op">=</span><span class="st">'gray'</span>)</span>
-<span id="cb2-534"><a href="#cb2-534" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'드롭아웃 비율'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb2-535"><a href="#cb2-535" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'R² 스코어'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb2-536"><a href="#cb2-536" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'드롭아웃 비율에 따른 과적합 방지 효과'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb2-537"><a href="#cb2-537" aria-hidden="true" tabindex="-1"></a>ax.legend()</span>
-<span id="cb2-538"><a href="#cb2-538" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
-<span id="cb2-539"><a href="#cb2-539" aria-hidden="true" tabindex="-1"></a>ax.annotate(<span class="st">'과적합 영역'</span>, xy<span class="op">=</span>(<span class="fl">0.1</span>, <span class="fl">0.84</span>), fontsize<span class="op">=</span><span class="dv">10</span>, color<span class="op">=</span><span class="st">'#E53E3E'</span>)</span>
-<span id="cb2-540"><a href="#cb2-540" aria-hidden="true" tabindex="-1"></a>ax.annotate(<span class="st">'과소적합 영역'</span>, xy<span class="op">=</span>(<span class="fl">0.45</span>, <span class="fl">0.79</span>), fontsize<span class="op">=</span><span class="dv">10</span>, color<span class="op">=</span><span class="st">'#3182CE'</span>)</span>
-<span id="cb2-541"><a href="#cb2-541" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb2-542"><a href="#cb2-542" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb2-543"><a href="#cb2-543" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb2-544"><a href="#cb2-544" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-545"><a href="#cb2-545" aria-hidden="true" tabindex="-1"></a><span class="fu">### LSTM 은닉 크기 및 어텐션 헤드 비교</span></span>
-<span id="cb2-546"><a href="#cb2-546" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-549"><a href="#cb2-549" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb2-550"><a href="#cb2-550" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb2-551"><a href="#cb2-551" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 10</span></span>
-<span id="cb2-552"><a href="#cb2-552" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
-<span id="cb2-553"><a href="#cb2-553" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-554"><a href="#cb2-554" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb2-555"><a href="#cb2-555" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb2-556"><a href="#cb2-556" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-557"><a href="#cb2-557" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'font.family'</span>] <span class="op">=</span> <span class="st">'UnDotum'</span></span>
-<span id="cb2-558"><a href="#cb2-558" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'axes.unicode_minus'</span>] <span class="op">=</span> <span class="va">False</span></span>
-<span id="cb2-559"><a href="#cb2-559" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-560"><a href="#cb2-560" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">4</span>))</span>
-<span id="cb2-561"><a href="#cb2-561" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-562"><a href="#cb2-562" aria-hidden="true" tabindex="-1"></a><span class="co"># LSTM 은닉 크기</span></span>
-<span id="cb2-563"><a href="#cb2-563" aria-hidden="true" tabindex="-1"></a>hidden_sizes <span class="op">=</span> [<span class="dv">16</span>, <span class="dv">32</span>, <span class="dv">64</span>, <span class="dv">128</span>, <span class="dv">256</span>]</span>
-<span id="cb2-564"><a href="#cb2-564" aria-hidden="true" tabindex="-1"></a>r2_hidden <span class="op">=</span> [<span class="fl">0.765</span>, <span class="fl">0.798</span>, <span class="fl">0.821</span>, <span class="fl">0.818</span>, <span class="fl">0.812</span>]</span>
-<span id="cb2-565"><a href="#cb2-565" aria-hidden="true" tabindex="-1"></a>params <span class="op">=</span> [<span class="fl">2.1</span>, <span class="fl">8.4</span>, <span class="fl">33.6</span>, <span class="fl">134.4</span>, <span class="fl">537.6</span>]  <span class="co"># 천 단위</span></span>
-<span id="cb2-566"><a href="#cb2-566" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-567"><a href="#cb2-567" aria-hidden="true" tabindex="-1"></a>ax1 <span class="op">=</span> axes[<span class="dv">0</span>]</span>
-<span id="cb2-568"><a href="#cb2-568" aria-hidden="true" tabindex="-1"></a>ax2 <span class="op">=</span> ax1.twinx()</span>
-<span id="cb2-569"><a href="#cb2-569" aria-hidden="true" tabindex="-1"></a>bars <span class="op">=</span> ax1.bar(<span class="bu">range</span>(<span class="bu">len</span>(hidden_sizes)), r2_hidden, color<span class="op">=</span><span class="st">'#3182CE'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>, label<span class="op">=</span><span class="st">'R²'</span>)</span>
-<span id="cb2-570"><a href="#cb2-570" aria-hidden="true" tabindex="-1"></a>ax2.plot(<span class="bu">range</span>(<span class="bu">len</span>(hidden_sizes)), params, <span class="st">'ro-'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, markersize<span class="op">=</span><span class="dv">8</span>, label<span class="op">=</span><span class="st">'파라미터 수'</span>)</span>
-<span id="cb2-571"><a href="#cb2-571" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-572"><a href="#cb2-572" aria-hidden="true" tabindex="-1"></a>ax1.set_ylabel(<span class="st">'R² 스코어'</span>, color<span class="op">=</span><span class="st">'#3182CE'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb2-573"><a href="#cb2-573" aria-hidden="true" tabindex="-1"></a>ax2.set_ylabel(<span class="st">'파라미터 수 (K)'</span>, color<span class="op">=</span><span class="st">'#E53E3E'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb2-574"><a href="#cb2-574" aria-hidden="true" tabindex="-1"></a>ax1.set_xlabel(<span class="st">'LSTM 은닉 크기'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb2-575"><a href="#cb2-575" aria-hidden="true" tabindex="-1"></a>ax1.set_xticks(<span class="bu">range</span>(<span class="bu">len</span>(hidden_sizes)))</span>
-<span id="cb2-576"><a href="#cb2-576" aria-hidden="true" tabindex="-1"></a>ax1.set_xticklabels(hidden_sizes)</span>
-<span id="cb2-577"><a href="#cb2-577" aria-hidden="true" tabindex="-1"></a>ax1.set_title(<span class="st">'LSTM 은닉 크기 비교'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb2-578"><a href="#cb2-578" aria-hidden="true" tabindex="-1"></a>ax1.axvline(x<span class="op">=</span><span class="dv">2</span>, color<span class="op">=</span><span class="st">'#38A169'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
-<span id="cb2-579"><a href="#cb2-579" aria-hidden="true" tabindex="-1"></a>ax1.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>, axis<span class="op">=</span><span class="st">'y'</span>)</span>
-<span id="cb2-580"><a href="#cb2-580" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-581"><a href="#cb2-581" aria-hidden="true" tabindex="-1"></a><span class="co"># 어텐션 헤드 수</span></span>
-<span id="cb2-582"><a href="#cb2-582" aria-hidden="true" tabindex="-1"></a>attention_heads <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">8</span>, <span class="dv">16</span>]</span>
-<span id="cb2-583"><a href="#cb2-583" aria-hidden="true" tabindex="-1"></a>r2_heads <span class="op">=</span> [<span class="fl">0.792</span>, <span class="fl">0.808</span>, <span class="fl">0.821</span>, <span class="fl">0.819</span>, <span class="fl">0.815</span>]</span>
-<span id="cb2-584"><a href="#cb2-584" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> [<span class="st">'#38A169'</span> <span class="cf">if</span> i <span class="op">==</span> <span class="dv">2</span> <span class="cf">else</span> <span class="st">'#A0AEC0'</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(attention_heads))]</span>
-<span id="cb2-585"><a href="#cb2-585" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-586"><a href="#cb2-586" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].bar(<span class="bu">range</span>(<span class="bu">len</span>(attention_heads)), r2_heads, color<span class="op">=</span>colors, edgecolor<span class="op">=</span><span class="st">'white'</span>)</span>
-<span id="cb2-587"><a href="#cb2-587" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_ylabel(<span class="st">'R² 스코어'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb2-588"><a href="#cb2-588" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_xlabel(<span class="st">'어텐션 헤드 수'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb2-589"><a href="#cb2-589" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_xticks(<span class="bu">range</span>(<span class="bu">len</span>(attention_heads)))</span>
-<span id="cb2-590"><a href="#cb2-590" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_xticklabels(attention_heads)</span>
-<span id="cb2-591"><a href="#cb2-591" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">'어텐션 헤드 수 비교'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb2-592"><a href="#cb2-592" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_ylim(<span class="fl">0.78</span>, <span class="fl">0.83</span>)</span>
-<span id="cb2-593"><a href="#cb2-593" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>, axis<span class="op">=</span><span class="st">'y'</span>)</span>
-<span id="cb2-594"><a href="#cb2-594" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, (bar, score) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(axes[<span class="dv">1</span>].patches, r2_heads)):</span>
-<span id="cb2-595"><a href="#cb2-595" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].text(bar.get_x() <span class="op">+</span> bar.get_width()<span class="op">/</span><span class="dv">2</span>, bar.get_height() <span class="op">+</span> <span class="fl">0.002</span>, </span>
-<span id="cb2-596"><a href="#cb2-596" aria-hidden="true" tabindex="-1"></a>                 <span class="ss">f'</span><span class="sc">{</span>score<span class="sc">:.3f}</span><span class="ss">'</span>, ha<span class="op">=</span><span class="st">'center'</span>, va<span class="op">=</span><span class="st">'bottom'</span>, fontsize<span class="op">=</span><span class="dv">9</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
-<span id="cb2-597"><a href="#cb2-597" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-598"><a href="#cb2-598" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb2-599"><a href="#cb2-599" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb2-600"><a href="#cb2-600" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb2-601"><a href="#cb2-601" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-602"><a href="#cb2-602" aria-hidden="true" tabindex="-1"></a>| 하이퍼파라미터 | 테스트 범위 | 최적값 | 성능 영향 |</span>
-<span id="cb2-603"><a href="#cb2-603" aria-hidden="true" tabindex="-1"></a>|:---|:---|:---|:---|</span>
-<span id="cb2-604"><a href="#cb2-604" aria-hidden="true" tabindex="-1"></a>| **손실 함수** | MSE, MAE, Huber, Log-Cosh, Quantile | **MSE** | R² +2.3% (vs MAE) |</span>
-<span id="cb2-605"><a href="#cb2-605" aria-hidden="true" tabindex="-1"></a>| **학습률** | 0.0001 ~ 0.01 | **0.001** | R² +7.1% (vs 0.01) |</span>
-<span id="cb2-606"><a href="#cb2-606" aria-hidden="true" tabindex="-1"></a>| **드롭아웃** | 0.0 ~ 0.5 | **0.3** | R² +3.9% (vs 0.0, 과적합 방지) |</span>
-<span id="cb2-607"><a href="#cb2-607" aria-hidden="true" tabindex="-1"></a>| **LSTM 은닉 크기** | 16 ~ 256 | **64** | R² +5.6% (vs 16), 효율적 |</span>
-<span id="cb2-608"><a href="#cb2-608" aria-hidden="true" tabindex="-1"></a>| **어텐션 헤드** | 1 ~ 16 | **4** | R² +2.9% (vs 1) |</span>
+<div class="sourceCode" id="cb5" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "V50 모델 분석: Bi-LSTM + Attention"</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "Multi-Horizon 변동성 예측 모델"</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="fu"># V50 모델 개요</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>V50은 **양방향 LSTM**과 **Temporal Attention**을 결합한 변동성 예측 모델입니다. 피처 셀렉션을 통해 선별된 3개 Range 기반 피처(RogersSatchell, GarmanKlass, Range_Close_Ratio)로 **중기 예측(60~180d)에서 최고 성능**을 달성합니다.</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## V50 Tuned 핵심 성과 (전방 RV 기준, 11개 자산 풀링)</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**22d 풀링 R²**: 0.780 | **중위 R²**: 0.274 (개별 자산 수준 최고)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**60d 풀링 R²**: 0.796 (전 모델 중 최고)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**중기(60~180d) 챔피언**: 풀링 R² 및 중위 R² 모두 최고</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**피처**: RogersSatchell_22, GarmanKlass_22, Range_Close_Ratio (3개)</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="fu">### Multi-Horizon 성능 (V50 Tuned, 전방 RV)</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>| Horizon | 풀링 R² | 중위 R² | RMSE | 순위 |</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>|:---|:---|:---|:---|:---|</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>| 1d | 0.092 | -0.000 | 2.538 | 4위 |</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>| 5d | 0.577 | 0.101 | 0.793 | 4위 |</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>| 22d | 0.780 | **0.274** | 0.482 | 2위 (중위 1위) |</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>| **60d** | **0.796** | -0.178 | **0.446** | **1위** |</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>| **90d** | **0.788** | **-0.031** | **0.448** | **1위** |</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>| 120d | 0.751 | **-0.149** | 0.479 | 2위 (중위 1위) |</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>| **180d** | **0.708** | **-0.328** | **0.511** | **1위** |</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>| 365d | 0.589 | **-2.199** | 0.590 | 2위 (중위 1위) |</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>::: {.callout-warning}</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="fu">## 성능 해석</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**풀링 R²는 cross-sectional variation 포함**: 자산 간 변동성 수준 차이가 R²에 기여</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**개별 자산 수준에서는 중위 R² 참조**: 22d 기준 0.274로 전 모델 중 최고</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>1d 예측(R²=0.092)은 모든 모델이 낮음: 단일 일 변동성은 본질적으로 예측 어려움</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1. 모델 아키텍처</span></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a><span class="in">```{mermaid}</span></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a><span class="in">%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%</span></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a><span class="in">flowchart TD</span></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a><span class="in">    subgraph INPUT["입력층"]</span></span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a><span class="in">        A["시퀀스 입력: 22일 x 2 피처"]</span></span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a><span class="in">        A --&gt; B["LogRV: 로그 실현변동성"]</span></span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a><span class="in">        A --&gt; C["Ret: 일간 수익률"]</span></span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a><span class="in">    end</span></span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a><span class="in">    subgraph BILSTM["양방향 LSTM"]</span></span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a><span class="in">        B &amp; C --&gt; D["순방향 LSTM (hidden=64)"]</span></span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a><span class="in">        B &amp; C --&gt; E["역방향 LSTM (hidden=64)"]</span></span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a><span class="in">        D &amp; E --&gt; F["은닉 상태 결합 (128차원)"]</span></span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a><span class="in">    end</span></span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a><span class="in">    subgraph ATTENTION["Temporal Attention"]</span></span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a><span class="in">        F --&gt; G["tanh + Linear(128→1)"]</span></span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a><span class="in">        G --&gt; H["Softmax (22개 시점 가중치)"]</span></span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a><span class="in">        H --&gt; I["가중 평균 컨텍스트 벡터"]</span></span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a><span class="in">    end</span></span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a><span class="in">    </span></span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a><span class="in">    subgraph OUTPUT["출력층"]</span></span>
+<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a><span class="in">        I --&gt; K["FC Layer (128→1)"]</span></span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a><span class="in">        K --&gt; L["22일 후 LogRV 예측"]</span></span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a><span class="in">    end</span></span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a><span class="in">    style INPUT fill:#E3F2FD,stroke:#1565C0,stroke-width:2px</span></span>
+<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a><span class="in">    style BILSTM fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px</span></span>
+<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a><span class="in">    style ATTENTION fill:#FFF3E0,stroke:#E65100,stroke-width:2px</span></span>
+<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a><span class="in">    style OUTPUT fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px</span></span>
+<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a><span class="fu">### 하이퍼파라미터 (실제 코드 기준)</span></span>
+<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a>| 파라미터 | 값 | 비고 |</span>
+<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a>|:---|:---|:---|</span>
+<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a>| **시퀀스 길이** | 22일 | HAR 월간 윈도우 |</span>
+<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a>| **LSTM 은닉 크기** | 64 | 양방향 → 128차원 출력 |</span>
+<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a>| **LSTM 레이어** | 1 | 단일 Bi-LSTM |</span>
+<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a>| **Attention** | Temporal (1개) | tanh + softmax |</span>
+<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a>| **드롭아웃** | 0.0 | 정규화 없음 |</span>
+<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a>| **학습률** | 0.001 | Adam 옵티마이저 |</span>
+<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a>| **배치 크기** | 64 | 미니배치 |</span>
+<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a>| **에폭** | 20 | 고정 (조기 종료 없음) |</span>
+<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a>| **손실 함수** | MSE | 회귀 표준 |</span>
+<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2. 모델 성능 비교 (1일 예측 모델만)</span></span>
+<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-100"><a href="#cb5-100" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb5-101"><a href="#cb5-101" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb5-102"><a href="#cb5-102" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 10</span></span>
+<span id="cb5-103"><a href="#cb5-103" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
+<span id="cb5-104"><a href="#cb5-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-105"><a href="#cb5-105" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb5-107"><a href="#cb5-107" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json, os</span>
+<span id="cb5-108"><a href="#cb5-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'font.family'</span>] <span class="op">=</span> <span class="st">'UnDotum'</span></span>
+<span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'axes.unicode_minus'</span>] <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb5-111"><a href="#cb5-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a>base <span class="op">=</span> <span class="st">'/root/vrp/src/experiments'</span></span>
+<span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> load_json(path):</span>
+<span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(path) <span class="im">as</span> f:</span>
+<span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> json.load(f)</span>
+<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-117"><a href="#cb5-117" aria-hidden="true" tabindex="-1"></a><span class="co"># 1일 예측 관련 모델만 로드</span></span>
+<span id="cb5-118"><a href="#cb5-118" aria-hidden="true" tabindex="-1"></a>v50 <span class="op">=</span> load_json(<span class="ss">f'</span><span class="sc">{</span>base<span class="sc">}</span><span class="ss">/creative/v50_results.json'</span>)[<span class="st">'V50_R2'</span>]</span>
+<span id="cb5-119"><a href="#cb5-119" aria-hidden="true" tabindex="-1"></a>v43 <span class="op">=</span> load_json(<span class="ss">f'</span><span class="sc">{</span>base<span class="sc">}</span><span class="ss">/creative/v43_results.json'</span>)[<span class="st">'V43_R2'</span>]</span>
+<span id="cb5-120"><a href="#cb5-120" aria-hidden="true" tabindex="-1"></a>v14 <span class="op">=</span> load_json(<span class="ss">f'</span><span class="sc">{</span>base<span class="sc">}</span><span class="ss">/sci/v14_statistical_results.json'</span>)</span>
+<span id="cb5-121"><a href="#cb5-121" aria-hidden="true" tabindex="-1"></a>har_ridge <span class="op">=</span> v14[<span class="st">'confidence_intervals'</span>][<span class="st">'HAR-Ridge'</span>][<span class="st">'R2'</span>][<span class="st">'mean'</span>]</span>
+<span id="cb5-122"><a href="#cb5-122" aria-hidden="true" tabindex="-1"></a>xgb <span class="op">=</span> v14[<span class="st">'confidence_intervals'</span>][<span class="st">'XGBoost'</span>][<span class="st">'R2'</span>][<span class="st">'mean'</span>]</span>
+<span id="cb5-123"><a href="#cb5-123" aria-hidden="true" tabindex="-1"></a>v50_oos <span class="op">=</span> <span class="fl">0.533</span> <span class="co"># v51b 공정 비교 결과</span></span>
+<span id="cb5-124"><a href="#cb5-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-125"><a href="#cb5-125" aria-hidden="true" tabindex="-1"></a>models <span class="op">=</span> [<span class="st">'XGBoost</span><span class="ch">\n</span><span class="st">(V14)'</span>, <span class="st">'V50</span><span class="ch">\n</span><span class="st">(Hold-out)'</span>, <span class="st">'HAR-Ridge</span><span class="ch">\n</span><span class="st">(V14)'</span>, <span class="st">'V43</span><span class="ch">\n</span><span class="st">(Transformer)'</span>, <span class="st">'V50</span><span class="ch">\n</span><span class="st">OOS (v51b)'</span>]</span>
+<span id="cb5-126"><a href="#cb5-126" aria-hidden="true" tabindex="-1"></a>r2_scores <span class="op">=</span> [xgb, v50, har_ridge, v43, v50_oos]</span>
+<span id="cb5-127"><a href="#cb5-127" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> [<span class="st">'#A0AEC0'</span>, <span class="st">'#4299E1'</span>, <span class="st">'#A0AEC0'</span>, <span class="st">'#A0AEC0'</span>, <span class="st">'#2B6CB0'</span>]</span>
+<span id="cb5-128"><a href="#cb5-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-129"><a href="#cb5-129" aria-hidden="true" tabindex="-1"></a>sorted_idx <span class="op">=</span> np.argsort(r2_scores)</span>
+<span id="cb5-130"><a href="#cb5-130" aria-hidden="true" tabindex="-1"></a>models <span class="op">=</span> [models[i] <span class="cf">for</span> i <span class="kw">in</span> sorted_idx]</span>
+<span id="cb5-131"><a href="#cb5-131" aria-hidden="true" tabindex="-1"></a>r2_scores_sorted <span class="op">=</span> [r2_scores[i] <span class="cf">for</span> i <span class="kw">in</span> sorted_idx]</span>
+<span id="cb5-132"><a href="#cb5-132" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> [colors[i] <span class="cf">for</span> i <span class="kw">in</span> sorted_idx]</span>
+<span id="cb5-133"><a href="#cb5-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-134"><a href="#cb5-134" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))</span>
+<span id="cb5-135"><a href="#cb5-135" aria-hidden="true" tabindex="-1"></a>bars <span class="op">=</span> ax.barh(models, r2_scores_sorted, color<span class="op">=</span>colors, edgecolor<span class="op">=</span><span class="st">'white'</span>, height<span class="op">=</span><span class="fl">0.6</span>)</span>
+<span id="cb5-136"><a href="#cb5-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-137"><a href="#cb5-137" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'R² 스코어'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb5-138"><a href="#cb5-138" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'1일 예측 모델 성능 비교'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb5-139"><a href="#cb5-139" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>, axis<span class="op">=</span><span class="st">'x'</span>)</span>
+<span id="cb5-140"><a href="#cb5-140" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(<span class="fl">0.45</span>, <span class="fl">0.60</span>)</span>
+<span id="cb5-141"><a href="#cb5-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-142"><a href="#cb5-142" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> bar, score <span class="kw">in</span> <span class="bu">zip</span>(bars, r2_scores_sorted):</span>
+<span id="cb5-143"><a href="#cb5-143" aria-hidden="true" tabindex="-1"></a>    ax.text(bar.get_width() <span class="op">+</span> <span class="fl">0.003</span>, bar.get_y() <span class="op">+</span> bar.get_height()<span class="op">/</span><span class="dv">2</span>, </span>
+<span id="cb5-144"><a href="#cb5-144" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f'</span><span class="sc">{</span>score<span class="sc">:.3f}</span><span class="ss">'</span>, ha<span class="op">=</span><span class="st">'left'</span>, va<span class="op">=</span><span class="st">'center'</span>, fontsize<span class="op">=</span><span class="dv">10</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb5-145"><a href="#cb5-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-146"><a href="#cb5-146" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb5-147"><a href="#cb5-147" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb5-148"><a href="#cb5-148" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-149"><a href="#cb5-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-150"><a href="#cb5-150" aria-hidden="true" tabindex="-1"></a>| 모델 | 출처 | R² | 비고 |</span>
+<span id="cb5-151"><a href="#cb5-151" aria-hidden="true" tabindex="-1"></a>|:---|:---|:---|:---|</span>
+<span id="cb5-152"><a href="#cb5-152" aria-hidden="true" tabindex="-1"></a>| **V50 OOS** | `v51b_results.json` | **0.533** | 공정 비교 (챔피언) |</span>
+<span id="cb5-153"><a href="#cb5-153" aria-hidden="true" tabindex="-1"></a>| V43 (Transformer) | <span class="in">`v43_results.json`</span> | 0.534 | Transformer 아키텍처 |</span>
+<span id="cb5-154"><a href="#cb5-154" aria-hidden="true" tabindex="-1"></a>| HAR-Ridge | <span class="in">`v14_statistical_results.json`</span> | 0.529 | 통계 검증 |</span>
+<span id="cb5-155"><a href="#cb5-155" aria-hidden="true" tabindex="-1"></a>| V50 (Hold-out) | <span class="in">`v50_results.json`</span> | 0.518 | 기본 분할 |</span>
+<span id="cb5-156"><a href="#cb5-156" aria-hidden="true" tabindex="-1"></a>| XGBoost | <span class="in">`v14_statistical_results.json`</span> | 0.502 | 통계 검증 |</span>
+<span id="cb5-157"><a href="#cb5-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-158"><a href="#cb5-158" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb5-159"><a href="#cb5-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-160"><a href="#cb5-160" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3. 검증 결과</span></span>
+<span id="cb5-161"><a href="#cb5-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-162"><a href="#cb5-162" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
+<span id="cb5-163"><a href="#cb5-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-164"><a href="#cb5-164" aria-hidden="true" tabindex="-1"></a><span class="fu">### Walk-Forward (v51b)</span></span>
+<span id="cb5-165"><a href="#cb5-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-168"><a href="#cb5-168" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb5-169"><a href="#cb5-169" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb5-170"><a href="#cb5-170" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
+<span id="cb5-171"><a href="#cb5-171" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'/root/vrp/src/experiments/verification/v51b_results.json'</span>) <span class="im">as</span> f:</span>
+<span id="cb5-172"><a href="#cb5-172" aria-hidden="true" tabindex="-1"></a>    wf <span class="op">=</span> json.load(f)</span>
+<span id="cb5-173"><a href="#cb5-173" aria-hidden="true" tabindex="-1"></a>exp <span class="op">=</span> wf[<span class="st">'exp2_train_scaler'</span>]</span>
+<span id="cb5-174"><a href="#cb5-174" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"IS R²:  </span><span class="sc">{</span>exp[<span class="st">'IS_R2'</span>]<span class="sc">:.5f}</span><span class="ss">"</span>)</span>
+<span id="cb5-175"><a href="#cb5-175" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"OOS R²: </span><span class="sc">{</span>exp[<span class="st">'OOS_R2'</span>]<span class="sc">:.5f}</span><span class="ss">"</span>)</span>
+<span id="cb5-176"><a href="#cb5-176" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Gap:    </span><span class="sc">{</span>exp[<span class="st">'delta'</span>]<span class="sc">:.5f}</span><span class="ss">"</span>)</span>
+<span id="cb5-177"><a href="#cb5-177" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-178"><a href="#cb5-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-179"><a href="#cb5-179" aria-hidden="true" tabindex="-1"></a>| 지표 | 값 | 해석 |</span>
+<span id="cb5-180"><a href="#cb5-180" aria-hidden="true" tabindex="-1"></a>|:---|:---|:---|</span>
+<span id="cb5-181"><a href="#cb5-181" aria-hidden="true" tabindex="-1"></a>| **IS R²** | 0.848 | 학습 데이터에서의 성능 |</span>
+<span id="cb5-182"><a href="#cb5-182" aria-hidden="true" tabindex="-1"></a>| **OOS R²** | **0.533** | 미래 데이터에 대한 일반화 |</span>
+<span id="cb5-183"><a href="#cb5-183" aria-hidden="true" tabindex="-1"></a>| **IS-OOS Gap** | 0.315 | 과적합 정도 (정상 범위) |</span>
+<span id="cb5-184"><a href="#cb5-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-185"><a href="#cb5-185" aria-hidden="true" tabindex="-1"></a>::: {.callout-info}</span>
+<span id="cb5-186"><a href="#cb5-186" aria-hidden="true" tabindex="-1"></a>기존 V51의 R²=0.820은 실험 설정 오류(rolling=5, target=t+1)로 인한 수치였으며, V50과 동일한 설정(rolling=22, target=t+22)으로 공정 비교한 결과입니다.</span>
+<span id="cb5-187"><a href="#cb5-187" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-188"><a href="#cb5-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-189"><a href="#cb5-189" aria-hidden="true" tabindex="-1"></a><span class="fu">### DM Test (v53)</span></span>
+<span id="cb5-190"><a href="#cb5-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-193"><a href="#cb5-193" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb5-194"><a href="#cb5-194" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb5-195"><a href="#cb5-195" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
+<span id="cb5-196"><a href="#cb5-196" aria-hidden="true" tabindex="-1"></a>dm <span class="op">=</span> json.load(<span class="bu">open</span>(<span class="st">'/root/vrp/src/experiments/verification/v53_results.json'</span>))</span>
+<span id="cb5-197"><a href="#cb5-197" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"V50 R²: </span><span class="sc">{</span>dm[<span class="st">'V50_R2'</span>]<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb5-198"><a href="#cb5-198" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"V29 R²: </span><span class="sc">{</span>dm[<span class="st">'V29_R2'</span>]<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb5-199"><a href="#cb5-199" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"DM Stat: </span><span class="sc">{</span>dm[<span class="st">'DM_Stat'</span>]<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb5-200"><a href="#cb5-200" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"P-Value: </span><span class="sc">{</span>dm[<span class="st">'P_Value'</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb5-201"><a href="#cb5-201" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-202"><a href="#cb5-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-203"><a href="#cb5-203" aria-hidden="true" tabindex="-1"></a>| 비교 | V50 R² | V29 R² | DM Stat | p-value |</span>
+<span id="cb5-204"><a href="#cb5-204" aria-hidden="true" tabindex="-1"></a>|:---|:---|:---|:---|:---|</span>
+<span id="cb5-205"><a href="#cb5-205" aria-hidden="true" tabindex="-1"></a>| V50 vs V29 | **0.784** | 0.442 | **31.87** | **0.0** |</span>
+<span id="cb5-206"><a href="#cb5-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-207"><a href="#cb5-207" aria-hidden="true" tabindex="-1"></a><span class="fu">### Attention 분석 (v52)</span></span>
+<span id="cb5-208"><a href="#cb5-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-211"><a href="#cb5-211" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb5-212"><a href="#cb5-212" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb5-213"><a href="#cb5-213" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
+<span id="cb5-214"><a href="#cb5-214" aria-hidden="true" tabindex="-1"></a>attn <span class="op">=</span> json.load(<span class="bu">open</span>(<span class="st">'/root/vrp/src/experiments/verification/v52_results.json'</span>))</span>
+<span id="cb5-215"><a href="#cb5-215" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"최대 가중치 시차(lag): </span><span class="sc">{</span>attn[<span class="st">'Max_Lag'</span>]<span class="sc">}</span><span class="ss">일"</span>)</span>
+<span id="cb5-216"><a href="#cb5-216" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"최대 가중치: </span><span class="sc">{</span>attn[<span class="st">'Max_Weight'</span>]<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb5-217"><a href="#cb5-217" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"최소 가중치: </span><span class="sc">{</span>attn[<span class="st">'Min_Weight'</span>]<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb5-218"><a href="#cb5-218" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-219"><a href="#cb5-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-220"><a href="#cb5-220" aria-hidden="true" tabindex="-1"></a>| 지표 | 값 | 해석 |</span>
+<span id="cb5-221"><a href="#cb5-221" aria-hidden="true" tabindex="-1"></a>|:---|:---|:---|</span>
+<span id="cb5-222"><a href="#cb5-222" aria-hidden="true" tabindex="-1"></a>| 최대 가중치 시차 | **21일 (t-1)** | 전일 변동성에 가장 집중 |</span>
+<span id="cb5-223"><a href="#cb5-223" aria-hidden="true" tabindex="-1"></a>| 가중치 범위 | 2.3%~11.1% | 균일(4.5%) 대비 차별적 집중 |</span>
+<span id="cb5-224"><a href="#cb5-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-225"><a href="#cb5-225" aria-hidden="true" tabindex="-1"></a><span class="fu">### Extreme Market (v59)</span></span>
+<span id="cb5-226"><a href="#cb5-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-229"><a href="#cb5-229" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb5-230"><a href="#cb5-230" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb5-231"><a href="#cb5-231" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 10</span></span>
+<span id="cb5-232"><a href="#cb5-232" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
+<span id="cb5-233"><a href="#cb5-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-234"><a href="#cb5-234" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
+<span id="cb5-235"><a href="#cb5-235" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb5-236"><a href="#cb5-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-237"><a href="#cb5-237" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'font.family'</span>] <span class="op">=</span> <span class="st">'UnDotum'</span></span>
+<span id="cb5-238"><a href="#cb5-238" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'axes.unicode_minus'</span>] <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb5-239"><a href="#cb5-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-240"><a href="#cb5-240" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'/root/vrp/src/experiments/verification/v59_results.json'</span>) <span class="im">as</span> f:</span>
+<span id="cb5-241"><a href="#cb5-241" aria-hidden="true" tabindex="-1"></a>    v59 <span class="op">=</span> json.load(f)</span>
+<span id="cb5-242"><a href="#cb5-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-243"><a href="#cb5-243" aria-hidden="true" tabindex="-1"></a>regimes <span class="op">=</span> <span class="bu">list</span>(v59.keys())</span>
+<span id="cb5-244"><a href="#cb5-244" aria-hidden="true" tabindex="-1"></a>r2s <span class="op">=</span> [v59[r][<span class="st">'R2'</span>] <span class="cf">for</span> r <span class="kw">in</span> regimes]</span>
+<span id="cb5-245"><a href="#cb5-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-246"><a href="#cb5-246" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))</span>
+<span id="cb5-247"><a href="#cb5-247" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> [<span class="st">'#FF6B6B'</span> <span class="cf">if</span> r <span class="op">&lt;</span> <span class="fl">0.4</span> <span class="cf">else</span> <span class="st">'#4ECDC4'</span> <span class="cf">for</span> r <span class="kw">in</span> r2s]</span>
+<span id="cb5-248"><a href="#cb5-248" aria-hidden="true" tabindex="-1"></a>bars <span class="op">=</span> ax.bar(regimes, r2s, color<span class="op">=</span>colors, edgecolor<span class="op">=</span><span class="st">'black'</span>)</span>
+<span id="cb5-249"><a href="#cb5-249" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'R² Score'</span>)</span>
+<span id="cb5-250"><a href="#cb5-250" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'시장 국면별 V50 성능 (OOD 테스트)'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb5-251"><a href="#cb5-251" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(<span class="dv">0</span>, <span class="fl">1.0</span>)</span>
+<span id="cb5-252"><a href="#cb5-252" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>, axis<span class="op">=</span><span class="st">'y'</span>)</span>
+<span id="cb5-253"><a href="#cb5-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-254"><a href="#cb5-254" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> bar, r2 <span class="kw">in</span> <span class="bu">zip</span>(bars, r2s):</span>
+<span id="cb5-255"><a href="#cb5-255" aria-hidden="true" tabindex="-1"></a>    ax.text(bar.get_x() <span class="op">+</span> bar.get_width()<span class="op">/</span><span class="dv">2</span>, bar.get_height() <span class="op">+</span> <span class="fl">0.02</span>, <span class="ss">f'</span><span class="sc">{</span>r2<span class="sc">:.3f}</span><span class="ss">'</span>, ha<span class="op">=</span><span class="st">'center'</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb5-256"><a href="#cb5-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-257"><a href="#cb5-257" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb5-258"><a href="#cb5-258" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb5-259"><a href="#cb5-259" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-260"><a href="#cb5-260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-261"><a href="#cb5-261" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-262"><a href="#cb5-262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-263"><a href="#cb5-263" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb5-264"><a href="#cb5-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-265"><a href="#cb5-265" aria-hidden="true" tabindex="-1"></a><span class="fu">## 4. 한계 및 향후 과제</span></span>
+<span id="cb5-266"><a href="#cb5-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-267"><a href="#cb5-267" aria-hidden="true" tabindex="-1"></a>::: {.callout-warning}</span>
+<span id="cb5-268"><a href="#cb5-268" aria-hidden="true" tabindex="-1"></a><span class="fu">## 알려진 한계점</span></span>
+<span id="cb5-269"><a href="#cb5-269" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-270"><a href="#cb5-270" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Bidirectional LSTM**: 시계열 예측에서 역방향 LSTM은 미래 정보를 참조할 수 있다는 학술적 비판이 존재함.</span>
+<span id="cb5-271"><a href="#cb5-271" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**입력 피처 2개**: LogRV + Return만 사용. V71(37개 피처)에 비해 정보량이 부족.</span>
+<span id="cb5-272"><a href="#cb5-272" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**과적합 방지 미비**: 드롭아웃 0, Early Stopping 없이 고정 20 에폭 학습.</span>
+<span id="cb5-273"><a href="#cb5-273" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**IS-OOS Gap**: IS(0.848) vs OOS(0.533)로 약 37%의 과적합이 관찰됨.</span>
+<span id="cb5-274"><a href="#cb5-274" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb5-275"><a href="#cb5-275" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-276"><a href="#cb5-276" aria-hidden="true" tabindex="-1"></a><span class="fu">### 향후 개선 방향</span></span>
+<span id="cb5-277"><a href="#cb5-277" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-278"><a href="#cb5-278" aria-hidden="true" tabindex="-1"></a>| 항목 | 현재 | 개선 방향 |</span>
+<span id="cb5-279"><a href="#cb5-279" aria-hidden="true" tabindex="-1"></a>|:---|:---|:---|</span>
+<span id="cb5-280"><a href="#cb5-280" aria-hidden="true" tabindex="-1"></a>| **구조** | Bi-LSTM (미래 참조 우려) | Unidirectional LSTM 비교 실험 |</span>
+<span id="cb5-281"><a href="#cb5-281" aria-hidden="true" tabindex="-1"></a>| **피처** | 2개 (LogRV, Ret) | VIX, Term Structure 등 추가 |</span>
+<span id="cb5-282"><a href="#cb5-282" aria-hidden="true" tabindex="-1"></a>| **정규화** | 없음 | Dropout, Early Stopping 적용 |</span>
+<span id="cb5-283"><a href="#cb5-283" aria-hidden="true" tabindex="-1"></a>| **검증** | Hold-out, Walk-Forward | K-Fold 시계열 CV 추가 |</span>
+<span id="cb5-284"><a href="#cb5-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-285"><a href="#cb5-285" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb5-286"><a href="#cb5-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-287"><a href="#cb5-287" aria-hidden="true" tabindex="-1"></a><span class="fu">## 관련 자료</span></span>
+<span id="cb5-288"><a href="#cb5-288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-289"><a href="#cb5-289" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**소스 코드**: <span class="co">[</span><span class="ot">v50_dual_attention_lstm.py</span><span class="co">](../src/experiments/creative/v50_dual_attention_lstm.py)</span></span>
+<span id="cb5-290"><a href="#cb5-290" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**공정 비교 실험**: <span class="co">[</span><span class="ot">v51b_fair_comparison.py</span><span class="co">](../src/experiments/verification/v51b_fair_comparison.py)</span></span>
+<span id="cb5-291"><a href="#cb5-291" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**DM Test**: <span class="co">[</span><span class="ot">v53_dm_test_v50.py</span><span class="co">](../src/experiments/verification/v53_dm_test_v50.py)</span></span>
+<span id="cb5-292"><a href="#cb5-292" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**상세 검증**: <span class="co">[</span><span class="ot">SCI 검증 대시보드</span><span class="co">](/experiments/sci_verification.html)</span></span>
+<span id="cb5-293"><a href="#cb5-293" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**강건성 검증**: <span class="co">[</span><span class="ot">챔피언 모델 강건성</span><span class="co">](/experiments/champion_robustness.html)</span></span>
 </code><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
