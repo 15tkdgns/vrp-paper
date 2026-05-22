@@ -151,7 +151,7 @@ plt.show()
 | 검증 방법 | 결과 | 판정 |
 |:---------|:-----|:-----|
 | 다중 Split 안정성 | R² = 0.793 ± 0.010 (5개 split) | **PASS** |
-| Alpha 민감도 | R² = 0.788~0.802 (0.001~5000) | **PASS** |
+| Alpha 민감도 | R² = 0.793~0.802 (0.001~5000) | **PASS** |
 | 5-Fold 시계열 CV | R² = 0.765 ± 0.046 | **PASS** |
 | 데이터 누출 검증 | 셔플 R² = -0.002 | **PASS** |
 | Permutation Importance | Rogers-Satchell 1위 (0.731) | **PASS** |
@@ -168,7 +168,7 @@ import json
 import matplotlib.pyplot as plt
 import numpy as np
 
-with open('/root/vrp/src/experiments/creative/v71_sci/results_03_asset_class.json') as f:
+with open('/root/vrp/experiments/creative/v71_sci/results_03_asset_class.json') as f:
     asset_res = json.load(f)
 
 assets = list(asset_res['per_asset'].keys())
@@ -209,7 +209,7 @@ import json
 import matplotlib.pyplot as plt
 import numpy as np
 
-with open('/root/vrp/src/experiments/creative/v71_sci/results_04_regime.json') as f:
+with open('/root/vrp/experiments/creative/v71_sci/results_04_regime.json') as f:
     regime_res = json.load(f)
 
 vix_regimes = list(regime_res['vix_regime'].keys())
@@ -246,6 +246,187 @@ plt.show()
 
 ---
 
+# 학술 강건성 검증 (추가)
+
+## Commodity IV 대체 (GVZ/OVX)
+
+| 설정 | Pooled R² | Median R² | RMSE |
+|:---|:---:|:---:|:---:|
+| VIX only (baseline) | 0.7822 | 0.1233 | 0.4877 |
+| GVZ/OVX (commodity) | 0.7743 | 0.1253 | 0.4965 |
+
+- GLD +2.6%p, USO +0.8%p 개선. SLV -13.4%p 악화(해당 IV 지수 없음)
+- 전체 차이 -0.8%p로 **단일 VIX 사용의 타당성 확인**
+
+## Block Bootstrap DM Test
+
+| 방법 | p-value | 유의성 |
+|:---|:---:|:---:|
+| HAC DM (Newey-West) | 0.000000 | *** |
+| Block Bootstrap (B=5000) | 0.000000 | *** |
+
+## Forward-Fill 비교
+
+| 설정 | 샘플 | Pooled R² | RMSE |
+|:---|:---:|:---:|:---:|
+| With ffill | 41,261 | 0.7822 | 0.4877 |
+| Without ffill | 38,489 | 0.7952 | 0.4698 |
+
+ffill 제거 시 R² +0.013 → **ffill이 결과를 과대평가하지 않음**
+
+---
+
+# 다중 모델 비교 (9개)
+
+```{python}
+#| echo: false
+#| fig-width: 12
+#| fig-height: 5
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+plt.rcParams['font.family'] = 'UnDotum'
+plt.rcParams['axes.unicode_minus'] = False
+
+models = ['Lasso', 'ElasticNet', 'Ridge\n(pooled)', 'Ridge\nper-class', 'RF', 'LightGBM', 'XGBoost', 'SVR', 'MLP']
+pooled = [0.7712, 0.7696, 0.7625, 0.7618, 0.7590, 0.7387, 0.7330, 0.6901, 0.6183]
+median = [0.0998, 0.0742, -0.003, 0.0949, 0.1424, 0.0589, 0.0353, -0.0939, -0.3266]
+colors = ['#3182CE','#3182CE','#3182CE','#1A365D','#68D391','#68D391','#68D391','#E53E3E','#E53E3E']
+
+fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+
+bars = axes[0].bar(models, pooled, color=colors, edgecolor='white', linewidth=1.5)
+axes[0].set_ylabel('Pooled R²', fontsize=11)
+axes[0].set_title('모델별 Pooled R² (9개 모델)', fontsize=13, fontweight='bold')
+axes[0].set_ylim(0.55, 0.80)
+axes[0].grid(True, alpha=0.3, axis='y')
+axes[0].tick_params(axis='x', rotation=45, labelsize=8)
+for bar, v in zip(bars, pooled):
+    axes[0].text(bar.get_x()+bar.get_width()/2, bar.get_height()+0.003, f'{v:.3f}',
+                 ha='center', fontsize=8, fontweight='bold')
+
+bars2 = axes[1].bar(models, median, color=colors, edgecolor='white', linewidth=1.5)
+axes[1].set_ylabel('Median R²', fontsize=11)
+axes[1].set_title('모델별 Median R² (자산별 중위)', fontsize=13, fontweight='bold')
+axes[1].axhline(0, color='black', linewidth=0.8)
+axes[1].grid(True, alpha=0.3, axis='y')
+axes[1].tick_params(axis='x', rotation=45, labelsize=8)
+for bar, v in zip(bars2, median):
+    axes[1].text(bar.get_x()+bar.get_width()/2, max(v,0)+0.01, f'{v:.3f}',
+                 ha='center', fontsize=8, fontweight='bold')
+
+from matplotlib.patches import Patch
+legend_elems = [Patch(facecolor='#3182CE', label='선형'),
+                Patch(facecolor='#68D391', label='트리'),
+                Patch(facecolor='#E53E3E', label='비선형')]
+axes[0].legend(handles=legend_elems, loc='lower left', fontsize=8)
+
+plt.tight_layout()
+plt.show()
+```
+
+**선형 모델이 일관적으로 트리/비선형보다 우수**: 변동성 지속성(persistence)은 본질적으로 선형 구조.
+
+---
+
+# 피처 서브셋 Ablation
+
+```{python}
+#| echo: false
+#| fig-width: 10
+#| fig-height: 4
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+plt.rcParams['font.family'] = 'UnDotum'
+plt.rcParams['axes.unicode_minus'] = False
+
+subsets = ['IV only\n(10feat)', 'GARCH only\n(2feat)', 'HAR only\n(3feat)', 'Full\n(37feat)', 'Range only\n(5feat)', 'HAR+Range\n(8feat)']
+r2 = [0.2061, 0.6581, 0.7321, 0.7618, 0.7722, 0.7854]
+colors = ['#FC8181', '#F6AD55', '#A0AEC0', '#A0AEC0', '#68D391', '#3182CE']
+
+fig, ax = plt.subplots(figsize=(10, 4))
+bars = ax.barh(subsets, r2, color=colors, edgecolor='white', height=0.6)
+ax.set_xlabel('Pooled R²', fontsize=11)
+ax.set_title('피처 서브셋별 Pooled R²', fontsize=13, fontweight='bold')
+ax.set_xlim(0, 0.85)
+ax.grid(True, alpha=0.3, axis='x')
+
+for bar, v in zip(bars, r2):
+    ax.text(v+0.005, bar.get_y()+bar.get_height()/2, f'{v:.4f}',
+            va='center', fontsize=10, fontweight='bold')
+
+plt.tight_layout()
+plt.show()
+```
+
+**HAR+Range 8피처(0.785)가 Full 37피처(0.762)보다 우수** → 과적합 방지 + 핵심 피처 집중 효과
+
+---
+
+# 피처 중요도 (7개 방법 합의)
+
+```{python}
+#| echo: false
+#| fig-width: 10
+#| fig-height: 5
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+plt.rcParams['font.family'] = 'UnDotum'
+plt.rcParams['axes.unicode_minus'] = False
+
+features = ['RogersSatchell_22', 'Garch_Weekly', 'Parkinson_22', 'GarmanKlass_22',
+            'Garch_Daily', 'LogRV_lag22', 'LogRV_lag1', 'Parkinson_5',
+            'IV_VRP_ma22', 'IV_VIX'][::-1]
+mean_ranks = [2.6, 4.4, 5.1, 5.3, 6.7, 7.6, 9.1, 9.1, 11.7, 11.9][::-1]
+cats = ['HF Proxy', 'GARCH', 'HF Proxy', 'HF Proxy', 'GARCH', 'HAR', 'HAR', 'HF Proxy', 'IV Surface', 'IV Surface'][::-1]
+cat_colors = {'HF Proxy': '#E53E3E', 'GARCH': '#38A169', 'HAR': '#3182CE', 'IV Surface': '#D69E2E'}
+
+fig, ax = plt.subplots(figsize=(10, 5))
+bars = ax.barh(features, [max(0, 13-r) for r in mean_ranks],
+               color=[cat_colors[c] for c in cats], edgecolor='white')
+ax.set_xlabel('Score (13 - Mean Rank)', fontsize=11)
+ax.set_title('피처 중요도 합의 순위 (7개 방법 평균)', fontsize=13, fontweight='bold')
+ax.grid(True, alpha=0.3, axis='x')
+
+for bar, r in zip(bars, mean_ranks):
+    ax.text(bar.get_width()+0.1, bar.get_y()+bar.get_height()/2,
+            f'Rank {r:.1f}', va='center', fontsize=9, fontweight='bold')
+
+from matplotlib.patches import Patch
+legend_elems = [Patch(facecolor=v, label=k) for k, v in cat_colors.items()]
+ax.legend(handles=legend_elems, loc='lower right', fontsize=9)
+
+plt.tight_layout()
+plt.show()
+```
+
+사용 방법: Ridge Coef, Permutation, XGBoost Gain, SHAP, Mutual Info, Spearman, RFE. **Kendall tau 모두 유의(p<0.05)**.
+
+---
+
+# 잔차 진단 및 학습 곡선
+
+| 진단 | 결과 |
+|:---|:---|
+| Jarque-Bera (정규성) | 모든 9개 모델 p < 0.001 (비정규) |
+| Ljung-Box (자기상관) | 모든 모델 p < 0.001 |
+| ARCH Test (이분산) | 모든 모델 p < 0.001 |
+| **해석** | 변동성 시계열의 본질적 속성. HAC/Bootstrap으로 적절히 처리 |
+
+| 학습 비율 | Pooled R² | 비고 |
+|:---:|:---:|:---|
+| 10% | 0.491 | 초기 |
+| 20% | 0.698 | **안정화 시작** |
+| 40% | 0.735 | |
+| 80% | 0.762 | 한계 수익 체감 |
+
+---
+
 # 종합 결론
 
 | 항목 | V50 Tuned (중기) | V71 (단기) |
@@ -260,5 +441,5 @@ plt.show()
 
 ## 관련 자료
 - [V71 강건성 데이터](/paper/csv/v71_robustness_results.json)
-- [V50 공정 비교 결과](../src/experiments/verification/v51b_results.json)
+- [V50 공정 비교 결과](./verification/v51b_results.json)
 - [V71 실험 결과](/paper/csv/v71_results.json)

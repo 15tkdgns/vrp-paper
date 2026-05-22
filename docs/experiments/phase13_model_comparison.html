@@ -163,7 +163,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="사이드바 전환" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../experiments/phase13_model_comparison.html">기타</a></li><li class="breadcrumb-item"><a href="../experiments/phase13_model_comparison.html">모델 아키텍처 비교</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../experiments/methodology_overview.html">기타</a></li><li class="breadcrumb-item"><a href="../experiments/phase13_model_comparison.html">모델 아키텍처 비교</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="사이드바 전환" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -210,6 +210,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../experiments/feature_analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">V71 피처 분석</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/importance_consensus.qmd" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">피처 중요도 합의(Consensus)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../experiments/1day_prediction.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">V50 LSTM (3feat)</span></a>
   </div>
@@ -243,6 +255,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/methodology_overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">연구 방법론 개요</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/vrp_dashboard.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cross-Asset VRP 현황</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/dnn_vs_ml_insights.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">DNN vs ML 비교 인사이트</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../experiments/phase13_model_comparison.html" class="sidebar-item-text sidebar-link active">
@@ -305,7 +335,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../experiments/phase13_model_comparison.html">기타</a></li><li class="breadcrumb-item"><a href="../experiments/phase13_model_comparison.html">모델 아키텍처 비교</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../experiments/methodology_overview.html">기타</a></li><li class="breadcrumb-item"><a href="../experiments/phase13_model_comparison.html">모델 아키텍처 비교</a></li></ol></nav>
 <div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">모델 아키텍처 비교</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> 코드</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">전체 코드 표시</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">전체 코드 숨기기</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">소스 코드 표시</a></li></ul></div></div>
 <p class="subtitle lead">Multi-Horizon 예측 지평별 최적 모델 분석 (전방 RV)</p>
@@ -341,7 +371,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><strong>단기 (1~22d)</strong>: V71 Ensemble (37feat, 22d: 0.803)</li>
 <li><strong>중기 (60~90d)</strong>: V50 Tuned LSTM (3feat, 60d: 0.796)</li>
-<li><strong>초장기 (365d)</strong>: Random Forest (37feat, 0.705)</li>
+<li><strong>초장기 (252d)</strong>: Random Forest (37feat, 0.705)</li>
 <li><strong>문헌 벤치마크</strong>: HAR-CJ, LASSO-HAR, RF와 체계적 비교</li>
 </ul>
 </div>
@@ -349,7 +379,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <hr>
 <section id="multi-horizon-풀링-r²-비교" class="level2">
 <h2 class="anchored" data-anchor-id="multi-horizon-풀링-r²-비교">1. Multi-Horizon 풀링 R² 비교</h2>
-<div id="77dbe654" class="cell" data-fig-height="5" data-fig-width="12" data-execution_count="1">
+<div id="c491611f" class="cell" data-fig-height="5" data-fig-width="12" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -455,7 +485,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">RF</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">365d</td>
+<td style="text-align: left;">252d</td>
 <td style="text-align: left;">0.516</td>
 <td style="text-align: left;">0.589</td>
 <td style="text-align: left;">0.611</td>
@@ -648,7 +678,7 @@ flowchart LR
 <th style="text-align: left;">모델</th>
 <th style="text-align: left;">출처</th>
 <th style="text-align: left;">22d R²</th>
-<th style="text-align: left;">365d R²</th>
+<th style="text-align: left;">252d R²</th>
 <th style="text-align: left;">설명</th>
 </tr>
 </thead>
@@ -693,7 +723,7 @@ flowchart LR
 <th style="text-align: left;">특성</th>
 <th style="text-align: left;">단기 (1~22d)</th>
 <th style="text-align: left;">중기 (60~90d)</th>
-<th style="text-align: left;">초장기 (365d)</th>
+<th style="text-align: left;">초장기 (252d)</th>
 </tr>
 </thead>
 <tbody>
@@ -736,7 +766,7 @@ flowchart LR
 <ul>
 <li>V71 Ensemble이 22d에서 R²=0.803으로 최고 성능: Ridge(0.798) + XGBoost(0.773)의 가중 앙상블 효과</li>
 <li>LSTM은 3개 피처만으로 37개 피처 선형 모델을 60~90d에서 능가: <strong>피처 선택이 중요</strong></li>
-<li>RF는 365d에서 유일하게 R²&gt;0.7 달성: 트리 앙상블의 장기 안정성</li>
+<li>RF는 252d에서 유일하게 R²&gt;0.7 달성: 트리 앙상블의 장기 안정성</li>
 </ul>
 </div>
 </div>
@@ -1243,7 +1273,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## 핵심 발견 (전방 RV, 11개 자산 풀링)</span></span>
 <span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**단기 (1~22d)**: V71 Ensemble (37feat, 22d: 0.803)</span>
 <span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**중기 (60~90d)**: V50 Tuned LSTM (3feat, 60d: 0.796)</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**초장기 (365d)**: Random Forest (37feat, 0.705)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**초장기 (252d)**: Random Forest (37feat, 0.705)</span>
 <span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**문헌 벤치마크**: HAR-CJ, LASSO-HAR, RF와 체계적 비교</span>
 <span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
@@ -1263,10 +1293,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'font.family'</span>] <span class="op">=</span> <span class="st">'UnDotum'</span></span>
 <span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'axes.unicode_minus'</span>] <span class="op">=</span> <span class="va">False</span></span>
 <span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'/root/vrp/src/experiments/creative/multi_horizon_benchmark_results.json'</span>) <span class="im">as</span> f:</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'/root/vrp/experiments/creative/multi_horizon_benchmark_results.json'</span>) <span class="im">as</span> f:</span>
 <span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> json.load(f)[<span class="st">'results'</span>]</span>
 <span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>horizons <span class="op">=</span> [<span class="st">'1d'</span>, <span class="st">'5d'</span>, <span class="st">'22d'</span>, <span class="st">'60d'</span>, <span class="st">'90d'</span>, <span class="st">'120d'</span>, <span class="st">'180d'</span>, <span class="st">'365d'</span>]</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>horizons <span class="op">=</span> [<span class="st">'1d'</span>, <span class="st">'5d'</span>, <span class="st">'22d'</span>, <span class="st">'60d'</span>, <span class="st">'90d'</span>, <span class="st">'120d'</span>, <span class="st">'180d'</span>]</span>
 <span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>models <span class="op">=</span> {</span>
 <span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Ridge(37)'</span>: (<span class="st">'Ridge_37'</span>, <span class="st">'#3182CE'</span>),</span>
 <span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>    <span class="st">'LSTM(3)'</span>: (<span class="st">'LSTM_Top3'</span>, <span class="st">'#68D391'</span>),</span>
@@ -1321,7 +1351,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a>| **90d** | 0.752 | **0.788** | 0.781 | 0.763 | 0.768 | 0.737 | **LSTM** |</span>
 <span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a>| 120d | 0.737 | 0.751 | **0.758** | 0.748 | 0.746 | 0.730 | HAR-3 |</span>
 <span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a>| 180d | 0.691 | 0.708 | 0.705 | 0.707 | 0.691 | **0.719** | RF |</span>
-<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a>| 365d | 0.516 | 0.589 | 0.611 | 0.555 | 0.570 | **0.705** | **RF** |</span>
+<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a>| 252d | 0.516 | 0.589 | 0.611 | 0.555 | 0.570 | **0.705** | **RF** |</span>
 <span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a>---</span>
 <span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a></span>
@@ -1386,7 +1416,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb3-164"><a href="#cb3-164" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-165"><a href="#cb3-165" aria-hidden="true" tabindex="-1"></a><span class="fu">## 4. 문헌 벤치마크</span></span>
 <span id="cb3-166"><a href="#cb3-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-167"><a href="#cb3-167" aria-hidden="true" tabindex="-1"></a>| 모델 | 출처 | 22d R² | 365d R² | 설명 |</span>
+<span id="cb3-167"><a href="#cb3-167" aria-hidden="true" tabindex="-1"></a>| 모델 | 출처 | 22d R² | 252d R² | 설명 |</span>
 <span id="cb3-168"><a href="#cb3-168" aria-hidden="true" tabindex="-1"></a>|:---|:---|:---|:---|:---|</span>
 <span id="cb3-169"><a href="#cb3-169" aria-hidden="true" tabindex="-1"></a>| HAR-RV | Corsi (2009) | 0.761 | 0.611 | 3개 HAR 피처 Ridge |</span>
 <span id="cb3-170"><a href="#cb3-170" aria-hidden="true" tabindex="-1"></a>| HAR-CJ | Andersen+ (2007) | 0.752 | 0.570 | Jump 분해 (Bipower Variation) |</span>
@@ -1397,7 +1427,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb3-175"><a href="#cb3-175" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-176"><a href="#cb3-176" aria-hidden="true" tabindex="-1"></a><span class="fu">## 5. 왜 예측 지평에 따라 최적 모델이 다른가?</span></span>
 <span id="cb3-177"><a href="#cb3-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-178"><a href="#cb3-178" aria-hidden="true" tabindex="-1"></a>| 특성 | 단기 (1~22d) | 중기 (60~90d) | 초장기 (365d) |</span>
+<span id="cb3-178"><a href="#cb3-178" aria-hidden="true" tabindex="-1"></a>| 특성 | 단기 (1~22d) | 중기 (60~90d) | 초장기 (252d) |</span>
 <span id="cb3-179"><a href="#cb3-179" aria-hidden="true" tabindex="-1"></a>|:---|:---|:---|:---|</span>
 <span id="cb3-180"><a href="#cb3-180" aria-hidden="true" tabindex="-1"></a>| **시그널** | HAR 자기상관 강함 | Range 추정량 유효 | 노이즈 지배적 |</span>
 <span id="cb3-181"><a href="#cb3-181" aria-hidden="true" tabindex="-1"></a>| **최적 모델** | Ridge/LASSO (37feat) | LSTM (3feat) | RF (37feat) |</span>
@@ -1408,7 +1438,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb3-186"><a href="#cb3-186" aria-hidden="true" tabindex="-1"></a><span class="fu">## 핵심 인사이트</span></span>
 <span id="cb3-187"><a href="#cb3-187" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>V71 Ensemble이 22d에서 R²=0.803으로 최고 성능: Ridge(0.798) + XGBoost(0.773)의 가중 앙상블 효과</span>
 <span id="cb3-188"><a href="#cb3-188" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>LSTM은 3개 피처만으로 37개 피처 선형 모델을 60~90d에서 능가: **피처 선택이 중요**</span>
-<span id="cb3-189"><a href="#cb3-189" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>RF는 365d에서 유일하게 R²&gt;0.7 달성: 트리 앙상블의 장기 안정성</span>
+<span id="cb3-189"><a href="#cb3-189" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>RF는 252d에서 유일하게 R²&gt;0.7 달성: 트리 앙상블의 장기 안정성</span>
 <span id="cb3-190"><a href="#cb3-190" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb3-191"><a href="#cb3-191" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-192"><a href="#cb3-192" aria-hidden="true" tabindex="-1"></a>---</span>

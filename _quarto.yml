@@ -26,6 +26,10 @@ project:
     - experiments/summary.qmd
     - experiments/pooled_r2_explained.qmd
     - experiments/feature_analysis.qmd
+    - experiments/importance_consensus.qmd
+    - experiments/vrp_dashboard.qmd
+    - experiments/dnn_vs_ml_insights.qmd
+    - experiments/methodology_overview.qmd
 
 website:
   title: "VRP 연구 대시보드"
@@ -79,6 +83,8 @@ website:
               text: "  V71 강건성 검증"
             - href: experiments/feature_analysis.qmd
               text: "  V71 피처 분석"
+            - href: experiments/importance_consensus.qmd
+              text: "  피처 중요도 합의(Consensus)"
             - href: experiments/1day_prediction.qmd
               text: V50 LSTM (3feat)
             - href: experiments/sci_verification.qmd
@@ -89,6 +95,12 @@ website:
               text: V36 HAR-3 베이스라인
         - section: "기타"
           contents:
+            - href: experiments/methodology_overview.qmd
+              text: "연구 방법론 개요"
+            - href: experiments/vrp_dashboard.qmd
+              text: "Cross-Asset VRP 현황"
+            - href: experiments/dnn_vs_ml_insights.qmd
+              text: "DNN vs ML 비교 인사이트"
             - href: experiments/phase13_model_comparison.qmd
               text: 모델 아키텍처 비교
             - href: experiments/trading_strategy.qmd

@@ -160,7 +160,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="사이드바 전환" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../experiments/1day_prediction.html">1일 예측</a></li><li class="breadcrumb-item"><a href="../experiments/sci_verification.html">상세 검증</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../experiments/22day_prediction.html">모델별 분석</a></li><li class="breadcrumb-item"><a href="../experiments/sci_verification.html">V50 상세 검증</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="사이드바 전환" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -180,14 +180,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../experiments/champion_robustness.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">챔피언 모델 강건성 검증</span></a>
+  <a href="../experiments/summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">결과 요약</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">1일 예측</span></a>
+ <span class="menu-text">모델별 분석</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="토글 섹션">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -195,20 +195,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../experiments/22day_prediction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">V71 Ridge (37feat)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/champion_robustness.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">V71 강건성 검증</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/feature_analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">V71 피처 분석</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/importance_consensus.qmd" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">피처 중요도 합의(Consensus)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../experiments/1day_prediction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">V50 모델 (챔피언)</span></a>
+ <span class="menu-text">V50 LSTM (3feat)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../experiments/sci_verification.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">상세 검증</span></a>
+ <span class="menu-text">V50 상세 검증</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../experiments/attention_analysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Attention 분석</span></a>
+ <span class="menu-text">V50 Attention 분석</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/phase10_v29_verification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">V36 HAR-3 베이스라인</span></a>
   </div>
 </li>
       </ul>
@@ -216,7 +246,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">22일 예측</span></a>
+ <span class="menu-text">기타</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="토글 섹션">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -224,25 +254,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../experiments/22day_prediction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">V71 모델 (챔피언)</span></a>
+  <a href="../experiments/methodology_overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">연구 방법론 개요</span></a>
   </div>
 </li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">기타</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="토글 섹션">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../experiments/phase10_v29_verification.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">V29 베이스라인 검증</span></a>
+  <a href="../experiments/vrp_dashboard.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cross-Asset VRP 현황</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/dnn_vs_ml_insights.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">DNN vs ML 비교 인사이트</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -265,8 +290,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../experiments/summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">결과 요약</span></a>
+  <a href="../experiments/pooled_r2_explained.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">풀링 R² 해설</span></a>
   </div>
 </li>
       </ul>
@@ -297,7 +322,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../experiments/1day_prediction.html">1일 예측</a></li><li class="breadcrumb-item"><a href="../experiments/sci_verification.html">상세 검증</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../experiments/22day_prediction.html">모델별 분석</a></li><li class="breadcrumb-item"><a href="../experiments/sci_verification.html">V50 상세 검증</a></li></ol></nav>
 <div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">V50 모델 정밀 검증</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> 코드</button></div></div>
 <p class="subtitle lead">Walk-Forward, DM Test, Extreme Market 검증</p>
@@ -357,7 +382,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <hr>
 <section id="dm-테스트-v53" class="level2">
 <h2 class="anchored" data-anchor-id="dm-테스트-v53">2. DM 테스트 (v53)</h2>
-<div id="da4cda96" class="cell" data-execution_count="2">
+<div id="ef520917" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-stdout">
 <pre><code>V50 R²: 0.7839
 V29 R²: 0.4417
@@ -390,7 +415,7 @@ P-Value: 0.0</code></pre>
 </section>
 <section id="극한-시장-테스트-v59" class="level2">
 <h2 class="anchored" data-anchor-id="극한-시장-테스트-v59">3. 극한 시장 테스트 (v59)</h2>
-<div id="f049a495" class="cell" data-fig-height="4" data-fig-width="10" data-execution_count="3">
+<div id="7737596a" class="cell" data-fig-height="4" data-fig-width="10" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -403,7 +428,7 @@ P-Value: 0.0</code></pre>
 </section>
 <section id="attention-분석-v60" class="level2">
 <h2 class="anchored" data-anchor-id="attention-분석-v60">4. Attention 분석 (v60)</h2>
-<div id="9d68699b" class="cell" data-fig-height="4" data-fig-width="10" data-execution_count="4">
+<div id="cf36c65e" class="cell" data-fig-height="4" data-fig-width="10" data-execution_count="4">
 <div class="cell-output cell-output-stdout">
 <pre><code>Attention 가중치 데이터 없음</code></pre>
 </div>
@@ -412,7 +437,7 @@ P-Value: 0.0</code></pre>
 </section>
 <section id="피처-중요도-v61" class="level2">
 <h2 class="anchored" data-anchor-id="피처-중요도-v61">5. 피처 중요도 (v61)</h2>
-<div id="2ae44bae" class="cell" data-execution_count="5">
+<div id="c1bfdfb2" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-stdout">
 <pre><code>- baseline_r2: 0.18715465217539684</code></pre>
 </div>
@@ -920,7 +945,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
 <span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json, os</span>
 <span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>verify_path <span class="op">=</span> <span class="st">'../src/experiments/verification/'</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>verify_path <span class="op">=</span> <span class="st">'./verification/'</span></span>
 <span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
 <span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(<span class="ss">f'</span><span class="sc">{</span>verify_path<span class="sc">}</span><span class="ss">v51b_results.json'</span>, <span class="st">'r'</span>) <span class="im">as</span> f:</span>

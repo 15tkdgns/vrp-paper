@@ -16,7 +16,7 @@ V50 (Dual-Attention LSTM) 모델의 OOS 성능을 다각도로 검증합니다.
 #| echo: false
 import json, os
 
-verify_path = '../src/experiments/verification/'
+verify_path = './verification/'
 
 try:
     with open(f'{verify_path}v51b_results.json', 'r') as f:

@@ -189,7 +189,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="사이드바 전환" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../experiments/phase13_model_comparison.html">기타</a></li><li class="breadcrumb-item"><a href="../experiments/pooled_r2_explained.html">풀링 R² 해설</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../experiments/methodology_overview.html">기타</a></li><li class="breadcrumb-item"><a href="../experiments/pooled_r2_explained.html">풀링 R² 해설</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="사이드바 전환" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -242,6 +242,12 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../experiments/importance_consensus.qmd" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">피처 중요도 합의(Consensus)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../experiments/1day_prediction.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">V50 LSTM (3feat)</span></a>
   </div>
@@ -275,6 +281,24 @@ window.Quarto = {
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/methodology_overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">연구 방법론 개요</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/vrp_dashboard.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cross-Asset VRP 현황</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/dnn_vs_ml_insights.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">DNN vs ML 비교 인사이트</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../experiments/phase13_model_comparison.html" class="sidebar-item-text sidebar-link">
@@ -331,7 +355,7 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../experiments/phase13_model_comparison.html">기타</a></li><li class="breadcrumb-item"><a href="../experiments/pooled_r2_explained.html">풀링 R² 해설</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../experiments/methodology_overview.html">기타</a></li><li class="breadcrumb-item"><a href="../experiments/pooled_r2_explained.html">풀링 R² 해설</a></li></ol></nav>
 <div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">풀링 R² (Pooled R²) 해설</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> 코드</button></div></div>
 <p class="subtitle lead">다중 자산 변동성 예측에서의 성능 지표 이해하기</p>
@@ -354,7 +378,7 @@ window.Quarto = {
 <section id="풀링-r²란" class="level2">
 <h2 class="anchored" data-anchor-id="풀링-r²란">풀링 R²란?</h2>
 <p><strong>풀링 R² (Pooled R²)</strong>는 <strong>다중 자산의 예측값과 실제값을 하나의 벡터로 합친 뒤</strong> 전체에 대해 계산하는 R² 스코어입니다.</p>
-<div id="dae69b9e" class="cell" data-fig-height="5" data-fig-width="12" data-execution_count="1">
+<div id="2d49a0bd" class="cell" data-fig-height="5" data-fig-width="12" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -407,7 +431,7 @@ R^2_{\text{median}} = \text{median}(R^2_1, R^2_2, \ldots, R^2_N)
 </section>
 <section id="풀링-r²-vs-중위-r²-비교" class="level2">
 <h2 class="anchored" data-anchor-id="풀링-r²-vs-중위-r²-비교">풀링 R² vs 중위 R² 비교</h2>
-<div id="19bf966c" class="cell" data-fig-height="5" data-fig-width="10" data-execution_count="2">
+<div id="e9922e66" class="cell" data-fig-height="5" data-fig-width="10" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -422,7 +446,7 @@ R^2_{\text{median}} = \text{median}(R^2_1, R^2_2, \ldots, R^2_N)
 <h2 class="anchored" data-anchor-id="왜-풀링-r²가-높게-나오는가">왜 풀링 R²가 높게 나오는가?</h2>
 <section id="cross-sectional-variation-효과" class="level3">
 <h3 class="anchored" data-anchor-id="cross-sectional-variation-효과">Cross-Sectional Variation 효과</h3>
-<div id="ea534072" class="cell" data-fig-height="4" data-fig-width="10" data-execution_count="3">
+<div id="e0a3ca5e" class="cell" data-fig-height="4" data-fig-width="10" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">

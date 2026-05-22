@@ -30,7 +30,7 @@ V50은 **양방향 LSTM**과 **Temporal Attention**을 결합한 변동성 예�
 | **90d** | **0.788** | **-0.031** | **0.448** | **1위** |
 | 120d | 0.751 | **-0.149** | 0.479 | 2위 (중위 1위) |
 | **180d** | **0.708** | **-0.328** | **0.511** | **1위** |
-| 365d | 0.589 | **-2.199** | 0.590 | 2위 (중위 1위) |
+| 252d | 0.589 | **-2.199** | 0.590 | 2위 (중위 1위) |
 
 ::: {.callout-warning}
 ## 성능 해석
@@ -105,7 +105,7 @@ import json, os
 plt.rcParams['font.family'] = 'UnDotum'
 plt.rcParams['axes.unicode_minus'] = False
 
-base = '/root/vrp/src/experiments'
+base = '/root/vrp/experiments'
 def load_json(path):
     with open(path) as f:
         return json.load(f)
@@ -162,7 +162,7 @@ plt.show()
 ```{python}
 #| echo: false
 import json
-with open('/root/vrp/src/experiments/verification/v51b_results.json') as f:
+with open('/root/vrp/experiments/verification/v51b_results.json') as f:
     wf = json.load(f)
 exp = wf['exp2_train_scaler']
 print(f"IS R²:  {exp['IS_R2']:.5f}")
@@ -185,7 +185,7 @@ print(f"Gap:    {exp['delta']:.5f}")
 ```{python}
 #| echo: false
 import json
-dm = json.load(open('/root/vrp/src/experiments/verification/v53_results.json'))
+dm = json.load(open('/root/vrp/experiments/verification/v53_results.json'))
 print(f"V50 R²: {dm['V50_R2']:.4f}")
 print(f"V29 R²: {dm['V29_R2']:.4f}")
 print(f"DM Stat: {dm['DM_Stat']:.2f}")
@@ -201,7 +201,7 @@ print(f"P-Value: {dm['P_Value']}")
 ```{python}
 #| echo: false
 import json
-attn = json.load(open('/root/vrp/src/experiments/verification/v52_results.json'))
+attn = json.load(open('/root/vrp/experiments/verification/v52_results.json'))
 print(f"최대 가중치 시차(lag): {attn['Max_Lag']}일")
 print(f"최대 가중치: {attn['Max_Weight']:.4f}")
 print(f"최소 가중치: {attn['Min_Weight']:.4f}")
@@ -225,7 +225,7 @@ import matplotlib.pyplot as plt
 plt.rcParams['font.family'] = 'UnDotum'
 plt.rcParams['axes.unicode_minus'] = False
 
-with open('/root/vrp/src/experiments/verification/v59_results.json') as f:
+with open('/root/vrp/experiments/verification/v59_results.json') as f:
     v59 = json.load(f)
 
 regimes = list(v59.keys())
@@ -274,8 +274,8 @@ plt.show()
 
 ## 관련 자료
 
-- **소스 코드**: [v50_dual_attention_lstm.py](../src/experiments/creative/v50_dual_attention_lstm.py)
-- **공정 비교 실험**: [v51b_fair_comparison.py](../src/experiments/verification/v51b_fair_comparison.py)
-- **DM Test**: [v53_dm_test_v50.py](../src/experiments/verification/v53_dm_test_v50.py)
+- **소스 코드**: [v50_dual_attention_lstm.py](./creative/v50_dual_attention_lstm.py)
+- **공정 비교 실험**: [v51b_fair_comparison.py](./verification/v51b_fair_comparison.py)
+- **DM Test**: [v53_dm_test_v50.py](./verification/v53_dm_test_v50.py)
 - **상세 검증**: [SCI 검증 대시보드](/experiments/sci_verification.html)
 - **강건성 검증**: [챔피언 모델 강건성](/experiments/champion_robustness.html)

@@ -1,0 +1,369 @@
+/usr/local/lib/python3.12/dist-packages/pandas/core/arrays/masked.py:61: UserWarning: Pandas requires version '1.3.6' or newer of 'bottleneck' (version '1.3.5' currently installed).
+  from pandas.core import (
+/usr/local/lib/python3.12/dist-packages/matplotlib/projections/__init__.py:63: UserWarning: Unable to import Axes3D. This may be due to multiple versions of Matplotlib being installed (e.g. as a system package and as a pip package). As a result, the 3D projection is not available.
+  warnings.warn("Unable to import Axes3D. This may be due to multiple versions of "
+======================================================================
+Main Benchmark v4: Per-class fair comparison (per-horizon tuning)
+======================================================================
+
+Loading data & building 37 features...
+Assets: 11, Features: 37
+
+======================================================================
+  Horizon: 1d
+======================================================================
+  Outer  train: 30,975  test: 7,744
+  Inner  train: 24,779   val:  6,195
+  [HAR-3] fixed α=1.0, per-class...
+    → Pooled_R2=0.1097
+  [Ridge] 6 configs × 3 classes...
+    params={'Equity': {'alpha': 500}, 'Bond': {'alpha': 50}, 'Commodity': {'alpha': 2000}}  test_Pooled_R2=0.1159
+  [LASSO] 6 configs × 3 classes...
+    params={'Equity': {'alpha': 0.01}, 'Bond': {'alpha': 0.001}, 'Commodity': {'alpha': 0.05}}  test_Pooled_R2=0.1162
+  [ENet] 6 configs × 3 classes...
+    params={'Equity': {'alpha': 0.1, 'l1_ratio': 0.1}, 'Bond': {'alpha': 0.005, 'l1_ratio': 0.1}, 'Commodity': {'alpha': 0.1, 'l1_ratio': 0.1}}  test_Pooled_R2=0.1165
+  [RF] 6 configs × 3 classes...
+    params={'Equity': {'max_depth': 10, 'min_samples_leaf': 20}, 'Bond': {'max_depth': 5, 'min_samples_leaf': 20}, 'Commodity': {'max_depth': 10, 'min_samples_leaf': 20}}  test_Pooled_R2=0.1169
+  [XGBoost] 6 configs × 3 classes...
+    params={'Equity': {'max_depth': 3, 'learning_rate': 0.03}, 'Bond': {'max_depth': 3, 'learning_rate': 0.03}, 'Commodity': {'max_depth': 3, 'learning_rate': 0.03}}  test_Pooled_R2=0.1131
+  [LightGBM] 8 configs × 3 classes...
+    params={'Equity': {'max_depth': 3, 'learning_rate': 0.05, 'num_leaves': 15}, 'Bond': {'max_depth': 3, 'learning_rate': 0.05, 'num_leaves': 15}, 'Commodity': {'max_depth': 3, 'learning_rate': 0.05, 'num_leaves': 15}}  test_Pooled_R2=0.1048
+  [MLP] 6 configs × 3 classes...
+    params={'Equity': {'hidden_layer_sizes': (128, 64), 'alpha': 0.01}, 'Bond': {'hidden_layer_sizes': (64, 32), 'alpha': 0.01}, 'Commodity': {'hidden_layer_sizes': (128, 64), 'alpha': 0.01}}  test_Pooled_R2=0.0855
+  [BiLSTM-A] 4 configs × 3 classes, inner holdout...
+      Equity: best={'hidden': 32, 'dropout': 0.1}  inner_R²=0.0701
+      Bond: best={'hidden': 64, 'dropout': 0.1}  inner_R²=0.1325
+      Commodity: best={'hidden': 32, 'dropout': 0.1}  inner_R²=-0.0029
+  [BiLSTM-A] final fit (1 seeds per class)...
+    → Pooled_R2=0.0690
+  [WEns] weight search on inner holdout...
+    best pw=0.9  inner_R²=0.2371  test_Pooled_R2=0.1166
+
+  Model         Pooled_R2  Median_R2    Mean_R2     RMSE
+  ----------------------------------------------------
+  HAR-3            0.1097     0.0210     0.0222   2.5024
+  Ridge            0.1159     0.0232     0.0283   2.4937
+  LASSO            0.1162     0.0246     0.0288   2.4932
+  ENet             0.1165     0.0241     0.0287   2.4929
+  RF               0.1169     0.0202     0.0284   2.4923
+  XGBoost          0.1131     0.0140     0.0252   2.4976
+  LightGBM         0.1048     0.0094     0.0153   2.5094
+  MLP              0.0855    -0.0225    -0.0064   2.5363
+  BiLSTM-A         0.0690    -0.0286    -0.0204   2.5704
+  WEns             0.1166     0.0247     0.0292   2.4927
+
+======================================================================
+  Horizon: 5d
+======================================================================
+  Outer  train: 30,935  test: 7,736
+  Inner  train: 24,743   val:  6,187
+  [HAR-3] fixed α=1.0, per-class...
+    → Pooled_R2=0.5819
+  [Ridge] 6 configs × 3 classes...
+    params={'Equity': {'alpha': 500}, 'Bond': {'alpha': 100}, 'Commodity': {'alpha': 100}}  test_Pooled_R2=0.6234
+  [LASSO] 6 configs × 3 classes...
+    params={'Equity': {'alpha': 0.05}, 'Bond': {'alpha': 0.001}, 'Commodity': {'alpha': 0.05}}  test_Pooled_R2=0.6189
+  [ENet] 6 configs × 3 classes...
+    params={'Equity': {'alpha': 0.1, 'l1_ratio': 0.1}, 'Bond': {'alpha': 0.005, 'l1_ratio': 0.1}, 'Commodity': {'alpha': 0.005, 'l1_ratio': 0.1}}  test_Pooled_R2=0.6253
+  [RF] 6 configs × 3 classes...
+    params={'Equity': {'max_depth': 10, 'min_samples_leaf': 5}, 'Bond': {'max_depth': 5, 'min_samples_leaf': 20}, 'Commodity': {'max_depth': 10, 'min_samples_leaf': 5}}  test_Pooled_R2=0.6107
+  [XGBoost] 6 configs × 3 classes...
+    params={'Equity': {'max_depth': 4, 'learning_rate': 0.05}, 'Bond': {'max_depth': 3, 'learning_rate': 0.03}, 'Commodity': {'max_depth': 3, 'learning_rate': 0.05}}  test_Pooled_R2=0.6121
+  [LightGBM] 8 configs × 3 classes...
+    params={'Equity': {'max_depth': 5, 'learning_rate': 0.05, 'num_leaves': 15}, 'Bond': {'max_depth': 3, 'learning_rate': 0.05, 'num_leaves': 15}, 'Commodity': {'max_depth': 3, 'learning_rate': 0.05, 'num_leaves': 15}}  test_Pooled_R2=0.6106
+  [MLP] 6 configs × 3 classes...
+    params={'Equity': {'hidden_layer_sizes': (64, 32), 'alpha': 0.01}, 'Bond': {'hidden_layer_sizes': (64, 32), 'alpha': 0.01}, 'Commodity': {'hidden_layer_sizes': (64,), 'alpha': 0.01}}  test_Pooled_R2=0.4391
+  [BiLSTM-A] 4 configs × 3 classes, inner holdout...
+      Equity: best={'hidden': 64, 'dropout': 0.3}  inner_R²=0.2149
+      Bond: best={'hidden': 32, 'dropout': 0.3}  inner_R²=0.4783
+      Commodity: best={'hidden': 32, 'dropout': 0.1}  inner_R²=0.2626
+  [BiLSTM-A] final fit (1 seeds per class)...
+    → Pooled_R2=0.3319
+  [WEns] weight search on inner holdout...
+    best pw=0.6  inner_R²=0.7019  test_Pooled_R2=0.6270
+
+  Model         Pooled_R2  Median_R2    Mean_R2     RMSE
+  ----------------------------------------------------
+  HAR-3            0.5819     0.1267     0.1397   0.7897
+  Ridge            0.6234     0.1799     0.2196   0.7494
+  LASSO            0.6189     0.2130     0.2086   0.7539
+  ENet             0.6253     0.1807     0.2224   0.7475
+  RF               0.6107     0.1273     0.1894   0.7620
+  XGBoost          0.6121     0.1660     0.1936   0.7606
+  LightGBM         0.6106     0.1504     0.1919   0.7620
+  MLP              0.4391    -0.1910    -0.1759   0.9146
+  BiLSTM-A         0.3319    -0.4162    -0.3684   0.9962
+  WEns             0.6270     0.1778     0.2263   0.7458
+
+======================================================================
+  Horizon: 22d
+======================================================================
+  Outer  train: 30,769  test: 7,698
+  Inner  train: 24,593   val:  6,154
+  [HAR-3] fixed α=1.0, per-class...
+    → Pooled_R2=0.7659
+  [Ridge] 6 configs × 3 classes...
+    params={'Equity': {'alpha': 50}, 'Bond': {'alpha': 50}, 'Commodity': {'alpha': 10}}  test_Pooled_R2=0.7952
+  [LASSO] 6 configs × 3 classes...
+    params={'Equity': {'alpha': 0.05}, 'Bond': {'alpha': 0.001}, 'Commodity': {'alpha': 0.05}}  test_Pooled_R2=0.7853
+  [ENet] 6 configs × 3 classes...
+    params={'Equity': {'alpha': 0.1, 'l1_ratio': 0.1}, 'Bond': {'alpha': 0.005, 'l1_ratio': 0.1}, 'Commodity': {'alpha': 0.1, 'l1_ratio': 0.9}}  test_Pooled_R2=0.7894
+  [RF] 6 configs × 3 classes...
+    params={'Equity': {'max_depth': 5, 'min_samples_leaf': 5}, 'Bond': {'max_depth': 5, 'min_samples_leaf': 20}, 'Commodity': {'max_depth': 8, 'min_samples_leaf': 20}}  test_Pooled_R2=0.7793
+  [XGBoost] 6 configs × 3 classes...
+    params={'Equity': {'max_depth': 3, 'learning_rate': 0.03}, 'Bond': {'max_depth': 3, 'learning_rate': 0.03}, 'Commodity': {'max_depth': 3, 'learning_rate': 0.05}}  test_Pooled_R2=0.7679
+  [LightGBM] 8 configs × 3 classes...
+    params={'Equity': {'max_depth': 3, 'learning_rate': 0.05, 'num_leaves': 15}, 'Bond': {'max_depth': 3, 'learning_rate': 0.05, 'num_leaves': 15}, 'Commodity': {'max_depth': 3, 'learning_rate': 0.05, 'num_leaves': 15}}  test_Pooled_R2=0.7557
+  [MLP] 6 configs × 3 classes...
+    params={'Equity': {'hidden_layer_sizes': (64, 32), 'alpha': 0.01}, 'Bond': {'hidden_layer_sizes': (64, 32), 'alpha': 0.01}, 'Commodity': {'hidden_layer_sizes': (64,), 'alpha': 0.0001}}  test_Pooled_R2=0.5867
+  [BiLSTM-A] 4 configs × 3 classes, inner holdout...
+      Equity: best={'hidden': 64, 'dropout': 0.1}  inner_R²=-0.1780
+      Bond: best={'hidden': 32, 'dropout': 0.3}  inner_R²=0.4576
+      Commodity: best={'hidden': 64, 'dropout': 0.3}  inner_R²=0.2728
+  [BiLSTM-A] final fit (1 seeds per class)...
+    → Pooled_R2=0.5639
+  [WEns] weight search on inner holdout...
+    best pw=0.6  inner_R²=0.7040  test_Pooled_R2=0.7966
+
+  Model         Pooled_R2  Median_R2    Mean_R2     RMSE
+  ----------------------------------------------------
+  HAR-3            0.7659     0.1702     0.1614   0.5023
+  Ridge            0.7952     0.1821     0.2565   0.4697
+  LASSO            0.7853     0.1918     0.2199   0.4810
+  ENet             0.7894     0.1975     0.2271   0.4764
+  RF               0.7793     0.1897     0.1868   0.4877
+  XGBoost          0.7679     0.1117     0.1379   0.5001
+  LightGBM         0.7557     0.1185     0.0929   0.5131
+  MLP              0.5867    -0.4047    -0.5234   0.6673
+  BiLSTM-A         0.5639    -0.4425    -0.5856   0.6791
+  WEns             0.7966     0.1912     0.2596   0.4682
+
+======================================================================
+  Horizon: 60d
+======================================================================
+  Outer  train: 30,396  test: 7,615
+  Inner  train: 24,256   val:  6,080
+  [HAR-3] fixed α=1.0, per-class...
+    → Pooled_R2=0.7860
+  [Ridge] 6 configs × 3 classes...
+    params={'Equity': {'alpha': 2000}, 'Bond': {'alpha': 100}, 'Commodity': {'alpha': 10}}  test_Pooled_R2=0.7976
+  [LASSO] 6 configs × 3 classes...
+    params={'Equity': {'alpha': 0.1}, 'Bond': {'alpha': 0.001}, 'Commodity': {'alpha': 0.001}}  test_Pooled_R2=0.7676
+  [ENet] 6 configs × 3 classes...
+    params={'Equity': {'alpha': 0.1, 'l1_ratio': 0.9}, 'Bond': {'alpha': 0.01, 'l1_ratio': 0.1}, 'Commodity': {'alpha': 0.005, 'l1_ratio': 0.1}}  test_Pooled_R2=0.7729
+  [RF] 6 configs × 3 classes...
+    params={'Equity': {'max_depth': 10, 'min_samples_leaf': 5}, 'Bond': {'max_depth': 5, 'min_samples_leaf': 20}, 'Commodity': {'max_depth': 10, 'min_samples_leaf': 20}}  test_Pooled_R2=0.7702
+  [XGBoost] 6 configs × 3 classes...
+    params={'Equity': {'max_depth': 4, 'learning_rate': 0.05}, 'Bond': {'max_depth': 3, 'learning_rate': 0.05}, 'Commodity': {'max_depth': 3, 'learning_rate': 0.1}}  test_Pooled_R2=0.7213
+  [LightGBM] 8 configs × 3 classes...
+    params={'Equity': {'max_depth': 5, 'learning_rate': 0.1, 'num_leaves': 31}, 'Bond': {'max_depth': 3, 'learning_rate': 0.05, 'num_leaves': 15}, 'Commodity': {'max_depth': 3, 'learning_rate': 0.1, 'num_leaves': 15}}  test_Pooled_R2=0.6933
+  [MLP] 6 configs × 3 classes...
+    params={'Equity': {'hidden_layer_sizes': (128, 64), 'alpha': 0.0001}, 'Bond': {'hidden_layer_sizes': (64, 32), 'alpha': 0.0001}, 'Commodity': {'hidden_layer_sizes': (128, 64), 'alpha': 0.01}}  test_Pooled_R2=0.4996
+  [BiLSTM-A] 4 configs × 3 classes, inner holdout...
+      Equity: best={'hidden': 32, 'dropout': 0.1}  inner_R²=-0.4535
+      Bond: best={'hidden': 32, 'dropout': 0.3}  inner_R²=0.3288
+      Commodity: best={'hidden': 32, 'dropout': 0.3}  inner_R²=0.2994
+  [BiLSTM-A] final fit (1 seeds per class)...
+    → Pooled_R2=0.5514
+  [WEns] weight search on inner holdout...
+    best pw=0.5  inner_R²=0.6209  test_Pooled_R2=0.7835
+
+  Model         Pooled_R2  Median_R2    Mean_R2     RMSE
+  ----------------------------------------------------
+  HAR-3            0.7860     0.0479    -0.0546   0.4590
+  Ridge            0.7976    -0.1211    -0.0046   0.4464
+  LASSO            0.7676    -0.1287    -0.1249   0.4784
+  ENet             0.7729    -0.1222    -0.0986   0.4729
+  RF               0.7702     0.0755    -0.1207   0.4757
+  XGBoost          0.7213    -0.0873    -0.3886   0.5239
+  LightGBM         0.6933    -0.2335    -0.4908   0.5496
+  MLP              0.4996    -1.1249    -1.4336   0.7020
+  BiLSTM-A         0.5514    -0.8124    -1.1990   0.6610
+  WEns             0.7835     0.0732    -0.0510   0.4618
+
+======================================================================
+  Horizon: 90d
+======================================================================
+  Outer  train: 30,102  test: 7,549
+  Inner  train: 23,991   val:  6,021
+  [HAR-3] fixed α=1.0, per-class...
+    → Pooled_R2=0.7835
+  [Ridge] 6 configs × 3 classes...
+    params={'Equity': {'alpha': 2000}, 'Bond': {'alpha': 100}, 'Commodity': {'alpha': 1000}}  test_Pooled_R2=0.7832
+  [LASSO] 6 configs × 3 classes...
+    params={'Equity': {'alpha': 0.1}, 'Bond': {'alpha': 0.005}, 'Commodity': {'alpha': 0.01}}  test_Pooled_R2=0.7448
+  [ENet] 6 configs × 3 classes...
+    params={'Equity': {'alpha': 0.1, 'l1_ratio': 0.9}, 'Bond': {'alpha': 0.01, 'l1_ratio': 0.1}, 'Commodity': {'alpha': 0.01, 'l1_ratio': 0.9}}  test_Pooled_R2=0.7494
+  [RF] 6 configs × 3 classes...
+    params={'Equity': {'max_depth': 10, 'min_samples_leaf': 5}, 'Bond': {'max_depth': 5, 'min_samples_leaf': 20}, 'Commodity': {'max_depth': 10, 'min_samples_leaf': 5}}  test_Pooled_R2=0.7574
+  [XGBoost] 6 configs × 3 classes...
+    params={'Equity': {'max_depth': 4, 'learning_rate': 0.05}, 'Bond': {'max_depth': 3, 'learning_rate': 0.1}, 'Commodity': {'max_depth': 4, 'learning_rate': 0.1}}  test_Pooled_R2=0.6722
+  [LightGBM] 8 configs × 3 classes...
+    params={'Equity': {'max_depth': 5, 'learning_rate': 0.1, 'num_leaves': 31}, 'Bond': {'max_depth': 3, 'learning_rate': 0.05, 'num_leaves': 15}, 'Commodity': {'max_depth': 3, 'learning_rate': 0.1, 'num_leaves': 15}}  test_Pooled_R2=0.6453
+  [MLP] 6 configs × 3 classes...
+    params={'Equity': {'hidden_layer_sizes': (64, 32), 'alpha': 0.01}, 'Bond': {'hidden_layer_sizes': (64, 32), 'alpha': 0.0001}, 'Commodity': {'hidden_layer_sizes': (128, 64), 'alpha': 0.0001}}  test_Pooled_R2=0.4915
+  [BiLSTM-A] 4 configs × 3 classes, inner holdout...
+      Equity: best={'hidden': 32, 'dropout': 0.1}  inner_R²=-0.5288
+      Bond: best={'hidden': 32, 'dropout': 0.3}  inner_R²=0.3572
+      Commodity: best={'hidden': 64, 'dropout': 0.3}  inner_R²=0.2921
+  [BiLSTM-A] final fit (1 seeds per class)...
+    → Pooled_R2=0.5701
+  [WEns] weight search on inner holdout...
+    best pw=0.4  inner_R²=0.5820  test_Pooled_R2=0.7437
+
+  Model         Pooled_R2  Median_R2    Mean_R2     RMSE
+  ----------------------------------------------------
+  HAR-3            0.7835    -0.2390    -0.2694   0.4543
+  Ridge            0.7832    -0.4552    -0.2659   0.4546
+  LASSO            0.7448    -0.4731    -0.4451   0.4933
+  ENet             0.7494    -0.4622    -0.4222   0.4888
+  RF               0.7574    -0.1250    -0.3373   0.4809
+  XGBoost          0.6722    -0.2669    -0.9161   0.5590
+  LightGBM         0.6453    -0.4745    -1.0065   0.5815
+  MLP              0.4915    -1.4797    -1.9218   0.6962
+  BiLSTM-A         0.5701    -1.0887    -1.3841   0.6375
+  WEns             0.7437    -0.1341    -0.4545   0.4943
+
+======================================================================
+  Horizon: 120d
+======================================================================
+  Outer  train: 29,808  test: 7,483
+  Inner  train: 23,726   val:  5,962
+  [HAR-3] fixed α=1.0, per-class...
+    → Pooled_R2=0.7700
+  [Ridge] 6 configs × 3 classes...
+    params={'Equity': {'alpha': 2000}, 'Bond': {'alpha': 100}, 'Commodity': {'alpha': 2000}}  test_Pooled_R2=0.7667
+  [LASSO] 6 configs × 3 classes...
+    params={'Equity': {'alpha': 0.1}, 'Bond': {'alpha': 0.01}, 'Commodity': {'alpha': 0.01}}  test_Pooled_R2=0.7333
+  [ENet] 6 configs × 3 classes...
+    params={'Equity': {'alpha': 0.1, 'l1_ratio': 0.9}, 'Bond': {'alpha': 0.01, 'l1_ratio': 0.9}, 'Commodity': {'alpha': 0.01, 'l1_ratio': 0.9}}  test_Pooled_R2=0.7365
+  [RF] 6 configs × 3 classes...
+    params={'Equity': {'max_depth': 10, 'min_samples_leaf': 5}, 'Bond': {'max_depth': 5, 'min_samples_leaf': 5}, 'Commodity': {'max_depth': 10, 'min_samples_leaf': 5}}  test_Pooled_R2=0.7489
+  [XGBoost] 6 configs × 3 classes...
+    params={'Equity': {'max_depth': 4, 'learning_rate': 0.1}, 'Bond': {'max_depth': 3, 'learning_rate': 0.1}, 'Commodity': {'max_depth': 3, 'learning_rate': 0.1}}  test_Pooled_R2=0.6179
+  [LightGBM] 8 configs × 3 classes...
+    params={'Equity': {'max_depth': 5, 'learning_rate': 0.1, 'num_leaves': 15}, 'Bond': {'max_depth': 3, 'learning_rate': 0.1, 'num_leaves': 15}, 'Commodity': {'max_depth': 3, 'learning_rate': 0.1, 'num_leaves': 15}}  test_Pooled_R2=0.6142
+  [MLP] 6 configs × 3 classes...
+    params={'Equity': {'hidden_layer_sizes': (128, 64), 'alpha': 0.0001}, 'Bond': {'hidden_layer_sizes': (64, 32), 'alpha': 0.0001}, 'Commodity': {'hidden_layer_sizes': (64,), 'alpha': 0.01}}  test_Pooled_R2=0.4728
+  [BiLSTM-A] 4 configs × 3 classes, inner holdout...
+      Equity: best={'hidden': 32, 'dropout': 0.1}  inner_R²=-0.9108
+      Bond: best={'hidden': 32, 'dropout': 0.3}  inner_R²=0.3998
+      Commodity: best={'hidden': 32, 'dropout': 0.1}  inner_R²=0.2971
+  [BiLSTM-A] final fit (1 seeds per class)...
+    → Pooled_R2=0.5870
+  [WEns] weight search on inner holdout...
+    best pw=0.5  inner_R²=0.5712  test_Pooled_R2=0.7275
+
+  Model         Pooled_R2  Median_R2    Mean_R2     RMSE
+  ----------------------------------------------------
+  HAR-3            0.7700    -0.4434    -0.5416   0.4631
+  Ridge            0.7667    -0.9023    -0.5526   0.4664
+  LASSO            0.7333    -0.9399    -0.7105   0.4986
+  ENet             0.7365    -0.9432    -0.6962   0.4957
+  RF               0.7489    -0.2517    -0.5422   0.4838
+  XGBoost          0.6179    -0.6923    -1.4544   0.5969
+  LightGBM         0.6142    -0.6426    -1.5536   0.5998
+  MLP              0.4728    -1.9550    -2.3026   0.7011
+  BiLSTM-A         0.5870    -0.9666    -1.7267   0.6174
+  WEns             0.7275    -0.2404    -0.7126   0.5041
+
+======================================================================
+  Horizon: 180d
+======================================================================
+  Outer  train: 29,220  test: 7,351
+  Inner  train: 23,196   val:  5,844
+  [HAR-3] fixed α=1.0, per-class...
+    → Pooled_R2=0.7390
+  [Ridge] 6 configs × 3 classes...
+    params={'Equity': {'alpha': 2000}, 'Bond': {'alpha': 1000}, 'Commodity': {'alpha': 2000}}  test_Pooled_R2=0.7416
+  [LASSO] 6 configs × 3 classes...
+    params={'Equity': {'alpha': 0.1}, 'Bond': {'alpha': 0.01}, 'Commodity': {'alpha': 0.01}}  test_Pooled_R2=0.7172
+  [ENet] 6 configs × 3 classes...
+    params={'Equity': {'alpha': 0.1, 'l1_ratio': 0.9}, 'Bond': {'alpha': 0.1, 'l1_ratio': 0.1}, 'Commodity': {'alpha': 0.1, 'l1_ratio': 0.1}}  test_Pooled_R2=0.7183
+  [RF] 6 configs × 3 classes...
+    params={'Equity': {'max_depth': 5, 'min_samples_leaf': 5}, 'Bond': {'max_depth': 5, 'min_samples_leaf': 5}, 'Commodity': {'max_depth': 10, 'min_samples_leaf': 20}}  test_Pooled_R2=0.7326
+  [XGBoost] 6 configs × 3 classes...
+    params={'Equity': {'max_depth': 4, 'learning_rate': 0.03}, 'Bond': {'max_depth': 3, 'learning_rate': 0.05}, 'Commodity': {'max_depth': 3, 'learning_rate': 0.1}}  test_Pooled_R2=0.6683
+  [LightGBM] 8 configs × 3 classes...
+    params={'Equity': {'max_depth': 5, 'learning_rate': 0.1, 'num_leaves': 31}, 'Bond': {'max_depth': 3, 'learning_rate': 0.05, 'num_leaves': 15}, 'Commodity': {'max_depth': 3, 'learning_rate': 0.1, 'num_leaves': 15}}  test_Pooled_R2=0.6261
+  [MLP] 6 configs × 3 classes...
+    params={'Equity': {'hidden_layer_sizes': (64, 32), 'alpha': 0.01}, 'Bond': {'hidden_layer_sizes': (64, 32), 'alpha': 0.01}, 'Commodity': {'hidden_layer_sizes': (64,), 'alpha': 0.01}}  test_Pooled_R2=0.5574
+  [BiLSTM-A] 4 configs × 3 classes, inner holdout...
+      Equity: best={'hidden': 32, 'dropout': 0.1}  inner_R²=-1.3766
+      Bond: best={'hidden': 32, 'dropout': 0.1}  inner_R²=0.2493
+      Commodity: best={'hidden': 64, 'dropout': 0.3}  inner_R²=0.2266
+  [BiLSTM-A] final fit (1 seeds per class)...
+    → Pooled_R2=0.5714
+  [WEns] weight search on inner holdout...
+    best pw=0.5  inner_R²=0.5032  test_Pooled_R2=0.7383
+
+  Model         Pooled_R2  Median_R2    Mean_R2     RMSE
+  ----------------------------------------------------
+  HAR-3            0.7390    -1.2419    -1.2954   0.4859
+  Ridge            0.7416    -1.4075    -1.1812   0.4835
+  LASSO            0.7172    -1.4265    -1.2800   0.5058
+  ENet             0.7183    -1.7089    -1.3038   0.5048
+  RF               0.7326    -0.2752    -1.1413   0.4918
+  XGBoost          0.6683    -0.6427    -1.6944   0.5478
+  LightGBM         0.6261    -0.7223    -1.9243   0.5815
+  MLP              0.5574    -1.7574    -2.3105   0.6327
+  BiLSTM-A         0.5714    -2.1417    -2.7149   0.6195
+  WEns             0.7383    -0.2963    -1.0538   0.4865
+
+======================================================================
+  Horizon: 252d
+======================================================================
+  Outer  train: 28,515  test: 7,192
+  Inner  train: 22,560   val:  5,703
+  [HAR-3] fixed α=1.0, per-class...
+    → Pooled_R2=0.6906
+  [Ridge] 6 configs × 3 classes...
+    params={'Equity': {'alpha': 2000}, 'Bond': {'alpha': 1000}, 'Commodity': {'alpha': 2000}}  test_Pooled_R2=0.6873
+  [LASSO] 6 configs × 3 classes...
+    params={'Equity': {'alpha': 0.1}, 'Bond': {'alpha': 0.01}, 'Commodity': {'alpha': 0.01}}  test_Pooled_R2=0.6675
+  [ENet] 6 configs × 3 classes...
+    params={'Equity': {'alpha': 0.1, 'l1_ratio': 0.9}, 'Bond': {'alpha': 0.1, 'l1_ratio': 0.1}, 'Commodity': {'alpha': 0.1, 'l1_ratio': 0.1}}  test_Pooled_R2=0.6712
+  [RF] 6 configs × 3 classes...
+    params={'Equity': {'max_depth': 5, 'min_samples_leaf': 5}, 'Bond': {'max_depth': 5, 'min_samples_leaf': 5}, 'Commodity': {'max_depth': 10, 'min_samples_leaf': 5}}  test_Pooled_R2=0.7094
+  [XGBoost] 6 configs × 3 classes...
+    params={'Equity': {'max_depth': 4, 'learning_rate': 0.1}, 'Bond': {'max_depth': 3, 'learning_rate': 0.03}, 'Commodity': {'max_depth': 3, 'learning_rate': 0.1}}  test_Pooled_R2=0.6038
+  [LightGBM] 8 configs × 3 classes...
+    params={'Equity': {'max_depth': 5, 'learning_rate': 0.1, 'num_leaves': 31}, 'Bond': {'max_depth': 3, 'learning_rate': 0.05, 'num_leaves': 15}, 'Commodity': {'max_depth': 5, 'learning_rate': 0.1, 'num_leaves': 31}}  test_Pooled_R2=0.5993
+  [MLP] 6 configs × 3 classes...
+    params={'Equity': {'hidden_layer_sizes': (128, 64), 'alpha': 0.01}, 'Bond': {'hidden_layer_sizes': (128, 64), 'alpha': 0.01}, 'Commodity': {'hidden_layer_sizes': (128, 64), 'alpha': 0.01}}  test_Pooled_R2=0.4973
+  [BiLSTM-A] 4 configs × 3 classes, inner holdout...
+      Equity: best={'hidden': 64, 'dropout': 0.1}  inner_R²=-1.8166
+      Bond: best={'hidden': 32, 'dropout': 0.3}  inner_R²=0.2943
+      Commodity: best={'hidden': 64, 'dropout': 0.1}  inner_R²=-0.0298
+  [BiLSTM-A] final fit (1 seeds per class)...
+    → Pooled_R2=0.5253
+  [WEns] weight search on inner holdout...
+    best pw=0.4  inner_R²=0.4625  test_Pooled_R2=0.6930
+
+  Model         Pooled_R2  Median_R2    Mean_R2     RMSE
+  ----------------------------------------------------
+  HAR-3            0.6906    -2.2937    -3.3164   0.5212
+  Ridge            0.6873    -2.9712    -2.9132   0.5239
+  LASSO            0.6675    -3.5177    -3.0152   0.5402
+  ENet             0.6712    -3.8926    -3.0215   0.5372
+  RF               0.7094    -0.8857    -2.5551   0.5051
+  XGBoost          0.6038    -1.3356    -3.6146   0.5897
+  LightGBM         0.5993    -1.2543    -3.6174   0.5931
+  MLP              0.4973    -3.7637    -4.4170   0.6643
+  BiLSTM-A         0.5253    -3.0445    -5.1954   0.6421
+  WEns             0.6930    -0.7774    -2.4632   0.5191
+
+Saved: /root/vrp/results/main_benchmark_v4_results.json
+Saved: /root/vrp/paper/csv/main_benchmark_v4_performance.csv
+
+Pooled_R2 Summary (v3 — per-class):
+Model    BiLSTM-A    ENet   HAR-3   LASSO  LightGBM     MLP      RF   Ridge    WEns  XGBoost
+Horizon                                                                                     
+1d         0.0690  0.1165  0.1097  0.1162    0.1048  0.0855  0.1169  0.1159  0.1166   0.1131
+5d         0.3319  0.6253  0.5819  0.6189    0.6106  0.4391  0.6107  0.6234  0.6270   0.6121
+22d        0.5639  0.7894  0.7659  0.7853    0.7557  0.5867  0.7793  0.7952  0.7966   0.7679
+60d        0.5514  0.7729  0.7860  0.7676    0.6933  0.4996  0.7702  0.7976  0.7835   0.7213
+90d        0.5701  0.7494  0.7835  0.7448    0.6453  0.4915  0.7574  0.7832  0.7437   0.6722
+120d       0.5870  0.7365  0.7700  0.7333    0.6142  0.4728  0.7489  0.7667  0.7275   0.6179
+180d       0.5714  0.7183  0.7390  0.7172    0.6261  0.5574  0.7326  0.7416  0.7383   0.6683
+252d       0.5253  0.6712  0.6906  0.6675    0.5993  0.4973  0.7094  0.6873  0.6930   0.6038

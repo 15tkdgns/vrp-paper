@@ -1,0 +1,61 @@
+/usr/local/lib/python3.12/dist-packages/pandas/core/arrays/masked.py:61: UserWarning: Pandas requires version '1.3.6' or newer of 'bottleneck' (version '1.3.5' currently installed).
+  from pandas.core import (
+/usr/local/lib/python3.12/dist-packages/matplotlib/projections/__init__.py:63: UserWarning: Unable to import Axes3D. This may be due to multiple versions of Matplotlib being installed (e.g. as a system package and as a pip package). As a result, the 3D projection is not available.
+  warnings.warn("Unable to import Axes3D. This may be due to multiple versions of "
+======================================================================
+Main Benchmark v6: Per-class fair comparison, 35 features (per-horizon tuning)
+======================================================================
+
+Loading data & building 37 features...
+Assets: 11, Features: 35 (no GARCH)
+
+======================================================================
+  Horizon: 22d
+======================================================================
+  Outer  train: 30,769  test: 7,698
+  Inner  train: 24,593   val:  6,154
+  [HAR-3] fixed α=1.0, per-class...
+    → Pooled_R2=0.7659
+  [Ridge] 6 configs × 3 classes...
+    params={'Equity': {'alpha': 2000}, 'Bond': {'alpha': 10}, 'Commodity': {'alpha': 500}}  test_Pooled_R2=0.8026
+  [LASSO] 6 configs × 3 classes...
+    params={'Equity': {'alpha': 0.01}, 'Bond': {'alpha': 0.001}, 'Commodity': {'alpha': 0.05}}  test_Pooled_R2=0.7973
+  [ENet] 6 configs × 3 classes...
+    params={'Equity': {'alpha': 0.1, 'l1_ratio': 0.1}, 'Bond': {'alpha': 0.005, 'l1_ratio': 0.1}, 'Commodity': {'alpha': 0.1, 'l1_ratio': 0.1}}  test_Pooled_R2=0.8009
+  [RF] 6 configs × 3 classes...
+    params={'Equity': {'max_depth': 5, 'min_samples_leaf': 20}, 'Bond': {'max_depth': 5, 'min_samples_leaf': 20}, 'Commodity': {'max_depth': 10, 'min_samples_leaf': 5}}  test_Pooled_R2=0.7775
+  [XGBoost] 6 configs × 3 classes...
+    params={'Equity': {'max_depth': 3, 'learning_rate': 0.03}, 'Bond': {'max_depth': 3, 'learning_rate': 0.03}, 'Commodity': {'max_depth': 3, 'learning_rate': 0.03}}  test_Pooled_R2=0.7773
+  [LightGBM] 8 configs × 3 classes...
+    params={'Equity': {'max_depth': 3, 'learning_rate': 0.05, 'num_leaves': 15}, 'Bond': {'max_depth': 3, 'learning_rate': 0.05, 'num_leaves': 15}, 'Commodity': {'max_depth': 3, 'learning_rate': 0.05, 'num_leaves': 15}}  test_Pooled_R2=0.7697
+  [MLP] 6 configs × 3 classes...
+    params={'Equity': {'hidden_layer_sizes': (128, 64), 'alpha': 0.01}, 'Bond': {'hidden_layer_sizes': (128, 64), 'alpha': 0.01}, 'Commodity': {'hidden_layer_sizes': (128, 64), 'alpha': 0.01}}  test_Pooled_R2=0.5644
+  [BiLSTM-A] 4 configs × 3 classes, inner holdout...
+      Equity: best={'hidden': 64, 'dropout': 0.3}  inner_R²=-0.1236
+      Bond: best={'hidden': 64, 'dropout': 0.3}  inner_R²=0.3877
+      Commodity: best={'hidden': 64, 'dropout': 0.3}  inner_R²=0.2676
+  [BiLSTM-A] final fit (1 seeds per class)...
+    → Pooled_R2=0.5361
+  [WEns] weight search on inner holdout...
+    best pw=0.8  inner_R²=0.7075  test_Pooled_R2=0.8044
+
+  Model         Pooled_R2  Median_R2    Mean_R2     RMSE
+  ----------------------------------------------------
+  HAR-3            0.7659     0.1702     0.1614   0.5023
+  Ridge            0.8026     0.2583     0.2861   0.4612
+  LASSO            0.7973     0.2420     0.2607   0.4674
+  ENet             0.8009     0.2619     0.2795   0.4632
+  RF               0.7775     0.1659     0.1766   0.4896
+  XGBoost          0.7773     0.1378     0.1799   0.4899
+  LightGBM         0.7697     0.1255     0.1518   0.4982
+  MLP              0.5644    -0.5295    -0.5451   0.6852
+  BiLSTM-A         0.5361    -0.5286    -0.6426   0.7003
+  WEns             0.8044     0.2469     0.2942   0.4591
+
+Saved: /tmp/test_v6_22d.json
+Saved: /tmp/test_v6_22d.csv
+
+Pooled_R2 Summary (v3 — per-class):
+Model    BiLSTM-A    ENet   HAR-3   LASSO  LightGBM     MLP      RF   Ridge    WEns  XGBoost
+Horizon                                                                                     
+22d        0.5361  0.8009  0.7659  0.7973    0.7697  0.5644  0.7775  0.8026  0.8044   0.7773

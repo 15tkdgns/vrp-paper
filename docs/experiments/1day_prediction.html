@@ -210,6 +210,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../experiments/feature_analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">V71 피처 분석</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/importance_consensus.qmd" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">피처 중요도 합의(Consensus)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../experiments/1day_prediction.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">V50 LSTM (3feat)</span></a>
   </div>
@@ -245,6 +257,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../experiments/methodology_overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">연구 방법론 개요</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/vrp_dashboard.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cross-Asset VRP 현황</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/dnn_vs_ml_insights.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">DNN vs ML 비교 인사이트</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../experiments/phase13_model_comparison.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">모델 아키텍처 비교</span></a>
   </div>
@@ -259,6 +289,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../experiments/universal_model.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">통합 모델 실험</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/pooled_r2_explained.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">풀링 R² 해설</span></a>
   </div>
 </li>
       </ul>
@@ -398,7 +434,7 @@ V50 Tuned 핵심 성과 (전방 RV 기준, 11개 자산 풀링)
 <td style="text-align: left;"><strong>1위</strong></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">365d</td>
+<td style="text-align: left;">252d</td>
 <td style="text-align: left;">0.589</td>
 <td style="text-align: left;"><strong>-2.199</strong></td>
 <td style="text-align: left;">0.590</td>
@@ -562,7 +598,7 @@ flowchart TD
 </section>
 <section id="모델-성능-비교-1일-예측-모델만" class="level2">
 <h2 class="anchored" data-anchor-id="모델-성능-비교-1일-예측-모델만">2. 모델 성능 비교 (1일 예측 모델만)</h2>
-<div id="0075563b" class="cell" data-fig-height="4" data-fig-width="10" data-execution_count="1">
+<div id="06d92b9e" class="cell" data-fig-height="4" data-fig-width="10" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -627,7 +663,7 @@ flowchart TD
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Walk-Forward (v51b)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">DM Test (v53)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Attention 분석 (v52)</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">Extreme Market (v59)</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<div id="2860e9a3" class="cell" data-execution_count="2">
+<div id="a7c09127" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-stdout">
 <pre><code>IS R²:  0.84845
 OOS R²: 0.53344
@@ -665,7 +701,7 @@ Gap:    0.31501</code></pre>
 </div>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<div id="a5053d60" class="cell" data-execution_count="3">
+<div id="ffa6703c" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-stdout">
 <pre><code>V50 R²: 0.7839
 V29 R²: 0.4417
@@ -695,7 +731,7 @@ P-Value: 0.0</code></pre>
 </table>
 </div>
 <div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
-<div id="6029ed27" class="cell" data-execution_count="4">
+<div id="68eeafe8" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-stdout">
 <pre><code>최대 가중치 시차(lag): 21일
 최대 가중치: 0.1111
@@ -725,7 +761,7 @@ P-Value: 0.0</code></pre>
 </table>
 </div>
 <div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
-<div id="199f186b" class="cell" data-fig-height="4" data-fig-width="10" data-execution_count="5">
+<div id="0fba5ace" class="cell" data-fig-height="4" data-fig-width="10" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -798,9 +834,9 @@ P-Value: 0.0</code></pre>
 <section id="관련-자료" class="level2">
 <h2 class="anchored" data-anchor-id="관련-자료">관련 자료</h2>
 <ul>
-<li><strong>소스 코드</strong>: <a href="../src/experiments/creative/v50_dual_attention_lstm.py">v50_dual_attention_lstm.py</a></li>
-<li><strong>공정 비교 실험</strong>: <a href="../src/experiments/verification/v51b_fair_comparison.py">v51b_fair_comparison.py</a></li>
-<li><strong>DM Test</strong>: <a href="../src/experiments/verification/v53_dm_test_v50.py">v53_dm_test_v50.py</a></li>
+<li><strong>소스 코드</strong>: <a href="./creative/v50_dual_attention_lstm.py">v50_dual_attention_lstm.py</a></li>
+<li><strong>공정 비교 실험</strong>: <a href="./verification/v51b_fair_comparison.py">v51b_fair_comparison.py</a></li>
+<li><strong>DM Test</strong>: <a href="./verification/v53_dm_test_v50.py">v53_dm_test_v50.py</a></li>
 <li><strong>상세 검증</strong>: <a href="../experiments/sci_verification.html">SCI 검증 대시보드</a></li>
 <li><strong>강건성 검증</strong>: <a href="../experiments/champion_robustness.html">챔피언 모델 강건성</a></li>
 </ul>
@@ -1312,7 +1348,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>| **90d** | **0.788** | **-0.031** | **0.448** | **1위** |</span>
 <span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>| 120d | 0.751 | **-0.149** | 0.479 | 2위 (중위 1위) |</span>
 <span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>| **180d** | **0.708** | **-0.328** | **0.511** | **1위** |</span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>| 365d | 0.589 | **-2.199** | 0.590 | 2위 (중위 1위) |</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>| 252d | 0.589 | **-2.199** | 0.590 | 2위 (중위 1위) |</span>
 <span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>::: {.callout-warning}</span>
 <span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="fu">## 성능 해석</span></span>
@@ -1387,7 +1423,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'font.family'</span>] <span class="op">=</span> <span class="st">'UnDotum'</span></span>
 <span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'axes.unicode_minus'</span>] <span class="op">=</span> <span class="va">False</span></span>
 <span id="cb5-111"><a href="#cb5-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a>base <span class="op">=</span> <span class="st">'/root/vrp/src/experiments'</span></span>
+<span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a>base <span class="op">=</span> <span class="st">'/root/vrp/experiments'</span></span>
 <span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> load_json(path):</span>
 <span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(path) <span class="im">as</span> f:</span>
 <span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> json.load(f)</span>
@@ -1444,7 +1480,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb5-168"><a href="#cb5-168" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
 <span id="cb5-169"><a href="#cb5-169" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
 <span id="cb5-170"><a href="#cb5-170" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
-<span id="cb5-171"><a href="#cb5-171" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'/root/vrp/src/experiments/verification/v51b_results.json'</span>) <span class="im">as</span> f:</span>
+<span id="cb5-171"><a href="#cb5-171" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'/root/vrp/experiments/verification/v51b_results.json'</span>) <span class="im">as</span> f:</span>
 <span id="cb5-172"><a href="#cb5-172" aria-hidden="true" tabindex="-1"></a>    wf <span class="op">=</span> json.load(f)</span>
 <span id="cb5-173"><a href="#cb5-173" aria-hidden="true" tabindex="-1"></a>exp <span class="op">=</span> wf[<span class="st">'exp2_train_scaler'</span>]</span>
 <span id="cb5-174"><a href="#cb5-174" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"IS R²:  </span><span class="sc">{</span>exp[<span class="st">'IS_R2'</span>]<span class="sc">:.5f}</span><span class="ss">"</span>)</span>
@@ -1467,7 +1503,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb5-193"><a href="#cb5-193" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
 <span id="cb5-194"><a href="#cb5-194" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
 <span id="cb5-195"><a href="#cb5-195" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
-<span id="cb5-196"><a href="#cb5-196" aria-hidden="true" tabindex="-1"></a>dm <span class="op">=</span> json.load(<span class="bu">open</span>(<span class="st">'/root/vrp/src/experiments/verification/v53_results.json'</span>))</span>
+<span id="cb5-196"><a href="#cb5-196" aria-hidden="true" tabindex="-1"></a>dm <span class="op">=</span> json.load(<span class="bu">open</span>(<span class="st">'/root/vrp/experiments/verification/v53_results.json'</span>))</span>
 <span id="cb5-197"><a href="#cb5-197" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"V50 R²: </span><span class="sc">{</span>dm[<span class="st">'V50_R2'</span>]<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
 <span id="cb5-198"><a href="#cb5-198" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"V29 R²: </span><span class="sc">{</span>dm[<span class="st">'V29_R2'</span>]<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
 <span id="cb5-199"><a href="#cb5-199" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"DM Stat: </span><span class="sc">{</span>dm[<span class="st">'DM_Stat'</span>]<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
@@ -1483,7 +1519,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb5-211"><a href="#cb5-211" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
 <span id="cb5-212"><a href="#cb5-212" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
 <span id="cb5-213"><a href="#cb5-213" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
-<span id="cb5-214"><a href="#cb5-214" aria-hidden="true" tabindex="-1"></a>attn <span class="op">=</span> json.load(<span class="bu">open</span>(<span class="st">'/root/vrp/src/experiments/verification/v52_results.json'</span>))</span>
+<span id="cb5-214"><a href="#cb5-214" aria-hidden="true" tabindex="-1"></a>attn <span class="op">=</span> json.load(<span class="bu">open</span>(<span class="st">'/root/vrp/experiments/verification/v52_results.json'</span>))</span>
 <span id="cb5-215"><a href="#cb5-215" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"최대 가중치 시차(lag): </span><span class="sc">{</span>attn[<span class="st">'Max_Lag'</span>]<span class="sc">}</span><span class="ss">일"</span>)</span>
 <span id="cb5-216"><a href="#cb5-216" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"최대 가중치: </span><span class="sc">{</span>attn[<span class="st">'Max_Weight'</span>]<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
 <span id="cb5-217"><a href="#cb5-217" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"최소 가중치: </span><span class="sc">{</span>attn[<span class="st">'Min_Weight'</span>]<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
@@ -1507,7 +1543,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb5-237"><a href="#cb5-237" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'font.family'</span>] <span class="op">=</span> <span class="st">'UnDotum'</span></span>
 <span id="cb5-238"><a href="#cb5-238" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'axes.unicode_minus'</span>] <span class="op">=</span> <span class="va">False</span></span>
 <span id="cb5-239"><a href="#cb5-239" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-240"><a href="#cb5-240" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'/root/vrp/src/experiments/verification/v59_results.json'</span>) <span class="im">as</span> f:</span>
+<span id="cb5-240"><a href="#cb5-240" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'/root/vrp/experiments/verification/v59_results.json'</span>) <span class="im">as</span> f:</span>
 <span id="cb5-241"><a href="#cb5-241" aria-hidden="true" tabindex="-1"></a>    v59 <span class="op">=</span> json.load(f)</span>
 <span id="cb5-242"><a href="#cb5-242" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-243"><a href="#cb5-243" aria-hidden="true" tabindex="-1"></a>regimes <span class="op">=</span> <span class="bu">list</span>(v59.keys())</span>
@@ -1556,9 +1592,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb5-286"><a href="#cb5-286" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-287"><a href="#cb5-287" aria-hidden="true" tabindex="-1"></a><span class="fu">## 관련 자료</span></span>
 <span id="cb5-288"><a href="#cb5-288" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-289"><a href="#cb5-289" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**소스 코드**: <span class="co">[</span><span class="ot">v50_dual_attention_lstm.py</span><span class="co">](../src/experiments/creative/v50_dual_attention_lstm.py)</span></span>
-<span id="cb5-290"><a href="#cb5-290" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**공정 비교 실험**: <span class="co">[</span><span class="ot">v51b_fair_comparison.py</span><span class="co">](../src/experiments/verification/v51b_fair_comparison.py)</span></span>
-<span id="cb5-291"><a href="#cb5-291" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**DM Test**: <span class="co">[</span><span class="ot">v53_dm_test_v50.py</span><span class="co">](../src/experiments/verification/v53_dm_test_v50.py)</span></span>
+<span id="cb5-289"><a href="#cb5-289" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**소스 코드**: <span class="co">[</span><span class="ot">v50_dual_attention_lstm.py</span><span class="co">](./creative/v50_dual_attention_lstm.py)</span></span>
+<span id="cb5-290"><a href="#cb5-290" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**공정 비교 실험**: <span class="co">[</span><span class="ot">v51b_fair_comparison.py</span><span class="co">](./verification/v51b_fair_comparison.py)</span></span>
+<span id="cb5-291"><a href="#cb5-291" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**DM Test**: <span class="co">[</span><span class="ot">v53_dm_test_v50.py</span><span class="co">](./verification/v53_dm_test_v50.py)</span></span>
 <span id="cb5-292"><a href="#cb5-292" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**상세 검증**: <span class="co">[</span><span class="ot">SCI 검증 대시보드</span><span class="co">](/experiments/sci_verification.html)</span></span>
 <span id="cb5-293"><a href="#cb5-293" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**강건성 검증**: <span class="co">[</span><span class="ot">챔피언 모델 강건성</span><span class="co">](/experiments/champion_robustness.html)</span></span>
 </code><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>

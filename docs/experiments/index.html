@@ -213,6 +213,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../experiments/importance_consensus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">피처 중요도 합의(Consensus)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../experiments/1day_prediction.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">V50 LSTM (3feat)</span></a>
   </div>
@@ -246,6 +252,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/methodology_overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">연구 방법론 개요</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/vrp_dashboard.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cross-Asset VRP 현황</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/dnn_vs_ml_insights.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">DNN vs ML 비교 인사이트</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../experiments/phase13_model_comparison.html" class="sidebar-item-text sidebar-link">
@@ -308,7 +332,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">공개</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2026년 2월 20일</p>
+      <p class="date">2026년 3월 17일</p>
     </div>
   </div>
   
@@ -357,7 +381,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;"><strong>V36 (HAR-3)</strong></td>
 <td style="text-align: left;"><a href="../experiments/phase10_v29_verification.html">V29 검증</a></td>
 <td style="text-align: left;">0.761</td>
-<td style="text-align: left;">장기(120~365d) 안정적</td>
+<td style="text-align: left;">장기(120~252d) 안정적</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>강건성 검증</strong></td>
@@ -432,7 +456,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>22d 챔피언</strong>: <span class="our-model">V74 ElasticNet(59feat)</span> = <strong>R² 0.807</strong>, V71 Ensemble(0.803) 대비 <strong>+0.5% 향상</strong></li>
 <li><strong>딥러닝 한계 규명</strong>: Pooled 데이터에서 LSTM/Transformer는 음의 R² (시계열 불연속성)</li>
 <li><strong>중기(60~180d)</strong>: <span class="our-model">V50 Tuned LSTM(3feat)</span>이 풀링 R² 및 중위 R² 최고 (60d: 0.796)</li>
-<li><strong>장기(120~365d)</strong>: V36 HAR-3가 풀링 R² 안정적 (365d: 0.611)</li>
+<li><strong>장기(120~252d)</strong>: V36 HAR-3가 풀링 R² 안정적 (252d: 0.611)</li>
 <li><strong>핵심 교훈</strong>: 금융 변동성 예측에서는 <strong>피처 엔지니어링 + 강건한 선형 모델</strong>이 복잡한 딥러닝보다 효과적</li>
 <li><strong>데이터 누출 방지</strong>: 전방 RV 타겟으로 rolling window 중첩 제거</li>
 </ol>
@@ -930,7 +954,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>| &lt;span class="our-model"&gt;**V74 (ElasticNet 59feat)**&lt;/span&gt; | Enhanced ML + Deep Learning | **0.807** | **22d 챔피언, LASSO 대비 +2.1%** |</span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>| &lt;span class="our-model"&gt;**V71 (Ensemble 37feat)**&lt;/span&gt; | <span class="co">[</span><span class="ot">22일 예측 (V71)</span><span class="co">](/experiments/22day_prediction.html)</span> | 0.803 | 37개 피처 Ridge+XGB 앙상블 |</span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>| &lt;span class="our-model"&gt;**V50 Tuned (LSTM 3feat)**&lt;/span&gt; | <span class="co">[</span><span class="ot">V50 모델 분석</span><span class="co">](/experiments/1day_prediction.html)</span> | 0.780 | 중기(60~180d) 최고, 중위 R² 전 구간 최고 |</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>| **V36 (HAR-3)** | <span class="co">[</span><span class="ot">V29 검증</span><span class="co">](/experiments/phase10_v29_verification.html)</span> | 0.761 | 장기(120~365d) 안정적 |</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>| **V36 (HAR-3)** | <span class="co">[</span><span class="ot">V29 검증</span><span class="co">](/experiments/phase10_v29_verification.html)</span> | 0.761 | 장기(120~252d) 안정적 |</span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>| **강건성 검증** | <span class="co">[</span><span class="ot">챔피언 모델 강건성</span><span class="co">](/experiments/champion_robustness.html)</span> | 6종 PASS | |</span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>| **SCI 검증** | <span class="co">[</span><span class="ot">V50 정밀 검증</span><span class="co">](/experiments/sci_verification.html)</span> | - | |</span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
@@ -956,7 +980,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**22d 챔피언**: &lt;span class="our-model"&gt;V74 ElasticNet(59feat)&lt;/span&gt; = **R² 0.807**, V71 Ensemble(0.803) 대비 **+0.5% 향상**</span>
 <span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**딥러닝 한계 규명**: Pooled 데이터에서 LSTM/Transformer는 음의 R² (시계열 불연속성)</span>
 <span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**중기(60~180d)**: &lt;span class="our-model"&gt;V50 Tuned LSTM(3feat)&lt;/span&gt;이 풀링 R² 및 중위 R² 최고 (60d: 0.796)</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**장기(120~365d)**: V36 HAR-3가 풀링 R² 안정적 (365d: 0.611)</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**장기(120~252d)**: V36 HAR-3가 풀링 R² 안정적 (252d: 0.611)</span>
 <span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>**핵심 교훈**: 금융 변동성 예측에서는 **피처 엔지니어링 + 강건한 선형 모델**이 복잡한 딥러닝보다 효과적</span>
 <span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>**데이터 누출 방지**: 전방 RV 타겟으로 rolling window 중첩 제거</span>
 <span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>:::</span></code><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>

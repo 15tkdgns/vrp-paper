@@ -207,6 +207,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../experiments/feature_analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">V71 피처 분석</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/importance_consensus.qmd" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">피처 중요도 합의(Consensus)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../experiments/1day_prediction.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">V50 LSTM (3feat)</span></a>
   </div>
@@ -240,6 +252,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/methodology_overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">연구 방법론 개요</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/vrp_dashboard.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cross-Asset VRP 현황</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/dnn_vs_ml_insights.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">DNN vs ML 비교 인사이트</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../experiments/phase13_model_comparison.html" class="sidebar-item-text sidebar-link">
@@ -290,6 +320,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#자산군별-성능-v36-vs-v71" id="toc-자산군별-성능-v36-vs-v71" class="nav-link" data-scroll-target="#자산군별-성능-v36-vs-v71">자산군별 성능 (V36 vs V71)</a></li>
   <li><a href="#vix-국면별-안정성" id="toc-vix-국면별-안정성" class="nav-link" data-scroll-target="#vix-국면별-안정성">VIX 국면별 안정성</a></li>
   </ul></li>
+  <li><a href="#학술-강건성-검증-추가" id="toc-학술-강건성-검증-추가" class="nav-link" data-scroll-target="#학술-강건성-검증-추가">학술 강건성 검증 (추가)</a>
+  <ul class="collapse">
+  <li><a href="#commodity-iv-대체-gvzovx" id="toc-commodity-iv-대체-gvzovx" class="nav-link" data-scroll-target="#commodity-iv-대체-gvzovx">Commodity IV 대체 (GVZ/OVX)</a></li>
+  <li><a href="#block-bootstrap-dm-test" id="toc-block-bootstrap-dm-test" class="nav-link" data-scroll-target="#block-bootstrap-dm-test">Block Bootstrap DM Test</a></li>
+  <li><a href="#forward-fill-비교" id="toc-forward-fill-비교" class="nav-link" data-scroll-target="#forward-fill-비교">Forward-Fill 비교</a></li>
+  </ul></li>
+  <li><a href="#다중-모델-비교-9개" id="toc-다중-모델-비교-9개" class="nav-link" data-scroll-target="#다중-모델-비교-9개">다중 모델 비교 (9개)</a></li>
+  <li><a href="#피처-서브셋-ablation" id="toc-피처-서브셋-ablation" class="nav-link" data-scroll-target="#피처-서브셋-ablation">피처 서브셋 Ablation</a></li>
+  <li><a href="#피처-중요도-7개-방법-합의" id="toc-피처-중요도-7개-방법-합의" class="nav-link" data-scroll-target="#피처-중요도-7개-방법-합의">피처 중요도 (7개 방법 합의)</a></li>
+  <li><a href="#잔차-진단-및-학습-곡선" id="toc-잔차-진단-및-학습-곡선" class="nav-link" data-scroll-target="#잔차-진단-및-학습-곡선">잔차 진단 및 학습 곡선</a></li>
   <li><a href="#종합-결론" id="toc-종합-결론" class="nav-link" data-scroll-target="#종합-결론">종합 결론</a>
   <ul class="collapse">
   <li><a href="#관련-자료" id="toc-관련-자료" class="nav-link" data-scroll-target="#관련-자료">관련 자료</a></li>
@@ -407,7 +447,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>V71 모델은 37개 피처의 Ridge + XGBoost 가중 앙상블로 전방 RV 기준 22d R²=0.803을 달성하였으며, <strong>6종 강건성 테스트를 모두 통과</strong>했습니다.</p>
 <section id="강건성-시각화" class="level2">
 <h2 class="anchored" data-anchor-id="강건성-시각화">강건성 시각화</h2>
-<div id="7889bc1e" class="cell" data-fig-height="10" data-fig-width="12" data-execution_count="1">
+<div id="9412d882" class="cell" data-fig-height="10" data-fig-width="12" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -435,7 +475,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: left;">Alpha 민감도</td>
-<td style="text-align: left;">R² = 0.788~0.802 (0.001~5000)</td>
+<td style="text-align: left;">R² = 0.793~0.802 (0.001~5000)</td>
 <td style="text-align: left;"><strong>PASS</strong></td>
 </tr>
 <tr class="odd">
@@ -463,7 +503,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="자산군별-성능-v36-vs-v71" class="level2">
 <h2 class="anchored" data-anchor-id="자산군별-성능-v36-vs-v71">자산군별 성능 (V36 vs V71)</h2>
-<div id="6c07d0b4" class="cell" data-fig-height="5" data-fig-width="12" data-execution_count="2">
+<div id="0eb206b2" class="cell" data-fig-height="5" data-fig-width="12" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -475,7 +515,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="vix-국면별-안정성" class="level2">
 <h2 class="anchored" data-anchor-id="vix-국면별-안정성">VIX 국면별 안정성</h2>
-<div id="0e6bf063" class="cell" data-fig-height="5" data-fig-width="10" data-execution_count="3">
+<div id="e62d4a55" class="cell" data-fig-height="5" data-fig-width="10" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -499,6 +539,200 @@ High VIX 국면 우월성
 </div>
 <hr>
 </section>
+</section>
+<section id="학술-강건성-검증-추가" class="level1">
+<h1>학술 강건성 검증 (추가)</h1>
+<section id="commodity-iv-대체-gvzovx" class="level2">
+<h2 class="anchored" data-anchor-id="commodity-iv-대체-gvzovx">Commodity IV 대체 (GVZ/OVX)</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">설정</th>
+<th style="text-align: center;">Pooled R²</th>
+<th style="text-align: center;">Median R²</th>
+<th style="text-align: center;">RMSE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">VIX only (baseline)</td>
+<td style="text-align: center;">0.7822</td>
+<td style="text-align: center;">0.1233</td>
+<td style="text-align: center;">0.4877</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">GVZ/OVX (commodity)</td>
+<td style="text-align: center;">0.7743</td>
+<td style="text-align: center;">0.1253</td>
+<td style="text-align: center;">0.4965</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>GLD +2.6%p, USO +0.8%p 개선. SLV -13.4%p 악화(해당 IV 지수 없음)</li>
+<li>전체 차이 -0.8%p로 <strong>단일 VIX 사용의 타당성 확인</strong></li>
+</ul>
+</section>
+<section id="block-bootstrap-dm-test" class="level2">
+<h2 class="anchored" data-anchor-id="block-bootstrap-dm-test">Block Bootstrap DM Test</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">방법</th>
+<th style="text-align: center;">p-value</th>
+<th style="text-align: center;">유의성</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">HAC DM (Newey-West)</td>
+<td style="text-align: center;">0.000000</td>
+<td style="text-align: center;">***</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Block Bootstrap (B=5000)</td>
+<td style="text-align: center;">0.000000</td>
+<td style="text-align: center;">***</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="forward-fill-비교" class="level2">
+<h2 class="anchored" data-anchor-id="forward-fill-비교">Forward-Fill 비교</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">설정</th>
+<th style="text-align: center;">샘플</th>
+<th style="text-align: center;">Pooled R²</th>
+<th style="text-align: center;">RMSE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">With ffill</td>
+<td style="text-align: center;">41,261</td>
+<td style="text-align: center;">0.7822</td>
+<td style="text-align: center;">0.4877</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Without ffill</td>
+<td style="text-align: center;">38,489</td>
+<td style="text-align: center;">0.7952</td>
+<td style="text-align: center;">0.4698</td>
+</tr>
+</tbody>
+</table>
+<p>ffill 제거 시 R² +0.013 → <strong>ffill이 결과를 과대평가하지 않음</strong></p>
+<hr>
+</section>
+</section>
+<section id="다중-모델-비교-9개" class="level1">
+<h1>다중 모델 비교 (9개)</h1>
+<div id="33c6de19" class="cell" data-fig-height="5" data-fig-width="12" data-execution_count="4">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="champion_robustness_files/figure-html/cell-5-output-1.png" width="1141" height="468" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>선형 모델이 일관적으로 트리/비선형보다 우수</strong>: 변동성 지속성(persistence)은 본질적으로 선형 구조.</p>
+<hr>
+</section>
+<section id="피처-서브셋-ablation" class="level1">
+<h1>피처 서브셋 Ablation</h1>
+<div id="3bcda488" class="cell" data-fig-height="4" data-fig-width="10" data-execution_count="5">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="champion_robustness_files/figure-html/cell-6-output-1.png" width="950" height="373" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>HAR+Range 8피처(0.785)가 Full 37피처(0.762)보다 우수</strong> → 과적합 방지 + 핵심 피처 집중 효과</p>
+<hr>
+</section>
+<section id="피처-중요도-7개-방법-합의" class="level1">
+<h1>피처 중요도 (7개 방법 합의)</h1>
+<div id="d92f3b1e" class="cell" data-fig-height="5" data-fig-width="10" data-execution_count="6">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="champion_robustness_files/figure-html/cell-7-output-1.png" width="948" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>사용 방법: Ridge Coef, Permutation, XGBoost Gain, SHAP, Mutual Info, Spearman, RFE. <strong>Kendall tau 모두 유의(p&lt;0.05)</strong>.</p>
+<hr>
+</section>
+<section id="잔차-진단-및-학습-곡선" class="level1">
+<h1>잔차 진단 및 학습 곡선</h1>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">진단</th>
+<th style="text-align: left;">결과</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Jarque-Bera (정규성)</td>
+<td style="text-align: left;">모든 9개 모델 p &lt; 0.001 (비정규)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ljung-Box (자기상관)</td>
+<td style="text-align: left;">모든 모델 p &lt; 0.001</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ARCH Test (이분산)</td>
+<td style="text-align: left;">모든 모델 p &lt; 0.001</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>해석</strong></td>
+<td style="text-align: left;">변동성 시계열의 본질적 속성. HAC/Bootstrap으로 적절히 처리</td>
+</tr>
+</tbody>
+</table>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">학습 비율</th>
+<th style="text-align: center;">Pooled R²</th>
+<th style="text-align: left;">비고</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">10%</td>
+<td style="text-align: center;">0.491</td>
+<td style="text-align: left;">초기</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">20%</td>
+<td style="text-align: center;">0.698</td>
+<td style="text-align: left;"><strong>안정화 시작</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">40%</td>
+<td style="text-align: center;">0.735</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">80%</td>
+<td style="text-align: center;">0.762</td>
+<td style="text-align: left;">한계 수익 체감</td>
+</tr>
+</tbody>
+</table>
+<hr>
 </section>
 <section id="종합-결론" class="level1">
 <h1>종합 결론</h1>
@@ -552,7 +786,7 @@ High VIX 국면 우월성
 <h2 class="anchored" data-anchor-id="관련-자료">관련 자료</h2>
 <ul>
 <li><a href="../paper/csv/v71_robustness_results.json">V71 강건성 데이터</a></li>
-<li><a href="../src/experiments/verification/v51b_results.json">V50 공정 비교 결과</a></li>
+<li><a href="./verification/v51b_results.json">V50 공정 비교 결과</a></li>
 <li><a href="../paper/csv/v71_results.json">V71 실험 결과</a></li>
 </ul>
 
@@ -1184,7 +1418,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a>| 검증 방법 | 결과 | 판정 |</span>
 <span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a>|:---------|:-----|:-----|</span>
 <span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a>| 다중 Split 안정성 | R² = 0.793 ± 0.010 (5개 split) | **PASS** |</span>
-<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a>| Alpha 민감도 | R² = 0.788~0.802 (0.001~5000) | **PASS** |</span>
+<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a>| Alpha 민감도 | R² = 0.793~0.802 (0.001~5000) | **PASS** |</span>
 <span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a>| 5-Fold 시계열 CV | R² = 0.765 ± 0.046 | **PASS** |</span>
 <span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a>| 데이터 누출 검증 | 셔플 R² = -0.002 | **PASS** |</span>
 <span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a>| Permutation Importance | Rogers-Satchell 1위 (0.731) | **PASS** |</span>
@@ -1201,7 +1435,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb1-172"><a href="#cb1-172" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-173"><a href="#cb1-173" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-174"><a href="#cb1-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-175"><a href="#cb1-175" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'/root/vrp/src/experiments/creative/v71_sci/results_03_asset_class.json'</span>) <span class="im">as</span> f:</span>
+<span id="cb1-175"><a href="#cb1-175" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'/root/vrp/experiments/creative/v71_sci/results_03_asset_class.json'</span>) <span class="im">as</span> f:</span>
 <span id="cb1-176"><a href="#cb1-176" aria-hidden="true" tabindex="-1"></a>    asset_res <span class="op">=</span> json.load(f)</span>
 <span id="cb1-177"><a href="#cb1-177" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-178"><a href="#cb1-178" aria-hidden="true" tabindex="-1"></a>assets <span class="op">=</span> <span class="bu">list</span>(asset_res[<span class="st">'per_asset'</span>].keys())</span>
@@ -1242,7 +1476,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb1-215"><a href="#cb1-215" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-216"><a href="#cb1-216" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-217"><a href="#cb1-217" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-218"><a href="#cb1-218" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'/root/vrp/src/experiments/creative/v71_sci/results_04_regime.json'</span>) <span class="im">as</span> f:</span>
+<span id="cb1-218"><a href="#cb1-218" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'/root/vrp/experiments/creative/v71_sci/results_04_regime.json'</span>) <span class="im">as</span> f:</span>
 <span id="cb1-219"><a href="#cb1-219" aria-hidden="true" tabindex="-1"></a>    regime_res <span class="op">=</span> json.load(f)</span>
 <span id="cb1-220"><a href="#cb1-220" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-221"><a href="#cb1-221" aria-hidden="true" tabindex="-1"></a>vix_regimes <span class="op">=</span> <span class="bu">list</span>(regime_res[<span class="st">'vix_regime'</span>].keys())</span>
@@ -1279,22 +1513,203 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb1-252"><a href="#cb1-252" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-253"><a href="#cb1-253" aria-hidden="true" tabindex="-1"></a>---</span>
 <span id="cb1-254"><a href="#cb1-254" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-255"><a href="#cb1-255" aria-hidden="true" tabindex="-1"></a><span class="fu"># 종합 결론</span></span>
+<span id="cb1-255"><a href="#cb1-255" aria-hidden="true" tabindex="-1"></a><span class="fu"># 학술 강건성 검증 (추가)</span></span>
 <span id="cb1-256"><a href="#cb1-256" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-257"><a href="#cb1-257" aria-hidden="true" tabindex="-1"></a>| 항목 | V50 Tuned (중기) | V71 (단기) |</span>
-<span id="cb1-258"><a href="#cb1-258" aria-hidden="true" tabindex="-1"></a>|:---|:---|:---|</span>
-<span id="cb1-259"><a href="#cb1-259" aria-hidden="true" tabindex="-1"></a>| **22d R²** (전방 RV) | 0.780 | **0.803** |</span>
-<span id="cb1-260"><a href="#cb1-260" aria-hidden="true" tabindex="-1"></a>| **60d R²** (전방 RV) | **0.796** | 0.774 |</span>
-<span id="cb1-261"><a href="#cb1-261" aria-hidden="true" tabindex="-1"></a>| **CV/Multi-seed** | - | R² = 0.793 ± 0.010 |</span>
-<span id="cb1-262"><a href="#cb1-262" aria-hidden="true" tabindex="-1"></a>| **DM Test** | p &lt; 0.001 | p &lt; 0.001 (모든 비교) |</span>
-<span id="cb1-263"><a href="#cb1-263" aria-hidden="true" tabindex="-1"></a>| **위기 국면** | - | R² 0.765 (High VIX) |</span>
-<span id="cb1-264"><a href="#cb1-264" aria-hidden="true" tabindex="-1"></a>| **피처 수** | 3 (Range) | 37 |</span>
-<span id="cb1-265"><a href="#cb1-265" aria-hidden="true" tabindex="-1"></a>| **모델 유형** | Bi-LSTM + Attention | Ridge |</span>
+<span id="cb1-257"><a href="#cb1-257" aria-hidden="true" tabindex="-1"></a><span class="fu">## Commodity IV 대체 (GVZ/OVX)</span></span>
+<span id="cb1-258"><a href="#cb1-258" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-259"><a href="#cb1-259" aria-hidden="true" tabindex="-1"></a>| 설정 | Pooled R² | Median R² | RMSE |</span>
+<span id="cb1-260"><a href="#cb1-260" aria-hidden="true" tabindex="-1"></a>|:---|:---:|:---:|:---:|</span>
+<span id="cb1-261"><a href="#cb1-261" aria-hidden="true" tabindex="-1"></a>| VIX only (baseline) | 0.7822 | 0.1233 | 0.4877 |</span>
+<span id="cb1-262"><a href="#cb1-262" aria-hidden="true" tabindex="-1"></a>| GVZ/OVX (commodity) | 0.7743 | 0.1253 | 0.4965 |</span>
+<span id="cb1-263"><a href="#cb1-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-264"><a href="#cb1-264" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>GLD +2.6%p, USO +0.8%p 개선. SLV -13.4%p 악화(해당 IV 지수 없음)</span>
+<span id="cb1-265"><a href="#cb1-265" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>전체 차이 -0.8%p로 **단일 VIX 사용의 타당성 확인**</span>
 <span id="cb1-266"><a href="#cb1-266" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-267"><a href="#cb1-267" aria-hidden="true" tabindex="-1"></a><span class="fu">## 관련 자료</span></span>
-<span id="cb1-268"><a href="#cb1-268" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">V71 강건성 데이터</span><span class="co">](/paper/csv/v71_robustness_results.json)</span></span>
-<span id="cb1-269"><a href="#cb1-269" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">V50 공정 비교 결과</span><span class="co">](../src/experiments/verification/v51b_results.json)</span></span>
-<span id="cb1-270"><a href="#cb1-270" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">V71 실험 결과</span><span class="co">](/paper/csv/v71_results.json)</span></span>
+<span id="cb1-267"><a href="#cb1-267" aria-hidden="true" tabindex="-1"></a><span class="fu">## Block Bootstrap DM Test</span></span>
+<span id="cb1-268"><a href="#cb1-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-269"><a href="#cb1-269" aria-hidden="true" tabindex="-1"></a>| 방법 | p-value | 유의성 |</span>
+<span id="cb1-270"><a href="#cb1-270" aria-hidden="true" tabindex="-1"></a>|:---|:---:|:---:|</span>
+<span id="cb1-271"><a href="#cb1-271" aria-hidden="true" tabindex="-1"></a>| HAC DM (Newey-West) | 0.000000 | *** |</span>
+<span id="cb1-272"><a href="#cb1-272" aria-hidden="true" tabindex="-1"></a>| Block Bootstrap (B=5000) | 0.000000 | *** |</span>
+<span id="cb1-273"><a href="#cb1-273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-274"><a href="#cb1-274" aria-hidden="true" tabindex="-1"></a><span class="fu">## Forward-Fill 비교</span></span>
+<span id="cb1-275"><a href="#cb1-275" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-276"><a href="#cb1-276" aria-hidden="true" tabindex="-1"></a>| 설정 | 샘플 | Pooled R² | RMSE |</span>
+<span id="cb1-277"><a href="#cb1-277" aria-hidden="true" tabindex="-1"></a>|:---|:---:|:---:|:---:|</span>
+<span id="cb1-278"><a href="#cb1-278" aria-hidden="true" tabindex="-1"></a>| With ffill | 41,261 | 0.7822 | 0.4877 |</span>
+<span id="cb1-279"><a href="#cb1-279" aria-hidden="true" tabindex="-1"></a>| Without ffill | 38,489 | 0.7952 | 0.4698 |</span>
+<span id="cb1-280"><a href="#cb1-280" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-281"><a href="#cb1-281" aria-hidden="true" tabindex="-1"></a>ffill 제거 시 R² +0.013 → **ffill이 결과를 과대평가하지 않음**</span>
+<span id="cb1-282"><a href="#cb1-282" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-283"><a href="#cb1-283" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-284"><a href="#cb1-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-285"><a href="#cb1-285" aria-hidden="true" tabindex="-1"></a><span class="fu"># 다중 모델 비교 (9개)</span></span>
+<span id="cb1-286"><a href="#cb1-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-289"><a href="#cb1-289" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb1-290"><a href="#cb1-290" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb1-291"><a href="#cb1-291" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 12</span></span>
+<span id="cb1-292"><a href="#cb1-292" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 5</span></span>
+<span id="cb1-293"><a href="#cb1-293" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-294"><a href="#cb1-294" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-295"><a href="#cb1-295" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-296"><a href="#cb1-296" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-297"><a href="#cb1-297" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'font.family'</span>] <span class="op">=</span> <span class="st">'UnDotum'</span></span>
+<span id="cb1-298"><a href="#cb1-298" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'axes.unicode_minus'</span>] <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb1-299"><a href="#cb1-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-300"><a href="#cb1-300" aria-hidden="true" tabindex="-1"></a>models <span class="op">=</span> [<span class="st">'Lasso'</span>, <span class="st">'ElasticNet'</span>, <span class="st">'Ridge</span><span class="ch">\n</span><span class="st">(pooled)'</span>, <span class="st">'Ridge</span><span class="ch">\n</span><span class="st">per-class'</span>, <span class="st">'RF'</span>, <span class="st">'LightGBM'</span>, <span class="st">'XGBoost'</span>, <span class="st">'SVR'</span>, <span class="st">'MLP'</span>]</span>
+<span id="cb1-301"><a href="#cb1-301" aria-hidden="true" tabindex="-1"></a>pooled <span class="op">=</span> [<span class="fl">0.7712</span>, <span class="fl">0.7696</span>, <span class="fl">0.7625</span>, <span class="fl">0.7618</span>, <span class="fl">0.7590</span>, <span class="fl">0.7387</span>, <span class="fl">0.7330</span>, <span class="fl">0.6901</span>, <span class="fl">0.6183</span>]</span>
+<span id="cb1-302"><a href="#cb1-302" aria-hidden="true" tabindex="-1"></a>median <span class="op">=</span> [<span class="fl">0.0998</span>, <span class="fl">0.0742</span>, <span class="op">-</span><span class="fl">0.003</span>, <span class="fl">0.0949</span>, <span class="fl">0.1424</span>, <span class="fl">0.0589</span>, <span class="fl">0.0353</span>, <span class="op">-</span><span class="fl">0.0939</span>, <span class="op">-</span><span class="fl">0.3266</span>]</span>
+<span id="cb1-303"><a href="#cb1-303" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> [<span class="st">'#3182CE'</span>,<span class="st">'#3182CE'</span>,<span class="st">'#3182CE'</span>,<span class="st">'#1A365D'</span>,<span class="st">'#68D391'</span>,<span class="st">'#68D391'</span>,<span class="st">'#68D391'</span>,<span class="st">'#E53E3E'</span>,<span class="st">'#E53E3E'</span>]</span>
+<span id="cb1-304"><a href="#cb1-304" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-305"><a href="#cb1-305" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">5</span>))</span>
+<span id="cb1-306"><a href="#cb1-306" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-307"><a href="#cb1-307" aria-hidden="true" tabindex="-1"></a>bars <span class="op">=</span> axes[<span class="dv">0</span>].bar(models, pooled, color<span class="op">=</span>colors, edgecolor<span class="op">=</span><span class="st">'white'</span>, linewidth<span class="op">=</span><span class="fl">1.5</span>)</span>
+<span id="cb1-308"><a href="#cb1-308" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylabel(<span class="st">'Pooled R²'</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb1-309"><a href="#cb1-309" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">'모델별 Pooled R² (9개 모델)'</span>, fontsize<span class="op">=</span><span class="dv">13</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb1-310"><a href="#cb1-310" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylim(<span class="fl">0.55</span>, <span class="fl">0.80</span>)</span>
+<span id="cb1-311"><a href="#cb1-311" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>, axis<span class="op">=</span><span class="st">'y'</span>)</span>
+<span id="cb1-312"><a href="#cb1-312" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].tick_params(axis<span class="op">=</span><span class="st">'x'</span>, rotation<span class="op">=</span><span class="dv">45</span>, labelsize<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb1-313"><a href="#cb1-313" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> bar, v <span class="kw">in</span> <span class="bu">zip</span>(bars, pooled):</span>
+<span id="cb1-314"><a href="#cb1-314" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].text(bar.get_x()<span class="op">+</span>bar.get_width()<span class="op">/</span><span class="dv">2</span>, bar.get_height()<span class="op">+</span><span class="fl">0.003</span>, <span class="ss">f'</span><span class="sc">{</span>v<span class="sc">:.3f}</span><span class="ss">'</span>,</span>
+<span id="cb1-315"><a href="#cb1-315" aria-hidden="true" tabindex="-1"></a>                 ha<span class="op">=</span><span class="st">'center'</span>, fontsize<span class="op">=</span><span class="dv">8</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb1-316"><a href="#cb1-316" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-317"><a href="#cb1-317" aria-hidden="true" tabindex="-1"></a>bars2 <span class="op">=</span> axes[<span class="dv">1</span>].bar(models, median, color<span class="op">=</span>colors, edgecolor<span class="op">=</span><span class="st">'white'</span>, linewidth<span class="op">=</span><span class="fl">1.5</span>)</span>
+<span id="cb1-318"><a href="#cb1-318" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_ylabel(<span class="st">'Median R²'</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb1-319"><a href="#cb1-319" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">'모델별 Median R² (자산별 중위)'</span>, fontsize<span class="op">=</span><span class="dv">13</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb1-320"><a href="#cb1-320" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].axhline(<span class="dv">0</span>, color<span class="op">=</span><span class="st">'black'</span>, linewidth<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb1-321"><a href="#cb1-321" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>, axis<span class="op">=</span><span class="st">'y'</span>)</span>
+<span id="cb1-322"><a href="#cb1-322" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].tick_params(axis<span class="op">=</span><span class="st">'x'</span>, rotation<span class="op">=</span><span class="dv">45</span>, labelsize<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb1-323"><a href="#cb1-323" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> bar, v <span class="kw">in</span> <span class="bu">zip</span>(bars2, median):</span>
+<span id="cb1-324"><a href="#cb1-324" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].text(bar.get_x()<span class="op">+</span>bar.get_width()<span class="op">/</span><span class="dv">2</span>, <span class="bu">max</span>(v,<span class="dv">0</span>)<span class="op">+</span><span class="fl">0.01</span>, <span class="ss">f'</span><span class="sc">{</span>v<span class="sc">:.3f}</span><span class="ss">'</span>,</span>
+<span id="cb1-325"><a href="#cb1-325" aria-hidden="true" tabindex="-1"></a>                 ha<span class="op">=</span><span class="st">'center'</span>, fontsize<span class="op">=</span><span class="dv">8</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb1-326"><a href="#cb1-326" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-327"><a href="#cb1-327" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.patches <span class="im">import</span> Patch</span>
+<span id="cb1-328"><a href="#cb1-328" aria-hidden="true" tabindex="-1"></a>legend_elems <span class="op">=</span> [Patch(facecolor<span class="op">=</span><span class="st">'#3182CE'</span>, label<span class="op">=</span><span class="st">'선형'</span>),</span>
+<span id="cb1-329"><a href="#cb1-329" aria-hidden="true" tabindex="-1"></a>                Patch(facecolor<span class="op">=</span><span class="st">'#68D391'</span>, label<span class="op">=</span><span class="st">'트리'</span>),</span>
+<span id="cb1-330"><a href="#cb1-330" aria-hidden="true" tabindex="-1"></a>                Patch(facecolor<span class="op">=</span><span class="st">'#E53E3E'</span>, label<span class="op">=</span><span class="st">'비선형'</span>)]</span>
+<span id="cb1-331"><a href="#cb1-331" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].legend(handles<span class="op">=</span>legend_elems, loc<span class="op">=</span><span class="st">'lower left'</span>, fontsize<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb1-332"><a href="#cb1-332" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-333"><a href="#cb1-333" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb1-334"><a href="#cb1-334" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb1-335"><a href="#cb1-335" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-336"><a href="#cb1-336" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-337"><a href="#cb1-337" aria-hidden="true" tabindex="-1"></a>**선형 모델이 일관적으로 트리/비선형보다 우수**: 변동성 지속성(persistence)은 본질적으로 선형 구조.</span>
+<span id="cb1-338"><a href="#cb1-338" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-339"><a href="#cb1-339" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-340"><a href="#cb1-340" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-341"><a href="#cb1-341" aria-hidden="true" tabindex="-1"></a><span class="fu"># 피처 서브셋 Ablation</span></span>
+<span id="cb1-342"><a href="#cb1-342" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-345"><a href="#cb1-345" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb1-346"><a href="#cb1-346" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb1-347"><a href="#cb1-347" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 10</span></span>
+<span id="cb1-348"><a href="#cb1-348" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
+<span id="cb1-349"><a href="#cb1-349" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-350"><a href="#cb1-350" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-351"><a href="#cb1-351" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-352"><a href="#cb1-352" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-353"><a href="#cb1-353" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'font.family'</span>] <span class="op">=</span> <span class="st">'UnDotum'</span></span>
+<span id="cb1-354"><a href="#cb1-354" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'axes.unicode_minus'</span>] <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb1-355"><a href="#cb1-355" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-356"><a href="#cb1-356" aria-hidden="true" tabindex="-1"></a>subsets <span class="op">=</span> [<span class="st">'IV only</span><span class="ch">\n</span><span class="st">(10feat)'</span>, <span class="st">'GARCH only</span><span class="ch">\n</span><span class="st">(2feat)'</span>, <span class="st">'HAR only</span><span class="ch">\n</span><span class="st">(3feat)'</span>, <span class="st">'Full</span><span class="ch">\n</span><span class="st">(37feat)'</span>, <span class="st">'Range only</span><span class="ch">\n</span><span class="st">(5feat)'</span>, <span class="st">'HAR+Range</span><span class="ch">\n</span><span class="st">(8feat)'</span>]</span>
+<span id="cb1-357"><a href="#cb1-357" aria-hidden="true" tabindex="-1"></a>r2 <span class="op">=</span> [<span class="fl">0.2061</span>, <span class="fl">0.6581</span>, <span class="fl">0.7321</span>, <span class="fl">0.7618</span>, <span class="fl">0.7722</span>, <span class="fl">0.7854</span>]</span>
+<span id="cb1-358"><a href="#cb1-358" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> [<span class="st">'#FC8181'</span>, <span class="st">'#F6AD55'</span>, <span class="st">'#A0AEC0'</span>, <span class="st">'#A0AEC0'</span>, <span class="st">'#68D391'</span>, <span class="st">'#3182CE'</span>]</span>
+<span id="cb1-359"><a href="#cb1-359" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-360"><a href="#cb1-360" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))</span>
+<span id="cb1-361"><a href="#cb1-361" aria-hidden="true" tabindex="-1"></a>bars <span class="op">=</span> ax.barh(subsets, r2, color<span class="op">=</span>colors, edgecolor<span class="op">=</span><span class="st">'white'</span>, height<span class="op">=</span><span class="fl">0.6</span>)</span>
+<span id="cb1-362"><a href="#cb1-362" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'Pooled R²'</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb1-363"><a href="#cb1-363" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'피처 서브셋별 Pooled R²'</span>, fontsize<span class="op">=</span><span class="dv">13</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb1-364"><a href="#cb1-364" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(<span class="dv">0</span>, <span class="fl">0.85</span>)</span>
+<span id="cb1-365"><a href="#cb1-365" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>, axis<span class="op">=</span><span class="st">'x'</span>)</span>
+<span id="cb1-366"><a href="#cb1-366" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-367"><a href="#cb1-367" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> bar, v <span class="kw">in</span> <span class="bu">zip</span>(bars, r2):</span>
+<span id="cb1-368"><a href="#cb1-368" aria-hidden="true" tabindex="-1"></a>    ax.text(v<span class="op">+</span><span class="fl">0.005</span>, bar.get_y()<span class="op">+</span>bar.get_height()<span class="op">/</span><span class="dv">2</span>, <span class="ss">f'</span><span class="sc">{</span>v<span class="sc">:.4f}</span><span class="ss">'</span>,</span>
+<span id="cb1-369"><a href="#cb1-369" aria-hidden="true" tabindex="-1"></a>            va<span class="op">=</span><span class="st">'center'</span>, fontsize<span class="op">=</span><span class="dv">10</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb1-370"><a href="#cb1-370" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-371"><a href="#cb1-371" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb1-372"><a href="#cb1-372" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb1-373"><a href="#cb1-373" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-374"><a href="#cb1-374" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-375"><a href="#cb1-375" aria-hidden="true" tabindex="-1"></a>**HAR+Range 8피처(0.785)가 Full 37피처(0.762)보다 우수** → 과적합 방지 + 핵심 피처 집중 효과</span>
+<span id="cb1-376"><a href="#cb1-376" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-377"><a href="#cb1-377" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-378"><a href="#cb1-378" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-379"><a href="#cb1-379" aria-hidden="true" tabindex="-1"></a><span class="fu"># 피처 중요도 (7개 방법 합의)</span></span>
+<span id="cb1-380"><a href="#cb1-380" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-383"><a href="#cb1-383" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb1-384"><a href="#cb1-384" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb1-385"><a href="#cb1-385" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 10</span></span>
+<span id="cb1-386"><a href="#cb1-386" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 5</span></span>
+<span id="cb1-387"><a href="#cb1-387" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-388"><a href="#cb1-388" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-389"><a href="#cb1-389" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-390"><a href="#cb1-390" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-391"><a href="#cb1-391" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'font.family'</span>] <span class="op">=</span> <span class="st">'UnDotum'</span></span>
+<span id="cb1-392"><a href="#cb1-392" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'axes.unicode_minus'</span>] <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb1-393"><a href="#cb1-393" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-394"><a href="#cb1-394" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> [<span class="st">'RogersSatchell_22'</span>, <span class="st">'Garch_Weekly'</span>, <span class="st">'Parkinson_22'</span>, <span class="st">'GarmanKlass_22'</span>,</span>
+<span id="cb1-395"><a href="#cb1-395" aria-hidden="true" tabindex="-1"></a>            <span class="st">'Garch_Daily'</span>, <span class="st">'LogRV_lag22'</span>, <span class="st">'LogRV_lag1'</span>, <span class="st">'Parkinson_5'</span>,</span>
+<span id="cb1-396"><a href="#cb1-396" aria-hidden="true" tabindex="-1"></a>            <span class="st">'IV_VRP_ma22'</span>, <span class="st">'IV_VIX'</span>][::<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb1-397"><a href="#cb1-397" aria-hidden="true" tabindex="-1"></a>mean_ranks <span class="op">=</span> [<span class="fl">2.6</span>, <span class="fl">4.4</span>, <span class="fl">5.1</span>, <span class="fl">5.3</span>, <span class="fl">6.7</span>, <span class="fl">7.6</span>, <span class="fl">9.1</span>, <span class="fl">9.1</span>, <span class="fl">11.7</span>, <span class="fl">11.9</span>][::<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb1-398"><a href="#cb1-398" aria-hidden="true" tabindex="-1"></a>cats <span class="op">=</span> [<span class="st">'HF Proxy'</span>, <span class="st">'GARCH'</span>, <span class="st">'HF Proxy'</span>, <span class="st">'HF Proxy'</span>, <span class="st">'GARCH'</span>, <span class="st">'HAR'</span>, <span class="st">'HAR'</span>, <span class="st">'HF Proxy'</span>, <span class="st">'IV Surface'</span>, <span class="st">'IV Surface'</span>][::<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb1-399"><a href="#cb1-399" aria-hidden="true" tabindex="-1"></a>cat_colors <span class="op">=</span> {<span class="st">'HF Proxy'</span>: <span class="st">'#E53E3E'</span>, <span class="st">'GARCH'</span>: <span class="st">'#38A169'</span>, <span class="st">'HAR'</span>: <span class="st">'#3182CE'</span>, <span class="st">'IV Surface'</span>: <span class="st">'#D69E2E'</span>}</span>
+<span id="cb1-400"><a href="#cb1-400" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-401"><a href="#cb1-401" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
+<span id="cb1-402"><a href="#cb1-402" aria-hidden="true" tabindex="-1"></a>bars <span class="op">=</span> ax.barh(features, [<span class="bu">max</span>(<span class="dv">0</span>, <span class="dv">13</span><span class="op">-</span>r) <span class="cf">for</span> r <span class="kw">in</span> mean_ranks],</span>
+<span id="cb1-403"><a href="#cb1-403" aria-hidden="true" tabindex="-1"></a>               color<span class="op">=</span>[cat_colors[c] <span class="cf">for</span> c <span class="kw">in</span> cats], edgecolor<span class="op">=</span><span class="st">'white'</span>)</span>
+<span id="cb1-404"><a href="#cb1-404" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'Score (13 - Mean Rank)'</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb1-405"><a href="#cb1-405" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'피처 중요도 합의 순위 (7개 방법 평균)'</span>, fontsize<span class="op">=</span><span class="dv">13</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb1-406"><a href="#cb1-406" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>, axis<span class="op">=</span><span class="st">'x'</span>)</span>
+<span id="cb1-407"><a href="#cb1-407" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-408"><a href="#cb1-408" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> bar, r <span class="kw">in</span> <span class="bu">zip</span>(bars, mean_ranks):</span>
+<span id="cb1-409"><a href="#cb1-409" aria-hidden="true" tabindex="-1"></a>    ax.text(bar.get_width()<span class="op">+</span><span class="fl">0.1</span>, bar.get_y()<span class="op">+</span>bar.get_height()<span class="op">/</span><span class="dv">2</span>,</span>
+<span id="cb1-410"><a href="#cb1-410" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f'Rank </span><span class="sc">{</span>r<span class="sc">:.1f}</span><span class="ss">'</span>, va<span class="op">=</span><span class="st">'center'</span>, fontsize<span class="op">=</span><span class="dv">9</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
+<span id="cb1-411"><a href="#cb1-411" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-412"><a href="#cb1-412" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.patches <span class="im">import</span> Patch</span>
+<span id="cb1-413"><a href="#cb1-413" aria-hidden="true" tabindex="-1"></a>legend_elems <span class="op">=</span> [Patch(facecolor<span class="op">=</span>v, label<span class="op">=</span>k) <span class="cf">for</span> k, v <span class="kw">in</span> cat_colors.items()]</span>
+<span id="cb1-414"><a href="#cb1-414" aria-hidden="true" tabindex="-1"></a>ax.legend(handles<span class="op">=</span>legend_elems, loc<span class="op">=</span><span class="st">'lower right'</span>, fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb1-415"><a href="#cb1-415" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-416"><a href="#cb1-416" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb1-417"><a href="#cb1-417" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb1-418"><a href="#cb1-418" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-419"><a href="#cb1-419" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-420"><a href="#cb1-420" aria-hidden="true" tabindex="-1"></a>사용 방법: Ridge Coef, Permutation, XGBoost Gain, SHAP, Mutual Info, Spearman, RFE. **Kendall tau 모두 유의(p&lt;0.05)**.</span>
+<span id="cb1-421"><a href="#cb1-421" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-422"><a href="#cb1-422" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-423"><a href="#cb1-423" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-424"><a href="#cb1-424" aria-hidden="true" tabindex="-1"></a><span class="fu"># 잔차 진단 및 학습 곡선</span></span>
+<span id="cb1-425"><a href="#cb1-425" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-426"><a href="#cb1-426" aria-hidden="true" tabindex="-1"></a>| 진단 | 결과 |</span>
+<span id="cb1-427"><a href="#cb1-427" aria-hidden="true" tabindex="-1"></a>|:---|:---|</span>
+<span id="cb1-428"><a href="#cb1-428" aria-hidden="true" tabindex="-1"></a>| Jarque-Bera (정규성) | 모든 9개 모델 p &lt; 0.001 (비정규) |</span>
+<span id="cb1-429"><a href="#cb1-429" aria-hidden="true" tabindex="-1"></a>| Ljung-Box (자기상관) | 모든 모델 p &lt; 0.001 |</span>
+<span id="cb1-430"><a href="#cb1-430" aria-hidden="true" tabindex="-1"></a>| ARCH Test (이분산) | 모든 모델 p &lt; 0.001 |</span>
+<span id="cb1-431"><a href="#cb1-431" aria-hidden="true" tabindex="-1"></a>| **해석** | 변동성 시계열의 본질적 속성. HAC/Bootstrap으로 적절히 처리 |</span>
+<span id="cb1-432"><a href="#cb1-432" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-433"><a href="#cb1-433" aria-hidden="true" tabindex="-1"></a>| 학습 비율 | Pooled R² | 비고 |</span>
+<span id="cb1-434"><a href="#cb1-434" aria-hidden="true" tabindex="-1"></a>|:---:|:---:|:---|</span>
+<span id="cb1-435"><a href="#cb1-435" aria-hidden="true" tabindex="-1"></a>| 10% | 0.491 | 초기 |</span>
+<span id="cb1-436"><a href="#cb1-436" aria-hidden="true" tabindex="-1"></a>| 20% | 0.698 | **안정화 시작** |</span>
+<span id="cb1-437"><a href="#cb1-437" aria-hidden="true" tabindex="-1"></a>| 40% | 0.735 | |</span>
+<span id="cb1-438"><a href="#cb1-438" aria-hidden="true" tabindex="-1"></a>| 80% | 0.762 | 한계 수익 체감 |</span>
+<span id="cb1-439"><a href="#cb1-439" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-440"><a href="#cb1-440" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-441"><a href="#cb1-441" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-442"><a href="#cb1-442" aria-hidden="true" tabindex="-1"></a><span class="fu"># 종합 결론</span></span>
+<span id="cb1-443"><a href="#cb1-443" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-444"><a href="#cb1-444" aria-hidden="true" tabindex="-1"></a>| 항목 | V50 Tuned (중기) | V71 (단기) |</span>
+<span id="cb1-445"><a href="#cb1-445" aria-hidden="true" tabindex="-1"></a>|:---|:---|:---|</span>
+<span id="cb1-446"><a href="#cb1-446" aria-hidden="true" tabindex="-1"></a>| **22d R²** (전방 RV) | 0.780 | **0.803** |</span>
+<span id="cb1-447"><a href="#cb1-447" aria-hidden="true" tabindex="-1"></a>| **60d R²** (전방 RV) | **0.796** | 0.774 |</span>
+<span id="cb1-448"><a href="#cb1-448" aria-hidden="true" tabindex="-1"></a>| **CV/Multi-seed** | - | R² = 0.793 ± 0.010 |</span>
+<span id="cb1-449"><a href="#cb1-449" aria-hidden="true" tabindex="-1"></a>| **DM Test** | p &lt; 0.001 | p &lt; 0.001 (모든 비교) |</span>
+<span id="cb1-450"><a href="#cb1-450" aria-hidden="true" tabindex="-1"></a>| **위기 국면** | - | R² 0.765 (High VIX) |</span>
+<span id="cb1-451"><a href="#cb1-451" aria-hidden="true" tabindex="-1"></a>| **피처 수** | 3 (Range) | 37 |</span>
+<span id="cb1-452"><a href="#cb1-452" aria-hidden="true" tabindex="-1"></a>| **모델 유형** | Bi-LSTM + Attention | Ridge |</span>
+<span id="cb1-453"><a href="#cb1-453" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-454"><a href="#cb1-454" aria-hidden="true" tabindex="-1"></a><span class="fu">## 관련 자료</span></span>
+<span id="cb1-455"><a href="#cb1-455" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">V71 강건성 데이터</span><span class="co">](/paper/csv/v71_robustness_results.json)</span></span>
+<span id="cb1-456"><a href="#cb1-456" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">V50 공정 비교 결과</span><span class="co">](./verification/v51b_results.json)</span></span>
+<span id="cb1-457"><a href="#cb1-457" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">V71 실험 결과</span><span class="co">](/paper/csv/v71_results.json)</span></span>
 </code><button title="클립보드 복사" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

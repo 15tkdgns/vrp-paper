@@ -1,0 +1,6 @@
+[Table 10] Pooled R² by VIX Regime — HAR-3 vs. WEns (22d)
+VIX Regime       |    HAR-3 |     WEns |  Improvement
+----------------------------------------------------
+VIX Bottom 50%   |    0.739 |    0.781 |       +0.042
+VIX 50-90%       |    0.698 |    0.722 |       +0.024
+VIX Top 10%      |    0.602 |    0.765 |       +0.163

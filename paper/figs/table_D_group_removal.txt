@@ -1,0 +1,6 @@
+[Table 9] WEns 22d — Feature Group Removal Experiment (Delta Pooled R²)
+Removed Group          |  Full R2 |  w/o Group |   Delta R2
+----------------------------------------------------------
+IV Surface (10 feat.)  |   0.8036 |     0.7872 |    +0.0164
+HF Proxy (7 feat.)     |   0.8036 |     0.7883 |    +0.0153
+Alternative (6 feat.)  |   0.8036 |     0.8020 |    +0.0016

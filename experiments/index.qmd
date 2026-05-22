@@ -15,7 +15,7 @@ date: today
 | <span class="our-model">**V74 (ElasticNet 59feat)**</span> | Enhanced ML + Deep Learning | **0.807** | **22d 챔피언, LASSO 대비 +2.1%** |
 | <span class="our-model">**V71 (Ensemble 37feat)**</span> | [22일 예측 (V71)](/experiments/22day_prediction.html) | 0.803 | 37개 피처 Ridge+XGB 앙상블 |
 | <span class="our-model">**V50 Tuned (LSTM 3feat)**</span> | [V50 모델 분석](/experiments/1day_prediction.html) | 0.780 | 중기(60~180d) 최고, 중위 R² 전 구간 최고 |
-| **V36 (HAR-3)** | [V29 검증](/experiments/phase10_v29_verification.html) | 0.761 | 장기(120~365d) 안정적 |
+| **V36 (HAR-3)** | [V29 검증](/experiments/phase10_v29_verification.html) | 0.761 | 장기(120~252d) 안정적 |
 | **강건성 검증** | [챔피언 모델 강건성](/experiments/champion_robustness.html) | 6종 PASS | |
 | **SCI 검증** | [V50 정밀 검증](/experiments/sci_verification.html) | - | |
 
@@ -41,7 +41,7 @@ date: today
 1. **22d 챔피언**: <span class="our-model">V74 ElasticNet(59feat)</span> = **R² 0.807**, V71 Ensemble(0.803) 대비 **+0.5% 향상**
 2. **딥러닝 한계 규명**: Pooled 데이터에서 LSTM/Transformer는 음의 R² (시계열 불연속성)
 3. **중기(60~180d)**: <span class="our-model">V50 Tuned LSTM(3feat)</span>이 풀링 R² 및 중위 R² 최고 (60d: 0.796)
-4. **장기(120~365d)**: V36 HAR-3가 풀링 R² 안정적 (365d: 0.611)
+4. **장기(120~252d)**: V36 HAR-3가 풀링 R² 안정적 (252d: 0.611)
 5. **핵심 교훈**: 금융 변동성 예측에서는 **피처 엔지니어링 + 강건한 선형 모델**이 복잡한 딥러닝보다 효과적
 6. **데이터 누출 방지**: 전방 RV 타겟으로 rolling window 중첩 제거
 :::

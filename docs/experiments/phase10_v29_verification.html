@@ -160,7 +160,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="사이드바 전환" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../experiments/phase10_v29_verification.html">기타</a></li><li class="breadcrumb-item"><a href="../experiments/phase10_v29_verification.html">V29 베이스라인 검증</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../experiments/22day_prediction.html">모델별 분석</a></li><li class="breadcrumb-item"><a href="../experiments/phase10_v29_verification.html">V36 HAR-3 베이스라인</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="사이드바 전환" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -178,10 +178,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">개요</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">결과 요약</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">1일 예측</span></a>
+ <span class="menu-text">모델별 분석</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="토글 섹션">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -189,14 +195,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../experiments/22day_prediction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">V71 Ridge (37feat)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/champion_robustness.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">V71 강건성 검증</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/feature_analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">V71 피처 분석</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/importance_consensus.qmd" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">피처 중요도 합의(Consensus)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../experiments/1day_prediction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">V50 모델 (챔피언)</span></a>
+ <span class="menu-text">V50 LSTM (3feat)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../experiments/sci_verification.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">상세 검증</span></a>
+ <span class="menu-text">V50 상세 검증</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/attention_analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">V50 Attention 분석</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/phase10_v29_verification.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">V36 HAR-3 베이스라인</span></a>
   </div>
 </li>
       </ul>
@@ -204,7 +246,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">22일 예측</span></a>
+ <span class="menu-text">기타</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="토글 섹션">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -212,25 +254,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../experiments/22day_prediction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">V36 모델 (챔피언)</span></a>
+  <a href="../experiments/methodology_overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">연구 방법론 개요</span></a>
   </div>
 </li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">기타</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="토글 섹션">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../experiments/phase10_v29_verification.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">V29 베이스라인 검증</span></a>
+  <a href="../experiments/vrp_dashboard.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cross-Asset VRP 현황</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/dnn_vs_ml_insights.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">DNN vs ML 비교 인사이트</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -253,8 +290,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../experiments/summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">결과 요약</span></a>
+  <a href="../experiments/pooled_r2_explained.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">풀링 R² 해설</span></a>
   </div>
 </li>
       </ul>
@@ -282,7 +319,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../experiments/phase10_v29_verification.html">기타</a></li><li class="breadcrumb-item"><a href="../experiments/phase10_v29_verification.html">V29 베이스라인 검증</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../experiments/22day_prediction.html">모델별 분석</a></li><li class="breadcrumb-item"><a href="../experiments/phase10_v29_verification.html">V36 HAR-3 베이스라인</a></li></ol></nav>
 <div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">Phase 10: V29 베이스라인 모델 검증</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> 코드</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">전체 코드 표시</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">전체 코드 숨기기</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">소스 코드 표시</a></li></ul></div></div>
 <p class="subtitle lead">Ridge-GARCH-HAR 모델의 엄격한 실증적 검증</p>
@@ -306,7 +343,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>1. 개요</h1>
 <p>Phase 10에서는 <strong>V29 베이스라인 모델 (Ridge-GARCH-HAR)</strong>의 강건성을 검증하기 위해 고전적인 베이스라인 및 최신 딥러닝 아키텍처(Mamba, KAN, Graph-Vol)와 비교하는 엄격한 검증을 수행했습니다. 이 모델은 이후 V50/V36 개발의 토대가 되었습니다.</p>
 <p>검증 프로세스는 다음을 포함합니다: 1. <strong>절제 연구 (Ablation Study)</strong>: GARCH 특성의 기여도 정량화. 2. <strong>통계적 유의성</strong>: Diebold-Mariano 테스트 수행. 3. <strong>시장 국면 안정성</strong>: 코로나19 및 인플레이션 기간의 성과 분석. 4. <strong>전진 분석 검증 (Walk-Forward)</strong>: 실제 데이터 외(Out-of-Sample) 성능 확인.</p>
-<div id="aa566ce7" class="cell" data-execution_count="1">
+<div id="35b47540" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>코드</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -320,7 +357,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'axes.unicode_minus'</span>] <span class="op">=</span> <span class="va">False</span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 결과 데이터 경로</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>RESULTS_DIR <span class="op">=</span> <span class="st">"../src/experiments/verification"</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>RESULTS_DIR <span class="op">=</span> <span class="st">"./verification"</span></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> load_json(filename):</span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    path <span class="op">=</span> os.path.join(RESULTS_DIR, filename)</span>
@@ -342,7 +379,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="garch-기여도-분석-절제-연구" class="level1">
 <h1>2. GARCH 기여도 분석 (절제 연구)</h1>
 <p><strong>HAR 전용</strong>, <strong>GARCH 전용</strong>, 그리고 <strong>하이브리드 (V29)</strong> 모델을 비교하여 GARCH 특성의 영향을 분리했습니다.</p>
-<div id="246c39f0" class="cell" data-execution_count="2">
+<div id="768cdde0" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>코드</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> res_v30:</span>
@@ -387,7 +424,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="통계적-유의성-diebold-mariano-테스트" class="level1">
 <h1>3. 통계적 유의성 (Diebold-Mariano 테스트)</h1>
 <p>성능 향상이 통계적으로 유의미한지 확인하기 위해 Diebold-Mariano 테스트(단측 검정)를 수행했습니다.</p>
-<div id="e39fc2ac" class="cell" data-execution_count="3">
+<div id="18e24046" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>코드</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> res_v31:</span>
@@ -411,7 +448,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="시장-국면-안정성-하위-기간-분석" class="level1">
 <h1>4. 시장 국면 안정성 (하위 기간 분석)</h1>
 <p>금융 시장은 다양한 국면(Regime)을 보입니다. V29 모델을 <strong>코로나19 위기</strong> (고변동성) 및 <strong>인플레이션/안정기</strong> (국면 전환) 기간에 대해 테스트했습니다.</p>
-<div id="f3f1d79b" class="cell" data-execution_count="4">
+<div id="e5751ca2" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>코드</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> res_v32:</span>
@@ -449,7 +486,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="실전-강건성-검증-전진-분석" class="level1">
 <h1>5. 실전 강건성 검증 (전진 분석)</h1>
 <p>롤링 재학습(Rolling Re-training)을 통한 실제 트레이딩 시나리오를 시뮬레이션한 전진 분석(Walk-Forward Validation) 결과입니다.</p>
-<div id="a8d524c1" class="cell" data-execution_count="5">
+<div id="b001e9cf" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>코드</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> res_v33:</span>
@@ -478,7 +515,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="최종-리더보드-딥러닝과의-비교" class="level1">
 <h1>6. 최종 리더보드 (딥러닝과의 비교)</h1>
 <p>V29 모델을 Phase 9에서 탐색한 새로운 Step-Mamba, KAN, Graph 아키텍처와 비교합니다.</p>
-<div id="4577b0e6" class="cell" data-execution_count="6">
+<div id="b68f78ab" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>코드</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> res_final <span class="kw">and</span> <span class="st">'leaderboard'</span> <span class="kw">in</span> res_final:</span>
@@ -1025,7 +1062,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'axes.unicode_minus'</span>] <span class="op">=</span> <span class="va">False</span></span>
 <span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a><span class="co"># 결과 데이터 경로</span></span>
-<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>RESULTS_DIR <span class="op">=</span> <span class="st">"../src/experiments/verification"</span></span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>RESULTS_DIR <span class="op">=</span> <span class="st">"./verification"</span></span>
 <span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> load_json(filename):</span>
 <span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>    path <span class="op">=</span> os.path.join(RESULTS_DIR, filename)</span>

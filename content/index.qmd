@@ -47,7 +47,7 @@ VRP 기반 동적 배분
 |:---|:---|:---|:---|
 | **단기 (1~22d)** | V71 Ensemble | 0.803 | 37개 |
 | **중기 (60~90d)** | V50 Tuned LSTM | 0.796 | 3개 (Range) |
-| **초장기 (365d)** | Random Forest | 0.705 | 37개 |
+| **초장기 (252d)** | Random Forest | 0.705 | 37개 |
 
 ### 기술적 차별점
 - **HF Proxy**: OHLC 기반 고빈도 대체 변동성 추정량 (Rogers-Satchell, Garman-Klass, Parkinson)
@@ -78,7 +78,7 @@ colors = ['#A0AEC0', '#63B3ED', '#FC8181', '#68D391', '#A0AEC0', '#3182CE']
 bars = ax.bar(versions, r2_22d, color=colors, edgecolor='white', linewidth=2)
 
 # V71 강조
-bars[5].set_edgecolor('#1a365d')
+bars[5].set_edgecolor('#1a252d')
 bars[5].set_linewidth(3)
 
 ax.axhline(y=0.761, color='#E53E3E', linestyle='--', alpha=0.5, label='HAR-RV (Corsi, 2009)')

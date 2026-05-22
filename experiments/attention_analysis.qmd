@@ -33,7 +33,7 @@ format:
 
 ## 모델 수정
 
-기존 [v50_dual_attention_lstm.py](../src/experiments/creative/v50_dual_attention_lstm.py)에 attention 가중치 반환 기능을 추가했습니다:
+기존 [v50_dual_attention_lstm.py](./creative/v50_dual_attention_lstm.py)에 attention 가중치 반환 기능을 추가했습니다:
 
 ```python
 def forward(self, x, return_attention=False):
@@ -48,7 +48,7 @@ def forward(self, x, return_attention=False):
 
 ## 자산별 Attention 패턴
 
-![자산별 Attention 비교](../src/experiments/verification/v63_asset_comparison.png)
+![자산별 Attention 비교](./verification/v63_asset_comparison.png)
 
 **주요 발견:**
 
@@ -64,7 +64,7 @@ def forward(self, x, return_attention=False):
 
 ## 시장 상황별 Attention 패턴
 
-![시장 상황별 Attention](../src/experiments/verification/v63_market_regime.png)
+![시장 상황별 Attention](./verification/v63_market_regime.png)
 
 **주요 발견:**
 
@@ -84,7 +84,7 @@ def forward(self, x, return_attention=False):
 
 ## Lag 중요도 분석
 
-![Lag 중요도](../src/experiments/verification/v63_lag_importance.png)
+![Lag 중요도](./verification/v63_lag_importance.png)
 
 **주요 발견:**
 
@@ -99,7 +99,7 @@ def forward(self, x, return_attention=False):
 
 ## 예측 성능과 Attention 관계
 
-![성능-Attention 관계](../src/experiments/verification/v63_performance_attention.png)
+![성능-Attention 관계](./verification/v63_performance_attention.png)
 
 **주요 발견:**
 
@@ -117,11 +117,11 @@ def forward(self, x, return_attention=False):
 
 5개의 인터랙티브 HTML 파일을 생성했습니다:
 
-1. **[자산별 비교](../src/experiments/verification/v63_interactive_asset_comparison.html)** - 드롭다운으로 자산 선택
-2. **[시계열 Heatmap](../src/experiments/verification/v63_interactive_heatmap.html)** - 500개 샘플의 시간별 패턴
-3. **[Lag 중요도](../src/experiments/verification/v63_interactive_lag_importance.html)** - Early vs Recent 비교
-4. **[월별 애니메이션](../src/experiments/verification/v63_interactive_monthly.html)** - 시간에 따른 변화
-5. **[통합 대시보드](../src/experiments/verification/v63_interactive_dashboard.html)** - 모든 차트 통합
+1. **[자산별 비교](./verification/v63_interactive_asset_comparison.html)** - 드롭다운으로 자산 선택
+2. **[시계열 Heatmap](./verification/v63_interactive_heatmap.html)** - 500개 샘플의 시간별 패턴
+3. **[Lag 중요도](./verification/v63_interactive_lag_importance.html)** - Early vs Recent 비교
+4. **[월별 애니메이션](./verification/v63_interactive_monthly.html)** - 시간에 따른 변화
+5. **[통합 대시보드](./verification/v63_interactive_dashboard.html)** - 모든 차트 통합
 
 ::: {.callout-note}
 ## 사용 방법
@@ -160,7 +160,7 @@ class TrueDualAttentionLSTM(nn.Module):
 
 ## 성능 비교
 
-![모델 비교](../src/experiments/creative/v64_model_comparison.png)
+![모델 비교](./creative/v64_model_comparison.png)
 
 ::: {.callout-warning}
 ## 예상 밖의 결과
@@ -174,7 +174,7 @@ Feature attention을 추가했음에도 성능이 **감소**했습니다!
 
 ## Feature Importance 분석
 
-![전체 Feature 중요도](../src/experiments/creative/v64_overall_feature_importance.png)
+![전체 Feature 중요도](./creative/v64_overall_feature_importance.png)
 
 **전체 평균:**
 - **Return:** 52.54%
@@ -182,7 +182,7 @@ Feature attention을 추가했음에도 성능이 **감소**했습니다!
 
 ### 자산별 차이
 
-![자산별 Feature 중요도](../src/experiments/creative/v64_feature_importance_by_asset.png)
+![자산별 Feature 중요도](./creative/v64_feature_importance_by_asset.png)
 
 **자산별 패턴:**
 
@@ -256,10 +256,10 @@ v50의 단일 temporal attention이 더 효율적이고 효과적입니다.
 
 ## 코드
 
-- [v63_attention_analysis.py](../src/experiments/verification/v63_attention_analysis.py) - 기본 attention 분석
-- [v63_interactive_dashboard.py](../src/experiments/verification/v63_interactive_dashboard.py) - 인터랙티브 시각화
-- [v64_true_dual_attention.py](../src/experiments/creative/v64_true_dual_attention.py) - True Dual Attention 모델
-- [v65_robustness_check.py](../src/experiments/verification/v65_robustness_check.py) - 5-seed 강건성 검증
+- [v63_attention_analysis.py](./verification/v63_attention_analysis.py) - 기본 attention 분석
+- [v63_interactive_dashboard.py](./verification/v63_interactive_dashboard.py) - 인터랙티브 시각화
+- [v64_true_dual_attention.py](./creative/v64_true_dual_attention.py) - True Dual Attention 모델
+- [v65_robustness_check.py](./verification/v65_robustness_check.py) - 5-seed 강건성 검증
 
 ## 데이터
 
@@ -311,7 +311,7 @@ Random seed에 따른 성능 변동성을 측정하여 모델의 **강건성(rob
 
 ### 성능 분포 비교
 
-![강건성 Box Plot](../src/experiments/verification/v65_robustness_boxplot.png)
+![강건성 Box Plot](./verification/v65_robustness_boxplot.png)
 
 **관찰 사항:**
 
@@ -321,7 +321,7 @@ Random seed에 따른 성능 변동성을 측정하여 모델의 **강건성(rob
 
 ### Seed별 성능 비교
 
-![Seed별 비교](../src/experiments/verification/v65_seed_comparison.png)
+![Seed별 비교](./verification/v65_seed_comparison.png)
 
 **패턴:**
 
@@ -331,7 +331,7 @@ Random seed에 따른 성능 변동성을 측정하여 모델의 **강건성(rob
 
 ### 평균 ± 표준편차 비교
 
-![Mean ± Std](../src/experiments/verification/v65_mean_std_comparison.png)
+![Mean ± Std](./verification/v65_mean_std_comparison.png)
 
 ::: {.callout-important}
 ## 핵심 발견

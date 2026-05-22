@@ -54,9 +54,9 @@ our_colors = [
 bars1 = ax1.bar(our_models, our_r2, color=our_colors, edgecolor='white', linewidth=1.5)
 
 # V71 Ensemble, V74 강조
-bars1[6].set_edgecolor('#1a365d')
+bars1[6].set_edgecolor('#1a252d')
 bars1[6].set_linewidth(3)
-bars1[8].set_edgecolor('#1a365d')
+bars1[8].set_edgecolor('#1a252d')
 bars1[8].set_linewidth(3)
 
 # 0.80 벽 표시
@@ -86,9 +86,9 @@ all_colors = ['#A0AEC0', '#A0AEC0', '#FC8181', '#F6AD55', '#E53E3E', '#E53E3E', 
 bars2 = ax2.bar(all_models, all_r2, color=all_colors, edgecolor='white', linewidth=1.5)
 
 # 본 연구 모델 강조
-bars2[5].set_edgecolor('#1a365d')
+bars2[5].set_edgecolor('#1a252d')
 bars2[5].set_linewidth(3)
-bars2[6].set_edgecolor('#1a365d')
+bars2[6].set_edgecolor('#1a252d')
 bars2[6].set_linewidth(3)
 
 # 0.80 벽 표시
@@ -537,7 +537,7 @@ Markdown(header + body)
 import json
 from IPython.display import Markdown
 
-with open('/root/vrp/src/experiments/creative/multi_horizon_benchmark_results.json', 'r') as f:
+with open('/root/vrp/experiments/creative/multi_horizon_benchmark_results.json', 'r') as f:
     bench = json.load(f)
 
 results = bench['results']
@@ -555,7 +555,7 @@ model_names = {
     'LSTM_Orig': 'V50 LSTM (Orig)',
 }
 
-horizons = ['1d', '5d', '22d', '60d', '90d', '120d', '180d', '365d']
+horizons = ['1d', '5d', '22d', '60d', '90d', '120d', '180d']
 
 # === Pooled R² 테이블 ===
 md = '#### Pooled R² (전체 자산 통합)\n\n'
@@ -615,7 +615,7 @@ Markdown(md)
 
 - **단기 (1d)**: 모든 모델의 R² < 0.12. 일일 변동성은 노이즈가 크기 때문에 예측이 매우 어려움
 - **중기 (5d~22d)**: 호라이즌이 길어질수록 R² 급상승. **22d에서 V71 Ensemble이 0.803**으로 최고 성능 달성
-- **장기 (60d~365d)**: Pooled R²는 높지만, Median R²가 음수로 전환. 이는 cross-sectional variation에 의존하는 것이며 실제 자산별 예측 정확도가 낮아지는 것을 의미
+- **장기 (60d~252d)**: Pooled R²는 높지만, Median R²가 음수로 전환. 이는 cross-sectional variation에 의존하는 것이며 실제 자산별 예측 정확도가 낮아지는 것을 의미
 - **챔피언 패턴**: 22d까지는 **Ridge/LASSO** 계열이 우세, 장기에서는 **HAR3/RF**가 강해지는 경향
 :::
 
@@ -854,7 +854,7 @@ r2_ens = [0.790, 0.773, 0.803]
 colors_ens = ['#E53E3E', '#ED8936', '#9B2C2C']
 
 bars = ax2.bar(models_ens, r2_ens, color=colors_ens, edgecolor='white', linewidth=2)
-bars[2].set_edgecolor('#1a365d')
+bars[2].set_edgecolor('#1a252d')
 bars[2].set_linewidth(3)
 
 for bar, val in zip(bars, r2_ens):
@@ -942,7 +942,7 @@ fig, ax = plt.subplots(figsize=(10, 5))
 bars = ax.bar(feature_sets, r2_scores, color=colors, edgecolor='white', linewidth=1.5)
 
 ax.axhline(y=0.758, color='#A0AEC0', linestyle='--', alpha=0.5, label='Base only')
-bars[7].set_edgecolor('#1a365d')
+bars[7].set_edgecolor('#1a252d')
 bars[7].set_linewidth(3)
 
 ax.set_ylabel('R² 스코어', fontsize=12)
@@ -1492,7 +1492,7 @@ plt.show()
 
 ## Multi-Horizon 모델 비교 (전방 RV)
 
-22일 예측 뿐 아니라 다양한 horizon(1d~365d)에서 V71과 V50 Tuned, V36의 성능을 비교하였다.
+22일 예측 뿐 아니라 다양한 horizon(1d~252d)에서 V71과 V50 Tuned, V36의 성능을 비교하였다.
 
 | Horizon | V71 Ensemble (37feat) | V50 Tuned (LSTM 3feat) | V36 HAR-3 (3feat) | 챔피언 |
 |:---|:---|:---|:---|:---|
@@ -1503,13 +1503,13 @@ plt.show()
 | 90d | 0.752 | **0.788** | 0.781 | V50 |
 | 120d | 0.737 | 0.751 | **0.758** | V36 |
 | 180d | 0.691 | **0.708** | 0.705 | V50 |
-| 365d | 0.516 | 0.589 | **0.611** | V36 |
+| 252d | 0.516 | 0.589 | **0.611** | V36 |
 
 ::: {.callout-important}
 ## Multi-Horizon 핵심 발견
 - **V71은 단기(1~22d) 챔피언**: 37개 피처가 단기 자기상관에 풍부한 정보 제공
 - **V50 Tuned는 중기(60~180d) 챔피언**: LSTM이 3개 Range 피처로 비선형 장기 패턴 포착
-- **V36 HAR-3는 초장기(120~365d) 안정적**: 단순 모델의 과적합 방지 효과
+- **V36 HAR-3는 초장기(120~252d) 안정적**: 단순 모델의 과적합 방지 효과
 - 모든 R²는 **전방 RV** 타겟 기준 (데이터 중첩 없음)
 :::
 

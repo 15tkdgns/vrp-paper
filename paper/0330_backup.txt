@@ -1,0 +1,626 @@
+
+Weighted Ensemble을 활용한다중 예측 기간 Cross-Asset 분산 위험 프리미엄 예측
+*
+Cross-Asset Variance Risk Premium Forecasting Across Multiple Horizons Using a Weighted Ensemble Approach
+*
+
+지원기관표기
+
+요  약
+
+본 연구는 주식, 채권, 원자재로 구성된 11개 ETF를 대상으로, 일별 가격 지표와 VIX(변동성지수) 기간구조 지표를 이용해 RV를 예측하는 프레임워크를 제시한다. 예측 기간은 거래일 기준 1, 5, 22, 60, 90, 120, 180, 252의 8개 구간이며, 전방 실현분산을 먼저 예측한 뒤 IV(내재분산)과 결합해 VRP를 산출하는 2단계 구조를 사용한다. 동일한 피처와 동일한 검증 절차 하에서 선형, 트리, 신경망 모델을 비교한 결과, 예측 기간에 따라 상대적으로 적합한 모델 구조가 달라지는 경향이 확인되었다. 1~22 거래일에서는 정규화 선형 모델이, 60~90 거래일에서는 시계열 딥러닝 모델이, 180~252 거래일에서는 트리 기반 모델이 상대적으로 안정적인 성능을 보였다. 추가로 통계적 유의성 검정과 만기 불일치, 결측 처리, 자산특화 지표 대체, 변수 중요도 합의 분석을 통해 제안 방법의 신뢰도와 해석 가능성을 점검하였다.
+
+Abstract
+
+This study presents a framework for predicting the variance risk premium (VRP) for 11 ETFs spanning equities, bonds, and commodities using daily price indicators and the term structure of the VIX. The forecasting horizons consist of eight intervals measured in trading days: 1, 5, 22, 60, 90, 120, 180, and 252. The proposed approach adopts a two-stage structure in which forward realized variance is first predicted and then combined with implied variance (IV) to obtain the VRP. Comparing linear, tree-based, and neural network models under the same feature set and validation procedure, the results show that the relatively suitable model structure varies across forecasting horizons. Regularized linear models exhibit relatively stable performance over 1 to 22 trading days, time-series deep learning models perform relatively well over 60 to 90 trading days, and tree-based models show relatively stable performance over 180 to 252 trading days. In addition, the reliability and interpretability of the proposed framework are examined through statistical significance tests and robustness analyses addressing maturity mismatch, missing-value handling, substitution with asset-specific indicators, and feature-importance consensus.
+
+Keywords
+
+
+Ⅰ. 서  론
+
+최근 금융시장은 팬데믹, 지정학적 충격, 통화정책 전환과 같은 사건을 거치며 높은 변동성 국면을 반복적으로 경험해 왔다. 예를 들어 Yahoo Finance에서 수집한 코로나19 팬데믹이 본격화된 2020년 3월 16일 VIX(변동성지수, Volatility Index)는 82.7 수준까지 상승하였고, 러시아-우크라이나 전쟁 발발 전후인 2022년 3월 초에도 36.5 수준까지 상승하였다. 이러한 사례는 변동성이 단순한 가격 변동 폭을 넘어 시장의 불확실성 평가와 위험회피 수요를 반영하는 핵심 변수임을 보여준다.
+금융시장에서 변동성 연구는 크게 두 가지 질문으로 구분될 수 있다. 첫째는 미래 변동성의 수준이 어느 정도가 될 것인가의 문제이며, 둘째는 그러한 위험이 시장에서 얼마나 비싸게 가격화되는가의 문제이다. RV(실현분산, Realized Variance)는 전자와 직접적으로 연결되며, 변동성 예측의 핵심 대상이다. VRP(분산 위험 프리미엄, Variance Risk Premium)는 IV(내재분산, Implied Variance)와 RV의 차이로 정의되며 [1], 변동성 위험의 가격화를 나타내는 파생 지표로 이해된다 [2].
+금융 예측에서 가장 직관적인 목표는 수익률 또는 초과수익률이지만, 수익률은 신호 대 잡음 비율이 낮고 구조 변화의 영향을 크게 받기 때문에 안정적인 예측이 어렵다. Gu, Kelly, and Xiu [3]는 다양한 기계학습 방법을 비교하며 자산가격 예측에서 기계학습의 가능성을 제시하였다. 반면 변동성은 군집성과 지속성이 강하므로 수익률보다 예측 가능성이 상대적으로 높다. Corsi [4]의 HAR-RV 모형은 일·주·월 수준의 변동성 정보를 결합하여 이러한 특성을 간명하게 반영한 대표적 접근이며, 이후 Audrino and Knaus [5], Christensen et al. [6]은 정규화 회귀와 기계학습을 활용한 변동성 예측의 확장 가능성을 보였다.
+본 연구는 미래 RV를 직접 예측 대상으로 삼고, 이를 관측 가능한 IV와 결합하여 VRP를 파생 산출물로 제시하는 2단계 구조를 채택한다. RV 예측은 변동성 리스크 관리의 핵심 과제이며, 풍부한 피처셋과 다중 자산군 구조 아래에서 예측 가능성과 모형 간 성능 차이를 체계적으로 분석하기에 적합하다. 또한 이를 통해 도출되는 VRP 추정치는 변동성 관련 자산배분이나 위험관리 의사결정에서 보조적 참고 신호로 활용될 수 있다. 본 연구에서 사용하는 IV, RV, VRP의 구체적 정의와 산출 절차는 3장에서 제시한다.
+RV 예측 연구는 GARCH 계열 및 HAR-RV 모형을 중심으로 축적되어 왔으나, 다중 자산·다중 기간을 함께 분석한 체계적 비교 연구는 상대적으로 제한적이다. 몇 가지 공백이 남아 있다. 첫째, 다중 자산 RV 예측 연구는 대부분 자산별 옵션 자료 또는 고빈도 데이터에 의존하므로, 실제 분석 환경에서 주식·채권·원자재 전체에 대해 장기간 데이터를 확보하기 어렵다. 둘째, 기존 연구는 상대적으로 월간 또는 30일 안팎의 만기에 정렬된 분석이 많아, 1거래일부터 252거래일까지 예측 기간을 확장할 때 예측 구조가 어떻게 달라지는지를 체계적으로 비교한 연구는 제한적이다. 셋째, 동일한 피처와 동일한 검증 절차 아래에서 선형 모델, 트리 기반 모델, 시계열 신경망 모델을 예측 기간별로 비교한 결과도 충분하지 않다.
+이러한 공백을 바탕으로 본 연구는 다음의 질문에 답하고자 한다. 첫째, 공개적으로 이용 가능한 가격 기반 피처와 변동성 지표를 활용하여 주식·채권·원자재 자산군에서 RV를 예측할 수 있는가. 이로부터 파생되는 VRP는 어떤 특성을 보이는가. 둘째, 예측 기간이 1거래일에서 252거래일까지 길어질 때 예측 성능과 유효 피처는 어떻게 달라지는가. 셋째, 동일한 피처와 동일한 시계열 검증 절차 아래에서 선형·트리 기반·시계열 신경망 모델의 상대적 성능은 기간에 따라 어떻게 달라지는가. 넷째, HAR 3피처만 사용하는 LASSO-HAR 대비 풀 피처셋(35개)을 사용하는 LASSO는 예측 성능이 얼마나 개선되는가. 즉, HAR 이외의 피처군이 RV 예측에 실질적으로 기여하는가. 이하에서는 이러한 질문에 답하기 위해 데이터 구성, 예측 구조, 검증 절차, 그리고 실증 결과를 순차적으로 제시한다.
+본 연구는 11개 ETF(SPY, QQQ, IWM, EFA, EEM, TLT, IEF, AGG, GLD, SLV, USO)를 대상으로 2010년 1월 4일부터 2024년 12월 31일까지의 일별 가격 및 거래량 자료와 변동성 지표를 사용한다. 피처는 HAR 구조 기반 시차 변수, range 기반 변동성 피처, VIX 기간구조 지표, 거래량 기반 피처로 구성한다. 성능 평가는 시간순 80/20 학습·테스트 단일 분할을 기본으로 하며, 5-fold 시계열 교차검증은 강건성 확인을 위한 보조 수단으로 활용한다. 이후 장에서는 데이터와 방법론을 설명하고, 실험 결과와 추가 실험을 통해 제안 방법의 성능과 한계를 함께 논의한다.
+
+Ⅱ. 관련 연구
+
+RV 예측 문헌은 크게 두 흐름으로 정리할 수 있다. 첫째는 GARCH 계열 모형에서 출발한 조건부 변동성 예측 연구이다. Engle [15]의 ARCH 모형과 Bollerslev [16]의 GARCH(1,1)은 시계열 분산의 군집성을 포착하는 대표적 접근으로, 이후 다양한 확장 모형의 기반이 되었다. Andersen et al. [17]은 고빈도 수익률로 구성된 RV가 변동성 예측에서 보다 풍부한 정보를 제공함을 보였고, 이를 바탕으로 다중 스케일 구조를 반영하는 HAR-RV 모형 [4]이 제안되었다.
+둘째는 기계학습 기반 변동성 예측 연구이다. Audrino and Knaus [5]는 HAR 구조와 변수 선택을 결합한 LASSO-HAR를 제시하였고, Christensen, Siggaard, and Veliyev [6]는 다양한 기계학습 모형이 변동성 예측에서 경쟁력 있는 성능을 보일 수 있음을 보고하였다. 이러한 연구 흐름은 고차원 피처와 비선형 모형의 활용 가능성을 보여주지만, 동일 피처와 동일 검증 절차 아래에서 예측 기간별 모형 차이를 비교한 연구는 상대적으로 제한적이다.
+RV 예측과 밀접하게 연결되는 VRP 관련 문헌도 존재한다. Carr and Wu [1]는 옵션 포트폴리오를 활용해 위험중립 기대분산을 근사하고 RV와의 차이를 VRP로 정의하는 방법을 제시하였다. Bekaert and Hoerova [7], Bollerslev, Tauchen, and Zhou [2], Drechsler and Yaron [8]은 VRP가 변동성 위험의 가격화를 나타내는 지표임을 보였으며, 이후 실증 연구는 예측력 분석 [9][10], 시장 간 전이 [11], 자산군별 이질성 [12][13][14]으로 확장되었다.
+다중 자산 RV 예측 연구도 존재하지만, 대부분 각 자산별 옵션 데이터 또는 고빈도 자료를 전제로 한다 [11][12][14]. 이러한 접근은 측정의 정밀성은 높을 수 있으나, 장기간 데이터 확보와 자산군 간 비교의 실용성 측면에서는 제약이 따른다. 본 연구는 일별 가격 및 거래량 자료와 공개 변동성 지표만을 사용하여 재현 가능한 RV 예측 프레임워크를 구성한다. 이러한 점에서 본 연구는 다중 자산과 다중 예측 기간을 함께 고려한 재현 가능한 RV 예측 프레임워크를 제시한다.
+
+Ⅲ. 데이터 세트
+
+3.1 자산 구성
+
+본 연구는 SPY, QQQ, IWM, EFA, EEM, TLT, IEF, AGG, GLD, SLV, USO의 총 11개 ETF를 분석 대상으로 사용한다. 
+이들 자산은 각 주식, 채권, 원자재를 대표하는 대형 ETF로서, 2010년부터 2024년까지의 분석 기간 동안 일별 OHLCV 자료가 대부분 결측 없이 연속적으로 제공된다. 또한 거래량과 시가총액 규모 측면에서 상대적으로 높은 유동성을 유지하고 있어, 자산군 간 비교가 가능한 패널 데이터 구성을 위해 적합한 표본으로 판단된다.
+OHLCV는 각 거래일 t에 대해 다음의 다섯 가지 변수를 포함한다: 시가(Open), 고가(High), 저가(Low), 종가(Close), 거래량(Volume)을 의미한다.
+예측 기간 집합 h ∈ {1, 5, 22, 60, 90, 120, 180, 252}는 각각 일간·주간·월간·분기·반기·연간 수준을 포괄하도록 설계하여 단기부터 장기까지의 예측 구조 변화를 체계적으로 비교할 수 있다. 데이터는 Yahoo Finance API를 통해 수집하였으며, 수집 파라미터는 다음과 같고, 총 거래일 수는 약 3,780일이다.
+
+표 1. 자산 구성
+Table 1. Assets Guorp
+
+Group
+Assets
+Equity
+SPY, QQQ, IWM, EFA, EEM
+Bond
+TLT, IEF, AGG
+Commodity
+GLD, SLV, USO
+
+표본 시작 시점을 2010년으로 설정한 이유는 다음과 같다. 첫째, 11개 ETF와 변동성 지표인 VIX 등 주요 지표의 공통 가용 구간을 안정적으로 확보하기 위해서다. 둘째, 2008~2009년 금융위기 직후 구간은 VIX 급등과 유동성 위축이 동시에 나타난 극단적 비정상 구간이므로, 이를 학습 표본에 포함할 경우 특정 위기 국면에 과적합될 가능성이 있다.
+본 연구에서 "안정적으로 존재하는 자산"이란 2010년 1월 4일 이후 Yahoo Finance에서 시가, 고가, 저가, 종가, 거래량의 5개 항목이 연속 거래일 기준으로 대부분 결측 없이 제공되며, 단기 결측이 존재하더라도 1~2거래일 수준에 그치는 자산을 의미한다. 별도의 거래량 하한이나 유동성 컷오프를 적용하지는 않았으나, 선택된 11개 ETF는 각 자산군에서 대표성을 가진 대형 ETF이므로 유동성 문제는 실질적으로 크지 않다.
+
+3.2 데이터 전처리
+
+결측치는 전방 채움(forward fill)으로 처리하였다. 이는 미래 정보 누출을 방지하면서 시계열 연속성을 유지하고 표본 손실을 최소화하기 위한 선택이다. 선형 보간은 미래 시점의 정보를 사용할 수 있으므로 시계열 예측에서 적절하지 않을 수 있으나, 전방 채움은 과거 관측치만을 이용한다. 또한 결측 행을 그대로 삭제할 경우 5일, 22일 등 다중 윈도우 기반 피처 계산의 안정성이 저하될 수 있다. 전방 채움 적용 시 표본 수는 41,261개였고, 이를 제거하면 38,489개로 감소하였다.
+전방 채움의 구조적 편향을 명시한다. 결측일에 전방 채움을 적용하면 당일 시가·고가·저가·종가가 모두 직전일 종가와 같아지므로, 해당일의 일중 범위 log(H/L)가 0이 된다. 이는 Garman-Klass, Parkinson, RogersSatchell 등 range 기반 추정량을 확정적으로 하향 편향시킨다. 그러나 본 연구에서 결측은 거래일 불일치에 의한 1~2일 수준의 산발적 결측에 한정되며, 22거래일 롤링 윈도우 기준으로 단일 결측일이 차지하는 비중은 최대 4.5%이므로 전반적 영향은 제한적인 것으로 판단된다.
+추가 강건성 검증 결과, 전방 채움을 제거한 경우 풀링 R²는 0.782에서 0.795로, 중위 R²는 0.123에서 0.182로 소폭 상승하였다. 이는 전방 채움이 성능을 인위적으로 부풀리지 않았음을 의미하며, 오히려 보수적인 방향으로 작용했음을 시사한다. 따라서 본 연구의 핵심 결과는 결측 처리 방식에 과도하게 의존하지 않는다.
+
+3.3 데이터 정의
+
+본 연구는 변동성 관련 변수를 모두 분산 단위로 통일하여 정의한다. 먼저 RV는 미래 h 거래일 동안의 수익률 제곱합을 연율화한 값으로 정의하며, 본 연구의 직접 예측 대상이다. IV는 변동성 지수를 제곱한 값으로 근사하고, VRP는 IV와 RV의 차이로 정의한다. VRP는 예측된 RV로부터 사후적으로 산출되는 파생 지표이다.
+본 연구의 핵심 설계는 VRP를 직접 예측하지 않고, 먼저 미래 RV를 예측한 후 이를 사후적으로 IV와 결합하여 VRP를 산출하는 2단계 구조에 있다. 이러한 접근을 채택한 이유는 피처와 타깃 간 정보 중첩 가능성을 줄이기 위해서이다. VRP 자체를 직접 타깃으로 설정할 경우, 타깃 정의식 (IV - RV)에 포함된 IV 정보가 피처로 사용되는 VIX 계열 지표와 중복될 수 있다. 반면 RV만을 예측 대상으로 설정하면, 모형은 미래 변동성 자체를 학습하고 관측 가능한 IV는 사후 결합에만 활용되므로 각 정보의 역할이 보다 명확하게 구분된다. 다시 말해, 1단계에서는 미래 실현변동성의 예측 문제에 집중하고, 2단계에서는 이미 관측 가능한 IV를 결합해 VRP를 산출함으로써 예측 대상과 설명 변수의 역할을 분리한다. 따라서 2단계 구조는 예측의 해석 가능성과 설계의 타당성을 높이는 장점이 있다.
+본 연구의 예측 기간 h는 모두 거래일 기준으로 정의하며, h in {1, 5, 22, 60, 90, 120, 180, 252}로 설정한다. RV는 자산 i의 시점 t 이후 향후 h 거래일 구간 [t+1, t+h]에서 실현된 수익률 제곱의 평균을 연율화하여 구성한다.
+본 연구에서 사용하는 일별 가격 및 거래량 자료는 각 거래일의 시가, 고가, 저가, 종가, 거래량으로 구성된다. 종가는 로그수익률과 HAR 기반 RV 계산에 사용된다. 반면 시가·고가·저가·종가 정보는 종가만으로는 반영하기 어려운 하루 중 가격 움직임을 포함하므로, range 기반 변동성 추정량을 계산하는 데 활용된다. 이러한 추정량은 일중 가격 범위를 반영한다는 점에서 종가 기반 변동성 측정보다 더 많은 정보를 담을 수 있으며, 이론적으로도 더 높은 효율성을 가진다. 또한 거래량은 유동성 관련 피처를 구성하는 기초 변수로 사용된다.
+선행연구에서는 5분 수익률을 이용하여 일별 RV를 구성하거나 [17], 고빈도 RV와 점프 분리 기법을 활용한 기계학습 예측 모형을 제시한 바 있다 [6]. 그러나 고빈도 데이터는 구독 비용이 높고, 채권 및 원자재 등 비주식 자산에 대해서는 장기간 자료를 확보하기 어렵다는 실무적 제약이 존재한다. 이에 본 연구는 Yahoo Finance를 통해 무료로 수집 가능한 일별 가격 및 거래량 자료를 사용하면서도, range 기반 추정량을 활용하여 고빈도 데이터가 제공하는 정보 효율을 일부 근사하고자 하였다. 이러한 접근은 데이터 접근성과 재현 가능성 측면에서 장점을 갖는다. 다만 일별 가격 및 거래량 자료 기반 접근은 일중 점프와 연속 변동을 분리할 수 없다는 한계를 가지며, 이에 대한 논의는 결론에서 다룬다.
+일별 수익률은 로그수익률로 정의한다.
+r_t = ln(P_t / P_(t-1))
+여기서 P_t는 yfinance에서 제공하는 수정 종가(adjusted close)를 사용한다. 수정 종가는 배당과 주식분할 효과를 반영하므로, 종가 기반 수익률 계산에 적합하다. 반면 range 기반 변동성 추정량 계산에는 수정되지 않은 원시 시가·고가·저가·종가 자료를 사용한다.
+이 경우 배당 또는 분배로 인한 가격 점프가 range 추정량에 영향을 줄 수 있으므로, 그 영향을 별도로 점검하였다. 분석 결과, 11개 ETF 전체에서 배당락 후보일(시가 갭 0.5% 초과)은 전체 거래일의 약 15.9%를 차지하였고, 해당 일자의 일중 범위 log(H/L)는 정상일 대비 평균 1.27배 정도 높게 나타났다. 그러나 22거래일 롤링 윈도우에서 단일 관측치가 차지하는 비중은 약 4.5%에 불과하므로, 배당락에 따른 점프가 윈도우 기반 range 추정량에 미치는 전반적 영향은 제한적인 것으로 판단된다.
+또한 거래일 불일치로 인해 일부 자산에서는 1~2일 수준의 결측이 발생할 수 있다. 본 연구는 이러한 결측에 대해서도 전방 채움을 적용하였다. 전방 채움은 동일 가격이 반복되도록 하므로, 해당 구간의 수익률이 0에 가까워지는 효과를 가져올 수 있어 단기 RV 또는 range 추정량을 다소 축소할 가능성이 있다. 그러나 22거래일 윈도우 기준으로 그 영향은 제한적인 것으로 확인되었으며, 자세한 내용은 3.2절 강건성 검증을 참조한다.
+
+3.4 Weighted Ensemble
+
+본 연구는 Ridge와 XGBoost를 결합한 가중 앙상블(WEns)을 제안한다.
+y_hat_WEns = pw × y_hat_Ridge + (1 - pw) × y_hat_XGBoost
+Ridge는 다중공선성에 상대적으로 강하고 선형적 구조를 안정적으로 포착하는 장점이 있으며, XGBoost는 비선형 상호작용을 보정하는 역할을 수행한다. 가중치 pw는 고정 값이 아니라 예측 기간별 내부 검증셋(inner holdout)의 R² 최대화를 통해 선택된다. 구체적으로 pw ∈ {0.4, 0.5, 0.6, 0.7, 0.8, 0.9} 중 내부 검증 성능이 가장 높은 값을 채택하며, 이 과정에서 테스트셋 정보는 일절 사용하지 않는다. 예를 들어 22거래일 기간에서는 pw = 0.8이 선택되었고, 60거래일에서는 pw = 0.5로 기간에 따라 최적 가중치가 달라진다. 이러한 기간별 adaptive 가중치 설계는 단일 고정 가중치 대비 과적합 위험을 줄이면서 각 기간의 예측 구조를 보다 잘 반영할 수 있다.
+
+3.5 데이터 구성
+
+본 연구의 데이터는 여러 자산을 여러 시점에 걸쳐 함께 관측한 날짜 × 자산 구조로 구성된다. 각 날짜 t에서 피처는 t-1까지의 정보로 계산하고, 타깃은 [t+1, t+h] 구간에서 계산된 전방 실현분산이다. 따라서 각 기간 h에 대해 표본의 끝부분 h일은 타깃을 계산할 수 없으므로 학습과 평가에서 제외된다. 또한 예측 기간이 길어질수록 타깃 윈도우가 서로 중첩될 가능성이 커지므로, 학습/테스트 분할 경계와 교차검증 폴드 경계에는 예측 기간 h에 해당하는 정화 구간(purge gap)을 두어 검증 누출 가능성을 완화하였다 [18]. 이러한 구성은 동일한 피처 세트와 동일한 검증 절차 아래에서 모델 간 성능 차이를 비교하기 위한 기본 단위를 제공한다.
+
+3.6 피처 구성
+
+피처는 (i) HAR 기반 과거 시차 변수, (ii) 일별 가격 range 기반 변동성 추정량(HF proxy), (iii) IV 기간구조 및 VRP 통계(IV surface), (iv) 거래량 기반 대안 데이터로 구성된 다중 그룹을 사용하며, 총 35개 피처를 활용한다. IV surface 그룹에는 IV_VRP와 IV_VRP_ma22가 포함되는데, 이는 과거 시점에서 관측된 VRP(IV - 과거RV)로서 미래 RV와 독립적이다. 과거 VRP는 시장의 변동성 위험 가격화 수준을 반영하므로, 미래 RV 예측을 위한 피처로 활용하는 것은 타깃 정보 누출 없이 유의미한 설명력을 추가할 수 있다. 각 그룹의 피처 수는 Base 12개 + HF Proxy 7개 + IV Surface 10개 + Alternative 6개로 구성된다. 초기 설계에서는 GARCH(1,1) 기반 일별·주간 조건부 변동성 추정치인 GARCH_Daily, GARCH_Weekly 를 포함한 37개 피처를 검토하였으나, 실험 결과 이 두 피처가 Ridge 내부 검증에서 정규화 강도 선택을 왜곡하여 22거래일 Pooled R²를 약 0.006 하락시키는 것이 확인되어 최종 피처셋에서 제외하였다. 모델 간 비교에서는 동일한 35개 피처 세트를 적용하여 비교의 공정성을 확보하였다. 또한 피처 간 스케일 차이를 줄이기 위해 표준화를 적용하였으며, 스케일링 파라미터는 학습 구간에서만 추정하고 이를 테스트 구간에 적용함으로써 정보 누출이 발생하지 않도록 하였다.
+
+3.7 학습 과정
+
+시계열 데이터의 시간적 선후 관계를 엄격히 보존하기 위해 전체 표본을 날짜순으로 정렬한 뒤, 전반부 80%를 모델 학습에, 후반부 20%를 성과 평가에 배정한다. 전방 타겟은 [t+1, t+h] 구간을 사용하므로, 인접 관측치 간 타겟 윈도우 중첩이 필연적으로 존재한다. 이를 방지하기 위해 학습-테스트 분할 경계에 purge gap = h를 적용한다.
+하이퍼파라미터 튜닝은 테스트셋 정보 없이 수행하기 위해 학습셋 내부를 다시 80/20으로 분할한 내부 검증(inner holdout) 구조를 사용한다. 이 내부 분할에도 동일하게 purge gap = h를 적용하여 타겟 중첩에 의한 검증 누출을 방지한다. 각 예측 기간 h에 대해 내부 검증을 독립적으로 수행하여 기간별 최적 하이퍼파라미터를 선택하는 방식을 채택하였다.
+주식·채권·원자재 자산군은 변동성 수준과 VIX 민감도가 이질적이므로, 각 자산군에 대해 하이퍼파라미터 탐색과 최종 모델 피팅을 자산군별로 독립적으로 수행한다. 이를 통해 자산군 간 이질성을 반영하면서도 동일한 피처·분할 절차를 유지하여 비교의 공정성을 확보하였다.
+
+3.8 모델 구성
+
+본 연구는 해석 용이성과 일반화 성능을 함께 보기 위해 선형·트리·딥러닝 모델을 포함한다. 주요 비교군은 다음과 같다.
+
+표2. 모델 구성
+Table2. Model Group
+
+Group
+Model
+Benchmark
+HAR-3
+Linear
+Ridge, Lasso, ElasticNet
+Tree
+Random Forest,  XGBoost, LightGBM
+Neural Network
+BiLSTM-A(Bi-LSTM + Temporal Attention), MLP
+Ensemble
+WEns (Ridge + XGBoost)
+
+3.9 하이퍼파라미터
+
+Ridge는 다중공선성이 큰 피처, 특히 range 계열에서 안정적인 추정을 위해 사용한다. 본 연구는 자산군 간 이질성을 반영하기 위해 자산군별로 내부 검증을 통해 독립적으로 alpha를 선택한다. 또한 Ridge의 규제 강도에 대한 민감도 분석으로 alpha ∈ [0.001, 5000] 범위에서 성능이 큰 폭으로 흔들리지 않음을 확인하였다.
+ElasticNet은 L1과 L2를 결합하여 확장 피처 환경에서 과적합을 줄이기 위한 모델로 포함되며, 22거래일 기간에서 성능 개선이 보고되었다. 최적 파라미터는 alpha = 0.01, l1_ratio = 0.1로, Ridge 성격 90%와 LASSO 성격 10%를 혼합한 형태이다.
+BiLSTM-A(Bi-LSTM + Temporal Attention)는 35개 전체 피처를 입력으로 사용하며, 과거 약 1개월에 해당하는 22거래일을 입력 시퀀스 길이로 설정하였다. 이는 22거래일 월간 예측과 입력 기간을 맞춰 단기 패턴 포착에 집중하기 위한 선택이다. Temporal Attention은 가산적(additive) 방식으로 시퀀스 내 각 시점에 중요도 가중치를 부여하여, 예측에 더 유용한 시점의 정보를 강조한다. 은닉층 크기 {32, 64}와 드롭아웃 {0.1, 0.3}은 내부 검증으로 탐색하며, 자산군별로 독립 선택한다. 재현성을 위해 단일 시드 0을 고정한다.
+WEns의 가중치 pw는 내부 검증셋 R² 최대화를 통해 기간별로 선택되며, pw ∈ {0.4, 0.5, 0.6, 0.7, 0.8, 0.9} 중 최적값을 채택한다. 테스트셋은 가중치 선택에 일절 관여하지 않는다.
+Random Forest / XGBoost / LightGBM은 35개 피처 기반 비교군으로 포함되어, 기간별 성능을 비교한다. 구체적인 하이퍼파라미터 값은 재현 패키지에 포함된다.
+
+3.10 평가 지표
+
+모델 순위 비교는 풀링 R²를 기준으로 수행하며, 중위 R²와 RMSE를 보조 지표로 함께 보고한다. 모델 간 차이의 통계적 유의성은 Diebold-Mariano 검정을 통해 평가하였다 [19]. 예측 타겟이 일정 기간([t+1, t+h])의 평균으로 구성되어 인접한 날짜 간에 타겟 윈도우가 필연적으로 겹치므로, 예측오차 간에는 최대 h-1차의 자기상관이 존재할 수 있다. 이에 따라 DM 검정에서는 기간 h를 Newey-West HAC 대역폭으로 사용하여 중첩 구조에 의한 분산 과소추정을 보정하였다 [20]. 또한 120거래일 이상의 장기 기간에서는 점근 근사의 한계를 보완하기 위해 블록 크기 h, 반복 횟수 5,000회의 블록 부트스트랩을 보조 검정으로 사용하여 유의성을 재확인하였다 [21].
+
+3.11 실험 개요
+
+본 연구는 11개 ETF 패널 자료를 대상으로, 8개 예측 기간에서 3.3절의 2단계 구조에 따라 전방 실현분산을 예측한다. 
+
+표 3. 기호 및 정의
+table 3. Symbol and Definition
+
+Symbol
+Definition
+RV_i,t(h)
+Forward RV of asset I,h trading days ahead (annualized)
+IV_t^2
+Implied variance proxy,(VIX_t / 100)^2
+VRP_i,t(h)
+Variance risk premium, IV_t^2 - RV_i,t(h)
+h
+Forecast horizon (trading days),h ∈ {1,5,22,60,90,120,180,252}
+i
+Asset index (i=1,…,11; 11 ETFs)
+t
+Time index (trading day)
+r_t
+Daily log return, ln(P_t/P_t-1)
+ R-squared
+pooled and median R-squared
+
+
+예측 시점의 IV 대용치(IV_t^2)는 이미 관측된 값이므로, 모델 간 비교와 선택은 1단계 RV 예측 성능 비교를 기준으로 일관되게 수행할 수 있다.
+
+3.12 공정 비교 설계
+
+모델 간 성능 차이가 피처 구성, 데이터 분할, 튜닝 절차의 차이에서 비롯되지 않도록 아래의 통제 조건을 모든 비교 대상 모델에 동일하게 적용하였다.
+피처 및 입력 동일성. 선형·트리·딥러닝 모델에 동일한 35개 피처 세트를 입력으로 사용하였다. NaiveRV, GARCH, IV-only 세 베이스라인 모델은 각 방법론의 특성상 피처 구성이 상이하나, 동일한 데이터 분할과 평가 절차를 공유한다. 평균과 표준편차로 구성된 스케일링 파라미터는 학습 구간에서만 추정하고 테스트 구간에 적용하여, 미래 정보가 피처 전처리 단계에서 누출되지 않도록 하였다.
+분할 동일성. 2010년 1월 4일부터 2024년 12월 31일까지의 전체 표본을 날짜순으로 정렬하여 전반부 80%를 학습셋, 후반부 20%를 테스트셋으로 고정하였다. 모든 모델이 동일한 학습-테스트 경계를 공유하며, 분할 경계에는 예측 기간 h에 해당하는 purge gap을 두어 타깃 중첩으로 인한 누출을 방지하였다.
+튜닝 절차 동일성. 하이퍼파라미터 탐색은 테스트셋을 전혀 참조하지 않고, 학습셋 내부를 80/20으로 재분할한 내부 검증에서만 수행한다. 이 내부 분할에도 동일하게 purge gap = h를 적용하였다. 각 예측 기간 h별로 내부 검증을 독립적으로 수행하며, 주식·채권·원자재의 자산군별로도 독립적으로 수행한다. 이 절차는 모든 모델에 동일하게 적용되며, 특정 모델에만 유리한 탐색 예산이나 절차상 이점이 부여되지 않는다.
+탐색 공간 명시. 주요 하이퍼파라미터 탐색 그리드는 다음과 같다: Ridge α ∈ {0.01, 0.1, 1, 10, 100, 1000}, XGBoost n_estimators ∈ {100, 300}, max_depth ∈ {3, 5}, learning_rate ∈ {0.05, 0.1}, BiLSTM-A hidden ∈ {32, 64}, dropout ∈ {0.1, 0.3}, WEns pw ∈ {0.4, 0.5, 0.6, 0.7, 0.8, 0.9}. NaiveRV, GARCH, IV-only 세 베이스라인 모델도 동일한 내부 검증 구조 하에서 평가되었으며, IV-only는 동일한 Ridge 탐색 그리드를 사용하였다.
+무작위성이 있는 모든 모델, 즉 BiLSTM-A, RF, XGBoost, LightGBM은 단일 시드 0을 고정하여 결과의 재현 가능성을 확보하였다. 이상의 조건 하에서 관찰된 모델 간 성능 차이는 모델 구조 자체의 차이에서 비롯된 것으로 해석할 수 있다.
+
+IV. 실험 결과
+
+4.1 기간별 모델
+
+기간별로 가장 높은 풀링 R²를 기록한 모델은 다음과 같다. 중위 R² 기준 비교는 4.3절을 참조한다. 1, 5, 22, 180, 252거래일 구간에서는 WEns가, 60, 90, 120거래일 구간에서는 Ridge가 최고 성능을 보였다. 예측 기간 전반에 걸쳐 규제 선형 모델과 그 앙상블이 강한 경쟁력을 유지하는 것이 확인된다.
+1~22거래일 구간에서는 range, IV 기간구조, 거래량을 포함한 다수 피처를 활용한 선형 결합과 앙상블 모델이 우수하였다. 60~120거래일 구간에서는 Ridge가 강한 성능을 유지하였으며, 180~252거래일 구간에서도 WEns가 상위권을 유지하였다. 이는 동일한 35개 피처와 자산군별 적응적 정규화가 예측 기간 전반에 걸쳐 안정적으로 작동함을 보여준다.
+
+4.2 WEns 앙상블
+
+22거래일 예측에서 WEns는 가중치 pw=0.8로 Ridge와 XGBoost를 결합하고 35개 피처를 자산군별로 독립 적용하며 내부 검증 기반으로 가중치를 선택하는 구조로, Pooled R² = 0.7936, Median R² = 0.2469, RMSE = 0.4591을 기록하였다. Ridge의 Pooled R²는 0.8026, ElasticNet은 0.8009로 세 모델 모두 근소한 차이를 보였으며, 모델 간 차이는 통계적으로 유의하지 않은 수준이다. 반면 BiLSTM-A와 MLP는 Pooled R²가 각각 0.5361과 0.5644로, 35개 전체 피처 환경에서 과적합 문제로 크게 열위를 보였다.
+60거래일 이상으로 기간이 확장될 경우 중위 R²가 음수 영역으로 진입하는 현상이 관찰된다. 이는 단일 모델이 Equity·Bond·Commodity 자산군이 갖는 독자적 변동성 구조를 동시에 포착하는 데 구조적 한계가 있음을 시사한다.
+패널 R² 분해 관점에서, Pooled R²는 어느 자산이 더 변동성이 높은지를 나타내는 자산 간 횡단면 변동과, 같은 자산의 변동성이 시간에 따라 어떻게 달라지는지를 나타내는 시계열 방향 변동을 모두 포함한다. 독자가 높은 Pooled R² 수치를 시계열 예측력으로 오해하지 않도록, 자산별 평균을 제거한 후 계산한 R²_Within을 표 4에 함께 제시한다.
+[표 4] WEns Pooled R² vs R²_Within 비교
+기간  | Pooled R² | R²_Within | 차이(P-W)
+1d   |   0.1158  |   0.0339  | +0.082
+5d   |   0.6239  |   0.2587  | +0.365
+22d  |   0.7936  |   0.3598  | +0.434
+60d  |   0.7565  |   0.0391  | +0.717
+90d  |   0.6905  |  -0.318   | +1.008
+120d |   0.6716  |  -0.511   | +1.182
+180d |   0.6921  |  -0.659   | +1.351
+252d |   0.5940  |  -1.615   | +2.209
+22거래일 기준으로 Pooled R²는 0.7936인 반면 R²_Within은 0.3598로, 두 지표의 차이가 0.43에 이른다. 이 차이는 장기로 갈수록 급격히 벌어진다. 이는 모델의 예측력 중 큰 부분이 자산 간 횡단면 변동성 차이, 즉 어떤 자산이 구조적으로 변동성이 높은지를 포착하는 데서 나온다는 것을 의미한다. 1거래일부터 22거래일 구간에서는 R²_Within이 양수이므로 시계열 내 예측력도 존재하지만, 60거래일 이상에서는 R²_Within이 0에 가깝거나 음수로 전환되어 시계열 방향 예측은 사실상 작동하지 않는다. 따라서 Pooled R²를 해석할 때는 이 분해를 함께 고려해야 하며, 본 연구의 핵심 예측력은 1d 구간의 시계열 변동성 패턴 포착에 집중됨을 명확히 한다.
+
+4.3 중위 R-squared
+
+장기 기간에서 중위 R²가 음수로 전환되는 현상은, 첫째 Equity, Bond, Commodity 간 변동성 동학의 차이로 인해 단일 풀링 모델이 모든 자산 패턴을 동시에 포착하기 어렵고, 둘째 기간이 길어질수록 조건부 예측의 상대적 우위가 약해질 수 있음을 반영한다. 실제로 180~252d 구간에서는 중위 R² 기준으로 트리 기반 모델의 상대적 경쟁력이 높아졌으며, 이는 장기 기간에서 자산군별 비선형성과 이질성이 더 중요해질 수 있음을 시사한다. 채권과 원자재 자산군은 주식 대비 낮은 R²를 보였는데, 이는 듀레이션 구조 차이나 USO의 선물곡선 구조와 같은 자산별 특수 요인이 영향을 미쳤을 가능성과도 부합한다.
+22거래일 기간 WEns의 자산별 R²를 표 5에 제시한다. 주식 자산군에서는 SPY(0.569), QQQ(0.454), EFA(0.415)가 상대적으로 높은 예측력을 보였으며, 원자재 중 USO(0.381)도 양호한 수준을 나타냈다. 반면 채권(TLT 0.123, IEF 0.152, AGG 0.159)과 SLV(0.003)는 낮은 R²를 보였다. 채권은 금리 환경 변화에 민감한 듀레이션 구조, SLV는 은(silver) 특유의 수급 불규칙성이 예측을 어렵게 만드는 요인으로 작용했을 가능성이 있다.
+[표 5] WEns 자산별 R² (22d 예측 기간)
+자산   | 자산군     | R²
+SPY   | Equity   | 0.569
+QQQ   | Equity   | 0.454
+EFA   | Equity   | 0.415
+EEM   | Equity   | 0.274
+IWM   | Equity   | 0.185
+AGG   | Bond     | 0.159
+IEF   | Bond     | 0.152
+TLT   | Bond     | 0.123
+USO   | Commodity| 0.381
+GLD   | Commodity| 0.093
+SLV   | Commodity| 0.003
+개별 자산 R²와 풀링 R² 0.804 사이의 큰 차이는 모델의 예측력 중 상당 부분이 자산 간 횡단면 변동을 포착하는 데서 나온다는 것을 의미한다. 즉, 모델은 "이번 달 어느 자산의 변동성이 높을지"를 잘 맞히더라도, 단일 자산의 시계열 방향 예측 능력은 그보다 제한적이다. 이것이 중위 R²를 보조 지표로 함께 보고하는 이유이다.
+
+4.4 다중 모델 공정 비교
+
+동일한 35개 피처, 동일한 자산군별 내부 검증 절차, 동일한 학습-테스트 분할을 적용하여 모든 모델을 공정하게 비교한 결과를 22거래일 기간 기준으로 제시한다.
+WEns·Ridge·ElasticNet·LASSO 등 규제 선형 계열이 상위권을 차지하였으며, 트리 기반 모델(RF, XGBoost, LightGBM)이 그 뒤를 이었다. BiLSTM-A와 MLP는 35개 전체 피처 환경에서 과적합 문제로 크게 열위를 보였다. 이는 고차원 피처 환경에서 딥러닝 모델의 정규화와 시퀀스 학습 구조가 변동성 예측에 충분히 최적화되지 않을 수 있음을 시사한다. 한편 Median R² 기준으로는 ElasticNet이 0.2619, Ridge가 0.2583으로 WEns의 0.2469보다 소폭 높게 나타났으며, 모델 선택 기준에 따라 최적 모델이 달라질 수 있음을 보여준다.
+
+4.5 피처 기여 분석
+
+피처 그룹이 실제로 예측력에 기여하는지 확인하기 위해 서브셋 실험을 수행하였다. 그 결과 HAR+Range(8피처) 조합이 풀링 R²와 중위 R² 모두에서 강한 성능을 보였고, 단순히 피처를 많이 추가한다고 해서 성능이 항상 향상되지는 않았다. 이 결과는 기본 선형 구조에서는 HAR+Range만으로도 강한 성능을 확보할 수 있음을 보여준다. 반면 22거래일 기간에서는 IV Surface와 대안 데이터를 포함한 다수 피처 결합 및 앙상블이 추가적인 개선을 제공할 수 있다.
+HAR 기본 3개 피처의 풀링 R²가 0.732인 상태에서 출발하여 HF Proxy(+0.021), IV Surface(+0.011) 순으로 누적 개선이 나타났으며, WEns(0.8044)에서 상대적으로 높은 성능이 관찰되었다. 반면 Alternative Data의 증분 기여는 제한적이었다. GARCH 계열 피처(GARCH_Daily, GARCH_Weekly)는 초기 검토에서 변수 중요도 상위권에 위치하였으나, Ridge의 내부 검증 기반 정규화 강도 선택을 왜곡하는 부작용이 확인되어 최종 피처셋에서 제외하였다.
+ElasticNet 결과는 35개 피처 중 상위 계수 기준으로 LogRV_lag1, RogersSatchell_22, Parkinson_5가 두드러졌으며, HAR 기본 피처 외에도 range 추정량과 VIX 기간구조 변수가 독립적인 정보 가치를 지닌다.
+단일 방법의 편향을 줄이기 위해 Ridge 정규화 계수, permutation importance, XGBoost gain, SHAP, mutual information, Spearman 상관, RFE의 7개 방법에서 도출한 변수 중요도를 평균하여 합의 순위를 산출하였다. 22거래일 기간에서는 RogersSatchell_22, Parkinson_22, GarmanKlass_22, LogRV_lag1, IV_VRP_ma22가 상위권을 차지하였다. HF Proxy(range 기반) 피처가 상위권에 반복적으로 포함되었으며, IV Surface 피처도 중요도 상위권에 포함되었다.
+이 결과만 보면 HF Proxy가 중요도 순위를 주도하는 것으로 보일 수 있으나, 그룹별 제거 실험을 함께 고려하면 해석은 달라진다. WEns 기준으로, Pooled R²가 0.8044인 상태에서 IV Surface 변수군의 증분 기여도는 +0.0259로 가장 컸고, HF Proxy는 +0.0206, Alternative Data는 +0.0067이었다. 즉, 순위 관점에서는 HF Proxy가 반복적으로 상위권에 등장하지만, 예측력 개선폭의 관점에서는 IV Surface가 상대적으로 큰 보완 정보를 제공하는 것으로 해석할 수 있다. 이는 자산의 과거 실현 변동성 정보와 옵션시장이 반영하는 미래 기대 정보가 서로 다른 경로로 예측력에 기여할 수 있음을 보여준다. 이러한 순위와 제거 실험 간 차이는 피처들 사이의 정보 중복에서 비롯된다. HF Proxy 피처(RogersSatchell_22, Parkinson_22, GarmanKlass_22)는 서로 비슷한 정보를 담고 있어 개별 순위는 높게 나타나지만, 셋을 한꺼번에 제거해도 나머지 피처가 상당 부분 대체하므로 성능 하락이 상대적으로 작다. 반면 IV Surface는 개별 순위가 낮더라도 HF Proxy가 담지 못하는 옵션 시장 정보를 독립적으로 제공하기 때문에, 해당 그룹을 제거하면 성능이 더 크게 떨어진다. 따라서 두 분석 결과는 모순이 아니라 서로 다른 측면에서 피처 기여를 보여주는 것으로 해석해야 한다.
+추가로 선형 모델(Ridge)과 트리 기반 모델(XGBoost, Random Forest) 간 변수 중요도 순위의 합의를 Kendall의 W로 점검하였다. 모든 예측 기간(1~252d)에서 p값이 0.001 미만으로 나타나, 서로 다른 구조의 모델들이 중요하게 보는 변수 순위가 통계적으로 유의하게 일치함을 확인하였다. 특히 5일과 22일 기간에서 W가 각각 0.577, 0.588로 상대적으로 높아, 해당 구간에서는 모델 구조와 무관하게 공통적으로 유효한 정보 변수가 존재함을 시사한다.
+기간별 랭킹을 비교하면 핵심 변수군은 예측 기간에 따라 이동하는 패턴을 보였다. 1일 기간에서는 Parkinson_5, GarmanKlass_5와 같이 짧은 윈도우를 가진 HF 변수가 상위권에 위치하였다. 22일 기간에서는 RogersSatchell_22, GarmanKlass_22, Parkinson_22의 중요도가 높아졌으며, 예측 기간과 피처 계산 윈도우가 유사할 때 설명력이 상대적으로 커지는 경향이 확인되었다. 60일 이상 기간에서는 RogersSatchell_22, GarmanKlass_22가 계속 상위권을 유지하는 가운데 IV_VRP_ma22와 같은 누적적 내재 정보의 중요성이 상승하였다.
+Bootstrap 신뢰구간을 함께 확인한 결과, HF Proxy 변수군의 상위 순위는 비교적 안정적으로 유지되었다. 이는 종가 수익률만으로 계산한 단순 변동성보다, 고가·저가·시가 정보를 함께 반영하는 range 기반 피처가 미래 변동성 예측에서 보다 풍부한 정보를 제공할 가능성을 시사한다. 다만 이러한 결과는 예측상 중요도를 보여주는 것이며, 개별 피처의 인과적 효과를 직접 의미하는 것은 아니다.
+
+4.6 고변동성 구간 분석
+
+VIX 분위수 기준 국면 분석 결과, HAR-3 대비 WEns의 개선 폭은 VIX 수준에 따라 달라졌다. VIX 하위 50% 구간에서는 R²가 0.739에서 0.781로, VIX 50~90% 구간에서는 0.698에서 0.722로 상승하였다. 반면 VIX 상위 10% 구간에서는 0.602에서 0.765로 개선 폭이 가장 크게 나타났다. 이러한 패턴은 4.5절의 그룹별 제거 실험에서 IV Surface의 증분 기여가 상대적으로 크게 나타난 결과와, HF Proxy가 여러 모델에서 일관되게 합의 순위 상위권을 유지한 결과와 정합적이다. 따라서 고변동성 구간에서는 내재 정보와 range 기반 정보가 함께 작동했을 가능성이 있다.
+자산군별 이질성도 확인되었다. HAR-3 대비 WEns의 개선은 주로 주식 패널에서 크게 나타났으며, 원자재에서는 개선이 제한적이거나 일부 자산에서는 오히려 감소하였다. 이러한 결과는 향후 자산군별 또는 국면별 적응형 최적화의 필요성을 시사한다.
+
+4.7 통계적 유의성
+
+22거래일 기간에서는 Newey-West HAC(bandwidth = 22)를 적용한 DM 검정 결과, WEns 가중 앙상블은 HAR-3 대비 통계량 -8.80, p < 0.001을 기록하며 유의한 개선을 보였다. 60d에서도 유사한 방향의 결과가 나타났고, 블록 부트스트랩 검정에서도 같은 방향의 결론이 확인되었다.
+
+4.8 성능 비교
+
+본 연구의 RV 예측 성능을 기존 문헌에서 제안된 대표적 방법론들과 비교하기 위해, 세 가지 베이스라인 모델을 자산군별 독립 피팅, 기간별 내부 검증, 동일 학습-테스트 경계를 포함한 동일한 데이터 분할·평가 절차 하에 구현하였다.
+첫째, [5]의 접근에서 착안한 단순 과거 실현분산 예측(NaiveRV)으로, h거래일 이동평균 과거 실현변동성을 예측치로 사용한다. 둘째, GARCH(1,1) 기반 예측으로 표준 GARCH 다단계 예측 절차 [15][16]에 따라 각 자산의 학습셋에서 모수를 추정한 후, 테스트 기간 동안 매 시점의 실제 수익률을 반영하여 조건부 분산을 순차적으로 갱신한다. 이후 h일 후까지의 단계별 기대 분산을 평균하여 h-기간 예측치로 변환한다. 이 과정에서 테스트셋 정보는 모수 추정에 사용되지 않는다. 셋째, IV-only 모델로 [1]의 개념에 따라 VIX 계열 10개 피처만을 사용한 Ridge 회귀를 동일한 내부 검증 절차로 피팅한다.
+22거래일 기준 풀링 R² 결과는 다음과 같다: NaiveRV = 0.7139, GARCH(1,1) = 0.6895, IV-only = 0.2094. 제안 모델 WEns는 풀링 R² 0.8044로 모든 베이스라인을 상회하며, 소표본 보정 DM 검정 [22] 결과 WEns vs NaiveRV의 DM 통계량은 -8.698, WEns vs GARCH는 -12.136, WEns vs IV-only는 -39.456으로 모두 p < 0.001 수준에서 통계적으로 유의한 우위가 확인되었다.
+IV-only 모델의 RV 예측 성능은 R² = 0.2094로, 이는 VIX 계열 피처가 11개 ETF 전체에 동일하게 적용되어 자산 간 횡단면 변동성 차이를 구분하지 못한 데 기인한다. 이는 자산별 이질성이 큰 다자산 패널에서 공통 IV 지표만으로는 RV 예측력이 제한됨을 시사하며, 자산군별 과거 실현변동성 정보와의 결합이 필수적임을 보여준다. GARCH(1,1)의 성능은 R² = 0.6895로 NaiveRV보다 낮게 나타났는데, 이는 단기 GARCH 분산을 h-기간 평균으로 변환하는 과정에서 발생하는 장기 평균 회귀(mean reversion) 편향과, 극단적 변동성 국면에서의 모수 불안정성이 복합적으로 작용한 결과로 해석된다.
+추가로, [5]의 LASSO-HAR 접근을 직접 모사하기 위해 HAR 3개 피처인 LogRV_lag1, LogRV_lag5, LogRV_lag22만 사용한 LASSO를 동일한 학습·테스트 분할 하에 구현하여 비교하였으며, 이하 이 모델을 LASSO-HAR라 한다. 표 6에 기간별 Pooled R² 비교를 제시한다.
+[표 6] LASSO-HAR vs LASSO(35피처) 기간별 Pooled R²
+기간  | LASSO-HAR | HAR-3  | LASSO(35) | WEns   | Δ(35-LH)
+1d   |   0.1160  | 0.1097 |   0.1173  | 0.1176 | +0.001
+5d   |   0.5669  | 0.5819 |   0.6216  | 0.6311 | +0.055
+22d  |   0.7292  | 0.7659 |   0.7973  | 0.8044 | +0.068
+60d  |   0.7534  | 0.7860 |   0.7705  | 0.7877 | +0.017
+90d  |   0.6931  | 0.7835 |   0.7491  | 0.7558 | +0.056
+120d |   0.6073  | 0.7700 |   0.7442  | 0.7571 | +0.137
+180d |   0.6150  | 0.7390 |   0.7219  | 0.7592 | +0.107
+252d |   0.6070  | 0.6906 |   0.6826  | 0.7178 | +0.076
+LASSO(35피처)는 모든 기간에서 LASSO-HAR(3피처)를 상회하며, 성능 격차는 +0.001에서 +0.137 범위에 분포한다. 이는 HF Proxy, IV Surface, Alternative의 세 피처군이 LASSO 변수 선택 이후에도 예측력에 실질적으로 기여함을 의미한다. 특히 90거래일부터 252거래일의 중장기 구간에서 격차가 커지는 것은 장기 기간일수록 HAR 구조만으로는 IV와 거래량 기반 정보를 포착하기 어려움을 반영한다. 한편 LASSO-HAR는 Ridge로 구현된 HAR-3보다 1거래일 구간을 제외한 전 기간에서 낮은 성능을 보이는데, 이는 L1 정규화가 소수 피처 환경에서 필요 이상으로 계수를 0에 가깝게 수축시키기 때문으로 해석된다.
+
+
+4.9 강건성 검증
+WEns 앙상블에 대해 수행한 다중 분할 안정성, alpha 민감도, 5-fold 시계열 교차검증, 데이터 누출 테스트, permutation importance, DM 검정 결과는 전반적으로 일관된 패턴을 보였다. Commodity IV 대체(GVZ/OVX) 실험에서는 VIX를 GLD에는 GVZ, USO에는 OVX로 교체하였을 때 전체 풀링 R²가 0.782에서 0.774로 소폭 하락하였다. 이는 공통 VIX 기반 변동성 지표가 전체 패널 예측에서 자산특화 지표와 유사한 수준의 실용적 근사치로 기능함을 시사하며, 개별 원자재 자산의 예측력 개선을 위해서는 추가적인 자산특화 설계가 필요할 수 있다. 또한 잔차 진단에서 비정규성, 자기상관, ARCH 효과가 관찰되었으나, HAC 기반 검정과 블록 부트스트랩을 통해 통계적 비교의 왜곡 가능성을 완화하였다.
+한편 본 연구는 30일 만기 옵션을 기반으로 산출된 VIX를 모든 예측 기간에 동일하게 적용하였으므로, h가 30일을 초과하는 경우 IV의 만기와 예측 기간 사이에 불일치가 존재한다. 예를 들어 252거래일, 즉 1년 예측 기간에 30일 기준 VIX를 사용하면 장기 변동성 기대를 충분히 반영하지 못할 수 있다. 각 기간에 적합한 만기의 IV를 활용하는 방향, 예를 들어 60거래일 기간에는 VIX3M을 사용하는 접근은 향후 연구 과제로 남긴다.
+
+4.10 연구 질문에 대한 답변
+
+이상의 결과를 종합하면, 첫째 11개 ETF 패널에 대해 일별 가격 및 거래량 자료와 VIX 기간구조만을 이용한 RV 예측이 가능하며, 이로부터 VRP를 산출할 수 있음을 확인하였다. 둘째, 단기에서는 HAR+Range 기반 정보가 강하게 작동하고, 장기에서는 IV 및 장기 누적 변동성 정보의 비중이 상대적으로 커지는 경향이 관찰되었다. 셋째, 예측 기간에 따라 상대적으로 적합한 모델 구조가 달라졌으며, 정규화 선형 모형과 그 앙상블이 대부분의 기간에서 안정적 경쟁력을 보인 반면, 딥러닝 모델(BiLSTM-A, MLP)은 35개 전체 피처 환경에서 과적합으로 인해 열위를 보였다. 넷째, 제안 모델 WEns는 NaiveRV·GARCH(1,1)·IV-only 등 문헌 베이스라인 대비 22거래일 기준 Pooled R²를 각각 0.090p·0.115p·0.595p 상회하며 통계적으로 유의한 우위를 보였다. 다섯째, LASSO-HAR(3피처) 대비 LASSO(35피처)가 모든 기간에서 우수한 성능을 보여, HAR 이외의 피처군이 예측력에 실질적으로 기여함을 확인하였다.
+
+V. 결론
+
+본 연구는 공개적으로 이용 가능한 일별 가격 및 거래량 자료와 변동성 지표만을 이용하여 주식, 채권, 원자재를 포괄하는 다중 자산 실현분산(RV) 예측 프레임워크를 제안하였다. 2010년 1월 4일부터 2024년 12월 31일까지의 11개 ETF 자료를 바탕으로, 미래 RV를 직접 예측한 후 이를 IV와 결합하여 VRP를 파생 산출하는 2단계 구조를 설계하였다. 이 구조는 피처와 타깃에 동일한 IV 정보가 중복 투입되는 문제를 줄이고, RV 예측과 VRP 산출의 역할을 분리함으로써 해석 가능성을 높인다.
+실증 결과, 예측 기간에 따라 상대적으로 적합한 모형 구조가 달라지는 경향이 확인되었다. 1~22거래일 및 60~120거래일에서는 정규화 선형 모형인 Ridge와 WEns가 안정적인 성능을 나타냈으며, 180~252거래일에서도 WEns와 Ridge가 상위권을 유지하였다. 특히 22거래일 기간에서 제안한 weighted ensemble은 Ridge와 XGBoost의 장점을 결합하여 우수한 성능을 보였으며, 내부 검증셋(inner holdout) R² 최대화로 기간별 적응 선택된 pw 역시 추가 실험을 통해 안정 구간 내의 선택임이 확인되었다. 또한 전방 채움 제거, 만기 불일치 점검, 자산특화 변동성 지표 적용 등 강건성 검증을 통해 핵심 결론이 특정 처리 방식에 과도하게 의존하지 않음을 확인하였다.
+추가 실험으로 수행한 변수 중요도 합의 분석은 본 연구의 해석력을 보완한다. 모든 기간에서 모델 간 중요도 순위의 유의한 합의가 확인되었고, 특히 5일과 22일 기간에서 그 일치도가 상대적으로 높았다. 또한 HF Proxy는 중요도 순위에서 일관되게 상위권을 차지한 반면, IV Surface는 증분 설명력 측면에서 상대적으로 큰 기여를 보였다. 이는 과거 실현 변동성 정보와 옵션시장이 반영하는 내재 정보가 상호보완적으로 작용할 가능성을 시사한다.
+향후 연구에서는 예측된 RV를 활용한 변동성 타이밍 전략의 정량적 평가, 자산군별 적응형 모델, 국면 전환을 반영한 동적 앙상블, 자산별 옵션 단면 정보를 직접 활용한 IV 측정으로 확장할 수 있을 것이다.
+
+References
+
+[1] P. Carr and L. Wu, "Variance risk premia", The Review of Financial Studies, Vol. 22, No. 3, pp. 1311-1341, Mar. 2009.
+[2] T. Bollerslev, G. Tauchen, and H. Zhou, "Expected stock returns and variance risk premia", The Review of Financial Studies, Vol. 22, No. 11, pp. 4463-4492, Nov. 2009.
+[3] S. Gu, B. Kelly, and D. Xiu, "Empirical asset pricing via machine learning", The Review of Financial Studies, Vol. 33, No. 5, pp. 2223-2273, May 2020.
+[4] F. Corsi, "A simple approximate long-memory model of realized volatility", Journal of Financial Econometrics, Vol. 7, No. 2, pp. 174-196, Mar. 2009.
+[5] F. Audrino and S. Knaus, "Lassoing the HAR model: A model selection perspective on realized volatility dynamics", Journal of Financial Econometrics, Vol. 14, No. 2, pp. 392-427, 2016.
+[6] K. Christensen, M. Siggaard, and B. Veliyev, "Volatility forecasting with machine learning and intraday commonality", Journal of Financial Econometrics, Vol. 22, No. 1, pp. 1-35, Jan. 2024.
+[7] G. Bekaert and M. Hoerova, "The VIX, the variance premium and stock market volatility", ECB Working Paper, No. 1675, 2014.
+[8] I. Drechsler and A. Yaron, "What's vol got to do with it", The Review of Financial Studies, Vol. 24, No. 1, pp. 1-45, Jan. 2011.
+[9] B. Zhang, Y. Chen, and Y. Lu, "Nonparametric estimation of variance risk premiums", Journal of Financial Economics, Vol. 142, No. 1, pp. 312-328, Oct. 2021.
+[10] P. Carr, L. Wu, and Z. Zhang, "Using machine learning to predict realized variance", arXiv preprint, 2019.
+[11] M. Hattori, I. Shim, and Y. Sugihara, "The US variance risk premium and cross-market spillovers", BIS Working Paper, No. 713, Apr. 2018.
+[12] J. R. Ornelas et al., "Volatility risk premia and future commodity returns", BIS Working Paper, No. 619, 2018.
+[13] T. Dierckx, M. Davis, and W. Schoutens, "Machine learning for the FX variance risk premium", Quantitative Finance, Vol. 22, No. 1, pp. 129-143, Jan. 2022.
+[14] S. Heston and V. Todorov, "Exploring the variance risk premium across assets", AEA Conference Paper, 2024.
+[15] R. F. Engle, "Autoregressive conditional heteroscedasticity with estimates of the variance of United Kingdom inflation", Econometrica, Vol. 50, No. 4, pp. 987-1007, 1982.
+[16] T. Bollerslev, "Generalized autoregressive conditional heteroskedasticity", Journal of Econometrics, Vol. 31, No. 3, pp. 307-327, 1986.
+[17] T. G. Andersen, T. Bollerslev, F. X. Diebold, and P. Labys, "Modeling and forecasting realized volatility", Econometrica, Vol. 71, No. 2, pp. 579-625, 2003.
+[18] M. López de Prado, Advances in Financial Machine Learning, Wiley, 2018.
+[19] F. X. Diebold and R. S. Mariano, "Comparing predictive accuracy", Journal of Business & Economic Statistics, Vol. 13, No. 3, pp. 253-263, 1995.
+[20] W. K. Newey and K. D. West, "A simple, positive semi-definite, heteroskedasticity and autocorrelation consistent covariance matrix", Econometrica, Vol. 55, No. 3, pp. 703-708, 1987.
+[21] H. R. Künsch, "The jackknife and the bootstrap for general stationary observations", The Annals of Statistics, Vol. 17, No. 3, pp. 1217-1241, 1989.
+[22] D. I. Harvey, S. J. Leybourne, and P. Newbold, "Testing the equality of prediction mean squared errors", International Journal of Forecasting, Vol. 13, No. 2, pp. 281-291, 1997.
+
+
+
+
+
+
+
+
+
+
+
+부록
+37개 피처 상세 목록 (WEns Ridge 기준)
+
+#
+Group
+Variable
+Calculation & Description
+1
+HAR
+LogRV_lag1
+Prev-day Log-RV: log(RV_t-1)
+2
+HAR
+LogRV_lag5
+5d lag Log-RV: log(RV_t-5)
+3
+HAR
+LogRV_lag10
+10d lag Log-RV: log(RV_t-10)
+4
+HAR
+LogRV_lag22
+22d lag Log-RV: log(RV_t-22)
+5
+GARCH
+Garch_Daily
+Daily GARCH(1,1) vol (rolling fit)
+6
+GARCH
+Garch_Weekly
+Weekly GARCH vol (weekly returns)
+7
+HAR
+LogRV_Std5
+5d Vol-of-Vol: std(log RV, 5d)
+8
+HAR
+LogRV_Std22
+22d Vol-of-Vol: std(log RV, 22d)
+9
+HAR
+RV_Mom5
+5d vol momentum
+10
+HAR
+RV_Mom22
+22d vol momentum
+11
+Cross
+SPY_LogRV
+SPY Log-RV (market ref)
+12
+HAR
+Ret_lag1
+Prev-day log return
+13
+HAR
+Ret_abs_lag1
+Prev-day abs return
+14
+Cross
+Corr_SPY
+SPY corr (22d rolling)
+15
+HF
+Parkinson_5
+5d Parkinson vol
+16
+HF
+Parkinson_22
+22d Parkinson vol
+17
+HF
+GarmanKlass_22
+22d Garman-Klass vol
+18
+HF
+RogersSatchell_22
+22d Rogers-Satchell vol
+19
+HF
+Range_Close_Ratio
+Range-close ratio
+20
+HF
+Overnight_Vol
+Overnight vol
+21
+HF
+Overnight_Ret
+Overnight return
+22
+IV
+IV_VIX
+VIX level: log(VIX)
+23
+IV
+IV_VIX_chg
+VIX daily change
+24
+IV
+IV_VIX_ma5
+VIX 5d MA
+25
+IV
+IV_VIX_std5
+VIX 5d std (VVIX proxy)
+26
+IV
+IV_VIX3M
+VIX3M level: log(VIX3M)
+27
+IV
+IV_VIX_TermSlope
+VIX term slope
+28
+IV
+IV_VIX9D
+VIX9D level: log(VIX9D)
+29
+IV
+IV_VIX_ShortSlope
+VIX9D slope
+30
+IV
+IV_VRP
+VRP proxy: VIX^2/100 - RV_SPY
+31
+IV
+IV_VRP_ma22
+VRP 22d MA
+32
+Alt
+AltVol_Amihud
+Amihud illiquidity (22d)
+33
+Alt
+AltVol_Vol_Ratio
+Volume ratio (short/long)
+34
+Alt
+AltVol_PV_Corr
+Price-volume corr
+35
+Alt
+AltVol_Vol_Surprise
+Volume surprise (Z-score)
+36
+Alt
+AltVol_Order_Imbalance
+Signed volume imbalance
+37
+Alt
+AltVol_Kyle_Lambda
+Kyle Lambda (price impact)
+
+
+표 하이퍼파라미터 최적 설정
+
+Model
+Hyperparameter
+Value
+Description
+Ridge
+alpha
+10
+L2 regularization strength
+Lasso
+alpha
+0.01
+L1 regularization strength
+ElasticNet
+alpha
+0.01
+Total regularization strength
+l1_ratio
+0.5
+Mix of L1 (0.5) and L2 (0.5)
+SVR
+kernel
+rbf
+Radial Basis Function kernel
+C
+10
+Regularization parameter
+epsilon
+0.1
+Epsilon-tube width
+MLP
+hidden_layer_sizes
+64, 32
+Two-layer architecture
+activation
+relu
+Rectified Linear Unit
+early_stopping
+TRUE
+Terminate if val-loss plateaus
+random_state
+42
+Deterministic initialization
+Random Forest
+n_estimators
+200
+Number of trees
+min_samples_leaf
+20
+Minimum samples in leaf node
+XGBoost
+n_estimators
+300
+Boosting rounds
+learning_rate
+0.05
+Learning rate
+reg_lambda
+1
+L2 regularization
+LightGBM
+n_estimators
+300
+Boosting rounds
+num_leaves
+31
+Max leaves in one tree
+본 연구의 모든 비교 모델들의 최종 하이퍼파라미터는 학습 구간 내 5-fold 시계열 교차검증을 통해 탐색 및 선택되었으며, 표는 그 최종 결과치를 요약한 것이다.
+
+
+
+
+
+
+
+
+
+그림 WEns 모델의 전체 흐름
+
+
+
+저자소개
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

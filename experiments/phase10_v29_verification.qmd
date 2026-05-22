@@ -28,7 +28,7 @@ plt.rcParams['font.family'] = 'UnDotum'
 plt.rcParams['axes.unicode_minus'] = False
 
 # 결과 데이터 경로
-RESULTS_DIR = "../src/experiments/verification"
+RESULTS_DIR = "./verification"
 
 def load_json(filename):
     path = os.path.join(RESULTS_DIR, filename)

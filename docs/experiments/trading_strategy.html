@@ -4801,7 +4801,7 @@ vertical-align: -.125em;
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="사이드바 전환" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../experiments/phase13_model_comparison.html">기타</a></li><li class="breadcrumb-item"><a href="../experiments/trading_strategy.html">트레이딩 전략</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../experiments/methodology_overview.html">기타</a></li><li class="breadcrumb-item"><a href="../experiments/trading_strategy.html">트레이딩 전략</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="사이드바 전환" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -4848,6 +4848,18 @@ vertical-align: -.125em;
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../experiments/feature_analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">V71 피처 분석</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/importance_consensus.qmd" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">피처 중요도 합의(Consensus)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../experiments/1day_prediction.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">V50 LSTM (3feat)</span></a>
   </div>
@@ -4881,6 +4893,24 @@ vertical-align: -.125em;
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/methodology_overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">연구 방법론 개요</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/vrp_dashboard.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cross-Asset VRP 현황</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../experiments/dnn_vs_ml_insights.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">DNN vs ML 비교 인사이트</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../experiments/phase13_model_comparison.html" class="sidebar-item-text sidebar-link">
@@ -4929,7 +4959,7 @@ vertical-align: -.125em;
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../experiments/phase13_model_comparison.html">기타</a></li><li class="breadcrumb-item"><a href="../experiments/trading_strategy.html">트레이딩 전략</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../experiments/methodology_overview.html">기타</a></li><li class="breadcrumb-item"><a href="../experiments/trading_strategy.html">트레이딩 전략</a></li></ol></nav>
 <div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">Phase 3: 트레이딩 전략 검증</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> 코드</button></div></div>
 </div>
@@ -4954,7 +4984,7 @@ vertical-align: -.125em;
 <section id="변동성-타겟팅-전략-v11" class="level2">
 <h2 class="anchored" data-anchor-id="변동성-타겟팅-전략-v11">1. 변동성 타겟팅 전략 (V11)</h2>
 <p>예측된 변동성을 기반으로 레버리지를 조절하여 목표 변동성(Target Vol)을 유지하는 전략입니다. 안정적인 우상향과 최대 낙폭(MDD) 감소를 목표로 합니다.</p>
-<div id="03a723d0" class="cell" data-execution_count="2">
+<div id="cfa230b6" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -4967,7 +4997,7 @@ vertical-align: -.125em;
 <section id="시그널-기반-트레이딩-전략-v12" class="level2">
 <h2 class="anchored" data-anchor-id="시그널-기반-트레이딩-전략-v12">2. 시그널 기반 트레이딩 전략 (V12)</h2>
 <p>VRP(Variance Risk Premium)와 변동성 국면(Regime)을 활용한 동적 자산배분 전략입니다. 고변동성 구간 회피를 통해 손실을 방어합니다.</p>
-<div id="1a1a9278" class="cell" data-execution_count="3">
+<div id="cdb4e301" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -4980,9 +5010,9 @@ vertical-align: -.125em;
 <section id="거래-비용을-반영한-통합-백테스트-v13" class="level2">
 <h2 class="anchored" data-anchor-id="거래-비용을-반영한-통합-백테스트-v13">3. 거래 비용을 반영한 통합 백테스트 (V13)</h2>
 <p>거래 비용(Transaction Cost 15bps)을 감안한 변동성 타겟팅 전략의 실질 성과입니다. 비용을 고려해도 벤치마크 대비 우수한 위험 조정 수익률을 보이는지 확인합니다.</p>
-<div id="e7c4ae90" class="cell" data-execution_count="4">
+<div id="e53be967" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-stdout">
-<pre><code>V13 데이터 로드 오류: [Errno 2] No such file or directory: &#39;../src/experiments/universal/v13_timeseries.csv&#39;</code></pre>
+<pre><code>V13 데이터 로드 오류: [Errno 2] No such file or directory: &#39;./universal/v13_timeseries.csv&#39;</code></pre>
 </div>
 </div>
 
@@ -5499,7 +5529,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
 <span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>    v11_df <span class="op">=</span> pd.read_csv(<span class="st">&#39;../src/experiments/universal/v11_timeseries.csv&#39;</span>)</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>    v11_df <span class="op">=</span> pd.read_csv(<span class="st">&#39;./universal/v11_timeseries.csv&#39;</span>)</span>
 <span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>    v11_df[<span class="st">&#39;Date&#39;</span>] <span class="op">=</span> pd.to_datetime(v11_df[<span class="st">&#39;Date&#39;</span>])</span>
 <span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>    <span class="co"># SPY 자산 분석</span></span>
@@ -5533,7 +5563,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
 <span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
-<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a>    v12_df <span class="op">=</span> pd.read_csv(<span class="st">&#39;../src/experiments/universal/v12_timeseries.csv&#39;</span>)</span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a>    v12_df <span class="op">=</span> pd.read_csv(<span class="st">&#39;./universal/v12_timeseries.csv&#39;</span>)</span>
 <span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a>    v12_df[<span class="st">&#39;Date&#39;</span>] <span class="op">=</span> pd.to_datetime(v12_df[<span class="st">&#39;Date&#39;</span>])</span>
 <span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a>    <span class="co"># QQQ 자산 분석</span></span>
@@ -5566,7 +5596,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
 <span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
-<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a>    v13_df <span class="op">=</span> pd.read_csv(<span class="st">&#39;../src/experiments/universal/v13_timeseries.csv&#39;</span>)</span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a>    v13_df <span class="op">=</span> pd.read_csv(<span class="st">&#39;./universal/v13_timeseries.csv&#39;</span>)</span>
 <span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a>    v13_df[<span class="st">&#39;Date&#39;</span>] <span class="op">=</span> pd.to_datetime(v13_df[<span class="st">&#39;Date&#39;</span>])</span>
 <span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a>    <span class="co"># SPY 자산 분석</span></span>

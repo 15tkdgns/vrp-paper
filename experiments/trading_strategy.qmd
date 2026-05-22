@@ -36,7 +36,7 @@ plt.rcParams['axes.unicode_minus'] = False
 #| warning: false
 
 try:
-    v11_df = pd.read_csv('../src/experiments/universal/v11_timeseries.csv')
+    v11_df = pd.read_csv('./universal/v11_timeseries.csv')
     v11_df['Date'] = pd.to_datetime(v11_df['Date'])
     
     # SPY 자산 분석
@@ -70,7 +70,7 @@ VRP(Variance Risk Premium)와 변동성 국면(Regime)을 활용한 동적 자�
 #| warning: false
 
 try:
-    v12_df = pd.read_csv('../src/experiments/universal/v12_timeseries.csv')
+    v12_df = pd.read_csv('./universal/v12_timeseries.csv')
     v12_df['Date'] = pd.to_datetime(v12_df['Date'])
     
     # QQQ 자산 분석
@@ -103,7 +103,7 @@ except Exception as e:
 #| warning: false
 
 try:
-    v13_df = pd.read_csv('../src/experiments/universal/v13_timeseries.csv')
+    v13_df = pd.read_csv('./universal/v13_timeseries.csv')
     v13_df['Date'] = pd.to_datetime(v13_df['Date'])
     
     # SPY 자산 분석

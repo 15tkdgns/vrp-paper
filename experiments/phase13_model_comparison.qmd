@@ -15,7 +15,7 @@ format:
 ## 핵심 발견 (전방 RV, 11개 자산 풀링)
 - **단기 (1~22d)**: V71 Ensemble (37feat, 22d: 0.803)
 - **중기 (60~90d)**: V50 Tuned LSTM (3feat, 60d: 0.796)
-- **초장기 (365d)**: Random Forest (37feat, 0.705)
+- **초장기 (252d)**: Random Forest (37feat, 0.705)
 - **문헌 벤치마크**: HAR-CJ, LASSO-HAR, RF와 체계적 비교
 :::
 
@@ -35,10 +35,10 @@ import json
 plt.rcParams['font.family'] = 'UnDotum'
 plt.rcParams['axes.unicode_minus'] = False
 
-with open('/root/vrp/src/experiments/creative/multi_horizon_benchmark_results.json') as f:
+with open('/root/vrp/experiments/creative/multi_horizon_benchmark_results.json') as f:
     data = json.load(f)['results']
 
-horizons = ['1d', '5d', '22d', '60d', '90d', '120d', '180d', '365d']
+horizons = ['1d', '5d', '22d', '60d', '90d', '120d', '180d']
 models = {
     'Ridge(37)': ('Ridge_37', '#3182CE'),
     'LSTM(3)': ('LSTM_Top3', '#68D391'),
@@ -93,7 +93,7 @@ plt.show()
 | **90d** | 0.752 | **0.788** | 0.781 | 0.763 | 0.768 | 0.737 | **LSTM** |
 | 120d | 0.737 | 0.751 | **0.758** | 0.748 | 0.746 | 0.730 | HAR-3 |
 | 180d | 0.691 | 0.708 | 0.705 | 0.707 | 0.691 | **0.719** | RF |
-| 365d | 0.516 | 0.589 | 0.611 | 0.555 | 0.570 | **0.705** | **RF** |
+| 252d | 0.516 | 0.589 | 0.611 | 0.555 | 0.570 | **0.705** | **RF** |
 
 ---
 
@@ -158,7 +158,7 @@ flowchart LR
 
 ## 4. 문헌 벤치마크
 
-| 모델 | 출처 | 22d R² | 365d R² | 설명 |
+| 모델 | 출처 | 22d R² | 252d R² | 설명 |
 |:---|:---|:---|:---|:---|
 | HAR-RV | Corsi (2009) | 0.761 | 0.611 | 3개 HAR 피처 Ridge |
 | HAR-CJ | Andersen+ (2007) | 0.752 | 0.570 | Jump 분해 (Bipower Variation) |
@@ -169,7 +169,7 @@ flowchart LR
 
 ## 5. 왜 예측 지평에 따라 최적 모델이 다른가?
 
-| 특성 | 단기 (1~22d) | 중기 (60~90d) | 초장기 (365d) |
+| 특성 | 단기 (1~22d) | 중기 (60~90d) | 초장기 (252d) |
 |:---|:---|:---|:---|
 | **시그널** | HAR 자기상관 강함 | Range 추정량 유효 | 노이즈 지배적 |
 | **최적 모델** | Ridge/LASSO (37feat) | LSTM (3feat) | RF (37feat) |
@@ -180,7 +180,7 @@ flowchart LR
 ## 핵심 인사이트
 - V71 Ensemble이 22d에서 R²=0.803으로 최고 성능: Ridge(0.798) + XGBoost(0.773)의 가중 앙상블 효과
 - LSTM은 3개 피처만으로 37개 피처 선형 모델을 60~90d에서 능가: **피처 선택이 중요**
-- RF는 365d에서 유일하게 R²>0.7 달성: 트리 앙상블의 장기 안정성
+- RF는 252d에서 유일하게 R²>0.7 달성: 트리 앙상블의 장기 안정성
 :::
 
 ---

@@ -82,7 +82,7 @@ r2_vals = [0.55, 0.39, 0.752, 0.761, 0.770, 0.780, 0.790, 0.803, 0.807]
 colors = ['#A0AEC0', '#A0AEC0', '#A0AEC0', '#63B3ED', '#A0AEC0', '#E53E3E', '#F6AD55', '#E53E3E', '#E53E3E']
 
 bars = ax2.barh(models_perf, r2_vals, color=colors, edgecolor='white', linewidth=1.5, height=0.6)
-bars[-1].set_edgecolor('#1a365d')
+bars[-1].set_edgecolor('#1a252d')
 bars[-1].set_linewidth(3)
 
 for bar, val in zip(bars, r2_vals):
@@ -496,11 +496,11 @@ fig, axes = plt.subplots(1, 2, figsize=(14, 5))
 
 # --- 왼쪽: Multi-Horizon 비교 ---
 ax = axes[0]
-horizons = ['1d', '5d', '22d', '60d', '90d', '120d', '180d', '365d']
-ridge = [0.114, 0.625, 0.798, 0.774, 0.752, 0.737, 0.691, 0.516]
-lstm = [0.092, 0.577, 0.780, 0.796, 0.788, 0.751, 0.708, 0.589]
-har3 = [0.109, 0.581, 0.761, 0.784, 0.781, 0.758, 0.705, 0.611]
-rf = [None, None, 0.770, 0.752, None, None, None, 0.705]
+horizons = ['1d', '5d', '22d', '60d', '90d', '120d', '180d']
+ridge = [0.114, 0.625, 0.798, 0.774, 0.752, 0.737, 0.691]
+lstm = [0.092, 0.577, 0.780, 0.796, 0.788, 0.751, 0.708]
+har3 = [0.109, 0.581, 0.761, 0.784, 0.781, 0.758, 0.705]
+rf = [None, None, 0.770, 0.752, None, None, None]
 
 x = np.arange(len(horizons))
 # 본 연구 모델 (빨간색 계열)
@@ -510,8 +510,8 @@ ax.plot(x, lstm, 's--', color='#FC8181', label='V50 LSTM (본 연구)', linewidt
 ax.plot(x, har3, '^-', color='#A0AEC0', label='HAR-3 (Benchmark)', linewidth=1.5, markersize=5, alpha=0.7)
 
 # RF 점선 연결 (벤치마크)
-rf_x = [2, 3, 7]
-rf_y = [0.770, 0.752, 0.705]
+rf_x = [2, 3]
+rf_y = [0.770, 0.752]
 ax.plot(rf_x, rf_y, 'D:', color='#CBD5E0', linewidth=1, alpha=0.5) # 흐릿한 점선 추가
 ax.scatter(rf_x, rf_y, c='#718096', s=60, zorder=5, label='RF (Prior Work)', marker='D')
 
@@ -546,7 +546,7 @@ vals = [c[1] for c in comparisons]
 colors = [c[2] for c in comparisons]
 
 bars = ax2.barh(names, vals, color=colors, edgecolor='white', linewidth=1.5, height=0.6)
-bars[-1].set_edgecolor('#1a365d')
+bars[-1].set_edgecolor('#1a252d')
 bars[-1].set_linewidth(3)
 
 for bar, val in zip(bars, vals):
@@ -569,7 +569,7 @@ plt.show()
 |:---|:---|:---|:---|:---|:---|
 | **단기 (1~22d)** | **V74 ElasticNet** | **59** | **0.807** | **L1+L2 + 확장 피처** | **LASSO 대비 +2.1%** |
 | **중기 (60~90d)** | V50 LSTM | 3 | **0.796** | LSTM+소수 핵심 피처 | **본 연구 고유** |
-| **장기 (120~365d)** | RF/HAR-3 | 37/3 | 0.611~0.705 | 비선형 패턴 | Christensen+ 계열 |
+| **장기 (120~252d)** | RF/HAR-3 | 37/3 | 0.611~0.705 | 비선형 패턴 | Christensen+ 계열 |
 
 ---
 
@@ -615,7 +615,7 @@ plt.show()
 |:---|:---|:---|
 | **0.80 벽 돌파** | V71 Ensemble = **0.803**, V74 ElasticNet = **0.807** | LASSO(0.790) 대비 최대 +2.1% |
 | **옵션 데이터 불필요** | VIX 파생 + OHLCV만으로 예측 | Carr+(2019): 79개 옵션, Heston+(2023): 자산별 옵션 |
-| **Multi-Horizon** | 1d~365d 8지평, 7모델 | 대부분 단일 지평 |
+| **Multi-Horizon** | 1d~252d 8지평, 7모델 | 대부분 단일 지평 |
 | **ML vs DL 한계 규명** | Pooled 데이터에서 DL 실패 실증 | 대부분 DL 우위만 보고 (Negative Result) |
 | **이중 학습 전략** | Pooling(V50) + Adaptive(V71) | Fan+(2025): VRP 아님 |
 | **내재적 해석** | Attention 가중치 = 해석 도구 | Lo+(2023): SHAP/LIME |
