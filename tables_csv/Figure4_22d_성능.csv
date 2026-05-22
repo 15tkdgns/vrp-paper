@@ -1,0 +1,6 @@
+﻿Model,Pooled_R2,Median_R2
+ElasticNet-59,0.807,NaN
+Ridge(pooled),0.762,-0.003
+WEns,0.803,0.215
+BiLSTM-A,0.780,0.235
+RF,0.759,0.142

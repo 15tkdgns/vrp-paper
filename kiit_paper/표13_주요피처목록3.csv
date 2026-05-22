@@ -1,0 +1,9 @@
+Category,Variables,Description
+Realized Volatility,"LogRV_lag(w), LogRV_Std(w), RV_Mom(w)","Lagged logRV; rolling std; momentum  [w=1,5,10,22 (lag) / 5,22 (Std¡¤Mom)]"
+Range Estimators,"Parkinson(w), GarmanKlass_22, RogersSatchell_22","Range-based vol estimators (H-L / OHLC)  [w=5,22 (Pk only)]"
+Returns & Intraday,"Ret_lag1, Ret_abs_lag1, Range_Close_Ratio, Overnight_Vol, Overnight_Ret","Prev-day return / abs return; (H-L)/C; overnight vol¡¤return"
+VIX Levels & Dynamics,"IV_VIX(9D/1M/3M), IV_VIX_chg, IV_VIX_ma5, IV_VIX_std5","log VIX levels (9D/1M/3M); daily change; 5d MA; 5d rolling std"
+VIX Term Structure,"IV_VIX_TermSlope, IV_VIX_ShortSlope","VIX3M - VIX; VIX - VIX9D"
+Variance Risk Premium,"IV_VRP, IV_VRP_ma22","VIX©÷/100 - RV_SPY; 22d MA"
+Market Context,"SPY_LogRV, Corr_SPY","SPY log-RV; 22d rolling corr with SPY"
+Alternative Data,"Amihud, Vol_Ratio, Vol_Surprise, PV_Corr, Order_Imb, Kyle_Lambda","Illiquidity; vol ratio; vol z-score; price-vol corr; order imbalance; price impact"

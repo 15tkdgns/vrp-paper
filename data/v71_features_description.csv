@@ -1,0 +1,38 @@
+Feature,Group,Importance,Description,Formula,Reference
+RogersSatchell_22,HF Proxy,0.731,Drift-independent OHLC volatility estimator. Best proxy for realized volatility.,ln(H/C)ln(H/O) + ln(L/C)ln(L/O),Rogers & Satchell (1991)
+GarmanKlass_22,HF Proxy,0.290,OHLC volatility estimator using all 4 prices. 7.4x more efficient than Close-to-Close.,0.5*ln(H/L)^2 - (2*ln(2)-1)*ln(C/O)^2,Garman & Klass (1980)
+Parkinson_22,HF Proxy,0.116,Range-based volatility estimator using High-Low.,1/(4*ln(2)) * ln(H/L)^2,Parkinson (1980)
+IV_VIX,IV Surface,0.024,CBOE VIX Index (30-day implied volatility). Market fear gauge.,VIX index value,CBOE
+IV_VIX3M,IV Surface,0.022,CBOE VIX3M Index (3-month implied volatility).,-,CBOE
+IV_VIX9D,IV Surface,0.018,CBOE VIX9D Index (9-day implied volatility).,-,CBOE
+IV_VIX_TermSlope,IV Surface,0.015,Term structure slope between VIX and VIX3M.,log(VIX) - log(VIX3M),-
+IV_VRP,IV Surface,0.021,Variance Risk Premium proxy.,VIX^2 - RV_SPY,Bollerslev et al. (2009)
+LogRV_lag1,Base (HAR),0.023,Daily realized volatility lag (yesterday).,log(RV_t-1),Corsi (2009)
+LogRV_lag5,Base (HAR),0.019,Weekly realized volatility lag (average of past 5 days).,log(mean(RV_t-1...t-5)),Corsi (2009)
+LogRV_lag22,Base (HAR),0.015,Monthly realized volatility lag (average of past 22 days).,log(mean(RV_t-1...t-22)),Corsi (2009)
+Garch_Daily,Base (GARCH),0.025,Conditional volatility from GARCH(1,1) on daily returns.,sigma_t^2 = omega + alpha*r^2 + beta*sigma^2,Bollerslev (1986)
+Garch_Weekly,Base (GARCH),0.030,Conditional volatility from GARCH(1,1) on weekly returns.,-,Bollerslev (1986)
+AltVol_Amihud,Alt Data,0.008,Illiquidity measure (price impact per volume).,log(|ret| / DollarVol),Amihud (2002)
+AltVol_Kyle_Lambda,Alt Data,0.005,Kyle's Lambda proxy (market impact).,log(|ret| / |delta Vol|),Kyle (1985)
+AltVol_Order_Imbalance,Alt Data,0.004,VPIN proxy (Buy/Sell volume imbalance).,(BuyVol - SellVol) / TotalVol,Easley et al. (2012)
+SPY_LogRV,Cross-Asset,0.045,S&P 500 Realized Volatility. Systematic risk factor.,log(RV_SPY),-
+Range_Close_Ratio,HF Proxy,0.033,Ratio of range-based vol to close-based vol. Information efficiency metric.,log(Parkinson) - log(RV),-
+Parkinson_5,HF Proxy,0.062,Short-term range-based volatility (5-day window).,-,Parkinson (1980)
+Overnight_Vol,HF Proxy,0.012,Overnight gap volatility.,std(log(Open/Close_prev)),-
+Overnight_Ret,HF Proxy,0.009,Overnight gap return.,log(Open/Close_prev),-
+LogRV_Std5,Base (HAR),0.010,Volatility of Volatility (short-term).,std(logRV, 5),-
+LogRV_Std22,Base (HAR),0.011,Volatility of Volatility (long-term).,std(logRV, 22),-
+RV_Mom5,Base (HAR),0.014,Short-term volatility momentum.,logRV_t - logRV_t-5,-
+RV_Mom22,Base (HAR),0.012,Long-term volatility momentum.,logRV_t - logRV_t-22,-
+Ret_lag1,Base (HAR),0.008,Previous day return (Leverage effect).,r_t-1,-
+Ret_abs_lag1,Base (HAR),0.007,Previous day absolute return (Magnitude).,|r_t-1|,-
+Corr_SPY,Cross-Asset,0.015,Correlation with S&P 500 (Beta proxy).,corr(r_asset, r_SPY, 22),-
+IV_VIX_chg,IV Surface,0.005,Daily change in VIX.,VIX_t - VIX_t-1,-
+IV_VIX_ma5,IV Surface,0.011,5-day moving average of VIX.,mean(VIX, 5),-
+IV_VIX_std5,IV Surface,0.009,5-day standard deviation of VIX (VVIX proxy).,std(VIX, 5),-
+IV_VIX_ShortSlope,IV Surface,0.006,Short-term term structure (VIX9D vs VIX).,log(VIX9D) - log(VIX),-
+IV_VRP_ma22,IV Surface,0.018,Long-term VRP trend.,mean(VRP, 22),-
+AltVol_Vol_Ratio,Alt Data,0.003,Volume momentum ratio.,log(Vol_ma5 / Vol_ma22),-
+AltVol_PV_Corr,Alt Data,0.002,Price-Volume correlation.,corr(ret, delta Vol, 22),-
+AltVol_Vol_Surprise,Alt Data,0.003,Volume surprise measure.,(Vol - Vol_ma22) / Vol_std22,-
+LogRV_lag10,Base (HAR),0.016,Bi-weekly realized volatility lag.,log(mean(RV_t-1...t-10)),Corsi (2009)

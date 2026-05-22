@@ -1,0 +1,13 @@
+Model,Type,Pooled_R2,RMSE
+ElasticNet,Linear,0.807,0.4591
+WEns,Ensemble,0.803,0.468
+BiLSTM-A,DL,0.78,0.4767
+Lasso,Linear,0.7712,0.4999
+ElasticNet,Linear,0.7696,0.5017
+Ridge (pooled),Linear,0.7625,0.5093
+Ridge (per-class),Linear,0.7618,0.5101
+RF,Tree,0.759,0.513
+LightGBM,Tree,0.7387,0.5342
+XGBoost,Tree,0.733,0.54
+SVR,Kernel,0.6901,0.5818
+MLP,NN,0.6183,0.6457

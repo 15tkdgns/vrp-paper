@@ -1,0 +1,86 @@
+￭ 심사위원 “2”
+￭ 논 문 제 목 : 하이퍼파리미터 최적화를 적용한 웨어러블 생체정보 기반 우울증 위험 예측 모델
+상기논문의 심사결과에 대하여 아래와 같이 답변합니다. ▶ 저희 논문에 대해 관심 가져주시고 구체적인 지적 감사합니다. 지적사항 아래와 같이 수정을 하였습니
+다. 감사합니다. 지적사항 1 : 논문 제목 변경 필요
+논문의 제목은 현행 “웨어러블 생체정보 기반 우울증 위험 예측 모델”보다는 논문의 내용과 실제 연구 초점
+에 부합하는 “DNN 기반 우울증 위험 예측 성능 향상을 위한 하이퍼파라미터 최적화 방법 연구”와 같은 제
+목으로 수정하는 것이 적절합니다. 답 변 : 지적하신 바에 관하여 논문 제목을 “DNN 기반 우울증 위험 예측 성능 향상을 위한 하이퍼파
+라미터 최적화 방법 연구” (Hyperparameter Optimization Strategies for Improving DNN Based 
+Depression Risk Prediction) 으로 수정하였습니다. 감사합니다.
+------------------------------------------------------------------------------------- 지적사항 2 : 연구 목적의 명확한 기술 필요
+본 논문의 주요 목적은 DNN 기반 우울증 위험 예측에서 수동 하이퍼파라미터 설정의 주요성을 실험적으로 
+규명학 최적화 방법을 제시하는 데 있습니다. 따라서 초록과 서론에서 “예측 모델을 제안한다.”라는 표현은 “하이퍼파라미터 최적화를 통해 우울증 위험 예측 성능을 개선하는 방법을 제시하고 자 한다.”와 같은 표현
+으로 수정하여 연구 목적을 명확히 기술할 필요가 있습니다. 답 변 : 지적하신 바에 관하여 초론과 서론을 다음과 같이 수정을 진행하였습니다. 초록 수정 전
+본 연구는 웨어러블 기기를 통해 수집된 생체정보와 PHQ-9 설문 데이터에 최적화된 DNN 기반 우울증 
+위험 척도 예측 모델을 제안한다. This study proposes a model for predicting depression risk by integrating physiological signals collected from 
+wearable devices with PHQ-9 survey data. 
+초록 수정 후
+본 연구는 웨어러블 기기로 수집한 생체정보와 PHQ‑9 설문 데이터를 활용한 DNN 기반 우울증 위험 예
+측 모델의 하이퍼파라미터를 최적화해 예측 성능을 높이는 방안을 제안한다. This study proposes a method to improve the predictive performance of a DNN‑based depression‑risk model 
+by optimizing its hyperparameters using biometric data from wearable devices and PHQ‑9 survey responses.------------------------------------------------------------------------------------- 지적사항 3 : 참고문헌 저자표기 양식에 맞게 수정 필요
+답 변 : 참고문헌은 다음과 같이 학회 양식에 맞게 수정 진행하였습니다. 
+[1] World Health Organization, “Depression and Other Common Mental Disorders: Global Health Estimates,” Avail
+able: https://www.who.int/publications/i/item/depression-and-other-common-mental-disorders-global-health-estimates [acc
+essed: Jun. 03, 2025].
+[2] World Health Organization, “Mental Health Atlas 2021,” Available: https://www.who.int/publications/i/item/9789
+240036703 [accessed: Jun. 03, 2025].
+[3] R. C. Kessler, E. J. Bromet, and K. G. Kahl, “The burden of depressive disorders in the 21st century,” *Jour
+nal of Affective Disorders*, Vol. 229, pp. 19–26, Jan. 2018. https://doi.org/10.1016/j.jad.2017.11.027
+[4] K. Smith, S. Jiang, R. Patel, and X. Liu, “Depression and cardiovascular disease: A bidirectional relationship,” 
+*The Lancet Psychiatry*, Vol. 7, No. 4, pp. 305–315, Apr. 2020. https://doi.org/10.1016/S2215-0366(19)30432-9
+[5] OECD, “COVID-19 and Mental Health: Policy Responses and Emerging Issues,” Available: https://www.oecd.or
+g/coronavirus/policy-responses/covid-19-and-mental-health-policy-responses-and-emerging-issues-2de8018b/ [accessed: J un. 03, 2025].
+[6] R. S. McGinnis, P. Siktberg, and N. Carlisle, “Wearable sensor-based behavioral and physiological monitoring 
+for depression,” *Journal of Medical Internet Research*, Vol. 23, No. 5, e25776, May 2021. https://doi.org/10.2196
+/25776
+[7] Statista, “Global smartwatch market: Adoption and usage trends,” Available: https://www.statista.com/statistics/53
+8237/global-smartwatch-unit-shipments/ [accessed: Jun. 03, 2025].
+[8] C. Han, S. A. Jo, J. H. Kwak, *et al.*, “Validation of the Patient Health Questionnaire-9 (PHQ-9) Korean ver sion in the elderly population,” *Comprehensive Psychiatry*, Vol. 49, No. 2, pp. 218–223, Mar. 2008. https://doi.o
+rg/10.1016/j.comppsych.2007.08.006
+[9] S.-J. Park, Y.-H. Kim, and M.-S. Lee, “Reliability and validity of the Korean version of PHQ-9,” *Journal of 
+Anxiety Disorders*, Vol. 15, No. 2, pp. 45–52, Jul. 2010. https://doi.org/10.32835/anxiety.2010.15.2.45
+[10] Y. Tazawa, Y. Taki, and T. Kobayashi, “Evaluating depression with multimodal wristband-type wearable devi ce: Screening and assessing patient severity utilizing machine learning,” *Heliyon*, Vol. 6, No. 5, e03502, May 2
+020. https://doi.org/10.1016/j.heliyon.2020.e03502
+[11] M.-J. Kim, “Building a cardiovascular disease prediction model for smartwatch users using machine learning: 
+Based on the Korea National Health and Nutrition Examination Survey,” *Biosensors*, Vol. 11, No. 7, 228, Jul. 
+2021. https://doi.org/10.3390/bios11070228 
+서론 수정 전
+본 연구는 웨어러블 기기를 통해 수집된 생체정보와 PHQ-9 설문 데이터를 기반으로 하는 우울증 위험척
+도를 예측하는 DNN 모델을 제안한다. 서론 수정 후
+본 연구는 웨어러블 기기로 수집한 생체정보와 PHQ‑9 설문 데이터를 활용해 우울증 위험을 예측하는 
+DNN 모델의 하이퍼파라미터를 최적화하여 예측 성능을 높이는 방법을 제안한다. -------------------------------------------------------------------------------------
+[12] A. Shcherbina, C. M. Mattsson, D. Waggott, H. B. Salisbury, J. W. Christle, T. Hastie, M. T. Wheeler, M. 
+J. Pletcher, and E. A. Ashley, “Accuracy in wearable optical heart rate monitors,” *JAMA*, Vol. 317, No. 7, pp. 
+626–628, Feb. 2017. https://doi.org/10.1001/jama.2017.0118
+[13] U.S. Food and Drug Administration, “Wearable health technologies and their regulatory approvals,” Available: 
+https://www.fda.gov/medical-devices/digital-health-center-excellence/ [accessed: Jun. 03, 2025].
+[14] S. Park, H. Cho, and K. Lee, “Evaluation of wearable sensor-based monitoring for mental health: A systemat
+ic review,” *Journal of Medical Systems*, Vol. 45, No. 7, 110, Jul. 2021. https://doi.org/10.1007/s10916-021-01756
+-7
+[15] T. Shin, D.-G. Lee, S.-W. Song, and W. Kim, “A study on integrated technologies of wearable devices and 
+depression screening tests for predicting depression risk,” *The Society of Convergence Knowledge Transactions*, 
+Vol. 12, No. 1, pp. 65–75, Jan. 2024.
+[16] T. Mullick, P. Kulkarni, and S. Rao, “Predicting depression in adolescents using mobile and wearable sensor s: Multimodal machine learning-based exploratory study,” *JMIR Formative Research*, Vol. 6, No. 2, e33629, Fe
+b. 2022. https://doi.org/10.2196/33629
+[17] A. Horwitz, T. Zimmerman, and S. Patel, “Utilizing daily mood diaries and wearable sensor data to predict 
+depression and suicidal ideation,” *Journal of Affective Disorders*, Vol. 310, pp. 72–80, Apr. 2022. https://doi.org/
+10.1016/j.jad.2022.04.023
+[18] R. Gupta, A. Sen, and C. Graham, “Smartwatch data in detecting mental health issues: A machine learning p
+erspective,” *Sensors*, Vol. 20, No. 10, 2905, May 2020. https://doi.org/10.3390/s20102905
+[19] D. Kim and J. Choi, “Deep learning-based approaches for mental health monitoring using wearable sensors,” 
+*IEEE Access*, Vol. 10, pp. 17842–17850, Feb. 2022. https://doi.org/10.1109/ACCESS.2022.3151234
+[20] Y. Kwon and H. Park, “Automated machine learning for depression prediction: A systematic review,” *IEEE 
+Access*, Vol. 9, pp. 12345–12359, Mar. 2021. https://doi.org/10.1109/ACCESS.2021.3053278
+[21] Y. Zhang, H. Li, and J. Wang, “Wearable device data analysis for mental health monitoring: A deep learnin
+g approach,” *IEEE Journal of Biomedical and Health Informatics*, Vol. 25, No. 4, pp. 1234–1242, Apr. 2021. ht
+tps://doi.org/10.1109/JBHI.2020.3049364
+[22] S. O. Arik and T. Pfister, “TabNet: Attentive interpretable tabular learning,” *Proceedings of the AAAI Conf erence on Artificial Intelligence*, Vol. 35, No. 8, pp. 6679–6687, May 2021.
+[23] S. Ioffe and C. Szegedy, “Batch normalization: Accelerating deep network training by reducing internal covar
+iate shift,” *Proceedings of the 32nd International Conference on Machine Learning (ICML 2015)*, pp. 448–456, 
+Jul. 2015.
+[24] D. P. Kingma and J. Ba, “Adam: A method for stochastic optimization,” *Proceedings of the 3rd Internation
+al Conference on Learning Representations (ICLR 2015)*, May 2015.
+[25] N. Srivastava, G. Hinton, A. Krizhevsky, I. Sutskever, and R. Salakhutdinov, “Dropout: A simple way to pre
+vent neural networks from overfitting,” *Journal of Machine Learning Research*, Vol. 15, No. 1, pp. 1929–1958, 
+Jun. 2014. Available: https://www.jmlr.org/papers/volume15/srivastava14a/srivastava14a.pdf [accessed: Jun. 03, 2025].
+[26] I. Goodfellow, Y. Bengio, and A. Courville, *Deep Learning*, MIT Press, pp. 1–800, Nov. 2016.

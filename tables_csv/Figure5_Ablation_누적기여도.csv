@@ -1,0 +1,6 @@
+﻿Feature_Step,Incremental_Pooled_R2,Cumulative_Pooled_R2
+HAR-3(Base),0.7320,0.7320
++ GARCH/Vol-of-Vol,0.0260,0.7580
++ HF proxy,0.0210,0.7790
++ IV surface,0.0259,NaN
++ Alternative Data,0.0067,0.8030

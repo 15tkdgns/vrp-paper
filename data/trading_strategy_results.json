@@ -1,0 +1,9 @@
+{
+  "Sharpe_BH": 0.7048455819194985,
+  "Sharpe_Strat_NoTC": 0.814125508908135,
+  "Sharpe_Strat_TC": 0.8038058748063008,
+  "Ann_Ret_BH": 0.12370652490074036,
+  "Ann_Ret_Strat": 0.19443628042378472,
+  "p_value": 0.3138,
+  "Ann_Turnover": 24.528
+}

@@ -1,0 +1,3 @@
+﻿예측 기간 (h),비교 대상,DM Statistics,p-value,결과
+22일,WEns vs HAR-3,-8.80,< 0.001,통계적 유의함
+60일,BiLSTM-A vs HAR-3,-,-,통계적 유의함

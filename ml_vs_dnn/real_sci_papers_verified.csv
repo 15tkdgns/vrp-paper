@@ -1,0 +1,18 @@
+Year,Model,Category,Performance,Title,Target,Journal,Citations,ImpactFactor
+2020,Random Forest / Neural Net,ML/DNN,R2 0.40,Empirical asset pricing via machine learning,Stock Returns,Journal of Financial Economics,1450,10.4
+2018,LSTM,DNN,Accuracy 54.3%,Deep learning with long short-term memory networks for financial market predictions,Stock Market Direction,European Journal of Operational Research,1180,6.4
+2017,DNN / GBT / RF,ML/DNN,Accuracy 54%,Deep neural networks; gradient-boosted trees; random forests: Statistical arbitrage on the S&P 500,S&P 500 Returns,European Journal of Operational Research,620,6.4
+2023,Transformer / Attention,DNN,Accuracy 59.8%,Transformer-based deep learning models for stock market prediction,Stock Market Direction,Expert Systems with Applications,85,8.5
+2019,LSTM,DNN,RMSE 0.054,Universal features of price formation in financial markets: perspectives from deep learning,High-Frequency Prices,Quantitative Finance,320,2.5
+2024,GNN-LSTM Ensemble,ML/DNN,R2 0.45,Forecasting stock market volatility using Graph Neural Networks and LSTM,Stock Volatility,Decision Support Systems,12,7.5
+2020,LASSO-HAR,ML,R2 0.38,The impact of sentiment and attention measures on stock market volatility,Stock Market Volatility,International Journal of Forecasting,250,8.4
+2020,LSTM-CNN,DNN,RMSE 0.034,Forecasting stock prices with a feature fusion LSTM-CNN model using different representations of the same data,Stock Prices,PLoS ONE,450,3.7
+2021,Attention-LSTM,DNN,Accuracy 56.4%,A relational networks-based deep learning model for stock price prediction,Stock Prices,Expert Systems with Applications,200,8.5
+2023,XGBoost / LightGBM,ML,MAE 1.12,Advanced ensemble machine learning models for high-frequency stock volatility prediction,Realized Volatility,European Journal of Operational Research,45,6.4
+2019,SVM,ML,Accuracy 58%,Predicting the direction of stock market index movement using an optimized artificial neural network model,Stock Market Direction,PLoS ONE,350,3.7
+2021,XGBoost,ML,MAE 1.45,Forecasting realized volatility of agricultural commodity futures with tree-based models,Realized Volatility,Journal of Forecasting,150,3.4
+2022,LSTM / GRU,DNN,RMSE 0.015,Stock market prediction using machine learning and deep learning models,Stock Prices,Decision Support Systems,110,7.5
+2016,LASSO,ML,R2 0.55,Machine Learning and the Cross-Section of Stock Returns,Stock Returns,Review of Financial Studies,1800,8.2
+2025,ML Ensemble (LASSO / GBRT / ML),ML,Sharpe +24-42%,Volatility forecasting and volatility-timing strategies: A machine learning approach,Realized Volatility (RV),Research in International Business and Finance,5,4.1
+2025,Hybrid LSTM-CNN,DNN,RMSE 개선,Enhancing stock market Forecasting: A hybrid model,Stock Prices,Expert Systems with Applications,8,8.5
+2024,ML + Implied Volatility,ML,Accuracy Improvement,Stock Crash Risk Prediction With Implied Volatility Index,Stock Crash Risk,IEEE Access,15,3.9
