@@ -1,0 +1,47 @@
+참고문헌
+References
+
+
+1. Corsi, F. 2009. A Simple Approximate Long-Memory Model of Realized Volatility. J. Financ. Econom. 7(2): 174–196.
+
+2. Gu, S., Kelly, B., and Xiu, D. 2020. Empirical Asset Pricing via Machine Learning. Rev. Financ. Stud. 33(5): 2223–2273.
+
+3. Audrino, F., and Knaus, S. D. 2016. Lassoing the HAR Model: A Model Selection Perspective on Realized Volatility Dynamics. Econom. Rev. 35(8–10): 1485–1521.
+
+4. Christensen, K., Siggaard, M., and Veliyev, B. 2023. A Machine Learning Approach to Volatility Forecasting. J. Financ. Econom. 21(5): 1680–1727.
+
+5. Carr, P., and Wu, L. 2009. Variance Risk Premiums. Rev. Financ. Stud. 22(3): 1311–1341.
+
+6. Bollerslev, T., Tauchen, G., and Zhou, H. 2009. Expected Stock Returns and Variance Risk Premia. Rev. Financ. Stud. 22(11): 4463–4492.
+
+7. Engle, R. F. 1982. Autoregressive Conditional Heteroscedasticity with Estimates of the Variance of United Kingdom Inflation. Econometrica. 50(4): 987–1007.
+
+8. Bollerslev, T. 1986. Generalized Autoregressive Conditional Heteroskedasticity. J. Econom. 31(3): 307–327.
+
+9. Andersen, T. G., Bollerslev, T., Diebold, F. X., and Ebens, H. 2001. The Distribution of Realized Stock Return Volatility. J. Financ. Econ. 61(1): 43–76.
+
+10. Bekaert, G., and Hoerova, M. 2014. The VIX, the Variance Premium and Stock Market Volatility. J. Econom. 183(2): 181–192.
+
+11. Drechsler, I., and Yaron, A. 2011. What's Vol Got to Do with It. Rev. Financ. Stud. 24(1): 1–45.
+
+12. [저자 확인 필요] Zhang, Chen, and Lu. VRP의 비모수적 추정 관련 논문.
+
+13. [저자 확인 필요] Carr, Wu, and Zhang. 기계학습 기반 예측 RV 개선 관련 논문.
+
+18. López de Prado, M. 2018. Advances in Financial Machine Learning. Wiley, New York.
+
+19. Diebold, F. X., and Mariano, R. S. 1995. Comparing Predictive Accuracy. J. Bus. Econ. Stat. 13(3): 253–263.
+
+20. Newey, W. K., and West, K. D. 1987. A Simple, Positive Semi-Definite, Heteroskedasticity and Autocorrelation Consistent Covariance Matrix. Econometrica. 55(3): 703–708.
+
+21. Kunsch, H. R. 1989. The Jackknife and the Bootstrap for General Stationary Observations. Ann. Stat. 17(3): 1217–1241.
+
+22. Harvey, D., Leybourne, S., and Newbold, P. 1997. Testing the Equality of Prediction Mean Squared Errors. Int. J. Forecast. 13(2): 281–291.
+
+23. Bates, J. M., and Granger, C. W. J. 1969. The Combination of Forecasts. Oper. Res. Q. 20(4): 451–468.
+
+24. Prokhorenkova, L., Gusev, G., Vorobev, A., Dorogush, A. V., and Gulin, A. 2018. CatBoost: Unbiased Boosting with Categorical Features. Adv. Neural Inf. Process. Syst. 31: 6638–6648.
+
+25. Zeng, A., Chen, M., Zhang, L., and Xu, Q. 2023. Are Transformers Effective for Time Series Forecasting? Proc. AAAI Conf. Artif. Intell. 37(9): 11121–11128.
+
+26. Nie, Y., Nguyen, N. H., Sinthong, P., and Kalagnanam, J. 2023. A Time Series Is Worth 64 Words: Long-term Forecasting with Transformers. Int. Conf. Learn. Represent. (ICLR).

@@ -1,4 +1,4 @@
-# Python
+﻿# Python
 __pycache__/
 *.pyc
 *.pyo
@@ -36,3 +36,10 @@ desktop.ini
 
 # Empty folders
 new/
+
+# Large/private items
+vrp-paper/
+.claude/
+catboost_info/
+paper_claude/
+paper_codex/
