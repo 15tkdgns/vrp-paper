@@ -47,7 +47,7 @@ def kendall_w(rankings):
 
 # ── Load data ────────────────────────────────────────────────────────────────
 print("Loading data...", flush=True)
-raw     = pd.read_pickle('src/data/v71_ohlcv_cache.pkl')
+raw     = pd.read_pickle('/root/vrp/src/data/v71_ohlcv_cache.pkl')
 vix     = raw[('Close', 'VIX')]
 spy_c   = raw[('Close', 'SPY')]
 spy_ret = np.log(spy_c / spy_c.shift(1)).dropna()
