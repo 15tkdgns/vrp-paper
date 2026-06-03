@@ -1,0 +1,306 @@
+{
+  "1d": {
+    "Ridge+XGBoost": {
+      "Pooled_R2": 0.1176,
+      "RMSE": 2.5058,
+      "best_pw": 0.9,
+      "inner_R2": 0.2387
+    },
+    "Ridge+CatBoost": {
+      "Pooled_R2": 0.1176,
+      "RMSE": 2.5059,
+      "best_pw": 0.9,
+      "inner_R2": 0.2388
+    },
+    "Ridge+LightGBM": {
+      "Pooled_R2": 0.1174,
+      "RMSE": 2.5061,
+      "best_pw": 0.9,
+      "inner_R2": 0.2384
+    },
+    "XGBoost+CatBoost": {
+      "Pooled_R2": 0.1152,
+      "RMSE": 2.5092,
+      "best_pw": 0.4,
+      "inner_R2": 0.2225
+    },
+    "XGBoost+LightGBM": {
+      "Pooled_R2": 0.1137,
+      "RMSE": 2.5114,
+      "best_pw": 0.9,
+      "inner_R2": 0.2171
+    },
+    "CatBoost+LightGBM": {
+      "Pooled_R2": 0.1147,
+      "RMSE": 2.51,
+      "best_pw": 0.9,
+      "inner_R2": 0.2226
+    }
+  },
+  "5d": {
+    "Ridge+XGBoost": {
+      "Pooled_R2": 0.6249,
+      "RMSE": 0.7491,
+      "best_pw": 0.7,
+      "inner_R2": 0.7052
+    },
+    "Ridge+CatBoost": {
+      "Pooled_R2": 0.6263,
+      "RMSE": 0.7477,
+      "best_pw": 0.7,
+      "inner_R2": 0.7059
+    },
+    "Ridge+LightGBM": {
+      "Pooled_R2": 0.6244,
+      "RMSE": 0.7496,
+      "best_pw": 0.8,
+      "inner_R2": 0.7046
+    },
+    "XGBoost+CatBoost": {
+      "Pooled_R2": 0.612,
+      "RMSE": 0.7619,
+      "best_pw": 0.4,
+      "inner_R2": 0.6885
+    },
+    "XGBoost+LightGBM": {
+      "Pooled_R2": 0.6079,
+      "RMSE": 0.7659,
+      "best_pw": 0.9,
+      "inner_R2": 0.6854
+    },
+    "CatBoost+LightGBM": {
+      "Pooled_R2": 0.6117,
+      "RMSE": 0.7622,
+      "best_pw": 0.9,
+      "inner_R2": 0.6879
+    }
+  },
+  "22d": {
+    "Ridge+XGBoost": {
+      "Pooled_R2": 0.7974,
+      "RMSE": 0.4664,
+      "best_pw": 0.7,
+      "inner_R2": 0.7077
+    },
+    "Ridge+CatBoost": {
+      "Pooled_R2": 0.7975,
+      "RMSE": 0.4663,
+      "best_pw": 0.8,
+      "inner_R2": 0.7069
+    },
+    "Ridge+LightGBM": {
+      "Pooled_R2": 0.7974,
+      "RMSE": 0.4665,
+      "best_pw": 0.9,
+      "inner_R2": 0.7063
+    },
+    "XGBoost+CatBoost": {
+      "Pooled_R2": 0.7696,
+      "RMSE": 0.4974,
+      "best_pw": 0.9,
+      "inner_R2": 0.6878
+    },
+    "XGBoost+LightGBM": {
+      "Pooled_R2": 0.769,
+      "RMSE": 0.4981,
+      "best_pw": 0.9,
+      "inner_R2": 0.6871
+    },
+    "CatBoost+LightGBM": {
+      "Pooled_R2": 0.7563,
+      "RMSE": 0.5116,
+      "best_pw": 0.7,
+      "inner_R2": 0.6804
+    }
+  },
+  "60d": {
+    "Ridge+XGBoost": {
+      "Pooled_R2": 0.7853,
+      "RMSE": 0.4586,
+      "best_pw": 0.5,
+      "inner_R2": 0.626
+    },
+    "Ridge+CatBoost": {
+      "Pooled_R2": 0.7839,
+      "RMSE": 0.46,
+      "best_pw": 0.5,
+      "inner_R2": 0.6276
+    },
+    "Ridge+LightGBM": {
+      "Pooled_R2": 0.7792,
+      "RMSE": 0.465,
+      "best_pw": 0.5,
+      "inner_R2": 0.6264
+    },
+    "XGBoost+CatBoost": {
+      "Pooled_R2": 0.7152,
+      "RMSE": 0.5281,
+      "best_pw": 0.5,
+      "inner_R2": 0.6106
+    },
+    "XGBoost+LightGBM": {
+      "Pooled_R2": 0.7057,
+      "RMSE": 0.5368,
+      "best_pw": 0.5,
+      "inner_R2": 0.6095
+    },
+    "CatBoost+LightGBM": {
+      "Pooled_R2": 0.7028,
+      "RMSE": 0.5395,
+      "best_pw": 0.5,
+      "inner_R2": 0.6114
+    }
+  },
+  "90d": {
+    "Ridge+XGBoost": {
+      "Pooled_R2": 0.7753,
+      "RMSE": 0.4616,
+      "best_pw": 0.4,
+      "inner_R2": 0.5874
+    },
+    "Ridge+CatBoost": {
+      "Pooled_R2": 0.7668,
+      "RMSE": 0.4703,
+      "best_pw": 0.4,
+      "inner_R2": 0.5957
+    },
+    "Ridge+LightGBM": {
+      "Pooled_R2": 0.7616,
+      "RMSE": 0.4754,
+      "best_pw": 0.4,
+      "inner_R2": 0.5911
+    },
+    "XGBoost+CatBoost": {
+      "Pooled_R2": 0.7137,
+      "RMSE": 0.521,
+      "best_pw": 0.4,
+      "inner_R2": 0.5848
+    },
+    "XGBoost+LightGBM": {
+      "Pooled_R2": 0.7064,
+      "RMSE": 0.5276,
+      "best_pw": 0.4,
+      "inner_R2": 0.5804
+    },
+    "CatBoost+LightGBM": {
+      "Pooled_R2": 0.7019,
+      "RMSE": 0.5316,
+      "best_pw": 0.7,
+      "inner_R2": 0.5858
+    }
+  },
+  "120d": {
+    "Ridge+XGBoost": {
+      "Pooled_R2": 0.7683,
+      "RMSE": 0.4636,
+      "best_pw": 0.5,
+      "inner_R2": 0.5718
+    },
+    "Ridge+CatBoost": {
+      "Pooled_R2": 0.7517,
+      "RMSE": 0.4799,
+      "best_pw": 0.4,
+      "inner_R2": 0.5799
+    },
+    "Ridge+LightGBM": {
+      "Pooled_R2": 0.7665,
+      "RMSE": 0.4654,
+      "best_pw": 0.5,
+      "inner_R2": 0.577
+    },
+    "XGBoost+CatBoost": {
+      "Pooled_R2": 0.6896,
+      "RMSE": 0.5367,
+      "best_pw": 0.4,
+      "inner_R2": 0.5614
+    },
+    "XGBoost+LightGBM": {
+      "Pooled_R2": 0.6909,
+      "RMSE": 0.5355,
+      "best_pw": 0.4,
+      "inner_R2": 0.5571
+    },
+    "CatBoost+LightGBM": {
+      "Pooled_R2": 0.6837,
+      "RMSE": 0.5417,
+      "best_pw": 0.7,
+      "inner_R2": 0.565
+    }
+  },
+  "180d": {
+    "Ridge+XGBoost": {
+      "Pooled_R2": 0.7647,
+      "RMSE": 0.4605,
+      "best_pw": 0.5,
+      "inner_R2": 0.5112
+    },
+    "Ridge+CatBoost": {
+      "Pooled_R2": 0.7386,
+      "RMSE": 0.4855,
+      "best_pw": 0.4,
+      "inner_R2": 0.5244
+    },
+    "Ridge+LightGBM": {
+      "Pooled_R2": 0.7577,
+      "RMSE": 0.4673,
+      "best_pw": 0.5,
+      "inner_R2": 0.5149
+    },
+    "XGBoost+CatBoost": {
+      "Pooled_R2": 0.7019,
+      "RMSE": 0.5184,
+      "best_pw": 0.4,
+      "inner_R2": 0.5096
+    },
+    "XGBoost+LightGBM": {
+      "Pooled_R2": 0.715,
+      "RMSE": 0.5069,
+      "best_pw": 0.4,
+      "inner_R2": 0.4997
+    },
+    "CatBoost+LightGBM": {
+      "Pooled_R2": 0.6744,
+      "RMSE": 0.5418,
+      "best_pw": 0.9,
+      "inner_R2": 0.5115
+    }
+  },
+  "252d": {
+    "Ridge+XGBoost": {
+      "Pooled_R2": 0.7342,
+      "RMSE": 0.4826,
+      "best_pw": 0.4,
+      "inner_R2": 0.4722
+    },
+    "Ridge+CatBoost": {
+      "Pooled_R2": 0.7172,
+      "RMSE": 0.4978,
+      "best_pw": 0.4,
+      "inner_R2": 0.4828
+    },
+    "Ridge+LightGBM": {
+      "Pooled_R2": 0.73,
+      "RMSE": 0.4864,
+      "best_pw": 0.4,
+      "inner_R2": 0.4761
+    },
+    "XGBoost+CatBoost": {
+      "Pooled_R2": 0.6661,
+      "RMSE": 0.541,
+      "best_pw": 0.4,
+      "inner_R2": 0.4774
+    },
+    "XGBoost+LightGBM": {
+      "Pooled_R2": 0.681,
+      "RMSE": 0.5288,
+      "best_pw": 0.4,
+      "inner_R2": 0.4707
+    },
+    "CatBoost+LightGBM": {
+      "Pooled_R2": 0.648,
+      "RMSE": 0.5554,
+      "best_pw": 0.9,
+      "inner_R2": 0.4803
+    }
+  }
+}

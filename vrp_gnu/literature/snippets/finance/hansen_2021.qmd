@@ -1,0 +1,56 @@
+<details>
+  <summary>Hansen, Huang, Tong & Wang (2021/2024): "Realized GARCH, CBOE VIX, and the Volatility Risk Premium" (Journal of Financial Econometrics)</summary>
+  <div class="paper-details">
+    <div class="paper-links">
+      <a href="https://doi.org/10.1093/jjfinec/nbad030" target="_blank">[Journal Link]</a>
+      <a href="https://arxiv.org/abs/2112.05367" target="_blank">[arXiv PDF]</a>
+    </div>
+
+    <details class="nested-details">
+      <summary>논문 개요</summary>
+      <div class="nested-content">
+        <p>Realized GARCH 프레임워크를 사용하여 VIX와 VRP에 대한 명시적인 폐쇄형 해(Closed-form solution)를 도출한 계량경제적 연구입니다. 기존 GARCH의 한계를 넘어 고빈도 실현 변동성 정보를 모델 내에 직접 통합했습니다.</p>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>연구 질문</summary>
+      <div class="nested-content">
+        <ul>
+          <li>실현 변동성(RV) 정보를 활용하여 VIX 지수를 어떻게 이론적으로 정밀하게 복제할 수 있는가?</li>
+          <li>수익률 충격과 변동성 충격 중 어느 것이 VRP의 시간 가변성을 주도하는가?</li>
+          <li>Realized GARCH 모델이 전통적인 GARCH 모델보다 VRP 설명에 있어 어떤 우위를 갖는가?</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>데이터 및 샘플</summary>
+      <div class="nested-content">
+        <ul>
+          <li><strong>데이터:</strong> S&P 500 일별 수익률, Realized Kernel(고빈도 측정치), CBOE VIX.</li>
+          <li><strong>기간:</strong> 2004년 ~ 2018년 (서브 샘플: 2007-2012 금융 위기 포함).</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>방법론</summary>
+      <div class="nested-content">
+        <p><strong>Realized GARCH System:</strong> 자산 수익률과 로그 실현 변동성을 동시에 설명하는 측정 방정식(Measurement equation)과 GARCH 방정식 결합.</p>
+        <p><strong>Dual Shock Mechanism:</strong> 수익률 충격($z_t$)과 별개로 순수 변동성 충격($u_t$)을 상태 변수로 도입하여 $\mathbb{P}$측도와 $\mathbb{Q}$측도 간의 괴리를 모델링했습니다.</p>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>연구 결과</summary>
+      <div class="nested-content">
+        <ul>
+          <li><strong>변동성 충격의 지배력:</strong> VRP의 시변성은 수익률의 레버리지 효과보다는 변동성 자체의 외생적 충격($u_t$)에 의해 더 강력하게 설명됨을 입증했습니다.</li>
+          <li><strong>Closed-form VIX:</strong> 모델 파라미터를 통해 VIX를 직접 산출할 수 있으며, 실제 시장 관측치와 매우 높은 일치도를 기록했습니다.</li>
+          <li><strong>위험 가격 ($\lambda_u$):</strong> 변동성 충격에 대한 시장 가격이 음(-)으로 추정되어, 변동성 확대 위험에 대한 보상이 필수적임을 확인했습니다.</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+</details>

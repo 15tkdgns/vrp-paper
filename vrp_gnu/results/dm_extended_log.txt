@@ -1,0 +1,154 @@
+======================================================================
+Extended DM Tests: WEns vs CatBoost/LightGBM across all horizons
+======================================================================
+
+Loading data & building 35 features...
+Warning: less than 75% GPU memory available for training. Free: 9271.492188 Total: 16302.5625
+Warning: less than 75% GPU memory available for training. Free: 11287.11719 Total: 16302.5625
+Assets: 11
+
+======================================================================
+  Horizon: 1d
+======================================================================
+  [WEns]    pw=0.9  → Pooled_R2=0.1176
+  [CatBoost] → Pooled_R2=0.1147
+  [LightGBM] → Pooled_R2=0.1077
+  [HAR-3]    → Pooled_R2=0.1095
+
+  DM Tests  WEns vs ... (h=1, Harvey-corrected, BW=1):
+    WEns vs CatBoost  : DM=-1.647  p=0.100 
+    WEns vs LightGBM  : DM=-4.163  p=0.000 ***
+    WEns vs Ridge     : DM=-3.158  p=0.002 ***
+    WEns vs XGBoost   : DM=-2.006  p=0.045 ***
+    WEns vs HAR-3     : DM=-2.675  p=0.007 ***
+
+======================================================================
+  Horizon: 5d
+======================================================================
+  [WEns]    pw=0.7  → Pooled_R2=0.6249
+  [CatBoost] → Pooled_R2=0.6114
+  [LightGBM] → Pooled_R2=0.6042
+  [HAR-3]    → Pooled_R2=0.5739
+
+  DM Tests  WEns vs ... (h=5, Harvey-corrected, BW=5):
+    WEns vs CatBoost  : DM=-4.620  p=0.000 ***
+    WEns vs LightGBM  : DM=-7.082  p=0.000 ***
+    WEns vs Ridge     : DM=-2.626  p=0.009 ***
+    WEns vs XGBoost   : DM=-6.434  p=0.000 ***
+    WEns vs HAR-3     : DM=-8.727  p=0.000 ***
+
+======================================================================
+  Horizon: 22d
+======================================================================
+  [WEns]    pw=0.7  → Pooled_R2=0.7974
+  [CatBoost] → Pooled_R2=0.7539
+  [LightGBM] → Pooled_R2=0.7535
+  [HAR-3]    → Pooled_R2=0.7605
+
+  DM Tests  WEns vs ... (h=22, Harvey-corrected, BW=22):
+    WEns vs CatBoost  : DM=-8.508  p=0.000 ***
+    WEns vs LightGBM  : DM=-9.533  p=0.000 ***
+    WEns vs Ridge     : DM=-0.431  p=0.666 
+    WEns vs XGBoost   : DM=-7.739  p=0.000 ***
+    WEns vs HAR-3     : DM=-5.296  p=0.000 ***
+
+======================================================================
+  Horizon: 60d
+======================================================================
+  [WEns]    pw=0.5  → Pooled_R2=0.7853
+  [CatBoost] → Pooled_R2=0.7050
+  [LightGBM] → Pooled_R2=0.6873
+  [HAR-3]    → Pooled_R2=0.7854
+
+  DM Tests  WEns vs ... (h=60, Harvey-corrected, BW=60):
+    WEns vs CatBoost  : DM=-7.774  p=0.000 ***
+    WEns vs LightGBM  : DM=-8.974  p=0.000 ***
+    WEns vs Ridge     : DM=+2.447  p=0.014 ***
+    WEns vs XGBoost   : DM=-8.294  p=0.000 ***
+    WEns vs HAR-3     : DM=+0.012  p=0.990 
+
+======================================================================
+  Horizon: 90d
+======================================================================
+  [WEns]    pw=0.4  → Pooled_R2=0.7753
+  [CatBoost] → Pooled_R2=0.6984
+  [LightGBM] → Pooled_R2=0.6909
+  [HAR-3]    → Pooled_R2=0.7858
+
+  DM Tests  WEns vs ... (h=90, Harvey-corrected, BW=90):
+    WEns vs CatBoost  : DM=-6.798  p=0.000 ***
+    WEns vs LightGBM  : DM=-7.386  p=0.000 ***
+    WEns vs Ridge     : DM=+1.982  p=0.048 ***
+    WEns vs XGBoost   : DM=-8.160  p=0.000 ***
+    WEns vs HAR-3     : DM=+0.896  p=0.370 
+
+======================================================================
+  Horizon: 120d
+======================================================================
+  [WEns]    pw=0.5  → Pooled_R2=0.7683
+  [CatBoost] → Pooled_R2=0.6738
+  [LightGBM] → Pooled_R2=0.6842
+  [HAR-3]    → Pooled_R2=0.7731
+
+  DM Tests  WEns vs ... (h=120, Harvey-corrected, BW=120):
+    WEns vs CatBoost  : DM=-6.917  p=0.000 ***
+    WEns vs LightGBM  : DM=-6.758  p=0.000 ***
+    WEns vs Ridge     : DM=+1.591  p=0.112 
+    WEns vs XGBoost   : DM=-7.688  p=0.000 ***
+    WEns vs HAR-3     : DM=+0.307  p=0.759 
+
+======================================================================
+  Horizon: 180d
+======================================================================
+  [WEns]    pw=0.5  → Pooled_R2=0.7647
+  [CatBoost] → Pooled_R2=0.6689
+  [LightGBM] → Pooled_R2=0.6995
+  [HAR-3]    → Pooled_R2=0.7423
+
+  DM Tests  WEns vs ... (h=180, Harvey-corrected, BW=180):
+    WEns vs CatBoost  : DM=-4.795  p=0.000 ***
+    WEns vs LightGBM  : DM=-3.903  p=0.000 ***
+    WEns vs Ridge     : DM=-1.086  p=0.278 
+    WEns vs XGBoost   : DM=-3.280  p=0.001 ***
+    WEns vs HAR-3     : DM=-1.154  p=0.249 
+
+======================================================================
+  Horizon: 252d
+======================================================================
+  [WEns]    pw=0.4  → Pooled_R2=0.7342
+  [CatBoost] → Pooled_R2=0.6418
+  [LightGBM] → Pooled_R2=0.6728
+  [HAR-3]    → Pooled_R2=0.6941
+
+  DM Tests  WEns vs ... (h=252, Harvey-corrected, BW=252):
+    WEns vs CatBoost  : DM=-3.987  p=0.000 ***
+    WEns vs LightGBM  : DM=-2.574  p=0.010 ***
+    WEns vs Ridge     : DM=-1.020  p=0.308 
+    WEns vs XGBoost   : DM=-2.206  p=0.027 ***
+    WEns vs HAR-3     : DM=-1.011  p=0.312 
+
+Saved: /mnt/c/Users/user/Desktop/vrp/vrp_gnu/results/dm_extended_results.json
+Saved: /mnt/c/Users/user/Desktop/vrp/vrp_gnu/../paper/csv/dm_extended_results.csv
+
+======================================================================
+Pooled R² Summary
+======================================================================
+ Horizon     WEns   CatBoost   LightGBM    Ridge   XGBoost    HAR-3
+      1d    0.1176    0.1147    0.1077    0.1170    0.1139    0.1095
+      5d    0.6249    0.6114    0.6042    0.6219    0.6077    0.5739
+     22d    0.7974    0.7539    0.7535    0.7968    0.7700    0.7605
+     60d    0.7853    0.7050    0.6873    0.8021    0.7140    0.7854
+     90d    0.7753    0.6984    0.6909    0.7919    0.7186    0.7858
+    120d    0.7683    0.6738    0.6842    0.7822    0.6909    0.7731
+    180d    0.7647    0.6689    0.6995    0.7528    0.7260    0.7423
+    252d    0.7342    0.6418    0.6728    0.6978    0.6826    0.6941
+
+DM Tests — WEns vs CatBoost (p<0.05 = WEns significantly better):
+     1d: DM=-1.647  p=0.100   (WEns=0.1176, CatBoost=0.1147)
+     5d: DM=-4.620  p=0.000 ***  (WEns=0.6249, CatBoost=0.6114)
+    22d: DM=-8.508  p=0.000 ***  (WEns=0.7974, CatBoost=0.7539)
+    60d: DM=-7.774  p=0.000 ***  (WEns=0.7853, CatBoost=0.7050)
+    90d: DM=-6.798  p=0.000 ***  (WEns=0.7753, CatBoost=0.6984)
+   120d: DM=-6.917  p=0.000 ***  (WEns=0.7683, CatBoost=0.6738)
+   180d: DM=-4.795  p=0.000 ***  (WEns=0.7647, CatBoost=0.6689)
+   252d: DM=-3.987  p=0.000 ***  (WEns=0.7342, CatBoost=0.6418)

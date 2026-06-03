@@ -1,0 +1,56 @@
+<details>
+  <summary>Feunou & Okou (2017/2018): "Good Volatility, Bad Volatility and Option Pricing" (Bank of Canada Staff Working Paper / JEF)</summary>
+  <div class="paper-details">
+    <div class="paper-links">
+      <a href="https://doi.org/10.1016/j.jempfin.2018.02.003" target="_blank">[Journal Link]</a>
+      <a href="https://www.bankofcanada.ca/wp-content/uploads/2017/12/swp2017-52.pdf" target="_blank">[Bank of Canada PDF]</a>
+    </div>
+
+    <details class="nested-details">
+      <summary>논문 개요</summary>
+      <div class="nested-content">
+        <p>변동성을 가격 상승 시의 'Good Volatility'와 가격 하락 시의 'Bad Volatility'로 분해하여 옵션 가격 결정 모형의 정밀도를 획기적으로 높인 연구입니다. 투자자들이 하락 위험(Bad Vol)에 대해 훨씬 더 높은 프리미엄을 지불한다는 비대칭적 특성을 모델에 반영했습니다.</p>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>연구 질문</summary>
+      <div class="nested-content">
+        <ul>
+          <li>실현 분산을 상승/하락 세미-베리언스(Semi-variances)로 분해하는 것이 옵션 가격 예측에 도움이 되는가?</li>
+          <li>투자자들은 좋은 변동성과 나쁜 변동성에 대해 서로 다른 위험 가격을 매기는가?</li>
+          <li>이러한 분해가 기존의 대칭적 변동성 모델보다 경제적으로 얼마나 더 가치 있는 정보를 제공하는가?</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>데이터 및 샘플</summary>
+      <div class="nested-content">
+        <ul>
+          <li><strong>샘플:</strong> S&P 500 지수 옵션 및 고빈도 인트라데이 데이터.</li>
+          <li><strong>특징:</strong> Model-free 방식으로 좋은/나쁜 변동성의 대리 지표(Proxy)를 추출하여 사용.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>방법론</summary>
+      <div class="nested-content">
+        <p><strong>Decomposition Framework:</strong> 총 2차 변동(Quadratic Variation)을 Upside와 Downside semi-variances로 분리.</p>
+        <p><strong>New Option Pricing Model:</strong> 좋은 변동성과 나쁜 변동성이 각기 다른 동학을 따르도록 설계된 유연한 옵션 가격 결정 모형 제안.</p>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>연구 결과</summary>
+      <div class="nested-content">
+        <ul>
+          <li><strong>비대칭 프리미엄:</strong> '나쁜 변동성'에 대한 위험 프리미엄이 '좋은 변동성'보다 압도적으로 크며, 이는 시장의 공포가 하락장에 집중되어 있음을 보여줍니다.</li>
+          <li><strong>가격 오차 감소:</strong> 변동성을 분해하여 적용했을 때 옵션 가격 결정의 오차(Pricing Error)가 기존 모델 대비 유의미하게 감소했습니다.</li>
+          <li><strong>예측력 향상:</strong> 미래 실현 변동성을 예측하는 데 있어서도 세미-베리언스 분해가 강력한 정보력을 가짐을 입증했습니다.</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+</details>

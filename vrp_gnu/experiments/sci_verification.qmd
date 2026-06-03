@@ -1,0 +1,163 @@
+---
+title: "V50 모델 정밀 검증"
+subtitle: "Walk-Forward, DM Test, Extreme Market 검증"
+format:
+  html:
+    code-fold: true
+    toc: true
+---
+
+# V50 검증 개요
+
+V50 (Dual-Attention LSTM) 모델의 OOS 성능을 다각도로 검증합니다.
+공정 비교 실험(v51b), DM 테스트(v53), 극한 시장 테스트(v59), Attention 분석(v60), 피처 중요도(v61)를 포함합니다.
+
+```{python}
+#| echo: false
+import json, os
+
+verify_path = './verification/'
+
+try:
+    with open(f'{verify_path}v51b_results.json', 'r') as f:
+        v51_data = json.load(f)['exp2_train_scaler']
+    with open(f'{verify_path}v53_results.json', 'r') as f:
+        v53_data = json.load(f)
+    with open(f'{verify_path}v59_results.json', 'r') as f:
+        v59_data = json.load(f)
+    with open(f'{verify_path}v60_results.json', 'r') as f:
+        v60_data = json.load(f)
+    with open(f'{verify_path}v61_results.json', 'r') as f:
+        v61_data = json.load(f)
+except Exception as e:
+    print(f"데이터 로드 오류: {e}")
+```
+
+---
+
+## 1. Walk-Forward 검증 (v51b)
+
+| 지표 | 값 | 해석 |
+|:---|:---|:---|
+| **IS R²** | `{python} f"{v51_data['IS_R2']:.3f}"` | 훈련 데이터 성능 |
+| **OOS R²** | **`{python} f"{v51_data['OOS_R2']:.3f}"`** | 미래 데이터 일반화 |
+| **Gap** | `{python} f"{v51_data['delta']:.3f}"` | 과적합 정도 |
+
+::: {.callout-info}
+## 설정 수정 사항
+기존 v51(R²=0.820)은 V50과 다른 실험 설정(rolling=5, target=t+1)을 사용하여 과대 평가됨. v51b는 V50과 동일한 설정(rolling=22, target=t+22)으로 공정 비교한 결과.
+:::
+
+---
+
+## 2. DM 테스트 (v53)
+
+```{python}
+#| echo: false
+print(f"V50 R²: {v53_data['V50_R2']:.4f}")
+print(f"V29 R²: {v53_data['V29_R2']:.4f}")
+print(f"DM Stat: {v53_data['DM_Stat']:.2f}")
+print(f"P-Value: {v53_data['P_Value']}")
+```
+
+| 비교 | V50 R² | V29 R² | DM Stat | p-value |
+|:---|:---|:---|:---|:---|
+| V50 vs V29 | **`{python} f"{v53_data['V50_R2']:.3f}"`** | `{python} f"{v53_data['V29_R2']:.3f}"` | **`{python} f"{v53_data['DM_Stat']:.2f}"`** | **`{python} f"{v53_data['P_Value']}"`** |
+
+V50이 V29 대비 통계적으로 유의미하게 우수 (p < 0.001).
+
+---
+
+## 3. 극한 시장 테스트 (v59)
+
+```{python}
+#| echo: false
+#| fig-width: 10
+#| fig-height: 4
+
+import matplotlib.pyplot as plt
+
+plt.rcParams['font.family'] = 'UnDotum'
+plt.rcParams['axes.unicode_minus'] = False
+
+regimes = list(v59_data.keys())
+r2s = [v59_data[r]['R2'] for r in regimes]
+
+fig, ax = plt.subplots(figsize=(10, 4))
+colors = ['#FF6B6B' if r < 0.4 else '#4ECDC4' for r in r2s]
+bars = ax.bar(regimes, r2s, color=colors, edgecolor='black')
+ax.set_ylabel('R² Score')
+ax.set_title('시장 국면별 V50 성능', fontsize=14, fontweight='bold')
+ax.set_ylim(0, 1.0)
+ax.grid(True, alpha=0.3, axis='y')
+
+for bar, r2 in zip(bars, r2s):
+    ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.02, f'{r2:.3f}', ha='center', fontweight='bold')
+
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## 4. Attention 분석 (v60)
+
+```{python}
+#| echo: false
+#| fig-width: 10
+#| fig-height: 4
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+plt.rcParams['font.family'] = 'UnDotum'
+plt.rcParams['axes.unicode_minus'] = False
+
+try:
+    weights = v60_data.get('attention_weights', v60_data.get('mean_weights', []))
+    if weights:
+        fig, ax = plt.subplots(figsize=(10, 4))
+        lags = list(range(1, len(weights)+1))
+        ax.bar(lags, weights, color='#4299E1', edgecolor='white')
+        ax.set_xlabel('Lag (일)')
+        ax.set_ylabel('Attention 가중치')
+        ax.set_title('V50 Temporal Attention 가중치 분포', fontsize=14, fontweight='bold')
+        ax.grid(True, alpha=0.3, axis='y')
+        plt.tight_layout()
+        plt.show()
+    else:
+        print("Attention 가중치 데이터 없음")
+except Exception as e:
+    print(f"시각화 오류: {e}")
+```
+
+---
+
+## 5. 피처 중요도 (v61)
+
+```{python}
+#| echo: false
+try:
+    if 'feature_importance' in v61_data:
+        fi = v61_data['feature_importance']
+        print("| Rank | Feature | Importance |")
+        print("|:---|:---|:---|")
+        for i, item in enumerate(fi[:10], 1):
+            name = item.get('feature', item.get('name', f'Feature_{i}'))
+            imp = item.get('importance', item.get('value', 0))
+            print(f"| {i} | {name} | {imp:.4f} |")
+    else:
+        for k, v in v61_data.items():
+            if isinstance(v, (int, float)):
+                print(f"- {k}: {v}")
+except Exception as e:
+    print(f"피처 중요도 출력 오류: {e}")
+```
+
+---
+
+## 관련 자료
+
+- [V50 상세 분석](/experiments/1day_prediction.html)
+- [V50 강건성 검증](/experiments/champion_robustness.html)
+- [모델 비교](/experiments/phase13_model_comparison.html)

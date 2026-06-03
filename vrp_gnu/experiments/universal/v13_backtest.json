@@ -1,0 +1,37 @@
+{
+  "SPY": {
+    "Net_Sharpe": 1.0078964736989464,
+    "Net_MDD": -0.1761816841975109,
+    "Turnover": 16.470524964115757,
+    "Cost_Drag": 0.024705787446173636,
+    "Process": "Vol Targeting + 15bps Cost"
+  },
+  "QQQ": {
+    "Net_Sharpe": 0.6568424165739691,
+    "Net_MDD": -0.21993942937724797,
+    "Turnover": 13.377690681529018,
+    "Cost_Drag": 0.020066536022293524,
+    "Process": "Vol Targeting + 15bps Cost"
+  },
+  "TLT": {
+    "Net_Sharpe": -0.8710173062377622,
+    "Net_MDD": -0.4047258238776219,
+    "Turnover": 10.160801068597092,
+    "Cost_Drag": 0.015241201602895637,
+    "Process": "Vol Targeting + 15bps Cost"
+  },
+  "GLD": {
+    "Net_Sharpe": 0.3160552134340445,
+    "Net_MDD": -0.2200537231342915,
+    "Turnover": 14.006335692125457,
+    "Cost_Drag": 0.021009503538188184,
+    "Process": "Vol Targeting + 15bps Cost"
+  },
+  "IEF": {
+    "Net_Sharpe": -0.9616388666154801,
+    "Net_MDD": -0.42564477628005004,
+    "Turnover": 21.082880630744544,
+    "Cost_Drag": 0.03162432094611683,
+    "Process": "Vol Targeting + 15bps Cost"
+  }
+}

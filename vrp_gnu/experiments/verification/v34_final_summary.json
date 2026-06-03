@@ -1,0 +1,87 @@
+{
+  "leaderboard": [
+    {
+      "Model": "V29 (Hybrid HAR-GARCH)",
+      "R2": 0.652941745097434,
+      "Type": "Hybrid"
+    },
+    {
+      "Model": "HAR-Only (Baseline)",
+      "R2": 0.6481579812744473,
+      "Type": "Linear"
+    },
+    {
+      "Model": "GARCH-Only",
+      "R2": 0.4980629569887167,
+      "Type": "Stat"
+    },
+    {
+      "Model": "LSTM (V31)",
+      "R2": -0.0662,
+      "Type": "Deep Learning"
+    },
+    {
+      "Model": "Mamba (V31)",
+      "R2": -0.0936,
+      "Type": "Deep Learning"
+    },
+    {
+      "Model": "GraphVol (V33)",
+      "R2": -0.2316,
+      "Type": "Deep Learning"
+    },
+    {
+      "Model": "KAN (V32)",
+      "R2": -0.4236,
+      "Type": "Deep Learning"
+    }
+  ],
+  "dm_tests": [
+    {
+      "Comparison": "V29 vs HAR-Only",
+      "DM_Stat": -2.014908396473729,
+      "P_Value": 0.02195712403419724
+    },
+    {
+      "Comparison": "V29 vs Naive",
+      "DM_Stat": -3.6523356367425457,
+      "P_Value": 0.00012993296239243715
+    },
+    {
+      "Comparison": "HAR-Only vs Naive",
+      "DM_Stat": -3.4154872426141725,
+      "P_Value": 0.00031834005876572684
+    }
+  ],
+  "stability": [
+    {
+      "Period": "Full Period",
+      "R2": 0.6155566497229048,
+      "RMSE": 0.6675659838873589,
+      "Samples": 133488
+    },
+    {
+      "Period": "Pre-COVID (2010-2019)",
+      "R2": 0.605333501048221,
+      "RMSE": 0.6451892336438361,
+      "Samples": 88992
+    },
+    {
+      "Period": "COVID Crisis (2020-2021)",
+      "R2": 0.536618776964555,
+      "RMSE": 0.9245129494693339,
+      "Samples": 18180
+    },
+    {
+      "Period": "Inflation/Stable (2022-2025)",
+      "R2": 0.6471625026027112,
+      "RMSE": 0.5122256010588319,
+      "Samples": 26316
+    }
+  ],
+  "walk_forward": {
+    "r2_wf": 0.6835697868843709,
+    "rmse_wf": 0.5529077153936925
+  },
+  "conclusion": "V29 remains the absolute champion with statistical significance and regime robustness."
+}

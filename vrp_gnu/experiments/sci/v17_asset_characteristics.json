@@ -1,0 +1,481 @@
+{
+  "avg_correlation": {
+    "Bond": {
+      "Bond": 0.7140596720768754,
+      "Commodity": 0.38411686799918343,
+      "Equity": 0.4306068501194085
+    },
+    "Commodity": {
+      "Bond": 0.38411686799918343,
+      "Commodity": 0.4907791090154923,
+      "Equity": 0.5023588334648712
+    },
+    "Equity": {
+      "Bond": 0.4306068501194085,
+      "Commodity": 0.5023588334648712,
+      "Equity": 0.8327337188341886
+    }
+  },
+  "pca_explained_variance": {
+    "Bond": 0.783342869582233,
+    "Commodity": 0.6195052897321327,
+    "Equity": 0.8475073057371473
+  },
+  "granger_causality": [
+    {
+      "Leader": "SPY",
+      "Follower": "QQQ",
+      "SameCategory": true,
+      "F_Stat": 0.30380263314001166,
+      "p_value": 0.5815411286160734
+    },
+    {
+      "Leader": "SPY",
+      "Follower": "IWM",
+      "SameCategory": true,
+      "F_Stat": 3.571819606454379,
+      "p_value": 0.05884497767117955
+    },
+    {
+      "Leader": "SPY",
+      "Follower": "DIA",
+      "SameCategory": true,
+      "F_Stat": 3.9407635249963326,
+      "p_value": 0.04720215832205481
+    },
+    {
+      "Leader": "SPY",
+      "Follower": "MDY",
+      "SameCategory": true,
+      "F_Stat": 1.0823986330000255,
+      "p_value": 0.2982286916025582
+    },
+    {
+      "Leader": "SPY",
+      "Follower": "XLF",
+      "SameCategory": true,
+      "F_Stat": 9.536907709958287,
+      "p_value": 0.0020285462095558106
+    },
+    {
+      "Leader": "SPY",
+      "Follower": "XLE",
+      "SameCategory": true,
+      "F_Stat": 9.236421848617812,
+      "p_value": 0.0023888539762381817
+    },
+    {
+      "Leader": "SPY",
+      "Follower": "XLK",
+      "SameCategory": true,
+      "F_Stat": 0.01594797559119968,
+      "p_value": 0.8995128701179749
+    },
+    {
+      "Leader": "SPY",
+      "Follower": "XLV",
+      "SameCategory": true,
+      "F_Stat": 4.515378162574683,
+      "p_value": 0.033656711741823685
+    },
+    {
+      "Leader": "SPY",
+      "Follower": "XLI",
+      "SameCategory": true,
+      "F_Stat": 14.834178446296901,
+      "p_value": 0.00011935021544837178
+    },
+    {
+      "Leader": "SPY",
+      "Follower": "EFA",
+      "SameCategory": true,
+      "F_Stat": 2.5397029539371485,
+      "p_value": 0.1110999906611137
+    },
+    {
+      "Leader": "SPY",
+      "Follower": "EEM",
+      "SameCategory": true,
+      "F_Stat": 3.7231346330065334,
+      "p_value": 0.053738930711366206
+    },
+    {
+      "Leader": "SPY",
+      "Follower": "IOO",
+      "SameCategory": true,
+      "F_Stat": 0.7107170246631841,
+      "p_value": 0.3992596759869572
+    },
+    {
+      "Leader": "SPY",
+      "Follower": "TLT",
+      "SameCategory": false,
+      "F_Stat": 2.201303507993198,
+      "p_value": 0.1379781726936125
+    },
+    {
+      "Leader": "SPY",
+      "Follower": "IEF",
+      "SameCategory": false,
+      "F_Stat": 0.4778558416207893,
+      "p_value": 0.4894379536465139
+    },
+    {
+      "Leader": "SPY",
+      "Follower": "SHY",
+      "SameCategory": false,
+      "F_Stat": 1.0770084620423885,
+      "p_value": 0.2994346953516426
+    },
+    {
+      "Leader": "SPY",
+      "Follower": "TIP",
+      "SameCategory": false,
+      "F_Stat": 5.809312752924988,
+      "p_value": 0.015989385541458775
+    },
+    {
+      "Leader": "SPY",
+      "Follower": "ZROZ",
+      "SameCategory": false,
+      "F_Stat": 1.050104417462498,
+      "p_value": 0.30554917247249014
+    },
+    {
+      "Leader": "SPY",
+      "Follower": "GLD",
+      "SameCategory": false,
+      "F_Stat": 4.875615481651709,
+      "p_value": 0.027299057513748955
+    },
+    {
+      "Leader": "SPY",
+      "Follower": "USO",
+      "SameCategory": false,
+      "F_Stat": 13.965291985929069,
+      "p_value": 0.00018899220830900584
+    },
+    {
+      "Leader": "SPY",
+      "Follower": "SLV",
+      "SameCategory": false,
+      "F_Stat": 2.5735938058700327,
+      "p_value": 0.10874487753088927
+    },
+    {
+      "Leader": "SPY",
+      "Follower": "DBC",
+      "SameCategory": false,
+      "F_Stat": 8.690108154738095,
+      "p_value": 0.003219167089469279
+    },
+    {
+      "Leader": "TLT",
+      "Follower": "SPY",
+      "SameCategory": false,
+      "F_Stat": 6.2077369837833,
+      "p_value": 0.012762230049060764
+    },
+    {
+      "Leader": "TLT",
+      "Follower": "QQQ",
+      "SameCategory": false,
+      "F_Stat": 3.8020689746456484,
+      "p_value": 0.05126375852772998
+    },
+    {
+      "Leader": "TLT",
+      "Follower": "IWM",
+      "SameCategory": false,
+      "F_Stat": 10.529737952492063,
+      "p_value": 0.001185009689847658
+    },
+    {
+      "Leader": "TLT",
+      "Follower": "DIA",
+      "SameCategory": false,
+      "F_Stat": 3.90217386504065,
+      "p_value": 0.04829692388398286
+    },
+    {
+      "Leader": "TLT",
+      "Follower": "MDY",
+      "SameCategory": false,
+      "F_Stat": 10.065443239152502,
+      "p_value": 0.0015229740717479757
+    },
+    {
+      "Leader": "TLT",
+      "Follower": "XLF",
+      "SameCategory": false,
+      "F_Stat": 5.219542576516375,
+      "p_value": 0.022390067652756376
+    },
+    {
+      "Leader": "TLT",
+      "Follower": "XLE",
+      "SameCategory": false,
+      "F_Stat": 5.7908874298446325,
+      "p_value": 0.016157553277997956
+    },
+    {
+      "Leader": "TLT",
+      "Follower": "XLK",
+      "SameCategory": false,
+      "F_Stat": 4.267571942341874,
+      "p_value": 0.038914975728742474
+    },
+    {
+      "Leader": "TLT",
+      "Follower": "XLV",
+      "SameCategory": false,
+      "F_Stat": 2.403709237667561,
+      "p_value": 0.12113236040224021
+    },
+    {
+      "Leader": "TLT",
+      "Follower": "XLI",
+      "SameCategory": false,
+      "F_Stat": 6.073930545971628,
+      "p_value": 0.013763678598062216
+    },
+    {
+      "Leader": "TLT",
+      "Follower": "EFA",
+      "SameCategory": false,
+      "F_Stat": 7.943489066650083,
+      "p_value": 0.00485137625309695
+    },
+    {
+      "Leader": "TLT",
+      "Follower": "EEM",
+      "SameCategory": false,
+      "F_Stat": 5.8755686864312615,
+      "p_value": 0.01539943345165784
+    },
+    {
+      "Leader": "TLT",
+      "Follower": "IOO",
+      "SameCategory": false,
+      "F_Stat": 7.373033505974747,
+      "p_value": 0.006651268278003377
+    },
+    {
+      "Leader": "TLT",
+      "Follower": "IEF",
+      "SameCategory": true,
+      "F_Stat": 0.06998942353271179,
+      "p_value": 0.7913667266844849
+    },
+    {
+      "Leader": "TLT",
+      "Follower": "SHY",
+      "SameCategory": true,
+      "F_Stat": 2.331365617505718,
+      "p_value": 0.126874982116926
+    },
+    {
+      "Leader": "TLT",
+      "Follower": "TIP",
+      "SameCategory": true,
+      "F_Stat": 7.861308802863958,
+      "p_value": 0.005076371731249595
+    },
+    {
+      "Leader": "TLT",
+      "Follower": "ZROZ",
+      "SameCategory": true,
+      "F_Stat": 4.455588065511556,
+      "p_value": 0.03485329762408596
+    },
+    {
+      "Leader": "TLT",
+      "Follower": "GLD",
+      "SameCategory": false,
+      "F_Stat": 6.57793504431171,
+      "p_value": 0.010363663669766753
+    },
+    {
+      "Leader": "TLT",
+      "Follower": "USO",
+      "SameCategory": false,
+      "F_Stat": 10.032402990492484,
+      "p_value": 0.0015504601875633995
+    },
+    {
+      "Leader": "TLT",
+      "Follower": "SLV",
+      "SameCategory": false,
+      "F_Stat": 6.897186653261953,
+      "p_value": 0.008668270391078823
+    },
+    {
+      "Leader": "TLT",
+      "Follower": "DBC",
+      "SameCategory": false,
+      "F_Stat": 5.853336912187219,
+      "p_value": 0.015594845191835773
+    },
+    {
+      "Leader": "GLD",
+      "Follower": "SPY",
+      "SameCategory": false,
+      "F_Stat": 0.12679451232122504,
+      "p_value": 0.7217990703187688
+    },
+    {
+      "Leader": "GLD",
+      "Follower": "QQQ",
+      "SameCategory": false,
+      "F_Stat": 0.18301397782610965,
+      "p_value": 0.6688203471135447
+    },
+    {
+      "Leader": "GLD",
+      "Follower": "IWM",
+      "SameCategory": false,
+      "F_Stat": 0.6094447459419489,
+      "p_value": 0.43504625127176166
+    },
+    {
+      "Leader": "GLD",
+      "Follower": "DIA",
+      "SameCategory": false,
+      "F_Stat": 0.001604552559143661,
+      "p_value": 0.968049923165936
+    },
+    {
+      "Leader": "GLD",
+      "Follower": "MDY",
+      "SameCategory": false,
+      "F_Stat": 0.7570008832849294,
+      "p_value": 0.3843244390343825
+    },
+    {
+      "Leader": "GLD",
+      "Follower": "XLF",
+      "SameCategory": false,
+      "F_Stat": 0.7751617535367469,
+      "p_value": 0.37868139411113266
+    },
+    {
+      "Leader": "GLD",
+      "Follower": "XLE",
+      "SameCategory": false,
+      "F_Stat": 0.11243224365088711,
+      "p_value": 0.7374106382935823
+    },
+    {
+      "Leader": "GLD",
+      "Follower": "XLK",
+      "SameCategory": false,
+      "F_Stat": 0.04088715840916915,
+      "p_value": 0.8397668659999286
+    },
+    {
+      "Leader": "GLD",
+      "Follower": "XLV",
+      "SameCategory": false,
+      "F_Stat": 0.26903295746370265,
+      "p_value": 0.6040118323044452
+    },
+    {
+      "Leader": "GLD",
+      "Follower": "XLI",
+      "SameCategory": false,
+      "F_Stat": 0.1477003939944349,
+      "p_value": 0.7007645047635527
+    },
+    {
+      "Leader": "GLD",
+      "Follower": "EFA",
+      "SameCategory": false,
+      "F_Stat": 0.255015170060555,
+      "p_value": 0.613595362471336
+    },
+    {
+      "Leader": "GLD",
+      "Follower": "EEM",
+      "SameCategory": false,
+      "F_Stat": 2.6387046878578704,
+      "p_value": 0.10437262744322003
+    },
+    {
+      "Leader": "GLD",
+      "Follower": "IOO",
+      "SameCategory": false,
+      "F_Stat": 0.12265090817018943,
+      "p_value": 0.7261966419687436
+    },
+    {
+      "Leader": "GLD",
+      "Follower": "TLT",
+      "SameCategory": false,
+      "F_Stat": 0.7735919720115996,
+      "p_value": 0.3791645229161502
+    },
+    {
+      "Leader": "GLD",
+      "Follower": "IEF",
+      "SameCategory": false,
+      "F_Stat": 0.01699427832233055,
+      "p_value": 0.8962869427488926
+    },
+    {
+      "Leader": "GLD",
+      "Follower": "SHY",
+      "SameCategory": false,
+      "F_Stat": 2.5109846748802327,
+      "p_value": 0.11313963595102494
+    },
+    {
+      "Leader": "GLD",
+      "Follower": "TIP",
+      "SameCategory": false,
+      "F_Stat": 0.012901014090245784,
+      "p_value": 0.909574739958839
+    },
+    {
+      "Leader": "GLD",
+      "Follower": "ZROZ",
+      "SameCategory": false,
+      "F_Stat": 1.0188947699509463,
+      "p_value": 0.31284647609576716
+    },
+    {
+      "Leader": "GLD",
+      "Follower": "USO",
+      "SameCategory": true,
+      "F_Stat": 3.737965716104016,
+      "p_value": 0.0532643856647436
+    },
+    {
+      "Leader": "GLD",
+      "Follower": "SLV",
+      "SameCategory": true,
+      "F_Stat": 0.0619941416976224,
+      "p_value": 0.8033850772506509
+    },
+    {
+      "Leader": "GLD",
+      "Follower": "DBC",
+      "SameCategory": true,
+      "F_Stat": 1.6031315357405989,
+      "p_value": 0.20553867958683358
+    }
+  ],
+  "vif_sample": [
+    {
+      "feature": "Lag1",
+      "VIF": 303.75422913654273
+    },
+    {
+      "feature": "Lag5",
+      "VIF": 384.99785932962817
+    },
+    {
+      "feature": "Lag22",
+      "VIF": 46.199056881102095
+    }
+  ]
+}

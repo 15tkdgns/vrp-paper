@@ -1,0 +1,14 @@
+{
+  "V36_baseline": 0.7715880099676509,
+  "alpha_optimized": 0.771069789389383,
+  "per_asset": 0.7600683928495646,
+  "ensemble": 0.7769103699708702,
+  "best_alphas": {
+    "Equity": 100.0,
+    "Bond": 0.01,
+    "Commodity": 1000.0
+  },
+  "xgboost": 0.7489386163829292,
+  "best_name": "Ensemble",
+  "best_r2": 0.7769103699708702
+}

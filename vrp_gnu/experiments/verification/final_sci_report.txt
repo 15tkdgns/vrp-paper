@@ -1,0 +1,20 @@
+SCI PAPER RESULTS SUMMARY
+==============================
+                 Model        R2          Type
+V29 (Hybrid HAR-GARCH)  0.652942        Hybrid
+   HAR-Only (Baseline)  0.648158        Linear
+            GARCH-Only  0.498063          Stat
+            LSTM (V31) -0.066200 Deep Learning
+           Mamba (V31) -0.093600 Deep Learning
+        GraphVol (V33) -0.231600 Deep Learning
+             KAN (V32) -0.423600 Deep Learning
+
+Statistical Significance (V29 vs HAR):
+DM-Stat: -2.0149, P-Value: 0.0220
+
+Regime Stability:
+                      Period       R2     RMSE  Samples
+                 Full Period 0.615557 0.667566   133488
+       Pre-COVID (2010-2019) 0.605334 0.645189    88992
+    COVID Crisis (2020-2021) 0.536619 0.924513    18180
+Inflation/Stable (2022-2025) 0.647163 0.512226    26316

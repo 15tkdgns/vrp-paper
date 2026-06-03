@@ -1,0 +1,57 @@
+<details>
+  <summary>Bollerslev, Tauchen & Zhou (2009): "Expected Stock Returns and Variance Risk Premia" (Review of Financial Studies)</summary>
+  <div class="paper-details">
+    <div class="paper-links">
+      <a href="https://doi.org/10.1093/rfs/hhp008" target="_blank">[Journal Link]</a>
+      <a href="https://www.federalreserve.gov/pubs/ifdp/2007/905/ifdp905.pdf" target="_blank">[Working Paper PDF]</a>
+    </div>
+
+    <details class="nested-details">
+      <summary>논문 개요</summary>
+      <div class="nested-content">
+        <p>Variance Risk Premium(VRP)이 주식 시장의 수익률을 예측하는 강력한 선행 지표임을 실증적으로 증명한 연구입니다. 특히 전통적인 배당수익률이나 P/E 배수보다 단기-중기(분기 단위) 수익률 예측력이 월등함을 보여주었습니다.</p>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>연구 질문</summary>
+      <div class="nested-content">
+        <ul>
+          <li>VIX와 실현 변동성 사이의 괴리(VRP)가 미래 주식 시장의 초과 수익률을 설명할 수 있는가?</li>
+          <li>VRP의 예측력은 어떤 시계열 지표(Horizon)에서 가장 강력하게 나타나는가?</li>
+          <li>기존의 거시경제적 예측 변수들과 비교했을 때 VRP의 상대적 우위는 어떠한가?</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>데이터 및 샘플</summary>
+      <div class="nested-content">
+        <ul>
+          <li><strong>기간:</strong> 1990년 1월 ~ 2007년 12월 (Post-1990 데이터의 중요성 강조)</li>
+          <li><strong>내재 변동성:</strong> CBOE VIX 지수 (Model-free IV)</li>
+          <li><strong>실현 분산:</strong> S&P 500 선물의 5분 단위 고빈도 데이터를 활용한 정밀한 RV 측정.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>방법론</summary>
+      <div class="nested-content">
+        <p><strong>VRP 정의:</strong> $VRP_t = IV_t^2 - E_t^\mathbb{P}[RV_{t, t+1}]$ 로 정의. (미래 기대 실현 분산은 과거 데이터를 통한 예측치 사용)</p>
+        <p><strong>예측 회귀 분석:</strong> $Excess\ Return_{t, t+k} = \alpha + \beta \cdot VRP_t + \gamma \cdot Controls + \epsilon$ 의 다변량 회귀 모형을 통해 k=1, 3, 6, 9, 12개월 수익률 예측력을 테스트했습니다.</p>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>연구 결과</summary>
+      <div class="nested-content">
+        <ul>
+          <li><strong>분기별 예측력의 정점:</strong> VRP는 3개월(분기) 수익률 예측에서 가장 높은 $R^2$(약 7~10%)를 기록하며 통계적으로 매우 유의미했습니다.</li>
+          <li><strong>전통적 변수 압도:</strong> 배당수익률(Dividend Yield), P/E 비율, Default Spread 등이 설명하지 못하는 시장의 '공포 프리미엄'을 VRP가 효과적으로 포착합니다.</li>
+          <li><strong>통합 모델의 효율성:</strong> VRP와 P/E 비율을 결합할 경우 분기 수익률 변동의 25% 이상을 설명할 수 있음을 보여주었습니다.</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+</details>

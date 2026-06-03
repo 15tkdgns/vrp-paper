@@ -1,0 +1,55 @@
+<details>
+  <summary>Pyun (2019): "Variance Risk in Aggregate Stock Returns and Time-Varying Return Predictability" (Journal of Financial Economics)</summary>
+  <div class="paper-details">
+    <div class="paper-links">
+      <a href="https://doi.org/10.1016/j.jfineco.2018.10.007" target="_blank">[Journal Link]</a>
+    </div>
+
+    <details class="nested-details">
+      <summary>논문 개요</summary>
+      <div class="nested-content">
+        <p>시계열적으로 변하는 주식 시장의 수익률 예측 가능성을 Variance Risk Premium(VRP) 관점에서 재해석한 연구입니다. 특히 총체적 주식 수익률에 내재된 분산 위험의 보상이 시간에 따라 어떻게 변화하며, 이것이 미래 수익률에 어떻게 투영되는지를 실증적으로 분석했습니다.</p>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>연구 질문</summary>
+      <div class="nested-content">
+        <ul>
+          <li>VRP가 시장 전체의 수익률을 예측하는 데 있어 통계적, 경제적으로 유의미한 알파를 제공하는가?</li>
+          <li>분산 위험의 가격화 과정에서 발생하는 시변적(Time-varying) 특성은 무엇인가?</li>
+          <li>기존 모델들이 놓치고 있는 '위험의 가격' 변동을 VRP가 어떻게 포착하는가?</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>데이터 및 샘플</summary>
+      <div class="nested-content">
+        <ul>
+          <li><strong>데이터:</strong> S&P 500 지수 수익률 및 관련 옵션 데이터 (OptionMetrics).</li>
+          <li><strong>특징:</strong> 장기간의 시계열 데이터를 사용하여 다양한 경제 국면에서의 예측력을 검증.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>방법론</summary>
+      <div class="nested-content">
+        <p><strong>Predictability Test:</strong> VRP를 주요 예측 변수로 사용한 회귀 분석 프레임워크. 통제 변수로 기업 특성 및 거시경제 지표 활용.</p>
+        <p><strong>Economic Significance:</strong> 통계적 유의성뿐만 아니라, 실제 투자 전략으로 연결했을 때의 성과(Out-of-sample performance)를 측정했습니다.</p>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>연구 결과</summary>
+      <div class="nested-content">
+        <ul>
+          <li><strong>강력한 예측 지표:</strong> VRP가 미래 주식 수익률의 시계열적 변동을 설명하는 데 있어 매우 강력한 도구임을 입증했습니다.</li>
+          <li><strong>경제적 가치:</strong> VRP 기반의 자산 배분 전략이 벤치마크 대비 우월한 위험 대비 수익률을 기록함을 확인했습니다.</li>
+          <li><strong>이론적 기여:</strong> 시장의 위험 회피도가 변함에 따라 수익률 예측력이 어떻게 동적으로 변화하는지를 규명했습니다.</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+</details>

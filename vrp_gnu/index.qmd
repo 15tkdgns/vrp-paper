@@ -1,0 +1,9 @@
+---
+pagetitle: "Redirecting..."
+format: html
+---
+
+<meta http-equiv="refresh" content="0; url=content/index.html">
+<script>window.location = "content/index.html";</script>
+
+Wait while you are redirected...

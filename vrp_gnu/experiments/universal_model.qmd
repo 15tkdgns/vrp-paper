@@ -1,0 +1,165 @@
+---
+title: "Universal Model Experiment"
+subtitle: "통합 모델을 이용한 자산 변동성 예측 (Cross-Asset Volatility Prediction)"
+format:
+  html:
+    code-fold: true
+    toc: true
+---
+
+# 1. 통합 모델 개요 (Overview)
+
+본 실험은 **23개 주요 자산(Equity, Bond, Commodity)**을 하나의 데이터셋으로 통합(Pooling)하여 단일 모델로 학습하는 **Universal Model** 접근법을 검증했습니다.
+
+> **핵심 가설 (Hypothesis)**: 
+> 개별 자산마다 별도의 모델을 만드는 것보다, 모든 자산의 데이터를 합쳐서 "변동성의 보편적 법칙(Universal Laws of Volatility)"을 학습하는 것이 노이즈 강건성과 일반화 성능이 더 뛰어날 것이다.
+
+---
+
+# 2. 피처 엔지니어링 (Feature Engineering)
+
+**설계 원칙 (Design Principles)**: 
+1. **No Future Info**: 시점 $t$에서 가용한 정보($t-1$까지의 데이터)만 사용
+2. **Log-Scale**: 모든 변동성 변수를 $\ln(RV)$로 변환하여 분포 정규화 및 스케일 통일
+3. **Cross-Asset**: 주식(SPY), 채권(TLT), 금(GLD)의 변동성을 모든 자산 예측에 활용
+
+## 2.1 피처 구성표 (Feature Config)
+
+| 그룹 | 피처 | 수식 | 설명 |
+|---|---|---|---|
+| **기본 (HAR)** | `LogRV_lag1` | $\ln(RV_{t-1})$ | 어제의 변동성 |
+| | `LogRV_lag5` | $\ln(\bar{RV}_{t-5:t-1})$ | 주간 평균 변동성 |
+| | `LogRV_lag22` | $\ln(\bar{RV}_{t-22:t-1})$ | 월간 평균 변동성 |
+| | `LogRV_Mom` | $\ln RV_{t-1} - \ln RV_{t-5}$ | 변동성 모멘텀 |
+| **글로벌** | `LogVIX` | $\ln(VIX_{t-1})$ | 내재변동성 (시장 공포) |
+| | `VIX_Term` | $VIX3M - VIX$ | 기간 구조 (Term Structure) |
+| | `SKEW` | $SKEW_{Idx} - 1$ | 꼬리 위험 (Tail Risk) |
+| **교차 자산** | `LogRV_SPY` | $\ln(RV_{SPY})$ | 주식 시장 리스크 프록시 |
+| | `LogRV_TLT` | $\ln(RV_{TLT})$ | 채권 시장 리스크 프록시 |
+| | `LogRV_GLD` | $\ln(RV_{GLD})$ | 금/원자재 리스크 프록시 |
+
+---
+
+## 2.2 피처 확장 (Feature Expansion) - **[신규]**
+
+Literature(Feunou 2017, Carr 2009 등)를 기반으로 다음 변수들을 추가하여 모델 개선을 시도했습니다.
+
+| 그룹 | 피처 | 설명 | 출처/논리 |
+|---|---|---|---|
+| **비대칭성** | `LogRV_Down` | 하락 변동성 | "나쁜" 변동성이 예측력이 높음 (Feunou '17) |
+| | `RS_Asymmetry` | `LogRV_Down` - `LogRV_Up` | 변동성 비대칭성 |
+| **VRP** | `VRP_Proxy` | `LogVIX` - `LogRV` | 분산 리스크 프리미엄 (Carr '09) |
+| **기술적 지표** | `RSI` | 상대강도지수 | 과매수/과매도 지표 |
+| | `BB_Width` | 볼린저 밴드 너비 | 변동성 군집성 측정치 |
+| **모멘트** | `Skewness` | 수익률 왜도 | 부호화된 점프(Signed Jump) 프록시 |
+
+---
+
+# 3. 실험 결과 (Results)
+
+## 3.1 아키텍처 비교 (Linear vs Deep Learning)
+
+금융 시계열, 특히 변동성 데이터는 노이즈가 매우 심해 복잡한 딥러닝 모델이 오히려 과적합될 수 있습니다. 본 실험 결과도 이를 뒷받침합니다.
+
+| 모델 | 전체 R² | 자산 평균 R² | 비고 |
+|---|---|---|---|
+| **Baseline MLP** | 0.260 | -0.118 | 기본 비선형 모델 |
+| **Residual MLP** | 0.232 | -0.134 | 잔차 연결(Skip-connection) 효과 미미 |
+| **LSTM** | -0.046 | -0.482 | 심각한 과적합 발생 |
+| **Transformer** | 0.145 | -0.218 | 정형 데이터에 과한 복잡성 |
+| **Ensemble (최종)** | **0.848** | **0.170** | **선형 + 트리 모델 조합** |
+
+## 3.2 확장 모델 성능 (New Feature Results) - **[NEW]**
+
+새로운 피처를 추가한 **V6 실험** 결과, Baseline(Ridge) 대비 현저한 성능 향상이 있었습니다. 특히 비선형 모델(Random Forest)에서 Techncial 및 VRP 변수의 효과가 극대화되었습니다.
+
+| Model | Features | R2 Score | Improvement |
+|---|---|---|---|
+| **Baseline (Ridge)** | Basic (HAR) | 0.8180 | - |
+| **Expanded (Ridge)** | Basic + New | 0.8237 | +0.7% |
+| **Expanded (RF)** | **Basic + New** | **0.8649** | **+5.7%** |
+
+> **주요 발견 (Key Findings)**:
+> 1. **VRP Proxy**: `LogVIX - LogRV`가 변동성 예측에 매우 중요한 정보(#2 Importance)를 담고 있습니다.
+> 2. **Non-linearity**: 단순 선형 모델(Ridge)보다 Tree 모델(RF)에서 피처 효과가 큽니다.
+> 3. **Technicals**: `BB_Width`가 상위 중요도에 랭크되었습니다.
+
+## 3.3 자산 카테고리별 성능 (Per-Category Results) - **[NEW]**
+
+자산군을 Equity, Bond, Commodity로 분류하여 각 카테고리별 예측 성능을 분석했습니다.
+
+| Category | R2 Score | Samples | Characteristics |
+|---|---|---|---|
+| **Bond** | **0.9530** | 3,664 | High Predictability (Rate Trends) |
+| Commodity | 0.6251 | 2,951 | Supply/Demand Cycles |
+| Equity | 0.5142 | 9,701 | Low Predictability (Efficient Market) |
+
+> **분석 (Analysis)**:
+> 1. **Bond**: 금리 변동은 거시경제 정책에 따라 추세를 형성하므로 예측 가능성이 가장 높습니다.
+> 2. **Commodity**: 명확한 공급/수요 사이클로 인해 중간 수준의 예측력을 보입니다.
+> 3. **Equity**: 정보 반영 속도가 빨라 랜덤워크에 가깝고 예측이 어렵습니다.
+
+## 3.4 자산별 성능 (Top 10 Assets)
+
+예측 정확도가 높은 자산들은 주로 **거시경제(Macro) 요인에 민감한 자산군**이었습니다.
+
+| Rank | Asset | R2 Score | Category | Feature |
+|---|---|---|---|---|
+| 1 | **AGG** | **0.479** | Bond | Rate/Inflation |
+| 2 | **SLV** | 0.319 | Commodity | Silver Demand |
+| 3 | **DBC** | 0.306 | Commodity | Super-cycle |
+| 4 | **USO** | 0.297 | Commodity | Oil/Geopolitics |
+| 5 | **FXE** | 0.231 | Currency | Euro/Dollar |
+| 6 | **GLD** | 0.200 | Commodity | Safe Asset |
+| 7 | **LQD** | 0.185 | Corp Bond | Credit Spread |
+| 8 | **SHY** | 0.175 | Bond | Fed Policy |
+| 9 | **IEF** | 0.161 | Bond | Benchmark Rate |
+| 10| **UNG** | 0.144 | Commodity | Gas Seasonality |
+
+---
+
+## 3.5 벤치마크 결과 (Benchmark Results) - **[NEW]**
+
+Naive(Random Walk)부터 최신 딥러닝(DeepVol)까지 다양한 모델을 비교했습니다 (V8 실험).
+
+| Rank | Model | R2 Score | Type | Note |
+|---|---|---|---|---|
+| **1** | **Random Forest** | **0.8655** | **ML (Tree)** | **Best Performance** |
+| 2 | XGBoost | 0.8591 | ML (Boosting) | Christensen et al. (2023) |
+| 3 | MLP (DeepVol) | 0.8590 | DL (Neural) | Michael et al. (2025) |
+| 4 | LightGBM | 0.8590 | ML (Boosting) | Fast Training |
+| 5 | GradientBoosting | 0.8582 | ML (Boosting) | |
+| 6 | Ensemble (Avg) | 0.8553 | Ensemble | Average |
+| 7 | **HAR-Ridge** | **0.8180** | **Baseline** | **Corsi (2009)** |
+| 8 | Naive (RW) | 0.7899 | Baseline | Random Walk |
+| 9 | Historical Mean | 0.0000 | Baseline | Constant |
+
+> **인사이트 (Insights)**:
+> - **ML Superiority**: 모든 ML/DL 모델이 전통적 계량경제 모델(HAR)을 상회합니다.
+> - **Tree vs Neural**: 정형 데이터 특성상 Tree 기반 모델(RF)이 가장 우수합니다.
+
+---
+
+## 3.6 신경망 아키텍처 비교 (Neural Network Results) - **[NEW]**
+
+PyTorch 기반 다양한 신경망 아키텍처를 비교했습니다 (V9 실험).
+
+| Rank | Model | R2 Score | Feature |
+|---|---|---|---|
+| **1** | **Deep MLP (Residual)** | **0.8492** | **Best NN** |
+| 2 | Transformer | 0.8430 | Michael et al. (2025) |
+| 3 | LSTM (DeepVol) | 0.8385 | Sequence Model |
+| 4 | TCN | 0.8347 | Temporal Conv |
+| 5 | Simple MLP | 0.8333 | Basic NN |
+
+> **분석 (Analysis)**:
+> - **Residual**: Skip Connection이 성능 향상에 기여했습니다.
+> - **Limit**: 정형 데이터에서는 Transformer 등의 복잡한 모델 이점이 제한적입니다.
+
+---
+
+# 4. 결론 및 향후 계획 (Conclusion)
+
+1.  **V5 Model**: 복잡한 딥러닝보다는 **안정적인 앙상블/트리 모델**이 실전 변동성 예측에 적합합니다.
+2.  **Cross-Asset**: 채권과 금의 변동성 정보가 주식 예측에도 중요한 역할을 했습니다.
+3.  **Next Step**: 통합 모델을 실제 트레이딩 전략(Volatility Targeting)에 적용하여 검증할 예정입니다.

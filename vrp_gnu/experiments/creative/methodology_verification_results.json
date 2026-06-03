@@ -1,0 +1,182 @@
+{
+  "vix_availability": {
+    "VIX": {
+      "start": "2010-01-04",
+      "end": "2024-12-31",
+      "n_days": 3774,
+      "missing": 0,
+      "coverage_pct": 100.0
+    },
+    "VIX3M": {
+      "start": "2010-01-04",
+      "end": "2024-12-31",
+      "n_days": 3774,
+      "missing": 0,
+      "coverage_pct": 100.0
+    },
+    "VIX9D": {
+      "start": "2011-01-03",
+      "end": "2024-12-31",
+      "n_days": 3522,
+      "missing": 252,
+      "coverage_pct": 93.3
+    }
+  },
+  "dividend_impact": {
+    "SPY": {
+      "n_exdiv_days": 441,
+      "total_days": 3773,
+      "pct_exdiv": 11.69,
+      "range_exdiv": 0.015368,
+      "range_normal": 0.010694,
+      "range_ratio": 1.437,
+      "avg_gap_pct": -0.923
+    },
+    "QQQ": {
+      "n_exdiv_days": 518,
+      "total_days": 3773,
+      "pct_exdiv": 13.73,
+      "range_exdiv": 0.01764,
+      "range_normal": 0.013545,
+      "range_ratio": 1.302,
+      "avg_gap_pct": -0.966
+    },
+    "IWM": {
+      "n_exdiv_days": 545,
+      "total_days": 3773,
+      "pct_exdiv": 14.44,
+      "range_exdiv": 0.018487,
+      "range_normal": 0.015915,
+      "range_ratio": 1.162,
+      "avg_gap_pct": -0.964
+    },
+    "EFA": {
+      "n_exdiv_days": 790,
+      "total_days": 3773,
+      "pct_exdiv": 20.94,
+      "range_exdiv": 0.010684,
+      "range_normal": 0.00915,
+      "range_ratio": 1.168,
+      "avg_gap_pct": -1.023
+    },
+    "EEM": {
+      "n_exdiv_days": 885,
+      "total_days": 3773,
+      "pct_exdiv": 23.46,
+      "range_exdiv": 0.012145,
+      "range_normal": 0.011148,
+      "range_ratio": 1.089,
+      "avg_gap_pct": -1.1
+    },
+    "TLT": {
+      "n_exdiv_days": 748,
+      "total_days": 3773,
+      "pct_exdiv": 19.83,
+      "range_exdiv": 0.010083,
+      "range_normal": 0.009027,
+      "range_ratio": 1.117,
+      "avg_gap_pct": -0.885
+    },
+    "IEF": {
+      "n_exdiv_days": 157,
+      "total_days": 3773,
+      "pct_exdiv": 4.16,
+      "range_exdiv": 0.005481,
+      "range_normal": 0.003829,
+      "range_ratio": 1.431,
+      "avg_gap_pct": -0.682
+    },
+    "AGG": {
+      "n_exdiv_days": 53,
+      "total_days": 3773,
+      "pct_exdiv": 1.4,
+      "range_exdiv": 0.005755,
+      "range_normal": 0.00272,
+      "range_ratio": 2.116,
+      "avg_gap_pct": -0.669
+    },
+    "GLD": {
+      "n_exdiv_days": 650,
+      "total_days": 3773,
+      "pct_exdiv": 17.23,
+      "range_exdiv": 0.010335,
+      "range_normal": 0.008853,
+      "range_ratio": 1.167,
+      "avg_gap_pct": -0.948
+    },
+    "SLV": {
+      "n_exdiv_days": 891,
+      "total_days": 3773,
+      "pct_exdiv": 23.62,
+      "range_exdiv": 0.016452,
+      "range_normal": 0.01716,
+      "range_ratio": 0.959,
+      "avg_gap_pct": -1.205
+    },
+    "USO": {
+      "n_exdiv_days": 938,
+      "total_days": 3773,
+      "pct_exdiv": 24.86,
+      "range_exdiv": 0.021776,
+      "range_normal": 0.022621,
+      "range_ratio": 0.963,
+      "avg_gap_pct": -1.246
+    }
+  },
+  "dividend_summary": {
+    "total_exdiv": 6616,
+    "total_days": 41503,
+    "pct": 15.94,
+    "avg_range_ratio": 1.265
+  },
+  "iv_horizon_comparison": {
+    "1d": {
+      "VIX_only": 0.1077,
+      "VIX9D_only": 0.1122,
+      "VIX3M_only": 0.1076,
+      "All_IV": 0.1123
+    },
+    "5d": {
+      "VIX_only": 0.5905,
+      "VIX9D_only": 0.6035,
+      "VIX3M_only": 0.5867,
+      "All_IV": 0.6067
+    },
+    "22d": {
+      "VIX_only": 0.7686,
+      "VIX9D_only": 0.7657,
+      "VIX3M_only": 0.763,
+      "All_IV": 0.7672
+    },
+    "60d": {
+      "VIX_only": 0.7695,
+      "VIX9D_only": 0.766,
+      "VIX3M_only": 0.7667,
+      "All_IV": 0.7623
+    },
+    "90d": {
+      "VIX_only": 0.7545,
+      "VIX9D_only": 0.7482,
+      "VIX3M_only": 0.7536,
+      "All_IV": 0.7427
+    },
+    "120d": {
+      "VIX_only": 0.7435,
+      "VIX9D_only": 0.737,
+      "VIX3M_only": 0.7397,
+      "All_IV": 0.7256
+    },
+    "180d": {
+      "VIX_only": 0.7165,
+      "VIX9D_only": 0.7141,
+      "VIX3M_only": 0.7003,
+      "All_IV": 0.6844
+    },
+    "252d": {
+      "VIX_only": 0.6753,
+      "VIX9D_only": 0.6765,
+      "VIX3M_only": 0.6423,
+      "All_IV": 0.6128
+    }
+  }
+}

@@ -1,0 +1,113 @@
+---
+title: "레퍼런스"
+date: today
+---
+
+## 주요 참고 문헌
+
+### Finance / Econometrics
+
+#### Variance Risk Premium 이론
+
+1. **Carr, P., & Wu, L. (2009).** Variance Risk Premia. *Review of Financial Studies*, 22(3), 1311-1341.
+   - VRP의 표준 정의 제시
+   - Risk-neutral vs physical measure 분석
+
+2. **Bekaert, G., & Hoerova, M. (2014).** The VIX, the Variance Premium and Stock Market Volatility. *ECB Working Paper*, No. 1675.
+   - VIX² 분해: VIX² = E^P[RV] + VRP
+   - VRP의 주가 수익률 예측력
+
+3. **Hansen, P. R., Huang, Z., Tong, H., & Wang, S. (2021).** Realized GARCH, CBOE VIX, and the Volatility Risk Premium. *Journal of Financial Econometrics*, 2024.
+   - Realized GARCH 모형
+   - 고빈도 데이터 활용한 VRP 측정
+
+#### Cross-Asset VRP
+
+4. **Heston, S. L., et al. (2023).** Exploring the Variance Risk Premium Across Assets. *AEA Conference 2024*.
+   - 20개 선물에 대한 VRP 분석
+   - 자산별 VRP 이질성 발견
+
+5. **Ornelas, J., et al. (2018).** Volatility risk premia and future commodity returns. *BIS Working Paper*, No. 619.
+   - 원자재 VRP의 수익률 예측력
+   - Cross-market spillover 효과
+
+#### Options & VIX
+
+6. **Fleming, J., Ostdiek, B., & Whaley, R. E. (1995).** Predicting stock market volatility: a new measure. *Journal of Finance*, 50(1), 151-178.
+
+7. **Whaley, R. E. (2000).** The investor fear gauge. *Journal of Portfolio Management*, 26(3), 12-17.
+
+---
+
+### Computer Science / Machine Learning
+
+#### ML-based Volatility Forecasting
+
+8. **Carr, P., Wu, L., & Zhang, Z. (2019).** Using Machine Learning to Predict Realized Variance. *ArXiv preprint*.
+   - ML을 통한 RV 예측
+   - VRP deviation 예측의 우수성
+
+9. **Christensen, K., et al. (2022).** Volatility forecasting with machine learning and intraday commonality. *Journal of Financial Econometrics*, 2024.
+   - Intraday commonality 개념
+   - Neural Network의 성능 우위
+
+10. **Roszyk, K., & Slepaczuk, R. (2024).** The Hybrid Forecast of S&P 500 Volatility ensembled from VIX, GARCH and LSTM. *ArXiv preprint*.
+    - LSTM-GARCH 하이브리드 모델
+    - VIX 입력의 효과
+
+#### Validation & Best Practices
+
+11. **Benhenda, M., et al. (2026).** A Standardized Benchmark of Look-ahead Bias in Point-in-Time Financial ML. *ArXiv preprint*.
+    - Look-ahead bias 벤치마킹
+    - Time-series cross-validation 프레임워크
+
+12. **Lopez de Prado, M. (2018).** *Advances in Financial Machine Learning*. Wiley.
+    - Purged rolling window validation
+    - Financial ML best practices
+
+---
+
+## 데이터 소스
+
+- **VIX 데이터**: CBOE (Chicago Board Options Exchange)
+- **Realized Volatility**: 고빈도 가격 데이터 기반 계산
+- **Sentiment Indicators**: 
+  - SKEW Index (CBOE)
+  - VIX Term Structure
+
+---
+
+## 도구 및 라이브러리
+
+### Python 패키지
+- `pandas`: 데이터 처리
+- `numpy`: 수치 계산
+- `scikit-learn`: 머신러닝 모델
+- `xgboost`, `lightgbm`: Gradient Boosting
+- `tensorflow`, `pytorch`: 딥러닝
+- `matplotlib`, `seaborn`: 시각화
+
+### 소프트웨어
+- Quarto: 연구 노트북 및 문서화
+- Jupyter: 대화형 분석
+- Git: 버전 관리
+
+---
+
+## 온라인 리소스
+
+- [Quarto 공식 문서](https://quarto.org/docs/)
+- [CBOE VIX Methodology](https://www.cboe.com/tradable_products/vix/)
+- [Financial Machine Learning Resources](https://www.financialmachinelearning.com/)
+
+---
+
+## 인용 형식
+
+본 연구에서 사용하는 인용 형식은 APA 스타일을 따릅니다.
+
+**예시:**
+> Carr and Wu (2009) proposed the standard definition of variance risk premium...
+
+**참고 문헌 목록:**
+- 저자명 (년도). 제목. *저널명*, 권(호), 페이지.

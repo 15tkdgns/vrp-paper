@@ -1,0 +1,258 @@
+======================================================================
+Ensemble Ablation: Ridge+XGBoost vs Ridge+CatBoost vs ...
+======================================================================
+
+Loading data...
+Assets: 11
+Ensemble pairs: [('Ridge', 'XGBoost'), ('Ridge', 'CatBoost'), ('Ridge', 'LightGBM'), ('XGBoost', 'CatBoost'), ('XGBoost', 'LightGBM'), ('CatBoost', 'LightGBM')]
+
+======================================================================
+  Horizon: 1d
+======================================================================
+    [Ridge     ]  test_R²=0.1170
+    [XGBoost   ]  test_R²=0.1139
+    [CatBoost  ]  test_R²=0.1147
+    [LightGBM  ]  test_R²=0.1077
+    [Ridge+XGBoost         ]  pw=0.9  inner_R²=0.2387  test_R²=0.1176
+    [Ridge+CatBoost        ]  pw=0.9  inner_R²=0.2388  test_R²=0.1176
+    [Ridge+LightGBM        ]  pw=0.9  inner_R²=0.2384  test_R²=0.1174
+    [XGBoost+CatBoost      ]  pw=0.4  inner_R²=0.2225  test_R²=0.1152
+    [XGBoost+LightGBM      ]  pw=0.9  inner_R²=0.2171  test_R²=0.1137
+    [CatBoost+LightGBM     ]  pw=0.9  inner_R²=0.2226  test_R²=0.1147
+    DM Ridge+XGBoost vs Ridge+CatBoost: stat=-0.302  p=0.763 
+    DM Ridge+XGBoost vs Ridge+LightGBM: stat=-1.321  p=0.186 
+    DM Ridge+XGBoost vs XGBoost+CatBoost: stat=-1.396  p=0.163 
+    DM Ridge+XGBoost vs XGBoost+LightGBM: stat=-2.089  p=0.037 ***
+    DM Ridge+XGBoost vs CatBoost+LightGBM: stat=-1.668  p=0.095 
+    DM Ridge+CatBoost vs Ridge+LightGBM: stat=-0.868  p=0.385 
+    DM Ridge+CatBoost vs XGBoost+CatBoost: stat=-1.369  p=0.171 
+    DM Ridge+CatBoost vs XGBoost+LightGBM: stat=-2.016  p=0.044 ***
+    DM Ridge+CatBoost vs CatBoost+LightGBM: stat=-1.666  p=0.096 
+    DM Ridge+LightGBM vs XGBoost+CatBoost: stat=-1.294  p=0.196 
+    DM Ridge+LightGBM vs XGBoost+LightGBM: stat=-1.998  p=0.046 ***
+    DM Ridge+LightGBM vs CatBoost+LightGBM: stat=-1.583  p=0.114 
+    DM XGBoost+CatBoost vs XGBoost+LightGBM: stat=-2.138  p=0.033 ***
+    DM XGBoost+CatBoost vs CatBoost+LightGBM: stat=-1.344  p=0.179 
+    DM XGBoost+LightGBM vs CatBoost+LightGBM: stat=+0.902  p=0.367 
+
+======================================================================
+  Horizon: 5d
+======================================================================
+    [Ridge     ]  test_R²=0.6219
+    [XGBoost   ]  test_R²=0.6077
+    [CatBoost  ]  test_R²=0.6114
+    [LightGBM  ]  test_R²=0.6042
+    [Ridge+XGBoost         ]  pw=0.7  inner_R²=0.7052  test_R²=0.6249
+    [Ridge+CatBoost        ]  pw=0.7  inner_R²=0.7059  test_R²=0.6263
+    [Ridge+LightGBM        ]  pw=0.8  inner_R²=0.7046  test_R²=0.6244
+    [XGBoost+CatBoost      ]  pw=0.4  inner_R²=0.6885  test_R²=0.6120
+    [XGBoost+LightGBM      ]  pw=0.9  inner_R²=0.6854  test_R²=0.6079
+    [CatBoost+LightGBM     ]  pw=0.9  inner_R²=0.6879  test_R²=0.6117
+    DM Ridge+XGBoost vs Ridge+CatBoost: stat=+2.994  p=0.003 ***
+    DM Ridge+XGBoost vs Ridge+LightGBM: stat=-1.014  p=0.311 
+    DM Ridge+XGBoost vs XGBoost+CatBoost: stat=-4.740  p=0.000 ***
+    DM Ridge+XGBoost vs XGBoost+LightGBM: stat=-6.380  p=0.000 ***
+    DM Ridge+XGBoost vs CatBoost+LightGBM: stat=-4.602  p=0.000 ***
+    DM Ridge+CatBoost vs Ridge+LightGBM: stat=-3.286  p=0.001 ***
+    DM Ridge+CatBoost vs XGBoost+CatBoost: stat=-5.408  p=0.000 ***
+    DM Ridge+CatBoost vs XGBoost+LightGBM: stat=-6.699  p=0.000 ***
+    DM Ridge+CatBoost vs CatBoost+LightGBM: stat=-5.387  p=0.000 ***
+    DM Ridge+LightGBM vs XGBoost+CatBoost: stat=-4.034  p=0.000 ***
+    DM Ridge+LightGBM vs XGBoost+LightGBM: stat=-5.412  p=0.000 ***
+    DM Ridge+LightGBM vs CatBoost+LightGBM: stat=-4.002  p=0.000 ***
+    DM XGBoost+CatBoost vs XGBoost+LightGBM: stat=-4.506  p=0.000 ***
+    DM XGBoost+CatBoost vs CatBoost+LightGBM: stat=-0.607  p=0.544 
+    DM XGBoost+LightGBM vs CatBoost+LightGBM: stat=+2.710  p=0.007 ***
+
+======================================================================
+  Horizon: 22d
+======================================================================
+    [Ridge     ]  test_R²=0.7968
+    [XGBoost   ]  test_R²=0.7700
+Warning: less than 75% GPU memory available for training. Free: 7290.308594 Total: 16302.5625
+    [CatBoost  ]  test_R²=0.7539
+    [LightGBM  ]  test_R²=0.7535
+    [Ridge+XGBoost         ]  pw=0.7  inner_R²=0.7077  test_R²=0.7974
+    [Ridge+CatBoost        ]  pw=0.8  inner_R²=0.7069  test_R²=0.7975
+    [Ridge+LightGBM        ]  pw=0.9  inner_R²=0.7063  test_R²=0.7974
+    [XGBoost+CatBoost      ]  pw=0.9  inner_R²=0.6878  test_R²=0.7696
+    [XGBoost+LightGBM      ]  pw=0.9  inner_R²=0.6871  test_R²=0.7690
+    [CatBoost+LightGBM     ]  pw=0.7  inner_R²=0.6804  test_R²=0.7563
+    DM Ridge+XGBoost vs Ridge+CatBoost: stat=+0.113  p=0.910 
+    DM Ridge+XGBoost vs Ridge+LightGBM: stat=-0.061  p=0.951 
+    DM Ridge+XGBoost vs XGBoost+CatBoost: stat=-7.673  p=0.000 ***
+    DM Ridge+XGBoost vs XGBoost+LightGBM: stat=-7.894  p=0.000 ***
+    DM Ridge+XGBoost vs CatBoost+LightGBM: stat=-8.536  p=0.000 ***
+    DM Ridge+CatBoost vs Ridge+LightGBM: stat=-0.182  p=0.856 
+    DM Ridge+CatBoost vs XGBoost+CatBoost: stat=-7.046  p=0.000 ***
+    DM Ridge+CatBoost vs XGBoost+LightGBM: stat=-7.199  p=0.000 ***
+    DM Ridge+CatBoost vs CatBoost+LightGBM: stat=-8.419  p=0.000 ***
+    DM Ridge+LightGBM vs XGBoost+CatBoost: stat=-6.211  p=0.000 ***
+    DM Ridge+LightGBM vs XGBoost+LightGBM: stat=-6.383  p=0.000 ***
+    DM Ridge+LightGBM vs CatBoost+LightGBM: stat=-7.446  p=0.000 ***
+    DM XGBoost+CatBoost vs XGBoost+LightGBM: stat=-2.787  p=0.005 ***
+    DM XGBoost+CatBoost vs CatBoost+LightGBM: stat=-6.080  p=0.000 ***
+    DM XGBoost+LightGBM vs CatBoost+LightGBM: stat=-5.430  p=0.000 ***
+
+======================================================================
+  Horizon: 60d
+======================================================================
+    [Ridge     ]  test_R²=0.8021
+    [XGBoost   ]  test_R²=0.7140
+    [CatBoost  ]  test_R²=0.7050
+    [LightGBM  ]  test_R²=0.6873
+    [Ridge+XGBoost         ]  pw=0.5  inner_R²=0.6260  test_R²=0.7853
+    [Ridge+CatBoost        ]  pw=0.5  inner_R²=0.6276  test_R²=0.7839
+    [Ridge+LightGBM        ]  pw=0.5  inner_R²=0.6264  test_R²=0.7792
+    [XGBoost+CatBoost      ]  pw=0.5  inner_R²=0.6106  test_R²=0.7152
+    [XGBoost+LightGBM      ]  pw=0.5  inner_R²=0.6095  test_R²=0.7057
+    [CatBoost+LightGBM     ]  pw=0.5  inner_R²=0.6114  test_R²=0.7028
+    DM Ridge+XGBoost vs Ridge+CatBoost: stat=-0.751  p=0.453 
+    DM Ridge+XGBoost vs Ridge+LightGBM: stat=-3.212  p=0.001 ***
+    DM Ridge+XGBoost vs XGBoost+CatBoost: stat=-7.627  p=0.000 ***
+    DM Ridge+XGBoost vs XGBoost+LightGBM: stat=-8.400  p=0.000 ***
+    DM Ridge+XGBoost vs CatBoost+LightGBM: stat=-8.082  p=0.000 ***
+    DM Ridge+CatBoost vs Ridge+LightGBM: stat=-2.009  p=0.045 ***
+    DM Ridge+CatBoost vs XGBoost+CatBoost: stat=-7.990  p=0.000 ***
+    DM Ridge+CatBoost vs XGBoost+LightGBM: stat=-8.472  p=0.000 ***
+    DM Ridge+CatBoost vs CatBoost+LightGBM: stat=-8.464  p=0.000 ***
+    DM Ridge+LightGBM vs XGBoost+CatBoost: stat=-7.309  p=0.000 ***
+    DM Ridge+LightGBM vs XGBoost+LightGBM: stat=-8.460  p=0.000 ***
+    DM Ridge+LightGBM vs CatBoost+LightGBM: stat=-8.167  p=0.000 ***
+    DM XGBoost+CatBoost vs XGBoost+LightGBM: stat=-3.416  p=0.001 ***
+    DM XGBoost+CatBoost vs CatBoost+LightGBM: stat=-4.776  p=0.000 ***
+    DM XGBoost+LightGBM vs CatBoost+LightGBM: stat=-1.258  p=0.208 
+
+======================================================================
+  Horizon: 90d
+======================================================================
+    [Ridge     ]  test_R²=0.7919
+    [XGBoost   ]  test_R²=0.7186
+    [CatBoost  ]  test_R²=0.6984
+    [LightGBM  ]  test_R²=0.6909
+    [Ridge+XGBoost         ]  pw=0.4  inner_R²=0.5874  test_R²=0.7753
+    [Ridge+CatBoost        ]  pw=0.4  inner_R²=0.5957  test_R²=0.7668
+    [Ridge+LightGBM        ]  pw=0.4  inner_R²=0.5911  test_R²=0.7616
+    [XGBoost+CatBoost      ]  pw=0.4  inner_R²=0.5848  test_R²=0.7137
+    [XGBoost+LightGBM      ]  pw=0.4  inner_R²=0.5804  test_R²=0.7064
+    [CatBoost+LightGBM     ]  pw=0.7  inner_R²=0.5858  test_R²=0.7019
+    DM Ridge+XGBoost vs Ridge+CatBoost: stat=-2.065  p=0.039 ***
+    DM Ridge+XGBoost vs Ridge+LightGBM: stat=-3.358  p=0.001 ***
+    DM Ridge+XGBoost vs XGBoost+CatBoost: stat=-6.788  p=0.000 ***
+    DM Ridge+XGBoost vs XGBoost+LightGBM: stat=-7.595  p=0.000 ***
+    DM Ridge+XGBoost vs CatBoost+LightGBM: stat=-6.653  p=0.000 ***
+    DM Ridge+CatBoost vs Ridge+LightGBM: stat=-1.871  p=0.061 
+    DM Ridge+CatBoost vs XGBoost+CatBoost: stat=-8.006  p=0.000 ***
+    DM Ridge+CatBoost vs XGBoost+LightGBM: stat=-8.405  p=0.000 ***
+    DM Ridge+CatBoost vs CatBoost+LightGBM: stat=-8.173  p=0.000 ***
+    DM Ridge+LightGBM vs XGBoost+CatBoost: stat=-6.381  p=0.000 ***
+    DM Ridge+LightGBM vs XGBoost+LightGBM: stat=-8.026  p=0.000 ***
+    DM Ridge+LightGBM vs CatBoost+LightGBM: stat=-6.982  p=0.000 ***
+    DM XGBoost+CatBoost vs XGBoost+LightGBM: stat=-2.301  p=0.021 ***
+    DM XGBoost+CatBoost vs CatBoost+LightGBM: stat=-4.076  p=0.000 ***
+    DM XGBoost+LightGBM vs CatBoost+LightGBM: stat=-1.132  p=0.258 
+
+======================================================================
+  Horizon: 120d
+======================================================================
+    [Ridge     ]  test_R²=0.7822
+    [XGBoost   ]  test_R²=0.6909
+    [CatBoost  ]  test_R²=0.6738
+    [LightGBM  ]  test_R²=0.6842
+    [Ridge+XGBoost         ]  pw=0.5  inner_R²=0.5718  test_R²=0.7683
+    [Ridge+CatBoost        ]  pw=0.4  inner_R²=0.5799  test_R²=0.7517
+    [Ridge+LightGBM        ]  pw=0.5  inner_R²=0.5770  test_R²=0.7665
+    [XGBoost+CatBoost      ]  pw=0.4  inner_R²=0.5614  test_R²=0.6896
+    [XGBoost+LightGBM      ]  pw=0.4  inner_R²=0.5571  test_R²=0.6909
+    [CatBoost+LightGBM     ]  pw=0.7  inner_R²=0.5650  test_R²=0.6837
+    DM Ridge+XGBoost vs Ridge+CatBoost: stat=-3.093  p=0.002 ***
+    DM Ridge+XGBoost vs Ridge+LightGBM: stat=-0.563  p=0.573 
+    DM Ridge+XGBoost vs XGBoost+CatBoost: stat=-6.701  p=0.000 ***
+    DM Ridge+XGBoost vs XGBoost+LightGBM: stat=-7.042  p=0.000 ***
+    DM Ridge+XGBoost vs CatBoost+LightGBM: stat=-6.455  p=0.000 ***
+    DM Ridge+CatBoost vs Ridge+LightGBM: stat=+3.825  p=0.000 ***
+    DM Ridge+CatBoost vs XGBoost+CatBoost: stat=-7.771  p=0.000 ***
+    DM Ridge+CatBoost vs XGBoost+LightGBM: stat=-7.562  p=0.000 ***
+    DM Ridge+CatBoost vs CatBoost+LightGBM: stat=-7.867  p=0.000 ***
+    DM Ridge+LightGBM vs XGBoost+CatBoost: stat=-7.014  p=0.000 ***
+    DM Ridge+LightGBM vs XGBoost+LightGBM: stat=-7.576  p=0.000 ***
+    DM Ridge+LightGBM vs CatBoost+LightGBM: stat=-7.088  p=0.000 ***
+    DM XGBoost+CatBoost vs XGBoost+LightGBM: stat=+0.394  p=0.693 
+    DM XGBoost+CatBoost vs CatBoost+LightGBM: stat=-2.057  p=0.040 ***
+    DM XGBoost+LightGBM vs CatBoost+LightGBM: stat=-1.599  p=0.110 
+
+======================================================================
+  Horizon: 180d
+======================================================================
+    [Ridge     ]  test_R²=0.7528
+    [XGBoost   ]  test_R²=0.7260
+    [CatBoost  ]  test_R²=0.6689
+    [LightGBM  ]  test_R²=0.6995
+    [Ridge+XGBoost         ]  pw=0.5  inner_R²=0.5112  test_R²=0.7647
+    [Ridge+CatBoost        ]  pw=0.4  inner_R²=0.5244  test_R²=0.7386
+    [Ridge+LightGBM        ]  pw=0.5  inner_R²=0.5149  test_R²=0.7577
+    [XGBoost+CatBoost      ]  pw=0.4  inner_R²=0.5096  test_R²=0.7019
+    [XGBoost+LightGBM      ]  pw=0.4  inner_R²=0.4997  test_R²=0.7150
+    [CatBoost+LightGBM     ]  pw=0.9  inner_R²=0.5115  test_R²=0.6744
+    DM Ridge+XGBoost vs Ridge+CatBoost: stat=-2.860  p=0.004 ***
+    DM Ridge+XGBoost vs Ridge+LightGBM: stat=-1.423  p=0.155 
+    DM Ridge+XGBoost vs XGBoost+CatBoost: stat=-4.092  p=0.000 ***
+    DM Ridge+XGBoost vs XGBoost+LightGBM: stat=-3.534  p=0.000 ***
+    DM Ridge+XGBoost vs CatBoost+LightGBM: stat=-4.627  p=0.000 ***
+    DM Ridge+CatBoost vs Ridge+LightGBM: stat=+3.507  p=0.000 ***
+    DM Ridge+CatBoost vs XGBoost+CatBoost: stat=-3.826  p=0.000 ***
+    DM Ridge+CatBoost vs XGBoost+LightGBM: stat=-2.238  p=0.025 ***
+    DM Ridge+CatBoost vs CatBoost+LightGBM: stat=-5.480  p=0.000 ***
+    DM Ridge+LightGBM vs XGBoost+CatBoost: stat=-4.288  p=0.000 ***
+    DM Ridge+LightGBM vs XGBoost+LightGBM: stat=-3.513  p=0.000 ***
+    DM Ridge+LightGBM vs CatBoost+LightGBM: stat=-5.120  p=0.000 ***
+    DM XGBoost+CatBoost vs XGBoost+LightGBM: stat=+3.009  p=0.003 ***
+    DM XGBoost+CatBoost vs CatBoost+LightGBM: stat=-4.667  p=0.000 ***
+    DM XGBoost+LightGBM vs CatBoost+LightGBM: stat=-4.254  p=0.000 ***
+
+======================================================================
+  Horizon: 252d
+======================================================================
+    [Ridge     ]  test_R²=0.6978
+    [XGBoost   ]  test_R²=0.6826
+    [CatBoost  ]  test_R²=0.6418
+    [LightGBM  ]  test_R²=0.6728
+    [Ridge+XGBoost         ]  pw=0.4  inner_R²=0.4722  test_R²=0.7342
+    [Ridge+CatBoost        ]  pw=0.4  inner_R²=0.4828  test_R²=0.7172
+    [Ridge+LightGBM        ]  pw=0.4  inner_R²=0.4761  test_R²=0.7300
+    [XGBoost+CatBoost      ]  pw=0.4  inner_R²=0.4774  test_R²=0.6661
+    [XGBoost+LightGBM      ]  pw=0.4  inner_R²=0.4707  test_R²=0.6810
+    [CatBoost+LightGBM     ]  pw=0.9  inner_R²=0.4803  test_R²=0.6480
+    DM Ridge+XGBoost vs Ridge+CatBoost: stat=-4.159  p=0.000 ***
+    DM Ridge+XGBoost vs Ridge+LightGBM: stat=-1.239  p=0.215 
+    DM Ridge+XGBoost vs XGBoost+CatBoost: stat=-2.939  p=0.003 ***
+    DM Ridge+XGBoost vs XGBoost+LightGBM: stat=-2.275  p=0.023 ***
+    DM Ridge+XGBoost vs CatBoost+LightGBM: stat=-3.721  p=0.000 ***
+    DM Ridge+CatBoost vs Ridge+LightGBM: stat=+3.411  p=0.001 ***
+    DM Ridge+CatBoost vs XGBoost+CatBoost: stat=-2.215  p=0.027 ***
+    DM Ridge+CatBoost vs XGBoost+LightGBM: stat=-1.531  p=0.126 
+    DM Ridge+CatBoost vs CatBoost+LightGBM: stat=-3.048  p=0.002 ***
+    DM Ridge+LightGBM vs XGBoost+CatBoost: stat=-2.729  p=0.006 ***
+    DM Ridge+LightGBM vs XGBoost+LightGBM: stat=-2.095  p=0.036 ***
+    DM Ridge+LightGBM vs CatBoost+LightGBM: stat=-3.538  p=0.000 ***
+    DM XGBoost+CatBoost vs XGBoost+LightGBM: stat=+3.816  p=0.000 ***
+    DM XGBoost+CatBoost vs CatBoost+LightGBM: stat=-7.318  p=0.000 ***
+    DM XGBoost+LightGBM vs CatBoost+LightGBM: stat=-6.286  p=0.000 ***
+
+Saved: /mnt/c/Users/user/Desktop/vrp/vrp_gnu/results/ensemble_ablation_results.json
+Saved: /mnt/c/Users/user/Desktop/vrp/vrp_gnu/../paper/csv/ensemble_ablation_results.csv
+Saved: /mnt/c/Users/user/Desktop/vrp/vrp_gnu/../paper/csv/ensemble_ablation_dm.csv
+
+======================================================================
+Pooled R² by Ensemble & Horizon
+======================================================================
+Ensemble  CatBoost+LightGBM  Ridge+CatBoost  Ridge+LightGBM  Ridge+XGBoost  XGBoost+CatBoost  XGBoost+LightGBM
+Horizon                                                                                                       
+1d                   0.1147          0.1176          0.1174         0.1176            0.1152            0.1137
+5d                   0.6117          0.6263          0.6244         0.6249            0.6120            0.6079
+22d                  0.7563          0.7975          0.7974         0.7974            0.7696            0.7690
+60d                  0.7028          0.7839          0.7792         0.7853            0.7152            0.7057
+90d                  0.7019          0.7668          0.7616         0.7753            0.7137            0.7064
+120d                 0.6837          0.7517          0.7665         0.7683            0.6896            0.6909
+180d                 0.6744          0.7386          0.7577         0.7647            0.7019            0.7150
+252d                 0.6480          0.7172          0.7300         0.7342            0.6661            0.6810

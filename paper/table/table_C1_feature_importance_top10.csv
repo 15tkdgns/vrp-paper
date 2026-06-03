@@ -1,0 +1,81 @@
+Horizon,Rank,Feature,Avg_Rank,Group
+1d,1,Range_Close_Ratio,3.667,HF Proxy
+1d,2,RogersSatchell_22,4.333,HF Proxy
+1d,3,Parkinson_5,4.333,HF Proxy
+1d,4,LogRV_lag1,5.000,HAR
+1d,5,Parkinson_22,6.333,HF Proxy
+1d,6,GarmanKlass_22,7.333,HF Proxy
+1d,7,LogRV_lag10,9.000,HAR
+1d,8,IV_VRP,11.667,IV Surface
+1d,9,IV_VIX9D,11.667,IV Surface
+1d,10,IV_VIX_TermSlope,12.667,IV Surface
+5d,1,RogersSatchell_22,2.000,HF Proxy
+5d,2,Parkinson_5,4.000,HF Proxy
+5d,3,Range_Close_Ratio,4.667,HF Proxy
+5d,4,GarmanKlass_22,5.000,HF Proxy
+5d,5,LogRV_lag1,6.000,HAR
+5d,6,Parkinson_22,7.000,HF Proxy
+5d,7,LogRV_lag22,8.000,HAR
+5d,8,IV_VRP_ma22,9.667,IV Surface
+5d,9,SPY_LogRV,10.000,HAR
+5d,10,IV_VIX9D,11.667,IV Surface
+22d,1,RogersSatchell_22,1.333,HF Proxy
+22d,2,LogRV_lag1,3.667,HAR
+22d,3,Parkinson_5,4.333,HF Proxy
+22d,4,GarmanKlass_22,4.667,HF Proxy
+22d,5,Range_Close_Ratio,5.333,HF Proxy
+22d,6,Parkinson_22,6.000,HF Proxy
+22d,7,IV_VRP_ma22,9.667,IV Surface
+22d,8,LogRV_lag22,9.667,HAR
+22d,9,IV_VIX,10.667,IV Surface
+22d,10,IV_VRP,12.333,IV Surface
+60d,1,RogersSatchell_22,1.667,HF Proxy
+60d,2,GarmanKlass_22,2.333,HF Proxy
+60d,3,LogRV_lag1,4.000,HAR
+60d,4,Parkinson_22,5.667,HF Proxy
+60d,5,Range_Close_Ratio,6.333,HF Proxy
+60d,6,IV_VRP_ma22,8.333,IV Surface
+60d,7,IV_VIX_ma5,9.333,IV Surface
+60d,8,RV_Mom22,9.667,HAR
+60d,9,Parkinson_5,9.667,HF Proxy
+60d,10,Overnight_Vol,11.000,HF Proxy
+90d,1,RogersSatchell_22,2.333,HF Proxy
+90d,2,LogRV_lag1,3.333,HAR
+90d,3,GarmanKlass_22,4.667,HF Proxy
+90d,4,Parkinson_22,6.667,HF Proxy
+90d,5,Overnight_Vol,6.667,HF Proxy
+90d,6,Range_Close_Ratio,7.000,HF Proxy
+90d,7,Parkinson_5,7.667,HF Proxy
+90d,8,IV_VRP_ma22,10.000,IV Surface
+90d,9,AltVol_Amihud,12.333,Alternative
+90d,10,IV_VIX_ma5,12.333,IV Surface
+120d,1,RogersSatchell_22,2.000,HF Proxy
+120d,2,GarmanKlass_22,4.000,HF Proxy
+120d,3,LogRV_lag1,4.667,HAR
+120d,4,Parkinson_22,4.667,HF Proxy
+120d,5,Parkinson_5,7.333,HF Proxy
+120d,6,Overnight_Vol,8.333,HF Proxy
+120d,7,LogRV_lag22,9.000,HAR
+120d,8,IV_VRP_ma22,9.333,IV Surface
+120d,9,Range_Close_Ratio,11.000,HF Proxy
+120d,10,IV_VIX_ma5,14.000,IV Surface
+180d,1,RogersSatchell_22,1.667,HF Proxy
+180d,2,GarmanKlass_22,2.333,HF Proxy
+180d,3,Parkinson_5,4.000,HF Proxy
+180d,4,Parkinson_22,5.333,HF Proxy
+180d,5,LogRV_lag1,6.000,HAR
+180d,6,LogRV_lag22,7.000,HAR
+180d,7,Overnight_Vol,11.000,HF Proxy
+180d,8,IV_VRP_ma22,12.000,IV Surface
+180d,9,LogRV_lag5,12.667,HAR
+180d,10,Range_Close_Ratio,13.000,HF Proxy
+252d,1,RogersSatchell_22,2.333,HF Proxy
+252d,2,GarmanKlass_22,2.667,HF Proxy
+252d,3,Parkinson_5,6.333,HF Proxy
+252d,4,LogRV_lag1,7.000,HAR
+252d,5,LogRV_lag22,7.333,HAR
+252d,6,IV_VRP_ma22,8.000,IV Surface
+252d,7,AltVol_Kyle_Lambda,8.333,Alternative
+252d,8,Parkinson_22,10.667,HF Proxy
+252d,9,AltVol_Amihud,11.333,Alternative
+252d,10,SPY_LogRV,12.333,HAR

@@ -1,0 +1,8 @@
+{
+  "Original_P_Value": 0.0,
+  "Num_Tests": 11,
+  "Bonferroni_Corrected_P": 0.0,
+  "FDR_Corrected_P": 0.0,
+  "Significant_After_Bonferroni": true,
+  "Significant_After_FDR": true
+}

@@ -1,0 +1,404 @@
+---
+format:
+  html:
+    toc: true
+    toc-depth: 3
+---
+
+
+## Finance 분야
+
+
+```{=html}
+<details open>
+  <summary><h3 style="display:inline; margin:0;">금융 이론 관점의 VRP 연구 (10개 논문)</h3></summary>
+  <div style="padding-left: 20px; margin-top: 15px;">
+    <p><strong>주요 주제:</strong> VRP의 이론적 기초, Cross-Asset VRP, 주식 수익률 예측, 위험 회피 성향, 횡단면 수익률, 계량 모델링, 원자재 시장</p>
+
+{{< include snippets/finance/carr_wu_2009.qmd >}}
+{{< include snippets/finance/bollerslev_2009.qmd >}}
+{{< include snippets/finance/drechsler_2011.qmd >}}
+{{< include snippets/finance/bekaert_2014.qmd >}}
+{{< include snippets/finance/heston_2023.qmd >}}
+{{< include snippets/finance/hansen_2021.qmd >}}
+{{< include snippets/finance/pyun_2019.qmd >}}
+{{< include snippets/finance/feunou_2017.qmd >}}
+{{< include snippets/finance/ornelas_2019.qmd >}}
+
+<details>
+  <summary>Finta & Ornelas (2022): "Commodity Return Predictability and Risk Premia"</summary>
+  <div class="paper-details">
+    <div class="paper-links">
+      <a href="https://doi.org/10.1016/j.intfin.2022.101560" target="_blank">[Journal Link]</a>
+    </div>
+    <details class="nested-details">
+      <summary>논문 개요</summary>
+      <div class="nested-content">
+        <p>2019년 연구의 후속으로, 다양한 원자재 옵션의 정보를 통합하여 더 강력한 예측 지표를 구축.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>연구 질문</summary>
+      <div class="nested-content">
+        <p>원자재 간 VRP 정보를 통합하면 가격 예측의 견고성이 향상되는가?</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>데이터 및 샘플</summary>
+      <div class="nested-content">
+        <p>글로벌 원자재 지수 및 구성 선물 옵션. 2020년 팬데믹 기간 포함.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>방법론</summary>
+      <div class="nested-content">
+        <p>멀티-에셋 VRP 팩터 모델링. 동적 가중치 할당을 통한 포트폴리오 구성.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>결과</summary>
+      <div class="nested-content">
+        <p>통합 VRP가 개별 자산 VRP보다 예측 오차 낮음. 자산군 간 위험 전이 포착에 유리.</p>
+      </div>
+    </details>
+  </div>
+</details>
+
+  </div>
+</details>
+```
+
+---
+
+## CS/ML 분야
+
+```{=html}
+<details open>
+  <summary><h3 style="display:inline; margin:0;">기계학습 기반 변동성 예측 연구 (13개 논문)</h3></summary>
+  <div style="padding-left: 20px; margin-top: 15px;">
+    <p><strong>주요 주제:</strong> 잔차 학습, 고빈도 데이터, Hybrid 모델, 횡단면 풀링, 옵션 곡면, 해석 가능성, Look-Ahead Bias 통제</p>
+
+{{< include snippets/cs/carr_ml_2019.qmd >}}
+{{< include snippets/cs/christensen_2023.qmd >}}
+{{< include snippets/cs/deepvol_2022.qmd >}}
+{{< include snippets/cs/michael_2025.qmd >}}
+
+<details>
+  <summary>Ramos-Pérez (2021): "Multi-Transformer with Attention"</summary>
+  <div class="paper-details">
+    <div class="paper-links">
+      <a href="https://doi.org/10.1016/j.asoc.2021.107144" target="_blank">[Journal Link]</a>
+    </div>
+    <details class="nested-details">
+      <summary>논문 개요</summary>
+      <div class="nested-content">
+        <p>Transformer Self-Attention으로 시계열 내 Key Moments 자동 선별. 앙상블로 안정성 향상.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>연구 질문</summary>
+      <div class="nested-content">
+        <p>Transformer 어텐션이 장기 의존성 포착에 효과적인가? 구조적 변화 적응력은?</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>데이터 및 샘플</summary>
+      <div class="nested-content">
+        <p>S&P 500 일별 데이터. 2008년 금융위기, 2020년 팬데믹 포함.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>방법론</summary>
+      <div class="nested-content">
+        <p>데이터를 서브셋으로 나눠 각각 트랜스포머 학습 후 앙상블. Self-Attention으로 Key Moments 선별.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>결과</summary>
+      <div class="nested-content">
+        <p>코로나19 기간(2020) GARCH 대비 월등히 낮은 RMSE. 어텐션이 충격 시점 포착. 레짐 변화 적응력 우수.</p>
+      </div>
+    </details>
+  </div>
+</details>
+
+<details>
+  <summary>Roszyk & Slepaczuk (2024): "Hybrid LSTM-GARCH Models"</summary>
+  <div class="paper-details">
+    <div class="paper-links">
+      <a href="https://doi.org/10.3390/app14010001" target="_blank">[Journal Link]</a>
+    </div>
+    <details class="nested-details">
+      <summary>논문 개요</summary>
+      <div class="nested-content">
+        <p>GARCH 조건부 분산을 LSTM 입력으로 사용. 구조적 모형과 딥러닝 결합.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>연구 질문</summary>
+      <div class="nested-content">
+        <p>GARCH 변동성 군집 포착과 LSTM 장기 의존성 학습 결합이 안정적 예측 가능하게 하는가?</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>데이터 및 샘플</summary>
+      <div class="nested-content">
+        <p>S&P 500 일별 OHLC, 로그 수익률, 과거 변동성, VIX.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>방법론</summary>
+      <div class="nested-content">
+        <p>GARCH 조건부 분산을 LSTM 추가 입력. GARCH가 변동성 군집 제약을 가이드라인으로 제공.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>결과</summary>
+      <div class="nested-content">
+        <p>MAE 1.56e-3, GARCH 대비 개선. GARCH 과대평가를 LSTM이 수정. 데이터 적은 환경에서도 안정.</p>
+      </div>
+    </details>
+  </div>
+</details>
+
+<details>
+  <summary>Xu et al. (2024): "GARCH-Informed Neural Networks (GINN) for Volatility Forecasting"</summary>
+  <div class="paper-details">
+    <div class="paper-links">
+      <a href="https://doi.org/10.1145/3677052.3698600" target="_blank">[ICAIF '24 Link]</a>
+      <a href="https://arxiv.org/abs/2409.20465" target="_blank">[arXiv Link]</a>
+    </div>
+    <details class="nested-details">
+      <summary>논문 개요</summary>
+      <div class="nested-content">
+        <p>신경망을 GARCH와 동등하게 설계. LSTM 셀 상태를 GARCH 분산 업데이트와 수학적 매핑.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>연구 질문</summary>
+      <div class="nested-content">
+        <p>신경망 가중치가 GARCH 파라미터와 대응되도록 설계하면 통계적 일관성과 예측력 동시 확보 가능한가?</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>데이터 및 샘플</summary>
+      <div class="nested-content">
+        <p>S&P 500, DJI, EUR/USD, 금 선물. ADF/KPSS 검정으로 정상성 확인.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>방법론</summary>
+      <div class="nested-content">
+        <p>LSTM 셀 상태 업데이트를 GARCH 분산 업데이트와 매핑. 손실 함수로 음의 로그 우도 사용.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>결과</summary>
+      <div class="nested-content">
+        <p>다양한 자산군에서 범용성 검증. GARCH 견고함과 신경망 유연성 결합으로 안정적 성능.</p>
+      </div>
+    </details>
+  </div>
+</details>
+
+<details>
+  <summary>Lo & Singh (2023): "Deep-learning with SHAP/LIME Interpretability in Finance"</summary>
+  <div class="paper-details">
+    <div class="paper-links">
+      <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4300000" target="_blank">[SSRN Link]</a>
+    </div>
+    <details class="nested-details">
+      <summary>논문 개요</summary>
+      <div class="nested-content">
+        <p>SHAP/LIME으로 블랙박스 해결. 모델이 경제학적으로 타당한 변수에 반응하는지 검증.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>연구 질문</summary>
+      <div class="nested-content">
+        <p>신경망 예측 근거를 사후 추적 가능한가? 모델이 노이즈가 아닌 경제적 논리를 학습하는가?</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>데이터 및 샘플</summary>
+      <div class="nested-content">
+        <p>S&P 500 VRP, 과거 수익률, VIX, 금리, 신용 스프레드 등 거시경제 변수.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>방법론</summary>
+      <div class="nested-content">
+        <p>SHAP 값 산출: 예측 VRP에 대한 각 입력 변수 기여도 정량화. LIME으로 국소 해석.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>결과</summary>
+      <div class="nested-content">
+        <p>딥러닝이 단기 가격보다 신용 스프레드, 장기 변동성 추세에 큰 가중치. 경제적 논리 부합.</p>
+      </div>
+    </details>
+  </div>
+</details>
+
+<details>
+  <summary>Benhenda (2026): "Look-Ahead-Bench: Point-in-Time Evaluation"</summary>
+  <div class="paper-details">
+    <div class="paper-links">
+      <a href="https://arxiv.org/abs/2601.13770" target="_blank">[arXiv Link]</a>
+    </div>
+    <details class="nested-details">
+      <summary>논문 개요</summary>
+      <div class="nested-content">
+        <p>미래 참조 편향을 엄격 통제한 Point-in-Time 벤치마크. LLM 암기 vs 추론 능력 구분.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>연구 질문</summary>
+      <div class="nested-content">
+        <p>모델 성능이 암기인지 추론인지 구분 가능한가? 훈련 데이터 오염이 성능 과대평가하는가?</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>데이터 및 샘플</summary>
+      <div class="nested-content">
+        <p>AAPL, MSFT, GOOGL, NVDA, TSLA 대형 기술주. 2021년 9월 이전 데이터만 훈련.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>방법론</summary>
+      <div class="nested-content">
+        <p>훈련/테스트 데이터 간 갭 설정. 알파 붕괴(Alpha Decay) 지표로 일반화 능력 측정.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>결과</summary>
+      <div class="nested-content">
+        <p>일반 LLM은 훈련 기간 암기로 높은 성능이나 Out-of-Sample 알파 붕괴. Point-in-Time 모델이 실무 유효.</p>
+      </div>
+    </details>
+  </div>
+</details>
+
+<details>
+  <summary>Fan, Wu & Yang (2025): "Adaptive Multi-task Learning for Multi-sector Portfolio Optimization"</summary>
+  <div class="paper-details">
+    <div class="paper-links">
+      <a href="https://arxiv.org/abs/2507.16433" target="_blank">[arXiv Link]</a>
+    </div>
+    <details class="nested-details">
+      <summary>논문 개요</summary>
+      <div class="nested-content">
+        <p>다중 섹터 공통 팩터 추출. Projection-Penalized PCA로 섹터 간 정보 공유 최적화.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>연구 질문</summary>
+      <div class="nested-content">
+        <p>섹터 간 유사도를 데이터 주도적으로 파악하여 적응적 정보 공유 가능한가?</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>데이터 및 샘플</summary>
+      <div class="nested-content">
+        <p>Russell 3000 지수 구성 종목. 다양한 산업군 패널 데이터.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>방법론</summary>
+      <div class="nested-content">
+        <p>섹터 간 유사도를 데이터로 파악, 벌칙 항으로 조절. 무작정 풀링과 개별 분석의 절충.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>결과</summary>
+      <div class="nested-content">
+        <p>섹터 간 정보 전이 효과로 개별 모델 대비 성능 향상. 빅데이터와 적응적 공유로 데이터 부족 극복.</p>
+      </div>
+    </details>
+  </div>
+</details>
+
+<details>
+  <summary>Chun, Cho & Ryu (2025): "Volatility Forecasting and Volatility-Timing Strategies"</summary>
+  <div class="paper-details">
+    <div class="paper-links">
+      <a href="https://doi.org/10.1016/j.ribaf.2024.102723" target="_blank">[Journal Link]</a>
+    </div>
+    <details class="nested-details">
+      <summary>논문 개요</summary>
+      <div class="nested-content">
+        <p>ML 변동성 예측을 포트폴리오 타이밍 전략에 적용. 변동성 급등 감지로 위험 자산 비중 조절.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>연구 질문</summary>
+      <div class="nested-content">
+        <p>ML 변동성 예측이 실제 투자 전략에서 경제적 효용 창출하는가? 샤프 지수 개선하는가?</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>데이터 및 샘플</summary>
+      <div class="nested-content">
+        <p>다양한 자산군 변동성 데이터. 포트폴리오 최적화 백테스트.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>방법론</summary>
+      <div class="nested-content">
+        <p>ML로 변동성 예측 후 예측 변동성에 따라 동적 위험 자산 비중 조절. 변동성 높을 때 안전 자산 대피.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>결과</summary>
+      <div class="nested-content">
+        <p>ML 변동성 타이밍 전략이 벤치마크 대비 높은 샤프 지수(3.45~3.48). 변동성 급등 감지 탁월.</p>
+      </div>
+    </details>
+  </div>
+</details>
+
+<details>
+  <summary>Pyun (2019) & Feunou et al. (2017): "Individual Stock VRP Factor"</summary>
+  <div class="paper-details">
+    <details class="nested-details">
+      <summary>논문 개요</summary>
+      <div class="nested-content">
+        <p>개별 주식 VRP가 횡단면 수익률 팩터로 작동. 기업 고유 특이 위험 프리미엄.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>연구 질문</summary>
+      <div class="nested-content">
+        <p>개별 주식 VRP는 시장 위험 반영인가 기업 고유 특이 위험 프리미엄인가?</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>데이터 및 샘플</summary>
+      <div class="nested-content">
+        <p>개별 주식 옵션 데이터. 횡단면 수익률 분석.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>방법론</summary>
+      <div class="nested-content">
+        <p>개별 주식 IV-RV로 VRP 추출. 횡단면 회귀로 VRP-미래 수익률 관계 검증.</p>
+      </div>
+    </details>
+    <details class="nested-details">
+      <summary>결과</summary>
+      <div class="nested-content">
+        <p>개별 주식 VRP가 미래 수익률과 강한 양의 상관. 딥러닝 추출 VRP 팩터가 롱-숏 전략에서 알파 창출.</p>
+      </div>
+    </details>
+  </div>
+</details>
+
+  </div>
+</details>
+```
+
+---
+
+## 추가 자료
+
+- [전체 리딩 리스트](/literature/reading_list.html) - 금융과 CS 분야 통합 리딩 리스트

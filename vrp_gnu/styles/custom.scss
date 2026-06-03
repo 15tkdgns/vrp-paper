@@ -1,0 +1,34 @@
+/* Quarto 테마 커스터마이징 */
+
+/* 네비게이션 바 스타일 */
+.navbar {
+  background: #4a90e2 !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+/* 사이드바 스타일 */
+.sidebar {
+  background-color: #f8f9fa;
+  border-right: 1px solid #e9ecef;
+}
+
+/* 콘텐츠 영역 */
+.main-content {
+  padding: 2rem;
+}
+
+/* 카드 효과 */
+.card {
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}

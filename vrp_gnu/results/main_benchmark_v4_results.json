@@ -1,0 +1,1662 @@
+{
+  "1d": {
+    "HAR-3": {
+      "Pooled_R2": 0.1097,
+      "Median_R2": 0.021,
+      "Mean_R2": 0.0222,
+      "RMSE": 2.5024
+    },
+    "Ridge": {
+      "Pooled_R2": 0.1159,
+      "Median_R2": 0.0232,
+      "Mean_R2": 0.0283,
+      "RMSE": 2.4937,
+      "best_params": {
+        "Equity": {
+          "alpha": 500
+        },
+        "Bond": {
+          "alpha": 50
+        },
+        "Commodity": {
+          "alpha": 2000
+        }
+      }
+    },
+    "LASSO": {
+      "Pooled_R2": 0.1162,
+      "Median_R2": 0.0246,
+      "Mean_R2": 0.0288,
+      "RMSE": 2.4932,
+      "best_params": {
+        "Equity": {
+          "alpha": 0.01
+        },
+        "Bond": {
+          "alpha": 0.001
+        },
+        "Commodity": {
+          "alpha": 0.05
+        }
+      }
+    },
+    "ENet": {
+      "Pooled_R2": 0.1165,
+      "Median_R2": 0.0241,
+      "Mean_R2": 0.0287,
+      "RMSE": 2.4929,
+      "best_params": {
+        "Equity": {
+          "alpha": 0.1,
+          "l1_ratio": 0.1
+        },
+        "Bond": {
+          "alpha": 0.005,
+          "l1_ratio": 0.1
+        },
+        "Commodity": {
+          "alpha": 0.1,
+          "l1_ratio": 0.1
+        }
+      }
+    },
+    "RF": {
+      "Pooled_R2": 0.1169,
+      "Median_R2": 0.0202,
+      "Mean_R2": 0.0284,
+      "RMSE": 2.4923,
+      "best_params": {
+        "Equity": {
+          "max_depth": 10,
+          "min_samples_leaf": 20
+        },
+        "Bond": {
+          "max_depth": 5,
+          "min_samples_leaf": 20
+        },
+        "Commodity": {
+          "max_depth": 10,
+          "min_samples_leaf": 20
+        }
+      }
+    },
+    "XGBoost": {
+      "Pooled_R2": 0.1131,
+      "Median_R2": 0.014,
+      "Mean_R2": 0.0252,
+      "RMSE": 2.4976,
+      "best_params": {
+        "Equity": {
+          "max_depth": 3,
+          "learning_rate": 0.03
+        },
+        "Bond": {
+          "max_depth": 3,
+          "learning_rate": 0.03
+        },
+        "Commodity": {
+          "max_depth": 3,
+          "learning_rate": 0.03
+        }
+      }
+    },
+    "LightGBM": {
+      "Pooled_R2": 0.1048,
+      "Median_R2": 0.0094,
+      "Mean_R2": 0.0153,
+      "RMSE": 2.5094,
+      "best_params": {
+        "Equity": {
+          "max_depth": 3,
+          "learning_rate": 0.05,
+          "num_leaves": 15
+        },
+        "Bond": {
+          "max_depth": 3,
+          "learning_rate": 0.05,
+          "num_leaves": 15
+        },
+        "Commodity": {
+          "max_depth": 3,
+          "learning_rate": 0.05,
+          "num_leaves": 15
+        }
+      }
+    },
+    "MLP": {
+      "Pooled_R2": 0.0855,
+      "Median_R2": -0.0225,
+      "Mean_R2": -0.0064,
+      "RMSE": 2.5363,
+      "best_params": {
+        "Equity": {
+          "hidden_layer_sizes": [
+            128,
+            64
+          ],
+          "alpha": 0.01
+        },
+        "Bond": {
+          "hidden_layer_sizes": [
+            64,
+            32
+          ],
+          "alpha": 0.01
+        },
+        "Commodity": {
+          "hidden_layer_sizes": [
+            128,
+            64
+          ],
+          "alpha": 0.01
+        }
+      }
+    },
+    "BiLSTM-A": {
+      "Pooled_R2": 0.069,
+      "Median_R2": -0.0286,
+      "Mean_R2": -0.0204,
+      "RMSE": 2.5704,
+      "best_params": {
+        "Equity": {
+          "hidden": 32,
+          "dropout": 0.1
+        },
+        "Bond": {
+          "hidden": 64,
+          "dropout": 0.1
+        },
+        "Commodity": {
+          "hidden": 32,
+          "dropout": 0.1
+        }
+      }
+    },
+    "WEns": {
+      "Pooled_R2": 0.1166,
+      "Median_R2": 0.0247,
+      "Mean_R2": 0.0292,
+      "RMSE": 2.4927,
+      "best_params": {
+        "pw": 0.9,
+        "Ridge": {
+          "Equity": {
+            "alpha": 500
+          },
+          "Bond": {
+            "alpha": 50
+          },
+          "Commodity": {
+            "alpha": 2000
+          }
+        },
+        "XGBoost": {
+          "Equity": {
+            "max_depth": 3,
+            "learning_rate": 0.03
+          },
+          "Bond": {
+            "max_depth": 3,
+            "learning_rate": 0.03
+          },
+          "Commodity": {
+            "max_depth": 3,
+            "learning_rate": 0.03
+          }
+        }
+      }
+    }
+  },
+  "5d": {
+    "HAR-3": {
+      "Pooled_R2": 0.5819,
+      "Median_R2": 0.1267,
+      "Mean_R2": 0.1397,
+      "RMSE": 0.7897
+    },
+    "Ridge": {
+      "Pooled_R2": 0.6234,
+      "Median_R2": 0.1799,
+      "Mean_R2": 0.2196,
+      "RMSE": 0.7494,
+      "best_params": {
+        "Equity": {
+          "alpha": 500
+        },
+        "Bond": {
+          "alpha": 100
+        },
+        "Commodity": {
+          "alpha": 100
+        }
+      }
+    },
+    "LASSO": {
+      "Pooled_R2": 0.6189,
+      "Median_R2": 0.213,
+      "Mean_R2": 0.2086,
+      "RMSE": 0.7539,
+      "best_params": {
+        "Equity": {
+          "alpha": 0.05
+        },
+        "Bond": {
+          "alpha": 0.001
+        },
+        "Commodity": {
+          "alpha": 0.05
+        }
+      }
+    },
+    "ENet": {
+      "Pooled_R2": 0.6253,
+      "Median_R2": 0.1807,
+      "Mean_R2": 0.2224,
+      "RMSE": 0.7475,
+      "best_params": {
+        "Equity": {
+          "alpha": 0.1,
+          "l1_ratio": 0.1
+        },
+        "Bond": {
+          "alpha": 0.005,
+          "l1_ratio": 0.1
+        },
+        "Commodity": {
+          "alpha": 0.005,
+          "l1_ratio": 0.1
+        }
+      }
+    },
+    "RF": {
+      "Pooled_R2": 0.6107,
+      "Median_R2": 0.1273,
+      "Mean_R2": 0.1894,
+      "RMSE": 0.762,
+      "best_params": {
+        "Equity": {
+          "max_depth": 10,
+          "min_samples_leaf": 5
+        },
+        "Bond": {
+          "max_depth": 5,
+          "min_samples_leaf": 20
+        },
+        "Commodity": {
+          "max_depth": 10,
+          "min_samples_leaf": 5
+        }
+      }
+    },
+    "XGBoost": {
+      "Pooled_R2": 0.6121,
+      "Median_R2": 0.166,
+      "Mean_R2": 0.1936,
+      "RMSE": 0.7606,
+      "best_params": {
+        "Equity": {
+          "max_depth": 4,
+          "learning_rate": 0.05
+        },
+        "Bond": {
+          "max_depth": 3,
+          "learning_rate": 0.03
+        },
+        "Commodity": {
+          "max_depth": 3,
+          "learning_rate": 0.05
+        }
+      }
+    },
+    "LightGBM": {
+      "Pooled_R2": 0.6106,
+      "Median_R2": 0.1504,
+      "Mean_R2": 0.1919,
+      "RMSE": 0.762,
+      "best_params": {
+        "Equity": {
+          "max_depth": 5,
+          "learning_rate": 0.05,
+          "num_leaves": 15
+        },
+        "Bond": {
+          "max_depth": 3,
+          "learning_rate": 0.05,
+          "num_leaves": 15
+        },
+        "Commodity": {
+          "max_depth": 3,
+          "learning_rate": 0.05,
+          "num_leaves": 15
+        }
+      }
+    },
+    "MLP": {
+      "Pooled_R2": 0.4391,
+      "Median_R2": -0.191,
+      "Mean_R2": -0.1759,
+      "RMSE": 0.9146,
+      "best_params": {
+        "Equity": {
+          "hidden_layer_sizes": [
+            64,
+            32
+          ],
+          "alpha": 0.01
+        },
+        "Bond": {
+          "hidden_layer_sizes": [
+            64,
+            32
+          ],
+          "alpha": 0.01
+        },
+        "Commodity": {
+          "hidden_layer_sizes": [
+            64
+          ],
+          "alpha": 0.01
+        }
+      }
+    },
+    "BiLSTM-A": {
+      "Pooled_R2": 0.3319,
+      "Median_R2": -0.4162,
+      "Mean_R2": -0.3684,
+      "RMSE": 0.9962,
+      "best_params": {
+        "Equity": {
+          "hidden": 64,
+          "dropout": 0.3
+        },
+        "Bond": {
+          "hidden": 32,
+          "dropout": 0.3
+        },
+        "Commodity": {
+          "hidden": 32,
+          "dropout": 0.1
+        }
+      }
+    },
+    "WEns": {
+      "Pooled_R2": 0.627,
+      "Median_R2": 0.1778,
+      "Mean_R2": 0.2263,
+      "RMSE": 0.7458,
+      "best_params": {
+        "pw": 0.6,
+        "Ridge": {
+          "Equity": {
+            "alpha": 500
+          },
+          "Bond": {
+            "alpha": 100
+          },
+          "Commodity": {
+            "alpha": 100
+          }
+        },
+        "XGBoost": {
+          "Equity": {
+            "max_depth": 4,
+            "learning_rate": 0.05
+          },
+          "Bond": {
+            "max_depth": 3,
+            "learning_rate": 0.03
+          },
+          "Commodity": {
+            "max_depth": 3,
+            "learning_rate": 0.05
+          }
+        }
+      }
+    }
+  },
+  "22d": {
+    "HAR-3": {
+      "Pooled_R2": 0.7659,
+      "Median_R2": 0.1702,
+      "Mean_R2": 0.1614,
+      "RMSE": 0.5023
+    },
+    "Ridge": {
+      "Pooled_R2": 0.7952,
+      "Median_R2": 0.1821,
+      "Mean_R2": 0.2565,
+      "RMSE": 0.4697,
+      "best_params": {
+        "Equity": {
+          "alpha": 50
+        },
+        "Bond": {
+          "alpha": 50
+        },
+        "Commodity": {
+          "alpha": 10
+        }
+      }
+    },
+    "LASSO": {
+      "Pooled_R2": 0.7853,
+      "Median_R2": 0.1918,
+      "Mean_R2": 0.2199,
+      "RMSE": 0.481,
+      "best_params": {
+        "Equity": {
+          "alpha": 0.05
+        },
+        "Bond": {
+          "alpha": 0.001
+        },
+        "Commodity": {
+          "alpha": 0.05
+        }
+      }
+    },
+    "ENet": {
+      "Pooled_R2": 0.7894,
+      "Median_R2": 0.1975,
+      "Mean_R2": 0.2271,
+      "RMSE": 0.4764,
+      "best_params": {
+        "Equity": {
+          "alpha": 0.1,
+          "l1_ratio": 0.1
+        },
+        "Bond": {
+          "alpha": 0.005,
+          "l1_ratio": 0.1
+        },
+        "Commodity": {
+          "alpha": 0.1,
+          "l1_ratio": 0.9
+        }
+      }
+    },
+    "RF": {
+      "Pooled_R2": 0.7793,
+      "Median_R2": 0.1897,
+      "Mean_R2": 0.1868,
+      "RMSE": 0.4877,
+      "best_params": {
+        "Equity": {
+          "max_depth": 5,
+          "min_samples_leaf": 5
+        },
+        "Bond": {
+          "max_depth": 5,
+          "min_samples_leaf": 20
+        },
+        "Commodity": {
+          "max_depth": 8,
+          "min_samples_leaf": 20
+        }
+      }
+    },
+    "XGBoost": {
+      "Pooled_R2": 0.7679,
+      "Median_R2": 0.1117,
+      "Mean_R2": 0.1379,
+      "RMSE": 0.5001,
+      "best_params": {
+        "Equity": {
+          "max_depth": 3,
+          "learning_rate": 0.03
+        },
+        "Bond": {
+          "max_depth": 3,
+          "learning_rate": 0.03
+        },
+        "Commodity": {
+          "max_depth": 3,
+          "learning_rate": 0.05
+        }
+      }
+    },
+    "LightGBM": {
+      "Pooled_R2": 0.7557,
+      "Median_R2": 0.1185,
+      "Mean_R2": 0.0929,
+      "RMSE": 0.5131,
+      "best_params": {
+        "Equity": {
+          "max_depth": 3,
+          "learning_rate": 0.05,
+          "num_leaves": 15
+        },
+        "Bond": {
+          "max_depth": 3,
+          "learning_rate": 0.05,
+          "num_leaves": 15
+        },
+        "Commodity": {
+          "max_depth": 3,
+          "learning_rate": 0.05,
+          "num_leaves": 15
+        }
+      }
+    },
+    "MLP": {
+      "Pooled_R2": 0.5867,
+      "Median_R2": -0.4047,
+      "Mean_R2": -0.5234,
+      "RMSE": 0.6673,
+      "best_params": {
+        "Equity": {
+          "hidden_layer_sizes": [
+            64,
+            32
+          ],
+          "alpha": 0.01
+        },
+        "Bond": {
+          "hidden_layer_sizes": [
+            64,
+            32
+          ],
+          "alpha": 0.01
+        },
+        "Commodity": {
+          "hidden_layer_sizes": [
+            64
+          ],
+          "alpha": 0.0001
+        }
+      }
+    },
+    "BiLSTM-A": {
+      "Pooled_R2": 0.5639,
+      "Median_R2": -0.4425,
+      "Mean_R2": -0.5856,
+      "RMSE": 0.6791,
+      "best_params": {
+        "Equity": {
+          "hidden": 64,
+          "dropout": 0.1
+        },
+        "Bond": {
+          "hidden": 32,
+          "dropout": 0.3
+        },
+        "Commodity": {
+          "hidden": 64,
+          "dropout": 0.3
+        }
+      }
+    },
+    "WEns": {
+      "Pooled_R2": 0.7966,
+      "Median_R2": 0.1912,
+      "Mean_R2": 0.2596,
+      "RMSE": 0.4682,
+      "best_params": {
+        "pw": 0.6,
+        "Ridge": {
+          "Equity": {
+            "alpha": 50
+          },
+          "Bond": {
+            "alpha": 50
+          },
+          "Commodity": {
+            "alpha": 10
+          }
+        },
+        "XGBoost": {
+          "Equity": {
+            "max_depth": 3,
+            "learning_rate": 0.03
+          },
+          "Bond": {
+            "max_depth": 3,
+            "learning_rate": 0.03
+          },
+          "Commodity": {
+            "max_depth": 3,
+            "learning_rate": 0.05
+          }
+        }
+      }
+    }
+  },
+  "60d": {
+    "HAR-3": {
+      "Pooled_R2": 0.786,
+      "Median_R2": 0.0479,
+      "Mean_R2": -0.0546,
+      "RMSE": 0.459
+    },
+    "Ridge": {
+      "Pooled_R2": 0.7976,
+      "Median_R2": -0.1211,
+      "Mean_R2": -0.0046,
+      "RMSE": 0.4464,
+      "best_params": {
+        "Equity": {
+          "alpha": 2000
+        },
+        "Bond": {
+          "alpha": 100
+        },
+        "Commodity": {
+          "alpha": 10
+        }
+      }
+    },
+    "LASSO": {
+      "Pooled_R2": 0.7676,
+      "Median_R2": -0.1287,
+      "Mean_R2": -0.1249,
+      "RMSE": 0.4784,
+      "best_params": {
+        "Equity": {
+          "alpha": 0.1
+        },
+        "Bond": {
+          "alpha": 0.001
+        },
+        "Commodity": {
+          "alpha": 0.001
+        }
+      }
+    },
+    "ENet": {
+      "Pooled_R2": 0.7729,
+      "Median_R2": -0.1222,
+      "Mean_R2": -0.0986,
+      "RMSE": 0.4729,
+      "best_params": {
+        "Equity": {
+          "alpha": 0.1,
+          "l1_ratio": 0.9
+        },
+        "Bond": {
+          "alpha": 0.01,
+          "l1_ratio": 0.1
+        },
+        "Commodity": {
+          "alpha": 0.005,
+          "l1_ratio": 0.1
+        }
+      }
+    },
+    "RF": {
+      "Pooled_R2": 0.7702,
+      "Median_R2": 0.0755,
+      "Mean_R2": -0.1207,
+      "RMSE": 0.4757,
+      "best_params": {
+        "Equity": {
+          "max_depth": 10,
+          "min_samples_leaf": 5
+        },
+        "Bond": {
+          "max_depth": 5,
+          "min_samples_leaf": 20
+        },
+        "Commodity": {
+          "max_depth": 10,
+          "min_samples_leaf": 20
+        }
+      }
+    },
+    "XGBoost": {
+      "Pooled_R2": 0.7213,
+      "Median_R2": -0.0873,
+      "Mean_R2": -0.3886,
+      "RMSE": 0.5239,
+      "best_params": {
+        "Equity": {
+          "max_depth": 4,
+          "learning_rate": 0.05
+        },
+        "Bond": {
+          "max_depth": 3,
+          "learning_rate": 0.05
+        },
+        "Commodity": {
+          "max_depth": 3,
+          "learning_rate": 0.1
+        }
+      }
+    },
+    "LightGBM": {
+      "Pooled_R2": 0.6933,
+      "Median_R2": -0.2335,
+      "Mean_R2": -0.4908,
+      "RMSE": 0.5496,
+      "best_params": {
+        "Equity": {
+          "max_depth": 5,
+          "learning_rate": 0.1,
+          "num_leaves": 31
+        },
+        "Bond": {
+          "max_depth": 3,
+          "learning_rate": 0.05,
+          "num_leaves": 15
+        },
+        "Commodity": {
+          "max_depth": 3,
+          "learning_rate": 0.1,
+          "num_leaves": 15
+        }
+      }
+    },
+    "MLP": {
+      "Pooled_R2": 0.4996,
+      "Median_R2": -1.1249,
+      "Mean_R2": -1.4336,
+      "RMSE": 0.702,
+      "best_params": {
+        "Equity": {
+          "hidden_layer_sizes": [
+            128,
+            64
+          ],
+          "alpha": 0.0001
+        },
+        "Bond": {
+          "hidden_layer_sizes": [
+            64,
+            32
+          ],
+          "alpha": 0.0001
+        },
+        "Commodity": {
+          "hidden_layer_sizes": [
+            128,
+            64
+          ],
+          "alpha": 0.01
+        }
+      }
+    },
+    "BiLSTM-A": {
+      "Pooled_R2": 0.5514,
+      "Median_R2": -0.8124,
+      "Mean_R2": -1.199,
+      "RMSE": 0.661,
+      "best_params": {
+        "Equity": {
+          "hidden": 32,
+          "dropout": 0.1
+        },
+        "Bond": {
+          "hidden": 32,
+          "dropout": 0.3
+        },
+        "Commodity": {
+          "hidden": 32,
+          "dropout": 0.3
+        }
+      }
+    },
+    "WEns": {
+      "Pooled_R2": 0.7835,
+      "Median_R2": 0.0732,
+      "Mean_R2": -0.051,
+      "RMSE": 0.4618,
+      "best_params": {
+        "pw": 0.5,
+        "Ridge": {
+          "Equity": {
+            "alpha": 2000
+          },
+          "Bond": {
+            "alpha": 100
+          },
+          "Commodity": {
+            "alpha": 10
+          }
+        },
+        "XGBoost": {
+          "Equity": {
+            "max_depth": 4,
+            "learning_rate": 0.05
+          },
+          "Bond": {
+            "max_depth": 3,
+            "learning_rate": 0.05
+          },
+          "Commodity": {
+            "max_depth": 3,
+            "learning_rate": 0.1
+          }
+        }
+      }
+    }
+  },
+  "90d": {
+    "HAR-3": {
+      "Pooled_R2": 0.7835,
+      "Median_R2": -0.239,
+      "Mean_R2": -0.2694,
+      "RMSE": 0.4543
+    },
+    "Ridge": {
+      "Pooled_R2": 0.7832,
+      "Median_R2": -0.4552,
+      "Mean_R2": -0.2659,
+      "RMSE": 0.4546,
+      "best_params": {
+        "Equity": {
+          "alpha": 2000
+        },
+        "Bond": {
+          "alpha": 100
+        },
+        "Commodity": {
+          "alpha": 1000
+        }
+      }
+    },
+    "LASSO": {
+      "Pooled_R2": 0.7448,
+      "Median_R2": -0.4731,
+      "Mean_R2": -0.4451,
+      "RMSE": 0.4933,
+      "best_params": {
+        "Equity": {
+          "alpha": 0.1
+        },
+        "Bond": {
+          "alpha": 0.005
+        },
+        "Commodity": {
+          "alpha": 0.01
+        }
+      }
+    },
+    "ENet": {
+      "Pooled_R2": 0.7494,
+      "Median_R2": -0.4622,
+      "Mean_R2": -0.4222,
+      "RMSE": 0.4888,
+      "best_params": {
+        "Equity": {
+          "alpha": 0.1,
+          "l1_ratio": 0.9
+        },
+        "Bond": {
+          "alpha": 0.01,
+          "l1_ratio": 0.1
+        },
+        "Commodity": {
+          "alpha": 0.01,
+          "l1_ratio": 0.9
+        }
+      }
+    },
+    "RF": {
+      "Pooled_R2": 0.7574,
+      "Median_R2": -0.125,
+      "Mean_R2": -0.3373,
+      "RMSE": 0.4809,
+      "best_params": {
+        "Equity": {
+          "max_depth": 10,
+          "min_samples_leaf": 5
+        },
+        "Bond": {
+          "max_depth": 5,
+          "min_samples_leaf": 20
+        },
+        "Commodity": {
+          "max_depth": 10,
+          "min_samples_leaf": 5
+        }
+      }
+    },
+    "XGBoost": {
+      "Pooled_R2": 0.6722,
+      "Median_R2": -0.2669,
+      "Mean_R2": -0.9161,
+      "RMSE": 0.559,
+      "best_params": {
+        "Equity": {
+          "max_depth": 4,
+          "learning_rate": 0.05
+        },
+        "Bond": {
+          "max_depth": 3,
+          "learning_rate": 0.1
+        },
+        "Commodity": {
+          "max_depth": 4,
+          "learning_rate": 0.1
+        }
+      }
+    },
+    "LightGBM": {
+      "Pooled_R2": 0.6453,
+      "Median_R2": -0.4745,
+      "Mean_R2": -1.0065,
+      "RMSE": 0.5815,
+      "best_params": {
+        "Equity": {
+          "max_depth": 5,
+          "learning_rate": 0.1,
+          "num_leaves": 31
+        },
+        "Bond": {
+          "max_depth": 3,
+          "learning_rate": 0.05,
+          "num_leaves": 15
+        },
+        "Commodity": {
+          "max_depth": 3,
+          "learning_rate": 0.1,
+          "num_leaves": 15
+        }
+      }
+    },
+    "MLP": {
+      "Pooled_R2": 0.4915,
+      "Median_R2": -1.4797,
+      "Mean_R2": -1.9218,
+      "RMSE": 0.6962,
+      "best_params": {
+        "Equity": {
+          "hidden_layer_sizes": [
+            64,
+            32
+          ],
+          "alpha": 0.01
+        },
+        "Bond": {
+          "hidden_layer_sizes": [
+            64,
+            32
+          ],
+          "alpha": 0.0001
+        },
+        "Commodity": {
+          "hidden_layer_sizes": [
+            128,
+            64
+          ],
+          "alpha": 0.0001
+        }
+      }
+    },
+    "BiLSTM-A": {
+      "Pooled_R2": 0.5701,
+      "Median_R2": -1.0887,
+      "Mean_R2": -1.3841,
+      "RMSE": 0.6375,
+      "best_params": {
+        "Equity": {
+          "hidden": 32,
+          "dropout": 0.1
+        },
+        "Bond": {
+          "hidden": 32,
+          "dropout": 0.3
+        },
+        "Commodity": {
+          "hidden": 64,
+          "dropout": 0.3
+        }
+      }
+    },
+    "WEns": {
+      "Pooled_R2": 0.7437,
+      "Median_R2": -0.1341,
+      "Mean_R2": -0.4545,
+      "RMSE": 0.4943,
+      "best_params": {
+        "pw": 0.4,
+        "Ridge": {
+          "Equity": {
+            "alpha": 2000
+          },
+          "Bond": {
+            "alpha": 100
+          },
+          "Commodity": {
+            "alpha": 1000
+          }
+        },
+        "XGBoost": {
+          "Equity": {
+            "max_depth": 4,
+            "learning_rate": 0.05
+          },
+          "Bond": {
+            "max_depth": 3,
+            "learning_rate": 0.1
+          },
+          "Commodity": {
+            "max_depth": 4,
+            "learning_rate": 0.1
+          }
+        }
+      }
+    }
+  },
+  "120d": {
+    "HAR-3": {
+      "Pooled_R2": 0.77,
+      "Median_R2": -0.4434,
+      "Mean_R2": -0.5416,
+      "RMSE": 0.4631
+    },
+    "Ridge": {
+      "Pooled_R2": 0.7667,
+      "Median_R2": -0.9023,
+      "Mean_R2": -0.5526,
+      "RMSE": 0.4664,
+      "best_params": {
+        "Equity": {
+          "alpha": 2000
+        },
+        "Bond": {
+          "alpha": 100
+        },
+        "Commodity": {
+          "alpha": 2000
+        }
+      }
+    },
+    "LASSO": {
+      "Pooled_R2": 0.7333,
+      "Median_R2": -0.9399,
+      "Mean_R2": -0.7105,
+      "RMSE": 0.4986,
+      "best_params": {
+        "Equity": {
+          "alpha": 0.1
+        },
+        "Bond": {
+          "alpha": 0.01
+        },
+        "Commodity": {
+          "alpha": 0.01
+        }
+      }
+    },
+    "ENet": {
+      "Pooled_R2": 0.7365,
+      "Median_R2": -0.9432,
+      "Mean_R2": -0.6962,
+      "RMSE": 0.4957,
+      "best_params": {
+        "Equity": {
+          "alpha": 0.1,
+          "l1_ratio": 0.9
+        },
+        "Bond": {
+          "alpha": 0.01,
+          "l1_ratio": 0.9
+        },
+        "Commodity": {
+          "alpha": 0.01,
+          "l1_ratio": 0.9
+        }
+      }
+    },
+    "RF": {
+      "Pooled_R2": 0.7489,
+      "Median_R2": -0.2517,
+      "Mean_R2": -0.5422,
+      "RMSE": 0.4838,
+      "best_params": {
+        "Equity": {
+          "max_depth": 10,
+          "min_samples_leaf": 5
+        },
+        "Bond": {
+          "max_depth": 5,
+          "min_samples_leaf": 5
+        },
+        "Commodity": {
+          "max_depth": 10,
+          "min_samples_leaf": 5
+        }
+      }
+    },
+    "XGBoost": {
+      "Pooled_R2": 0.6179,
+      "Median_R2": -0.6923,
+      "Mean_R2": -1.4544,
+      "RMSE": 0.5969,
+      "best_params": {
+        "Equity": {
+          "max_depth": 4,
+          "learning_rate": 0.1
+        },
+        "Bond": {
+          "max_depth": 3,
+          "learning_rate": 0.1
+        },
+        "Commodity": {
+          "max_depth": 3,
+          "learning_rate": 0.1
+        }
+      }
+    },
+    "LightGBM": {
+      "Pooled_R2": 0.6142,
+      "Median_R2": -0.6426,
+      "Mean_R2": -1.5536,
+      "RMSE": 0.5998,
+      "best_params": {
+        "Equity": {
+          "max_depth": 5,
+          "learning_rate": 0.1,
+          "num_leaves": 15
+        },
+        "Bond": {
+          "max_depth": 3,
+          "learning_rate": 0.1,
+          "num_leaves": 15
+        },
+        "Commodity": {
+          "max_depth": 3,
+          "learning_rate": 0.1,
+          "num_leaves": 15
+        }
+      }
+    },
+    "MLP": {
+      "Pooled_R2": 0.4728,
+      "Median_R2": -1.955,
+      "Mean_R2": -2.3026,
+      "RMSE": 0.7011,
+      "best_params": {
+        "Equity": {
+          "hidden_layer_sizes": [
+            128,
+            64
+          ],
+          "alpha": 0.0001
+        },
+        "Bond": {
+          "hidden_layer_sizes": [
+            64,
+            32
+          ],
+          "alpha": 0.0001
+        },
+        "Commodity": {
+          "hidden_layer_sizes": [
+            64
+          ],
+          "alpha": 0.01
+        }
+      }
+    },
+    "BiLSTM-A": {
+      "Pooled_R2": 0.587,
+      "Median_R2": -0.9666,
+      "Mean_R2": -1.7267,
+      "RMSE": 0.6174,
+      "best_params": {
+        "Equity": {
+          "hidden": 32,
+          "dropout": 0.1
+        },
+        "Bond": {
+          "hidden": 32,
+          "dropout": 0.3
+        },
+        "Commodity": {
+          "hidden": 32,
+          "dropout": 0.1
+        }
+      }
+    },
+    "WEns": {
+      "Pooled_R2": 0.7275,
+      "Median_R2": -0.2404,
+      "Mean_R2": -0.7126,
+      "RMSE": 0.5041,
+      "best_params": {
+        "pw": 0.5,
+        "Ridge": {
+          "Equity": {
+            "alpha": 2000
+          },
+          "Bond": {
+            "alpha": 100
+          },
+          "Commodity": {
+            "alpha": 2000
+          }
+        },
+        "XGBoost": {
+          "Equity": {
+            "max_depth": 4,
+            "learning_rate": 0.1
+          },
+          "Bond": {
+            "max_depth": 3,
+            "learning_rate": 0.1
+          },
+          "Commodity": {
+            "max_depth": 3,
+            "learning_rate": 0.1
+          }
+        }
+      }
+    }
+  },
+  "180d": {
+    "HAR-3": {
+      "Pooled_R2": 0.739,
+      "Median_R2": -1.2419,
+      "Mean_R2": -1.2954,
+      "RMSE": 0.4859
+    },
+    "Ridge": {
+      "Pooled_R2": 0.7416,
+      "Median_R2": -1.4075,
+      "Mean_R2": -1.1812,
+      "RMSE": 0.4835,
+      "best_params": {
+        "Equity": {
+          "alpha": 2000
+        },
+        "Bond": {
+          "alpha": 1000
+        },
+        "Commodity": {
+          "alpha": 2000
+        }
+      }
+    },
+    "LASSO": {
+      "Pooled_R2": 0.7172,
+      "Median_R2": -1.4265,
+      "Mean_R2": -1.28,
+      "RMSE": 0.5058,
+      "best_params": {
+        "Equity": {
+          "alpha": 0.1
+        },
+        "Bond": {
+          "alpha": 0.01
+        },
+        "Commodity": {
+          "alpha": 0.01
+        }
+      }
+    },
+    "ENet": {
+      "Pooled_R2": 0.7183,
+      "Median_R2": -1.7089,
+      "Mean_R2": -1.3038,
+      "RMSE": 0.5048,
+      "best_params": {
+        "Equity": {
+          "alpha": 0.1,
+          "l1_ratio": 0.9
+        },
+        "Bond": {
+          "alpha": 0.1,
+          "l1_ratio": 0.1
+        },
+        "Commodity": {
+          "alpha": 0.1,
+          "l1_ratio": 0.1
+        }
+      }
+    },
+    "RF": {
+      "Pooled_R2": 0.7326,
+      "Median_R2": -0.2752,
+      "Mean_R2": -1.1413,
+      "RMSE": 0.4918,
+      "best_params": {
+        "Equity": {
+          "max_depth": 5,
+          "min_samples_leaf": 5
+        },
+        "Bond": {
+          "max_depth": 5,
+          "min_samples_leaf": 5
+        },
+        "Commodity": {
+          "max_depth": 10,
+          "min_samples_leaf": 20
+        }
+      }
+    },
+    "XGBoost": {
+      "Pooled_R2": 0.6683,
+      "Median_R2": -0.6427,
+      "Mean_R2": -1.6944,
+      "RMSE": 0.5478,
+      "best_params": {
+        "Equity": {
+          "max_depth": 4,
+          "learning_rate": 0.03
+        },
+        "Bond": {
+          "max_depth": 3,
+          "learning_rate": 0.05
+        },
+        "Commodity": {
+          "max_depth": 3,
+          "learning_rate": 0.1
+        }
+      }
+    },
+    "LightGBM": {
+      "Pooled_R2": 0.6261,
+      "Median_R2": -0.7223,
+      "Mean_R2": -1.9243,
+      "RMSE": 0.5815,
+      "best_params": {
+        "Equity": {
+          "max_depth": 5,
+          "learning_rate": 0.1,
+          "num_leaves": 31
+        },
+        "Bond": {
+          "max_depth": 3,
+          "learning_rate": 0.05,
+          "num_leaves": 15
+        },
+        "Commodity": {
+          "max_depth": 3,
+          "learning_rate": 0.1,
+          "num_leaves": 15
+        }
+      }
+    },
+    "MLP": {
+      "Pooled_R2": 0.5574,
+      "Median_R2": -1.7574,
+      "Mean_R2": -2.3105,
+      "RMSE": 0.6327,
+      "best_params": {
+        "Equity": {
+          "hidden_layer_sizes": [
+            64,
+            32
+          ],
+          "alpha": 0.01
+        },
+        "Bond": {
+          "hidden_layer_sizes": [
+            64,
+            32
+          ],
+          "alpha": 0.01
+        },
+        "Commodity": {
+          "hidden_layer_sizes": [
+            64
+          ],
+          "alpha": 0.01
+        }
+      }
+    },
+    "BiLSTM-A": {
+      "Pooled_R2": 0.5714,
+      "Median_R2": -2.1417,
+      "Mean_R2": -2.7149,
+      "RMSE": 0.6195,
+      "best_params": {
+        "Equity": {
+          "hidden": 32,
+          "dropout": 0.1
+        },
+        "Bond": {
+          "hidden": 32,
+          "dropout": 0.1
+        },
+        "Commodity": {
+          "hidden": 64,
+          "dropout": 0.3
+        }
+      }
+    },
+    "WEns": {
+      "Pooled_R2": 0.7383,
+      "Median_R2": -0.2963,
+      "Mean_R2": -1.0538,
+      "RMSE": 0.4865,
+      "best_params": {
+        "pw": 0.5,
+        "Ridge": {
+          "Equity": {
+            "alpha": 2000
+          },
+          "Bond": {
+            "alpha": 1000
+          },
+          "Commodity": {
+            "alpha": 2000
+          }
+        },
+        "XGBoost": {
+          "Equity": {
+            "max_depth": 4,
+            "learning_rate": 0.03
+          },
+          "Bond": {
+            "max_depth": 3,
+            "learning_rate": 0.05
+          },
+          "Commodity": {
+            "max_depth": 3,
+            "learning_rate": 0.1
+          }
+        }
+      }
+    }
+  },
+  "252d": {
+    "HAR-3": {
+      "Pooled_R2": 0.6906,
+      "Median_R2": -2.2937,
+      "Mean_R2": -3.3164,
+      "RMSE": 0.5212
+    },
+    "Ridge": {
+      "Pooled_R2": 0.6873,
+      "Median_R2": -2.9712,
+      "Mean_R2": -2.9132,
+      "RMSE": 0.5239,
+      "best_params": {
+        "Equity": {
+          "alpha": 2000
+        },
+        "Bond": {
+          "alpha": 1000
+        },
+        "Commodity": {
+          "alpha": 2000
+        }
+      }
+    },
+    "LASSO": {
+      "Pooled_R2": 0.6675,
+      "Median_R2": -3.5177,
+      "Mean_R2": -3.0152,
+      "RMSE": 0.5402,
+      "best_params": {
+        "Equity": {
+          "alpha": 0.1
+        },
+        "Bond": {
+          "alpha": 0.01
+        },
+        "Commodity": {
+          "alpha": 0.01
+        }
+      }
+    },
+    "ENet": {
+      "Pooled_R2": 0.6712,
+      "Median_R2": -3.8926,
+      "Mean_R2": -3.0215,
+      "RMSE": 0.5372,
+      "best_params": {
+        "Equity": {
+          "alpha": 0.1,
+          "l1_ratio": 0.9
+        },
+        "Bond": {
+          "alpha": 0.1,
+          "l1_ratio": 0.1
+        },
+        "Commodity": {
+          "alpha": 0.1,
+          "l1_ratio": 0.1
+        }
+      }
+    },
+    "RF": {
+      "Pooled_R2": 0.7094,
+      "Median_R2": -0.8857,
+      "Mean_R2": -2.5551,
+      "RMSE": 0.5051,
+      "best_params": {
+        "Equity": {
+          "max_depth": 5,
+          "min_samples_leaf": 5
+        },
+        "Bond": {
+          "max_depth": 5,
+          "min_samples_leaf": 5
+        },
+        "Commodity": {
+          "max_depth": 10,
+          "min_samples_leaf": 5
+        }
+      }
+    },
+    "XGBoost": {
+      "Pooled_R2": 0.6038,
+      "Median_R2": -1.3356,
+      "Mean_R2": -3.6146,
+      "RMSE": 0.5897,
+      "best_params": {
+        "Equity": {
+          "max_depth": 4,
+          "learning_rate": 0.1
+        },
+        "Bond": {
+          "max_depth": 3,
+          "learning_rate": 0.03
+        },
+        "Commodity": {
+          "max_depth": 3,
+          "learning_rate": 0.1
+        }
+      }
+    },
+    "LightGBM": {
+      "Pooled_R2": 0.5993,
+      "Median_R2": -1.2543,
+      "Mean_R2": -3.6174,
+      "RMSE": 0.5931,
+      "best_params": {
+        "Equity": {
+          "max_depth": 5,
+          "learning_rate": 0.1,
+          "num_leaves": 31
+        },
+        "Bond": {
+          "max_depth": 3,
+          "learning_rate": 0.05,
+          "num_leaves": 15
+        },
+        "Commodity": {
+          "max_depth": 5,
+          "learning_rate": 0.1,
+          "num_leaves": 31
+        }
+      }
+    },
+    "MLP": {
+      "Pooled_R2": 0.4973,
+      "Median_R2": -3.7637,
+      "Mean_R2": -4.417,
+      "RMSE": 0.6643,
+      "best_params": {
+        "Equity": {
+          "hidden_layer_sizes": [
+            128,
+            64
+          ],
+          "alpha": 0.01
+        },
+        "Bond": {
+          "hidden_layer_sizes": [
+            128,
+            64
+          ],
+          "alpha": 0.01
+        },
+        "Commodity": {
+          "hidden_layer_sizes": [
+            128,
+            64
+          ],
+          "alpha": 0.01
+        }
+      }
+    },
+    "BiLSTM-A": {
+      "Pooled_R2": 0.5253,
+      "Median_R2": -3.0445,
+      "Mean_R2": -5.1954,
+      "RMSE": 0.6421,
+      "best_params": {
+        "Equity": {
+          "hidden": 64,
+          "dropout": 0.1
+        },
+        "Bond": {
+          "hidden": 32,
+          "dropout": 0.3
+        },
+        "Commodity": {
+          "hidden": 64,
+          "dropout": 0.1
+        }
+      }
+    },
+    "WEns": {
+      "Pooled_R2": 0.693,
+      "Median_R2": -0.7774,
+      "Mean_R2": -2.4632,
+      "RMSE": 0.5191,
+      "best_params": {
+        "pw": 0.4,
+        "Ridge": {
+          "Equity": {
+            "alpha": 2000
+          },
+          "Bond": {
+            "alpha": 1000
+          },
+          "Commodity": {
+            "alpha": 2000
+          }
+        },
+        "XGBoost": {
+          "Equity": {
+            "max_depth": 4,
+            "learning_rate": 0.1
+          },
+          "Bond": {
+            "max_depth": 3,
+            "learning_rate": 0.03
+          },
+          "Commodity": {
+            "max_depth": 3,
+            "learning_rate": 0.1
+          }
+        }
+      }
+    }
+  }
+}

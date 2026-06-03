@@ -1,0 +1,57 @@
+<details>
+  <summary>Drechsler & Yaron (2011): "What's Vol Got to Do with It" (Review of Financial Studies)</summary>
+  <div class="paper-details">
+    <div class="paper-links">
+      <a href="https://doi.org/10.1093/rfs/hhq083" target="_blank">[Journal Link]</a>
+      <a href="https://www.nber.org/system/files/working_papers/w14582/w14582.pdf" target="_blank">[NBER PDF]</a>
+    </div>
+
+    <details class="nested-details">
+      <summary>논문 개요</summary>
+      <div class="nested-content">
+        <p>VRP의 경제적 원천을 장기 위험(Long-Run Risk, LRR) 프레임워크 내에서 이론적으로 설명한 연구입니다. VRP가 단순히 변동성의 차이가 아니라, 경제 펀더멘털에 대한 투자자들의 불확실성과 그에 대한 태도(Attitudes toward Uncertainty)를 반영한다는 점을 수학적으로 규명했습니다.</p>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>연구 질문</summary>
+      <div class="nested-content">
+        <ul>
+          <li>VRP가 거시경제적 펀더멘털의 어떤 위험 요인을 반영하는가?</li>
+          <li>소비 성장률과 인플레이션의 불확실성이 VRP 형성에 어떤 영향을 주는가?</li>
+          <li>비정규적(Non-Gaussian) 충격과 점프(Jump)가 VRP의 시간 가변성을 어떻게 설명하는가?</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>데이터 및 샘플</summary>
+      <div class="nested-content">
+        <ul>
+          <li><strong>표본 기간:</strong> 1990년 ~ 2008년</li>
+          <li><strong>금융 데이터:</strong> S&P 500 초과 수익률, VIX 지수, 실현 변동성.</li>
+          <li><strong>거시 데이터:</strong> 소비 성장률, 산업 생산성 지표.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>방법론</summary>
+      <div class="nested-content">
+        <p><strong>Generalized LRR Model:</strong> Bansal & Yaron(2004)의 모형을 확장하여, 펀더멘털의 확률적 변동성이 점프(Jump)를 동반하는 모형을 설정했습니다.</p>
+        <p><strong>Preference:</strong> Epstein-Zin 효용 함수를 사용하여 위험 회피(Risk Aversion)와 기간 간 대체 탄력성(IES)을 분리하여 분석했습니다.</p>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>연구 결과</summary>
+      <div class="nested-content">
+        <ul>
+          <li><strong>불확실성의 대리 지표:</strong> VRP는 미래 펀더멘털 불확실성에 대한 시장의 공포를 직접적으로 측정하는 지표임을 확인했습니다.</li>
+          <li><strong>모형의 일관성:</strong> 제안된 LRR 모형은 현실의 VRP 수준, 변동성, 왜도(Skewness)를 동시에 설명할 수 있습니다.</li>
+          <li><strong>수수께끼 해결:</strong> 주식 수익률과 무위험 이자율의 변동성을 VRP를 통해 통합적으로 이해할 수 있는 이론적 토대를 마련했습니다.</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+</details>

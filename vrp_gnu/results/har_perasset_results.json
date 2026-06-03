@@ -1,0 +1,354 @@
+{
+  "1d": {
+    "HAR3_pooled": {
+      "Pooled_R2": 0.1095
+    },
+    "HAR3_perasset": {
+      "Pooled_R2": 0.0968,
+      "Median_R2": 0.0166,
+      "per_asset": {
+        "SPY": 0.0585,
+        "QQQ": 0.054,
+        "IWM": -0.0039,
+        "EFA": 0.0166,
+        "EEM": 0.0052,
+        "TLT": 0.0184,
+        "IEF": -0.0167,
+        "AGG": -0.1243,
+        "GLD": 0.0166,
+        "SLV": -0.0213,
+        "USO": 0.0259
+      }
+    },
+    "DLinear": {
+      "Pooled_R2": -4.7762,
+      "Median_R2": -5.0899,
+      "per_asset": {
+        "SPY": -4.8659,
+        "QQQ": -5.0899,
+        "IWM": -5.1452,
+        "EFA": -3.3198,
+        "EEM": -2.7493,
+        "TLT": -6.4812,
+        "IEF": -9.9292,
+        "AGG": -17.0209,
+        "GLD": -5.3324,
+        "SLV": -2.8817,
+        "USO": -2.0959
+      }
+    },
+    "gaps": {
+      "pooling_benefit": 0.0127,
+      "architecture_effect": 4.873,
+      "total_deficit": 4.8857
+    }
+  },
+  "5d": {
+    "HAR3_pooled": {
+      "Pooled_R2": 0.5739
+    },
+    "HAR3_perasset": {
+      "Pooled_R2": 0.5388,
+      "Median_R2": 0.0637,
+      "per_asset": {
+        "SPY": 0.3123,
+        "QQQ": 0.264,
+        "IWM": 0.0523,
+        "EFA": 0.1475,
+        "EEM": 0.0637,
+        "TLT": 0.0779,
+        "IEF": 0.0225,
+        "AGG": -0.7692,
+        "GLD": 0.0588,
+        "SLV": 0.0113,
+        "USO": 0.293
+      }
+    },
+    "DLinear": {
+      "Pooled_R2": -13.3885,
+      "Median_R2": -19.1672,
+      "per_asset": {
+        "SPY": -18.6995,
+        "QQQ": -19.1672,
+        "IWM": -21.3484,
+        "EFA": -19.0255,
+        "EEM": -12.3788,
+        "TLT": -36.1205,
+        "IEF": -61.787,
+        "AGG": -87.7327,
+        "GLD": -26.4458,
+        "SLV": -15.5709,
+        "USO": -10.2357
+      }
+    },
+    "gaps": {
+      "pooling_benefit": 0.0351,
+      "architecture_effect": 13.9273,
+      "total_deficit": 13.9624
+    }
+  },
+  "22d": {
+    "HAR3_pooled": {
+      "Pooled_R2": 0.7605
+    },
+    "HAR3_perasset": {
+      "Pooled_R2": 0.6491,
+      "Median_R2": 0.0815,
+      "per_asset": {
+        "SPY": 0.4439,
+        "QQQ": 0.3845,
+        "IWM": 0.0595,
+        "EFA": 0.323,
+        "EEM": 0.1513,
+        "TLT": -0.5269,
+        "IEF": -1.4555,
+        "AGG": -3.7271,
+        "GLD": 0.0815,
+        "SLV": 0.0363,
+        "USO": 0.2427
+      }
+    },
+    "DLinear": {
+      "Pooled_R2": -17.2323,
+      "Median_R2": -40.8226,
+      "per_asset": {
+        "SPY": -30.2587,
+        "QQQ": -33.1257,
+        "IWM": -48.7337,
+        "EFA": -35.6131,
+        "EEM": -31.5814,
+        "TLT": -94.6442,
+        "IEF": -149.0521,
+        "AGG": -230.6071,
+        "GLD": -60.82,
+        "SLV": -40.8226,
+        "USO": -16.0067
+      }
+    },
+    "gaps": {
+      "pooling_benefit": 0.1114,
+      "architecture_effect": 17.8814,
+      "total_deficit": 17.9928
+    }
+  },
+  "60d": {
+    "HAR3_pooled": {
+      "Pooled_R2": 0.7854
+    },
+    "HAR3_perasset": {
+      "Pooled_R2": 0.5874,
+      "Median_R2": -0.0046,
+      "per_asset": {
+        "SPY": 0.2962,
+        "QQQ": 0.1172,
+        "IWM": -0.2023,
+        "EFA": 0.2468,
+        "EEM": 0.0569,
+        "TLT": -1.1137,
+        "IEF": -2.926,
+        "AGG": -11.4025,
+        "GLD": -0.0046,
+        "SLV": -0.0645,
+        "USO": 0.0839
+      }
+    },
+    "DLinear": {
+      "Pooled_R2": -18.7137,
+      "Median_R2": -62.656,
+      "per_asset": {
+        "SPY": -36.9674,
+        "QQQ": -39.0398,
+        "IWM": -77.7021,
+        "EFA": -45.5692,
+        "EEM": -44.1957,
+        "TLT": -153.5274,
+        "IEF": -240.6185,
+        "AGG": -392.5238,
+        "GLD": -114.8338,
+        "SLV": -62.656,
+        "USO": -23.2552
+      }
+    },
+    "gaps": {
+      "pooling_benefit": 0.1979,
+      "architecture_effect": 19.3011,
+      "total_deficit": 19.4991
+    }
+  },
+  "90d": {
+    "HAR3_pooled": {
+      "Pooled_R2": 0.7858
+    },
+    "HAR3_perasset": {
+      "Pooled_R2": 0.5818,
+      "Median_R2": -0.0344,
+      "per_asset": {
+        "SPY": 0.2072,
+        "QQQ": -0.0182,
+        "IWM": -0.3845,
+        "EFA": 0.2139,
+        "EEM": -0.0344,
+        "TLT": -1.5566,
+        "IEF": -4.5662,
+        "AGG": -12.9757,
+        "GLD": -0.0326,
+        "SLV": -0.1247,
+        "USO": 0.1082
+      }
+    },
+    "DLinear": {
+      "Pooled_R2": -19.3027,
+      "Median_R2": -75.4105,
+      "per_asset": {
+        "SPY": -38.3745,
+        "QQQ": -39.3995,
+        "IWM": -95.4344,
+        "EFA": -48.2222,
+        "EEM": -47.3519,
+        "TLT": -187.33,
+        "IEF": -295.3707,
+        "AGG": -519.8827,
+        "GLD": -175.9164,
+        "SLV": -75.4105,
+        "USO": -26.0804
+      }
+    },
+    "gaps": {
+      "pooling_benefit": 0.204,
+      "architecture_effect": 19.8845,
+      "total_deficit": 20.0885
+    }
+  },
+  "120d": {
+    "HAR3_pooled": {
+      "Pooled_R2": 0.7731
+    },
+    "HAR3_perasset": {
+      "Pooled_R2": 0.5797,
+      "Median_R2": -0.1347,
+      "per_asset": {
+        "SPY": 0.1701,
+        "QQQ": -0.0368,
+        "IWM": -0.5014,
+        "EFA": 0.1656,
+        "EEM": -0.1347,
+        "TLT": -2.1014,
+        "IEF": -5.5939,
+        "AGG": -15.1685,
+        "GLD": -0.031,
+        "SLV": -0.3327,
+        "USO": 0.0312
+      }
+    },
+    "DLinear": {
+      "Pooled_R2": -19.717,
+      "Median_R2": -86.5068,
+      "per_asset": {
+        "SPY": -38.4502,
+        "QQQ": -38.3305,
+        "IWM": -109.6468,
+        "EFA": -49.3643,
+        "EEM": -50.825,
+        "TLT": -223.4826,
+        "IEF": -336.8066,
+        "AGG": -623.8459,
+        "GLD": -235.7225,
+        "SLV": -86.5068,
+        "USO": -29.3075
+      }
+    },
+    "gaps": {
+      "pooling_benefit": 0.1934,
+      "architecture_effect": 20.2967,
+      "total_deficit": 20.4901
+    }
+  },
+  "180d": {
+    "HAR3_pooled": {
+      "Pooled_R2": 0.7423
+    },
+    "HAR3_perasset": {
+      "Pooled_R2": 0.5585,
+      "Median_R2": -0.2918,
+      "per_asset": {
+        "SPY": 0.0734,
+        "QQQ": -0.1701,
+        "IWM": -0.6089,
+        "EFA": 0.0892,
+        "EEM": -0.2918,
+        "TLT": -4.1539,
+        "IEF": -7.5518,
+        "AGG": -20.9236,
+        "GLD": -0.2083,
+        "SLV": -0.6537,
+        "USO": -0.0086
+      }
+    },
+    "DLinear": {
+      "Pooled_R2": -20.3606,
+      "Median_R2": -129.4954,
+      "per_asset": {
+        "SPY": -38.9312,
+        "QQQ": -41.2458,
+        "IWM": -129.4954,
+        "EFA": -50.5975,
+        "EEM": -57.7135,
+        "TLT": -292.5119,
+        "IEF": -407.2321,
+        "AGG": -810.9591,
+        "GLD": -330.5948,
+        "SLV": -132.4476,
+        "USO": -35.8847
+      }
+    },
+    "gaps": {
+      "pooling_benefit": 0.1839,
+      "architecture_effect": 20.9191,
+      "total_deficit": 21.1029
+    }
+  },
+  "252d": {
+    "HAR3_pooled": {
+      "Pooled_R2": 0.6941
+    },
+    "HAR3_perasset": {
+      "Pooled_R2": 0.5356,
+      "Median_R2": -0.5979,
+      "per_asset": {
+        "SPY": -0.1104,
+        "QQQ": -0.5331,
+        "IWM": -1.1947,
+        "EFA": -0.0062,
+        "EEM": -0.4059,
+        "TLT": -8.364,
+        "IEF": -11.2718,
+        "AGG": -29.5547,
+        "GLD": -0.5979,
+        "SLV": -0.842,
+        "USO": -0.2
+      }
+    },
+    "DLinear": {
+      "Pooled_R2": -21.2651,
+      "Median_R2": -161.578,
+      "per_asset": {
+        "SPY": -43.4067,
+        "QQQ": -45.437,
+        "IWM": -161.578,
+        "EFA": -56.1028,
+        "EEM": -65.1569,
+        "TLT": -456.3175,
+        "IEF": -546.6433,
+        "AGG": -1234.6255,
+        "GLD": -604.5083,
+        "SLV": -278.918,
+        "USO": -44.9824
+      }
+    },
+    "gaps": {
+      "pooling_benefit": 0.1585,
+      "architecture_effect": 21.8007,
+      "total_deficit": 21.9592
+    }
+  }
+}

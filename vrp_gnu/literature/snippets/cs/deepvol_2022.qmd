@@ -1,0 +1,56 @@
+<details>
+  <summary>DeepVol (2022): "Volatility Forecasting from High-Frequency Data with Dilated Causal Convolutions" (arXiv / Quantitative Finance)</summary>
+  <div class="paper-details">
+    <div class="paper-links">
+      <a href="https://arxiv.org/abs/2210.04797" target="_blank">[arXiv Link]</a>
+      <a href="https://doi.org/10.1080/1350486X.2023.2201948" target="_blank">[Journal Link]</a>
+    </div>
+
+    <details class="nested-details">
+      <summary>논문 개요</summary>
+      <div class="nested-content">
+        <p>고빈도 틱(Tick) 데이터를 직접 입력받아 미래 변동성을 예측하는 **DeepVol** 모델을 제안한 연구입니다. WaveNet의 아키텍처인 Dilated Causal Convolution을 금융 시계열에 최적화하여 적용했습니다.</p>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>연구 질문</summary>
+      <div class="nested-content">
+        <ul>
+          <li>RV와 같이 가공된 데이터 대신 원시(Raw) 고빈도 수익률 데이터를 사용하는 것이 더 많은 정보를 포착하는가?</li>
+          <li>Dilated Convolution이 금융 시계열의 장기/단기 의존성을 동시에 포착하는 데 효과적인가?</li>
+          <li>인과적(Causal) 제약 조건이 딥러닝의 미래 참조 편향(Look-ahead bias)을 완벽히 통제할 수 있는가?</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>데이터 및 샘플</summary>
+      <div class="nested-content">
+        <ul>
+          <li><strong>데이터:</strong> NASDAQ-100 지수의 1분 및 5분 단위 수익률 시계열.</li>
+          <li><strong>특징:</strong> 별도의 핸드크래프트 피처(RV, BPV 등) 없이 수익률 값 자체를 입력으로 사용.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>방법론</summary>
+      <div class="nested-content">
+        <p><strong>Dilated Causal CNN:</strong> 합성곱 층이 깊어질수록 수용 영역(Receptive Field)을 지수적으로 확장하여 긴 과거 이력을 효율적으로 학습합니다.</p>
+        <p><strong>End-to-End Learning:</strong> 데이터 가공 단계를 생략하고 원시 데이터를 통해 변동성 함축 패턴을 직접 추출합니다.</p>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>연구 결과</summary>
+      <div class="nested-content">
+        <ul>
+          <li><strong>성능 압도:</strong> 기존의 최상위 계량 모델인 HEAVY 및 GARCH-midas 대비 RMSE 기준 약 10~15%의 성능 향상을 기록했습니다.</li>
+          <li><strong>급변 국면 적응:</strong> 시장의 갑작스러운 구조적 변화(Structural break)가 발생했을 때 딥러닝 모델이 더 빠르게 적응함을 확인했습니다.</li>
+          <li><strong>해석 가능성:</strong> 어텐션 맵 분석을 통해 모델이 장기 추세와 최근의 변동성 군집(Clustering)을 조화롭게 고려하고 있음을 보여주었습니다.</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+</details>

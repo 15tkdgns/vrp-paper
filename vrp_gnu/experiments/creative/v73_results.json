@@ -1,0 +1,118 @@
+{
+  "experiment": "V73_Alternative_Boost",
+  "strategies": [
+    "Enhanced_Features",
+    "LASSO_Selection",
+    "ElasticNet",
+    "LightGBM/XGBoost",
+    "Stacking",
+    "Grand_Ensemble"
+  ],
+  "results": {
+    "V71_Baseline": {
+      "R2": 0.7968547575273408,
+      "RMSE": 0.4681788102105723,
+      "MAE": 0.3769588605797471,
+      "QLIKE": 0.12494110986437244,
+      "n_features": 37
+    },
+    "Enhanced_Ridge": {
+      "R2": 0.7987955773279504,
+      "RMSE": 0.46593698706370806,
+      "MAE": 0.37247802538647656,
+      "QLIKE": 0.12338861748226794,
+      "n_features": 59
+    },
+    "LASSO_Selected_Ridge": {
+      "R2": 0.7921135363695516,
+      "RMSE": 0.47361072818563277,
+      "MAE": 0.37623688248572645,
+      "QLIKE": 0.13040207406117557,
+      "n_features": 20
+    },
+    "ElasticNet": {
+      "R2": 0.8011444300351795,
+      "RMSE": 0.46320933782477086,
+      "MAE": 0.3700170993548187,
+      "QLIKE": 0.12247498527483759,
+      "l1_ratio": 0.1
+    },
+    "LightGBM": {
+      "R2": 0.7358610529750536,
+      "RMSE": 0.5338566375729125,
+      "MAE": 0.42509799112495117,
+      "QLIKE": 0.1759695130631893
+    },
+    "Stacking": {
+      "R2": 0.7649304055451059,
+      "RMSE": 0.5036242744324754,
+      "MAE": 0.39948242695975755,
+      "QLIKE": 0.13680397797832544
+    },
+    "Grand_Ensemble": {
+      "R2": 0.8021612585671851,
+      "RMSE": 0.4620235321562068,
+      "MAE": 0.369048647440122,
+      "QLIKE": 0.12057629328951429,
+      "weights": {
+        "ElasticNet": 0.85,
+        "Stacking": 0.15
+      }
+    }
+  },
+  "best_model": "Grand_Ensemble",
+  "best_r2": 0.8021612585671851,
+  "baseline_r2": 0.7968547575273408,
+  "improvement_pct": 0.6659307721661237,
+  "new_features_added": [
+    "LogRV_lag44",
+    "LogRV_lag66",
+    "LogRV_ma5",
+    "LogRV_ma44",
+    "LogRV_ma66",
+    "VIX_x_LogRV1",
+    "VIX_x_RVMom",
+    "VIX_x_RVStd",
+    "Ret_x_LogRV",
+    "Ret_neg_x_LogRV",
+    "LogRV_lag1_sq",
+    "LogRV_lag1_cb",
+    "Garch_sq",
+    "Ret_sq_lag1",
+    "SemiVar_Down",
+    "SemiVar_Up",
+    "SemiVar_Ratio",
+    "BV_Proxy",
+    "Jump_Proxy",
+    "Jump_Ratio",
+    "Parkinson_44",
+    "Park_Mom"
+  ],
+  "lasso_selected_features": [
+    "LogRV_lag22",
+    "Garch_Weekly",
+    "LogRV_Std22",
+    "SPY_LogRV",
+    "Ret_lag1",
+    "LogRV_lag66",
+    "LogRV_ma44",
+    "VIX_x_LogRV1",
+    "Ret_neg_x_LogRV",
+    "SemiVar_Up",
+    "SemiVar_Ratio",
+    "BV_Proxy",
+    "Parkinson_5",
+    "RogersSatchell_22",
+    "Park_Mom",
+    "IV_VIX_TermSlope",
+    "IV_VIX_ShortSlope",
+    "IV_VRP_ma22",
+    "AltVol_PV_Corr",
+    "AltVol_Vol_Surprise"
+  ],
+  "best_elasticnet_l1": 0.1,
+  "ensemble_weights": {
+    "ElasticNet": 0.85,
+    "Stacking": 0.15
+  }
+}
