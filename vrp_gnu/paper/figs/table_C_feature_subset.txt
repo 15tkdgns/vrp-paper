@@ -1,0 +1,8 @@
+[Table 8] Feature Group Subset Experiment — 22-day Horizon (Pooled R²)
+Feature Group          |    N |  Pooled R2 |  Median R2
+--------------------------------------------------------
+HAR (3 features)       |    3 |     0.7573 |     0.1931
+Range only (5)         |    5 |     0.7749 |     0.0918
+IV Surface only (10)   |   10 |     0.2101 |    -0.7032
+HAR + Range (8)        |    8 |     0.7899 |     0.2127
+Full (35 features)     |   35 |     0.8026 |     0.2583

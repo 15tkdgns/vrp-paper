@@ -1,0 +1,19 @@
+Model,Params,Pooled_R2
+Ridge,{'alpha': 1},0.741415
+Ridge,{'alpha': 10},0.742871
+Ridge,{'alpha': 100},0.746372
+Lasso,{'alpha': 0.001},0.7414
+Lasso,{'alpha': 0.01},0.748314
+Lasso,{'alpha': 0.1},0.739182
+RF,"{'depth': 5, 'feat': 'sqrt'}",0.698559
+RF,"{'depth': 5, 'feat': 0.8}",0.689669
+RF,"{'depth': 10, 'feat': 'sqrt'}",0.688923
+RF,"{'depth': 10, 'feat': 0.8}",0.670882
+XGB,"{'depth': 3, 'lr': 0.01}",0.556943
+XGB,"{'depth': 3, 'lr': 0.1}",0.705516
+XGB,"{'depth': 5, 'lr': 0.01}",0.57519
+XGB,"{'depth': 5, 'lr': 0.1}",0.669754
+BiLSTM-A,"{'h': 32, 'd': 0.0}",-0.281443
+BiLSTM-A,"{'h': 32, 'd': 0.3}",-0.14597
+BiLSTM-A,"{'h': 64, 'd': 0.0}",-0.298231
+BiLSTM-A,"{'h': 64, 'd': 0.3}",-0.224392

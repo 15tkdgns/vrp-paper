@@ -1,0 +1,56 @@
+<details>
+  <summary>Bekaert & Hoerova (2014): "The VIX, the Variance Premium and Stock Market Volatility" (Journal of Econometrics)</summary>
+  <div class="paper-details">
+    <div class="paper-links">
+      <a href="https://doi.org/10.1016/j.jeconom.2014.07.001" target="_blank">[Journal Link]</a>
+      <a href="https://www.nber.org/system/files/working_papers/w18995/w18995.pdf" target="_blank">[NBER PDF]</a>
+    </div>
+
+    <details class="nested-details">
+      <summary>논문 개요</summary>
+      <div class="nested-content">
+        <p>VIX 지수를 구성하는 두 요소를 엄밀하게 분해하여 그 각각의 경제적 의미를 분석한 연구입니다. VIX 지수가 '순수한 미래 위험'과 '위험에 대한 프리미엄' 중 무엇을 더 많이 담고 있는지, 그리고 각각이 무엇을 예측하는지를 규명했습니다.</p>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>연구 질문</summary>
+      <div class="nested-content">
+        <ul>
+          <li>VIX 제곱을 '물리적 기대 분산(Risk)'과 '분산 프리미엄(Risk Aversion)'으로 어떻게 정확히 분해할 수 있는가?</li>
+          <li>주식 수익률을 예측하는 핵심 요소는 위험 자체인가, 아니면 위험에 대한 태도(Premium)인가?</li>
+          <li>산업 생산과 같은 실물 경제 지표를 예측하는 데 더 유용한 변수는 무엇인가?</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>데이터 및 샘플</summary>
+      <div class="nested-content">
+        <ul>
+          <li><strong>기간:</strong> 1990년 ~ 2010년 (금융 위기 기간 포함)</li>
+          <li><strong>입력:</strong> S&P 500 일별 수익률, 고빈도(5분) RV 데이터, VIX 지수.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>방법론</summary>
+      <div class="nested-content">
+        <p><strong>Decomposition Logic:</strong> $VIX_t^2 = E_t^\mathbb{P}[RV_{t, t+1}] + VP_t$ (여기서 $E_t^\mathbb{P}$는 조건부 분산 모델링을 통해 추정)</p>
+        <p><strong>Volatility Models:</strong> 31개의 다양한 변동성 예측 모델(GARCH, HAR-RV 등)을 비교 테스트하여 가장 정교한 조건을 도출했습니다.</p>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>연구 결과</summary>
+      <div class="nested-content">
+        <ul>
+          <li><strong>이원적 예측력:</strong> 주식 초과 수익률을 예측하는 것은 주로 **Variance Premium(VP)**인 반면, 산업 생산과 같은 실물 활동을 예측하는 것은 **Conditional Variance(Risk)**임이 밝혀졌습니다.</li>
+          <li><strong>공포 지수의 본질:</strong> VIX의 상승이 위험 회피 성향의 증가 때문인지, 펀더멘털 위험의 증가 때문인지를 구분하는 것이 투자 의사 결정에 필수적임을 시사합니다.</li>
+          <li><strong>금융 불안정성:</strong> 금융 시장의 불안정성(Instability)은 프리미엄보다는 실제 변동성(Risk) 자체와 더 강한 상관관계를 보였습니다.</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+</details>

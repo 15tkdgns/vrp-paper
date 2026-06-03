@@ -1,0 +1,35 @@
+{
+  "ridge": 0.772008399850192,
+  "stacking": 0.7762072369929855,
+  "weighted": 0.7774888810354443,
+  "best_name": "Weighted",
+  "best_r2": 0.7774888810354443,
+  "best_alphas": {
+    "Equity": 0.01,
+    "Bond": 0.01,
+    "Commodity": 1000.0
+  },
+  "n_features": 18,
+  "features": [
+    "LogRV_lag1",
+    "LogRV_lag5",
+    "LogRV_lag10",
+    "LogRV_lag22",
+    "Garch_Daily",
+    "Garch_Weekly",
+    "LogRV_Std5",
+    "LogRV_Std22",
+    "RV_Mom5",
+    "RV_Mom22",
+    "VIX_Proxy",
+    "Cross_Corr",
+    "Ret_lag1",
+    "Ret_abs_lag1",
+    "Spill_SPY_RV5",
+    "Spill_TLT_RV1",
+    "LogRV_lag44",
+    "RV_Ratio_5_22"
+  ],
+  "best_weight_ridge": 0.55,
+  "xgboost": 0.7704443696958607
+}

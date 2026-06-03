@@ -1,0 +1,55 @@
+<details>
+  <summary>Michael, Cucuringu & Howison (2025): "Options-driven Volatility Forecasting" (Quantitative Finance)</summary>
+  <div class="paper-details">
+    <div class="paper-links">
+      <a href="https://doi.org/10.1080/14697688.2025.2454623" target="_blank">[Journal Link]</a>
+    </div>
+
+    <details class="nested-details">
+      <summary>논문 개요</summary>
+      <div class="nested-content">
+        <p>단일 지표인 VIX에 의존하지 않고, 옵션 시장 전체의 내재 변동성 곡면(IV Surface) 정보를 딥러닝으로 직접 학습하여 미래 변동성을 예측하는 최신 연구입니다. 옵션 가격에 녹아있는 시장의 비선형적 공포와 꼬리 위험을 정밀하게 추출합니다.</p>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>연구 질문</summary>
+      <div class="nested-content">
+        <ul>
+          <li>VIX가 담지 못하는 옵션 곡면의 Slope(기울기)와 Curvature(곡률) 정보가 미래 RV 예측에 추가적인 정보를 제공하는가?</li>
+          <li>오토인코더(Autoencoder)를 통한 IV Surface의 차원 축소가 예측 모델의 특징 선택(Feature Selection)보다 우월한가?</li>
+          <li>시장 급락 상황에서 옵션 기반 딥러닝 모델이 일반 시계열 모델보다 우수한 방어적 예측을 제공하는가?</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>데이터 및 샘플</summary>
+      <div class="nested-content">
+        <ul>
+          <li><strong>입력:</strong> 행사가격(Moneyness)과 만기(Maturity) 2차원 그리드 상의 전체 IV 표면 데이터.</li>
+          <li><strong>대상:</strong> S&P 500, Nasdaq 100 지수 옵션.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>방법론</summary>
+      <div class="nested-content">
+        <p><strong>Deep Feature Extraction:</strong> CNN 또는 Convolutional Autoencoder를 사용하여 2D IV Surface 이미지에서 핵심적인 잠재 변동성 패턴을 추출합니다.</p>
+        <p><strong>Hybrid RNN:</strong> 추출된 특징과 과거 RV 시계열을 결합하여 LSTM/GRU 층을 통해 시계열 동학을 학습합니다.</p>
+      </div>
+    </details>
+
+    <details class="nested-details">
+      <summary>연구 결과</summary>
+      <div class="nested-content">
+        <ul>
+          <li><strong>OTM 정보의 중요성:</strong> 외가격(OTM) 풋 옵션의 정보가 미래 변동성 스파이크를 예측하는 데 결정적인 역할을 함을 정량적으로 증명했습니다.</li>
+          <li><strong>강건성 향상:</strong> VIX의 일시적인 노이즈에 휘둘리지 않고 자산 가격의 구조적 위험을 더 객관적으로 포착했습니다.</li>
+          <li><strong>실무 적용:</strong> 테일 헤지(Tail Hedge) 전략을 운용하는 펀드에서 예측 모델로 활용 시 유의미한 알파 수익을 창출했습니다.</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+</details>

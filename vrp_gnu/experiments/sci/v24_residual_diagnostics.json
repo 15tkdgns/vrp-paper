@@ -1,0 +1,16 @@
+{
+  "ljung_box_pvalues": {
+    "5": 0.0,
+    "10": 0.0,
+    "22": 0.0
+  },
+  "arch_pvalue": 6.166671603259444e-252,
+  "jb_pvalue": 1.3650799804981942e-07,
+  "rmse_bull": 0.4588286381699326,
+  "rmse_bear": 0.5563240244930795,
+  "recommendations": [
+    "Modify Lag Structure (Autocorrelation found)",
+    "Consider GARCH-in-Mean (Volatility Clustering found)",
+    "Consider Box-Cox or Robust Scaling (Non-normality found)"
+  ]
+}

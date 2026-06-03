@@ -1,0 +1,314 @@
+{
+  "benchmark": [
+    {
+      "file": "multi_horizon_benchmark_results.json",
+      "description": "Multi-horizon 벤치마크 (8개 지평, 7개 모델)",
+      "size_kb": 10.3,
+      "source": "src/experiments/creative/multi_horizon_benchmark_results.json"
+    },
+    {
+      "file": "multi_horizon_nonoverlap_results.json",
+      "description": "Non-overlapping forward RV 벤치마크",
+      "size_kb": 5.2,
+      "source": "src/experiments/creative/multi_horizon_nonoverlap_results.json"
+    }
+  ],
+  "robustness": [
+    {
+      "file": "v71_robustness_results.json",
+      "description": "V71 기본 강건성 (split/alpha/CV/leakage)",
+      "size_kb": 13.8,
+      "source": "src/experiments/creative/v71_robustness_results.json"
+    },
+    {
+      "file": "v71_robustness_academic_results.json",
+      "description": "V71 학술 강건성 (GVZ/OVX, bootstrap DM, ffill)",
+      "size_kb": 2.7,
+      "source": "src/experiments/creative/v71_robustness_academic_results.json"
+    },
+    {
+      "file": "v71_model_comparison_results.json",
+      "description": "9개 모델 비교 + DM test",
+      "size_kb": 25.7,
+      "source": "src/experiments/creative/v71_model_comparison_results.json"
+    },
+    {
+      "file": "v50_11assets_results.json",
+      "description": "V50 11자산 확장 검증",
+      "size_kb": 1.7,
+      "source": "src/experiments/verification/v50_11assets_results.json"
+    },
+    {
+      "file": "v51_results.json",
+      "description": "V51 공정 비교",
+      "size_kb": 0.1,
+      "source": "src/experiments/verification/v51_results.json"
+    },
+    {
+      "file": "v51b_results.json",
+      "description": "V51b 공정 비교 (최종)",
+      "size_kb": 0.9,
+      "source": "src/experiments/verification/v51b_results.json"
+    },
+    {
+      "file": "v52_results.json",
+      "description": "V52 검증",
+      "size_kb": 0.1,
+      "source": "src/experiments/verification/v52_results.json"
+    },
+    {
+      "file": "v53_results.json",
+      "description": "V53 검증",
+      "size_kb": 0.1,
+      "source": "src/experiments/verification/v53_results.json"
+    },
+    {
+      "file": "v57_results.json",
+      "description": "V57 검증",
+      "size_kb": 0.1,
+      "source": "src/experiments/verification/v57_results.json"
+    },
+    {
+      "file": "v58_results.json",
+      "description": "V58 검증",
+      "size_kb": 0.2,
+      "source": "src/experiments/verification/v58_results.json"
+    },
+    {
+      "file": "v59_results.json",
+      "description": "V59 Extreme Market 검증",
+      "size_kb": 0.4,
+      "source": "src/experiments/verification/v59_results.json"
+    },
+    {
+      "file": "v60_results.json",
+      "description": "V60 Ablation",
+      "size_kb": 0.2,
+      "source": "src/experiments/verification/v60_results.json"
+    },
+    {
+      "file": "v61_results.json",
+      "description": "V61 Feature Importance",
+      "size_kb": 0.3,
+      "source": "src/experiments/verification/v61_results.json"
+    },
+    {
+      "file": "v63_results.json",
+      "description": "V63 검증",
+      "size_kb": 1.2,
+      "source": "src/experiments/verification/v63_results.json"
+    },
+    {
+      "file": "v65_robustness_results.json",
+      "description": "V65 강건성",
+      "size_kb": 1.7,
+      "source": "src/experiments/verification/v65_robustness_results.json"
+    },
+    {
+      "file": "v66_results.json",
+      "description": "V66 HP/CV 강건성",
+      "size_kb": 6.6,
+      "source": "src/experiments/verification/v66_results.json"
+    },
+    {
+      "file": "v67_results.json",
+      "description": "V67 검증",
+      "size_kb": 8.0,
+      "source": "src/experiments/verification/v67_results.json"
+    }
+  ],
+  "feature_analysis": [
+    {
+      "file": "v71_feature_importance_multi_results.json",
+      "description": "7개 방법 피처 중요도 합의",
+      "size_kb": 24.5,
+      "source": "src/experiments/creative/v71_feature_importance_multi_results.json"
+    }
+  ],
+  "model_evolution": [
+    {
+      "file": "v31_mamba_results.json",
+      "description": "V31 Mamba 실험",
+      "size_kb": 0.2,
+      "source": "src/experiments/creative/v31_mamba_results.json"
+    },
+    {
+      "file": "v32_kan_results.json",
+      "description": "V32 KAN 실험",
+      "size_kb": 0.1,
+      "source": "src/experiments/creative/v32_kan_results.json"
+    },
+    {
+      "file": "v33_graph_results.json",
+      "description": "V33 Graph 실험",
+      "size_kb": 0.1,
+      "source": "src/experiments/creative/v33_graph_results.json"
+    },
+    {
+      "file": "v35_results.json",
+      "description": "V35 Multi-Horizon GARCH",
+      "size_kb": 0.1,
+      "source": "src/experiments/creative/v35_results.json"
+    },
+    {
+      "file": "v36_results.json",
+      "description": "V36 Asset-Adaptive Ridge (22d)",
+      "size_kb": 0.0,
+      "source": "src/experiments/creative/v36_results.json"
+    },
+    {
+      "file": "v36_1day_results.json",
+      "description": "V36 1-day 예측",
+      "size_kb": 0.0,
+      "source": "src/experiments/creative/v36_1day_results.json"
+    },
+    {
+      "file": "v42_results.json",
+      "description": "V42 Transformer 실험",
+      "size_kb": 0.1,
+      "source": "src/experiments/creative/v42_results.json"
+    },
+    {
+      "file": "v43_results.json",
+      "description": "V43 Transformer 실험",
+      "size_kb": 0.0,
+      "source": "src/experiments/creative/v43_results.json"
+    },
+    {
+      "file": "v50_results.json",
+      "description": "V50 Bi-LSTM+Attention (original)",
+      "size_kb": 0.0,
+      "source": "src/experiments/creative/v50_results.json"
+    },
+    {
+      "file": "v50_37feat_results.json",
+      "description": "V50 37-feature 실험",
+      "size_kb": 2.0,
+      "source": "src/experiments/creative/v50_37feat_results.json"
+    },
+    {
+      "file": "v50_tuning_results.json",
+      "description": "V50 하이퍼파라미터 튜닝",
+      "size_kb": 7.7,
+      "source": "src/experiments/creative/v50_tuning_results.json"
+    },
+    {
+      "file": "v64_results.json",
+      "description": "V64 실험",
+      "size_kb": 0.8,
+      "source": "src/experiments/creative/v64_results.json"
+    },
+    {
+      "file": "v68_results.json",
+      "description": "V68 Enhanced Adaptive",
+      "size_kb": 0.3,
+      "source": "src/experiments/creative/v68_results.json"
+    },
+    {
+      "file": "v69_results.json",
+      "description": "V69 Max Performance",
+      "size_kb": 0.7,
+      "source": "src/experiments/creative/v69_results.json"
+    },
+    {
+      "file": "v70_results.json",
+      "description": "V70 Extended Universe (22개 자산)",
+      "size_kb": 1.2,
+      "source": "src/experiments/creative/v70_results.json"
+    },
+    {
+      "file": "v71_results.json",
+      "description": "V71 Advanced Data Sources",
+      "size_kb": 1.5,
+      "source": "src/experiments/creative/v71_results.json"
+    },
+    {
+      "file": "v72_results.json",
+      "description": "V72 R2 Boost",
+      "size_kb": 1.7,
+      "source": "src/experiments/creative/v72_results.json"
+    },
+    {
+      "file": "v73_results.json",
+      "description": "V73 Alternative Boost",
+      "size_kb": 2.6,
+      "source": "src/experiments/creative/v73_results.json"
+    },
+    {
+      "file": "v74_results.json",
+      "description": "V74 Deep Learning",
+      "size_kb": 1.4,
+      "source": "src/experiments/creative/v74_results.json"
+    }
+  ],
+  "sci_review": [
+    {
+      "file": "results_01_fair_comparison.json",
+      "description": "Step 1: 동일 피처 공정 비교",
+      "size_kb": 0.7,
+      "source": "src/experiments/creative/v71_sci/results_01_fair_comparison.json"
+    },
+    {
+      "file": "results_02_metrics_dm.json",
+      "description": "Step 2: 추가 메트릭 + DM test",
+      "size_kb": 1.2,
+      "source": "src/experiments/creative/v71_sci/results_02_metrics_dm.json"
+    },
+    {
+      "file": "results_03_asset_class.json",
+      "description": "Step 3: 자산 클래스별 성능",
+      "size_kb": 2.6,
+      "source": "src/experiments/creative/v71_sci/results_03_asset_class.json"
+    },
+    {
+      "file": "results_04_regime.json",
+      "description": "Step 4: 레짐별 안정성",
+      "size_kb": 1.0,
+      "source": "src/experiments/creative/v71_sci/results_04_regime.json"
+    },
+    {
+      "file": "results_05_correlation_coef.json",
+      "description": "Step 5: 상관관계/계수 해석",
+      "size_kb": 14.2,
+      "source": "src/experiments/creative/v71_sci/results_05_correlation_coef.json"
+    },
+    {
+      "file": "v71_sci_01_fair_comparison.json",
+      "description": "(from paper/csv root)",
+      "size_kb": 0.7,
+      "source": "paper/csv/v71_sci_01_fair_comparison.json"
+    },
+    {
+      "file": "v71_sci_02_metrics_dm.json",
+      "description": "(from paper/csv root)",
+      "size_kb": 1.2,
+      "source": "paper/csv/v71_sci_02_metrics_dm.json"
+    },
+    {
+      "file": "v71_sci_03_asset_class.json",
+      "description": "(from paper/csv root)",
+      "size_kb": 2.6,
+      "source": "paper/csv/v71_sci_03_asset_class.json"
+    },
+    {
+      "file": "v71_sci_04_regime.json",
+      "description": "(from paper/csv root)",
+      "size_kb": 1.0,
+      "source": "paper/csv/v71_sci_04_regime.json"
+    },
+    {
+      "file": "v71_sci_05_correlation_coef.json",
+      "description": "(from paper/csv root)",
+      "size_kb": 14.2,
+      "source": "paper/csv/v71_sci_05_correlation_coef.json"
+    }
+  ],
+  "methodology": [
+    {
+      "file": "methodology_verification_results.json",
+      "description": "III장 보강 통합 검증 (VIX 가용기간/배당/IV 지평)",
+      "size_kb": 3.5,
+      "source": "src/experiments/creative/methodology_verification_results.json"
+    }
+  ]
+}

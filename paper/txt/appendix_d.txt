@@ -1,0 +1,297 @@
+부록 D. 데이터 전처리 및 피처 생성 의사코드
+Appendix D. Pseudocode for Data Preprocessing and Feature Engineering
+
+────────────────────────────────────────────────────────────────────────
+D-1. 전체 파이프라인 개요
+D-1. Overview of the Full Pipeline
+────────────────────────────────────────────────────────────────────────
+
+전체 파이프라인은 (1) 원시 데이터 수집 → (2) 결측치 처리 →
+(3) 피처 생성 → (4) 타깃 생성 → (5) 표준화 → (6) 모형 학습
+의 6단계로 구성된다.
+
+The pipeline consists of: (1) raw data collection → (2) missing value
+handling → (3) feature engineering → (4) target construction →
+(5) standardization → (6) model training.
+
+────────────────────────────────────────────────────────────────────────
+D-2. 데이터 수집 및 결측치 처리
+D-2. Data Collection and Missing Value Handling
+────────────────────────────────────────────────────────────────────────
+
+Algorithm D-1: Data Collection and Missing Value Handling
+
+INPUT : ETF 리스트 tickers = [SPY, QQQ, IWM, EFA, EEM,
+                              TLT, IEF, AGG, GLD, SLV, USO]
+        VIX 계열   vix_tickers = [^VIX, ^VIX3M, ^VIX9D]
+        기간       start = 2010-01-01, end = 2024-12-31
+OUTPUT: 패널 DataFrame df [N_dates × N_assets × N_variables]
+
+1: FOR each ticker IN tickers ∪ vix_tickers:
+2:     raw[ticker] ← yfinance.download(ticker, start, end,
+                                        auto_adjust=False)
+       # OHLCV: Open, High, Low, Close(unadj), Adj_Close, Volume
+3: END FOR
+
+4: # VIX 지표 — 종가 기준 일별 수준값
+5: FOR each date t:
+6:     vix[t]   ← raw['^VIX'].Close[t]
+7:     vix3m[t] ← raw['^VIX3M'].Close[t]
+8:     vix9d[t] ← raw['^VIX9D'].Close[t]
+9: END FOR
+
+10: # 결측치 처리: forward fill (전방 채움)
+11: FOR each ticker IN tickers:
+12:     FOR each col IN [Open, High, Low, Close, Adj_Close, Volume]:
+13:         raw[ticker][col].fillna(method='ffill', inplace=True)
+14:     # forward fill 후에도 NaN인 행(기간 초반) → 해당 날짜 제외
+15:     raw[ticker].dropna(inplace=True)
+16: END FOR
+
+17: # 로그수익률: 수정 종가(Adj_Close) 기반
+18: FOR each ticker IN tickers:
+19:     ret[ticker][t] ← log(Adj_Close[t] / Adj_Close[t-1])
+20: END FOR
+
+────────────────────────────────────────────────────────────────────────
+D-3. 피처 생성
+D-3. Feature Engineering
+────────────────────────────────────────────────────────────────────────
+
+Algorithm D-2: Feature Engineering (35 Features per Asset per Day)
+
+INPUT : ret[ticker][t]   — 일별 로그수익률 (수정 종가 기반)
+        ohlc[ticker][t]  — 원시 OHLC (비수정, range 추정량용)
+        vix[t], vix3m[t], vix9d[t]
+        ε = 1e-6         — 로그 안정화 상수
+
+OUTPUT: feature_matrix[ticker][t] — 35개 피처 벡터
+
+── 그룹 I: HAR 기반 (12개) ─────────────────────────────────────────
+
+1: ret_sq[t] ← ret[t]²
+2: lrv[t] ← log(rolling_mean(ret_sq, window=22)[t] × 252 + ε)
+   # = log(RV_22d[t] + ε)
+
+3: LogRV_lag1[t]  ← lrv[t-1]
+4: LogRV_lag5[t]  ← lrv[t-5]
+5: LogRV_lag10[t] ← lrv[t-10]
+6: LogRV_lag22[t] ← lrv[t-22]
+
+7: LogRV_Std5[t]  ← rolling_std(lrv, window=5)[t-1]
+8: LogRV_Std22[t] ← rolling_std(lrv, window=22)[t-1]
+
+9: RV_Mom5[t]  ← lrv[t-1] - lrv[t-6]
+10: RV_Mom22[t] ← lrv[t-1] - lrv[t-23]
+
+11: lrv_spy[t] ← log(rolling_mean(ret_sq_spy, 22)[t] × 252 + ε)
+12: SPY_LogRV[t]    ← lrv_spy[t-1]
+
+13: Ret_lag1[t]     ← ret[t-1]
+14: Ret_abs_lag1[t] ← |ret[t-1]|
+
+15: corr_window ← 22
+16: Corr_SPY[t] ← pearson_corr(ret[t-22:t-1], ret_spy[t-22:t-1])
+    # SPY 자신은 Corr_SPY = 1.0 고정
+
+── 그룹 II: HF Proxy — Range 기반 (7개) ────────────────────────────
+
+17: # 원시(비수정) OHLC 사용
+18: H[t], L[t], O[t], C[t] ← ohlc[ticker][t]
+19: hl2[t] ← log(H[t] / L[t])²
+20: co2[t] ← log(C[t] / O[t])²
+
+21: # Parkinson (1980)
+22: Parkinson_5[t]  ← sqrt(rolling_mean(hl2, 5)[t-1]  / (4×ln2)) × sqrt(252)
+23: Parkinson_22[t] ← sqrt(rolling_mean(hl2, 22)[t-1] / (4×ln2)) × sqrt(252)
+
+24: # Garman-Klass (1980)
+25: gk_term[t] ← 0.5×hl2[t] - (2×ln2 - 1)×co2[t]
+26: GarmanKlass_22[t] ← sqrt(rolling_mean(gk_term, 22)[t-1] × 252)
+
+27: # Rogers-Satchell (1991)
+28: rs_term[t] ← log(H[t]/C[t])×log(H[t]/O[t]) + log(L[t]/C[t])×log(L[t]/O[t])
+29: RogersSatchell_22[t] ← sqrt(rolling_mean(rs_term, 22)[t-1] × 252)
+
+30: Range_Close_Ratio[t] ← log(Parkinson_22[t] + ε) - LogRV_lag1[t]
+
+31: gap[t] ← log(O[t] / C[t-1])
+32: Overnight_Vol[t] ← rolling_std(gap, 22)[t-1]
+33: Overnight_Ret[t] ← gap[t-1]
+
+── 그룹 III: IV Surface (10개) ──────────────────────────────────────
+
+34: log_vix[t]   ← log(vix[t] + ε)
+35: log_vix3m[t] ← log(vix3m[t] + ε)
+36: log_vix9d[t] ← log(vix9d[t] + ε)
+
+37: IV_VIX[t]          ← log_vix[t-1]
+38: IV_VIX_chg[t]      ← log_vix[t-1] - log_vix[t-2]
+39: IV_VIX_ma5[t]      ← rolling_mean(log_vix, 5)[t-1]
+40: IV_VIX_std5[t]     ← rolling_std(log_vix, 5)[t-1]
+41: IV_VIX3M[t]        ← log_vix3m[t-1]
+42: IV_VIX_TermSlope[t] ← log_vix[t-1] - log_vix3m[t-1]
+43: IV_VIX9D[t]        ← log_vix9d[t-1]
+44: IV_VIX_ShortSlope[t] ← log_vix9d[t-1] - log_vix[t-1]
+
+45: rv_spy_past22[t] ← rolling_mean(ret_sq_spy, 22)[t-1] × 252
+46: IV_VRP[t]     ← (vix[t-1]/100)² - rv_spy_past22[t]
+47: IV_VRP_ma22[t] ← rolling_mean(IV_VRP, 22)[t-1]
+
+── 그룹 IV: Alternative / Market Microstructure (6개) ───────────────
+
+48: AltVol_Amihud[t] ← rolling_mean(|ret| / (Volume × Close + ε), 22)[t-1]
+
+49: vol5[t]  ← rolling_mean(Volume, 5)[t-1]
+50: vol22[t] ← rolling_mean(Volume, 22)[t-1]
+51: AltVol_Vol_Ratio[t] ← vol5[t] / (vol22[t] + ε)
+
+52: log_vol[t] ← log(Volume[t] + ε)
+53: AltVol_PV_Corr[t] ← pearson_corr(ret[t-22:t-1], log_vol[t-22:t-1])
+
+54: vol_mean22[t] ← rolling_mean(Volume, 22)[t-1]
+55: vol_std22[t]  ← rolling_std(Volume, 22)[t-1]
+56: AltVol_Vol_Surprise[t] ← (Volume[t-1] - vol_mean22[t]) / (vol_std22[t] + ε)
+
+57: # 매수/매도 분리: 수익률 부호로 근사 (r > 0 → 매수, r ≤ 0 → 매도)
+58: buy_vol[t]  ← Volume[t] × 𝟙(ret[t] > 0)
+59: sell_vol[t] ← Volume[t] × 𝟙(ret[t] ≤ 0)
+60: AltVol_Order_Imbalance[t] ←
+        rolling_sum(buy_vol - sell_vol, 22)[t-1] /
+        (rolling_sum(Volume, 22)[t-1] + ε)
+
+61: AltVol_Kyle_Lambda[t] ←
+        rolling_sum(|ret|, 22)[t-1] /
+        (rolling_sum(Volume, 22)[t-1] + ε) × 1e6
+
+62: RETURN feature_matrix[t] ← [F1, F2, …, F35]
+    # 모든 피처는 시점 t에서 t-1까지의 정보만 사용
+
+────────────────────────────────────────────────────────────────────────
+D-4. 타깃 생성 및 데이터 분할
+D-4. Target Construction and Data Split
+────────────────────────────────────────────────────────────────────────
+
+Algorithm D-3: Target Construction and Train/Test Split
+
+INPUT : ret[ticker][t], horizon h ∈ {1,5,22,60,90,120,180,252}
+OUTPUT: (X_train, y_train), (X_test, y_test) for each asset group g
+
+1: FOR each ticker, each t:
+2:     y[ticker][t][h] ← log((252/h) × Σ_{k=1}^{h} ret[ticker][t+k]² + ε)
+       # 전방 h거래일 연율화 실현분산의 로그 변환
+3:     # t+h 이후 타깃 계산 불가 → 마지막 h일 제외
+4: END FOR
+
+5: # 80/20 날짜순 분할 + purge gap
+6: split_date ← date at 80% percentile of sorted dates
+7: train_end ← split_date - h          # purge gap = h 적용
+8: test_start ← split_date
+
+9: FOR each asset group g IN {Equity, Bond, Commodity}:
+10:    X_train[g] ← features of assets in g, dates ≤ train_end
+11:    y_train[g] ← targets  of assets in g, dates ≤ train_end
+12:    X_test[g]  ← features of assets in g, dates ≥ test_start
+13:    y_test[g]  ← targets  of assets in g, dates ≥ test_start
+14: END FOR
+
+15: # 내부 검증 (하이퍼파라미터 선택용): 학습세트 내 80/20 재분할
+16: inner_split_date ← date at 80% percentile of train dates
+17: inner_train_end  ← inner_split_date - h   # purge gap = h 재적용
+18: inner_val_start  ← inner_split_date
+
+────────────────────────────────────────────────────────────────────────
+D-5. Z-score 표준화
+D-5. Z-score Standardization
+────────────────────────────────────────────────────────────────────────
+
+Algorithm D-4: Z-score Standardization (No Data Leakage)
+
+INPUT : train_df  — 전체 학습 데이터 (Equity + Bond + Commodity 통합 pooled)
+        test_df   — 전체 테스트 데이터 (동일 pooled 구조)
+OUTPUT: X_train_scaled, X_test_scaled
+
+# 스케일러는 자산군별이 아닌 전체 학습 풀(pooled)에서 단일 fit
+1: sc ← StandardScaler()
+2: sc.fit(train_df[:, 35_features])      # 학습 구간 전체에서 μ_j, σ_j 추정
+
+3: FOR each feature j IN {1, …, 35}:
+4:     X_train_scaled[:, j] ← (train_df[:, j] - sc.μ_j) / (sc.σ_j + ε)
+5:     X_test_scaled[:, j]  ← (test_df[:, j]  - sc.μ_j) / (sc.σ_j + ε)
+       # 테스트 구간에 학습 파라미터 그대로 적용 (누출 방지)
+6: END FOR
+
+# 이후 자산군별 fit/predict 시 X_train_scaled 중 해당 자산군 행을 슬라이싱하여 사용
+# sc.transform(per_class_subset[feats]) 방식으로 동일 scaler 재사용
+
+────────────────────────────────────────────────────────────────────────
+D-6. WEns 모형 학습 및 예측
+D-6. WEns Model Training and Prediction
+────────────────────────────────────────────────────────────────────────
+
+Algorithm D-5: WEns Training (per asset group g, per horizon h)
+
+INPUT : X_train_scaled[g], y_train[g],
+        inner train/val split (from Algorithm D-3, line 16-18)
+        pw_candidates = {0.4, 0.5, 0.6, 0.7, 0.8, 0.9}
+        alpha_candidates for Ridge, hyperparams for XGBoost (see 부록 B)
+OUTPUT: ridge_final, xgb_final, pw_opt
+
+── Step 1: 하이퍼파라미터 선택 (내부 검증) ──────────────────────────
+
+1: FOR each alpha IN alpha_candidates[Ridge]:
+2:     ridge_inner ← Ridge(alpha).fit(X_inner_train, y_inner_train)
+3:     r2_ridge_inner[alpha] ← R²(y_inner_val, ridge_inner.predict(X_inner_val))
+4: END FOR
+5: alpha_opt_ridge ← argmax_{alpha} r2_ridge_inner[alpha]
+
+6: FOR each params IN hyperparams_candidates[XGBoost]:
+7:     xgb_inner ← XGBoost(params).fit(X_inner_train, y_inner_train,
+                    eval_set=[(X_inner_val, y_inner_val)],
+                    early_stopping_rounds=50)
+8:     r2_xgb_inner[params] ← R²(y_inner_val, xgb_inner.predict(X_inner_val))
+9: END FOR
+10: params_opt_xgb ← argmax_{params} r2_xgb_inner[params]
+
+── Step 2: pw 가중치 선택 (내부 검증) ──────────────────────────────
+
+11: ridge_for_pw ← Ridge(alpha_opt_ridge).fit(X_inner_train, y_inner_train)
+12: xgb_for_pw   ← XGBoost(params_opt_xgb).fit(X_inner_train, y_inner_train)
+
+13: FOR each pw IN pw_candidates:
+14:     y_hat_val ← pw × ridge_for_pw.predict(X_inner_val)
+                  + (1-pw) × xgb_for_pw.predict(X_inner_val)
+15:     r2_ens[pw] ← R²(y_inner_val, y_hat_val)
+16: END FOR
+17: pw_opt ← argmax_{pw} r2_ens[pw]
+
+── Step 3: 전체 학습세트로 최종 모형 피팅 ──────────────────────────
+
+18: ridge_final ← Ridge(alpha_opt_ridge).fit(X_train_scaled[g], y_train[g])
+19: xgb_final   ← XGBoost(params_opt_xgb).fit(X_train_scaled[g], y_train[g])
+
+── Step 4: 테스트 예측 ─────────────────────────────────────────────
+
+20: y_hat_test ← pw_opt × ridge_final.predict(X_test_scaled[g])
+               + (1-pw_opt) × xgb_final.predict(X_test_scaled[g])
+
+21: RETURN ridge_final, xgb_final, pw_opt, y_hat_test
+
+────────────────────────────────────────────────────────────────────────
+비고 (Notes)
+────────────────────────────────────────────────────────────────────────
+
+1. 모든 rolling 연산은 min_periods를 해당 창 크기 이상으로 설정하여
+   초기 관측치 부족 기간의 NaN을 자동 처리한다.
+
+2. 자산군별 독립 학습: Equity(5개), Bond(3개), Commodity(3개) 각 그룹에
+   대해 Algorithm D-5를 독립적으로 실행하며, 하이퍼파라미터와 스케일링
+   파라미터는 그룹 간 공유하지 않는다.
+
+3. RepeatRV / NaiveRV / HAR-3 / GARCH / IV-only 벤치마크는 Algorithm D-5
+   Step 1-3(하이퍼파라미터 탐색)을 거치지 않고 정해진 규칙 또는 OLS/MLE로
+   직접 추정한다.
+
+4. 재현성: 전체 실험은 random_state=42(단일 시드 고정)으로 설정한다.
+   Python 3.10, scikit-learn 1.3, xgboost 1.7, numpy 1.24 환경에서
+   검증하였다.

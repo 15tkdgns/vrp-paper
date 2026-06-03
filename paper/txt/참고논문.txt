@@ -1,0 +1,588 @@
+저작자표시-비영리-변경금지 2.0 대한민국
+이용자는 아래의 조건을 따르는 경우에 한하여 자유롭게
+l 이 저작물을 복제, 배포, 전송, 전시, 공연 및 방송할 수 있습니다.
+다음과 같은 조건을 따라야 합니다:
+l 귀하는, 이 저작물의 재이용이나 배포의 경우, 이 저작물에 적용된 이용허락조건
+을 명확하게 나타내어야 합니다.
+l 저작권자로부터 별도의 허가를 받으면 이러한 조건들은 적용되지 않습니다.
+저작권법에 따른 이용자의 권리는 위의 내용에 의하여 영향을 받지 않습니다.
+이것은 이용허락규약(Legal Code)을 이해하기 쉽게 요약한 것입니다.
+Disclaimer
+저작자표시. 귀하는 원저작자를 표시하여야 합니다.
+비영리. 귀하는 이 저작물을 영리 목적으로 이용할 수 없습니다.
+변경금지. 귀하는 이 저작물을 개작, 변형 또는 가공할 수 없습니다.
+석 사 학 위 논 문
+지도교수 김 영 순
+신경망 모형과 CAD 이미지에 기반한
+항공기 부품의 성형 치공구 유형 분류 연구
+경상국립대학교대학원
+정 보 통 계 학 과
+이 동 규
+2025. 2.
+A Study on Classification of
+Forming Tool Types for Aircraft Parts Based on
+Neural Network Models and CAD Images
+이 논문을 이학석사
+학위논문으로 제출함
+석 사 학 위 논 문
+지도교수 김 영 순
+신경망 모형과 CAD 이미지에 기반한
+항공기 부품의 성형 치공구 유형 분류 연구
+경상국립대학교대학원
+정 보 통 계 학 과
+이 동 규
+2025. 2.
+A Study on Classification of
+Forming Tool Types for Aircraft Parts Based on
+Neural Network Models and CAD Images
+이 동 규 의
+석 사 학 위 논 문 을 인준함.
+
+심 사 위 원
+ 위원장 (인)
+위 원 (인)
+위 원 (인)
+ 경 상 국 립 대 학 교 대 학 원
+ 2025. 02.
+차 례
+Ⅰ. 서론 1
+Ⅱ. 신경망 모형과 CAD 이미지 데이터 3
+1. 분류를 위한 신경망 모형 ······································································· 3
+1.1 ResNeXt ·································································································· 3
+1.2. EfficientNet ··························································································· 4
+2. CAD 이미지 데이터 생성 및 분류 정의 ············································ 6
+2.1 CAD 디자인 기준 ··········································································· 8
+2.2 CAD 이미지 유형 정의 ······························································· 10
+2.3 CAD 이미지 촬영 방법 ······························································· 12
+2.4 CAD 이미지 전처리 방법 ··························································· 15
+Ⅲ. 평가 지표 및 분석 방법 16
+1. 평가 지표 ································································································ 16
+1.1 정확도(Accuracy) ········································································ 16
+1.2 F1 Score ························································································ 17
+2. 분석 방법 ································································································ 17
+Ⅳ. 실험 결과 20
+1. Accuracy & Loss 그래프 ··································································· 20
+2. 결과 분석 ································································································ 23
+V. 결론 및 향후 연구 26
+참고문헌 28
+표 차례
+Table 1. Rotation angles of CAD images for various orientations ·················· 14
+Table 2. Confusion Matrix ···························································································· 16
+Table 3. QTY of CAD images ····················································································· 18
+Table 4. Performance Comparisons ··········································································· 24
+그림 차례
+Fig. 1 Bottleneck of former method and ResNet method ································· 3
+Fig. 2. Structures of ResNet and ResNeXt ···························································· 4
+Fig. 3. Scaling configuration methods ······································································ 5
+Fig. 4. Illustration of aircraft fuselage structure ················································· 6
+Fig. 5. Illustration of aircraft wing structure ······················································ 7
+Fig. 6. The taxonomy of features in the aerospace sheet metal parts ······· 8
+Fig. 7. Illustration of the web ··················································································· 8
+Fig. 8. llustration of the deformation features ····················································· 9
+Fig. 9. Illustration of the trim features ································································ 10
+Fig. 10. Types of aircraft part images ································································· 11
+Fig. 11. Images of the same aircraft part captured from different angles 12
+Fig. 12. Three different capture methods ···························································· 13
+Fig. 13. Four isometric projections from different orientations ··················· 13
+Fig. 14. Illustration of original images ·································································· 15
+Fig. 15. Preprocessing for enlarging CAD image ·············································· 15
+Fig. 16. Experiment Process ···················································································· 17
+Fig. 17. Graph for ResNeXt50 with Normal View Images ························· 20
+Fig. 18. Graph for EfficientNetB6 with Normal View Images ···················· 21
+Fig. 19. Graph for ResNeXt50 with Hidden Line View Images ·················· 21
+Fig. 20. Graph for EfficientNetB6 with Hidden Line View Images ··········· 22
+Fig. 21. Graph for ResNeXt50 with Wireframe View Images ······················· 22
+Fig. 22. Graph for EfficientNetB6 with Wireframe View Images ················ 23
+Abstract
+This study presents a comparative analysis for classifying fluid cell
+hydroforming tool types using images of aircraft part CAD models obtained
+from publicly available datasets and newly generated with reference to
+aircraft design guidelines. Each model was captured in three different
+ways—normal view, view with hidden line, and wireframe view—and from
+various angles, resulting in a dataset of 12,432 images. EfficientNetB6 and
+ResNeXt50 models were employed to analyze performance across these
+capture methods and image sizes(384 and 512).
+Experimental results showed that the EfficientNetB6 model achieved the
+highest accuracy in the case of the wireframe view image at 512 size,
+demonstrating its potential applications in the aerospace industry. Notably,
+this study introduces a CAD image-based prediction method that requires
+no additional mechanical components or data collection devices, offering
+lower investment costs and ease of adaptation to meet specific
+requirements. This method also shows promise for broader applications
+across various fields, laying the groundwork for future research.
+1
+Ⅰ. 서론
+제조업의 생산 제조 기술은 고도의 엔지니어링을 기반으로 한 기술 집약적
+산업으로, 지난 반세기 동안 대한민국 산업 발전의 원동력이 되어 왔다.1
+최근 디지털화, 센서, 네트워크, 인공지능 등 정보통신기술과의 융합을 통해
+제조업의 경쟁력을 강화하려는 노력이 전 세계적으로 활발히 진행되고 있다. 예를 들어, 독일은 지속적인 경제 성장과 일자리 창출은 물론, 기후 변화와
+고령화 같은 사회적 과제에 대응하기 위해 ‘인더스트리 4.0’ 정책을 추진하였다. 이 정책은 신흥 시장으로 이전된 제조 경쟁력을 되찾기 위해 제조업과
+정보통신기술의 융합을 중심으로 혁신적인 변화를 도모하고 있다. 이러한 흐름
+속에서 제조업 분야는 센서와 자동화 장치와 같은 요소 기술뿐만 아니라, 이를
+구현할 스마트 공장의 최종 형태에 대한 연구와 발전이 활발히 이루어지고 있
+다.2 3
+제조업 중에서도 항공우주산업은 첨단 기술 집약, 정밀 가공, 고도 조립이
+요구되는 분야로, 산업 연관 효과와 기술 파급 효과를 가져, 국내 산업 구조의
+고도화에 적합한 핵심 산업으로 평가받고 있다. 그러나 최근 고임금 구조와 중국
+등 개발도상국의 추격으로 인해 항공우주산업 역시 어려움을 겪고 있는
+상황이다.4
+항공기 제작 과정은 대형기의 경우 약 30만 개의 부품이 소요될 정도로
+복잡하다. 이러한 복잡성으로 인해 양산과 운용 효율성, 그리고 고객의 다양한
+요구 사항에 맞추기 위한 설계 변경이 지속적으로 발생한다. 이로 인해 생산
+품목의 종류는 다양해지고, 부품별 생산량은 감소하는 다품종 소량 생산 체계의
+특성을 보인다. 예를 들어, H사의 경우 연간 생산량이 10개 미만인 부품이 약
+2
+2만 5천 품목에 달하며, 항공기 구조물 제작을 위하여 5만여 개 부품을
+생산하고 그 중 2만 5천여 개는 판금 자재를 사용하여 제작된다. 이러한
+배경으로 항공기 기체 제작에서는 판금 부품 생산이 높은 비중을 차지한다.5 판금 성형으로 제작되는 부품은 다양한 크기, 형상, 두께를 가지며, 이러한
+판금 부품의 다품종 소량 생산을 위해서 치공구 제작을 위한 낮은 비용이
+중요하다. 이와 같은 요구 사항을 충족시키는 성형 공정 중 하나인 유체 셀
+하이드로포밍(Fluid Cell Hydroforming)은 항공우주산업에서 널리 사용되는
+대표적인 공정이다.6
+대다수 항공기 부품의 생산과 검사를 위해서는 치공구가 필요하며, 각
+부품마다 치공구의 형상과 크기도 각양각색이다. 다품종 소량 생산 체계에서는
+항공기 부품에 대한 치공구 제작 비용 예측을 위한 정보가 제한적이어서, 신뢰성이 높은 견적을 산출하는데 어려움이 있다. 유체 셀 하이드로포밍 공정으로 제작되는 항공기 부품의 경우, 플랜지 형상
+패턴이 성형 치공구의 형태에 중요한 영향을 미친다. 따라서, 정확한 분류가
+선행될 수 있도록 항공기 부품의 CAD(Computer Aided Design) 이미지를
+활용하여 치공구의 분류 예측을 위한 신경망 모형을 연구하고자 한다. 이러한
+접근은 기존의 치공구 제작 비용 예측을 더 신뢰성 있게 만들 수 있을 것으로
+기대된다. 또한, CAD 데이터를 활용함으로써 별도의 데이터 수집 장치나, 기계
+장치 요소에 대한 추가 투자 없이 제조업과 인공지능(Artificial Intelligence,
+AI)의 융합이 가능함을 보여 줄 수 있을 것으로 예상된다. 연구에 사용된 항공기 부품 CAD 이미지는 Zenodo 플랫폼7에서 제공된 공개
+데이터셋을 활용하여 확보하였으며, 더 많은 CAD 이미지를 확보하기 위해
+항공기 구조 특성과 설계 가이드라인을 참고하여 CATIA8를 사용해 공개
+데이터셋을 수정하거나 새롭게 추가 생성하였다. 제2장에서는 이미지 분류 모형으로 사용되는 ResNeXt9와 EfficientNet10을
+소개하고, CAD 이미지 생성과 분류 정의에 대하여 설명한다. 제3장에서는
+평가지표와 분석 방법을 소개하고, 제4장에서는 실험 결과를, 제5장에서는 최종
+결론과 향후 연구 방향에 대해서 논의하고자 한다.
+3
+Ⅱ. 신경망 모형과 CAD 이미지 데이터1. 분류를 위한 신경망 모형
+1.1 ResNeXt
+이미지 분류 및 객체 탐지를 위한 ResNeXt 모델은 출력값에 원래의 입력값을
+더하는 방식으로 기울기 소실 문제를 해결한 ResNet11의 개선된 모델이다. ResNet은 네트워크의 너비나 깊이를 깊게 쌓을 경우 발생할 수 있는 기울기
+소실이나 폭발 문제로 인한 성능 저하 현상을 아래 Fig. 1과 같이 보완한
+모델이다.
+Fig. 2에서 볼 수 있듯, ResNeXt는 128개의 채널을 32개의 그룹으로
+분할하여, 각 그룹당 4개의 채널을 통해 특징 맵을 생성한다. 이 분할된 그룹
+수를 Cardinality라 하며, 이는 하이퍼파라미터로 조절할 수 있는 변수이다. ResNeXt의 특징은 Split-Transform-Merge 전략으로, 각 분할된 그룹은
+Fig. 1 Bottleneck of former method and ResNet method
+(a) Former Method (b) Residual Block
+4
+독립적으로 연산을 수행하며 이를 Grouped Convolution이라 한다. 이 방식은 각
+그룹이 특정 부분을 효율적으로 처리하여 특징을 학습하게 한다. 나누어진
+그룹들은 각자 변환을 통해 독립적인 특징 맵을 생성한 후, 모든 그룹의 결과를
+다시 하나로 병합하여 최종 출력을 만든다. ResNeXt는 독립적인 분할 연산을
+하므로 입력 채널에 내재한 핵심 정보를 추출하기에 유리하며, 구조가 단순하여
+다루기가 편리하다.
+Fig. 2. Structures of ResNet and ResNeXt
+결론적으로 ResNeXt는 Cardinality를 증가시키는 것이 네트워크의 너비나
+깊이를 늘리는 것보다 성능 개선에 더 효과적이며, 구조가 단순하여 분류를 위한
+효율적인 모델임을 알 수 있다.
+1.2. EfficientNet
+EfficientNet은 모델의 깊이(Depth), 너비(Width), 해상도(Resolution)의 세
+가지 차원을 균일하게 확장하는 복합 스케일링 방법(Compound Scaling)을
+제안한 이미지 분류 및 객체 탐지 모델이다. 여기서 너비는 특징 맵의 채널
+수를, 깊이는 레이어의 개수를, 해상도는 입력 이미지와 특징 맵의 해상도를
+의미한다. 이 모델은 성능 향상에 중요한 요소인 깊이, 너비, 해상도의 세 가지
+(a) ResNet (b) ResNeXt
+5
+차원을 모두 고려한 최초의 모델로, 성능 향상을 위한 모델 스케일링은 Fig. 3과
+같다.
+Baseline 구조를 바탕으로 Fig. 3 (b)~(d)와 같이 레이어의 채널 개수를
+늘리거나 레이어를 깊게 쌓고, 입력 이미지의 해상도에 따라 모델을 조정한다. 이러한 세 가지 방식을 복합 스케일링하여 최적의 모델을 찾는 방법이다. 복합
+스케일링의 특징은 우수한 레이어를 찾는 것이 아니라, 레이어를 변경하지 않고
+모델의 깊이, 너비, 해상도만을 확장하는 것이다. 또한, 아래의 식(1)과 같이
+모든 레이어의 배율을 일정한 비율로 조정하도록 제한하였다. 이는 실험을 통해
+성능과 효율성의 최적 조합으로 고려된 것이다. 여기서 는 복합계수로써, 사용자가 조정할 수 있으며, 이를 통해 모델의 너비, 깊이, 해상도를 균형 있게
+최적화하여 성능을 극대화한다. 이 방식은 과적합을 방지하고 자원을 효율적으로
+활용할 수 있어, 다양한 환경에 적합한 유연성을 가진다.
+Fig. 3. Scaling configuration methods
+(a) baseline (b) width (c) depth (d) resolution (e) compound
+6
+2. CAD 이미지 데이터 생성 및 분류 정의
+항공기 부품의 CAD 이미지를 활용하여 치공구 분류 연구를 수행하기
+위해서는 실제 산업 현장에서 사용되는 CAD 이미지 데이터가 필요하다. 그러나
+다양한 이유로 인해 실제 데이터를 확보하기 어려웠으며, 이에 따라 공개된
+항공기 부품의 CAD 데이터를 수집하거나 직접 생성하여 연구에 필요한 CAD
+이미지를 확보하였다. 특히, 항공기 구조물 중 판금 부품의 비중이 높고, 성형
+공정 중 유체 셀 하이드로포밍이 대표적인 공정으로 사용되고 있다. 따라서 본
+연구에서는 유체 셀 하이드로포밍 공정을 통해 제작되는 항공기 판금 부품을
+대상으로 데이터를 확보하고 생성하였다.
+항공기 판금 부품의 CAD 이미지 생성을 위해 기체 구조물의 특징과 설계
+    
+
+    
+
+    
+
+ ∙
+ ∙
+ ≈ 
+ ≥  ≥  ≥
+
+ (1)
+Fig. 4. Illustration of aircraft fuselage structure
+12
+7
+가이드라인을 참고하였다. Fig. 4의 항공기 동체 구조 삽화와 같이, 현대 항공기
+동체는 일반적으로 반 모노코크 구조(Semi Monocoque)이다. 이 구조의 특징은
+얇은 외피로 이루어진 쉘(Shell)을 포함하며, 이 쉘은 가로 프레임(Frame)에
+의해 지지되고 세로 스트링거(Stringer)에 의해 보강된다.
+항공기의 주익1)이나 미익2)은, 목적에 따라 구조 유형은 다양하지만, Fig. 5의
+항공기 날개 구조 삽화와 같이 굽힘 저항을 위한 스파(Spar)와 하중 분산과
+날개의 형상 유지를 위한 리브(Rib)가 체결되는 것이 공통적인 특징이다. 관찰된 항공기 구조 특성을 바탕으로, 유체 셀 하이드로포밍 공정으로 생산될
+수 있는 항공기 부품의 종류는 스티프너(stiffener), 리브(rib), 프레임(frame),
+플로어(floor) 등으로 고정하였다.12
+1) 비행기에서 꼬리날개를 제외한 앞편의 양날개를 지칭하는 개념
+2) 비행기의 안정을 유지하고 방향을 바꾸는 구실을 하는 비행기의 꼬리 부분
+Fig. 5. Illustration of aircraft wing structure
+12
+8
+2.1 CAD 디자인 기준
+항공우주 분야의 판금 부품 디자인 특징은 Fig. 6과 같이 웨브(Web),
+트림(Trim) 특징, 변형(Deformation) 특징으로 분류되었다. 본 연구에서는 판금
+부품의 특징을 기능이나 용도보다는 형태적 관점에서 설명한다.13
+Fig. 7과 같이 웨브는 판금이 트림되거나 변형 작업에 의해 형성된다. 실선은
+변형에 의해 생긴 경계를 나타내며, 점선은 트림에 의해 생긴 경계를 나타낸다.
+Fig. 6. The taxonomy of features in the aerospace sheet metal parts
+Fig. 7. Illustration of the web
+9
+변형 특징은 Fig. 8과 같이 경량화 컷아웃/구멍(lightening cutout/hole),
+플랜지(flange), 리프(lip), 조글(joggle), 트윈 조글(twin joggle), 변형 플랜지
+(deformed flange), 변형 웨브(deformed web), 그리고 비드(bead)가 있다.
+변형 특징들을 설명하면 다음과 같다. 플랜지는 일반적으로 판금의 가장자리가
+변형된 형태로, 평면 또는 곡면을 가진다(Fig. 8). 리프는 플랜지와 형태적인
+특징이 유사하기에 플랜지와 동일하게 취급한다(Fig. 8 (f)). 조글은 웨브 또는
+Fig. 8. llustration of the deformation features
+(a) (b)
+(c) (d)
+(e) (f)
+10
+플랜지가 오프셋되면서 꺾이는 구간이다(Fig. 8 (a), (d), (f)). 트윈 조글은 두
+개의 조글이 결합되어 면이 움푹 들어간 형상을 보인다(Fig. 8 (a)). 변형된
+플랜지와 변형된 웨브는 플랜지나 웨브가 오프셋되어 변형된 형태를
+나타낸다(Fig. 8 (a), (c), (d)). 비드는 웨브 내에서 움푹 돌출된 형태를
+보인다(Fig. 8 (a)). 마지막으로, 경량화 구멍과 경량화 컷아웃은 구멍이나
+컷아웃의 가장자리가 변형된 형태이다(Fig. 8 (a), (b)).
+트림 특징은 Fig. 9와 같이 컷아웃(Cutout), 구멍(Hole), 스트링거 컷아웃
+(Stringer Cutout), 밴드 릴리프(Bend Relief), 코너(Corner)로 분류되며, 이는
+판금을 트림한 결과이다.
+2.2 CAD 이미지 유형 정의
+유체 셀 하이드로포밍 치공구의 형태는 주로 항공기 부품의 플랜지 형태에
+의해 지대한 영향을 받는다. 이는 플렌지를 성형하기 위한 성형면이 일반적으로
+치공구의 외곽 형태를 결정하기 때문이다. 특히, 서로 다른 방향으로 굽혀진
+플렌지가 두 개 이상 존재할 경우, 단일 부품의 성형을 위해 다수의 성형
+치공구가 요구될 수 있다. 이러한 점을 바탕으로, 유체 셀 하이드로포밍
+치공구의 유형을 총 6가지 유형으로 분류하였다.
+Fig. 9. Illustration of the trim features
+11
+Type A Type B Type C Type D Type E Type F
+․
+․
+․
+․
+․
+․
+․
+․
+․
+․
+․
+․
+․
+․
+․
+․
+․
+․
+Fig. 10. Types of aircraft part images
+성형 치공구 유형별 예시는 Fig. 10과 같으며, 각 유형은 다음과 같이
+정의된다. Type A는 치공구의 플랜지 성형면이 하나 이하로 존재하며, 플랜지가
+한 번만 굽혀지는 유형이다. 반면, Type B는 플랜지 성형면이 두 개 이상
+존재하며, 각 플랜지가 각각 한 번씩만 굽혀지는 경우에 해당한다. Type C는 두
+개 이상의 플랜지가 서로 다른 굽힘 방향을 가지는 경우에 해당하는 유형으로
+12
+정의된다. Type D는 서로 다른 방향으로 두 번씩 굽혀진 플랜지가 한 개 이상
+존재하는 유형이다. Type E는 Type C의 정의에 한 가지 조건이 추가되어, 한
+개 이상의 플랜지가 동일한 방향으로 두 번 굽혀진 것이 특징이다. 마지막으로, Type F는 Type B의 정의에 한 개 이상의 플랜지가 동일한 방향으로 두 번
+굽혀진다는 조건이 추가된 유형으로 구분된다.
+2.3 CAD 이미지 촬영 방법
+3차원 형상을 2차원 이미지로 촬영하면 중요한 특징 정보가 소실될 수 있다. Fig. 11 (a)와 같이 플랜지 형태가 명확히 드러나는 경우가 있지만, Fig. 11
+(b)와 같이 180도로 회전된 각도에서 촬영된 이미지에서는 특정 플랜지가 잘
+보이지 않는 것을 확인할 수 있다.
+본 연구에서는 2D 이미지를 기반으로 분류 모형을 연구하므로, 위와 같이
+특징이 드러나지 않는 점은 성능에 악영향을 줄 수 있다. 2D 이미지로
+변환되면서 소실되는 정보를 최소화하기 위해 CATIA 설계 프로그램에서
+지원하는 세 가지 방식으로 촬영하였다. Fig. 12와 같이 Normal View는
+날카롭거나 부드러운 모서리를 보여주는 음영 처리이며, Normal View with
+Hidden Line은 가려진 부분의 은선이 나타나는 것이 특징이다. 마지막으로, Wireframe View는 3D 형상을 와이어 프레임으로 시각화하였다.
+Fig. 11. Images of the same aircraft part captured from different angles
+(a) (b)
+13
+Normal View Normal View
+with Hidden Line Wireframe View
+Fig. 12. Three different capture methods
+3차원 형상을 2차원 이미지로 변환할 때 발생하는 특징 정보의 소실이나
+왜곡을 줄이기 위해, 또 다른 방법으로 등각투상법을 활용하여 CAD 이미지를
+촬영하였다. 등각 투상법은 세 축(X, Y, Z)이 각각 120도의 각도를 이루도록
+기울여 물체의 각 면을 왜곡 없이 표현하는 방식으로, 일반적으로 제품 도면
+작성 시 3D 형상을 2D 평면에 효과적으로 표현하기 위해 사용된다.
+Fig. 13. Four isometric projections from different orientations
+(a) No rotation applied
+(b) 180° rotation on X axis
+(c) 90° rotation on Z axis
+(d) 180° rotation on X axis
+then 90° on Z axis
+14
+도면에서 등각투상법으로 부품을 표현할 때 부품의 자세는 다양하다. 본
+연구에서는 Fig. 13에 제시된 네 가지 자세를 정의하고, 이를 바탕으로 등각도로
+CAD 이미지를 생성하였다. Fig. 13 (a)는 회전 없이 촬영된 이미지를, Fig. 13
+(b)는 부품을 X축으로 180도 회전한 이미지를 나타낸다. Fig. 13 (c)는 Z축으로
+90도 회전한 경우를, Fig. 13 (d)는 X축으로 180도 회전 후 Z축으로 90도
+회전한 경우를 보여준다. 등각도 설정은 CATIA 프로그램에의 등각도 보기
+기능을 활용하여 진행하였다. 일반화 성능을 높이고, 오버피팅을 방지하기 위해 각 부품에 대해 다양한
+각도의 이미지가 필요하다. 앞서 정의한 네 가지 자세의 회전 각도에 각 축(X,
+Y, Z)별로 20도를 추가하여, Table 1과 같이 총 16개의 자세를 설정하였다. 이때, 부품의 회전은 X축, Y축, Z축 순으로 적용되었다.
+NO. Axis CAD
+image NO. Axis CAD
+image X Y Z X Y Z
+1 0° 0° 0° 9 0° 0° 90°
+2 20° 0° 0° 10 20° 0° 90°
+3 0° 20° 0° 11 0° 20° 90°
+4 0° 0° 20° 12 0° 0° 110°
+5 180° 0° 0° 13 180° 0° 90°
+6 200° 0° 0° 14 200° 0° 90°
+7 180° 20° 0° 15 180° 20° 90°
+8 180° 0° 20° 16 180° 0° 110°
+Table 1. Rotation angles of CAD images for various orientations
+15
+2.4 CAD 이미지 전처리 방법
+CAD 이미지는 CATIA 설계 프로그램에서 부품 형상의 전체가 보이도록
+카메라 뷰를 자동으로 조정하여 촬영하였다. Fig. 14 (a)의 경우 항공기 부품
+형상을 인식하는데 큰 문제가 없지만, Fig. 14 (b)와 같이 얇고 긴 형상은 흰색
+배경이 넓게 나와 형상 특징을 인식하기 어려운 경우도 있다.
+Fig. 14. Illustration of original images
+플랜지 형태 패턴에 따라 치공구 유형을 분류하는 연구인 만큼, 플랜지는
+중요한 특징 정보이다. 관심 영역에 학습이 집중될 수 있도록, Fig. 15와 같이
+원본 비율을 유지한 채 확대하는 전처리를 실시하여 실험을 진행하였다. 확대
+전처리 절차는 다음과 같다. 1) 배경이 흰색인 것으로 가정 후 그레이 스케일 처리 및 이진화를 진행한다. 2) 반전된 이진화 이미지에서 얻은 모델의 경계 좌표를 바탕으로 최소한의
+바운딩 박스를 계산한다. 3) 바운딩 박스의 좌표를 활용하여 원본 이미지를 잘라낸다. 4) 원본 비율이 유지되도록 잘라낸 이미지 크기와 원본 이미지 크기를
+비교하여 최대한 확대하고 보간처리한다.
+Fig. 15. Preprocessing for enlarging CAD image
+(a) (b)
+16
+Ⅲ. 평가 지표 및 분석 방법1. 평가 지표
+분류 예측의 성능 평가는 주로 혼동 행렬(Confusion Matrix)을 기반으로 한
+평가지표를 활용한다. 혼동 행렬은 모델의 분류 결과를 정리한 표로, Table 2와
+같은 형태로 제시된다. 이 행렬에서 는 실제 양성 사례(True Positive)를
+정확히 예측한 수, 은 실제 음성 사례(True Negative)를 정확히 예측한 수, 는 실제 음성 사례를 양성으로 잘못 예측한 수(False Positive), 은 실제
+양성 사례를 음성으로 잘못 예측한 수(False Negative)를 의미한다. 본 연구에서는 정확도와 F1 Score를 주요 평가 지표로 활용하였다. 이를 통해
+제안된 모델들이 전체 분류 성능에 미치는 영향을 분석하고, 딥러닝 모델이
+항공기 부품 CAD 이미지의 다양한 형상 및 클래스에 대해 높은 신뢰도의 예측
+성능을 달성할 수 있는지 분석하고자 한다.
+1.1 정확도(Accuracy)
+정확도는 CAD 부품 이미지 분류 성능을 평가하는 데 있어 기본적이면서도
+핵심적인 지표로, 딥러닝 모델이 전체 예측 중에서 올바르게 분류한 비율을
+측정한다. 정확도는 식(2)와 같이 정의된다.
+Predicted
+Negative Positive
+Actual Negative  
+Positive  
+Table 2. Confusion Matrix
+17
+Accuracy  
+
+ (2)
+이와 같은 정확도는 모델이 모든 예측에서 얼마나 일관되게 올바른 결과를
+도출하는지를 나타내며, 클래스 불균형이 크지 않은 상황에서 적합한 평가
+척도로 활용된다. 1.2 F1 Score
+F1 Score는 모델이 양성이라고 예측한 것 중에서 실제인 것의 비율인
+정밀도와 실제 양성인 것 중에서 모델이 양성이라고 예측한 재현율 간의 균형을
+평가한다. 식(3)과 같이 정의된 F1 Score는 데이터가 불균형한 상황에서
+유용하며, 성능의 균형을 중시하는 분석에서 적합한 평가 척도로 널리 활용된다.
+F1 Score   ∙  
+    
+ 
+ 
+ ∙ 
+ 
+ (3)
+2. 분석 방법
+항공기 부품 이미지 분류를 위한 전 과정은 Fig. 16과 같다.
+Fig. 16. Experiment Process
+18
+본 연구에서는 전처리된 항공기 부품 CAD 이미지를 사용하여 Fig. 16과 같이
+여러 조건으로 비교 실험을 진행하고자 한다. 모델을 사용하기에 앞서, 분석할
+이미지 내 객체가 작은 경우 플랜지 형태를 인지하기 어려워 이를 완화하는
+것이 필수적이다. 이를 위해 사전 작업으로 이미지를 최대한 확대하는 전처리를
+수행한다. 이러한 확대 전처리는 이미지의 중요한 특징을 강조하고, 세부 정보의
+손실을 최소화하여 모델 성능을 극대화하는 데 기여할 것으로 기대된다. 분석은
+전처리된 이미지로 진행되었으며, 이미지 분류를 위해 사용된 신경망 모델은
+ResNeXt와 EfficientNet이다. 실험은 다음과 같이 진행되었다. 먼저, Table 3과 같이 총 12,432개의
+이미지를 촬영 방식과 타입별로 구분한 후, 80%는 훈련 데이터로, 나머지
+20%는 테스트 데이터로 분할하여 모델의 일반화 성능을 평가할 수 있도록
+구성하였다.
+최적화 알고리즘(optimizer)으로는 확률적 경사 하강법(stochastic gradient
+descent, SGD)을 선택하였으며, 학습률은 0.001, 모멘텀은 0.9로 고정하였다. 손실함수로는 다중 클래스 예측 문제에서 널리 활용되는 교차 엔트로피(cross
+entropy)를 채택하였다. 고정된 파라미터를 바탕으로 실험마다 정확도의 차이를
+확인하고자 한다. 실험에서는 입력 이미지 크기를 384×384과 512×512의 두 가지로 설정하여
+진행하며, 각 모델의 성능을 비교하여 이미지 크기가 모델 성능에 미치는 영향을
+Type Normal View Normal View
+with Hidden Line Wireframe View Total
+Type A 784 784 784 2,352
+Type B 752 752 752 2,256
+Type C 752 752 752 2,256
+Type D 560 560 560 1,680
+Type E 640 640 640 1,920
+Type F 656 656 656 1,968
+Total 4,144 4,144 4,144 12,432
+Table 3. QTY of CAD images
+19
+분석한다. 또한, 서로 다른 이미지 촬영 방식을 비교하여 높은 정확도를 기록한
+모델을 확인하고, 딥러닝 모델이 가장 잘 예측하는 형식을 탐색하여 최적의 분류
+방안을 모색한다.
+20
+Ⅳ. 실험 결과
+1. Accuracy & Loss 그래프
+본 연구에서는 두 개의 신경망 모델(ResNeXt50, EfficientNetB6)과 세 가지
+촬영 방식(Normal View, Normal View with Hidden Line, Wireframe View),
+두 가지 입력 이미지 크기(384×384, 512×512)를 실험 조건으로 학습을
+진행하였다. 이때의 Accuracy와 Loss의 그래프는 Fig. 17~22에 나타나 있다.
+Fig. 17. Graph for ResNeXt50 with Normal View Images
+(a) ResNeXt50 with Normal View Images(384×384 size)
+(b) ResNeXt50 with Normal View Images(512×512 size)
+21
+Fig. 18. Graph for EfficientNetB6 with Normal View Images
+Fig. 19. Graph for ResNeXt50 with Hidden Line View Images
+(a) EfficientNetB6 with Normal View Images(384×384 size)
+(b) EfficientNetB6 with Normal View Images(512×512 size)
+(a) ResNeXt50 with Hidden Line View Images(384×384 size)
+(b) ResNeXt50 with Hidden Line View Images(512×512 size)
+22
+Fig. 20. Graph for EfficientNetB6 with Hidden Line View Images
+Fig. 21. Graph for ResNeXt50 with Wireframe View Images
+(a) EfficientNetB6 with Hidden Line View Images(384×384 size)
+(b) EfficientNetB6 with Hidden Line View Images(512×512 size)
+(a) ResNeXt50 with Wireframe View Images(384×384 size)
+(b) ResNeXt50 with Wireframe View Images(512×512 size)
+23
+Fig. 17에서 Fig.22에 나타난 바와 같이 교차 엔트로피를 손실 함수로
+사용하여 분류 문제에 적합한 학습을 진행한 결과, 모든 조건에서 훈련 데이터의
+Loss는 지속적으로 감소하는 양상을 보였으며, 검증 데이터에서도 안정적으로
+수렴하는 패턴을 확인할 수 있었다. 또한, Accuracy는 훈련 데이터와 검증
+데이터 모두에서 유사한 증가 추세를 보였고, 학습 과정이 전반적으로
+안정적으로 진행되었음을 알 수 있었다. 모델과 입력 조건에 따른 세부적인 성능
+차이는 존재했으나, 모든 그래프에서 나타나는 일관된 경향은 데이터와 모델
+간의 적합성이 유지되고 있음을 시사한다. 2. 결과 분석
+이미지 분류를 위한 ResNeXt와 EfficientnetB6의 결과를 Table 4에 정리하여
+비교하였다. Table 4에서는 항공기 부품의 CAD 이미지에 대한 분석 결과를 각
+촬영 방식, 모델, 크기별로 구분하여 작성하였다.
+Fig. 22. Graph for EfficientNetB6 with Wireframe View Images
+(a) EfficientNetB6 with Wireframe View Images(384×384 size)
+(b) EfficientNetB6 with Wireframe View Images(512×512 size)
+24
+가장 높은 정확도를 보인 경우는 Wireframe View와 크기 512 조건에서
+실험한 EfficientNetB6 모델로, Validation Accuracy가 94.81%에 달하나, F1
+Score는 상대적으로 낮은 값을 기록하였다. 특히, F1 Score는 모델이 불균형한
+데이터셋에 대해서도 잘 작동하는지를 평가하는 지표로 일부 클래스에서의 예측
+성능이 부족한 것으로 해석된다. Normal View에서 EfficientNetB6 모델은 384 크기에서 90.35%의 정확도와
+97.71%의 F1 Score를 기록하였고, 512 크기에서도 90.59%의 정확도와
+98.31%의 F1 Score를 달성하였다. 이는 EfficientNetB6가 클래스 간 예측
+균형을 잘 유지하면서 높은 성능을 보였다는 것을 의미한다. 반면, ResNeXt50
+모델은 두 개의 이미지 크기 모두에서 상대적으로 낮은 정확도(87.94% 및
+87.70%)와 F1 Score(92.18% 및 94.08%)를 보인다. Normal View with Hidden Line에서는 두 모델 모두 성능이 개선되었으며, ResNeXt50은 384 크기에서 92.76%, 512 크기에서 92.88%의 정확도를
+기록하였고, EfficientNetB6는 512 크기에서 94.08%의 높은 정확도를 보였다. F1 Score는 모두 높은 값을 보이며 균형 잡힌 성능을 보여주었다. Wireframe View에서 ResNeXt50는 384 크기에서 93.62%로 우수한 성능을
+Capture Method Model Image Size F1 Score Accuracy
+Normal View
+ResNeXt50 384 92.18% 87.94%
+512 94.08% 87.70%
+EfficientnetB6 384 97.71% 90.35%
+512 98.31% 90.59%
+Normal View
+with Hidden Line
+ResNeXt50 384 97.95% 92.76%
+512 98.31% 92.88%
+EfficientnetB6 384 97.38% 90.71%
+512 99.03% 94.08%
+Wireframe View
+ResNeXt50 384 98.67% 93.62%
+512 98.55% 92.76%
+EfficientnetB6 384 98.43% 94.08%
+512 96.50% 94.81%
+Table 4. Performance Comparisons
+25
+보였으나, 512 크기에서는 92.76%로 감소하였다. EfficientNetB6의 경우, 384
+크기에서 94.08%, 512 크기에서는 94.81%의 정확도로 가장 높은 성능을
+나타냈다. F1 Score는 대체로 높으나, EfficientNetB6의 512 크기에서는
+96.50%라는 낮은 값을 기록했다.
+26
+V. 결론 및 향후 연구
+본 연구에서는 항공기 부품의 CAD 이미지를 기반으로 분류를 수행하기 위해
+ResNext50과 EfficientNetB6 모델을 활용하여 다양한 실험을 수행하였다. 실험
+결과는 다음과 같은 주요 결론을 도출하였다. 첫째, 모델 성능 비교 측면에서 EfficientNetB6 모델은 세 가지 모든 촬영
+방식에서 전반적으로 높은 성능을 기록하였다. 특히, Normal View with Hidden
+Line과 Wireframe View 촬영 방식에서 EfficientNetB6는 ResNeXt50에 비해
+뚜렷한 성능 차이를 보였으며, 더 우수한 특징 추출 능력을 나타냈다. F1 Score
+또한 EfficientNetB6가 전반적으로 더 높은 값을 기록하였으며, 이는
+EfficientNetB6가 복잡한 형상의 항공기 부품 이미지 분류에 적합한 모델임을
+시사한다. 다만, EfficientNetB6 모델은 Wireframe View 512 크기에서 F1
+Score가 다소 감소한 점은 주의할 필요가 있다. 둘째, 이미지 크기의 영향의 측면에서는 이미지 크기에 따른 성능 분석 결과, 대부분의 경우에서 크기 384와 512 간의 정확도 차이는 크지 않았으나, EfficientNetB6 모델은 Normal View with Hidden Line과 Wireframe View
+촬영 방식에서 더 큰 이미지 크기인 512에서 더 높은 정확도와 F1 Score를
+기록하는 경향을 보인다. 그러나 Wireframe View의 경우, 512 크기에서 F1
+Score의 소폭 감소는 이미지 크기가 항상 성능 향상에 긍정적인 영향을 미치지
+않을 수 있음을 시사한다. 셋째, 분류 방식 탐색의 측면에서는 각 촬영 방식 간의 비교 분석을 통해 높은
+정확도와 F1 Score를 기록한 모델을 확인함으로써, CNN 네트워크가 항공기
+부품의 CAD 이미지에서 최적의 예측 형식을 찾는 데 기여하였다. 이는 향후
+연구에서 최적의 분류 방안을 모색하는 데 중요한 기초 자료로 활용될 수 있다.
+27
+각 촬영 방식 간의 비교 분석을 통해 높은 정확도를 기록한 모델을
+확인함으로써, CNN 네트워크가 항공기 부품의 CAD 이미지에서 최적의 예측
+형식을 찾는 데 기여하였다. 이는 향후 연구에서 최적의 분류 방안을 모색하는
+데 중요한 기초 자료로 활용될 수 있다. 결론적으로, 본 연구는 EfficientNetB6 모델이 다양한 형태의 항공기 부품
+CAD 이미지를 가장 효과적으로 분류할 수 있음을 입증하였으며, 특히 F1
+Score와 정확도 모두에서 전반적으로 우수한 성능을 보였다. Normal View with
+Hidden Line과 Wireframe View 촬영 방식에서 EfficientNetB6 모델은
+상대적으로 높은 정확도와 F1 Score를 기록하였으며, 이는 모델이 복잡한
+형상의 항공기 부품 이미지 분류에 적합함을 시사한다. 다만, Wireframe View의
+512 크기에서는 F1 Score가 소폭 감소한 점은 크기와 성능 간의 관계를
+재검토할 필요가 있음을 시사한다. 이러한 결과는 향후 연구에서 더욱 다양한
+데이터셋과 추가 실험을 통해 검증하고 확장할 필요가 있음을 제안한다. 특히, 본 연구는 CAD 이미지를 활용한 예측 방법을 제안한 점에서 의미가
+있다. 이는 별도의 기계 요소나 데이터 수집 장치 없이도 가능하여, 투자 비용이
+저렴하며, 각 현장의 요구에 맞게 쉽게 응용할 수 있는 장점이 있다. 또한, CAD
+이미지를 활용한 예측 방법은 다양하며 응용 가능성을 보였으며, 본 연구가 그
+기초 토대가 될 것으로 기대된다.
+28
+참고문헌
+1. 박형욱. 2017. 스마트 팩토리와 연관된 생산제조기술 동향. Journal of the
+Korean Society of Mechanical Engineers. 57(8), 28-32.
+2. 김병주. 2018. 항공기 부품 가공을 위한 스마트공장 구축. Gyeongsang
+National University Graduate School, 2018. 3. 장광수, 이정아, 김영훈. 2014. 인더스트리 4.0과 제조업 창조경제 전략. Korea National Information society Agency. IT & Future Strategy Report
+(2) : 1-33.
+4. 이용태, 채재우. 2004. 항공우주 소재산업의 기술동향과 전망. Aerospace
+Industry Research Institute Sejong University. Journal of Aerospace
+Industry 2004, 67輯 1738-1169.
+5. 남한수. 2018. 항공기 부품 제조업 사례를 통한 판재류 원자재 관리에 관한
+연구. Gyeongsang National University Graduate School of Industry, 2018. 6. S. Datta, M. Virginia. 2004. The Effect of Forming Pressure on
+Springback in 2XXX Aluminum Alloys. SAE Transactions, 2004 Jan 01.
+113, 1568-1571.
+7. Seyedmorteza Ghaffarishahri. 2022. STEP CAD models of structural
+aerospace sheet metal parts (1.A) [Data set]. Zenodo. DOI :
+29
+https://doi.org/10.5281/zenodo.6970030
+8. CATIA 3DEXPERIENCE R2024x, Dassault Systems.
+9. S. Xie, R. Girshick, P. Dollár, Z. Tu, K. He. 2017. Aggregated Residual
+Transformations for Deep Neural Networks. 2017 IEEE Conference on
+Computer Vision and Pattern Recognition (CVPR) CVPR Computer Vision
+and Pattern Recognition (CVPR). 2017 IEEE Conference on. :5987-5995.
+10. M. Tan, Q. Le. 2019. EfficientNet: Rethinking Model Scaling for
+Convolutional Neural Networks. International Conference on Machine
+Learning, 2019. 11. K. He, X. Zhang, S. Ren and J. Sun. 2016. Deep Residual Learning for
+Image Recognition. 2016 IEEE Conference on Computer Vision and
+Pattern Recognition(CVPR), Las Vegas, NV, USA. pp. 770-778, DOI:
+10.1109/CVPR.2016.90.
+12. Michael C. Y. Niu. 2011. Airframe structural design : practical design
+information and data on aircraft structures. 2nd ed. Hong Kong : Conmilit
+Press Ltd., 2011.
+13. S. Ghaffarishahri, L. Rivest. 2020. Feature Recognition for Structural
+Aerospace Sheet Metal Parts. Computer-Aided Design & Applications.
+2020, Vol. 17 Issue 1, p16-43. 28p.

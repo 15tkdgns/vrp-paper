@@ -1,0 +1,51 @@
+{
+  "baseline_r2": 0.818005893912411,
+  "expanded_linear_r2": 0.8236634797360767,
+  "expanded_rf_r2": 0.8649023138051573,
+  "feature_importance": [
+    {
+      "Feature": "LogRV_lag1",
+      "Importance": 0.8154010949452971
+    },
+    {
+      "Feature": "VRP_Proxy",
+      "Importance": 0.09013483540330407
+    },
+    {
+      "Feature": "LogRV_lag22",
+      "Importance": 0.03506601243695646
+    },
+    {
+      "Feature": "LogRV_lag5",
+      "Importance": 0.020294247414063712
+    },
+    {
+      "Feature": "BB_Width",
+      "Importance": 0.009713695294450786
+    },
+    {
+      "Feature": "LogRV_Down",
+      "Importance": 0.006593594522160649
+    },
+    {
+      "Feature": "Kurtosis",
+      "Importance": 0.006203832310454746
+    },
+    {
+      "Feature": "RSI",
+      "Importance": 0.0056918025503882004
+    },
+    {
+      "Feature": "Skewness",
+      "Importance": 0.005244680939102181
+    },
+    {
+      "Feature": "LogRV_Up",
+      "Importance": 0.00322226127840229
+    },
+    {
+      "Feature": "RS_Asymmetry",
+      "Importance": 0.0024339429054198946
+    }
+  ]
+}

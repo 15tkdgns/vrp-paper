@@ -1,0 +1,94 @@
+부록 A. 피처 목록 및 정의 (35개 피처 전체)
+Appendix A. Full Feature List and Definitions (35 Features)
+
+표 A-1. 피처 목록 및 정의 (35개 피처 전체)
+Table A-1. Full Feature List and Definitions
+
+────────────────────────────────────────────────────────────────────────
+그룹 I. HAR 기반 (12개)
+HAR-Based Features
+────────────────────────────────────────────────────────────────────────
+
+#   피처명             정의                                                  지연
+1   LogRV_lag1         log(RV_22d,t-1) — 직전일 22d 롤링 로그 실현분산         t-1
+2   LogRV_lag5         log(RV_22d,t-5) — 5거래일 전 로그 실현분산              t-5
+3   LogRV_lag10        log(RV_22d,t-10) — 10거래일 전 로그 실현분산            t-10
+4   LogRV_lag22        log(RV_22d,t-22) — 22거래일 전 로그 실현분산            t-22
+5   LogRV_Std5         직전 5거래일 로그 RV의 표준편차 (변동성의 변동성, 단기)   t-1
+6   LogRV_Std22        직전 22거래일 로그 RV의 표준편차 (변동성의 변동성, 중기)  t-1
+7   RV_Mom5            로그 RV의 5거래일 모멘텀: LogRV_t-1 − LogRV_t-6         t-1
+8   RV_Mom22           로그 RV의 22거래일 모멘텀: LogRV_t-1 − LogRV_t-23       t-1
+9   SPY_LogRV          SPY의 직전일 로그 RV (시장 공통 변동성 수준)             t-1
+10  Ret_lag1           직전일 로그수익률 r_{t-1}                               t-1
+11  Ret_abs_lag1       직전일 로그수익률 절댓값 |r_{t-1}| (일별 변동성 신호)     t-1
+12  Corr_SPY           직전 22거래일 SPY와의 수익률 상관계수 (SPY는 1.0 고정)   t-1
+
+비고: RV_22d는 직전 22거래일 제곱수익률 합 × 252 × 10000 (bps² 단위). 로그 변환 시 ε=1e-6 추가.
+
+────────────────────────────────────────────────────────────────────────
+그룹 II. HF Proxy — Range 기반 변동성 추정량 (7개)
+High-Frequency Proxy Features
+────────────────────────────────────────────────────────────────────────
+
+#   피처명                정의                                              창
+13  Parkinson_5           Parkinson (1980) 일중 범위 추정량, 5일 롤링        5d
+14  Parkinson_22          Parkinson (1980) 일중 범위 추정량, 22일 롤링       22d
+15  GarmanKlass_22        Garman & Klass (1980) 추정량, 22일 롤링            22d
+16  RogersSatchell_22     Rogers & Satchell (1991) 추정량, 22일 롤링         22d
+17  Range_Close_Ratio     log(Parkinson_22) − LogRV_lag1 (범위/종가 비율)    22d
+18  Overnight_Vol         시가 갭 log(O_t / C_{t-1})의 22일 롤링 표준편차    22d
+19  Overnight_Ret         직전일 시가 갭 log(O_{t-1} / C_{t-2})              t-1
+
+추정량 수식:
+  Parkinson:        σ_P = sqrt( mean(log(H/L)²) / (4 ln 2) ) × sqrt(252)
+  Garman-Klass:     σ_GK = sqrt( mean(0.5×log(H/L)² − (2ln2−1)×log(C/O)²) × 252 )
+  Rogers-Satchell:  σ_RS = sqrt( mean(log(H/C)×log(H/O) + log(L/C)×log(L/O)) × 252 )
+
+모든 HF Proxy 피처는 원시(수정되지 않은) OHLC 자료를 사용하며, t-1일 지연 후 입력.
+
+────────────────────────────────────────────────────────────────────────
+그룹 III. IV Surface — 내재변동성 기간구조 및 VRP (10개)
+Implied Volatility Surface Features
+────────────────────────────────────────────────────────────────────────
+
+#   피처명              정의                                                  지연
+20  IV_VIX             log(VIX_t + ε) — VIX 로그 수준                        t-1
+21  IV_VIX_chg         log(VIX_t) − log(VIX_{t-1}) — VIX 일별 변화율         t-1
+22  IV_VIX_ma5         log(VIX)의 직전 5일 이동평균                           t-1
+23  IV_VIX_std5        log(VIX)의 직전 5일 표준편차 (IV의 변동성)             t-1
+24  IV_VIX3M           log(VIX3M + ε) — 3개월 만기 내재변동성 로그 수준       t-1
+25  IV_VIX_TermSlope   log(VIX) − log(VIX3M) — VIX 기간구조 기울기            t-1
+26  IV_VIX9D           log(VIX9D + ε) — 9일 만기 내재변동성 로그 수준         t-1
+27  IV_VIX_ShortSlope  log(VIX9D) − log(VIX) — 초단기 기간구조 기울기         t-1
+28  IV_VRP             (VIX_t/100)² − RV_SPY,[t-22,t-1] — 과거 기반 VRP 대리변수  t-1
+29  IV_VRP_ma22        IV_VRP의 직전 22일 이동평균                            t-1
+
+비고: IV_VRP는 예측 시점 t에서 관측 가능한 과거 SPY RV 기반 대리변수로,
+      타깃(전방 RV)과 시점이 겹치지 않아 타깃 누출(target leakage)이 없음.
+      WEns 예측 RV를 사후 결합해 산출하는 VRP_hat과 개념적으로 구분됨.
+
+────────────────────────────────────────────────────────────────────────
+그룹 IV. Alternative — 시장 미시구조 및 거래량 기반 (6개)
+Alternative / Market Microstructure Features
+────────────────────────────────────────────────────────────────────────
+
+#   피처명                   정의                                            창
+30  AltVol_Amihud            |r_t| / (Volume_t × Close_t + ε), 22일 평균     22d
+31  AltVol_Vol_Ratio         5일 평균 거래량 / 22일 평균 거래량 (거래량 추세)  5d/22d
+32  AltVol_PV_Corr           수익률과 log(거래량)의 22일 롤링 상관계수         22d
+33  AltVol_Vol_Surprise      (거래량 − 22일 평균) / 22일 표준편차 (거래량 이상) 22d
+34  AltVol_Order_Imbalance   (매수 거래량 − 매도 거래량) / 총 거래량, 22일 합  22d
+35  AltVol_Kyle_Lambda       |r|의 22일 합 / 거래량의 22일 합 × 1e6           22d
+
+비고: 매수/매도 거래량 분리는 당일 수익률 부호로 근사
+      (r>0 → 매수, r≤0 → 매도). 고빈도 주문 데이터 없이 일별로 근사.
+
+────────────────────────────────────────────────────────────────────────
+전처리 공통 사항
+────────────────────────────────────────────────────────────────────────
+
+- 모든 피처는 예측 시점 t에서 t-1까지의 정보만 사용 (미래 누출 없음)
+- Z-score 정규화: 학습 구간 평균·표준편차로 표준화, 테스트 구간에 동일 파라미터 적용
+- 초기 설계에서 GARCH(1,1) 기반 피처 2개(조건부 분산, 잔차 제곱)를 포함한 37개 후보 검토;
+  Ridge 내부 검증 Pooled R²가 약 0.006 하락하여 최종 피처세트에서 제외
+- 결측치: 전방 채움(forward fill) 후 여전히 NaN인 행은 학습·평가에서 제외

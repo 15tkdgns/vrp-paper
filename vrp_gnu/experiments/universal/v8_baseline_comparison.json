@@ -1,0 +1,26 @@
+{
+  "model_comparison": {
+    "Naive (RW)": 0.7899380872576904,
+    "Historical Mean": -1.4130913017940117e-05,
+    "HAR-Ridge": 0.8180058085578891,
+    "Random Forest": 0.865459093963948,
+    "GradientBoosting": 0.8582255412956541,
+    "XGBoost": 0.8591155872718528,
+    "LightGBM": 0.8590102482425467,
+    "MLP (DeepVol)": 0.8590442542814724,
+    "Ensemble": 0.8553081747269174
+  },
+  "model_types": {
+    "Naive (RW)": "Baseline",
+    "Historical Mean": "Baseline",
+    "HAR-Ridge": "Baseline",
+    "Random Forest": "ML",
+    "GradientBoosting": "ML",
+    "XGBoost": "ML",
+    "LightGBM": "ML",
+    "MLP (DeepVol)": "DL",
+    "Ensemble": "Ensemble"
+  },
+  "best_model": "Random Forest",
+  "best_r2": 0.865459093963948
+}

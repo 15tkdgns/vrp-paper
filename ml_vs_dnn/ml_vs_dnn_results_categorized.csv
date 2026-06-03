@@ -1,0 +1,16 @@
+Model,Type,Category,Target_Variable,Horizon,Feature_Count,Feature_Details,Pooled_R2,Median_R2,RMSE,Key_Characteristics,Source_Paper,Publication_Year
+GARCH(1;1),Traditional,Traditional TS,Realized Variance(RV),22d,-,Daily log returns,0.6939,0.0273,0.5782,Traditional benchmark,Bollerslev,1986
+GJR-GARCH,Traditional,Traditional TS,Realized Variance(RV),22d,-,Asymmetric returns,0.6989,-0.0066,0.5735,Asymmetry effect,-,-
+HAR-3,Linear,Linear ML,Realized Variance(RV),22d,3,RV lags,0.761,0.1709,0.5415,Base benchmark,Corsi,2009
+Ridge (pooled),Linear,Linear ML,Realized Variance(RV),22d,37,Full,0.7625,-0.003,0.5093,Single pooling,This study (v25),2026
+Ridge (per-class),Linear,Linear ML,Realized Variance(RV),22d,37,Full,0.7618,0.0949,0.5101,Per-class,This study (v25),2026
+Lasso,Linear,Linear ML,Realized Variance(RV),22d,37,Full,0.7712,0.0998,0.4999,L1 reg.,This study (v25),2026
+ElasticNet,Linear,Linear ML,Realized Variance(RV),22d,37,Full,0.7696,0.0742,0.5017,L1+L2,This study (v25),2026
+ElasticNet-59,Linear,Linear ML,Realized Variance(RV),22d,59,Extended feat.,0.807,-,0.4591,Best pooled; Handled multicollinearity effectively,This study (v25),2026
+RF,Tree,Non-linear ML,Realized Variance(RV),22d,37,Full,0.759,0.1424,0.513,Robust to outliers,This study (v25),2026
+XGBoost,Tree,Non-linear ML,Realized Variance(RV),22d,37,Full,0.733,0.0353,0.54,Gradient boosting,This study (v25),2026
+LightGBM,Tree,Non-linear ML,Realized Variance(RV),22d,37,Full,0.7387,0.0589,0.5342,Fast boosting,This study (v25),2026
+SVR,Kernel,Non-linear ML,Realized Variance(RV),22d,37,Full,0.6901,-0.0939,0.5818,Support vector,This study (v25),2026
+WEns,Ensemble,Non-linear ML,Realized Variance(RV),22d,37,Full,0.803,0.215,0.468,Ridge 70%+XGB 30%; High transparency and performance,This study (v25),2026
+MLP,NN,DL/DNN,Realized Variance(RV),22d,37,Full,0.6183,-0.3266,0.6457,Overfitting with full features,This study (v25),2026
+BiLSTM-A,DL,DL/DNN,Realized Variance(RV),22d,3,Range (RS;GK;RC),0.78,0.2353,0.4767,3-feat design; High performance with compact features,This study (v25),2026

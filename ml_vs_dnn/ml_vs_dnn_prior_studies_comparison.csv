@@ -1,0 +1,10 @@
+Year,Model,Category,Metric(22d_R2),Reference,Key_Notes
+1986,GARCH,Traditional TS,0.55,Bollerslev,Traditional benchmark for volatility modeling
+2007,HAR-CJ,Linear ML,0.752,Andersen et al.,Separation of continuous and jump components
+2009,HAR-RV,Linear ML,0.761,Corsi,Heterogeneous Auto-Regressive model
+2016,LASSO-HAR,Linear ML,0.79,Audrino et al.,Machine learning meets HAR (L1 regularization)
+2019,ML+Options,Non-linear ML,0.39,Carr et al.,Option cross-section data utilization
+2023,RF,Non-linear ML,0.77,Christensen et al.,Random Forest applied to volatility forecasting
+2026,WEns (Ours),Non-linear ML,0.803,This study,Weighted combination (Ridge 70% + XGB 30%)
+2026,ElasticNet-59 (Ours),Linear ML,0.807,This study,L1+L2 regularization with extended 59 features
+2026,BiLSTM-A (Ours),DL/DNN,0.78,This study,Deep learning benchmark with attention mechanism

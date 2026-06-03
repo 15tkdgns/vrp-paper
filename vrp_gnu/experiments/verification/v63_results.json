@@ -1,0 +1,50 @@
+{
+  "overall_stats": {
+    "max_lag": 1,
+    "max_weight": 0.05356629192829132,
+    "early_lags_total": 0.4719828963279724,
+    "recent_lags_total": 0.5280170440673828,
+    "avg_entropy": 2.854731798171997
+  },
+  "asset_stats": {
+    "SPY": {
+      "focus_lag": 21,
+      "max_weight": 0.05442577973008156,
+      "avg_entropy": 2.8747828006744385
+    },
+    "QQQ": {
+      "focus_lag": 1,
+      "max_weight": 0.05391305312514305,
+      "avg_entropy": 2.862251043319702
+    },
+    "IWM": {
+      "focus_lag": 1,
+      "max_weight": 0.054333075881004333,
+      "avg_entropy": 2.8584587574005127
+    },
+    "TLT": {
+      "focus_lag": 1,
+      "max_weight": 0.0566655769944191,
+      "avg_entropy": 2.8351526260375977
+    },
+    "IEF": {
+      "focus_lag": 1,
+      "max_weight": 0.056938737630844116,
+      "avg_entropy": 2.836587905883789
+    },
+    "GLD": {
+      "focus_lag": 21,
+      "max_weight": 0.05841294676065445,
+      "avg_entropy": 2.861189365386963
+    }
+  },
+  "regime_stats": {
+    "high_vol_focus_lag": 1,
+    "low_vol_focus_lag": 21,
+    "bull_focus_lag": 1,
+    "bear_focus_lag": 17
+  },
+  "performance_correlation": {
+    "entropy_error_corr": 0.06523446146088441
+  }
+}

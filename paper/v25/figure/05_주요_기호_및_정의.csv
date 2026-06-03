@@ -1,0 +1,7 @@
+﻿Symbol,Definition
+"RV_{i,t}(h)","Forward RV, h days ahead"
+IV_t^2,Implied variance proxy
+"VRP_{i,t}(h)",Variance risk premium
+h,Forecast horizon
+i,Asset index
+R^2,Coefficient of determination

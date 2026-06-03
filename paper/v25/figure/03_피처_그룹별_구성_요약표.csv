@@ -1,0 +1,5 @@
+﻿피처 그룹,주요 구성 변수,설명
+HAR,"LogRV_lag1, 5, 22",과거 실현 변동성
+HF Proxy,"Parkinson_5, GarmanKlass_22 등",range 기반 추정량
+IV Surface,"IV_VIX, IV_VRP_ma22 등",VIX 및 VRP 기반
+Alternative,Volume 등,거래량 등

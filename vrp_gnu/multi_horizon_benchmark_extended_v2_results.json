@@ -1,0 +1,370 @@
+{
+  "1d": {
+    "HAR-3": {
+      "Pooled_R2": 0.1087,
+      "RMSE": 2.5039
+    },
+    "Ridge": {
+      "Pooled_R2": 0.1148,
+      "RMSE": 2.4953
+    },
+    "LASSO": {
+      "Pooled_R2": 0.1157,
+      "RMSE": 2.494
+    },
+    "ElasticNet": {
+      "Pooled_R2": 0.1152,
+      "RMSE": 2.4947
+    },
+    "SVR": {
+      "Pooled_R2": 0.0964,
+      "RMSE": 2.521
+    },
+    "MLP": {
+      "Pooled_R2": 0.0875,
+      "RMSE": 2.5334
+    },
+    "RF": {
+      "Pooled_R2": 0.1154,
+      "RMSE": 2.4944
+    },
+    "XGBoost": {
+      "Pooled_R2": 0.108,
+      "RMSE": 2.5048
+    },
+    "LightGBM": {
+      "Pooled_R2": 0.1113,
+      "RMSE": 2.5002
+    },
+    "WEns": {
+      "Pooled_R2": 0.1169,
+      "RMSE": 2.4922
+    },
+    "BiLSTM-A": {
+      "Pooled_R2": 0.1058,
+      "RMSE": 2.5191
+    }
+  },
+  "5d": {
+    "HAR-3": {
+      "Pooled_R2": 0.5805,
+      "RMSE": 0.791
+    },
+    "Ridge": {
+      "Pooled_R2": 0.6192,
+      "RMSE": 0.7536
+    },
+    "LASSO": {
+      "Pooled_R2": 0.624,
+      "RMSE": 0.7489
+    },
+    "ElasticNet": {
+      "Pooled_R2": 0.6249,
+      "RMSE": 0.7479
+    },
+    "SVR": {
+      "Pooled_R2": 0.6293,
+      "RMSE": 0.7435
+    },
+    "MLP": {
+      "Pooled_R2": 0.5208,
+      "RMSE": 0.8454
+    },
+    "RF": {
+      "Pooled_R2": 0.6092,
+      "RMSE": 0.7634
+    },
+    "XGBoost": {
+      "Pooled_R2": 0.6124,
+      "RMSE": 0.7603
+    },
+    "LightGBM": {
+      "Pooled_R2": 0.6101,
+      "RMSE": 0.7625
+    },
+    "WEns": {
+      "Pooled_R2": 0.625,
+      "RMSE": 0.7478
+    },
+    "BiLSTM-A": {
+      "Pooled_R2": 0.5921,
+      "RMSE": 0.7784
+    }
+  },
+  "22d": {
+    "HAR-3": {
+      "Pooled_R2": 0.7607,
+      "RMSE": 0.5079
+    },
+    "Ridge": {
+      "Pooled_R2": 0.7943,
+      "RMSE": 0.4708
+    },
+    "LASSO": {
+      "Pooled_R2": 0.7892,
+      "RMSE": 0.4767
+    },
+    "ElasticNet": {
+      "Pooled_R2": 0.7902,
+      "RMSE": 0.4755
+    },
+    "SVR": {
+      "Pooled_R2": 0.7874,
+      "RMSE": 0.4786
+    },
+    "MLP": {
+      "Pooled_R2": 0.6094,
+      "RMSE": 0.6488
+    },
+    "RF": {
+      "Pooled_R2": 0.7856,
+      "RMSE": 0.4807
+    },
+    "XGBoost": {
+      "Pooled_R2": 0.7539,
+      "RMSE": 0.515
+    },
+    "LightGBM": {
+      "Pooled_R2": 0.7655,
+      "RMSE": 0.5027
+    },
+    "WEns": {
+      "Pooled_R2": 0.7939,
+      "RMSE": 0.4713
+    },
+    "BiLSTM-A": {
+      "Pooled_R2": 0.7894,
+      "RMSE": 0.4719
+    }
+  },
+  "60d": {
+    "HAR-3": {
+      "Pooled_R2": 0.784,
+      "RMSE": 0.4612
+    },
+    "Ridge": {
+      "Pooled_R2": 0.7868,
+      "RMSE": 0.4582
+    },
+    "LASSO": {
+      "Pooled_R2": 0.7801,
+      "RMSE": 0.4653
+    },
+    "ElasticNet": {
+      "Pooled_R2": 0.7786,
+      "RMSE": 0.4669
+    },
+    "SVR": {
+      "Pooled_R2": 0.7846,
+      "RMSE": 0.4606
+    },
+    "MLP": {
+      "Pooled_R2": 0.5918,
+      "RMSE": 0.634
+    },
+    "RF": {
+      "Pooled_R2": 0.7995,
+      "RMSE": 0.4444
+    },
+    "XGBoost": {
+      "Pooled_R2": 0.7283,
+      "RMSE": 0.5172
+    },
+    "LightGBM": {
+      "Pooled_R2": 0.7477,
+      "RMSE": 0.4985
+    },
+    "WEns": {
+      "Pooled_R2": 0.7874,
+      "RMSE": 0.4576
+    },
+    "BiLSTM-A": {
+      "Pooled_R2": 0.8091,
+      "RMSE": 0.4312
+    }
+  },
+  "90d": {
+    "HAR-3": {
+      "Pooled_R2": 0.7812,
+      "RMSE": 0.4568
+    },
+    "Ridge": {
+      "Pooled_R2": 0.7664,
+      "RMSE": 0.4719
+    },
+    "LASSO": {
+      "Pooled_R2": 0.7629,
+      "RMSE": 0.4754
+    },
+    "ElasticNet": {
+      "Pooled_R2": 0.7609,
+      "RMSE": 0.4775
+    },
+    "SVR": {
+      "Pooled_R2": 0.7584,
+      "RMSE": 0.4799
+    },
+    "MLP": {
+      "Pooled_R2": 0.5409,
+      "RMSE": 0.6616
+    },
+    "RF": {
+      "Pooled_R2": 0.7912,
+      "RMSE": 0.4461
+    },
+    "XGBoost": {
+      "Pooled_R2": 0.7041,
+      "RMSE": 0.5312
+    },
+    "LightGBM": {
+      "Pooled_R2": 0.7106,
+      "RMSE": 0.5253
+    },
+    "WEns": {
+      "Pooled_R2": 0.767,
+      "RMSE": 0.4713
+    },
+    "BiLSTM-A": {
+      "Pooled_R2": 0.807,
+      "RMSE": 0.4272
+    }
+  },
+  "120d": {
+    "HAR-3": {
+      "Pooled_R2": 0.7582,
+      "RMSE": 0.4749
+    },
+    "Ridge": {
+      "Pooled_R2": 0.7502,
+      "RMSE": 0.4826
+    },
+    "LASSO": {
+      "Pooled_R2": 0.7442,
+      "RMSE": 0.4884
+    },
+    "ElasticNet": {
+      "Pooled_R2": 0.7421,
+      "RMSE": 0.4903
+    },
+    "SVR": {
+      "Pooled_R2": 0.7243,
+      "RMSE": 0.507
+    },
+    "MLP": {
+      "Pooled_R2": 0.5355,
+      "RMSE": 0.6581
+    },
+    "RF": {
+      "Pooled_R2": 0.7726,
+      "RMSE": 0.4604
+    },
+    "XGBoost": {
+      "Pooled_R2": 0.6571,
+      "RMSE": 0.5654
+    },
+    "LightGBM": {
+      "Pooled_R2": 0.6884,
+      "RMSE": 0.539
+    },
+    "WEns": {
+      "Pooled_R2": 0.7432,
+      "RMSE": 0.4894
+    },
+    "BiLSTM-A": {
+      "Pooled_R2": 0.7941,
+      "RMSE": 0.4359
+    }
+  },
+  "180d": {
+    "HAR-3": {
+      "Pooled_R2": 0.7047,
+      "RMSE": 0.5168
+    },
+    "Ridge": {
+      "Pooled_R2": 0.7358,
+      "RMSE": 0.4889
+    },
+    "LASSO": {
+      "Pooled_R2": 0.7048,
+      "RMSE": 0.5167
+    },
+    "ElasticNet": {
+      "Pooled_R2": 0.7003,
+      "RMSE": 0.5207
+    },
+    "SVR": {
+      "Pooled_R2": 0.6681,
+      "RMSE": 0.548
+    },
+    "MLP": {
+      "Pooled_R2": 0.5655,
+      "RMSE": 0.6269
+    },
+    "RF": {
+      "Pooled_R2": 0.7436,
+      "RMSE": 0.4816
+    },
+    "XGBoost": {
+      "Pooled_R2": 0.6613,
+      "RMSE": 0.5535
+    },
+    "LightGBM": {
+      "Pooled_R2": 0.677,
+      "RMSE": 0.5405
+    },
+    "WEns": {
+      "Pooled_R2": 0.7409,
+      "RMSE": 0.4841
+    },
+    "BiLSTM-A": {
+      "Pooled_R2": 0.7265,
+      "RMSE": 0.4948
+    }
+  },
+  "252d": {
+    "HAR-3": {
+      "Pooled_R2": 0.6385,
+      "RMSE": 0.5633
+    },
+    "Ridge": {
+      "Pooled_R2": 0.6739,
+      "RMSE": 0.5351
+    },
+    "LASSO": {
+      "Pooled_R2": 0.6369,
+      "RMSE": 0.5646
+    },
+    "ElasticNet": {
+      "Pooled_R2": 0.6266,
+      "RMSE": 0.5725
+    },
+    "SVR": {
+      "Pooled_R2": 0.5878,
+      "RMSE": 0.6015
+    },
+    "MLP": {
+      "Pooled_R2": 0.5399,
+      "RMSE": 0.6355
+    },
+    "RF": {
+      "Pooled_R2": 0.7094,
+      "RMSE": 0.5051
+    },
+    "XGBoost": {
+      "Pooled_R2": 0.6469,
+      "RMSE": 0.5567
+    },
+    "LightGBM": {
+      "Pooled_R2": 0.6683,
+      "RMSE": 0.5396
+    },
+    "WEns": {
+      "Pooled_R2": 0.701,
+      "RMSE": 0.5123
+    },
+    "BiLSTM-A": {
+      "Pooled_R2": 0.6445,
+      "RMSE": 0.5556
+    }
+  }
+}

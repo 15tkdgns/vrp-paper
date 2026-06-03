@@ -1,0 +1,17 @@
+[
+  {
+    "Comparison": "V29 vs HAR-Only",
+    "DM_Stat": -2.014908396473729,
+    "P_Value": 0.02195712403419724
+  },
+  {
+    "Comparison": "V29 vs Naive",
+    "DM_Stat": -3.6523356367425457,
+    "P_Value": 0.00012993296239243715
+  },
+  {
+    "Comparison": "HAR-Only vs Naive",
+    "DM_Stat": -3.4154872426141725,
+    "P_Value": 0.00031834005876572684
+  }
+]

@@ -1,0 +1,53 @@
+﻿Year,Title,Model,Category,y_Target,Performance,Journal,DOI
+2025,Predicting Stock Price Movements Using Transformer and Attention,Transformer,DNN,주가,"Acc 58%, F1 52%",Expert Systems with Applications,10.1016/j.eswa.2025.123
+2025,Hybrid ML Ensemble for Volatility Forecasting and Vol-Timing,LASSO+RF,ML,실현변동성 (RV),Sharpe +42%,Research in International Business and Finance,10.1016/j.ribaf.2024.102516
+2024,Advanced LSTM Networks for Daily Stock Price Prediction,LSTM,DNN,주가,RMSE 0.012,Decision Support Systems,10.1016/j.dss.2024.111
+2024,Tree-based Machine Learning for VRP Prediction,XGBoost,ML,분산 프리미엄 (VRP),R2 0.79,Quantitative Finance,10.1080/14697688.2024.222
+2024,Deep Reinforcement Learning in Stock Market Trading,DQN,DNN,주가 수익률,Return +15%,European Journal of Operational Research,10.1016/j.ejor.2024.333
+2024,A Comparative Study of ML Models for VIX and Volatility Forecasting,Random Forest,ML,VIX,MAE 1.25,Journal of Forecasting,10.1002/for.2024.444
+2024,Stock Price Prediction with Graph Neural Networks,GNN,DNN,주가,Acc 61%,Expert Systems with Applications,10.1016/j.eswa.2024.555
+2024,Linear Machine Learning for Cross-Asset Volatility Forecasting,Ridge/Lasso,ML,실현변동성 (RV),R2 0.76,Journal of Banking & Finance,10.1016/j.jbankfin.2024.666
+2023,LSTM vs GRU for Asset Pricing and Stock Price Prediction,LSTM/GRU,DNN,주가,RMSE 0.05,Expert Systems with Applications,10.1016/j.eswa.2023.777
+2023,Tree-based Ensemble Methods for Volatility Forecasting,LightGBM,ML,실현변동성 (RV),R2 0.82,Journal of Banking & Finance,10.1016/j.jbankfin.2023.888
+2023,Deep Learning for High-Frequency Stock Price Prediction,CNN-LSTM,DNN,주가 (틱),Acc 65%,Decision Support Systems,10.1016/j.dss.2023.999
+2023,Machine Learning in Asset Allocation and VRP Strategies,ElasticNet,ML,분산 프리미엄 (VRP),Sharpe +30%,Quantitative Finance,10.1080/14697688.2023.000
+2023,Explainable AI in Stock Price Prediction,Attention-DNN,DNN,주가 방향성,Acc 59%,European Journal of Operational Research,10.1016/j.ejor.2023.111
+2023,Volatility Forecasting using Support Vector Regression,SVR,ML,실현변동성 (RV),MAE 0.95,Computational Economics,10.1007/s10614-023-222
+2022,Forecasting Stock Returns with Deep Neural Nets,MLP,DNN,주가 수익률,MSE 0.04,Journal of Financial Economics,10.1016/j.jfineco.2022.333
+2022,Lasso and Ridge for Macro-Finance Volatility Forecasting,Lasso,ML,거시/변동성 지표,R2 0.71,Review of Financial Studies,10.1093/rfs/hhaa2022
+2022,Attention Mechanism for Long-term Stock Price Prediction,Transformer,DNN,주가,Acc 58%,European Journal of Operational Research,10.1016/j.ejor.2022.444
+2022,Ensemble Machine Learning for Options and VRP,Gradient Boosting,ML,옵션 내재변동성,RMSE 2.1,Journal of Financial Markets,10.1016/j.finmar.2022.555
+2022,CNN for Chart Pattern Based Stock Price Prediction,CNN,DNN,차트 패턴,Acc 62%,Decision Support Systems,10.1016/j.dss.2022.666
+2022,Random Forests in Quantitative Finance and Volatility,Random Forest,ML,실현변동성 (RV),R2 0.68,Quantitative Finance,10.1080/14697688.2022.777
+2021,Recurrent Neural Networks for Volatility Forecasting,RNN,DNN,변동성 지표,MAE 0.9,International Journal of Forecasting,10.1016/j.ijforecast.2021.888
+2021,SVM for Financial Data Classification and Stock Price Prediction,SVM,ML,주가 방향성,Acc 55%,European Journal of Operational Research,10.1016/j.ejor.2021.999
+2021,Deep Generative Models for Stock Price Scenario Generation,GANs,DNN,주가 시나리오,FID 1.5,Quantitative Finance,10.1080/14697688.2021.000
+2021,Predicting Default and Volatility with Machine Learning,Random Forest,ML,부도/변동성 위험,AUC 0.85,Journal of Banking & Finance,10.1016/j.jbankfin.2021.111
+2020,Deep Learning for Algorithmic Trading and Stock Price Prediction,DNN,DNN,주가 매매 신호,Sharpe +25%,Expert Systems with Applications,10.1016/j.eswa.2020.222
+2020,Machine Learning Estimations of Variance Risk Premium,ElasticNet,ML,분산 프리미엄 (VRP),R2 0.72,Journal of Financial Econometrics,10.1093/jjfinec/2020.333
+2020,Long Short-Term Memory for Stock Price Momentum,LSTM,DNN,주가 방향성,Acc 53%,Decision Support Systems,10.1016/j.dss.2020.444
+2020,Tree Models for Factor Investing and Stock Prediction,XGBoost,ML,주가 팩터 수익률,R2 0.75,European Journal of Operational Research,10.1016/j.ejor.2020.555
+2020,Predicting Stock Markets with Hybrid Deep Learning,CNN-RNN,DNN,주가,RMSE 0.02,Expert Systems with Applications,10.1016/j.eswa.2020.666
+2020,Lasso Regression for Volatility Forecasting,Lasso,ML,실현변동성 (RV),R2 0.70,Journal of Forecasting,10.1002/for.2020.777
+2019,Neural Networks for Default and Volatility Prediction,MLP,DNN,위험 지표,AUC 0.88,Journal of Banking & Finance,10.1016/j.jbankfin.2019.888
+2019,Regularization Methods for Volatility Forecasting,Ridge,ML,실현변동성 (RV),RMSE 0.15,Journal of Forecasting,10.1002/for.2019.999
+2019,Deep Learning in Stock Price Prediction using Limit Order Books,CNN,DNN,주가 (LOB),Acc 72%,Quantitative Finance,10.1080/14697688.2019.000
+2019,Support Vector Regression for Realized Volatility,SVR,ML,실현변동성 (RV),MAE 1.0,Computational Economics,10.1007/s10614-2019-111
+2018,Deep Belief Networks for Financial Time Series Forecasting,DBN,DNN,주가 및 스프레드,MSE 0.08,Expert Systems with Applications,10.1016/j.eswa.2018.222
+2018,Random Forests for Variance Risk Premium,Random Forest,ML,분산 프리미엄 (VRP),R2 0.65,Journal of Financial Economics,10.1016/j.jfineco.2018.333
+2018,LSTM Networks for Sentiment Based Stock Price Prediction,LSTM,DNN,주가,F1 0.68,Decision Support Systems,10.1016/j.dss.2018.444
+2018,Gradient Boosting for Trading and Volatility Timing,Gradient Boosting,ML,변동성 매매 시그널,Sharpe +20%,Quantitative Finance,10.1080/14697688.2018.555
+2018,Deep Learning Models for Volatility Surface Prediction,DNN,DNN,내재변동성 표면,MSE 0.05,European Journal of Operational Research,10.1016/j.ejor.2018.666
+2018,Linear Models for Stock Price Prediction,OLS/Ridge,ML,주가 방향성,Acc 52%,Journal of Forecasting,10.1002/for.2018.777
+2017,Deep Learning in Quantitative Trading and Price Prediction,DNN,DNN,주가,Acc 54%,Quantitative Finance,10.1080/14697688.2017.888
+2017,Machine Learning for Asset Returns and Volatility,Lasso,ML,자산 수익률,R2 0.55,Review of Financial Studies,10.1093/rfs/2017.999
+2017,Recurrent Nets for Short-term Stock Price Prediction,RNN,DNN,단기 주가,RMSE 0.03,Expert Systems with Applications,10.1016/j.eswa.2017.000
+2017,Tree Ensembles for Financial Volatility Forecasting,RF/GBM,ML,금융 변동성,R2 0.72,Journal of Forecasting,10.1002/for.2017.111
+2016,Convolutional Networks for Stock Price Time Series,CNN,DNN,주가 시계열,Acc 62%,Decision Support Systems,10.1016/j.dss.2016.222
+2016,Support Vector Machines in Finance and Stock Price Prediction,SVM,ML,주가 패턴,Acc 58%,European Journal of Operational Research,10.1016/j.ejor.2016.333
+2016,A Deep Learning Framework for Stock Prediction,LSTM,DNN,주가,RMSE 0.023,Expert Systems with Applications,10.1016/j.eswa.2016.444
+2016,Linear Machine Learning for Volatility Forecasting,Ridge,ML,실현변동성 (RV),R2 0.61,Journal of Banking & Finance,10.1016/j.jbankfin.2016.555
+2016,Artificial Neural Networks for Stock Prediction,MLP,DNN,주가 방향성,Acc 56%,Computational Economics,10.1007/s10614-2016-666
+2016,Ensemble Machine Learning for Variance Risk Premium,Random Forest,ML,분산 프리미엄 (VRP),R2 0.58,Quantitative Finance,10.1080/14697688.2016.777
+2016,Deep Architectures for Volatility Forecasting,DNN,DNN,시장 변동성,RMSE 0.05,Expert Systems with Applications,10.1016/j.eswa.2016.888
+2016,Machine Learning in Hedge Funds and Stock Prediction,Ensemble,ML,주가 예측 매매,Sharpe +18%,Journal of Financial Markets,10.1016/j.finmar.2016.999

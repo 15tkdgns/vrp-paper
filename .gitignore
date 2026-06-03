@@ -1,52 +1,45 @@
-# Quarto
-
-_quarto.yml.bak
-*.qmd.bak
-
-# Python
+﻿# Python
 __pycache__/
-*.py[cod]
-*$py.class
-*.so
+*.pyc
+*.pyo
+*.pyd
 .Python
-env/
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Environment
+.env
 venv/
-ENV/
-.venv
+.venv/
+env/
 
-# Jupyter
-.ipynb_checkpoints
+# Streamlit secrets
+.streamlit/secrets.toml
 
-# 데이터 파일
-*.csv
-*.xlsx
-*.pkl
-*.h5
-*.hdf5
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
 
-# IDE
+# Editor
 .vscode/
 .idea/
 *.swp
 *.swo
 
-# OS
-.DS_Store
-Thumbs.db
-*Zone.Identifier
+# Logs / temp
+*.log
+*.tmp
+*.bak
 
-# Quarto build output
-/.quarto/
-docs/
+# Empty folders
+new/
 
-# Archive (old tmp scripts, logs, drafts)
-archive/
-
-# Large interactive HTML files
-*.interactive_*.html
-
-# organize script (one-time use)
-organize.sh
-
-# Claude Code local config
+# Large/private items
+vrp-paper/
 .claude/
+catboost_info/
+paper_claude/
+paper_codex/

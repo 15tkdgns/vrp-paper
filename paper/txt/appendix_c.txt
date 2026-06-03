@@ -1,0 +1,188 @@
+부록 C. 추가 성능표
+Appendix C. Supplementary Performance Tables
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+C-1. 기간별 피처 중요도 합의 순위 (상위 10개)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+표 C-1. 기간별 피처 중요도 합의 순위 Top-10
+Table C-1. Feature Importance Consensus Ranking Top-10 by Horizon
+
+합의 순위 = (Ridge 정규화 계수 절댓값 순위 + XGBoost gain 순위 + Permutation Importance 순위) / 3
+35개 피처 기준 (GARCH 기반 피처 2개 제외). 그룹: H=HAR, P=HF Proxy, I=IV Surface, A=Alternative.
+
+────────────────────────────
+Horizon: 1d
+────────────────────────────
+순위 | 피처명                  | 그룹 | Ridge순위 | XGB순위 | PFI순위 | 평균순위
+   1 | Parkinson_5             |  P   |     1     |    1    |    1    |   1.00
+   2 | RogersSatchell_22       |  P   |     3     |    3    |    2    |   2.67
+   3 | SPY_LogRV               |  H   |     4     |    8    |    3    |   5.00
+   4 | LogRV_lag1              |  H   |     6     |    7    |    9    |   7.33
+   5 | IV_VIX9D                |  I   |    12     |    4    |   10    |   8.67
+   6 | IV_VIX_std5             |  I   |    17     |    6    |   11    |  11.33
+   7 | RV_Mom22                |  H   |     9     |   21    |    6    |  12.00
+   8 | Range_Close_Ratio       |  P   |     2     |   34    |    4    |  13.33
+   9 | LogRV_lag10             |  H   |     5     |   32    |    5    |  14.00
+  10 | IV_VRP_ma22             |  I   |     8     |   31    |    7    |  15.33
+
+────────────────────────────
+Horizon: 5d
+────────────────────────────
+순위 | 피처명                  | 그룹 | Ridge순위 | XGB순위 | PFI순위 | 평균순위
+   1 | RogersSatchell_22       |  P   |     1     |    2    |    1    |   1.33
+   2 | Parkinson_5             |  P   |     3     |    1    |    3    |   2.33
+   3 | GarmanKlass_22          |  P   |     6     |    3    |    5    |   4.67
+   4 | SPY_LogRV               |  H   |     4     |    7    |    4    |   5.00
+   5 | LogRV_lag1              |  H   |     5     |    4    |    7    |   5.33
+   6 | IV_VRP_ma22             |  I   |     7     |    9    |    8    |   8.00
+   7 | IV_VIX9D                |  I   |    10     |    6    |   11    |   9.00
+   8 | IV_VIX_ShortSlope       |  I   |    13     |    8    |    9    |  10.00
+   9 | Range_Close_Ratio       |  P   |     2     |   29    |    2    |  11.00
+  10 | RV_Mom22                |  H   |     8     |   22    |    6    |  12.00
+
+────────────────────────────
+Horizon: 22d
+────────────────────────────
+순위 | 피처명                  | 그룹 | Ridge순위 | XGB순위 | PFI순위 | 평균순위
+   1 | RogersSatchell_22       |  P   |     1     |    3    |    1    |   1.67
+   2 | GarmanKlass_22          |  P   |     3     |    1    |    4    |   2.67
+   3 | Parkinson_5             |  P   |     5     |    2    |    5    |   4.00
+   4 | Parkinson_22            |  P   |     4     |    9    |    3    |   5.33
+   5 | SPY_LogRV               |  H   |     7     |    6    |    6    |   6.33
+   6 | IV_VRP_ma22             |  I   |     6     |    4    |   12    |   7.33
+   7 | LogRV_lag1              |  H   |     8     |    5    |   11    |   8.00
+   8 | Range_Close_Ratio       |  P   |     2     |   24    |    2    |   9.33
+   9 | IV_VIX_TermSlope        |  I   |    10     |   14    |    8    |  10.67
+  10 | IV_VRP                  |  I   |     9     |   25    |    7    |  13.67
+
+────────────────────────────
+Horizon: 60d
+────────────────────────────
+순위 | 피처명                  | 그룹 | Ridge순위 | XGB순위 | PFI순위 | 평균순위
+   1 | GarmanKlass_22          |  P   |     3     |    1    |    3    |   2.33
+   2 | RogersSatchell_22       |  P   |     1     |   11    |    1    |   4.33
+   3 | SPY_LogRV               |  H   |     5     |    4    |    6    |   5.00
+   4 | Parkinson_22            |  P   |     4     |    7    |    4    |   5.00
+   5 | IV_VRP_ma22             |  I   |     6     |    2    |   11    |   6.33
+   6 | Parkinson_5             |  P   |     7     |   10    |    5    |   7.33
+   7 | LogRV_lag1              |  H   |     8     |    8    |   10    |   8.67
+   8 | Range_Close_Ratio       |  P   |     2     |   23    |    2    |   9.00
+   9 | RV_Mom22                |  H   |     9     |   19    |    8    |  12.00
+  10 | IV_VIX_TermSlope        |  I   |    12     |   15    |   13    |  13.33
+
+────────────────────────────
+Horizon: 90d
+────────────────────────────
+순위 | 피처명                  | 그룹 | Ridge순위 | XGB순위 | PFI순위 | 평균순위
+   1 | GarmanKlass_22          |  P   |     3     |    1    |    2    |   2.00
+   2 | RogersSatchell_22       |  P   |     1     |    6    |    1    |   2.67
+   3 | SPY_LogRV               |  H   |     5     |    5    |    5    |   5.00
+   4 | IV_VRP_ma22             |  I   |     6     |    2    |    8    |   5.33
+   5 | Parkinson_5             |  P   |     7     |   12    |    6    |   8.33
+   6 | Parkinson_22            |  P   |     4     |   17    |    4    |   8.33
+   7 | Range_Close_Ratio       |  P   |     2     |   21    |    3    |   8.67
+   8 | LogRV_lag1              |  H   |     9     |   15    |   12    |  12.00
+   9 | Overnight_Vol           |  P   |    14     |    7    |   17    |  12.67
+  10 | IV_VIX_TermSlope        |  I   |    12     |   13    |   13    |  12.67
+
+────────────────────────────
+Horizon: 120d
+────────────────────────────
+순위 | 피처명                  | 그룹 | Ridge순위 | XGB순위 | PFI순위 | 평균순위
+   1 | GarmanKlass_22          |  P   |     3     |    1    |    2    |   2.00
+   2 | RogersSatchell_22       |  P   |     1     |    9    |    1    |   3.67
+   3 | IV_VRP_ma22             |  I   |     6     |    3    |    9    |   6.00
+   4 | SPY_LogRV               |  H   |     4     |    5    |   10    |   6.33
+   5 | Parkinson_22            |  P   |     5     |   10    |    4    |   6.33
+   6 | Parkinson_5             |  P   |     8     |   12    |    7    |   9.00
+   7 | Range_Close_Ratio       |  P   |     2     |   23    |    3    |   9.33
+   8 | IV_VIX_ma5              |  I   |    13     |   14    |    5    |  10.67
+   9 | RV_Mom22                |  H   |     7     |   22    |    6    |  11.67
+  10 | Overnight_Vol           |  P   |    14     |    6    |   17    |  12.33
+
+────────────────────────────
+Horizon: 180d
+────────────────────────────
+순위 | 피처명                  | 그룹 | Ridge순위 | XGB순위 | PFI순위 | 평균순위
+   1 | GarmanKlass_22          |  P   |     3     |    1    |    2    |   2.00
+   2 | RogersSatchell_22       |  P   |     1     |    6    |    1    |   2.67
+   3 | SPY_LogRV               |  H   |     4     |    5    |    5    |   4.67
+   4 | Range_Close_Ratio       |  P   |     2     |   19    |    3    |   8.00
+   5 | Parkinson_5             |  P   |     8     |   12    |    8    |   9.33
+   6 | Parkinson_22            |  P   |     6     |   20    |    4    |  10.00
+   7 | IV_VIX_ma5              |  I   |    12     |   13    |    6    |  10.33
+   8 | IV_VRP_ma22             |  I   |     5     |    4    |   22    |  10.33
+   9 | Corr_SPY                |  H   |    13     |    7    |   13    |  11.00
+  10 | IV_VIX_TermSlope        |  I   |    10     |   10    |   14    |  11.33
+
+────────────────────────────
+Horizon: 252d
+────────────────────────────
+순위 | 피처명                  | 그룹 | Ridge순위 | XGB순위 | PFI순위 | 평균순위
+   1 | GarmanKlass_22          |  P   |     3     |    2    |    3    |   2.67
+   2 | RogersSatchell_22       |  P   |     1     |    8    |    1    |   3.33
+   3 | SPY_LogRV               |  H   |     5     |    6    |    5    |   5.33
+   4 | Range_Close_Ratio       |  P   |     2     |   16    |    4    |   7.33
+   5 | Parkinson_22            |  P   |     4     |   19    |    2    |   8.33
+   6 | IV_VIX_ma5              |  I   |    11     |   12    |    6    |   9.67
+   7 | Corr_SPY                |  H   |    14     |    5    |   11    |  10.00
+   8 | LogRV_lag1              |  H   |    12     |   13    |   10    |  11.67
+   9 | IV_VIX_TermSlope        |  I   |     7     |    9    |   19    |  11.67
+  10 | IV_VRP_ma22             |  I   |     6     |    4    |   26    |  12.00
+
+비고:
+- 1d에서 22d로 갈수록 HF Proxy 계열이 일관되게 1~4위를 차지하며, IV_VRP_ma22의 중요도가 단기(순위 밖)에서 중기(6위)로 상승.
+- 60d 이상 장기 구간에서 GarmanKlass_22가 1위로 부상하며 HF Proxy 지배 구조가 유지됨.
+- IV_VRP_ma22는 22d(6위) → 60d(5위) → 90d(4위)로 장기로 갈수록 순위가 높아져, 장기 예측에서 옵션시장 기대정보의 기여가 확대됨을 확인.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+C-2. WEns vs 베이스라인 DM 검정 결과 (BH 다중비교 보정)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+표 C-2. WEns vs 베이스라인 Diebold-Mariano 검정 결과
+Table C-2. WEns vs Baseline DM Test Results with BH Correction
+
+검정 방향: Reference → Challenger (양수 DM = WEns 예측오차 더 작음 = WEns 우월)
+보정 방법: Benjamini-Hochberg FDR (32쌍: 4개 베이스라인 × 8개 기간)
+Harvey et al. (1997) 소표본 보정, Newey-West 대역폭 = h
+
+비교            | 기간  |  DM 통계량 | p_raw  | p_BH   | 유의(BH)
+----------------|-------|-----------|--------|--------|----------
+GARCH vs WEns   | 1d    |   +33.378 | <0.001 | <0.001 |    ✓
+GARCH vs WEns   | 5d    |   +29.669 | <0.001 | <0.001 |    ✓
+GARCH vs WEns   | 22d   |   +18.639 | <0.001 | <0.001 |    ✓
+GARCH vs WEns   | 60d   |   +10.974 | <0.001 | <0.001 |    ✓
+GARCH vs WEns   | 90d   |    +8.946 | <0.001 | <0.001 |    ✓
+GARCH vs WEns   | 120d  |    +7.992 | <0.001 | <0.001 |    ✓
+GARCH vs WEns   | 180d  |    +6.533 | <0.001 | <0.001 |    ✓
+GARCH vs WEns   | 252d  |    +5.525 | <0.001 | <0.001 |    ✓
+HAR-3 vs WEns   | 1d    |    +2.657 |  0.008 |  0.011 |    ✓
+HAR-3 vs WEns   | 5d    |    +8.834 | <0.001 | <0.001 |    ✓
+HAR-3 vs WEns   | 22d   |    +5.391 | <0.001 | <0.001 |    ✓
+HAR-3 vs WEns   | 60d   |    +0.426 |  0.670 |  0.740 |    ✗
+HAR-3 vs WEns   | 90d   |    −0.833 |  0.405 |  0.463 |    ✗
+HAR-3 vs WEns   | 120d  |    −0.049 |  0.961 |  0.961 |    ✗
+HAR-3 vs WEns   | 180d  |    +1.185 |  0.236 |  0.291 |    ✗
+HAR-3 vs WEns   | 252d  |    +0.919 |  0.358 |  0.424 |    ✗
+IV-only vs WEns | 1d    |   +16.347 | <0.001 | <0.001 |    ✓
+IV-only vs WEns | 5d    |   +38.526 | <0.001 | <0.001 |    ✓
+IV-only vs WEns | 22d   |   +40.066 | <0.001 | <0.001 |    ✓
+IV-only vs WEns | 60d   |   +28.755 | <0.001 | <0.001 |    ✓
+IV-only vs WEns | 90d   |   +23.837 | <0.001 | <0.001 |    ✓
+IV-only vs WEns | 120d  |   +21.067 | <0.001 | <0.001 |    ✓
+IV-only vs WEns | 180d  |   +18.228 | <0.001 | <0.001 |    ✓
+IV-only vs WEns | 252d  |   +13.640 | <0.001 | <0.001 |    ✓
+NaiveRV vs WEns | 1d    |   +32.397 | <0.001 | <0.001 |    ✓
+NaiveRV vs WEns | 5d    |   +21.734 | <0.001 | <0.001 |    ✓
+NaiveRV vs WEns | 22d   |    +8.933 | <0.001 | <0.001 |    ✓
+NaiveRV vs WEns | 60d   |    +0.088 |  0.930 |  0.960 |    ✗
+NaiveRV vs WEns | 90d   |    +0.383 |  0.702 |  0.748 |    ✗
+NaiveRV vs WEns | 120d  |    +1.742 |  0.082 |  0.104 |    ✗
+NaiveRV vs WEns | 180d  |    +3.586 | <0.001 |  0.001 |    ✓
+NaiveRV vs WEns | 252d  |    +3.878 | <0.001 | <0.001 |    ✓
+
+요약: 32쌍 중 24쌍이 raw p < 0.05에서 유의, BH 보정 후에도 동일하게 24쌍 유의.
+HAR-3 vs WEns: 1~22d에서 유의 (3쌍), 60d 이상 장기에서 비유의 (5쌍).
+NaiveRV vs WEns: 180d, 252d에서 WEns 유의 우위 회복; 60~120d 구간은 비유의.

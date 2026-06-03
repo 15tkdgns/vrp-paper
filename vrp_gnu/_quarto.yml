@@ -1,0 +1,135 @@
+lang: "ko"
+
+project:
+  type: website
+  output-dir: docs
+  render:
+    - content/index.qmd
+    - content/project/overview.qmd
+    - content/notes/index.qmd
+    - content/references.qmd
+    - literature/index.qmd
+    - literature/reading_list.qmd
+    - literature/finance/index.qmd
+    - literature/cs/index.qmd
+    - literature/prior_work_comparison.qmd
+    - experiments/index.qmd
+    - experiments/1day_prediction.qmd
+    - experiments/22day_prediction.qmd
+    - experiments/sci_verification.qmd
+    - experiments/phase10_v29_verification.qmd
+    - experiments/phase13_model_comparison.qmd
+    - experiments/trading_strategy.qmd
+    - experiments/universal_model.qmd
+    - experiments/attention_analysis.qmd
+    - experiments/champion_robustness.qmd
+    - experiments/summary.qmd
+    - experiments/pooled_r2_explained.qmd
+    - experiments/feature_analysis.qmd
+    - experiments/importance_consensus.qmd
+    - experiments/vrp_dashboard.qmd
+    - experiments/dnn_vs_ml_insights.qmd
+    - experiments/methodology_overview.qmd
+
+website:
+  title: "VRP 연구 대시보드"
+  navbar:
+    left:
+      - href: content/index.qmd
+        text: 홈
+      - href: content/project/overview.qmd
+        text: 프로젝트
+      - href: literature/index.qmd
+        text: 문헌 분석
+      - href: experiments/index.qmd
+        text: 실험 결과
+      - href: content/notes/index.qmd
+        text: 노트
+    right:
+      - icon: github
+        href: https://github.com
+  
+  sidebar:
+    - title: "프로젝트 정보"
+      contents:
+        - content/project/overview.qmd
+    
+    - title: "문헌 리뷰"
+      contents:
+        - href: literature/index.qmd
+          text: 개요
+        - section: "금융"
+          contents:
+            - literature/finance/index.qmd
+        - section: "컴퓨터 공학"
+          contents:
+            - literature/cs/index.qmd
+        - href: literature/reading_list.qmd
+          text: 읽기 목록
+        - href: literature/prior_work_comparison.qmd
+          text: 선행연구 정리
+
+    - title: "실험 결과"
+      contents:
+        - href: experiments/index.qmd
+          text: 개요
+        - href: experiments/summary.qmd
+          text: 결과 요약
+        - section: "모델별 분석"
+          contents:
+            - href: experiments/22day_prediction.qmd
+              text: V71 Ridge (37feat)
+            - href: experiments/champion_robustness.qmd
+              text: "  V71 강건성 검증"
+            - href: experiments/feature_analysis.qmd
+              text: "  V71 피처 분석"
+            - href: experiments/importance_consensus.qmd
+              text: "  피처 중요도 합의(Consensus)"
+            - href: experiments/1day_prediction.qmd
+              text: V50 LSTM (3feat)
+            - href: experiments/sci_verification.qmd
+              text: "  V50 상세 검증"
+            - href: experiments/attention_analysis.qmd
+              text: "  V50 Attention 분석"
+            - href: experiments/phase10_v29_verification.qmd
+              text: V36 HAR-3 베이스라인
+        - section: "기타"
+          contents:
+            - href: experiments/methodology_overview.qmd
+              text: "연구 방법론 개요"
+            - href: experiments/vrp_dashboard.qmd
+              text: "Cross-Asset VRP 현황"
+            - href: experiments/dnn_vs_ml_insights.qmd
+              text: "DNN vs ML 비교 인사이트"
+            - href: experiments/phase13_model_comparison.qmd
+              text: 모델 아키텍처 비교
+            - href: experiments/trading_strategy.qmd
+              text: 트레이딩 전략
+            - href: experiments/universal_model.qmd
+              text: 통합 모델 실험
+            - href: experiments/pooled_r2_explained.qmd
+              text: 풀링 R² 해설
+
+  page-footer:
+    left: "Cross-Asset Volatility Risk Premium 예측 연구"
+    right: "Quarto로 제작됨 | 2026"
+
+format:
+  html:
+    theme: cosmo
+    css: styles/styles.css
+    toc: true
+    toc-depth: 3
+    code-fold: show
+    code-tools: true
+    code-copy: true
+    fig-width: 10
+    fig-height: 6
+    execute:
+      echo: true
+      warning: false
+      message: false
+
+execute:
+  freeze: auto
+  cache: false

@@ -1,0 +1,207 @@
+Loaded DLinear results: /mnt/c/Users/user/Desktop/vrp/vrp_gnu/results/dlinear_benchmark_results.json
+======================================================================
+HAR-3 Per-Asset vs DLinear: Architecture vs Training-Mode Analysis
+======================================================================
+
+Loading data...
+Assets: 11
+
+======================================================================
+  Horizon: 1d
+======================================================================
+  [HAR-3 pooled]    Pooled_R²=0.1095
+    SPY: alpha=10  test_R²=0.0585
+    QQQ: alpha=10  test_R²=0.0540
+    IWM: alpha=10  test_R²=-0.0039
+    EFA: alpha=10  test_R²=0.0166
+    EEM: alpha=10  test_R²=0.0052
+    TLT: alpha=10  test_R²=0.0184
+    IEF: alpha=500  test_R²=-0.0167
+    AGG: alpha=10  test_R²=-0.1243
+    GLD: alpha=500  test_R²=0.0166
+    SLV: alpha=2000  test_R²=-0.0213
+    USO: alpha=10  test_R²=0.0259
+  [HAR-3 per-asset] Pooled_R²=0.0968  Median_R²=0.0166
+  [DLinear per-asset] Pooled_R²=-4.7762  Median_R²=-5.0899  (from JSON)
+
+  Gap analysis (22d benchmark):
+    HAR-3 pooled − HAR-3 per-asset  = +0.0127  (pooling benefit)
+    HAR-3 per-asset − DLinear        = +4.8730  (architecture effect)
+    HAR-3 pooled − DLinear           = +4.8857  (total deficit)
+
+======================================================================
+  Horizon: 5d
+======================================================================
+  [HAR-3 pooled]    Pooled_R²=0.5739
+    SPY: alpha=10  test_R²=0.3123
+    QQQ: alpha=10  test_R²=0.2640
+    IWM: alpha=10  test_R²=0.0523
+    EFA: alpha=10  test_R²=0.1475
+    EEM: alpha=10  test_R²=0.0637
+    TLT: alpha=10  test_R²=0.0779
+    IEF: alpha=10  test_R²=0.0225
+    AGG: alpha=10  test_R²=-0.7692
+    GLD: alpha=1000  test_R²=0.0588
+    SLV: alpha=10  test_R²=0.0113
+    USO: alpha=10  test_R²=0.2930
+  [HAR-3 per-asset] Pooled_R²=0.5388  Median_R²=0.0637
+  [DLinear per-asset] Pooled_R²=-13.3885  Median_R²=-19.1672  (from JSON)
+
+  Gap analysis (22d benchmark):
+    HAR-3 pooled − HAR-3 per-asset  = +0.0351  (pooling benefit)
+    HAR-3 per-asset − DLinear        = +13.9273  (architecture effect)
+    HAR-3 pooled − DLinear           = +13.9624  (total deficit)
+
+======================================================================
+  Horizon: 22d
+======================================================================
+  [HAR-3 pooled]    Pooled_R²=0.7605
+    SPY: alpha=10  test_R²=0.4439
+    QQQ: alpha=10  test_R²=0.3845
+    IWM: alpha=10  test_R²=0.0595
+    EFA: alpha=10  test_R²=0.3230
+    EEM: alpha=500  test_R²=0.1513
+    TLT: alpha=1000  test_R²=-0.5269
+    IEF: alpha=1000  test_R²=-1.4555
+    AGG: alpha=10  test_R²=-3.7271
+    GLD: alpha=2000  test_R²=0.0815
+    SLV: alpha=500  test_R²=0.0363
+    USO: alpha=10  test_R²=0.2427
+  [HAR-3 per-asset] Pooled_R²=0.6491  Median_R²=0.0815
+  [DLinear per-asset] Pooled_R²=-17.2323  Median_R²=-40.8226  (from JSON)
+
+  Gap analysis (22d benchmark):
+    HAR-3 pooled − HAR-3 per-asset  = +0.1114  (pooling benefit)
+    HAR-3 per-asset − DLinear        = +17.8814  (architecture effect)
+    HAR-3 pooled − DLinear           = +17.9928  (total deficit)
+
+======================================================================
+  Horizon: 60d
+======================================================================
+  [HAR-3 pooled]    Pooled_R²=0.7854
+    SPY: alpha=10  test_R²=0.2962
+    QQQ: alpha=10  test_R²=0.1172
+    IWM: alpha=10  test_R²=-0.2023
+    EFA: alpha=2000  test_R²=0.2468
+    EEM: alpha=2000  test_R²=0.0569
+    TLT: alpha=1000  test_R²=-1.1137
+    IEF: alpha=1000  test_R²=-2.9260
+    AGG: alpha=500  test_R²=-11.4025
+    GLD: alpha=2000  test_R²=-0.0046
+    SLV: alpha=1000  test_R²=-0.0645
+    USO: alpha=1000  test_R²=0.0839
+  [HAR-3 per-asset] Pooled_R²=0.5874  Median_R²=-0.0046
+  [DLinear per-asset] Pooled_R²=-18.7137  Median_R²=-62.6560  (from JSON)
+
+  Gap analysis (22d benchmark):
+    HAR-3 pooled − HAR-3 per-asset  = +0.1979  (pooling benefit)
+    HAR-3 per-asset − DLinear        = +19.3011  (architecture effect)
+    HAR-3 pooled − DLinear           = +19.4991  (total deficit)
+
+======================================================================
+  Horizon: 90d
+======================================================================
+  [HAR-3 pooled]    Pooled_R²=0.7858
+    SPY: alpha=10  test_R²=0.2072
+    QQQ: alpha=10  test_R²=-0.0182
+    IWM: alpha=10  test_R²=-0.3845
+    EFA: alpha=2000  test_R²=0.2139
+    EEM: alpha=2000  test_R²=-0.0344
+    TLT: alpha=1000  test_R²=-1.5566
+    IEF: alpha=2000  test_R²=-4.5662
+    AGG: alpha=10  test_R²=-12.9757
+    GLD: alpha=2000  test_R²=-0.0326
+    SLV: alpha=500  test_R²=-0.1247
+    USO: alpha=1000  test_R²=0.1082
+  [HAR-3 per-asset] Pooled_R²=0.5818  Median_R²=-0.0344
+  [DLinear per-asset] Pooled_R²=-19.3027  Median_R²=-75.4105  (from JSON)
+
+  Gap analysis (22d benchmark):
+    HAR-3 pooled − HAR-3 per-asset  = +0.2040  (pooling benefit)
+    HAR-3 per-asset − DLinear        = +19.8845  (architecture effect)
+    HAR-3 pooled − DLinear           = +20.0885  (total deficit)
+
+======================================================================
+  Horizon: 120d
+======================================================================
+  [HAR-3 pooled]    Pooled_R²=0.7731
+    SPY: alpha=10  test_R²=0.1701
+    QQQ: alpha=10  test_R²=-0.0368
+    IWM: alpha=10  test_R²=-0.5014
+    EFA: alpha=2000  test_R²=0.1656
+    EEM: alpha=2000  test_R²=-0.1347
+    TLT: alpha=1000  test_R²=-2.1014
+    IEF: alpha=2000  test_R²=-5.5939
+    AGG: alpha=10  test_R²=-15.1685
+    GLD: alpha=2000  test_R²=-0.0310
+    SLV: alpha=10  test_R²=-0.3327
+    USO: alpha=500  test_R²=0.0312
+  [HAR-3 per-asset] Pooled_R²=0.5797  Median_R²=-0.1347
+  [DLinear per-asset] Pooled_R²=-19.7170  Median_R²=-86.5068  (from JSON)
+
+  Gap analysis (22d benchmark):
+    HAR-3 pooled − HAR-3 per-asset  = +0.1934  (pooling benefit)
+    HAR-3 per-asset − DLinear        = +20.2967  (architecture effect)
+    HAR-3 pooled − DLinear           = +20.4901  (total deficit)
+
+======================================================================
+  Horizon: 180d
+======================================================================
+  [HAR-3 pooled]    Pooled_R²=0.7423
+    SPY: alpha=10  test_R²=0.0734
+    QQQ: alpha=10  test_R²=-0.1701
+    IWM: alpha=10  test_R²=-0.6089
+    EFA: alpha=2000  test_R²=0.0892
+    EEM: alpha=2000  test_R²=-0.2918
+    TLT: alpha=2000  test_R²=-4.1539
+    IEF: alpha=2000  test_R²=-7.5518
+    AGG: alpha=10  test_R²=-20.9236
+    GLD: alpha=2000  test_R²=-0.2083
+    SLV: alpha=1000  test_R²=-0.6537
+    USO: alpha=10  test_R²=-0.0086
+  [HAR-3 per-asset] Pooled_R²=0.5585  Median_R²=-0.2918
+  [DLinear per-asset] Pooled_R²=-20.3606  Median_R²=-129.4954  (from JSON)
+
+  Gap analysis (22d benchmark):
+    HAR-3 pooled − HAR-3 per-asset  = +0.1839  (pooling benefit)
+    HAR-3 per-asset − DLinear        = +20.9191  (architecture effect)
+    HAR-3 pooled − DLinear           = +21.1029  (total deficit)
+
+======================================================================
+  Horizon: 252d
+======================================================================
+  [HAR-3 pooled]    Pooled_R²=0.6941
+    SPY: alpha=10  test_R²=-0.1104
+    QQQ: alpha=10  test_R²=-0.5331
+    IWM: alpha=10  test_R²=-1.1947
+    EFA: alpha=2000  test_R²=-0.0062
+    EEM: alpha=2000  test_R²=-0.4059
+    TLT: alpha=2000  test_R²=-8.3640
+    IEF: alpha=2000  test_R²=-11.2718
+    AGG: alpha=10  test_R²=-29.5547
+    GLD: alpha=2000  test_R²=-0.5979
+    SLV: alpha=2000  test_R²=-0.8420
+    USO: alpha=10  test_R²=-0.2000
+  [HAR-3 per-asset] Pooled_R²=0.5356  Median_R²=-0.5979
+  [DLinear per-asset] Pooled_R²=-21.2651  Median_R²=-161.5780  (from JSON)
+
+  Gap analysis (22d benchmark):
+    HAR-3 pooled − HAR-3 per-asset  = +0.1585  (pooling benefit)
+    HAR-3 per-asset − DLinear        = +21.8007  (architecture effect)
+    HAR-3 pooled − DLinear           = +21.9592  (total deficit)
+
+Saved: /mnt/c/Users/user/Desktop/vrp/vrp_gnu/results/har_perasset_results.json
+Saved: /mnt/c/Users/user/Desktop/vrp/vrp_gnu/../paper/csv/har_perasset_results.csv
+
+======================================================================
+Gap Analysis: HAR-3 Pooled vs HAR-3 Per-Asset vs DLinear
+ Horizon   HAR-3 Pool   HAR-3 Asset    DLinear   Pool-Asset   Asset-DLin
+---------------------------------------------------------------------------
+      1d       0.1095        0.0968    -4.7762      +0.0127      +4.8730
+      5d       0.5739        0.5388   -13.3885      +0.0351     +13.9273
+     22d       0.7605        0.6491   -17.2323      +0.1114     +17.8814
+     60d       0.7854        0.5874   -18.7137      +0.1979     +19.3011
+     90d       0.7858        0.5818   -19.3027      +0.2040     +19.8845
+    120d       0.7731        0.5797   -19.7170      +0.1934     +20.2967
+    180d       0.7423        0.5585   -20.3606      +0.1839     +20.9191
+    252d       0.6941        0.5356   -21.2651      +0.1585     +21.8007

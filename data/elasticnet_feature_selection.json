@@ -1,0 +1,18 @@
+{
+  "Total_Features": 37,
+  "Active_Features": 17,
+  "Best_L1_Ratio": 1.0,
+  "Best_Alpha": 0.015998587196060572,
+  "Top_Features": [
+    "LogRV_lag1",
+    "RogersSatchell_22",
+    "Parkinson_5",
+    "LogRV_lag22",
+    "SPY_LogRV",
+    "IV_VRP_ma22",
+    "IV_VIX",
+    "IV_VIX_TermSlope",
+    "Garch_Weekly",
+    "IV_VRP"
+  ]
+}

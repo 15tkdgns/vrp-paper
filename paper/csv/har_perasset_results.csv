@@ -1,0 +1,49 @@
+Horizon,Model,Pooled_R2,Median_R2
+1d,HAR-3 Pooled,0.1095,
+1d,HAR-3 Per-Asset,0.0968,0.0166
+1d,DLinear,-4.7762,-5.0899
+1d,Gap_pooling,0.0127,
+1d,Gap_architecture,4.873,
+1d,Gap_total,4.8857,
+5d,HAR-3 Pooled,0.5739,
+5d,HAR-3 Per-Asset,0.5388,0.0637
+5d,DLinear,-13.3885,-19.1672
+5d,Gap_pooling,0.0351,
+5d,Gap_architecture,13.9273,
+5d,Gap_total,13.9624,
+22d,HAR-3 Pooled,0.7605,
+22d,HAR-3 Per-Asset,0.6491,0.0815
+22d,DLinear,-17.2323,-40.8226
+22d,Gap_pooling,0.1114,
+22d,Gap_architecture,17.8814,
+22d,Gap_total,17.9928,
+60d,HAR-3 Pooled,0.7854,
+60d,HAR-3 Per-Asset,0.5874,-0.0046
+60d,DLinear,-18.7137,-62.656
+60d,Gap_pooling,0.1979,
+60d,Gap_architecture,19.3011,
+60d,Gap_total,19.4991,
+90d,HAR-3 Pooled,0.7858,
+90d,HAR-3 Per-Asset,0.5818,-0.0344
+90d,DLinear,-19.3027,-75.4105
+90d,Gap_pooling,0.204,
+90d,Gap_architecture,19.8845,
+90d,Gap_total,20.0885,
+120d,HAR-3 Pooled,0.7731,
+120d,HAR-3 Per-Asset,0.5797,-0.1347
+120d,DLinear,-19.717,-86.5068
+120d,Gap_pooling,0.1934,
+120d,Gap_architecture,20.2967,
+120d,Gap_total,20.4901,
+180d,HAR-3 Pooled,0.7423,
+180d,HAR-3 Per-Asset,0.5585,-0.2918
+180d,DLinear,-20.3606,-129.4954
+180d,Gap_pooling,0.1839,
+180d,Gap_architecture,20.9191,
+180d,Gap_total,21.1029,
+252d,HAR-3 Pooled,0.6941,
+252d,HAR-3 Per-Asset,0.5356,-0.5979
+252d,DLinear,-21.2651,-161.578
+252d,Gap_pooling,0.1585,
+252d,Gap_architecture,21.8007,
+252d,Gap_total,21.9592,

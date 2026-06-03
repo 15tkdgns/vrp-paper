@@ -1,0 +1,369 @@
+# -*- coding: utf-8 -*-
+"""
+학위논문 docx 생성기 (완전판)
+- 위첨자 자동 처리 (¹²³ → Word superscript)
+- 표 자동 변환 (| 구분자 → Word 표 객체)
+- 참고문헌 저널명 이탤릭
+- 페이지 번호 (하단 가운데)
+- 장별 페이지 나누기
+- 양식.txt 여백·폰트 적용
+"""
+
+import re, sys
+from pathlib import Path
+from docx import Document
+from docx.shared import Pt, Mm, RGBColor, Cm
+from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_LINE_SPACING
+from docx.oxml.ns import qn
+from docx.oxml import OxmlElement
+from docx.enum.table import WD_TABLE_ALIGNMENT
+from copy import deepcopy
+
+# ── 경로 설정 ──────────────────────────────────────────────────────────────
+BASE  = Path(r"c:\Users\15tkd\OneDrive\바탕 화면\vrp_paper\master_paper")
+FILES = ["front.txt","ch1.txt","ch2.txt","ch3.txt","ch4.txt","ch5.txt","appendix.txt"]
+OUT   = BASE / "0421_thesis.docx"
+
+FONT_KO   = "신명조"
+FONT_EN   = "Times New Roman"
+BODY_SIZE = 10
+
+# 위첨자 유니코드 매핑
+SUP_MAP = {'⁰':'0','¹':'1','²':'2','³':'3','⁴':'4',
+           '⁵':'5','⁶':'6','⁷':'7','⁸':'8','⁹':'9'}
+SUP_CHARS = set(SUP_MAP.keys())
+
+# ── 문서 초기화 ────────────────────────────────────────────────────────────
+doc = Document()
+sec = doc.sections[0]
+sec.page_height   = Mm(297)
+sec.page_width    = Mm(210)
+sec.top_margin    = Mm(35)
+sec.bottom_margin = Mm(30)
+sec.left_margin   = Mm(35)
+sec.right_margin  = Mm(30)
+
+def set_font(run, size=10, bold=False, italic=False, superscript=False):
+    run.font.name   = FONT_EN
+    run.font.size   = Pt(size)
+    run.font.bold   = bold
+    run.font.italic = italic
+    rPr = run._r.get_or_add_rPr()
+    # 한글 폰트
+    rFonts = OxmlElement('w:rFonts')
+    rFonts.set(qn('w:eastAsia'), FONT_KO)
+    if not rPr.findall(qn('w:rFonts')):
+        rPr.insert(0, rFonts)
+    # 위첨자
+    if superscript:
+        vertAlign = OxmlElement('w:vertAlign')
+        vertAlign.set(qn('w:val'), 'superscript')
+        rPr.append(vertAlign)
+
+def set_para_fmt(para, size=10, bold=False,
+                 align=WD_ALIGN_PARAGRAPH.JUSTIFY,
+                 sp_before=0, sp_after=6,
+                 ls=1.5, indent_first=0):
+    para.alignment = align
+    pf = para.paragraph_format
+    pf.space_before       = Pt(sp_before)
+    pf.space_after        = Pt(sp_after)
+    pf.line_spacing_rule  = WD_LINE_SPACING.MULTIPLE
+    pf.line_spacing       = ls
+    if indent_first:
+        pf.first_line_indent = Pt(indent_first)
+
+def add_runs_with_sup(para, text, size=10, bold=False, italic=False):
+    """위첨자 포함 텍스트를 run 분리해서 추가"""
+    buf, in_sup = "", False
+    def flush(s, sup):
+        if s:
+            r = para.add_run(s)
+            set_font(r, size=size, bold=bold, italic=italic, superscript=sup)
+    i = 0
+    while i < len(text):
+        c = text[i]
+        is_sup = c in SUP_CHARS
+        if is_sup != in_sup:
+            flush(buf, in_sup)
+            buf, in_sup = "", is_sup
+        buf += SUP_MAP.get(c, c) if is_sup else c
+        i += 1
+    flush(buf, in_sup)
+
+# ── 페이지 번호 (하단 가운데) ──────────────────────────────────────────────
+def add_page_number(section):
+    footer = section.footer
+    para   = footer.paragraphs[0] if footer.paragraphs else footer.add_paragraph()
+    para.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    para.clear()
+    run = para.add_run()
+    set_font(run, size=10)
+    fldChar1 = OxmlElement('w:fldChar')
+    fldChar1.set(qn('w:fldCharType'), 'begin')
+    instrText = OxmlElement('w:instrText')
+    instrText.text = ' PAGE '
+    fldChar2 = OxmlElement('w:fldChar')
+    fldChar2.set(qn('w:fldCharType'), 'end')
+    run._r.extend([fldChar1, instrText, fldChar2])
+
+add_page_number(sec)
+
+# ── 줄 분류 ──────────────────────────────────────────────────────────────
+CH_PAT    = re.compile(r'^[ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩⅺⅻ]\.')
+SEC_PAT   = re.compile(r'^[1-9][0-9]?\.\s')
+SUB_PAT   = re.compile(r'^[1-9][0-9]?\)\s')
+TCAP_PAT  = re.compile(r'^(표\s+[0-9A-Z][-0-9]*\.|Table\s+[0-9A-Z][-0-9]*\.)', re.I)
+FCAP_PAT  = re.compile(r'^(그림\s+[0-9]+\.|Fig\.\s+[0-9]+\.)', re.I)
+PIPE_PAT  = re.compile(r'\|')
+SEP_PAT   = re.compile(r'^-{3,}$')
+REF_PAT   = re.compile(r'^\s*[0-9]+\.\s+\w')
+
+def classify(line):
+    s = line.strip()
+    if not s:                    return 'blank'
+    if SEP_PAT.match(s):         return 'sep'
+    if CH_PAT.match(s):          return 'ch'
+    if SEC_PAT.match(s):         return 'sec'
+    if SUB_PAT.match(s):         return 'sub'
+    if TCAP_PAT.match(s):        return 'tcap'
+    if FCAP_PAT.match(s):        return 'fcap'
+    return 'body'
+
+# ── 표 렌더링 (| 구분자) ──────────────────────────────────────────────────
+def make_pipe_table(doc, lines):
+    rows = []
+    for ln in lines:
+        if '|' in ln:
+            cells = [c.strip() for c in ln.split('|')]
+            cells = [c for c in cells if c]
+            if cells:
+                rows.append(cells)
+    if not rows:
+        return
+    ncols = max(len(r) for r in rows)
+    tbl = doc.add_table(rows=len(rows), cols=ncols)
+    tbl.style = 'Table Grid'
+    tbl.alignment = WD_TABLE_ALIGNMENT.CENTER
+    for ri, row_data in enumerate(rows):
+        for ci, cell_text in enumerate(row_data):
+            if ci >= ncols: break
+            cell = tbl.cell(ri, ci)
+            cell.text = ''
+            para = cell.paragraphs[0]
+            run  = para.add_run(cell_text)
+            set_font(run, size=9, bold=(ri==0))
+            para.alignment = WD_ALIGN_PARAGRAPH.CENTER
+            pf = para.paragraph_format
+            pf.space_before = Pt(1)
+            pf.space_after  = Pt(1)
+    doc.add_paragraph()  # 표 뒤 여백
+
+# ── 참고문헌 줄 처리 (저널명 이탤릭) ────────────────────────────────────
+def add_reference_line(doc, text):
+    para = doc.add_paragraph()
+    set_para_fmt(para, size=10, sp_before=2, sp_after=2, ls=1.3, indent_first=-20)
+    para.paragraph_format.left_indent = Pt(20)
+
+    # 패턴: "N. Author(s). YEAR. Title. Journal, Vol: Pages."
+    # 저널명 = 제목(마침표) 뒤, 콤마 앞
+    m = re.match(
+        r'^(\s*[0-9]+\.\s+)'        # 번호
+        r'(.+?\.\s+[0-9]{4}\.\s+)'  # 저자 + 연도
+        r'(.+?\.\s+)'               # 제목
+        r'([^,0-9]+)'               # 저널명
+        r'(.*)',                     # 나머지
+        text
+    )
+    if m:
+        for i, (t, ital) in enumerate([
+            (m.group(1), False),
+            (m.group(2), False),
+            (m.group(3), False),
+            (m.group(4).strip(), True),   # 저널명 이탤릭
+            (m.group(5), False),
+        ]):
+            if t:
+                add_runs_with_sup(para, t, size=10, italic=ital)
+    else:
+        add_runs_with_sup(para, text, size=10)
+
+# ── 캡션 추가 ────────────────────────────────────────────────────────────
+def add_caption(doc, text):
+    para = doc.add_paragraph()
+    add_runs_with_sup(para, text, size=10, bold=False)
+    set_para_fmt(para, size=10, align=WD_ALIGN_PARAGRAPH.CENTER,
+                 sp_before=3, sp_after=3, ls=1.2)
+
+# ── 제목 추가 ────────────────────────────────────────────────────────────
+def add_heading(doc, text, level):
+    sizes   = {1:14, 2:12, 3:11}
+    befores = {1:24, 2:12, 3:8}
+    afters  = {1:12, 2:6,  3:4}
+    para = doc.add_paragraph()
+    add_runs_with_sup(para, text, size=sizes.get(level,10), bold=True)
+    set_para_fmt(para, size=sizes.get(level,10), bold=True,
+                 align=WD_ALIGN_PARAGRAPH.LEFT,
+                 sp_before=befores.get(level,6),
+                 sp_after=afters.get(level,4))
+
+# ── 본문 단락 ─────────────────────────────────────────────────────────────
+def add_body(doc, text, indent=True, size=10, italic=False):
+    para = doc.add_paragraph()
+    add_runs_with_sup(para, text, size=size, italic=italic)
+    set_para_fmt(para, size=size, sp_before=0, sp_after=6,
+                 indent_first=Pt(20) if indent else 0)
+
+# ── 차례 삽입 (front.txt 처리 전) ────────────────────────────────────────
+from build_toc import build_toc_section
+build_toc_section(doc)
+
+# ── 메인 처리 ─────────────────────────────────────────────────────────────
+in_reference = False
+in_appendix  = False
+skip_toc     = False   # 목차/표차례/그림차례 텍스트 건너뜀
+
+for fname in FILES:
+    fpath = BASE / fname
+    if not fpath.exists():
+        print(f"  skip: {fname}")
+        continue
+
+    lines = fpath.read_text(encoding='utf-8').splitlines()
+    print(f"  {fname}: {len(lines)} lines")
+
+    if fname == 'appendix.txt':
+        in_appendix = True
+
+    i = 0
+    while i < len(lines):
+        line  = lines[i]
+        s     = line.strip()
+        kind  = classify(line)
+
+        if kind == 'blank':
+            i += 1
+            continue
+
+        # 구분선 → 페이지 나누기 / 목차 skip 해제
+        if kind == 'sep':
+            skip_toc = False
+            doc.add_page_break()
+            i += 1
+            continue
+
+        # 목차/표차례/그림차례 텍스트 건너뜀
+        if fname == 'front.txt' and s in ('목차', '표 차례', '그림 차례'):
+            skip_toc = True
+            i += 1
+            continue
+        if skip_toc:
+            i += 1
+            continue
+
+        # 참고문헌 섹션 감지
+        if s == '참고문헌':
+            doc.add_page_break()
+            in_reference = True
+            para = doc.add_paragraph()
+            add_runs_with_sup(para, '참고문헌', size=14, bold=True)
+            set_para_fmt(para, align=WD_ALIGN_PARAGRAPH.CENTER,
+                         sp_before=0, sp_after=12)
+            i += 1
+            continue
+
+        # 참고문헌 항목 (sec/sub 패턴보다 먼저 처리)
+        if in_reference and REF_PAT.match(s):
+            add_reference_line(doc, s)
+            i += 1
+            continue
+
+        # 장 제목
+        if kind == 'ch':
+            if fname != 'front.txt':
+                doc.add_page_break()
+            in_reference = False
+            add_heading(doc, s, 1)
+            i += 1
+            continue
+
+        # 절 제목
+        if kind == 'sec':
+            add_heading(doc, s, 2)
+            i += 1
+            continue
+
+        # 소절 제목
+        if kind == 'sub':
+            add_heading(doc, s, 3)
+            i += 1
+            continue
+
+        # 표 캡션
+        if kind == 'tcap':
+            cap_line = s
+            i += 1
+            # 영문 캡션 있으면 합치기
+            if i < len(lines) and classify(lines[i]) == 'tcap':
+                cap_line += '  /  ' + lines[i].strip()
+                i += 1
+            add_caption(doc, cap_line)
+
+            # 표 데이터 수집 (초기 빈 줄 건너뜀)
+            tbl_lines = []
+            # 빈 줄 skip
+            while i < len(lines) and not lines[i].strip():
+                i += 1
+            # 데이터 수집
+            blank_run = 0
+            while i < len(lines):
+                nxt = lines[i].strip()
+                if classify(lines[i]) in ('ch','sec','sub','tcap','fcap','sep'):
+                    break
+                if not nxt:
+                    blank_run += 1
+                    if blank_run >= 2:  # 연속 빈 줄 2개면 표 종료
+                        break
+                    i += 1
+                    continue
+                blank_run = 0
+                tbl_lines.append(nxt)
+                i += 1
+
+            if tbl_lines:
+                has_pipe = any('|' in l for l in tbl_lines)
+                if has_pipe:
+                    make_pipe_table(doc, tbl_lines)
+                else:
+                    for tl in tbl_lines:
+                        para = doc.add_paragraph()
+                        add_runs_with_sup(para, tl, size=9)
+                        set_para_fmt(para, size=9, sp_before=0,
+                                     sp_after=1, ls=1.2)
+            continue
+
+        # 그림 캡션
+        if kind == 'fcap':
+            cap_line = s
+            i += 1
+            if i < len(lines) and classify(lines[i]) == 'fcap':
+                cap_line += '  /  ' + lines[i].strip()
+                i += 1
+            add_caption(doc, cap_line)
+            continue
+
+
+        # 부록 제목
+        if in_appendix and s.startswith('부록 '):
+            add_heading(doc, s, 2)
+            i += 1
+            continue
+
+        # 일반 본문
+        add_body(doc, s, indent=not in_reference and not in_appendix)
+        i += 1
+
+# ── 저장 ──────────────────────────────────────────────────────────────────
+doc.save(str(OUT))
+sz = OUT.stat().st_size
+print(f"\n[완료] {OUT.name}  ({sz:,} bytes / {sz//1024} KB)")

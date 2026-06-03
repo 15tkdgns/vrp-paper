@@ -1,0 +1,11 @@
+{
+  "leaderboard": {
+    "v29_Ridge_GARCH": 0.732,
+    "v31_Mamba": -0.094,
+    "v31_LSTM": -0.066,
+    "v32_KAN": -0.424,
+    "v33_GraphVol": -0.232
+  },
+  "champion_model": "V29_Ridge_Garch_Asymmetry",
+  "recommendation": "Use Linear Ensemble for Production; Keep Graph/Mamba for research only."
+}

@@ -1,0 +1,27 @@
+Model,Hyperparameter,Optimal Value,Description / Search Range
+Ridge,alpha,10,L2 regularization strength
+Lasso,alpha,0.01,L1 regularization strength
+ElasticNet,alpha,0.01,Total regularization strength
+ElasticNet,l1_ratio,0.5,Mix of L1 (0.5) and L2 (0.5)
+SVR,kernel,rbf,Radial Basis Function kernel
+SVR,C,10,Regularization parameter
+SVR,epsilon,0.1,Epsilon-tube width
+MLP,hidden_layer_sizes,"(64, 32)",Two-layer architecture
+MLP,activation,relu,Rectified Linear Unit
+MLP,early_stopping,True,Terminate if val-loss plateaus
+Random Forest,n_estimators,200,Number of trees
+Random Forest,min_samples_leaf,20,Minimum samples in leaf node
+XGBoost,n_estimators,300,Boosting rounds
+XGBoost,learning_rate,0.05,Learning rate
+XGBoost,reg_lambda,1,L2 regularization
+LightGBM,n_estimators,300,Boosting rounds
+LightGBM,num_leaves,31,Max leaves in one tree
+BiLSTM-A,hidden_dim,32,"Search Range: [32, 64, 128]"
+BiLSTM-A,learning_rate,0.001,"Search Range: [0.0001, 0.001, 0.01]"
+BiLSTM-A,dropout,0.0,"Search Range: [0.0, 0.3, 0.5]"
+BiLSTM-A,seq_len,22,"Search Range: [10, 22, 44]"
+BiLSTM-A,batch_size,64,Fixed
+BiLSTM-A,epochs,20,Fixed
+BiLSTM-A,optimizer,Adam,Fixed
+BiLSTM-A,loss,MSE,Fixed
+BiLSTM-A,Input features,3,"RS, GK, RC"

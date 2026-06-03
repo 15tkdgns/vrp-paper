@@ -1,0 +1,434 @@
+{
+  "ablation": [
+    {
+      "pooled_r2": 0.7591,
+      "rmse": 0.5047,
+      "mae": 0.4048,
+      "qlike": 0.14959999918937683,
+      "median_r2": 0.0881,
+      "mean_r2": 0.0776,
+      "name": "Original (2)",
+      "n_feats": 2
+    },
+    {
+      "pooled_r2": 0.6536,
+      "rmse": 0.6052,
+      "mae": 0.4877,
+      "qlike": 0.23729999363422394,
+      "median_r2": -0.1559,
+      "mean_r2": -0.2269,
+      "name": "Base (14)",
+      "n_feats": 14
+    },
+    {
+      "pooled_r2": 0.66,
+      "rmse": 0.5995,
+      "mae": 0.4803,
+      "qlike": 0.2282000035047531,
+      "median_r2": -0.1657,
+      "mean_r2": -0.192,
+      "name": "Base+HF (21)",
+      "n_feats": 21
+    },
+    {
+      "pooled_r2": 0.6317,
+      "rmse": 0.624,
+      "mae": 0.4889,
+      "qlike": 0.23690000176429749,
+      "median_r2": -0.2366,
+      "mean_r2": -0.3311,
+      "name": "Base+IV (24)",
+      "n_feats": 24
+    },
+    {
+      "pooled_r2": 0.6286,
+      "rmse": 0.6266,
+      "mae": 0.4926,
+      "qlike": 0.24609999358654022,
+      "median_r2": -0.4017,
+      "mean_r2": -0.3315,
+      "name": "Base+Alt (20)",
+      "n_feats": 20
+    },
+    {
+      "pooled_r2": 0.6232,
+      "rmse": 0.6312,
+      "mae": 0.5056,
+      "qlike": 0.2644999921321869,
+      "median_r2": -0.2205,
+      "mean_r2": -0.3191,
+      "name": "Base+HF+IV (31)",
+      "n_feats": 31
+    },
+    {
+      "pooled_r2": 0.5914,
+      "rmse": 0.6573,
+      "mae": 0.5177,
+      "qlike": 0.3050000071525574,
+      "median_r2": -0.4318,
+      "mean_r2": -0.468,
+      "name": "All (37)",
+      "n_feats": 37
+    },
+    {
+      "pooled_r2": 0.7831,
+      "rmse": 0.4789,
+      "mae": 0.3885,
+      "qlike": 0.1168999969959259,
+      "median_r2": 0.1616,
+      "mean_r2": 0.2059,
+      "name": "HF only (7)",
+      "n_feats": 7
+    },
+    {
+      "pooled_r2": 0.7099,
+      "rmse": 0.5538,
+      "mae": 0.4418,
+      "qlike": 0.18950000405311584,
+      "median_r2": -0.1079,
+      "mean_r2": -0.0771,
+      "name": "HF+IV (17)",
+      "n_feats": 17
+    }
+  ],
+  "topk": [
+    {
+      "pooled_r2": 0.7915,
+      "rmse": 0.4695,
+      "mae": 0.374,
+      "qlike": 0.12280000001192093,
+      "median_r2": 0.2756,
+      "mean_r2": 0.2406,
+      "name": "Top-3",
+      "n_feats": 3
+    },
+    {
+      "pooled_r2": 0.7835,
+      "rmse": 0.4784,
+      "mae": 0.3851,
+      "qlike": 0.1282999962568283,
+      "median_r2": 0.1342,
+      "mean_r2": 0.1938,
+      "name": "Top-5",
+      "n_feats": 5
+    },
+    {
+      "pooled_r2": 0.7618,
+      "rmse": 0.5019,
+      "mae": 0.4031,
+      "qlike": 0.13779999315738678,
+      "median_r2": 0.0471,
+      "mean_r2": 0.1206,
+      "name": "Top-7",
+      "n_feats": 7
+    },
+    {
+      "pooled_r2": 0.7217,
+      "rmse": 0.5424,
+      "mae": 0.4388,
+      "qlike": 0.18709999322891235,
+      "median_r2": -0.0586,
+      "mean_r2": -0.0717,
+      "name": "Top-10",
+      "n_feats": 10
+    },
+    {
+      "pooled_r2": 0.6657,
+      "rmse": 0.5945,
+      "mae": 0.4798,
+      "qlike": 0.22050000727176666,
+      "median_r2": -0.2525,
+      "mean_r2": -0.2054,
+      "name": "Top-14",
+      "n_feats": 14
+    },
+    {
+      "pooled_r2": 0.6575,
+      "rmse": 0.6017,
+      "mae": 0.4747,
+      "qlike": 0.2295999974012375,
+      "median_r2": -0.2798,
+      "mean_r2": -0.2637,
+      "name": "Top-20",
+      "n_feats": 20
+    }
+  ],
+  "hp_tuning": [
+    {
+      "pooled_r2": 0.7749,
+      "rmse": 0.4878,
+      "mae": 0.3884,
+      "qlike": 0.14480000734329224,
+      "median_r2": 0.1817,
+      "mean_r2": 0.1574,
+      "config": "h16_d0.1_lr0.001_e20",
+      "hp": {
+        "hidden_dim": 16,
+        "dropout": 0.1,
+        "lr": 0.001,
+        "epochs": 20
+      }
+    },
+    {
+      "pooled_r2": 0.7759,
+      "rmse": 0.4868,
+      "mae": 0.3928,
+      "qlike": 0.11779999732971191,
+      "median_r2": 0.1555,
+      "mean_r2": 0.1874,
+      "config": "h32_d0.1_lr0.001_e20",
+      "hp": {
+        "hidden_dim": 32,
+        "dropout": 0.1,
+        "lr": 0.001,
+        "epochs": 20
+      }
+    },
+    {
+      "pooled_r2": 0.7526,
+      "rmse": 0.5114,
+      "mae": 0.4078,
+      "qlike": 0.16660000383853912,
+      "median_r2": 0.0636,
+      "mean_r2": 0.0608,
+      "config": "h32_d0.3_lr0.001_e20",
+      "hp": {
+        "hidden_dim": 32,
+        "dropout": 0.3,
+        "lr": 0.001,
+        "epochs": 20
+      }
+    },
+    {
+      "pooled_r2": 0.7844,
+      "rmse": 0.4775,
+      "mae": 0.3811,
+      "qlike": 0.13410000503063202,
+      "median_r2": 0.2399,
+      "mean_r2": 0.2011,
+      "config": "h32_d0.2_lr0.0005_e25",
+      "hp": {
+        "hidden_dim": 32,
+        "dropout": 0.2,
+        "lr": 0.0005,
+        "epochs": 25
+      }
+    },
+    {
+      "pooled_r2": 0.7851,
+      "rmse": 0.4767,
+      "mae": 0.3803,
+      "qlike": 0.13259999454021454,
+      "median_r2": 0.2353,
+      "mean_r2": 0.2031,
+      "config": "h48_d0.2_lr0.001_e20",
+      "hp": {
+        "hidden_dim": 48,
+        "dropout": 0.2,
+        "lr": 0.001,
+        "epochs": 20
+      }
+    },
+    {
+      "pooled_r2": 0.7577,
+      "rmse": 0.5062,
+      "mae": 0.4007,
+      "qlike": 0.16329999268054962,
+      "median_r2": 0.0708,
+      "mean_r2": 0.0851,
+      "config": "h48_d0.3_lr0.0005_e25",
+      "hp": {
+        "hidden_dim": 48,
+        "dropout": 0.3,
+        "lr": 0.0005,
+        "epochs": 25
+      }
+    },
+    {
+      "pooled_r2": 0.7517,
+      "rmse": 0.5124,
+      "mae": 0.4068,
+      "qlike": 0.16699999570846558,
+      "median_r2": 0.0961,
+      "mean_r2": 0.0558,
+      "config": "h64_d0.3_lr0.0005_e20",
+      "hp": {
+        "hidden_dim": 64,
+        "dropout": 0.3,
+        "lr": 0.0005,
+        "epochs": 20
+      }
+    }
+  ],
+  "best_feature_set": "Top-3",
+  "best_features": [
+    "RogersSatchell_22",
+    "Range_Close_Ratio",
+    "GarmanKlass_22"
+  ],
+  "best_hp": {
+    "pooled_r2": 0.7851,
+    "rmse": 0.4767,
+    "mae": 0.3803,
+    "qlike": 0.13259999454021454,
+    "median_r2": 0.2353,
+    "mean_r2": 0.2031,
+    "config": "h48_d0.2_lr0.001_e20",
+    "hp": {
+      "hidden_dim": 48,
+      "dropout": 0.2,
+      "lr": 0.001,
+      "epochs": 20
+    }
+  },
+  "ridge_importance": [
+    [
+      "RogersSatchell_22",
+      0.5367
+    ],
+    [
+      "Range_Close_Ratio",
+      0.4162
+    ],
+    [
+      "GarmanKlass_22",
+      0.2187
+    ],
+    [
+      "Parkinson_22",
+      0.215
+    ],
+    [
+      "Parkinson_5",
+      0.2071
+    ],
+    [
+      "IV_VRP_ma22",
+      0.2008
+    ],
+    [
+      "SPY_LogRV",
+      0.1961
+    ],
+    [
+      "LogRV_lag1",
+      0.1192
+    ],
+    [
+      "IV_VRP",
+      0.1156
+    ],
+    [
+      "IV_VIX_TermSlope",
+      0.1038
+    ],
+    [
+      "RV_Mom22",
+      0.1007
+    ],
+    [
+      "Garch_Weekly",
+      0.0896
+    ],
+    [
+      "IV_VIX",
+      0.0591
+    ],
+    [
+      "LogRV_lag10",
+      0.0533
+    ],
+    [
+      "LogRV_lag22",
+      0.0495
+    ],
+    [
+      "IV_VIX9D",
+      0.0416
+    ],
+    [
+      "Overnight_Vol",
+      0.0398
+    ],
+    [
+      "IV_VIX3M",
+      0.0377
+    ],
+    [
+      "IV_VIX_ShortSlope",
+      0.0326
+    ],
+    [
+      "LogRV_Std22",
+      0.0304
+    ],
+    [
+      "IV_VIX_std5",
+      0.0254
+    ],
+    [
+      "AltVol_Vol_Surprise",
+      0.0247
+    ],
+    [
+      "AltVol_Vol_Ratio",
+      0.0221
+    ],
+    [
+      "LogRV_lag5",
+      0.0212
+    ],
+    [
+      "AltVol_Order_Imbalance",
+      0.0197
+    ],
+    [
+      "Corr_SPY",
+      0.0164
+    ],
+    [
+      "Ret_lag1",
+      0.0157
+    ],
+    [
+      "AltVol_Kyle_Lambda",
+      0.0136
+    ],
+    [
+      "LogRV_Std5",
+      0.0126
+    ],
+    [
+      "IV_VIX_ma5",
+      0.0057
+    ],
+    [
+      "AltVol_Amihud",
+      0.0055
+    ],
+    [
+      "IV_VIX_chg",
+      0.0036
+    ],
+    [
+      "Overnight_Ret",
+      0.0034
+    ],
+    [
+      "Garch_Daily",
+      0.0026
+    ],
+    [
+      "Ret_abs_lag1",
+      0.0022
+    ],
+    [
+      "AltVol_PV_Corr",
+      0.0018
+    ],
+    [
+      "RV_Mom5",
+      0.0013
+    ]
+  ]
+}

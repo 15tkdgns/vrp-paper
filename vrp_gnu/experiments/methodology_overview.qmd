@@ -1,0 +1,482 @@
+---
+title: "연구 방법론 개요"
+subtitle: "Cross-Asset VRP 예측 프레임워크의 핵심 방법론 정리"
+format:
+  html:
+    code-fold: true
+    toc: true
+---
+
+본 페이지는 **Cross-Asset Volatility Risk Premium(VRP) 예측** 연구의 핵심 방법론을 체계적으로 정리합니다.
+
+---
+
+## 1. 연구 프레임워크 요약
+
+```{mermaid}
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%
+flowchart LR
+    A["11개 ETF<br/>OHLCV 데이터"] --> B["37개 피처<br/>엔지니어링"]
+    B --> C["모델 학습<br/>선형/트리/DL"]
+    C --> D["RV_hat 예측"]
+    D --> E["VRP_hat 산출<br/>IV² - RV_hat"]
+
+    style A fill:#E3F2FD,stroke:#1565C0
+    style B fill:#E8F5E9,stroke:#2E7D32
+    style C fill:#FFF3E0,stroke:#E65100
+    style D fill:#F3E5F5,stroke:#7B1FA2
+    style E fill:#FCE4EC,stroke:#C62828
+```
+
+::: {.callout-note}
+## 2단계 VRP 예측 구조
+1. **1단계**: 전방 실현분산(Forward RV)을 ML 모델로 예측
+2. **2단계**: 관측된 내재분산(IV)과 결합하여 VRP_hat = IV² - RV_hat 산출
+
+피처(t-1 이전)와 타겟([t+1, t+h])이 시간축에서 완전 분리되어 look-ahead bias를 원천 방지합니다.
+:::
+
+---
+
+## 2. 데이터 구성
+
+### 2.1 자산 유니버스 (11개 ETF)
+
+| 자산군 | Ticker | 설명 | 비고 |
+|:---|:---|:---|:---|
+| **Equity (5)** | SPY | S&P 500 ETF | 미국 대형주 |
+| | QQQ | Nasdaq-100 ETF | 기술주 |
+| | IWM | Russell 2000 ETF | 소형주 |
+| | EFA | MSCI EAFE ETF | 선진 해외 |
+| | EEM | MSCI EM ETF | 신흥시장 |
+| **Bond (3)** | TLT | 20+ Yr Treasury ETF | 장기 국채 |
+| | IEF | 7-10 Yr Treasury ETF | 중기 국채 |
+| | AGG | Aggregate Bond ETF | 종합 채권 |
+| **Commodity (3)** | GLD | Gold ETF | 금 |
+| | SLV | Silver ETF | 은 |
+| | USO | US Oil Fund ETF | 원유 (WTI 선물) |
+
+### 2.2 데이터 기간 및 출처
+
+- **기간**: 2010-01 ~ 2025-01 (약 15년, ~3,780 거래일)
+- **출처**: Yahoo Finance (yfinance API) 일별 OHLCV
+- **수익률**: 배당/분할 수정 종가 기반 로그 수익률
+- **결측치**: Forward-fill (영향 미미, 강건성 검증 완료)
+
+### 2.3 예측 지평 (8개, 모두 거래일 기준)
+
+| 지평 | h (거래일) | 경제적 의미 |
+|:---|:---:|:---|
+| 1d | 1 | 일별 리스크 관리 |
+| 5d | 5 | 주간 모니터링 |
+| **22d** | **22** | **월간 포트폴리오 재조정** |
+| 60d | 60 | 분기 전 중간 점검 |
+| 90d | 90 | 분기 리밸런싱 |
+| 120d | 120 | 반기 배분 준비 |
+| 180d | 180 | 반기 전략적 배분 |
+| 252d | 252 | 연간 자산 배분 |
+
+---
+
+## 3. 타겟 변수 정의
+
+### 3.1 실현분산 (RV)
+
+$$\text{target}(t, h) = \log\left(\text{mean}\left(r^2[t+1 : t+h]\right) \times 252\right)$$
+
+- 로그 변환: 우편향 분포 안정화
+- 연율화 계수: 252 (연간 거래일 수)
+
+### 3.2 내재분산 (IV) 프록시
+
+$$\text{IV}_t^2 = \left(\frac{\text{VIX}_t}{100}\right)^2$$
+
+| VIX 지수 | 만기 | 가용기간 |
+|:---|:---|:---|
+| VIX | 30 캘린더일 (~22 거래일) | 2010~ (100%) |
+| VIX3M | 93 캘린더일 (~63 거래일) | 2010~ (100%) |
+| VIX9D | 9 캘린더일 (~6 거래일) | 2011~ (93.3%) |
+
+### 3.3 VRP 정의
+
+$$\text{VRP}(h) = \text{IV}^2 - \text{RV}(h)$$
+
+::: {.callout-tip}
+## VRP 해석 시나리오
+- **VRP > 0 (Overpriced)**: 옵션 시장이 실현 변동성보다 높은 프리미엄 부과 -> 변동성 매도 유리
+- **VRP < 0 (Underpriced)**: 실현 변동성이 내재 변동성 초과 -> 위험 회피 또는 변동성 매수 고려
+:::
+
+---
+
+## 4. 피처 엔지니어링 (37개)
+
+```{python}
+#| echo: false
+#| fig-width: 12
+#| fig-height: 5
+#| label: feature-groups
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+plt.rcParams.update({
+    'font.family': 'DejaVu Sans',
+    'figure.facecolor': '#ffffff',
+    'axes.facecolor': '#ffffff',
+    'axes.edgecolor': '#cccccc',
+    'axes.labelcolor': '#333333',
+    'text.color': '#333333',
+    'xtick.color': '#555555',
+    'ytick.color': '#555555',
+})
+
+groups = ['HAR\n(Base)', 'GARCH\n+Vol-of-Vol', 'HF Proxy\n(Range)', 'IV Surface\n(VIX)', 'Alt Data\n(Volume)', 'Cross\n(SPY ref)']
+counts = [7, 4, 7, 10, 6, 3]
+colors = ['#2563eb', '#6366f1', '#16a34a', '#d97706', '#9ca3af', '#ec4899']
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5), gridspec_kw={'width_ratios': [3, 2]})
+
+bars = ax1.bar(groups, counts, color=colors, alpha=0.85, edgecolor='#f5f5f5', linewidth=1)
+for bar, val in zip(bars, counts):
+    ax1.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.3,
+             f'{val}', ha='center', fontsize=12, fontweight='bold', color='#333333')
+ax1.set_ylabel('Feature Count', fontsize=11, fontweight='bold')
+ax1.set_title('37 Features by Group', fontsize=13, fontweight='bold', pad=10)
+ax1.set_ylim(0, 13)
+ax1.grid(axis='y', alpha=0.2)
+
+# Pie chart
+ax2.pie(counts, labels=groups, colors=colors, autopct='%1.0f%%',
+        startangle=90, textprops={'fontsize': 9, 'color': '#333333'})
+ax2.set_title('Feature Distribution', fontsize=13, fontweight='bold', pad=10)
+
+plt.tight_layout()
+plt.show()
+```
+
+### 주요 피처 그룹
+
+| 그룹 | 피처 수 | 핵심 피처 | 역할 |
+|:---|:---:|:---|:---|
+| **HAR (Base)** | 7 | LogRV_lag1/5/10/22, Std5/22, Mom | 변동성 자기상관 구조 |
+| **GARCH** | 4 | Daily/Weekly GARCH, Ret_lag1, Ret_abs | 조건부 변동성 |
+| **HF Proxy (Range)** | 7 | Rogers-Satchell, Garman-Klass, Parkinson | OHLC 기반 고빈도 프록시 |
+| **IV Surface** | 10 | VIX, VIX3M, VIX9D, Term Slope, VRP | 내재변동성 기간구조 |
+| **Alt Data** | 6 | Amihud, Volume Ratio, Kyle Lambda | 유동성/거래량 |
+| **Cross** | 3 | SPY LogRV, SPY Corr | 시장 공통 요인 |
+
+::: {.callout-important}
+## Range 추정량의 효율성
+| 추정량 | 이론적 효율 | 적용 |
+|:---|:---:|:---|
+| Close-to-Close | 1.0x (기준) | RV 기본 |
+| Parkinson | 5.0x | 5d/22d 피처 |
+| Rogers-Satchell | 5.0x (drift-robust) | BiLSTM-A 핵심 피처 |
+| Garman-Klass | 7.4x | BiLSTM-A 피처, WEns 2순위 |
+
+일별 종가만 사용하는 것 대비 OHLC 정보를 활용하면 5~7배 높은 효율로 변동성을 추정할 수 있습니다.
+:::
+
+### 4.1 다면적 피처 중요도 분석 (7 Methods Consensus)
+
+7가지 독립적 방법으로 37개 피처의 중요도를 측정하고, 순위 평균(consensus rank)으로 종합합니다.
+
+```{python}
+#| echo: false
+#| fig-width: 14
+#| fig-height: 10
+#| label: feature-importance-consensus
+
+import matplotlib.pyplot as plt
+import numpy as np
+import json
+
+plt.rcParams.update({
+    'font.family': 'DejaVu Sans',
+    'figure.facecolor': '#ffffff',
+    'axes.facecolor': '#ffffff',
+    'axes.edgecolor': '#cccccc',
+    'axes.labelcolor': '#333333',
+    'text.color': '#333333',
+    'xtick.color': '#555555',
+    'ytick.color': '#555555',
+})
+
+with open('/root/vrp/experiments/creative/v71_feature_importance_multi_results.json') as f:
+    data = json.load(f)
+
+consensus = data['consensus']
+methods_data = data['methods']
+
+# Sort by mean_rank
+sorted_features = sorted(consensus.items(), key=lambda x: x[1]['mean_rank'])
+top_n = 20
+sorted_features = sorted_features[:top_n]
+
+feat_names = [f[0] for f in sorted_features]
+mean_ranks = [f[1]['mean_rank'] for f in sorted_features]
+
+# Feature group colors
+group_map = {
+    'LogRV_lag1': 'HAR', 'LogRV_lag5': 'HAR', 'LogRV_lag10': 'HAR', 'LogRV_lag22': 'HAR',
+    'LogRV_Std5': 'HAR', 'LogRV_Std22': 'HAR', 'RV_Mom5': 'HAR', 'RV_Mom22': 'HAR',
+    'Garch_Daily': 'GARCH', 'Garch_Weekly': 'GARCH', 'Ret_lag1': 'GARCH', 'Ret_abs_lag1': 'GARCH',
+    'Parkinson_5': 'HF Proxy', 'Parkinson_22': 'HF Proxy', 'GarmanKlass_22': 'HF Proxy',
+    'RogersSatchell_22': 'HF Proxy', 'Range_Close_Ratio': 'HF Proxy',
+    'Overnight_Vol': 'HF Proxy', 'Overnight_Ret': 'HF Proxy',
+    'IV_VIX': 'IV Surface', 'IV_VIX_chg': 'IV Surface', 'IV_VIX_ma5': 'IV Surface',
+    'IV_VIX_std5': 'IV Surface', 'IV_VIX3M': 'IV Surface', 'IV_VIX_TermSlope': 'IV Surface',
+    'IV_VIX9D': 'IV Surface', 'IV_VIX_ShortSlope': 'IV Surface',
+    'IV_VRP': 'IV Surface', 'IV_VRP_ma22': 'IV Surface',
+    'AltVol_Amihud': 'Alt Data', 'AltVol_Vol_Ratio': 'Alt Data', 'AltVol_PV_Corr': 'Alt Data',
+    'AltVol_Vol_Surprise': 'Alt Data', 'AltVol_Order_Imbalance': 'Alt Data',
+    'AltVol_Kyle_Lambda': 'Alt Data',
+    'SPY_LogRV': 'Cross', 'Corr_SPY': 'Cross',
+}
+group_colors = {
+    'HAR': '#2563eb', 'GARCH': '#6366f1', 'HF Proxy': '#16a34a',
+    'IV Surface': '#d97706', 'Alt Data': '#9ca3af', 'Cross': '#ec4899',
+}
+bar_colors = [group_colors.get(group_map.get(f, 'Other'), '#333333') for f in feat_names]
+
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(14, 10), gridspec_kw={'height_ratios': [3, 2]})
+
+# Top: Heatmap of per-method ranks
+method_names = ['Ridge\nCoef', 'Permutation', 'XGBoost\nGain', 'SHAP\n(Linear)', 'Mutual\nInfo', 'Spearman', 'RFE']
+method_keys = ['ridge_coef', 'permutation', 'xgboost_gain', 'shap_linear', 'mutual_info', 'spearman', 'rfe']
+
+rank_matrix = np.array([
+    [consensus[f]['per_method'][m] for m in method_keys]
+    for f in feat_names
+])
+
+im = ax1.imshow(rank_matrix.T, cmap='RdYlGn_r', aspect='auto', vmin=1, vmax=37)
+for i in range(len(method_keys)):
+    for j in range(len(feat_names)):
+        val = rank_matrix[j, i]
+        color = '#ffffff' if val <= 5 or val >= 30 else '#333333'
+        fontweight = 'bold' if val <= 3 else 'normal'
+        ax1.text(j, i, f'{int(val)}', ha='center', va='center',
+                 fontsize=8, color=color, fontweight=fontweight)
+
+ax1.set_xticks(range(len(feat_names)))
+ax1.set_xticklabels(feat_names, fontsize=8, rotation=45, ha='right')
+ax1.set_yticks(range(len(method_names)))
+ax1.set_yticklabels(method_names, fontsize=9)
+ax1.set_title('Feature Importance Rank by 7 Methods (Top 20, lower=better)',
+              fontsize=13, fontweight='bold', pad=10)
+cbar = fig.colorbar(im, ax=ax1, shrink=0.6, label='Rank (1=best)')
+cbar.ax.yaxis.label.set_color('#333333')
+cbar.ax.tick_params(colors='#555555')
+
+# Bottom: Consensus mean rank bar chart
+bars = ax2.barh(range(len(feat_names)), mean_ranks, color=bar_colors, alpha=0.85,
+                edgecolor='#f5f5f5', linewidth=0.5, height=0.7)
+ax2.set_yticks(range(len(feat_names)))
+ax2.set_yticklabels(feat_names, fontsize=9)
+ax2.set_xlabel('Mean Rank Across 7 Methods (lower = more important)', fontsize=11, fontweight='bold')
+ax2.set_title('Consensus Feature Importance Ranking (Top 20)',
+              fontsize=13, fontweight='bold', pad=10)
+ax2.invert_yaxis()
+ax2.grid(axis='x', alpha=0.2)
+
+for bar, val in zip(bars, mean_ranks):
+    ax2.text(bar.get_width() + 0.3, bar.get_y() + bar.get_height()/2,
+             f'{val:.1f}', va='center', fontsize=9, color='#333333')
+
+# Legend
+from matplotlib.patches import Patch
+legend_elements = [Patch(facecolor=c, label=t, alpha=0.85) for t, c in group_colors.items()]
+ax2.legend(handles=legend_elements, loc='lower right', fontsize=9,
+           facecolor='#ffffff', edgecolor='#cccccc', labelcolor='#333333', ncol=3)
+
+plt.tight_layout()
+plt.show()
+```
+
+::: {.callout-note}
+## 7가지 방법의 Consensus 핵심 발견
+1. **RogersSatchell_22** (평균 순위 2.6): 7개 방법 중 4개에서 1위 -- 가장 안정적인 핵심 피처
+2. **Range 피처 그룹 우위**: Top 4 중 3개가 HF Proxy 그룹 (RS, Parkinson, GK)
+3. **GARCH 피처 중요**: Garch_Weekly(4.4위), Garch_Daily(6.7위)는 방법에 따라 편차가 크지만 일관적으로 상위
+4. **IV Surface는 중간권**: IV_VIX(11.9위), IV_VIX3M(13.4위)으로 보조적 역할
+5. **Alt Data 기여 제한적**: 유동성/거래량 피처는 대부분 하위권
+:::
+
+---
+
+## 5. 모델 아키텍처
+
+### 5.1 모델 비교군
+
+```{python}
+#| echo: false
+#| fig-width: 14
+#| fig-height: 5
+#| label: model-architecture
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+plt.rcParams.update({
+    'font.family': 'DejaVu Sans',
+    'figure.facecolor': '#ffffff',
+    'axes.facecolor': '#ffffff',
+    'axes.edgecolor': '#cccccc',
+    'axes.labelcolor': '#333333',
+    'text.color': '#333333',
+    'xtick.color': '#555555',
+    'ytick.color': '#555555',
+})
+
+categories = ['TS\nBaseline', 'Linear\n(Regularized)', 'Tree\nEnsemble', 'Kernel', 'Neural\nNet', 'DL\n(Sequence)', 'Weighted\nEnsemble']
+models_list = [
+    'GARCH(1,1)\nGJR-GARCH',
+    'HAR-3\nRidge\nLASSO\nElasticNet',
+    'RF\nXGBoost\nLightGBM',
+    'SVR',
+    'MLP',
+    'BiLSTM-A\n(Transformer)',
+    'WEns\n(Ridge+XGB)',
+]
+colors = ['#9ca3af', '#2563eb', '#16a34a', '#dc2626', '#ef4444', '#d97706', '#7c3aed']
+
+fig, ax = plt.subplots(figsize=(14, 5))
+
+bars = ax.bar(categories, [2, 4, 3, 1, 1, 2, 1], color=colors, alpha=0.85,
+              edgecolor='#f5f5f5', linewidth=1)
+
+for bar, models_text, count in zip(bars, models_list, [2, 4, 3, 1, 1, 2, 1]):
+    ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.1,
+            models_text, ha='center', fontsize=8, color='#333333', va='bottom',
+            linespacing=1.3)
+
+ax.set_ylabel('Model Count', fontsize=11, fontweight='bold')
+ax.set_title('15 Models Across 7 Categories', fontsize=13, fontweight='bold', pad=10)
+ax.set_ylim(0, 7)
+ax.grid(axis='y', alpha=0.2)
+plt.tight_layout()
+plt.show()
+```
+
+### 5.2 핵심 모델 상세
+
+#### WEns (22d 챔피언, Pooled R^2 = 0.803)
+
+```{mermaid}
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%
+flowchart LR
+    A["37 Features"] --> B["Ridge<br/>(per-class alpha)"]
+    A --> C["XGBoost<br/>(pooled)"]
+    B --> D["70%"]
+    C --> E["30%"]
+    D --> F["RV_hat"]
+    E --> F
+
+    style A fill:#E3F2FD,stroke:#1565C0
+    style B fill:#E8F5E9,stroke:#2E7D32
+    style C fill:#FFF3E0,stroke:#E65100
+    style F fill:#F3E5F5,stroke:#7B1FA2
+```
+
+- Ridge alpha: Equity=100, Bond/Commodity=10 (자산군별 적응형)
+- 가중 결합: Ridge 70% + XGBoost 30%
+
+#### BiLSTM-A (60~90d 챔피언, Pooled R^2 = 0.796)
+
+```{mermaid}
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0'}}}%%
+flowchart TD
+    A["3 Range Features<br/>(RS, GK, RC)<br/>x 22일 시퀀스"] --> B["Bi-LSTM<br/>(hidden=32)"]
+    B --> C["Temporal Attention<br/>(Dynamic HAR)"]
+    C --> D["FC Layer"]
+    D --> E["RV_hat"]
+
+    style A fill:#E3F2FD,stroke:#1565C0
+    style B fill:#E8F5E9,stroke:#2E7D32
+    style C fill:#FFF3E0,stroke:#E65100
+    style D fill:#F3E5F5,stroke:#7B1FA2
+    style E fill:#FCE4EC,stroke:#C62828
+```
+
+- ~9,000 파라미터 (Transformer ~85K의 1/9 수준)
+- 3개 range 피처만 사용 (과적합 방지 최적 설계)
+
+### 5.3 하이퍼파라미터
+
+| 파라미터 | WEns (Ridge) | BiLSTM-A | HAR-3 |
+|:---|:---|:---|:---|
+| **피처 수** | 37 | 3 | 3 |
+| **alpha/hidden** | 10~100 | 32 | - |
+| **학습률** | - | 0.001 | - |
+| **Dropout** | - | 0.0 | - |
+| **시퀀스 길이** | - | 22 | - |
+| **정규화** | L2 | Structural | L2 |
+| **~파라미터 수** | ~38 | ~9,000 | ~4 |
+
+---
+
+## 6. 학습 및 검증 절차
+
+### 6.1 시간 순서 분할 (Temporal Split)
+
+```
+전체 데이터 타임라인:
+|================ Training (80%) ========|purge|=== Test (20%) ===|
+2010                                           ~2022              2025
+```
+
+- 학습/테스트 경계에 **h 거래일의 purge gap** 삽입
+- 5-Fold TimeSeriesSplit (확장 윈도우) 교차검증
+
+### 6.2 평가 지표 체계
+
+| 지표 | 역할 | 수식 |
+|:---|:---|:---|
+| **중위 R^2** (1순위) | 순수 시계열 예측력 | 11개 자산별 R^2의 중위값 |
+| 풀링 R^2 (보조) | 횡단면 포함 설명력 | 전체 풀링 R^2 |
+| RMSE | 큰 오차 민감 | sqrt(mean(error^2)) |
+| QLIKE | 변동성 예측 특화 | 비대칭 손실 함수 |
+| **DM Test** | 통계적 유의성 | Newey-West HAC (bandwidth=h) |
+
+::: {.callout-warning}
+## 풀링 R^2 vs 중위 R^2 차이 주의
+풀링 R^2는 자산 간 변동성 수준 차이(횡단면 변동)를 포함하여 높게 산출됩니다. 순수 시계열 예측력 평가에는 **중위 R^2**가 더 보수적이고 신뢰할 수 있습니다.
+
+예: WEns 22d -> 풀링 R^2 = 0.803, 중위 R^2 = 0.215
+:::
+
+---
+
+## 7. 강건성 검증 (6종)
+
+| 검증 항목 | 방법 | 결과 | 판정 |
+|:---|:---|:---|:---:|
+| Multi-split 안정성 | 5회 분할 반복 | R^2 = 0.793 +/- 0.010 | PASS |
+| Alpha 민감도 | alpha 범위 [0.001, 5000] | R^2 = 0.793~0.802 | PASS |
+| 5-Fold TS CV | TimeSeriesSplit | R^2 = 0.765 +/- 0.046 | PASS |
+| 데이터 누출 | 시계열 구조 셔플 | Shuffled R^2 = -0.002 | PASS |
+| Permutation 중요도 | 피처 셔플 검증 | RS #1 (0.731) | PASS |
+| DM 검정 | Newey-West HAC | 모두 p < 0.001 | PASS |
+
+---
+
+## 8. 핵심 연구 질문 (RQ)
+
+| RQ | 질문 | 답변 요약 |
+|:---:|:---|:---|
+| RQ1 | 공개 데이터로 VRP 예측 가능한가? | 22d 풀링 R^2 = 0.803 달성, HAR 대비 유의미 우위 |
+| RQ2 | 지평별 성능/피처 차이는? | 단기: HAR+Range, 중기: Range 핵심, 고VIX: IV Surface 기여 상승 |
+| RQ3 | 모델 구조별 상대 성능은? | 1~22d 선형, 60~90d DL, 180~252d 트리가 유리 |
+| RQ4 | 경제적 실효성 있는가? | SPY 타이밍 전략 Sharpe 0.705->0.804 (탐색적) |
+
+---
+
+## 관련 자료
+
+- [DNN vs ML 비교 인사이트](/experiments/dnn_vs_ml_insights.html) - 모델 비교 핵심 발견
+- [모델 아키텍처 비교](/experiments/phase13_model_comparison.html) - Multi-Horizon 상세 비교
+- [피처 분석](/experiments/feature_analysis.html) - 피처 중요도 상세
+- [V71 강건성 검증](/experiments/champion_robustness.html) - 6종 강건성 테스트
+- [풀링 R^2 해설](/experiments/pooled_r2_explained.html) - 풀링 vs 중위 R^2 차이

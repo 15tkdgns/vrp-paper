@@ -1,0 +1,112 @@
+{
+  "experiment": "WEns Weight Combination (22d)",
+  "best_pooled": {
+    "w": "80:20",
+    "r2": 0.7968842938260561
+  },
+  "best_median": {
+    "w": "50:50",
+    "r2": 0.2102671349185672
+  },
+  "results": [
+    {
+      "ridge_weight": 1.0,
+      "xgb_weight": 0.0,
+      "label": "100:0",
+      "pooled_r2": 0.7943,
+      "median_r2": 0.1637,
+      "rmse": 0.4708,
+      "mae": 0.3788
+    },
+    {
+      "ridge_weight": 0.9,
+      "xgb_weight": 0.1,
+      "label": "90:10",
+      "pooled_r2": 0.7962,
+      "median_r2": 0.1665,
+      "rmse": 0.4687,
+      "mae": 0.3771
+    },
+    {
+      "ridge_weight": 0.8,
+      "xgb_weight": 0.2,
+      "label": "80:20",
+      "pooled_r2": 0.7969,
+      "median_r2": 0.184,
+      "rmse": 0.4679,
+      "mae": 0.3765
+    },
+    {
+      "ridge_weight": 0.7,
+      "xgb_weight": 0.3,
+      "label": "70:30",
+      "pooled_r2": 0.7965,
+      "median_r2": 0.1985,
+      "rmse": 0.4683,
+      "mae": 0.3769
+    },
+    {
+      "ridge_weight": 0.6,
+      "xgb_weight": 0.4,
+      "label": "60:40",
+      "pooled_r2": 0.795,
+      "median_r2": 0.2098,
+      "rmse": 0.4701,
+      "mae": 0.3782
+    },
+    {
+      "ridge_weight": 0.5,
+      "xgb_weight": 0.5,
+      "label": "50:50",
+      "pooled_r2": 0.7923,
+      "median_r2": 0.2103,
+      "rmse": 0.4731,
+      "mae": 0.3805
+    },
+    {
+      "ridge_weight": 0.4,
+      "xgb_weight": 0.6,
+      "label": "40:60",
+      "pooled_r2": 0.7886,
+      "median_r2": 0.2072,
+      "rmse": 0.4773,
+      "mae": 0.3837
+    },
+    {
+      "ridge_weight": 0.3,
+      "xgb_weight": 0.7,
+      "label": "30:70",
+      "pooled_r2": 0.7837,
+      "median_r2": 0.2009,
+      "rmse": 0.4828,
+      "mae": 0.3878
+    },
+    {
+      "ridge_weight": 0.2,
+      "xgb_weight": 0.8,
+      "label": "20:80",
+      "pooled_r2": 0.7777,
+      "median_r2": 0.1914,
+      "rmse": 0.4894,
+      "mae": 0.3925
+    },
+    {
+      "ridge_weight": 0.1,
+      "xgb_weight": 0.9,
+      "label": "10:90",
+      "pooled_r2": 0.7706,
+      "median_r2": 0.1788,
+      "rmse": 0.4972,
+      "mae": 0.398
+    },
+    {
+      "ridge_weight": 0.0,
+      "xgb_weight": 1.0,
+      "label": "0:100",
+      "pooled_r2": 0.7623,
+      "median_r2": 0.163,
+      "rmse": 0.5061,
+      "mae": 0.4044
+    }
+  ]
+}

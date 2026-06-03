@@ -1,0 +1,8 @@
+Year,Model,Category,Performance,Title,Target,Journal
+2020,Random Forest / Neural Net,ML/DNN,R2 0.40 (Monthly OOS),Empirical asset pricing via machine learning,Stock Returns,Journal of Financial Economics
+2018,LSTM,DNN,Accuracy 54.3%,Deep learning with long short-term memory networks for financial market predictions,Stock Market Direction,European Journal of Operational Research
+2017,DNN / GBT / RF,ML/DNN,Accuracy 54%,Deep neural networks; gradient-boosted trees; random forests: Statistical arbitrage on the S&P 500,S&P 500 Returns,European Journal of Operational Research
+2021,Attention-LSTM,DNN,Accuracy 56.4%,A relational networks-based deep learning model for stock price prediction,Stock Prices,Expert Systems with Applications
+2022,LSTM / GRU,DNN,RMSE 0.015,Stock market prediction using machine learning and deep learning models,Stock Prices,Decision Support Systems
+2020,LASSO-HAR,ML,R2 0.38 (improvement),The impact of sentiment and attention measures on stock market volatility,Stock Market Volatility,International Journal of Forecasting
+2016,LASSO,ML,R2 0.55,Machine Learning and the Cross-Section of Stock Returns,Stock Returns,Review of Financial Studies

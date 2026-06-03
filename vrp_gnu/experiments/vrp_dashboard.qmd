@@ -1,0 +1,181 @@
+---
+title: "Cross-Asset VRP 현황 대시보드"
+format:
+  html:
+    code-fold: true
+    toc: true
+---
+
+7개 자산군, **19개 자산**의 **변동성 리스크 프리미엄(VRP)** 현황을 제시합니다.
+
+::: {.callout-note}
+**VRP = Implied Variance - Realized Variance**
+
+- IV 인덱스 존재 자산 (4개): VIX(SPY), VXN(QQQ), OVX(USO), GVZ(GLD)
+- IV 인덱스 미존재 자산 (15개): GARCH(1,1) 조건부 변동성을 IV 프록시로 사용
+:::
+
+## 1. 최근 VRP 현황 (전 자산)
+
+```{python}
+#| echo: false
+#| fig-width: 14
+#| fig-height: 8
+#| label: vrp-bar-chart
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+import warnings
+warnings.filterwarnings('ignore')
+
+plt.rcParams.update({
+    'font.family': 'DejaVu Sans',
+    'figure.facecolor': '#0d1117',
+    'axes.facecolor': '#161b22',
+    'axes.edgecolor': '#30363d',
+    'axes.labelcolor': '#c9d1d9',
+    'text.color': '#c9d1d9',
+    'xtick.color': '#8b949e',
+    'ytick.color': '#8b949e',
+    'grid.color': '#21262d',
+    'grid.alpha': 0.6,
+})
+
+# Load data
+summary = pd.read_csv('../paper/csv/vrp_summary.csv')
+ts = pd.read_csv('../paper/csv/vrp_timeseries.csv', parse_dates=['Date'])
+
+# --- Bar Chart: Latest VRP ---
+summary_sorted = summary.sort_values('Recent_VRP_pct', ascending=True)
+
+fig, ax = plt.subplots(figsize=(14, 8))
+
+labels = [f"{row['Ticker']} ({row['Name']})" for _, row in summary_sorted.iterrows()]
+values = summary_sorted['Recent_VRP_pct'].values
+colors = ['#2ea043' if v > 0 else '#f85149' for v in values]
+
+bars = ax.barh(range(len(labels)), values, color=colors, alpha=0.85, height=0.6)
+ax.set_yticks(range(len(labels)))
+ax.set_yticklabels(labels, fontsize=9)
+ax.axvline(x=0, color='#c9d1d9', linewidth=0.8, linestyle='-')
+ax.set_xlabel('VRP (%, 22-day avg)', fontsize=11)
+ax.set_title('Cross-Asset VRP: Latest 22-Day Average', fontsize=14, fontweight='bold', pad=12)
+
+# Value labels
+for bar, val in zip(bars, values):
+    x_pos = bar.get_width()
+    ha = 'left' if val >= 0 else 'right'
+    offset = 0.05 if val >= 0 else -0.05
+    ax.text(x_pos + offset, bar.get_y() + bar.get_height()/2,
+            f'{val:+.2f}%', va='center', ha=ha, fontsize=8, color='#c9d1d9')
+
+ax.grid(axis='x', alpha=0.3)
+plt.tight_layout()
+plt.show()
+```
+
+## 2. 자산군별 VRP 추이
+
+```{python}
+#| echo: false
+#| fig-width: 14
+#| fig-height: 28
+#| label: vrp-timeseries
+
+group_order = ['Equity', 'Bond', 'Grain', 'Livestock', 'Energy', 'Metal', 'Other']
+group_labels = {
+    'Equity': 'Equity (주식)',
+    'Bond': 'Bond (채권)',
+    'Grain': 'Grain (곡물)',
+    'Livestock': 'Livestock (축산물)',
+    'Energy': 'Energy (에너지)',
+    'Metal': 'Metal (금속)',
+    'Other': 'Other (부동산/통화)',
+}
+group_colors = {
+    'Equity': ['#58a6ff', '#79c0ff', '#a5d6ff', '#388bfd', '#1f6feb'],
+    'Bond': ['#f0883e', '#d29922', '#e3b341', '#db6d28'],
+    'Grain': ['#2ea043', '#3fb950', '#56d364'],
+    'Livestock': ['#bc8cff'],
+    'Energy': ['#f85149', '#ff7b72'],
+    'Metal': ['#e3b341', '#d2a8ff'],
+    'Other': ['#8b949e', '#6e7681'],
+}
+
+groups_present = [g for g in group_order if g in ts['Group'].unique()]
+n_groups = len(groups_present)
+
+fig, axes = plt.subplots(n_groups, 1, figsize=(14, 4 * n_groups))
+if n_groups == 1:
+    axes = [axes]
+
+for idx, group in enumerate(groups_present):
+    ax = axes[idx]
+    group_data = ts[ts['Group'] == group]
+    tickers = group_data['Ticker'].unique()
+    colors = group_colors.get(group, ['#8b949e'] * len(tickers))
+    
+    for i, ticker in enumerate(tickers):
+        ticker_data = group_data[group_data['Ticker'] == ticker]
+        name = ticker_data['Name'].iloc[0]
+        iv_type = ticker_data['IV_Type'].iloc[0]
+        color = colors[i % len(colors)]
+        
+        ax.plot(ticker_data['Date'], ticker_data['VRP'],
+                color=color, linewidth=1.2, alpha=0.9,
+                label=f"{ticker} ({name}) [{iv_type}]")
+    
+    ax.axhline(y=0, color='#f85149', linewidth=0.8, linestyle='--', alpha=0.6)
+    ax.set_title(group_labels.get(group, group), fontsize=12, fontweight='bold', pad=8)
+    ax.set_ylabel('VRP (%)', fontsize=9)
+    ax.grid(True, alpha=0.3)
+    ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
+    ax.xaxis.set_major_locator(mdates.MonthLocator(interval=6))
+    plt.setp(ax.xaxis.get_majorticklabels(), rotation=45)
+    ax.legend(loc='upper right', fontsize=7, framealpha=0.7,
+             facecolor='#161b22', edgecolor='#30363d')
+    
+    # Shade negative regions for first ticker
+    if len(tickers) > 0:
+        first = group_data[group_data['Ticker'] == tickers[0]]
+        ax.fill_between(first['Date'], 0, first['VRP'],
+                       where=first['VRP'] < 0, alpha=0.08, color='#f85149')
+
+plt.tight_layout(h_pad=3)
+plt.show()
+```
+
+## 3. 자산별 VRP 요약 테이블
+
+```{python}
+#| echo: false
+#| label: vrp-summary-table
+
+from IPython.display import Markdown, HTML
+
+summary_display = summary.copy()
+summary_display['Signal'] = summary_display['Recent_VRP_pct'].apply(
+    lambda x: 'Overpriced' if x > 0 else 'Underpriced'
+)
+summary_display['Current_RV_pct'] = summary_display['Current_RV_pct'].apply(lambda x: f"{x:.2f}")
+summary_display['Recent_VRP_pct'] = summary_display['Recent_VRP_pct'].apply(lambda x: f"{x:+.3f}")
+summary_display['Avg_VRP_pct'] = summary_display['Avg_VRP_pct'].apply(lambda x: f"{x:+.3f}")
+
+summary_display.columns = ['Group', 'Ticker', 'Name', 'IV Source', 'Current RV(%)', 'Recent VRP(%)', 'Avg VRP(%)', 'Signal']
+
+display(HTML(summary_display.to_html(index=False, classes='table table-striped table-sm')))
+
+n_over = (summary['Recent_VRP_pct'] > 0).sum()
+n_under = len(summary) - n_over
+display(Markdown(f"\n**Overpriced (VRP > 0)**: {n_over}개 | **Underpriced (VRP < 0)**: {n_under}개"))
+```
+
+::: {.callout-tip}
+## VRP 해석 가이드
+- **VRP > 0 (Overpriced)**: 옵션 시장이 실현될 변동성보다 높은 프리미엄 부과 → **변동성 매도(short vol)** 전략 유리
+- **VRP < 0 (Underpriced)**: 실현 변동성이 내재 변동성을 초과 → **위험 회피** 또는 **변동성 매수(long vol)** 고려
+- IV Index 기반 자산(SPY, QQQ, USO, GLD)의 VRP가 가장 신뢰도 높음
+- GARCH 프록시 VRP는 방향성 참고용으로 활용
+:::

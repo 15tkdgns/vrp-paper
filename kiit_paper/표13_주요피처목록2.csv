@@ -1,0 +1,9 @@
+Category,Variables,Description
+Realized Volatility,"LogRV_lag(w), LogRV_Std(w), RV_Mom(w)","logRV(t-w); ¥ò_w(logRV); ¥ÄlogRV_w  [w=1,5,10,22 (lag) / 5,22 (Std¡¤Mom)]"
+Range Estimators,"Parkinson(w), GarmanKlass_22, RogersSatchell_22","¥ò_Pk(w); ¥ò_GK(22); ¥ò_RS(22)  [w=5,22 (Pk¸¸ ÇØ´ç)]"
+Returns & Intraday,"Ret_lag1, Ret_abs_lag1, Range_Close_Ratio, Overnight_Vol, Overnight_Ret","r(t-1); |r(t-1)|; (H-L)/C; overnight ¥ò¡¤r"
+VIX Levels & Dynamics,"IV_VIX(9D/1M/3M), IV_VIX_chg, IV_VIX_ma5, IV_VIX_std5","log VIX(*); ¥ÄVIX; VIX 5d MA; ¥ò(VIX,5)"
+VIX Term Structure,"IV_VIX_TermSlope, IV_VIX_ShortSlope","VIX3M - VIX; VIX - VIX9D"
+Variance Risk Premium,"IV_VRP, IV_VRP_ma22","VIX©÷/100 - RV_SPY(t); 22d MA"
+Market Context,"SPY_LogRV, Corr_SPY","logRV_SPY(t); ¥ñ(i, SPY, 22d)"
+Alternative Data,"AltVol_Amihud, AltVol_Vol_Ratio, AltVol_Vol_Surprise, AltVol_PV_Corr, AltVol_Order_Imbalance, AltVol_Kyle_Lambda","illiq_22; V_s/V_l; z_V; ¥ñ(P,V,22); signed OI; ¥ë_Kyle"

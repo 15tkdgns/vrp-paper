@@ -1,0 +1,543 @@
+---
+title: "DNN vs ML 모델 비교 인사이트"
+subtitle: "선형·트리·딥러닝 모델의 공정 비교 분석 및 핵심 발견"
+format:
+  html:
+    code-fold: true
+    toc: true
+---
+
+본 페이지는 논문의 핵심 리뷰 결과인 **DNN(딥러닝) vs ML(선형/트리) 모델 비교** 인사이트를 시각화합니다.
+
+::: {.callout-note}
+## 핵심 발견
+- **단기(1~22d)**: 정규화 선형 모델(Ridge/ElasticNet)이 최강
+- **중기(60~90d)**: BiLSTM-A(3 피처)가 37피처 선형 모델을 능가
+- **장기(180~252d)**: Random Forest 트리 앙상블이 가장 안정적
+- **복잡도 ≠ 성능**: Transformer(~85K params)는 과적합, Ridge(~38 params)가 우수
+:::
+
+---
+
+## 1. 지평별 챔피언 모델 히트맵
+
+8개 예측 지평에 걸쳐 5개 주요 모델의 풀링 R^2를 비교합니다. 선형→DL→트리로 우위가 교차하는 패턴이 핵심 발견입니다.
+
+```{python}
+#| echo: false
+#| fig-width: 14
+#| fig-height: 6
+#| label: heatmap-champion
+
+import matplotlib.pyplot as plt
+import numpy as np
+import json
+
+plt.rcParams.update({
+    'font.family': 'DejaVu Sans',
+    'figure.facecolor': '#ffffff',
+    'axes.facecolor': '#ffffff',
+    'axes.edgecolor': '#cccccc',
+    'axes.labelcolor': '#333333',
+    'text.color': '#333333',
+    'xtick.color': '#555555',
+    'ytick.color': '#555555',
+    'grid.color': '#e0e0e0',
+    'grid.alpha': 0.6,
+})
+
+with open('/root/vrp/experiments/creative/multi_horizon_benchmark_results.json') as f:
+    data = json.load(f)['results']
+
+horizons = ['1d', '5d', '22d', '60d', '90d', '120d', '180d', '365d']
+horizon_labels = ['1d', '5d', '22d', '60d', '90d', '120d', '180d', '252d']
+models = ['Ridge_37', 'LASSO_HAR', 'LSTM_Top3', 'HAR3', 'RF_37']
+model_labels = ['Ridge(37)', 'LASSO(37)', 'BiLSTM-A(3)', 'HAR-3(3)', 'RF(37)']
+
+matrix = np.array([[data[h][m]['R2'] for m in models] for h in horizons])
+
+fig, ax = plt.subplots(figsize=(14, 6))
+im = ax.imshow(matrix, cmap='RdYlGn', aspect='auto', vmin=0.05, vmax=0.85)
+
+# Annotate cells
+for i in range(len(horizons)):
+    row_max = matrix[i].max()
+    for j in range(len(models)):
+        val = matrix[i, j]
+        fontweight = 'bold' if val == row_max else 'normal'
+        fontsize = 12 if val == row_max else 10
+        color = '#333333' if val > 0.4 else 'white'
+        if val == row_max:
+            color = '#1a1a1a'
+        text = f'{val:.3f}'
+        if val == row_max:
+            text = f'★ {val:.3f}'
+        ax.text(j, i, text, ha='center', va='center',
+                fontsize=fontsize, fontweight=fontweight, color=color)
+
+ax.set_xticks(range(len(models)))
+ax.set_xticklabels(model_labels, fontsize=11, fontweight='bold')
+ax.set_yticks(range(len(horizons)))
+ax.set_yticklabels(horizon_labels, fontsize=11)
+ax.set_xlabel('Model', fontsize=12, fontweight='bold')
+ax.set_ylabel('Forecast Horizon', fontsize=12, fontweight='bold')
+ax.set_title('Multi-Horizon Pooled R² Heatmap: Champion Model Crossover',
+             fontsize=14, fontweight='bold', pad=15)
+
+# Add colored region labels
+ax.axhline(y=2.5, color='#2563eb', linewidth=2, linestyle='--', alpha=0.5)
+ax.axhline(y=4.5, color='#d97706', linewidth=2, linestyle='--', alpha=0.5)
+ax.text(len(models) + 0.3, 1, 'Linear\nDominant', fontsize=9, color='#2563eb',
+        va='center', fontweight='bold')
+ax.text(len(models) + 0.3, 3.5, 'DL\nDominant', fontsize=9, color='#d97706',
+        va='center', fontweight='bold')
+ax.text(len(models) + 0.3, 6, 'Tree\nDominant', fontsize=9, color='#16a34a',
+        va='center', fontweight='bold')
+
+cbar = fig.colorbar(im, ax=ax, shrink=0.8, label='Pooled R²')
+cbar.ax.yaxis.label.set_color('#333333')
+cbar.ax.tick_params(colors='#555555')
+
+plt.tight_layout()
+plt.show()
+```
+
+::: {.callout-tip}
+## 지평별 최적 모델이 다른 이유
+- **단기**: HAR 자기상관이 강해 다수 피처 선형 결합이 유효
+- **중기**: Range 피처의 비선형 시계열 패턴을 LSTM이 포착
+- **장기**: 노이즈가 지배적 → 트리 앙상블의 강건성이 유리
+:::
+
+---
+
+## 2. 22거래일 공정 비교 (15개 모델)
+
+동일 데이터·동일 37피처·동일 검증 절차 하에서 15개 모델을 비교한 결과입니다.
+
+```{python}
+#| echo: false
+#| fig-width: 14
+#| fig-height: 8
+#| label: fair-comparison-22d
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+plt.rcParams.update({
+    'font.family': 'DejaVu Sans',
+    'figure.facecolor': '#ffffff',
+    'axes.facecolor': '#ffffff',
+    'axes.edgecolor': '#cccccc',
+    'axes.labelcolor': '#333333',
+    'text.color': '#333333',
+    'xtick.color': '#555555',
+    'ytick.color': '#555555',
+})
+
+# Table 9 data from paper
+models_data = [
+    ('ElasticNet-59', 'Linear', 0.807, None, 0.4591),
+    ('WEns', 'Ensemble', 0.803, 0.215, 0.4680),
+    ('LASSO', 'Linear', 0.790, 0.100, 0.4999),
+    ('Ridge(37)', 'Linear', 0.798, 0.215, 0.4762),
+    ('ElasticNet', 'Linear', 0.770, 0.074, 0.5017),
+    ('BiLSTM-A(3)', 'DL', 0.780, 0.235, 0.4767),
+    ('LASSO(37)', 'Linear', 0.771, 0.100, 0.4999),
+    ('RF', 'Tree', 0.759, 0.142, 0.5130),
+    ('HAR-3', 'Linear', 0.761, 0.171, 0.5415),
+    ('Ridge(pool)', 'Linear', 0.763, -0.003, 0.5093),
+    ('LightGBM', 'Tree', 0.739, 0.059, 0.5342),
+    ('XGBoost', 'Tree', 0.733, 0.035, 0.5400),
+    ('GJR-GARCH', 'TS', 0.699, -0.007, 0.5735),
+    ('GARCH(1,1)', 'TS', 0.694, 0.027, 0.5782),
+    ('SVR', 'Kernel', 0.690, -0.094, 0.5818),
+    ('MLP', 'NN', 0.618, -0.327, 0.6457),
+]
+
+# Sort by pooled R2
+models_data.sort(key=lambda x: x[2])
+
+names = [m[0] for m in models_data]
+types = [m[1] for m in models_data]
+pooled_r2 = [m[2] for m in models_data]
+median_r2 = [m[3] for m in models_data]
+
+type_colors = {
+    'Linear': '#2563eb',
+    'Tree': '#16a34a',
+    'DL': '#d97706',
+    'Ensemble': '#7c3aed',
+    'TS': '#6b7280',
+    'Kernel': '#dc2626',
+    'NN': '#ef4444',
+}
+colors = [type_colors[t] for t in types]
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 8), gridspec_kw={'width_ratios': [3, 2]})
+
+# Left: Pooled R2 horizontal bar
+bars = ax1.barh(range(len(names)), pooled_r2, color=colors, alpha=0.85, height=0.65,
+                edgecolor='#f5f5f5', linewidth=0.5)
+ax1.set_yticks(range(len(names)))
+ax1.set_yticklabels(names, fontsize=10)
+ax1.set_xlabel('Pooled R²', fontsize=12, fontweight='bold')
+ax1.set_title('22d Pooled R² (Fair Comparison)', fontsize=13, fontweight='bold', pad=12)
+ax1.set_xlim(0.55, 0.83)
+ax1.axvline(x=0.761, color='#6b7280', linewidth=1, linestyle='--', alpha=0.7)
+ax1.text(0.762, len(names)-0.5, 'HAR-3\nBaseline', fontsize=8, color='#6b7280', va='top')
+ax1.grid(axis='x', alpha=0.2)
+
+for bar, val in zip(bars, pooled_r2):
+    ax1.text(bar.get_width() + 0.003, bar.get_y() + bar.get_height()/2,
+             f'{val:.3f}', va='center', fontsize=9, color='#333333')
+
+# Right: Type Legend + Median R2
+valid_median = [(n, med, tp) for n, tp, p, med, r in models_data if med is not None]
+valid_median.sort(key=lambda x: x[1])
+vn = [v[0] for v in valid_median]
+vm = [v[1] for v in valid_median]
+vc = [type_colors[v[2]] for v in valid_median]
+
+ax2.barh(range(len(vn)), vm, color=vc, alpha=0.85, height=0.65,
+         edgecolor='#f5f5f5', linewidth=0.5)
+ax2.set_yticks(range(len(vn)))
+ax2.set_yticklabels(vn, fontsize=10)
+ax2.set_xlabel('Median R²', fontsize=12, fontweight='bold')
+ax2.set_title('22d Median R² (per-asset)', fontsize=13, fontweight='bold', pad=12)
+ax2.axvline(x=0, color='#f85149', linewidth=1, linestyle='--', alpha=0.5)
+ax2.grid(axis='x', alpha=0.2)
+
+for i, val in enumerate(vm):
+    offset = 0.01 if val >= 0 else -0.01
+    ha = 'left' if val >= 0 else 'right'
+    ax2.text(val + offset, i, f'{val:.3f}', va='center', ha=ha, fontsize=9, color='#333333')
+
+# Legend
+from matplotlib.patches import Patch
+legend_elements = [Patch(facecolor=c, label=t, alpha=0.85) for t, c in type_colors.items()]
+ax1.legend(handles=legend_elements, loc='lower right', fontsize=9,
+           facecolor='#ffffff', edgecolor='#cccccc', labelcolor='#333333')
+
+plt.tight_layout()
+plt.show()
+```
+
+### 22d 공정 비교 요약 (표 9 발췌)
+
+| Model | Type | #Feat | Pooled R² | Median R² | RMSE |
+|:---|:---|:---:|:---:|:---:|:---:|
+| **ElasticNet-59** | Linear | 59 | **0.807** | -- | 0.459 |
+| **WEns** | Ensemble | 37 | **0.803** | **0.215** | 0.468 |
+| BiLSTM-A | DL | 3 | 0.780 | 0.235 | 0.477 |
+| RF | Tree | 37 | 0.759 | 0.142 | 0.513 |
+| HAR-3 | Linear | 3 | 0.761 | 0.171 | 0.542 |
+| MLP | NN | 37 | 0.618 | -0.327 | 0.646 |
+| Transformer | DL | 37 | 0.534 | -- | -- |
+
+---
+
+## 3. 모델 복잡도 vs 성능
+
+파라미터 수가 많다고 성능이 좋아지지 않습니다. 변동성 예측의 고잡음 환경에서는 적절한 규제가 핵심입니다.
+
+```{python}
+#| echo: false
+#| fig-width: 12
+#| fig-height: 7
+#| label: complexity-vs-performance
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+plt.rcParams.update({
+    'font.family': 'DejaVu Sans',
+    'figure.facecolor': '#ffffff',
+    'axes.facecolor': '#ffffff',
+    'axes.edgecolor': '#cccccc',
+    'axes.labelcolor': '#333333',
+    'text.color': '#333333',
+    'xtick.color': '#555555',
+    'ytick.color': '#555555',
+})
+
+# Table A-4 data
+models_complexity = [
+    ('GARCH', 5, 0.550, 'TS', '#6b7280'),
+    ('HAR-3', 4, 0.761, 'Linear', '#2563eb'),
+    ('Ridge', 38, 0.762, 'Linear', '#2563eb'),
+    ('RF', 1000, 0.770, 'Tree', '#16a34a'),
+    ('BiLSTM-A', 9000, 0.780, 'DL', '#d97706'),
+    ('Transformer', 85000, 0.534, 'DL', '#dc2626'),
+    ('MLP', 5000, 0.618, 'NN', '#ef4444'),
+    ('WEns', 1038, 0.803, 'Ensemble', '#7c3aed'),
+]
+
+fig, ax = plt.subplots(figsize=(12, 7))
+
+for name, params, r2, mtype, color in models_complexity:
+    size = 200 if name in ['WEns', 'BiLSTM-A', 'Transformer'] else 120
+    marker = 'D' if name == 'Transformer' else 'o'
+    edgecolor = '#dc2626' if name == 'Transformer' else '#999999'
+    linewidth = 2 if name == 'Transformer' else 1
+
+    ax.scatter(params, r2, s=size, c=color, marker=marker,
+               edgecolors=edgecolor, linewidths=linewidth, zorder=5, alpha=0.9)
+
+    offset_x = 1.3
+    offset_y = 0.012
+    if name == 'HAR-3':
+        offset_y = -0.025
+    elif name == 'Ridge':
+        offset_y = 0.018
+    elif name == 'GARCH':
+        offset_y = -0.025
+    elif name == 'Transformer':
+        offset_y = 0.022
+
+    ax.annotate(f'{name}\n(R²={r2:.3f})', (params, r2),
+                textcoords="offset points",
+                xytext=(15, 5 if offset_y > 0 else -18),
+                fontsize=10, color=color, fontweight='bold',
+                arrowprops=dict(arrowstyle='->', color=color, lw=1, alpha=0.5))
+
+ax.set_xscale('log')
+ax.set_xlabel('Number of Parameters (log scale)', fontsize=12, fontweight='bold')
+ax.set_ylabel('Pooled R² (22d)', fontsize=12, fontweight='bold')
+ax.set_title('Model Complexity vs Performance: More Parameters ≠ Better',
+             fontsize=14, fontweight='bold', pad=15)
+ax.set_ylim(0.45, 0.85)
+ax.grid(True, alpha=0.2)
+
+# Add annotation for Transformer overfitting
+ax.annotate('Overfitting!\n(85K params, R²=0.534)',
+            xy=(85000, 0.534), xytext=(20000, 0.48),
+            fontsize=11, color='#dc2626', fontweight='bold',
+            arrowprops=dict(arrowstyle='->', color='#dc2626', lw=2),
+            bbox=dict(boxstyle='round,pad=0.5', facecolor='#fff1f1', edgecolor='#dc2626', alpha=0.9))
+
+# Efficiency zone
+from matplotlib.patches import FancyBboxPatch
+rect = FancyBboxPatch((3, 0.75), 200, 0.09, boxstyle='round,pad=0.01',
+                       facecolor='#2563eb', alpha=0.08, edgecolor='#2563eb', linewidth=1)
+ax.add_patch(rect)
+ax.text(20, 0.815, 'Efficiency Sweet Spot', fontsize=10, color='#2563eb',
+        fontweight='bold', alpha=0.7)
+
+plt.tight_layout()
+plt.show()
+```
+
+::: {.callout-important}
+## 복잡도 패러독스
+- **Ridge (~38 params)**: R² = 0.762 → 최소 파라미터로 준수한 성능
+- **Transformer (~85K params)**: R² = 0.534 → 과적합으로 **최악의 성능**
+- **WEns (~1K params)**: R² = 0.803 → 적절한 복잡도에서 **최고 성능**
+
+> 변동성 예측 환경 특유의 고잡음 환경에서는 수만 개의 파라미터를 가진 거대 딥러닝보다 정교하게 설계된 소규모 모델이 안정적인 성능을 달성합니다.
+:::
+
+---
+
+## 4. 딥러닝 피처 통제 실험
+
+BiLSTM-A에 37개 전체 피처를 적용하면 차원의 저주로 성능이 급락합니다.
+
+```{python}
+#| echo: false
+#| fig-width: 14
+#| fig-height: 6
+#| label: dl-feature-control
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+plt.rcParams.update({
+    'font.family': 'DejaVu Sans',
+    'figure.facecolor': '#ffffff',
+    'axes.facecolor': '#ffffff',
+    'axes.edgecolor': '#cccccc',
+    'axes.labelcolor': '#333333',
+    'text.color': '#333333',
+    'xtick.color': '#555555',
+    'ytick.color': '#555555',
+})
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 6))
+
+# Left: BiLSTM-A 3feat vs 37feat
+categories = ['BiLSTM-A\n(3 feat)\nRS, GK, RC', 'BiLSTM-A\n(37 feat)\nFull set']
+pooled_r2 = [0.780, 0.538]
+colors = ['#16a34a', '#dc2626']
+
+bars = ax1.bar(categories, pooled_r2, color=colors, width=0.5, edgecolor='#f5f5f5', linewidth=1.5)
+for bar, val in zip(bars, pooled_r2):
+    ax1.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.01,
+             f'R² = {val:.3f}', ha='center', fontsize=14, fontweight='bold',
+             color='#333333')
+
+ax1.set_ylabel('Pooled R² (1~22d)', fontsize=12, fontweight='bold')
+ax1.set_title('BiLSTM-A: Feature Count Effect', fontsize=13, fontweight='bold', pad=12)
+ax1.set_ylim(0, 0.9)
+ax1.grid(axis='y', alpha=0.2)
+
+# Add delta annotation
+ax1.annotate('', xy=(1, 0.55), xytext=(0, 0.77),
+             arrowprops=dict(arrowstyle='->', color='#dc2626', lw=3))
+ax1.text(0.5, 0.65, '▼ -0.242\nCurse of\nDimensionality',
+         ha='center', fontsize=12, color='#dc2626', fontweight='bold')
+
+# Right: Per-asset breakdown (37 feat)
+assets = ['SPY', 'QQQ', 'IWM', 'EFA', 'EEM', 'TLT', 'IEF', 'AGG', 'GLD', 'SLV', 'USO']
+r2_3feat = [0.30, 0.26, 0.22, 0.14, 0.06, 0.00, 0.03, 0.02, 0.11, 0.12, -0.08]
+r2_37feat = [-0.18, -0.81, -0.15, -0.22, -0.35, -0.45, -0.30, -0.28, -0.20, -0.25, -0.40]
+
+x = np.arange(len(assets))
+w = 0.35
+
+bars1 = ax2.bar(x - w/2, r2_3feat, w, label='3 feat (optimal)', color='#16a34a', alpha=0.85)
+bars2 = ax2.bar(x + w/2, r2_37feat, w, label='37 feat (overfit)', color='#dc2626', alpha=0.85)
+
+ax2.set_xticks(x)
+ax2.set_xticklabels(assets, fontsize=9, rotation=45)
+ax2.set_ylabel('Individual Asset R²', fontsize=12, fontweight='bold')
+ax2.set_title('Per-Asset R² Comparison (22d)', fontsize=13, fontweight='bold', pad=12)
+ax2.axhline(y=0, color='#333333', linewidth=0.8, linestyle='-')
+ax2.legend(fontsize=10, facecolor='#ffffff', edgecolor='#cccccc', labelcolor='#333333')
+ax2.grid(axis='y', alpha=0.2)
+
+plt.tight_layout()
+plt.show()
+```
+
+::: {.callout-warning}
+## 차원의 저주 (Curse of Dimensionality)
+BiLSTM-A에 37개 전체 피처를 적용한 결과:
+- 풀링 R²가 **0.780 → 0.538**로 급락 (-0.242)
+- 대다수 개별 자산에서 **음수 R²** 기록 (SPY -0.18, QQQ -0.81)
+- 딥러닝 예측이 단순 역사적 평균보다 못한 결과
+
+이는 3개 핵심 range 피처 선택이 "불공정한 모델 축소"가 아니라 **과적합 통제를 위한 최적의 피처 설계**였음을 입증합니다.
+:::
+
+---
+
+## 5. 핵심 인사이트 종합
+
+```{python}
+#| echo: false
+#| fig-width: 14
+#| fig-height: 7
+#| label: insight-summary
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+plt.rcParams.update({
+    'font.family': 'DejaVu Sans',
+    'figure.facecolor': '#ffffff',
+    'axes.facecolor': '#ffffff',
+    'axes.edgecolor': '#cccccc',
+    'axes.labelcolor': '#333333',
+    'text.color': '#333333',
+    'xtick.color': '#555555',
+    'ytick.color': '#555555',
+})
+
+fig, axes = plt.subplots(1, 3, figsize=(14, 7))
+
+# 1) Feature Engineering Cumulative Effect
+stages = ['HAR\n(base 3)', '+GARCH\n+VolOfVol', '+HF Proxy\n(OHLC)', '+IV Surface\n(VIX)', '+Alt Data\n(Volume)', 'WEns\nEnsemble', 'ElasticNet\n-59']
+r2_vals = [0.732, 0.758, 0.779, 0.790, 0.790, 0.803, 0.807]
+deltas = [0, 0.026, 0.021, 0.011, 0.000, 0.013, 0.004]
+
+colors_fe = ['#2563eb', '#2563eb', '#16a34a', '#d97706', '#6b7280', '#7c3aed', '#7c3aed']
+bars = axes[0].bar(range(len(stages)), r2_vals, color=colors_fe, alpha=0.85,
+                    edgecolor='#f5f5f5', linewidth=0.5)
+axes[0].set_xticks(range(len(stages)))
+axes[0].set_xticklabels(stages, fontsize=7, rotation=0)
+axes[0].set_ylabel('Pooled R²', fontsize=10)
+axes[0].set_title('Feature Engineering\nCumulative Effect', fontsize=11, fontweight='bold')
+axes[0].set_ylim(0.7, 0.82)
+axes[0].axhline(y=0.80, color='#d97706', linewidth=1, linestyle='--', alpha=0.5)
+axes[0].text(3, 0.802, 'R²=0.80 Wall', fontsize=8, color='#d97706')
+axes[0].grid(axis='y', alpha=0.2)
+
+for bar, val, d in zip(bars, r2_vals, deltas):
+    label = f'{val:.3f}'
+    if d > 0:
+        label += f'\n(+{d:.3f})'
+    axes[0].text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.002,
+                 label, ha='center', fontsize=7, color='#333333')
+
+# 2) VIX Regime Analysis
+regimes = ['Low VIX\n(<50%)', 'Mid VIX\n(50~90%)', 'High VIX\n(>90%)']
+har3_r2 = [0.739, 0.698, 0.602]
+wens_r2 = [0.781, 0.722, 0.765]
+deltas_r = [0.042, 0.024, 0.163]
+
+x = np.arange(len(regimes))
+w = 0.3
+bars_h = axes[1].bar(x - w/2, har3_r2, w, label='HAR-3', color='#9ca3af', alpha=0.85)
+bars_w = axes[1].bar(x + w/2, wens_r2, w, label='WEns', color='#7c3aed', alpha=0.85)
+
+for i, d in enumerate(deltas_r):
+    axes[1].text(i, max(har3_r2[i], wens_r2[i]) + 0.015,
+                 f'+{d:.3f}', ha='center', fontsize=10, fontweight='bold',
+                 color='#16a34a' if d > 0.1 else '#555555')
+
+axes[1].set_xticks(x)
+axes[1].set_xticklabels(regimes, fontsize=9)
+axes[1].set_ylabel('Pooled R²', fontsize=10)
+axes[1].set_title('VIX Regime Analysis\nHAR-3 vs WEns', fontsize=11, fontweight='bold')
+axes[1].set_ylim(0.5, 0.85)
+axes[1].legend(fontsize=9, facecolor='#ffffff', edgecolor='#cccccc', labelcolor='#333333')
+axes[1].grid(axis='y', alpha=0.2)
+
+# 3) Model Type Performance Summary
+model_types = ['Linear\n(Ridge/LASSO)', 'Ensemble\n(WEns)', 'DL\n(BiLSTM-A)', 'Tree\n(RF)', 'NN\n(MLP/Trans)']
+best_r2 = [0.798, 0.803, 0.780, 0.770, 0.618]
+type_colors_list = ['#2563eb', '#7c3aed', '#d97706', '#16a34a', '#dc2626']
+
+bars = axes[2].bar(model_types, best_r2, color=type_colors_list, alpha=0.85,
+                    edgecolor='#f5f5f5', linewidth=1)
+axes[2].set_ylabel('Best Pooled R² (22d)', fontsize=10)
+axes[2].set_title('Model Type\nRanking (22d)', fontsize=11, fontweight='bold')
+axes[2].set_ylim(0.5, 0.85)
+axes[2].grid(axis='y', alpha=0.2)
+
+for bar, val in zip(bars, best_r2):
+    axes[2].text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.008,
+                 f'{val:.3f}', ha='center', fontsize=10, fontweight='bold', color='#333333')
+
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## 리뷰 결론
+
+::: {.callout-important}
+## 5가지 핵심 발견
+
+1. **"복잡도 ≠ 성능" 원칙 확립**: 변동성 예측처럼 잡음이 높은 금융 시계열에서는 Transformer(85K params) 같은 거대 모델보다 Ridge(38 params) + 적절한 규제가 훨씬 효과적이다.
+
+2. **지평별 최적 모델 교차 현상**: 하나의 모델이 모든 지평에서 최적이 아니다. 단기는 선형(WEns), 중기는 DL(BiLSTM-A), 장기는 트리(RF)로 지평에 따라 최적 구조가 달라진다.
+
+3. **피처 설계가 모델 구조보다 중요**: BiLSTM-A가 3개 range 피처만으로 37피처 선형 모델과 경쟁한 반면, 37피처를 넣으면 R²가 0.780→0.538로 급락. 피처 선택이 모델 복잡도보다 결정적이다.
+
+4. **VIX 레짐별 차별적 개선**: WEns의 HAR-3 대비 개선 폭은 High VIX(상위 10%) 구간에서 +0.163으로 가장 크다. 위기 시 IV Surface와 HF Proxy 피처의 추가 정보가 핵심이다.
+
+5. **앙상블의 가치**: 선형(Ridge 70%) + 트리(XGBoost 30%) 결합이 개별 모델 대비 일관된 개선을 제공하며 R²=0.80 벽을 돌파했다.
+:::
+
+---
+
+## 관련 자료
+
+- [모델 아키텍처 비교](/experiments/phase13_model_comparison.html) - Multi-Horizon 상세 비교
+- [V71 Ridge 분석](/experiments/22day_prediction.html) - 단기 챔피언 상세
+- [V50 LSTM 분석](/experiments/1day_prediction.html) - 중기 챔피언 상세
+- [피처 분석](/experiments/feature_analysis.html) - 피처 중요도 상세
+- [V71 강건성 검증](/experiments/champion_robustness.html) - 6종 강건성 테스트

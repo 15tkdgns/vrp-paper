@@ -1,0 +1,11 @@
+{
+  "nn_comparison": {
+    "Simple MLP": 0.8332933187484741,
+    "Deep MLP (Residual)": 0.8492031693458557,
+    "LSTM (DeepVol)": 0.8385379314422607,
+    "Transformer": 0.8430364727973938,
+    "TCN": 0.8347473740577698
+  },
+  "best_model": "Deep MLP (Residual)",
+  "best_r2": 0.8492031693458557
+}

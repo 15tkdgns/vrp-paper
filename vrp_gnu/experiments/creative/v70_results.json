@@ -1,0 +1,79 @@
+{
+  "ridge": 0.6748398652345131,
+  "weighted": 0.7160801430877376,
+  "stacking": 0.7598731544257833,
+  "best_name": "Stacking",
+  "best_r2": 0.7598731544257833,
+  "best_alphas": {
+    "Equity": 1000.0,
+    "Bond": 1000.0,
+    "Commodity": 1000.0,
+    "Other": 0.01
+  },
+  "n_assets": 22,
+  "n_features": 29,
+  "features": [
+    "LogRV_lag1",
+    "LogRV_lag5",
+    "LogRV_lag10",
+    "LogRV_lag22",
+    "Garch_Daily",
+    "Garch_Weekly",
+    "LogRV_Std5",
+    "LogRV_Std22",
+    "RV_Mom5",
+    "RV_Mom22",
+    "LogRV_1D",
+    "LogRV_5D",
+    "RealSkew",
+    "RealKurt",
+    "SPY_LogRV",
+    "TLT_LogRV",
+    "Corr_SPY",
+    "Ret_lag1",
+    "Ret_abs_lag1",
+    "VIX_Level",
+    "VIX_Change",
+    "VIX_MA5",
+    "VIX_Term",
+    "VRP_Proxy",
+    "YieldCurve",
+    "YieldCurve_Chg",
+    "CreditSpread",
+    "CreditSpread_Chg",
+    "MktBreadth"
+  ],
+  "asset_groups": {
+    "Equity": [
+      "SPY",
+      "QQQ",
+      "IWM",
+      "EFA",
+      "EEM",
+      "XLF",
+      "XLE",
+      "XLK",
+      "XLV",
+      "XLU",
+      "FXI",
+      "EWJ"
+    ],
+    "Bond": [
+      "TLT",
+      "IEF",
+      "AGG",
+      "HYG",
+      "LQD"
+    ],
+    "Commodity": [
+      "GLD",
+      "SLV",
+      "USO"
+    ],
+    "Other": [
+      "VNQ",
+      "UUP"
+    ]
+  },
+  "xgboost": 0.7105843419852343
+}
