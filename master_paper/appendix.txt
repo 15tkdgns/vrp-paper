@@ -210,16 +210,24 @@ l1_ratio
 -
 Random Forest
 n_estimators
-{100, 300}
-seed=0 고정
+200
+seed=42 고정
+Random Forest
+max_depth
+{5, 8, 10}
+-
 Random Forest
 max_features
-{0.5, sqrt}
+sqrt
+-
+Random Forest
+min_samples_leaf
+{5, 20}
 -
 XGBoost
 n_estimators
 {100, 300}
-seed=0 고정
+seed=42 고정
 XGBoost
 max_depth
 {3, 5}
@@ -231,7 +239,7 @@ learning_rate
 LightGBM
 n_estimators
 {100, 300}
-seed=0 고정
+seed=42 고정
 LightGBM
 num_leaves
 {31, 63}
@@ -243,19 +251,31 @@ learning_rate
 MLP
 hidden_layers
 {(64,), (64,32)}
-seed=0 고정
+seed=42 고정
 MLP
-dropout
-{0.1, 0.3}
--
+alpha (L2)
+{0.0001, 0.01}
+sklearn MLPRegressor L2 규제
+MLP
+max_iter
+500
+early_stopping=True, n_iter_no_change=20
 BiLSTM-A
 hidden_units
 {32, 64}
-seed=0 고정
+seed=42 고정
 BiLSTM-A
 dropout
 {0.1, 0.3}
 seq_len=22 고정
+BiLSTM-A
+optimizer
+Adam
+lr=0.001
+BiLSTM-A
+batch_size
+64
+epochs: 15(튜닝) / 20(최종)
 WEns
 pw
 {0.4, 0.5, 0.6, 0.7, 0.8, 0.9}
@@ -610,10 +630,10 @@ IV-only
    - purge gap 적용: test_start = train_end + h
 2. 자산군별 독립 학습 (g ∈ G):
    a. X_train_g, y_train_g 추출 (train_end까지)
-   b. 내부 inner holdout 분할 (train_g의 80/20, purge gap h 적용)
-   c. Ridge 하이퍼파라미터 탐색 (α grid, inner holdout R² 기준)
-   d. XGBoost 하이퍼파라미터 탐색 (grid search, inner holdout R² 기준)
-   e. WEns 가중치 탐색: pw ∈ {0.4,...,0.9}에서 inner holdout R² 최대화
+   b. 내부 검증셋(inner holdout) 분할 (train_g의 80/20, purge gap h 적용)
+   c. Ridge 하이퍼파라미터 탐색 (α grid, 내부 검증셋 R² 기준)
+   d. XGBoost 하이퍼파라미터 탐색 (grid search, 내부 검증셋 R² 기준)
+   e. WEns 가중치 탐색: pw ∈ {0.4,...,0.9}에서 내부 검증셋 R² 최대화
    f. 최적 파라미터로 전체 train_g에 Ridge, XGBoost 재학습
 3. 테스트 구간 예측:
    - y_hat_Ridge = Ridge.predict(X_test_g)

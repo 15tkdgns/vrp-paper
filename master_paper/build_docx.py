@@ -20,7 +20,7 @@ from docx.enum.table import WD_TABLE_ALIGNMENT
 from copy import deepcopy
 
 # ── 경로 설정 ──────────────────────────────────────────────────────────────
-BASE  = Path(r"c:\Users\15tkd\OneDrive\바탕 화면\vrp_paper\master_paper")
+BASE  = Path(r"C:\Users\user\Desktop\vrp\master_paper")
 FILES = ["front.txt","ch1.txt","ch2.txt","ch3.txt","ch4.txt","ch5.txt","appendix.txt"]
 OUT   = BASE / "0421_thesis.docx"
 
@@ -212,7 +212,7 @@ def add_body(doc, text, indent=True, size=10, italic=False):
     para = doc.add_paragraph()
     add_runs_with_sup(para, text, size=size, italic=italic)
     set_para_fmt(para, size=size, sp_before=0, sp_after=6,
-                 indent_first=Pt(20) if indent else 0)
+                 indent_first=20 if indent else 0)
 
 # ── 차례 삽입 (front.txt 처리 전) ────────────────────────────────────────
 from build_toc import build_toc_section
@@ -322,7 +322,7 @@ for fname in FILES:
                     break
                 if not nxt:
                     blank_run += 1
-                    if blank_run >= 2:  # 연속 빈 줄 2개면 표 종료
+                    if blank_run >= 1:  # 빈 줄 1개면 표 종료 (본문 흡수 방지)
                         break
                     i += 1
                     continue

@@ -16,7 +16,7 @@ from docx.oxml import OxmlElement
 from pathlib import Path
 import re
 
-BASE = Path(r"c:\Users\15tkd\OneDrive\바탕 화면\vrp_paper\master_paper")
+BASE = Path(r"C:\Users\user\Desktop\vrp\master_paper")
 FRONT = BASE / "front.txt"
 
 FONT_KO = "신명조"
