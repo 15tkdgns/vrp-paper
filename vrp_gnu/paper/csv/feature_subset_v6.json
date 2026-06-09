@@ -1,32 +1,32 @@
 {
   "HAR (3)": {
     "n_features": 3,
-    "pooled_r2": 0.7573,
-    "median_r2": 0.1931
+    "pooled_r2": 0.7527,
+    "median_r2": 0.1709
   },
   "Range only (5)": {
     "n_features": 5,
-    "pooled_r2": 0.7749,
-    "median_r2": 0.0918
+    "pooled_r2": 0.7703,
+    "median_r2": 0.091
   },
   "GARCH proxy (2)": {
     "n_features": 2,
-    "pooled_r2": 0.0293,
-    "median_r2": -1.797
+    "pooled_r2": 0.0413,
+    "median_r2": -1.7909
   },
   "IV Surface (10)": {
     "n_features": 10,
-    "pooled_r2": 0.2101,
-    "median_r2": -0.7032
+    "pooled_r2": 0.219,
+    "median_r2": -0.7014
   },
   "HAR + Range (8)": {
     "n_features": 8,
-    "pooled_r2": 0.7899,
-    "median_r2": 0.2127
+    "pooled_r2": 0.7848,
+    "median_r2": 0.1813
   },
   "Full (35)": {
     "n_features": 35,
-    "pooled_r2": 0.8026,
-    "median_r2": 0.2583
+    "pooled_r2": 0.7968,
+    "median_r2": 0.226
   }
 }

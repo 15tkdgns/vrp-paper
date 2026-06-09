@@ -23,9 +23,10 @@ ASSET_CLASS = {a: cls for cls, assets in ASSET_GROUPS.items() for a in assets}
 HAR_FEATS   = ['LogRV_lag1', 'LogRV_lag5', 'LogRV_lag22']
 ALPHA_GRID  = [0.0001, 0.001, 0.01, 0.05, 0.1, 0.5]
 
-RESULTS_JSON = '/root/vrp/results/main_benchmark_v6_results.json'
-CACHE_DIR    = '/root/vrp/data'
-OUT_CSV      = '/root/vrp/paper/csv/lasso_har_comparison.csv'
+_SCRIPT_DIR  = os.path.dirname(os.path.abspath(__file__))
+RESULTS_JSON = os.path.join(_SCRIPT_DIR, 'results', 'main_benchmark_v6_results.json')
+CACHE_DIR    = os.path.join(_SCRIPT_DIR, 'data')
+OUT_CSV      = os.path.join(_SCRIPT_DIR, '..', 'paper', 'csv', 'lasso_har_comparison.csv')
 
 with open(RESULTS_JSON) as f:
     saved = json.load(f)

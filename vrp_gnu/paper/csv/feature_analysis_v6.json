@@ -2,215 +2,215 @@
   "group_removal": {
     "IV Surface": {
       "n_removed": 10,
-      "full_r2": 0.8036,
-      "reduced_r2": 0.7872,
-      "delta": 0.0164
+      "full_r2": 0.7981,
+      "reduced_r2": 0.7811,
+      "delta": 0.0169
     },
     "HF Proxy": {
       "n_removed": 7,
-      "full_r2": 0.8036,
-      "reduced_r2": 0.7883,
-      "delta": 0.0153
+      "full_r2": 0.7981,
+      "reduced_r2": 0.783,
+      "delta": 0.0151
     },
     "Alternative": {
       "n_removed": 6,
-      "full_r2": 0.8036,
-      "reduced_r2": 0.802,
-      "delta": 0.0016
+      "full_r2": 0.7981,
+      "reduced_r2": 0.7969,
+      "delta": 0.0012
     }
   },
   "kendall_w": {
     "1d": {
-      "W": 0.6656,
-      "p": 0.000488
+      "W": 0.6299,
+      "p": 0.001302
     },
     "5d": {
-      "W": 0.7577,
-      "p": 3.2e-05
+      "W": 0.7754,
+      "p": 1.9e-05
     },
     "22d": {
-      "W": 0.8218,
-      "p": 4e-06
-    },
-    "60d": {
-      "W": 0.8065,
-      "p": 7e-06
-    },
-    "90d": {
       "W": 0.808,
       "p": 7e-06
     },
+    "60d": {
+      "W": 0.8142,
+      "p": 6e-06
+    },
+    "90d": {
+      "W": 0.8221,
+      "p": 4e-06
+    },
     "120d": {
-      "W": 0.7742,
-      "p": 1.9e-05
+      "W": 0.8153,
+      "p": 5e-06
     },
     "180d": {
-      "W": 0.781,
-      "p": 1.6e-05
+      "W": 0.7998,
+      "p": 9e-06
     },
     "252d": {
-      "W": 0.7657,
-      "p": 2.5e-05
+      "W": 0.7711,
+      "p": 2.1e-05
     }
   },
   "hz_importance": {
     "1d": [
       [
-        "Range_Close_Ratio",
-        3.667
-      ],
-      [
         "RogersSatchell_22",
-        4.333
+        3.333
       ],
       [
         "Parkinson_5",
         4.333
       ],
       [
-        "LogRV_lag1",
-        5.0
-      ],
-      [
-        "Parkinson_22",
-        6.333
-      ],
-      [
-        "GarmanKlass_22",
-        7.333
-      ],
-      [
-        "LogRV_lag10",
-        9.0
-      ],
-      [
-        "IV_VRP",
-        11.667
-      ],
-      [
-        "IV_VIX9D",
-        11.667
-      ],
-      [
-        "IV_VIX_TermSlope",
-        12.667
-      ]
-    ],
-    "1d_scores": {
-      "LogRV_lag1": 6.7903,
-      "LogRV_lag5": 1.5206,
-      "LogRV_lag10": 8.7694,
-      "LogRV_lag22": 2.0199,
-      "LogRV_Std5": 0.9172,
-      "LogRV_Std22": 1.1148,
-      "RV_Mom5": 1.0342,
-      "RV_Mom22": 2.6696,
-      "SPY_LogRV": 4.0655,
-      "Ret_lag1": 0.9959,
-      "Ret_abs_lag1": 1.2189,
-      "Corr_SPY": 1.8283,
-      "Parkinson_5": 6.1414,
-      "Parkinson_22": 6.5452,
-      "GarmanKlass_22": 3.8182,
-      "RogersSatchell_22": 8.3202,
-      "Range_Close_Ratio": 10.792,
-      "Overnight_Vol": 1.9604,
-      "Overnight_Ret": 1.2411,
-      "IV_VIX": 1.8165,
-      "IV_VIX_chg": 0.6828,
-      "IV_VIX_ma5": 1.6941,
-      "IV_VIX_std5": 1.4042,
-      "IV_VIX3M": 1.5828,
-      "IV_VIX_TermSlope": 2.1508,
-      "IV_VIX9D": 3.8173,
-      "IV_VIX_ShortSlope": 1.2346,
-      "IV_VRP": 2.3721,
-      "IV_VRP_ma22": 3.4871,
-      "AltVol_Amihud": 2.0343,
-      "AltVol_Vol_Ratio": 0.9966,
-      "AltVol_PV_Corr": 0.8119,
-      "AltVol_Vol_Surprise": 1.5927,
-      "AltVol_Order_Imbalance": 1.3887,
-      "AltVol_Kyle_Lambda": 1.1705
-    },
-    "5d": [
-      [
-        "RogersSatchell_22",
-        2.0
-      ],
-      [
-        "Parkinson_5",
-        4.0
-      ],
-      [
         "Range_Close_Ratio",
-        4.667
-      ],
-      [
-        "GarmanKlass_22",
         5.0
       ],
       [
         "LogRV_lag1",
-        6.0
+        5.333
       ],
       [
         "Parkinson_22",
         7.0
       ],
       [
-        "LogRV_lag22",
+        "LogRV_lag10",
+        7.333
+      ],
+      [
+        "IV_VRP",
         8.0
       ],
       [
+        "GarmanKlass_22",
+        9.0
+      ],
+      [
+        "IV_VIX9D",
+        12.333
+      ],
+      [
+        "IV_VIX_TermSlope",
+        14.333
+      ]
+    ],
+    "1d_scores": {
+      "LogRV_lag1": 6.6249,
+      "LogRV_lag5": 2.0673,
+      "LogRV_lag10": 6.1843,
+      "LogRV_lag22": 1.6332,
+      "LogRV_Std5": 0.9557,
+      "LogRV_Std22": 1.1552,
+      "RV_Mom5": 0.8711,
+      "RV_Mom22": 2.7469,
+      "SPY_LogRV": 4.6068,
+      "Ret_lag1": 0.9917,
+      "Ret_abs_lag1": 1.5525,
+      "Corr_SPY": 1.8884,
+      "Parkinson_5": 5.9933,
+      "Parkinson_22": 5.7544,
+      "GarmanKlass_22": 4.093,
+      "RogersSatchell_22": 8.6506,
+      "Range_Close_Ratio": 9.4129,
+      "Overnight_Vol": 1.5815,
+      "Overnight_Ret": 0.939,
+      "IV_VIX": 2.2592,
+      "IV_VIX_chg": 0.7263,
+      "IV_VIX_ma5": 1.6341,
+      "IV_VIX_std5": 1.4722,
+      "IV_VIX3M": 1.5423,
+      "IV_VIX_TermSlope": 2.0847,
+      "IV_VIX9D": 3.3294,
+      "IV_VIX_ShortSlope": 1.5211,
+      "IV_VRP": 4.1956,
+      "IV_VRP_ma22": 3.9645,
+      "AltVol_Amihud": 2.7895,
+      "AltVol_Vol_Ratio": 1.1067,
+      "AltVol_PV_Corr": 0.7792,
+      "AltVol_Vol_Surprise": 1.8903,
+      "AltVol_Order_Imbalance": 1.5963,
+      "AltVol_Kyle_Lambda": 1.406
+    },
+    "5d": [
+      [
+        "RogersSatchell_22",
+        2.333
+      ],
+      [
+        "GarmanKlass_22",
+        4.667
+      ],
+      [
+        "Parkinson_5",
+        5.333
+      ],
+      [
+        "LogRV_lag1",
+        5.667
+      ],
+      [
+        "Range_Close_Ratio",
+        5.667
+      ],
+      [
+        "Parkinson_22",
+        7.667
+      ],
+      [
         "IV_VRP_ma22",
+        9.333
+      ],
+      [
+        "LogRV_lag22",
         9.667
       ],
       [
         "SPY_LogRV",
-        10.0
+        10.333
       ],
       [
-        "IV_VIX9D",
-        11.667
+        "LogRV_lag5",
+        11.0
       ]
     ],
     "5d_scores": {
-      "LogRV_lag1": 10.6614,
-      "LogRV_lag5": 1.7337,
-      "LogRV_lag10": 2.5567,
-      "LogRV_lag22": 3.8179,
-      "LogRV_Std5": 0.4879,
-      "LogRV_Std22": 0.4768,
-      "RV_Mom5": 0.8659,
-      "RV_Mom22": 2.1124,
-      "SPY_LogRV": 6.494,
-      "Ret_lag1": 0.7881,
-      "Ret_abs_lag1": 0.3755,
-      "Corr_SPY": 1.382,
-      "Parkinson_5": 7.0698,
-      "Parkinson_22": 6.0178,
-      "GarmanKlass_22": 6.8914,
-      "RogersSatchell_22": 13.4305,
-      "Range_Close_Ratio": 5.8916,
-      "Overnight_Vol": 1.6449,
-      "Overnight_Ret": 0.5054,
-      "IV_VIX": 1.049,
-      "IV_VIX_chg": 0.2488,
-      "IV_VIX_ma5": 2.1027,
-      "IV_VIX_std5": 1.7596,
-      "IV_VIX3M": 1.1754,
-      "IV_VIX_TermSlope": 0.926,
-      "IV_VIX9D": 4.9926,
-      "IV_VIX_ShortSlope": 2.626,
-      "IV_VRP": 2.0706,
-      "IV_VRP_ma22": 4.1205,
-      "AltVol_Amihud": 1.7208,
-      "AltVol_Vol_Ratio": 0.6841,
-      "AltVol_PV_Corr": 0.5824,
-      "AltVol_Vol_Surprise": 0.42,
-      "AltVol_Order_Imbalance": 0.8991,
-      "AltVol_Kyle_Lambda": 1.4184
+      "LogRV_lag1": 8.3332,
+      "LogRV_lag5": 4.3786,
+      "LogRV_lag10": 1.6612,
+      "LogRV_lag22": 3.5694,
+      "LogRV_Std5": 0.4728,
+      "LogRV_Std22": 0.505,
+      "RV_Mom5": 0.8504,
+      "RV_Mom22": 2.1142,
+      "SPY_LogRV": 7.1842,
+      "Ret_lag1": 0.56,
+      "Ret_abs_lag1": 0.4153,
+      "Corr_SPY": 1.2992,
+      "Parkinson_5": 6.7591,
+      "Parkinson_22": 6.1155,
+      "GarmanKlass_22": 7.2208,
+      "RogersSatchell_22": 11.1939,
+      "Range_Close_Ratio": 5.0762,
+      "Overnight_Vol": 1.4744,
+      "Overnight_Ret": 0.4612,
+      "IV_VIX": 4.0262,
+      "IV_VIX_chg": 0.2702,
+      "IV_VIX_ma5": 1.8948,
+      "IV_VIX_std5": 2.0346,
+      "IV_VIX3M": 1.2342,
+      "IV_VIX_TermSlope": 0.8998,
+      "IV_VIX9D": 3.5683,
+      "IV_VIX_ShortSlope": 2.8555,
+      "IV_VRP": 2.2996,
+      "IV_VRP_ma22": 4.5752,
+      "AltVol_Amihud": 2.3767,
+      "AltVol_Vol_Ratio": 0.7376,
+      "AltVol_PV_Corr": 0.6281,
+      "AltVol_Vol_Surprise": 0.4139,
+      "AltVol_Order_Imbalance": 0.924,
+      "AltVol_Kyle_Lambda": 1.6167
     },
     "22d": [
       [
@@ -219,77 +219,77 @@
       ],
       [
         "LogRV_lag1",
-        3.667
+        4.0
       ],
       [
         "Parkinson_5",
-        4.333
-      ],
-      [
-        "GarmanKlass_22",
         4.667
       ],
       [
-        "Range_Close_Ratio",
-        5.333
+        "GarmanKlass_22",
+        5.0
       ],
       [
         "Parkinson_22",
-        6.0
+        7.0
+      ],
+      [
+        "Range_Close_Ratio",
+        7.0
       ],
       [
         "IV_VRP_ma22",
-        9.667
+        9.0
       ],
       [
-        "LogRV_lag22",
-        9.667
+        "LogRV_lag5",
+        9.0
       ],
       [
         "IV_VIX",
-        10.667
+        12.0
       ],
       [
-        "IV_VRP",
-        12.333
+        "LogRV_lag22",
+        12.667
       ]
     ],
     "22d_scores": {
-      "LogRV_lag1": 13.2252,
-      "LogRV_lag5": 1.926,
-      "LogRV_lag10": 1.8488,
-      "LogRV_lag22": 2.6148,
-      "LogRV_Std5": 0.4653,
-      "LogRV_Std22": 0.6995,
-      "RV_Mom5": 0.254,
-      "RV_Mom22": 2.8228,
-      "SPY_LogRV": 2.5729,
-      "Ret_lag1": 0.4226,
-      "Ret_abs_lag1": 0.6155,
-      "Corr_SPY": 1.1269,
-      "Parkinson_5": 6.6643,
-      "Parkinson_22": 4.5109,
-      "GarmanKlass_22": 5.9267,
-      "RogersSatchell_22": 20.8724,
-      "Range_Close_Ratio": 7.5519,
-      "Overnight_Vol": 1.7683,
-      "Overnight_Ret": 0.2895,
-      "IV_VIX": 3.2738,
-      "IV_VIX_chg": 0.156,
-      "IV_VIX_ma5": 1.6255,
-      "IV_VIX_std5": 0.6816,
-      "IV_VIX3M": 1.7503,
-      "IV_VIX_TermSlope": 2.1541,
-      "IV_VIX9D": 2.4927,
-      "IV_VIX_ShortSlope": 0.6672,
-      "IV_VRP": 2.5449,
-      "IV_VRP_ma22": 4.4542,
-      "AltVol_Amihud": 0.8515,
-      "AltVol_Vol_Ratio": 0.7831,
-      "AltVol_PV_Corr": 0.4345,
-      "AltVol_Vol_Surprise": 0.2845,
-      "AltVol_Order_Imbalance": 0.3711,
-      "AltVol_Kyle_Lambda": 1.2967
+      "LogRV_lag1": 10.2338,
+      "LogRV_lag5": 4.1779,
+      "LogRV_lag10": 2.1419,
+      "LogRV_lag22": 2.4304,
+      "LogRV_Std5": 0.5064,
+      "LogRV_Std22": 0.6622,
+      "RV_Mom5": 0.2339,
+      "RV_Mom22": 3.0871,
+      "SPY_LogRV": 2.8574,
+      "Ret_lag1": 0.4254,
+      "Ret_abs_lag1": 0.6368,
+      "Corr_SPY": 1.2664,
+      "Parkinson_5": 6.4787,
+      "Parkinson_22": 4.6129,
+      "GarmanKlass_22": 6.4477,
+      "RogersSatchell_22": 17.5746,
+      "Range_Close_Ratio": 6.875,
+      "Overnight_Vol": 3.1929,
+      "Overnight_Ret": 0.317,
+      "IV_VIX": 3.231,
+      "IV_VIX_chg": 0.1621,
+      "IV_VIX_ma5": 1.4116,
+      "IV_VIX_std5": 0.9603,
+      "IV_VIX3M": 1.9263,
+      "IV_VIX_TermSlope": 2.103,
+      "IV_VIX9D": 2.6377,
+      "IV_VIX_ShortSlope": 0.7933,
+      "IV_VRP": 2.7198,
+      "IV_VRP_ma22": 4.8605,
+      "AltVol_Amihud": 1.3328,
+      "AltVol_Vol_Ratio": 0.8072,
+      "AltVol_PV_Corr": 0.3645,
+      "AltVol_Vol_Surprise": 0.4111,
+      "AltVol_Order_Imbalance": 0.4066,
+      "AltVol_Kyle_Lambda": 1.7138
     },
     "60d": [
       [
@@ -298,7 +298,7 @@
       ],
       [
         "GarmanKlass_22",
-        2.333
+        2.0
       ],
       [
         "LogRV_lag1",
@@ -306,69 +306,69 @@
       ],
       [
         "Parkinson_22",
-        5.667
-      ],
-      [
-        "Range_Close_Ratio",
-        6.333
+        5.333
       ],
       [
         "IV_VRP_ma22",
         8.333
       ],
       [
-        "IV_VIX_ma5",
-        9.333
-      ],
-      [
-        "RV_Mom22",
-        9.667
+        "Range_Close_Ratio",
+        8.667
       ],
       [
         "Parkinson_5",
-        9.667
+        9.333
       ],
       [
         "Overnight_Vol",
-        11.0
+        10.0
+      ],
+      [
+        "IV_VIX_ma5",
+        10.667
+      ],
+      [
+        "LogRV_lag5",
+        11.333
       ]
     ],
     "60d_scores": {
-      "LogRV_lag1": 10.3521,
-      "LogRV_lag5": 1.3406,
-      "LogRV_lag10": 1.1358,
-      "LogRV_lag22": 1.8493,
-      "LogRV_Std5": 0.4179,
-      "LogRV_Std22": 0.9224,
-      "RV_Mom5": 0.45,
-      "RV_Mom22": 2.8661,
-      "SPY_LogRV": 2.3276,
-      "Ret_lag1": 0.1446,
-      "Ret_abs_lag1": 0.3551,
-      "Corr_SPY": 1.4182,
-      "Parkinson_5": 4.1345,
-      "Parkinson_22": 4.1831,
-      "GarmanKlass_22": 12.8843,
-      "RogersSatchell_22": 22.3176,
-      "Range_Close_Ratio": 6.0813,
-      "Overnight_Vol": 3.738,
-      "Overnight_Ret": 0.2432,
-      "IV_VIX": 2.1036,
-      "IV_VIX_chg": 0.0877,
-      "IV_VIX_ma5": 2.5037,
-      "IV_VIX_std5": 0.7238,
-      "IV_VIX3M": 1.7379,
-      "IV_VIX_TermSlope": 1.2496,
-      "IV_VIX9D": 2.2367,
-      "IV_VIX_ShortSlope": 0.666,
-      "IV_VRP": 1.2455,
-      "IV_VRP_ma22": 3.8025,
-      "AltVol_Amihud": 2.1024,
-      "AltVol_Vol_Ratio": 0.9638,
-      "AltVol_PV_Corr": 0.9477,
-      "AltVol_Vol_Surprise": 0.3004,
-      "AltVol_Order_Imbalance": 1.1677,
-      "AltVol_Kyle_Lambda": 0.9991
+      "LogRV_lag1": 8.7314,
+      "LogRV_lag5": 2.5905,
+      "LogRV_lag10": 1.1525,
+      "LogRV_lag22": 1.7006,
+      "LogRV_Std5": 0.4411,
+      "LogRV_Std22": 0.9775,
+      "RV_Mom5": 0.5451,
+      "RV_Mom22": 2.8532,
+      "SPY_LogRV": 2.4301,
+      "Ret_lag1": 0.1708,
+      "Ret_abs_lag1": 0.4991,
+      "Corr_SPY": 1.4807,
+      "Parkinson_5": 3.4866,
+      "Parkinson_22": 5.2267,
+      "GarmanKlass_22": 13.4026,
+      "RogersSatchell_22": 21.7919,
+      "Range_Close_Ratio": 5.093,
+      "Overnight_Vol": 4.4216,
+      "Overnight_Ret": 0.2804,
+      "IV_VIX": 2.2648,
+      "IV_VIX_chg": 0.1134,
+      "IV_VIX_ma5": 2.4345,
+      "IV_VIX_std5": 0.7336,
+      "IV_VIX3M": 1.7686,
+      "IV_VIX_TermSlope": 1.2976,
+      "IV_VIX9D": 2.0979,
+      "IV_VIX_ShortSlope": 0.6679,
+      "IV_VRP": 1.3943,
+      "IV_VRP_ma22": 3.9219,
+      "AltVol_Amihud": 1.3533,
+      "AltVol_Vol_Ratio": 0.9738,
+      "AltVol_PV_Corr": 0.7764,
+      "AltVol_Vol_Surprise": 0.3589,
+      "AltVol_Order_Imbalance": 1.0322,
+      "AltVol_Kyle_Lambda": 1.5355
     },
     "90d": [
       [
@@ -377,161 +377,161 @@
       ],
       [
         "LogRV_lag1",
-        3.333
-      ],
-      [
-        "GarmanKlass_22",
-        4.667
+        3.667
       ],
       [
         "Parkinson_22",
-        6.667
+        5.0
+      ],
+      [
+        "GarmanKlass_22",
+        5.0
       ],
       [
         "Overnight_Vol",
-        6.667
+        6.0
       ],
       [
         "Range_Close_Ratio",
-        7.0
+        6.667
       ],
       [
         "Parkinson_5",
-        7.667
+        8.0
       ],
       [
         "IV_VRP_ma22",
-        10.0
+        9.667
       ],
       [
-        "AltVol_Amihud",
-        12.333
+        "LogRV_lag5",
+        12.0
       ],
       [
-        "IV_VIX_ma5",
-        12.333
+        "IV_VIX",
+        13.667
       ]
     ],
     "90d_scores": {
-      "LogRV_lag1": 8.8425,
-      "LogRV_lag5": 1.9164,
-      "LogRV_lag10": 1.8105,
-      "LogRV_lag22": 2.4902,
-      "LogRV_Std5": 0.5413,
-      "LogRV_Std22": 1.2946,
-      "RV_Mom5": 0.4555,
-      "RV_Mom22": 2.9041,
-      "SPY_LogRV": 2.4538,
-      "Ret_lag1": 0.0445,
-      "Ret_abs_lag1": 0.6583,
-      "Corr_SPY": 2.1318,
-      "Parkinson_5": 5.0463,
-      "Parkinson_22": 5.8551,
-      "GarmanKlass_22": 9.9481,
-      "RogersSatchell_22": 13.69,
-      "Range_Close_Ratio": 6.4408,
-      "Overnight_Vol": 6.5306,
-      "Overnight_Ret": 0.2535,
-      "IV_VIX": 2.8121,
-      "IV_VIX_chg": 0.1522,
-      "IV_VIX_ma5": 3.289,
-      "IV_VIX_std5": 0.5468,
-      "IV_VIX3M": 2.9351,
-      "IV_VIX_TermSlope": 1.0193,
-      "IV_VIX9D": 2.5694,
-      "IV_VIX_ShortSlope": 0.7378,
-      "IV_VRP": 1.098,
-      "IV_VRP_ma22": 3.7211,
-      "AltVol_Amihud": 2.9277,
-      "AltVol_Vol_Ratio": 0.6364,
-      "AltVol_PV_Corr": 1.0892,
-      "AltVol_Vol_Surprise": 0.2539,
-      "AltVol_Order_Imbalance": 1.2069,
-      "AltVol_Kyle_Lambda": 1.6971
+      "LogRV_lag1": 8.8734,
+      "LogRV_lag5": 3.1458,
+      "LogRV_lag10": 1.8756,
+      "LogRV_lag22": 2.424,
+      "LogRV_Std5": 0.5367,
+      "LogRV_Std22": 1.3304,
+      "RV_Mom5": 0.4432,
+      "RV_Mom22": 2.9881,
+      "SPY_LogRV": 2.5432,
+      "Ret_lag1": 0.0504,
+      "Ret_abs_lag1": 0.7922,
+      "Corr_SPY": 2.2367,
+      "Parkinson_5": 5.0138,
+      "Parkinson_22": 7.118,
+      "GarmanKlass_22": 8.8475,
+      "RogersSatchell_22": 12.5179,
+      "Range_Close_Ratio": 5.4193,
+      "Overnight_Vol": 6.6238,
+      "Overnight_Ret": 0.2485,
+      "IV_VIX": 3.0582,
+      "IV_VIX_chg": 0.1595,
+      "IV_VIX_ma5": 3.2043,
+      "IV_VIX_std5": 0.5905,
+      "IV_VIX3M": 3.182,
+      "IV_VIX_TermSlope": 1.0858,
+      "IV_VIX9D": 2.396,
+      "IV_VIX_ShortSlope": 0.7815,
+      "IV_VRP": 1.1633,
+      "IV_VRP_ma22": 4.0207,
+      "AltVol_Amihud": 2.2537,
+      "AltVol_Vol_Ratio": 0.6068,
+      "AltVol_PV_Corr": 0.7986,
+      "AltVol_Vol_Surprise": 0.3184,
+      "AltVol_Order_Imbalance": 1.0591,
+      "AltVol_Kyle_Lambda": 2.2928
     },
     "120d": [
       [
         "RogersSatchell_22",
-        2.0
-      ],
-      [
-        "GarmanKlass_22",
-        4.0
-      ],
-      [
-        "LogRV_lag1",
-        4.667
+        2.333
       ],
       [
         "Parkinson_22",
-        4.667
+        3.333
+      ],
+      [
+        "GarmanKlass_22",
+        3.333
+      ],
+      [
+        "LogRV_lag1",
+        5.0
+      ],
+      [
+        "Overnight_Vol",
+        6.667
       ],
       [
         "Parkinson_5",
         7.333
       ],
       [
-        "Overnight_Vol",
-        8.333
+        "IV_VRP_ma22",
+        7.667
       ],
       [
         "LogRV_lag22",
-        9.0
-      ],
-      [
-        "IV_VRP_ma22",
         9.333
       ],
       [
-        "Range_Close_Ratio",
-        11.0
+        "LogRV_lag5",
+        10.667
       ],
       [
-        "IV_VIX_ma5",
-        14.0
+        "AltVol_Kyle_Lambda",
+        13.333
       ]
     ],
     "120d_scores": {
-      "LogRV_lag1": 8.3602,
-      "LogRV_lag5": 2.7682,
-      "LogRV_lag10": 2.1869,
-      "LogRV_lag22": 4.0874,
-      "LogRV_Std5": 0.608,
-      "LogRV_Std22": 1.4476,
-      "RV_Mom5": 0.6393,
-      "RV_Mom22": 2.4325,
-      "SPY_LogRV": 2.3998,
-      "Ret_lag1": 0.0593,
-      "Ret_abs_lag1": 0.7866,
-      "Corr_SPY": 2.4193,
-      "Parkinson_5": 5.8778,
-      "Parkinson_22": 7.1231,
-      "GarmanKlass_22": 9.1098,
-      "RogersSatchell_22": 8.8967,
-      "Range_Close_Ratio": 3.5451,
-      "Overnight_Vol": 5.6732,
-      "Overnight_Ret": 0.2013,
-      "IV_VIX": 3.1795,
-      "IV_VIX_chg": 0.1312,
-      "IV_VIX_ma5": 3.8492,
-      "IV_VIX_std5": 0.5393,
-      "IV_VIX3M": 3.369,
-      "IV_VIX_TermSlope": 1.1971,
-      "IV_VIX9D": 2.3945,
-      "IV_VIX_ShortSlope": 1.0244,
-      "IV_VRP": 1.3485,
-      "IV_VRP_ma22": 4.2707,
-      "AltVol_Amihud": 2.2474,
-      "AltVol_Vol_Ratio": 0.6691,
-      "AltVol_PV_Corr": 2.9385,
-      "AltVol_Vol_Surprise": 0.2225,
-      "AltVol_Order_Imbalance": 1.2833,
-      "AltVol_Kyle_Lambda": 2.7135
+      "LogRV_lag1": 7.5234,
+      "LogRV_lag5": 4.4206,
+      "LogRV_lag10": 2.2846,
+      "LogRV_lag22": 4.0333,
+      "LogRV_Std5": 0.5097,
+      "LogRV_Std22": 1.5332,
+      "RV_Mom5": 0.6028,
+      "RV_Mom22": 2.3667,
+      "SPY_LogRV": 2.3926,
+      "Ret_lag1": 0.0831,
+      "Ret_abs_lag1": 1.0318,
+      "Corr_SPY": 2.5454,
+      "Parkinson_5": 5.526,
+      "Parkinson_22": 7.1561,
+      "GarmanKlass_22": 8.5693,
+      "RogersSatchell_22": 8.9058,
+      "Range_Close_Ratio": 2.6773,
+      "Overnight_Vol": 6.1573,
+      "Overnight_Ret": 0.1966,
+      "IV_VIX": 3.326,
+      "IV_VIX_chg": 0.1484,
+      "IV_VIX_ma5": 3.7934,
+      "IV_VIX_std5": 0.4976,
+      "IV_VIX3M": 3.5662,
+      "IV_VIX_TermSlope": 1.224,
+      "IV_VIX9D": 2.3516,
+      "IV_VIX_ShortSlope": 1.1546,
+      "IV_VRP": 1.4043,
+      "IV_VRP_ma22": 4.6032,
+      "AltVol_Amihud": 2.1411,
+      "AltVol_Vol_Ratio": 0.6653,
+      "AltVol_PV_Corr": 2.2596,
+      "AltVol_Vol_Surprise": 0.3424,
+      "AltVol_Order_Imbalance": 1.0585,
+      "AltVol_Kyle_Lambda": 2.9484
     },
     "180d": [
       [
         "RogersSatchell_22",
-        1.667
+        1.333
       ],
       [
         "GarmanKlass_22",
@@ -539,73 +539,73 @@
       ],
       [
         "Parkinson_5",
-        4.0
+        4.333
       ],
       [
         "Parkinson_22",
-        5.333
+        4.667
       ],
       [
         "LogRV_lag1",
-        6.0
-      ],
-      [
-        "LogRV_lag22",
-        7.0
-      ],
-      [
-        "Overnight_Vol",
-        11.0
-      ],
-      [
-        "IV_VRP_ma22",
-        12.0
+        6.667
       ],
       [
         "LogRV_lag5",
-        12.667
+        7.667
+      ],
+      [
+        "LogRV_lag22",
+        8.0
+      ],
+      [
+        "Overnight_Vol",
+        11.333
+      ],
+      [
+        "IV_VRP_ma22",
+        12.333
       ],
       [
         "Range_Close_Ratio",
-        13.0
+        13.333
       ]
     ],
     "180d_scores": {
-      "LogRV_lag1": 7.2338,
-      "LogRV_lag5": 3.3751,
-      "LogRV_lag10": 2.9321,
-      "LogRV_lag22": 4.5894,
-      "LogRV_Std5": 0.3851,
-      "LogRV_Std22": 1.1631,
-      "RV_Mom5": 0.6899,
-      "RV_Mom22": 1.6894,
-      "SPY_LogRV": 2.1609,
-      "Ret_lag1": 0.1221,
-      "Ret_abs_lag1": 0.9555,
-      "Corr_SPY": 2.3899,
-      "Parkinson_5": 6.7596,
-      "Parkinson_22": 6.1189,
-      "GarmanKlass_22": 11.0019,
-      "RogersSatchell_22": 10.8152,
-      "Range_Close_Ratio": 3.0541,
-      "Overnight_Vol": 3.8166,
-      "Overnight_Ret": 0.1417,
-      "IV_VIX": 2.9664,
-      "IV_VIX_chg": 0.1229,
-      "IV_VIX_ma5": 2.1363,
-      "IV_VIX_std5": 0.5827,
-      "IV_VIX3M": 2.6162,
-      "IV_VIX_TermSlope": 1.9814,
-      "IV_VIX9D": 1.7279,
-      "IV_VIX_ShortSlope": 1.6248,
-      "IV_VRP": 1.8165,
-      "IV_VRP_ma22": 3.3912,
-      "AltVol_Amihud": 2.7142,
-      "AltVol_Vol_Ratio": 0.6346,
-      "AltVol_PV_Corr": 3.721,
-      "AltVol_Vol_Surprise": 0.1392,
-      "AltVol_Order_Imbalance": 1.4904,
-      "AltVol_Kyle_Lambda": 2.9398
+      "LogRV_lag1": 6.1246,
+      "LogRV_lag5": 4.5568,
+      "LogRV_lag10": 2.9735,
+      "LogRV_lag22": 4.5633,
+      "LogRV_Std5": 0.422,
+      "LogRV_Std22": 1.2918,
+      "RV_Mom5": 0.6517,
+      "RV_Mom22": 1.6725,
+      "SPY_LogRV": 2.2929,
+      "Ret_lag1": 0.1482,
+      "Ret_abs_lag1": 0.9723,
+      "Corr_SPY": 2.7226,
+      "Parkinson_5": 6.7366,
+      "Parkinson_22": 6.4245,
+      "GarmanKlass_22": 10.0283,
+      "RogersSatchell_22": 11.1353,
+      "Range_Close_Ratio": 2.8713,
+      "Overnight_Vol": 3.8449,
+      "Overnight_Ret": 0.1921,
+      "IV_VIX": 2.8086,
+      "IV_VIX_chg": 0.2843,
+      "IV_VIX_ma5": 2.3716,
+      "IV_VIX_std5": 0.6319,
+      "IV_VIX3M": 2.8398,
+      "IV_VIX_TermSlope": 1.937,
+      "IV_VIX9D": 1.687,
+      "IV_VIX_ShortSlope": 1.775,
+      "IV_VRP": 1.3931,
+      "IV_VRP_ma22": 3.3749,
+      "AltVol_Amihud": 2.8616,
+      "AltVol_Vol_Ratio": 0.6305,
+      "AltVol_PV_Corr": 3.0508,
+      "AltVol_Vol_Surprise": 0.2266,
+      "AltVol_Order_Imbalance": 1.3639,
+      "AltVol_Kyle_Lambda": 3.1381
     },
     "252d": [
       [
@@ -614,77 +614,77 @@
       ],
       [
         "GarmanKlass_22",
-        2.667
+        2.333
       ],
       [
         "Parkinson_5",
-        6.333
+        5.667
       ],
       [
         "LogRV_lag1",
-        7.0
-      ],
-      [
-        "LogRV_lag22",
-        7.333
-      ],
-      [
-        "IV_VRP_ma22",
-        8.0
-      ],
-      [
-        "AltVol_Kyle_Lambda",
-        8.333
+        7.667
       ],
       [
         "Parkinson_22",
-        10.667
+        8.667
+      ],
+      [
+        "LogRV_lag22",
+        8.667
+      ],
+      [
+        "IV_VRP_ma22",
+        8.667
+      ],
+      [
+        "AltVol_Kyle_Lambda",
+        8.667
+      ],
+      [
+        "LogRV_lag5",
+        9.0
       ],
       [
         "AltVol_Amihud",
-        11.333
-      ],
-      [
-        "SPY_LogRV",
-        12.333
+        11.0
       ]
     ],
     "252d_scores": {
-      "LogRV_lag1": 7.1451,
-      "LogRV_lag5": 3.046,
-      "LogRV_lag10": 2.9015,
-      "LogRV_lag22": 3.912,
-      "LogRV_Std5": 0.3397,
-      "LogRV_Std22": 1.0247,
-      "RV_Mom5": 0.8381,
-      "RV_Mom22": 1.5836,
-      "SPY_LogRV": 4.3938,
-      "Ret_lag1": 0.1343,
-      "Ret_abs_lag1": 0.6783,
-      "Corr_SPY": 3.5413,
-      "Parkinson_5": 6.1052,
-      "Parkinson_22": 4.725,
-      "GarmanKlass_22": 10.0682,
-      "RogersSatchell_22": 9.4785,
-      "Range_Close_Ratio": 2.6284,
-      "Overnight_Vol": 3.5359,
-      "Overnight_Ret": 0.2006,
-      "IV_VIX": 1.7141,
-      "IV_VIX_chg": 0.1832,
-      "IV_VIX_ma5": 1.7728,
-      "IV_VIX_std5": 0.5356,
-      "IV_VIX3M": 1.2408,
-      "IV_VIX_TermSlope": 2.2937,
-      "IV_VIX9D": 0.9171,
-      "IV_VIX_ShortSlope": 3.0307,
-      "IV_VRP": 1.4778,
-      "IV_VRP_ma22": 4.0344,
-      "AltVol_Amihud": 5.0201,
-      "AltVol_Vol_Ratio": 0.5226,
-      "AltVol_PV_Corr": 4.614,
-      "AltVol_Vol_Surprise": 0.2244,
-      "AltVol_Order_Imbalance": 1.9962,
-      "AltVol_Kyle_Lambda": 4.1423
+      "LogRV_lag1": 5.6115,
+      "LogRV_lag5": 5.2639,
+      "LogRV_lag10": 2.7189,
+      "LogRV_lag22": 4.0856,
+      "LogRV_Std5": 0.1815,
+      "LogRV_Std22": 1.0901,
+      "RV_Mom5": 0.7931,
+      "RV_Mom22": 1.5205,
+      "SPY_LogRV": 4.6819,
+      "Ret_lag1": 0.1346,
+      "Ret_abs_lag1": 0.6692,
+      "Corr_SPY": 3.8296,
+      "Parkinson_5": 5.9341,
+      "Parkinson_22": 5.2526,
+      "GarmanKlass_22": 9.5324,
+      "RogersSatchell_22": 9.2412,
+      "Range_Close_Ratio": 2.3874,
+      "Overnight_Vol": 3.4422,
+      "Overnight_Ret": 0.1595,
+      "IV_VIX": 1.7447,
+      "IV_VIX_chg": 0.2209,
+      "IV_VIX_ma5": 1.9811,
+      "IV_VIX_std5": 0.4836,
+      "IV_VIX3M": 1.2219,
+      "IV_VIX_TermSlope": 2.3291,
+      "IV_VIX9D": 0.9826,
+      "IV_VIX_ShortSlope": 3.0638,
+      "IV_VRP": 1.7369,
+      "IV_VRP_ma22": 3.8605,
+      "AltVol_Amihud": 4.8482,
+      "AltVol_Vol_Ratio": 0.5033,
+      "AltVol_PV_Corr": 4.078,
+      "AltVol_Vol_Surprise": 0.2168,
+      "AltVol_Order_Imbalance": 1.9281,
+      "AltVol_Kyle_Lambda": 4.2707
     }
   }
 }

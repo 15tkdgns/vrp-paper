@@ -29,9 +29,30 @@ def forward_rv(ret_sq, hz):
     cs = ret_sq.cumsum()
     return np.log((cs.shift(-hz) - cs) / hz * 252 + 1e-12)
 
+import os as _os
+_SCRIPT_DIR = _os.path.dirname(_os.path.abspath(__file__))
+_PKL_PATH   = '/root/vrp/src/data/v71_ohlcv_cache.pkl'
+_DATA_DIR   = _os.path.join(_SCRIPT_DIR, 'data')
+
+def _load_from_parquet():
+    vix_df  = pd.read_parquet(_os.path.join(_DATA_DIR, 'VIX.parquet'))
+    frames  = {}
+    for asset in ALL_ASSETS + ['VIX']:
+        p = _os.path.join(_DATA_DIR, f'{asset}.parquet')
+        if not _os.path.exists(p): continue
+        frames[asset] = pd.read_parquet(p)
+    combined = pd.concat(frames.values(), axis=1)
+    combined[('Close', 'VIX')]   = vix_df['Close']
+    combined[('Close', 'VIX3M')] = vix_df['Close_3M']
+    combined[('Close', 'VIX9D')] = vix_df['Close_9D']
+    return combined
+
 # Load data (same as v6)
 print("Loading data...", flush=True)
-raw     = pd.read_pickle('/root/vrp/src/data/v71_ohlcv_cache.pkl')
+if _os.path.exists(_PKL_PATH):
+    raw = pd.read_pickle(_PKL_PATH)
+else:
+    raw = _load_from_parquet()
 vix     = raw[('Close', 'VIX')]
 spy_c   = raw[('Close', 'SPY')]
 spy_ret = np.log(spy_c / spy_c.shift(1)).dropna()

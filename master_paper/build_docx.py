@@ -349,6 +349,12 @@ for fname in FILES:
             if i < len(lines) and classify(lines[i]) == 'fcap':
                 cap_line += '  /  ' + lines[i].strip()
                 i += 1
+            # 이미지 위치 표시
+            ph = doc.add_paragraph()
+            ph_run = ph.add_run('[이미지 삽입 위치]')
+            set_font(ph_run, size=10, italic=True)
+            set_para_fmt(ph, align=WD_ALIGN_PARAGRAPH.CENTER,
+                         sp_before=6, sp_after=3, ls=1.2)
             add_caption(doc, cap_line)
             continue
 

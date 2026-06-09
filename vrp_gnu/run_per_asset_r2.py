@@ -22,8 +22,9 @@ ALL_ASSETS   = [a for g in ASSET_GROUPS.values() for a in g]
 ASSET_CLASS  = {a: cls for cls, assets in ASSET_GROUPS.items() for a in assets}
 HAR_FEATS    = ['LogRV_lag1', 'LogRV_lag5', 'LogRV_lag22']
 
-RESULTS_JSON = '/root/vrp/results/main_benchmark_v6_results.json'
-OUT_CSV      = '/root/vrp/paper/csv/per_asset_r2.csv'
+_SCRIPT_DIR  = os.path.dirname(os.path.abspath(__file__))
+RESULTS_JSON = os.path.join(_SCRIPT_DIR, 'results', 'main_benchmark_v6_results.json')
+OUT_CSV      = os.path.join(_SCRIPT_DIR, '..', 'paper', 'csv', 'per_asset_r2.csv')
 
 # ── Load best_params ──────────────────────────────────────────────────────────
 with open(RESULTS_JSON) as f:
@@ -44,7 +45,7 @@ except ImportError:
     HAS_YF = False
 
 # ── Try loading from cached parquet if available ──────────────────────────────
-CACHE_DIR = '/root/vrp/data'
+CACHE_DIR = os.path.join(_SCRIPT_DIR, 'data')
 os.makedirs(CACHE_DIR, exist_ok=True)
 
 def forward_rv(ret_sq, horizon):

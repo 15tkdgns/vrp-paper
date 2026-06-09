@@ -36,8 +36,28 @@ def r2w(yt, yp, grp):
     ss_r = ((yd - yhd)**2).sum(); ss_t = (yd**2).sum()
     return float(1 - ss_r/ss_t) if ss_t > 0 else np.nan
 
+_SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+_PKL_PATH   = 'src/data/v71_ohlcv_cache.pkl'
+_DATA_DIR   = os.path.join(_SCRIPT_DIR, 'data')
+
+def _load_from_parquet():
+    vix_df = pd.read_parquet(os.path.join(_DATA_DIR, 'VIX.parquet'))
+    frames = {}
+    for asset in ALL_ASSETS + ['VIX']:
+        p = os.path.join(_DATA_DIR, f'{asset}.parquet')
+        if not os.path.exists(p): continue
+        frames[asset] = pd.read_parquet(p)
+    combined = pd.concat(frames.values(), axis=1)
+    combined[('Close', 'VIX')]   = vix_df['Close']
+    combined[('Close', 'VIX3M')] = vix_df['Close_3M']
+    combined[('Close', 'VIX9D')] = vix_df['Close_9D']
+    return combined
+
 print('Loading data...', flush=True)
-raw = pd.read_pickle('src/data/v71_ohlcv_cache.pkl')
+if os.path.exists(_PKL_PATH):
+    raw = pd.read_pickle(_PKL_PATH)
+else:
+    raw = _load_from_parquet()
 vix = raw[('Close', 'VIX')]; spy_c = raw[('Close', 'SPY')]
 spy_ret = np.log(spy_c / spy_c.shift(1)).dropna()
 spy_rv  = (spy_ret**2).rolling(22).mean() * 252 * 10000
@@ -152,7 +172,9 @@ for hz in HORIZONS:
         xp = bpw.get('XGBoost', {}).get(cls, {'max_depth': 3, 'learning_rate': 0.03}) \
              if isinstance(bpw, dict) else {'max_depth': 3, 'learning_rate': 0.03}
         m = XGBRegressor(n_estimators=200, random_state=42, verbosity=0,
-                         max_depth=xp.get('max_depth', 3), learning_rate=xp.get('learning_rate', 0.03))
+                         max_depth=xp.get('max_depth', 3), learning_rate=xp.get('learning_rate', 0.03),
+                         subsample=0.8, colsample_bytree=0.8, reg_alpha=1.0, reg_lambda=2.0,
+                         min_child_weight=5, n_jobs=1, device='cuda', tree_method='hist')
         m.fit(X_tr[tr['Class'].values == cls], trc['Target'].values)
         px[tem] = m.predict(X_te[te['Class'].values == cls])
     pw2 = pw * pr2 + (1 - pw) * px
