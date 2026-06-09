@@ -38,7 +38,7 @@ RV 예측 연구는 GARCH 계열 및 HAR-RV 모형을 중심으로 축적되어 
 
 본 연구는 RV를 직접 예측하고 그 결과를 IV와 결합해 VRP를 도출하는 2단계 구조를 따른다. 1단계에서는 일별 OHLCV 및 VIX 기간구조로부터 35개 피처를 구성하고, 복수의 예측 모형을 동일한 피처·검증 절차 하에 학습·평가한다. 2단계에서는 1단계에서 예측된 RV와 VIX 기반 IV를 결합하여 VRP를 사후적으로 산출하고 탐색적 분석을 수행한다.
 
-예측 모형군은 HAR-3(벤치마크), Ridge·Lasso·ElasticNet(선형), Random Forest·XGBoost·LightGBM(트리), MLP·BiLSTM-A(신경망), WEns(앙상블)으로 구성된다. 학습-테스트 분할은 전체 표본의 80/20을 시계열 순으로 분리하며, 하이퍼파라미터 튜닝은 학습 세트 내부의 내부 검증셋(inner holdout)으로 수행한다. 모든 경계에는 예측 기간 h에 해당하는 purge gap을 적용하여 검증 누출을 방지한다.
+예측 모형군은 HAR-3(벤치마크), Ridge·Lasso·ElasticNet(선형), Random Forest·XGBoost·LightGBM(트리), MLP·BiLSTM-A(신경망), WEns(앙상블)로 구성된다. 학습-테스트 분할은 전체 표본의 80/20을 시계열 순으로 분리하며, 하이퍼파라미터 튜닝은 학습 세트 내부의 내부 검증셋(inner holdout)으로 수행한다. 모든 경계에는 예측 기간 h에 해당하는 purge gap을 적용하여 검증 누출을 방지한다.
 
 
 5. 논문 구성

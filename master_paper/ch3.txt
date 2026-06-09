@@ -1,4 +1,4 @@
-﻿Ⅲ. 데이터 및 방법론
+Ⅲ. 데이터 및 방법론
 
 1. 분석 대상 자산 및 데이터
 
@@ -10,14 +10,10 @@
 표 1. 자산 구성
 Table 1. Assets Group
 
-Group
-Assets
-Equity
-SPY, QQQ, IWM, EFA, EEM
-Bond
-TLT, IEF, AGG
-Commodity
-GLD, SLV, USO
+Group | Assets
+Equity | SPY, QQQ, IWM, EFA, EEM
+Bond | TLT, IEF, AGG
+Commodity | GLD, SLV, USO
 
 2) 데이터 출처 및 변수 정의
 데이터는 Yahoo Finance API를 통해 수집하였다. OHLCV는 각 거래일 t에 대해 시가(Open), 고가(High), 저가(Low), 종가(Close), 거래량(Volume)의 5개 변수를 포함한다. 종가는 로그수익률과 HAR 기반 RV 계산에 사용되며, 시가·고가·저가·종가 정보는 range 기반 변동성 추정량 계산에 활용된다. VIX 기간구조 지표로는 VIX(30일 만기), VIX3M(3개월), VIX9D(9일)를 사용한다.
@@ -63,32 +59,23 @@ RV_i,t(h) = (252 / h) × Σ_{k=1}^{h} r_{i,t+k}²
 표 2. 기호 및 정의
 Table 2. Symbol and Definition
 
-Symbol
-Definition
-RV_i,t(h)
-Forward RV of asset i, h trading days ahead (annualized)
-IV_t²
-Implied variance proxy, (VIX_t / 100)²
-VRP_i,t(h)
-Variance risk premium, IV_t² - RV_i,t(h)^hat
-h
-Forecast horizon (trading days), h ∈ {1,5,22,60,90,120,180,252}
-i
-Asset index (i=1,…,11; 11 ETFs)
-t
-Time index (trading day)
-r_t
-Daily log return, ln(P_t / P_(t-1))
-R-squared
-Pooled and median R-squared
+Symbol | Definition
+RV_i,t(h) | Forward RV of asset i, h trading days ahead (annualized)
+IV_t² | Implied variance proxy, (VIX_t / 100)²
+VRP_i,t(h) | Variance risk premium, IV_t² - RV_i,t(h)^hat
+h | Forecast horizon (trading days), h ∈ {1,5,22,60,90,120,180,252}
+i | Asset index (i=1,…,11; 11 ETFs)
+t | Time index (trading day)
+r_t | Daily log return, ln(P_t / P_(t-1))
+R-squared | Pooled and median R-squared
 
 4) 피처 그룹 설계 개요
-피처는 (i) HAR 기반 과거 시차 변수, (ii) 일별 가격 range 기반 변동성 추정량(HF proxy), (iii) IV 기간구조 및 VRP 통계(IV surface), (iv) 거래량 기반 대안 데이터로 구성된 다중 그룹을 사용하며, 총 35개 피처를 활용한다. 각 그룹의 피처 수는 HAR 기반 12개 + HF Proxy 7개 + IV Surface 10개 + Alternative 6개로 구성된다.
+피처는 (i) HAR 기반 과거 시차 변수, (ii) 일별 가격 range 기반 변동성 추정량(HF Proxy), (iii) IV 기간구조 및 VRP 통계(IV Surface), (iv) 거래량 기반 대안 데이터로 구성된 다중 그룹을 사용하며, 총 35개 피처를 활용한다. 각 그룹의 피처 수는 HAR 기반 12개 + HF Proxy 7개 + IV Surface 10개 + Alternative 6개로 구성된다.
 
 5) 대표 피처 수식 및 직관
 HAR 기반 피처는 1·5·10·22거래일 지연 로그 RV, 변동성의 변동성(Vol-of-Vol), 변동성 모멘텀 등으로 구성된다. HF Proxy 피처는 Parkinson, Garman-Klass, Rogers-Satchell 등 range 기반 변동성 추정량으로, 고빈도 데이터의 정보를 일별 가격 범위로 근사한다. IV Surface 피처는 VIX 수준·변화율·기간구조 기울기, VIX3M, VIX9D, 과거 VRP 이동평균 등으로 구성된다. Alternative 피처는 Amihud 비유동성, 거래량 비율, 가격-거래량 상관, Kyle Lambda 등 시장 미시구조 기반 변수를 포함한다. 전체 피처 목록 및 정의는 부록 A에 수록하였다.
 
-IV surface 그룹에는 IV_VRP와 IV_VRP_ma22가 포함되는데, 이는 과거 시점에서 관측된 VRP(IV - 과거RV)로서 미래 RV와 독립적이다. 구체적으로 IV_VRP = (VIX_t/100)² − RV_SPY,[t-22,t-1]로 정의되며, 여기서 RV_SPY,[t-22,t-1]는 t-1까지의 직전 22거래일 SPY 실현분산이다. 이 변수는 예측 대상인 전방 RV와 시점이 겹치지 않아 타깃 누출(target leakage)이 발생하지 않는다. 초기 설계에서는 GARCH(1,1) 기반 피처 2개를 포함한 37개 피처를 검토하였으나, GARCH 피처가 Ridge의 내부 검증 기반 정규화 강도 선택을 왜곡하여 22거래일 Pooled R²를 약 0.006 하락시키는 것이 확인되어 최종 피처세트에서 제외하였다.
+IV Surface 그룹에는 IV_VRP와 IV_VRP_ma22가 포함되는데, 이는 과거 시점에서 관측된 VRP(IV - 과거RV)로서 미래 RV와 독립적이다. 구체적으로 IV_VRP = (VIX_t/100)² − RV_SPY,[t-22,t-1]로 정의되며, 여기서 RV_SPY,[t-22,t-1]는 t-1까지의 직전 22거래일 SPY 실현분산이다. 이 변수는 예측 대상인 전방 RV와 시점이 겹치지 않아 타깃 누출(target leakage)이 발생하지 않는다. 초기 설계에서는 GARCH(1,1) 기반 피처 2개를 포함한 37개 피처를 검토하였으나, GARCH 피처가 Ridge의 내부 검증 기반 정규화 강도 선택을 왜곡하여 22거래일 Pooled R²를 약 0.006 하락시키는 것이 확인되어 최종 피처세트에서 제외하였다.
 
 피처 간 스케일 차이를 줄이기 위해 Z-score 표준화(평균 0, 표준편차 1)를 적용하였으며, 스케일링 파라미터(평균·표준편차)는 학습 구간에서만 추정하고 이를 테스트 구간에 적용함으로써 정보 누출이 발생하지 않도록 하였다. 데이터 전처리 및 피처 생성의 전체 의사코드는 부록 D를 참조한다.
 
@@ -119,18 +106,12 @@ MLP와 BiLSTM-A(Bi-LSTM + Temporal Attention)를 포함한다. BiLSTM-A는 35개
 표 3. 모델 구성
 Table 3. Model Group
 
-Group
-Model
-Benchmark
-NaiveRV, GARCH(1,1), IV-only, HAR-3
-Linear
-Ridge, Lasso, ElasticNet
-Tree
-Random Forest, XGBoost, LightGBM
-Neural Network
-MLP, BiLSTM-A (Bi-LSTM + Temporal Attention)
-Ensemble
-WEns (Ridge + XGBoost)
+Group | Model
+Benchmark | NaiveRV, GARCH(1,1), IV-only, HAR-3
+Linear | Ridge, Lasso, ElasticNet
+Tree | Random Forest, XGBoost, LightGBM
+Neural Network | MLP, BiLSTM-A (Bi-LSTM + Temporal Attention)
+Ensemble | WEns (Ridge + XGBoost)
 
 
 6. WEns 가중 앙상블 알고리즘
@@ -158,35 +139,19 @@ Fig. 2. Overall Workflow of the WEns Model
 표 4. 모델별 하이퍼파라미터 탐색 범위
 Table 4. Hyperparameter Search Space By Model
 
-Model
-Hyperparameter
-Search Space
-Ridge
-α
-{0.01, 0.1, 1, 10, 100, 1000}
-XGBoost
-n_estimators
-{100, 300}
-XGBoost
-max_depth
-{3, 5}
-XGBoost
-learning_rate
-{0.05, 0.1}
-BiLSTM-A
-hidden_units
-{32, 64}
-BiLSTM-A
-dropout
-{0.1, 0.3}
-WEns
-pw
-{0.4, 0.5, 0.6, 0.7, 0.8, 0.9}
+Model | Hyperparameter | Search Space
+Ridge | α | {0.01, 0.1, 1, 10, 100, 1000}
+XGBoost | n_estimators | {100, 300}
+XGBoost | max_depth | {3, 5}
+XGBoost | learning_rate | {0.05, 0.1}
+BiLSTM-A | hidden_units | {32, 64}
+BiLSTM-A | dropout | {0.1, 0.3}
+WEns | pw | {0.4, 0.5, 0.6, 0.7, 0.8, 0.9}
 
 전체 모형별 하이퍼파라미터 탐색 범위 상세는 부록 B를 참조한다.
 
 2) 최종 하이퍼파라미터 선정 기준
-모든 모형의 최종 하이퍼파라미터는 내부 검증셋 R² 최대화를 기준으로 선정하며, 자산군별로 독립적으로 탐색한다. 무작위성이 존재하는 모델(BiLSTM-A, Random Forest, XGBoost, LightGBM)은 단일 시드(seed = 42)를 고정하여 재현 가능성을 확보하였다.
+모든 모형의 최종 하이퍼파라미터는 내부 검증셋 R² 최대화를 기준으로 선정하며, 자산군별로 독립적으로 탐색한다. 무작위성이 존재하는 모델(MLP, BiLSTM-A, Random Forest, XGBoost, LightGBM)은 단일 시드(seed = 42)를 고정하여 재현 가능성을 확보하였다.
 
 
 8. 평가 지표 및 통계 검정
