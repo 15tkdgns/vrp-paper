@@ -6,8 +6,6 @@ Multi-Horizon Realized Variance Forecasting across Asset Classes with a Weighted
 
 
 
----
-
 목차
 
 Ⅰ. 서론
@@ -117,8 +115,6 @@ Multi-Horizon Realized Variance Forecasting across Asset Classes with a Weighted
   부록 E. ETF별 기초 통계량
 
 
----
-
 표 차례
 
 표 1. 자산 구성
@@ -140,8 +136,6 @@ Multi-Horizon Realized Variance Forecasting across Asset Classes with a Weighted
 표 C-2. WEns vs 베이스라인 DM 검정 결과 (BH 다중비교 보정)
 표 E-1. ETF별 기초 통계량 (2010~2024)
 
-
----
 
 그림 차례
 
