@@ -33,6 +33,11 @@ SUP_MAP = {'⁰':'0','¹':'1','²':'2','³':'3','⁴':'4',
            '⁵':'5','⁶':'6','⁷':'7','⁸':'8','⁹':'9'}
 SUP_CHARS = set(SUP_MAP.keys())
 
+# 아래첨자 유니코드 매핑
+SUB_MAP = {'₀':'0','₁':'1','₂':'2','₃':'3','₄':'4',
+           '₅':'5','₆':'6','₇':'7','₈':'8','₉':'9'}
+SUB_CHARS = set(SUB_MAP.keys())
+
 # ── 문서 초기화 ────────────────────────────────────────────────────────────
 doc = Document()
 sec = doc.sections[0]
@@ -43,7 +48,7 @@ sec.bottom_margin = Mm(30)
 sec.left_margin   = Mm(35)
 sec.right_margin  = Mm(30)
 
-def set_font(run, size=10, bold=False, italic=False, superscript=False):
+def set_font(run, size=10, bold=False, italic=False, superscript=False, subscript=False):
     run.font.name   = FONT_EN
     run.font.size   = Pt(size)
     run.font.bold   = bold
@@ -54,10 +59,10 @@ def set_font(run, size=10, bold=False, italic=False, superscript=False):
     rFonts.set(qn('w:eastAsia'), FONT_KO)
     if not rPr.findall(qn('w:rFonts')):
         rPr.insert(0, rFonts)
-    # 위첨자
-    if superscript:
+    # 위첨자 / 아래첨자
+    if superscript or subscript:
         vertAlign = OxmlElement('w:vertAlign')
-        vertAlign.set(qn('w:val'), 'superscript')
+        vertAlign.set(qn('w:val'), 'superscript' if superscript else 'subscript')
         rPr.append(vertAlign)
 
 def set_para_fmt(para, size=10, bold=False,
@@ -74,22 +79,111 @@ def set_para_fmt(para, size=10, bold=False,
         pf.first_line_indent = Pt(indent_first)
 
 def add_runs_with_sup(para, text, size=10, bold=False, italic=False):
-    """위첨자 포함 텍스트를 run 분리해서 추가"""
-    buf, in_sup = "", False
-    def flush(s, sup):
+    """위첨자·아래첨자 포함 텍스트를 run 분리해서 추가
+    처리: 유니코드 위첨자(¹²³…), 유니코드 아래첨자(₀₁₂…),
+          _{...} 아래첨자, _(...) 아래첨자,
+          ^{...} 위첨자, ^word 위첨자 (^k, ^22, ^hat 등)
+    """
+    def flush(s, sup=False, sub=False):
         if s:
             r = para.add_run(s)
-            set_font(r, size=size, bold=bold, italic=italic, superscript=sup)
+            set_font(r, size=size, bold=bold, italic=italic,
+                     superscript=sup, subscript=sub)
+
+    def extract_braced(text, i):
+        """i는 '{' 다음 위치. 대응 '}' 까지 내용 반환 (i_after, content)."""
+        depth, s = 1, ""
+        while i < len(text):
+            ch = text[i]; i += 1
+            if ch == '{':
+                depth += 1; s += ch
+            elif ch == '}':
+                depth -= 1
+                if depth:
+                    s += ch
+                else:
+                    break
+            else:
+                s += ch
+        return i, s
+
+    def extract_paren(text, i):
+        """i는 '(' 다음 위치. 대응 ')' 까지 내용 반환 (i_after, content)."""
+        depth, s = 1, ""
+        while i < len(text):
+            ch = text[i]; i += 1
+            if ch == '(':
+                depth += 1; s += ch
+            elif ch == ')':
+                depth -= 1
+                if depth:
+                    s += ch
+                else:
+                    break
+            else:
+                s += ch
+        return i, s
+
+    buf = ""
     i = 0
-    while i < len(text):
+    n = len(text)
+
+    while i < n:
         c = text[i]
-        is_sup = c in SUP_CHARS
-        if is_sup != in_sup:
-            flush(buf, in_sup)
-            buf, in_sup = "", is_sup
-        buf += SUP_MAP.get(c, c) if is_sup else c
+
+        # ── 유니코드 위첨자 (¹²³…) ──────────────────────────────────
+        if c in SUP_CHARS:
+            flush(buf); buf = ""
+            s = ""
+            while i < n and text[i] in SUP_CHARS:
+                s += SUP_MAP[text[i]]; i += 1
+            flush(s, sup=True)
+            continue
+
+        # ── 유니코드 아래첨자 (₀₁₂…) ────────────────────────────────
+        if c in SUB_CHARS:
+            flush(buf); buf = ""
+            s = ""
+            while i < n and text[i] in SUB_CHARS:
+                s += SUB_MAP[text[i]]; i += 1
+            flush(s, sub=True)
+            continue
+
+        # ── _{...} 아래첨자 ──────────────────────────────────────────
+        if c == '_' and i + 1 < n and text[i + 1] == '{':
+            flush(buf); buf = ""
+            i, s = extract_braced(text, i + 2)
+            flush(s, sub=True)
+            continue
+
+        # ── _(...) 아래첨자 ──────────────────────────────────────────
+        if c == '_' and i + 1 < n and text[i + 1] == '(':
+            flush(buf); buf = ""
+            i, s = extract_paren(text, i + 2)
+            flush(s, sub=True)
+            continue
+
+        # ── ^{...} 위첨자 ────────────────────────────────────────────
+        if c == '^' and i + 1 < n and text[i + 1] == '{':
+            flush(buf); buf = ""
+            i, s = extract_braced(text, i + 2)
+            flush(s, sup=True)
+            continue
+
+        # ── ^word 위첨자 (^{ 는 위에서 처리, ^ 뒤 알파뉴메릭 연속) ──
+        if c == '^' and i + 1 < n and text[i + 1].isalnum():
+            flush(buf); buf = ""
+            i += 1
+            s = ""
+            while i < n and text[i].isalnum():
+                s += text[i]; i += 1
+            flush(s, sup=True)
+            continue
+
+        buf += c
         i += 1
-    flush(buf, in_sup)
+
+    flush(buf)
 
 # ── 페이지 번호 (하단 가운데) ──────────────────────────────────────────────
 def add_page_number(section):
