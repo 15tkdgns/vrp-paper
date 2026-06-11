@@ -54,15 +54,15 @@ RV_i,t(h) = (252 / h) × Σ_{k=1}^{h} r_{i,t+k}²
 여기서 252는 연간 거래일 수이며, 이를 통해 예측 기간에 관계없이 연율화된 분산 단위로 비교 가능하다. 타깃은 시점 t에서의 예측 시점 이후 실현되는 전방(forward) 실현분산이 된다.
 
 3) IV 및 VRP 정의
-본 연구는 변동성 관련 변수를 모두 분산 단위로 통일하여 정의한다. IV는 변동성 지수를 제곱한 값으로 근사하며, 구체적으로 IV_t² = (VIX_t / 100)²를 사용한다. VRP는 IV와 RV의 차이로 정의하며, VRP_i,t(h) = IV_t² − RV_i,t(h)^hat으로 산출한다. VRP는 예측된 RV로부터 사후적으로 산출되는 파생 지표이다. 단, 피처로 사용되는 IV_VRP(부록 A, #28)는 예측 시점 t에서 관측 가능한 과거 RV_SPY를 이용하여 산출한 VRP 대리변수이며, Ⅳ장 6절의 VRP 분석에서 사용하는 예측 RV 기반 VRP_i,t(h)^hat과 개념적으로 구분된다. 본 연구에서 사용하는 주요 기호 및 정의는 표 2에 정리했다.
+본 연구는 변동성 관련 변수를 모두 분산 단위로 통일하여 정의한다. IV는 변동성 지수를 제곱한 값으로 근사하며, 구체적으로 IV_t² = (VIX_t / 100)²를 사용한다. VRP는 IV와 RV의 차이로 정의하며, VRP_{i,t}(h) = IV_{t}² − RV̂_{i,t}(h)으로 산출한다. VRP는 예측된 RV로부터 사후적으로 산출되는 파생 지표이다. 단, 피처로 사용되는 IV_VRP(부록 A, #28)는 예측 시점 t에서 관측 가능한 과거 RV_SPY를 이용하여 산출한 VRP 대리변수이며, Ⅳ장 6절의 VRP 분석에서 사용하는 예측 RV 기반 VRP̂_{i,t}(h)과 개념적으로 구분된다. 본 연구에서 사용하는 주요 기호 및 정의는 표 2에 정리했다.
 
 표 2. 기호 및 정의
 Table 2. Symbol and Definition
 
 Symbol | Definition
-RV_i,t(h) | Forward RV of asset i, h trading days ahead (annualized)
+RV_{i,t}(h) | Forward RV of asset i, h trading days ahead (annualized)
 IV_t² | Implied variance proxy, (VIX_t / 100)²
-VRP_i,t(h) | Variance risk premium, IV_t² - RV_i,t(h)^hat
+VRP_{i,t}(h) | Variance risk premium, IV_{t}² - RV̂_{i,t}(h)
 h | Forecast horizon (trading days), h ∈ {1,5,22,60,90,120,180,252}
 i | Asset index (i=1,…,11; 11 ETFs)
 t | Time index (trading day)
@@ -75,7 +75,7 @@ R-squared | Pooled and median R-squared
 5) 대표 피처 수식 및 직관
 HAR 기반 피처는 1·5·10·22거래일 지연 로그 RV, 변동성의 변동성(Vol-of-Vol), 변동성 모멘텀 등으로 구성된다. HF Proxy 피처는 Parkinson, Garman-Klass, Rogers-Satchell 등 range 기반 변동성 추정량으로, 고빈도 데이터의 정보를 일별 가격 범위로 근사한다. IV Surface 피처는 VIX 수준·변화율·기간구조 기울기, VIX3M, VIX9D, 과거 VRP 이동평균 등으로 구성된다. Alternative 피처는 Amihud 비유동성, 거래량 비율, 가격-거래량 상관, Kyle Lambda 등 시장 미시구조 기반 변수를 포함한다. 전체 피처 목록 및 정의는 부록 A에 수록했다.
 
-IV Surface 그룹에는 IV_VRP와 IV_VRP_ma22가 포함되는데, 이는 과거 시점에서 관측된 VRP(IV - 과거RV)로서 미래 RV와 독립적이다. 구체적으로 IV_VRP = (VIX_t/100)² − RV_SPY,[t-22,t-1]로 정의되며, 여기서 RV_SPY,[t-22,t-1]는 t-1까지의 직전 22거래일 SPY 실현분산이다. 이 변수는 예측 대상인 전방 RV와 시점이 겹치지 않아 타깃 누출(target leakage)이 발생하지 않는다. 초기 설계에서는 GARCH(1,1) 기반 피처 2개를 포함한 37개 피처를 검토하였으나, GARCH 피처가 Ridge의 내부 검증 기반 정규화 강도 선택을 왜곡하여 22거래일 Pooled R²를 약 0.006 하락시키는 것이 확인되어 최종 피처세트에서 제외했다.
+IV Surface 그룹에는 IV_VRP와 IV_VRP_ma22가 포함되는데, 이는 과거 시점에서 관측된 VRP(IV - 과거RV)로서 미래 RV와 독립적이다. 구체적으로 IV_VRP = (VIX_t/100)² − RV_{SPY,[t-22,t-1]}로 정의되며, 여기서 RV_{SPY,[t-22,t-1]}는 t-1까지의 직전 22거래일 SPY 실현분산이다. 이 변수는 예측 대상인 전방 RV와 시점이 겹치지 않아 타깃 누출(target leakage)이 발생하지 않는다. 초기 설계에서는 GARCH(1,1) 기반 피처 2개를 포함한 37개 피처를 검토하였으나, GARCH 피처가 Ridge의 내부 검증 기반 정규화 강도 선택을 왜곡하여 22거래일 Pooled R²를 약 0.006 하락시키는 것이 확인되어 최종 피처세트에서 제외했다.
 
 피처 간 스케일 차이를 줄이기 위해 Z-score 표준화(평균 0, 표준편차 1)를 적용했으며, 스케일링 파라미터(평균·표준편차)는 학습 구간에서만 추정하고 이를 테스트 구간에 적용함으로써 정보 누출이 발생하지 않도록 했다. 데이터 전처리 및 피처 생성의 전체 의사코드는 부록 D를 참조한다.
 
@@ -119,7 +119,7 @@ Ensemble | WEns (Ridge + XGBoost)
 1) WEns 구조 정의
 본 연구는 Ridge와 XGBoost를 결합한 가중 앙상블(WEns)을 제안한다.
 
-y_hat_WEns = pw × y_hat_Ridge + (1 - pw) × y_hat_XGBoost
+y_{WEns} = pw × y_{Ridge} + (1 - pw) × y_{XGBoost}
 
 2) 내부 검증 기반 가중치 선택 절차
 Ridge는 다중공선성에 상대적으로 강하고 선형적 구조를 안정적으로 포착하는 장점이 있으며, XGBoost는 비선형 상호작용을 보정하는 역할을 수행한다. 가중치 pw는 고정 값이 아니라 예측 기간별 내부 검증셋(inner holdout)의 R² 최대화를 통해 선택된다. 구체적으로 pw ∈ {0.4, 0.5, 0.6, 0.7, 0.8, 0.9} 중 내부 검증 성능이 가장 높은 값을 채택하며, 이 과정에서 테스트셋 정보는 일절 사용하지 않는다. 탐색 범위를 [0.4, 0.9]로 설정한 이유는 다음과 같다. pw < 0.4이면 XGBoost가 지나치게 지배적이 되어 선형 구조의 안정성 확보라는 WEns 설계 취지에서 벗어나고, pw = 1.0(Ridge 단독)은 별도 모형 결과와 동일하여 앙상블로서의 의미가 없다. 0.1 간격의 6개 격자는 inner holdout 기반 단순 탐색에 충분한 해상도를 제공한다.

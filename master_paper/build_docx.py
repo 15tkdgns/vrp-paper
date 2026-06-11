@@ -38,6 +38,9 @@ SUB_MAP = {'₀':'0','₁':'1','₂':'2','₃':'3','₄':'4',
            '₅':'5','₆':'6','₇':'7','₈':'8','₉':'9'}
 SUB_CHARS = set(SUB_MAP.keys())
 
+# 단일 소문자 _x 아래첨자 자동 처리 여부 (appendix 의사코드에서는 False)
+_bare_sub = True
+
 # ── 문서 초기화 ────────────────────────────────────────────────────────────
 doc = Document()
 sec = doc.sections[0]
@@ -180,6 +183,15 @@ def add_runs_with_sup(para, text, size=10, bold=False, italic=False):
             flush(s, sup=True)
             continue
 
+        # ── _x 단일 소문자/숫자 아래첨자 (appendix 의사코드 제외) ───
+        if _bare_sub and c == '_' and i + 1 < n:
+            nc = text[i + 1]
+            if (nc.islower() or nc.isdigit()) and (i + 2 >= n or not text[i + 2].isalnum()):
+                flush(buf); buf = ""
+                flush(nc, sub=True)
+                i += 2
+                continue
+
         buf += c
         i += 1
 
@@ -245,8 +257,7 @@ def make_pipe_table(doc, lines):
             cell = tbl.cell(ri, ci)
             cell.text = ''
             para = cell.paragraphs[0]
-            run  = para.add_run(cell_text)
-            set_font(run, size=9, bold=(ri==0))
+            add_runs_with_sup(para, cell_text, size=9, bold=(ri==0))
             para.alignment = WD_ALIGN_PARAGRAPH.CENTER
             pf = para.paragraph_format
             pf.space_before = Pt(1)
@@ -328,6 +339,7 @@ for fname in FILES:
 
     if fname == 'appendix.txt':
         in_appendix = True
+        _bare_sub = False  # 의사코드 변수명 오탐 방지
 
     i = 0
     while i < len(lines):
