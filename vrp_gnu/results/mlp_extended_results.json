@@ -1,0 +1,20 @@
+{
+  "Ridge_R2": 0.7968,
+  "MLP_original_R2": 0.5493,
+  "MLP_extended_R2": 0.6246,
+  "delta": 0.0753,
+  "MLP_original_params": {
+    "Equity": "{'hidden_layer_sizes': (128, 64), 'alpha': 0.0001}",
+    "Bond": "{'hidden_layer_sizes': (128, 64), 'alpha': 0.0001}",
+    "Commodity": "{'hidden_layer_sizes': (64,), 'alpha': 0.01}"
+  },
+  "MLP_extended_params": {
+    "Equity": "{'hidden_layer_sizes': (256, 128), 'alpha': 0.1}",
+    "Bond": "{'hidden_layer_sizes': (256, 128), 'alpha': 0.1}",
+    "Commodity": "{'hidden_layer_sizes': (64, 32), 'alpha': 0.1}"
+  },
+  "paper_baseline": {
+    "Ridge": 0.8026,
+    "MLP": 0.5644
+  }
+}

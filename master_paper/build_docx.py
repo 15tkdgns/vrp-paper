@@ -21,7 +21,7 @@ from copy import deepcopy
 
 # ── 경로 설정 ──────────────────────────────────────────────────────────────
 BASE  = Path(r"C:\Users\user\Desktop\vrp\master_paper")
-FILES = ["front.txt","ch1.txt","ch2.txt","ch3.txt","ch4.txt","ch5.txt","appendix.txt"]
+FILES = ["front.txt","ch1.txt","ch2.txt","ch3.txt","ch4.txt","ch5.txt","references.txt","appendix.txt"]
 OUT   = BASE / "0421_thesis.docx"
 
 FONT_KO   = "신명조"

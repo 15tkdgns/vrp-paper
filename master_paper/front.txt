@@ -83,9 +83,9 @@ Multi-Horizon Realized Variance Forecasting across Asset Classes with a Weighted
   3. 피처 기여도 및 중요도 분석
     1) 피처 그룹 제거 실험
     2) 피처 중요도 합의 분석 (Kendall's W)
-  4. 시장 레짐별 예측 성능
-    1) VIX 분위수 기반 레짐 정의
-    2) 레짐별 WEns vs HAR-3 성능 비교
+  4. 시장 기간별 예측 성능
+    1) VIX 분위수 기반 기간 정의
+    2) 기간별 WEns vs HAR-3 성능 비교
     3) 고변동성 구간 예측력 개선 해석
   5. 베이스라인 및 변형 모형 비교
     1) NaiveRV·GARCH·IV-only vs WEns
