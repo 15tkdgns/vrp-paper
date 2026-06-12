@@ -20,13 +20,14 @@ from docx.enum.table import WD_TABLE_ALIGNMENT
 from copy import deepcopy
 
 # ── 경로 설정 ──────────────────────────────────────────────────────────────
-BASE  = Path(r"C:\Users\user\Desktop\vrp\master_paper")
-FILES = ["front.txt","ch1.txt","ch2.txt","ch3.txt","ch4.txt","ch5.txt","references.txt","appendix.txt"]
-OUT   = BASE / "0421_thesis.docx"
+BASE      = Path(r"C:\Users\user\Desktop\vrp\master_paper")
+FILES     = ["front.txt","ch1.txt","ch2.txt","ch3.txt","ch4.txt","ch5.txt","references.txt","appendix.txt"]
+OUT       = BASE / "0421_thesis.docx"
+SRC_FRONT = BASE / "국문 MS word 학위논문 서식.docx"
 
-FONT_KO   = "신명조"
+FONT_KO   = "HY견명조"
 FONT_EN   = "Times New Roman"
-BODY_SIZE = 10
+BODY_SIZE = 11
 
 # 위첨자 유니코드 매핑
 SUP_MAP = {'⁰':'0','¹':'1','²':'2','³':'3','⁴':'4',
@@ -47,7 +48,7 @@ sec = doc.sections[0]
 sec.page_height   = Mm(297)
 sec.page_width    = Mm(210)
 sec.top_margin    = Mm(35)
-sec.bottom_margin = Mm(30)
+sec.bottom_margin = Mm(25)
 sec.left_margin   = Mm(35)
 sec.right_margin  = Mm(30)
 
@@ -68,10 +69,10 @@ def set_font(run, size=10, bold=False, italic=False, superscript=False, subscrip
         vertAlign.set(qn('w:val'), 'superscript' if superscript else 'subscript')
         rPr.append(vertAlign)
 
-def set_para_fmt(para, size=10, bold=False,
+def set_para_fmt(para, size=BODY_SIZE, bold=False,
                  align=WD_ALIGN_PARAGRAPH.JUSTIFY,
                  sp_before=0, sp_after=6,
-                 ls=1.5, indent_first=0):
+                 ls=2.0, indent_first=0):
     para.alignment = align
     pf = para.paragraph_format
     pf.space_before       = Pt(sp_before)
@@ -296,28 +297,56 @@ def add_reference_line(doc, text):
 # ── 캡션 추가 ────────────────────────────────────────────────────────────
 def add_caption(doc, text):
     para = doc.add_paragraph()
-    add_runs_with_sup(para, text, size=10, bold=False)
-    set_para_fmt(para, size=10, align=WD_ALIGN_PARAGRAPH.CENTER,
-                 sp_before=3, sp_after=3, ls=1.2)
+    add_runs_with_sup(para, text, size=BODY_SIZE, bold=True)
+    set_para_fmt(para, size=BODY_SIZE, align=WD_ALIGN_PARAGRAPH.CENTER,
+                 sp_before=3, sp_after=3, ls=2.0)
 
 # ── 제목 추가 ────────────────────────────────────────────────────────────
 def add_heading(doc, text, level):
-    sizes   = {1:14, 2:12, 3:11}
+    sizes   = {1:16, 2:14, 3:12}
     befores = {1:24, 2:12, 3:8}
     afters  = {1:12, 2:6,  3:4}
+    lss     = {1:1.8, 2:1.5, 3:1.5}
+    aligns  = {1:WD_ALIGN_PARAGRAPH.CENTER, 2:WD_ALIGN_PARAGRAPH.LEFT, 3:WD_ALIGN_PARAGRAPH.LEFT}
     para = doc.add_paragraph()
-    add_runs_with_sup(para, text, size=sizes.get(level,10), bold=True)
-    set_para_fmt(para, size=sizes.get(level,10), bold=True,
-                 align=WD_ALIGN_PARAGRAPH.LEFT,
-                 sp_before=befores.get(level,6),
-                 sp_after=afters.get(level,4))
+    add_runs_with_sup(para, text, size=sizes.get(level, BODY_SIZE), bold=True)
+    set_para_fmt(para, size=sizes.get(level, BODY_SIZE), bold=True,
+                 align=aligns.get(level, WD_ALIGN_PARAGRAPH.LEFT),
+                 sp_before=befores.get(level, 6),
+                 sp_after=afters.get(level, 4),
+                 ls=lss.get(level, 2.0))
 
 # ── 본문 단락 ─────────────────────────────────────────────────────────────
-def add_body(doc, text, indent=True, size=10, italic=False):
+def add_body(doc, text, indent=True, size=BODY_SIZE, italic=False):
     para = doc.add_paragraph()
     add_runs_with_sup(para, text, size=size, italic=italic)
     set_para_fmt(para, size=size, sp_before=0, sp_after=6,
                  indent_first=20 if indent else 0)
+
+# ── 서식.docx 1~3페이지(표지/인준지) 앞에 복사 ───────────────────────────
+def prepend_front_pages(doc, src_path):
+    """서식.docx에서 '차례' 섹션 이전(표지+인준지)을 doc 앞에 삽입"""
+    src  = Document(str(src_path))
+    body = doc.element.body
+    insert_idx = 0
+    for elem in src.element.body:
+        texts = ''.join(t.text or '' for t in elem.iter(qn('w:t')))
+        cleaned = texts.replace(' ', '').replace('　', '')
+        if '차례' in cleaned or '목차' in cleaned:
+            break
+        body.insert(insert_idx, deepcopy(elem))
+        insert_idx += 1
+    # 4페이지 시작용 명시적 페이지 브레이크
+    pg_p = OxmlElement('w:p')
+    pg_r = OxmlElement('w:r')
+    pg_br = OxmlElement('w:br')
+    pg_br.set(qn('w:type'), 'page')
+    pg_r.append(pg_br)
+    pg_p.append(pg_r)
+    body.insert(insert_idx, pg_p)
+    print(f"  표지/인준지 {insert_idx}개 elements 복사 완료")
+
+prepend_front_pages(doc, SRC_FRONT)
 
 # ── 차례 삽입 (front.txt 처리 전) ────────────────────────────────────────
 from build_toc import build_toc_section

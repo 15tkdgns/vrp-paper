@@ -1,210 +1,85 @@
----
-
 부록 A. 피처 목록 및 정의 (35개 피처 전체)
-
-표 A-1. 피처 목록 및 정의
 Table A-1. Feature List and Definition (35 Features)
-
-# | Group | Variable | Calculation & Description
-1 | HAR | LogRV_lag1 | Prev-day Log-RV: log(RV_t-1)
-2 | HAR | LogRV_lag5 | 5d lag Log-RV: log(RV_t-5)
-3 | HAR | LogRV_lag10 | 10d lag Log-RV: log(RV_t-10)
-4 | HAR | LogRV_lag22 | 22d lag Log-RV: log(RV_t-22)
-5 | HAR | LogRV_Std5 | 5d Vol-of-Vol: std(log RV, 5d)
-6 | HAR | LogRV_Std22 | 22d Vol-of-Vol: std(log RV, 22d)
-7 | HAR | RV_Mom5 | 5d vol momentum
-8 | HAR | RV_Mom22 | 22d vol momentum
-9 | Cross | SPY_LogRV | SPY Log-RV (market reference)
-10 | HAR | Ret_lag1 | Prev-day log return
-11 | HAR | Ret_abs_lag1 | Prev-day abs return
-12 | Cross | Corr_SPY | SPY correlation (22d rolling)
-13 | HF | Parkinson_5 | 5d Parkinson volatility
-14 | HF | Parkinson_22 | 22d Parkinson volatility
-15 | HF | GarmanKlass_22 | 22d Garman-Klass volatility
-16 | HF | RogersSatchell_22 | 22d Rogers-Satchell volatility
-17 | HF | Range_Close_Ratio | Range-close ratio
-18 | HF | Overnight_Vol | Overnight volatility
-19 | HF | Overnight_Ret | Overnight return
-20 | IV | IV_VIX | VIX level: log(VIX)
-21 | IV | IV_VIX_chg | VIX daily change
-22 | IV | IV_VIX_ma5 | VIX 5d MA
-23 | IV | IV_VIX_std5 | VIX 5d std (VVIX proxy)
-24 | IV | IV_VIX3M | VIX3M level: log(VIX3M)
-25 | IV | IV_VIX_TermSlope | VIX term slope (VIX3M - VIX)
-26 | IV | IV_VIX9D | VIX9D level: log(VIX9D)
-27 | IV | IV_VIX_ShortSlope | VIX9D slope (VIX - VIX9D)
-28 | IV | IV_VRP | VRP proxy: (VIX/100)^2 - RV_SPY
-29 | IV | IV_VRP_ma22 | VRP 22d moving average
-30 | Alt | AltVol_Amihud | Amihud illiquidity (22d)
-31 | Alt | AltVol_Vol_Ratio | Volume ratio (short/long)
-32 | Alt | AltVol_PV_Corr | Price-volume correlation
-33 | Alt | AltVol_Vol_Surprise | Volume surprise (Z-score)
-34 | Alt | AltVol_Order_Imbalance | Signed volume imbalance
-35 | Alt | AltVol_Kyle_Lambda | Kyle Lambda (price impact)
 
 (비고 1: Group 열의 "Cross"는 HAR 기반 그룹 내 크로스-자산 피처(#9, #12)를 구분하기 위한 서브레이블이며, 본문의 4개 그룹 분류(HAR 기반·HF Proxy·IV Surface·Alternative)에서는 HAR 기반에 포함된다. HAR 기반 피처 총 12개 = HAR 10개 + Cross 2개.)
 (비고 2: 초기 설계에 포함되었던 GARCH_Daily, GARCH_Weekly 2개 피처는 Ridge 내부 검증 왜곡 문제로 최종 피처세트에서 제외하였다.)
 
-
----
-
 부록 B. 모형별 하이퍼파라미터 탐색 범위 (확장)
-
-표 B-1. 모형별 하이퍼파라미터 탐색 공간 상세
 Table B-1. Hyperparameter Search Space (Extended)
 
-Model | Hyperparameter | Search Space | 비고
-Ridge | α | {0.01, 0.1, 1, 10, 100, 1000} | 자산군별 독립 탐색
-Lasso | α | {0.001, 0.01, 0.1, 1, 10} | 자산군별 독립 탐색
-ElasticNet | α | {0.001, 0.01, 0.1, 1} | 22d 최적: α=0.01, l1=0.1
-ElasticNet | l1_ratio | {0.1, 0.3, 0.5, 0.7, 0.9} | -
-Random Forest | n_estimators | 200 | seed=42 고정
-Random Forest | max_depth | {5, 8, 10} | -
-Random Forest | max_features | sqrt | -
-Random Forest | min_samples_leaf | {5, 20} | -
-XGBoost | n_estimators | {100, 300} | seed=42 고정
-XGBoost | max_depth | {3, 5} | -
-XGBoost | learning_rate | {0.05, 0.1} | -
-LightGBM | n_estimators | {100, 300} | seed=42 고정
-LightGBM | num_leaves | {31, 63} | -
-LightGBM | learning_rate | {0.05, 0.1} | -
-MLP | hidden_layers | {(64,), (64,32)} | seed=42 고정
-MLP | alpha (L2) | {0.0001, 0.01} | sklearn MLPRegressor L2 규제
-MLP | max_iter | 500 | early_stopping=True, n_iter_no_change=20
-BiLSTM-A | hidden_units | {32, 64} | seed=42 고정
-BiLSTM-A | dropout | {0.1, 0.3} | seq_len=22 고정
-BiLSTM-A | optimizer | Adam | lr=0.001
-BiLSTM-A | batch_size | 64 | epochs: 15(튜닝) / 20(최종)
-WEns | pw | {0.4, 0.5, 0.6, 0.7, 0.8, 0.9} | 기간별 적응 선택
-
-
----
-
 부록 C. 추가 성능표 (기간별 피처 중요도 합의, DM 검정 결과)
-
-표 C-1. 기간별 피처 중요도 합의 (상위 10개 피처, 평균 순위 점수)
 Table C-1. Feature Importance Consensus by Horizon (Top 10, Average Rank Score)
 
-Feature | 1d | 5d | 22d | 60d | 90d | 120d | 180d | 252d
-RogersSatchell_22 | 8.320 | 13.431 | 20.872 | 22.318 | 13.690 | 8.897 | 10.815 | 9.479
-LogRV_lag1 | 6.790 | 10.661 | 13.225 | 10.352 | 8.843 | 8.360 | 7.234 | 7.145
-Range_Close_Ratio | 10.792 | 5.892 | 7.552 | 6.081 | 6.441 | 3.545 | 3.054 | 2.628
-Parkinson_5 | 6.141 | 7.070 | 6.664 | 4.135 | 5.046 | 5.878 | 6.760 | 6.105
-GarmanKlass_22 | 3.818 | 6.891 | 5.927 | 12.884 | 9.948 | 9.110 | 11.002 | 10.068
-Parkinson_22 | 6.545 | 6.018 | 4.511 | 4.183 | 5.855 | 7.123 | 6.119 | 4.725
-IV_VRP_ma22 | 3.487 | 4.121 | 4.454 | 3.803 | 3.721 | 4.271 | 3.391 | 4.034
-IV_VIX | 1.817 | 1.049 | 3.274 | 2.104 | 2.812 | 3.180 | 2.966 | 1.714
-SPY_LogRV | 4.066 | 6.494 | 2.573 | 2.328 | 2.454 | 2.400 | 2.161 | 4.394
-LogRV_lag10 | 8.769 | 2.557 | 1.849 | 1.136 | 1.811 | 2.187 | 2.932 | 2.902
-
-표 C-2. WEns vs 베이스라인 DM 검정 결과 (BH 다중비교 보정)
 Table C-2. Diebold-Mariano Test Results: WEns vs. Baselines (BH Multiple Comparison Adjustment)
 
-Horizon | Model | DM Stat | p(raw) | p(BH) | Sig.(BH)
-1d | HAR-3 | 2.525 | 0.012 | 0.015 | ✓
-1d | NaiveRV | 32.321 | <0.001 | <0.001 | ✓
-1d | GARCH | 21.037 | <0.001 | <0.001 | ✓
-1d | IV-only | 16.596 | <0.001 | <0.001 | ✓
-5d | HAR-3 | 8.493 | <0.001 | <0.001 | ✓
-5d | NaiveRV | 21.738 | <0.001 | <0.001 | ✓
-5d | GARCH | 11.290 | <0.001 | <0.001 | ✓
-5d | IV-only | 38.664 | <0.001 | <0.001 | ✓
-22d | HAR-3 | 5.395 | <0.001 | <0.001 | ✓
-22d | NaiveRV | 8.698 | <0.001 | <0.001 | ✓
-22d | GARCH | 12.136 | <0.001 | <0.001 | ✓
-22d | IV-only | 39.456 | <0.001 | <0.001 | ✓
-60d | HAR-3 | 0.159 | 0.874 | 0.920 | -
-60d | NaiveRV | 0.101 | 0.920 | 0.920 | -
-60d | GARCH | 10.983 | <0.001 | <0.001 | ✓
-60d | IV-only | 28.160 | <0.001 | <0.001 | ✓
-90d | HAR-3 | -1.885 | 0.059 | 0.076 | -
-90d | NaiveRV | -0.121 | 0.904 | 0.920 | -
-90d | GARCH | 7.643 | <0.001 | <0.001 | ✓
-90d | IV-only | 22.816 | <0.001 | <0.001 | ✓
-120d | HAR-3 | -0.717 | 0.474 | 0.541 | -
-120d | NaiveRV | 1.409 | 0.159 | 0.196 | -
-120d | GARCH | 8.191 | <0.001 | <0.001 | ✓
-120d | IV-only | 20.683 | <0.001 | <0.001 | ✓
-180d | HAR-3 | 1.092 | 0.275 | 0.326 | -
-180d | NaiveRV | 3.499 | <0.001 | <0.001 | ✓
-180d | GARCH | 7.284 | <0.001 | <0.001 | ✓
-180d | IV-only | 17.977 | <0.001 | <0.001 | ✓
-252d | HAR-3 | 0.654 | 0.513 | 0.566 | -
-252d | NaiveRV | 3.570 | <0.001 | <0.001 | ✓
-252d | GARCH | 6.957 | <0.001 | <0.001 | ✓
-252d | IV-only | 12.915 | <0.001 | <0.001 | ✓
-
-
----
-
 부록 D. 데이터 전처리 및 학습 알고리즘 의사코드
-
 알고리즘 D-1. 데이터 전처리 및 피처 생성
-
 입력: OHLCV 일별 데이터 (11 ETFs, 2010-2024), VIX/VIX3M/VIX9D
 출력: 피처 행렬 X, 타깃 벡터 y (자산 × 날짜 패널)
 
 1. 각 자산별 결측치 처리 (forward fill)
-2. 수정 종가 기반 로그수익률 r_t = log(P_t / P_{t-1}) 계산
+
+2. 수정 종가 기반 로그수익률 r_t = log(P_t / Pt-1) 계산
+
 3. HAR 기반 피처 계산:
-   - LogRV_lag{1,5,10,22}, LogRV_Std{5,22}, RV_Mom{5,22}
-   - Ret_lag1, Ret_abs_lag1, SPY_LogRV, Corr_SPY
+
+- LogRV_lag{1,5,10,22}, LogRV_Std{5,22}, RV_Mom{5,22}
+- Ret_lag1, Ret_abs_lag1, SPY_LogRV, Corr_SPY
+
 4. HF Proxy 피처 계산 (원시 OHLC 사용):
-   - Parkinson_{5,22}, GarmanKlass_22, RogersSatchell_22
-   - Range_Close_Ratio, Overnight_Vol, Overnight_Ret
+
+- Parkinson5,22, GarmanKlass_22, RogersSatchell_22
+- Range_Close_Ratio, Overnight_Vol, Overnight_Ret
+
 5. IV Surface 피처 계산:
-   - IV_VIX, IV_VIX_chg, IV_VIX_ma5, IV_VIX_std5
-   - IV_VIX3M, IV_VIX_TermSlope, IV_VIX9D, IV_VIX_ShortSlope
-   - IV_VRP (= (VIX/100)² - RV_SPY_22d), IV_VRP_ma22
+
+- IV_VIX, IV_VIX_chg, IV_VIX_ma5, IV_VIX_std5
+- IV_VIX3M, IV_VIX_TermSlope, IV_VIX9D, IV_VIX_ShortSlope
+- IV_VRP (= (VIX/100)2 - RV_SPY_22d), IV_VRP_ma22
+
 6. Alternative 피처 계산:
-   - AltVol_Amihud, AltVol_Vol_Ratio, AltVol_PV_Corr
-   - AltVol_Vol_Surprise, AltVol_Order_Imbalance, AltVol_Kyle_Lambda
-7. 전방 RV 타깃 y_{i,t}(h) = 연율화(mean(r²_{t+1}, ..., r²_{t+h})) 계산
+
+- AltVol_Amihud, AltVol_Vol_Ratio, AltVol_PV_Corr
+- AltVol_Vol_Surprise, AltVol_Order_Imbalance, AltVol_Kyle_Lambda
+
+7. 전방 RV 타깃 yi,t(h) = 연율화(mean(r2t+1, ..., r2t+h)) 계산
+
 8. 표본 끝부분 h일 제거
+
 9. 피처 행렬 X, 타깃 y 반환
 
 알고리즘 D-2. WEns 학습 및 예측 절차
-
 입력: 피처 행렬 X, 타깃 y, 예측 기간 h, 자산군 그룹 G
 출력: 테스트 구간 예측값 y
 
 1. 전체 표본을 날짜순 정렬 후 80/20 분할
-   - train_end = 전체 날짜의 80% 시점
-   - purge gap 적용: test_start = train_end + h
+
+- train_end = 전체 날짜의 80% 시점
+- purge gap 적용: test_start = train_end + h
+
 2. 자산군별 독립 학습 (g ∈ G):
-   a. X_train_g, y_train_g 추출 (train_end까지)
-   b. 내부 검증셋(inner holdout) 분할 (train_g의 80/20, purge gap h 적용)
-   c. Ridge 하이퍼파라미터 탐색 (α grid, 내부 검증셋 R² 기준)
-   d. XGBoost 하이퍼파라미터 탐색 (grid search, 내부 검증셋 R² 기준)
-   e. WEns 가중치 탐색: pw ∈ {0.4,...,0.9}에서 내부 검증셋 R² 최대화
-   f. 최적 파라미터로 전체 train_g에 Ridge, XGBoost 재학습
+
+a. X_train_g, y_train_g 추출 (train_end까지)
+b. 내부 검증셋(inner holdout) 분할 (train_g의 80/20, purge gap h 적용)
+c. Ridge 하이퍼파라미터 탐색 (α grid, 내부 검증셋 R2 기준)
+d. XGBoost 하이퍼파라미터 탐색 (grid search, 내부 검증셋 R2 기준)
+e. WEns 가중치 탐색: pw ∈ {0.4,...,0.9}에서 내부 검증셋 R2 최대화
+f. 최적 파라미터로 전체 train_g에 Ridge, XGBoost 재학습
+
 3. 테스트 구간 예측:
-   - y_hat_Ridge = Ridge.predict(X_test_g)
-   - y_hat_XGB = XGBoost.predict(X_test_g)
-   - y_hat_WEns = pw * y_hat_Ridge + (1-pw) * y_hat_XGB
-4. Pooled R², Median R², RMSE 계산
+
+- y_hat_Ridge = Ridge.predict(X_test_g)
+- y_hat_XGB = XGBoost.predict(X_test_g)
+- y_hat_WEns = pw * y_hat_Ridge + (1-pw) * y_hat_XGB
+
+4. Pooled R2, Median R2, RMSE 계산
+
 5. DM 검정 (Newey-West HAC, bandwidth=h) 수행
+
 6. y_hat_WEns 반환
 
-
----
-
 부록 E. ETF별 기초 통계량 (2010~2024)
-
-표 E-1. ETF별 기초 통계량 (일별 로그수익률 및 22d 연율화 RV)
 Table E-1. Descriptive Statistics by ETF (Daily Log-Return and 22d Annualized RV)
 
-Ticker | Class     | Mean Ret(%) | Std Ret(%) | Mean RV(ann) | Std RV(ann) | Min RV(ann) | Max RV(ann)
-SPY    | Equity    |      0.0509 |     1.0772 |     0.029336 |    0.061390 |    0.001384 |    0.807422
-QQQ    | Equity    |      0.0672 |     1.2903 |     0.042082 |    0.064004 |    0.002341 |    0.786602
-IWM    | Equity    |      0.0383 |     1.4077 |     0.050034 |    0.080315 |    0.003122 |    1.028120
-EFA    | Equity    |      0.0194 |     1.1694 |     0.034519 |    0.058547 |    0.001927 |    0.715241
-EEM    | Equity    |      0.0079 |     1.3596 |     0.046660 |    0.066877 |    0.005507 |    0.858786
-TLT    | Bond      |      0.0103 |     0.9627 |     0.023381 |    0.026934 |    0.004341 |    0.348303
-IEF    | Bond      |      0.0094 |     0.4216 |     0.004487 |    0.004054 |    0.000541 |    0.039522
-AGG    | Bond      |      0.0090 |     0.2995 |     0.002262 |    0.005299 |    0.000198 |    0.071179
-GLD    | Commodity |      0.0210 |     0.9784 |     0.024119 |    0.020897 |    0.004137 |    0.153241
-SLV    | Commodity |      0.0112 |     1.8293 |     0.084393 |    0.092610 |    0.008912 |    0.738908
-USO    | Commodity |     -0.0384 |     2.2693 |     0.130289 |    0.255847 |    0.009556 |    3.010420
+(비고: RV(ann) = (252/h) × Σr2t+k, h=22. Mean Ret은 일별 로그수익률 평균, Std Ret은 표준편차 (모두 % 단위).)
 
-(비고: RV(ann) = (252/h) × Σr²_{t+k}, h=22. Mean Ret은 일별 로그수익률 평균, Std Ret은 표준편차 (모두 % 단위).)

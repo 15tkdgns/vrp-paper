@@ -19,7 +19,7 @@ import re
 BASE = Path(r"C:\Users\user\Desktop\vrp\master_paper")
 FRONT = BASE / "front.txt"
 
-FONT_KO = "신명조"
+FONT_KO = "HY견명조"
 FONT_EN = "Times New Roman"
 
 # ── 텍스트 너비(mm): 210 - 35 - 30 = 145mm → 탭 위치 ──────────────────
@@ -78,12 +78,12 @@ def add_toc_entry(doc, text, level, page_num=""):
     """
     para = doc.add_paragraph()
     is_ch = (level == 1)
-    size  = 11 if is_ch else 10.5
+    size  = 11
 
     # 들여쓰기
     pf = para.paragraph_format
     pf.left_indent = INDENT.get(level, Mm(0))
-    set_para_spacing(para, sp_before=2 if is_ch else 0, sp_after=2 if is_ch else 1)
+    set_para_spacing(para, sp_before=2 if is_ch else 0, sp_after=2 if is_ch else 1, ls=2.0)
 
     # 탭 (장은 점선 없음, 절/소절은 점선)
     add_right_tab(para, with_dot=not is_ch)
@@ -102,9 +102,9 @@ def add_section_title(doc, text):
     """차례/표차례/그림차례 섹션 제목"""
     para = doc.add_paragraph()
     run  = para.add_run(text)
-    set_font(run, size=14, bold=True)
+    set_font(run, size=16, bold=True)
     para.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    set_para_spacing(para, sp_before=0, sp_after=18, ls=1.5)
+    set_para_spacing(para, sp_before=0, sp_after=18, ls=1.8)
     return para
 
 def add_blank(doc, n=1):
@@ -186,10 +186,10 @@ def build_toc_section(doc):
         para = doc.add_paragraph()
         pf   = para.paragraph_format
         pf.left_indent = Mm(0)
-        set_para_spacing(para, sp_before=0, sp_after=3, ls=1.3)
+        set_para_spacing(para, sp_before=0, sp_after=3, ls=2.0)
         add_right_tab(para, with_dot=True)
         r = para.add_run(item + '\t')
-        set_font(r, size=10.5)
+        set_font(r, size=11)
 
     doc.add_page_break()
 
@@ -197,10 +197,10 @@ def build_toc_section(doc):
     add_section_title(doc, '그   림   차   례')
     for item in parse_fig_list(FRONT):
         para = doc.add_paragraph()
-        set_para_spacing(para, sp_before=0, sp_after=3, ls=1.3)
+        set_para_spacing(para, sp_before=0, sp_after=3, ls=2.0)
         add_right_tab(para, with_dot=True)
         r = para.add_run(item + '\t')
-        set_font(r, size=10.5)
+        set_font(r, size=11)
 
     doc.add_page_break()
 

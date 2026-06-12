@@ -10,94 +10,38 @@ Multi-Horizon Realized Variance Forecasting across Asset Classes with a Weighted
 
 Ⅰ. 서론
   1. 연구 배경
-  2. 연구 목적 및 연구 질문
-  3. 연구 범위 및 한계
+  2. 연구 질문
+  3. 연구 범위
   4. 연구 방법 및 분석 절차 개요
   5. 논문 구성
 
-Ⅱ. 이론적 배경 및 선행연구
+Ⅱ. 선행연구
   1. 실현분산(Realized Variance, RV)
-    1) 고빈도 자료 기반 RV와 통합분산
-    2) 거래일 기준 다중 기간 RV 정의 및 연율화 구조
   2. 내재분산(Implied Variance)과 변동성지수(VIX)
-    1) 옵션가격과 위험중립 기대변동성
-    2) VIX²를 IV proxy로 사용하는 근사와 한계
   3. 분산위험프리미엄(Variance Risk Premium, VRP)
-    1) VRP의 정의와 경제적 의미
-    2) VRP와 예상수익률 및 리스크 프리미엄
   4. 전통적 변동성 모형
-    1) ARCH/GARCH 계열 모형
-    2) HAR-RV 모형
   5. 기계학습 기반 변동성 예측
-    1) 정규화 회귀
-    2) 트리·부스팅 기반 모형
-    3) 신경망 기반 모형
   6. 앙상블 및 예측 결합 이론
-    1) Forecast Combination의 이론적 배경
-    2) 가중 앙상블과 본 연구의 WEns 설계
   7. 다중 자산 VRP 및 스필오버 선행연구
-    1) 주식시장 VRP 측정 및 예측력 연구
-    2) 크로스애셋 VRP와 시장 간 스필오버
 
 Ⅲ. 데이터 및 방법론
   1. 분석 대상 자산 및 데이터
-    1) 자산 구성 및 표본 기간
-    2) 데이터 출처 및 변수 정의
-    3) 기초 통계량 개요
   2. 데이터 전처리
-    1) 결측치 처리 전략
-    2) 배당락·가격 점프의 영향
   3. 변수 및 피처 구성
-    1) 일별 수익률과 단일 기간 RV 정의
-    2) 다중 예측 기간 RV 타깃 구성
-    3) IV 및 VRP 정의
-    4) 피처 그룹 설계 개요
-    5) 대표 피처 수식 및 직관
-  4. 예측 문제 설정 및 데이터 구성
-    1) 패널 구조와 타깃 정의
-    2) 학습/검증/테스트 분할 및 purge gap
+  4. 데이터 구성
   5. 예측 모형군 정의
-    1) 벤치마크 모형
-    2) 선형 모형
-    3) 트리·부스팅 모형
-    4) 신경망 모형
   6. WEns 가중 앙상블 알고리즘
-    1) WEns 구조 정의
-    2) 내부 검증 기반 가중치 선택 절차
-    3) WEns의 역할 분담과 직관
   7. 하이퍼파라미터 탐색 및 학습 절차
-    1) 모형별 하이퍼파라미터 탐색 공간
-    2) 최종 하이퍼파라미터 선정 기준
   8. 평가 지표 및 통계 검정
-    1) 오차 지표
-    2) 설명력 지표
-    3) Diebold–Mariano 검정 및 HAC 추정
 
 Ⅳ. 실증 분석 결과
   1. 전체 모형 성능 비교
-    1) 기간별 Pooled R²·RMSE 결과
-    2) 기간별 최적 모형 분석
   2. 자산별·자산군별 성능 분석
-    1) 자산별 R² 비교
-    2) 자산군별 성능 패턴 해석
-  3. 피처 기여도 및 중요도 분석
-    1) 피처 그룹 제거 실험
-    2) 피처 중요도 합의 분석 (Kendall's W)
+  3. 피처 기여도 및 중요도
   4. 시장 기간별 예측 성능
-    1) VIX 분위수 기반 기간 정의
-    2) 기간별 WEns vs HAR-3 성능 비교
-    3) 고변동성 구간 예측력 개선 해석
-  5. 베이스라인 및 변형 모형 비교
-    1) NaiveRV·GARCH·IV-only vs WEns
-    2) HAR-3 vs LASSO-HAR vs LASSO-Full
-    3) 강건성 검증
+  5. 베이스라인 비교
   6. 예측 RV 기반 VRP 분석
-    1) VRP 정의 및 산출 방법
-    2) 기간별 VRP 분포 특성
-    3) 자산군별 VRP 수준 비교
-  7. 경제적 가치 평가 (탐색적)
-    1) 변동성 타깃팅 전략 개요
-    2) 향후 분석 방향
+  7. 경제적 가치 평가
 
 Ⅴ. 결론 및 향후 연구
   1. 연구 결과 요약
@@ -117,34 +61,34 @@ Multi-Horizon Realized Variance Forecasting across Asset Classes with a Weighted
 
 표 차례
 
-표 1. 자산 구성
-표 2. 기호 및 정의
-표 3. 모델 구성
-표 4. 모델별 하이퍼파라미터 탐색 범위
-표 5. WEns Pooled R² vs R²_Within 비교
-표 6. 22거래일 기간 모델별 성능 비교
-표 7. WEns 자산별 R² (22d 예측 기간)
-표 8. Ridge 22거래일 피처 그룹 서브셋 실험
-표 9. WEns 22d 기준 피처 그룹 제거 실험
-표 10. 예측 기간별 Kendall's W
-표 11. 22_d VIX 분위수 구간별 Pooled R²
-표 12. LASSO-HAR vs LASSO 기간별 Pooled R²
-표 13. 자산군별 VRP 기초 통계 (22d 기준, WEns 예측 RV 사용)
-표 A-1. 피처 목록 및 정의 (35개 피처 전체)
-표 B-1. 모형별 하이퍼파라미터 탐색 공간 상세
-표 C-1. 기간별 피처 중요도 합의 (상위 10개 피처)
-표 C-2. WEns vs 베이스라인 DM 검정 결과 (BH 다중비교 보정)
-표 E-1. ETF별 기초 통계량 (2010~2024)
+Table 1. Assets Group
+Table 2. Symbol and Definition
+Table 3. Model Group
+Table 4. Hyperparameter Search Space By Model
+Table 5. WEns Pooled R² vs R²_Within Decomposition
+Table 6. 22-day Model Performance Comparison
+Table 7. WEns Per-Asset R² (22d Forecast Horizon)
+Table 8. 22-day Feature Group Subset Experiment (Ridge)
+Table 9. WEns 22d Feature Group Removal Experiment
+Table 10. Kendall's W by Forecast Horizon
+Table 11. 22-day Pooled R² by VIX Regime
+Table 12. LASSO-HAR vs LASSO Pooled R² by Horizon
+Table 13. VRP Summary Statistics by Asset Class (22d, WEns-predicted RV)
+Table A-1. Feature List and Definition (35 Features)
+Table B-1. Hyperparameter Search Space (Extended)
+Table C-1. Feature Importance Consensus by Horizon (Top 10, Average Rank Score)
+Table C-2. Diebold-Mariano Test Results: WEns vs. Baselines (BH Multiple Comparison Adjustment)
+Table E-1. Descriptive Statistics by ETF (Daily Log-Return and 22d Annualized RV)
 
 
 그림 차례
 
-그림 1. VIX Index(2010~2024)
-그림 2. WEns 모델의 전체 흐름
-그림 3. 전체 모델×기간 Pooled R² 히트맵
-그림 4. 기간별 WEns Pooled R² vs R²_Within
-그림 5. 22_d 피처 중요도 합의 순위 Top-10
-그림 6. VIX 시계열 및 분위수 국면 구분 (2010–2024)
+Fig. 1. VIX·RV·VRP Daily Series(S&P 500, 2010–2026)
+Fig. 2. Overall Workflow of the WEns Model
+Fig. 3. Model × Horizon Pooled R² Heatmap
+Fig. 4. WEns Pooled R² vs R²_Within by Horizon
+Fig. 5. 22_d Feature Importance Consensus Top-10
+Fig. 6. VIX Time Series with Quantile Regime Shading
 
 
 ---

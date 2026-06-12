@@ -30,7 +30,7 @@
 
 15. Ornelas, J. R. H., Mauad, R. B. 2017. Volatility risk premia and future commodities returns. BIS Working Papers, No. 619.
 
-16. Dierckx, T., Davis, J., Schoutens, W. 2022. Trading the FX volatility risk premium with machine learning and alternative data. Journal of Finance and Data Science. doi: 10.1016/j.jfds.2022.07.001.
+16. Dierckx, T., Davis, J., Schoutens, W. 2022. Trading the FX volatility risk premium with machine learning and alternative data. Journal of Finance and Data Science. doi:10.1016/j.jfds.2022.07.001.
 
 17. Heston, S. L., Todorov, V. 2024. Exploring the variance risk premium across assets. AEA Annual Meeting.
 
@@ -45,3 +45,4 @@
 22. Harvey, D. I., Leybourne, S. J., Newbold, P. 1997. Testing the equality of prediction mean squared errors. International Journal of Forecasting, 13(2): 281–291.
 
 23. Bates, J. M., Granger, C. W. J. 1969. The combination of forecasts. Operational Research Quarterly, 20(4): 451–468.
+
