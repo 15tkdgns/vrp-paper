@@ -258,7 +258,7 @@ def make_pipe_table(doc, lines):
             cell = tbl.cell(ri, ci)
             cell.text = ''
             para = cell.paragraphs[0]
-            add_runs_with_sup(para, cell_text, size=9, bold=(ri==0))
+            add_runs_with_sup(para, cell_text, size=BODY_SIZE, bold=(ri==0))
             para.alignment = WD_ALIGN_PARAGRAPH.CENTER
             pf = para.paragraph_format
             pf.space_before = Pt(1)
@@ -472,8 +472,8 @@ for fname in FILES:
                 else:
                     for tl in tbl_lines:
                         para = doc.add_paragraph()
-                        add_runs_with_sup(para, tl, size=9)
-                        set_para_fmt(para, size=9, sp_before=0,
+                        add_runs_with_sup(para, tl, size=BODY_SIZE)
+                        set_para_fmt(para, size=BODY_SIZE, sp_before=0,
                                      sp_after=1, ls=1.2)
             continue
 
